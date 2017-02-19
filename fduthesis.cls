@@ -49,13 +49,6 @@
     },
     draft .default:n = true,
     draft .initial:n = false
-%    draft .value_forbidden:n = true,
-%    draft .code:n = {
-%      \clist_gput_right:Nn \g__fdu_book_options_clist
-%        { draft }
-%      \clist_gput_right:Nn \g__fdu_geometry_options_clist
-%        { showframe }
-%    }
   }
 
 % 处理选项（使用 `l3keys2e' 宏包）
@@ -69,119 +62,55 @@
 
 %%%%%%%%%% 版式设置 %%%%%%%%%%
 \RequirePackage { geometry }
-  \geometry
-    {
-      % 纸张大小
-      paper      = a4paper,
-      % 页边距
-      left       = 2.54 cm,
-      right      = 2.54 cm,
-      top        = 3.18 cm,
-      bottom     = 3.18 cm,
-      % 页眉高度
-      headheight = 15 pt
-    }
-  % 草稿模式
-  \bool_if:NT \g__fdu_draft_bool
-    {
-      \geometry { showframe }
-    }
+\geometry
+  {
+    % 纸张大小
+    paper      = a4paper,
+    % 页边距
+    left       = 2.54 cm,
+    right      = 2.54 cm,
+    top        = 3.18 cm,
+    bottom     = 3.18 cm,
+    % 页眉高度
+    headheight = 15 pt
+  }
+% 草稿模式
+\bool_if:NT \g__fdu_draft_bool
+  {
+    \geometry { showframe }
+  }
 
 
 %%%%%%%%%% 页眉页脚 %%%%%%%%%%
 \RequirePackage { fancyhdr }
-  % 清除所有页面格式
-  \fancyhf { }
-  % 页眉(见 `ctex' 下的重定义)
-  \bool_if:NTF \g__fdu_twoside_bool
-    {
-      \fancyhead [ EL ]
-        { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-      \fancyhead [ OR ]
-        { \small \nouppercase { \CJKfamily { kai } \rightmark } }
-    }
-    {
-      \fancyhead [ L ]
-        { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-      \fancyhead [ R ]
-        { \small \nouppercase { \CJKfamily { kai } \rightmark } }
-    }
-  % 页脚
-  \fancyfoot [ C ] { \thepage }
-  % 关闭横线显示
-%  \RenewDocumentCommand \headrulewidth { } { 0 pt }
-
-
-
-
-%----- 论文信息 -----%
-\keys_define:nn { fdu / info }
+% 清除所有页面格式
+\fancyhf { }
+% 页眉(见 `ctex' 下的重定义)
+\bool_if:NTF \g__fdu_twoside_bool
   {
-    title        .tl_set:N    = \l__fdu_info_title_tl,
-    title*       .tl_set:N    = \l__fdu_info_title_english_tl,
-    %
-    author       .tl_set:N    = \l__fdu_info_author_tl,
-    author*      .tl_set:N    = \l__fdu_info_author_english_tl,
-    supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_english_tl,
-    major        .tl_set:N    = \l__fdu_info_major_tl,
-    major*       .tl_set:N    = \l__fdu_info_major_english_tl,
-    department   .tl_set:N    = \l__fdu_info_department_tl,
-    department*  .tl_set:N    = \l__fdu_info_department_english_tl,
-    %
-    studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
-    schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
-    %
-    keyword      .clist_set:N = \l__fdu_info_keyword_clist,
-    keyword*     .clist_set:N = \l__fdu_info_keyword_english_clist
+    \fancyhead [ EL ]
+      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
+    \fancyhead [ OR ]
+      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
   }
-
-
-
-
-\RequirePackage[no-math]{fontspec}
-
-\RequirePackage{unicode-math}
-  \unimathsetup { math-style = ISO, bold-style = ISO }
-
-\RequirePackage[UTF8, heading = true, zihao = -4]{ctex}
-  \pagestyle { fancy }
-  \ctexset
   {
-    chapter = {
-      format     = {
-        \huge \normalfont \sffamily \CJKfamily { hei } \centering
-      },
-      beforeskip = { 30 pt },
-      afterskip  = { 20 pt },
-      number     = { \arabic{ chapter } }
-    },
-    section = {
-      format     = { \Large \bfseries \raggedright }
-    },
-    subsection = {
-      format     = { \large \bfseries \raggedright }
-    }
+    \fancyhead [ L ]
+      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
+    \fancyhead [ R ]
+      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
   }
-  % 重定义右页眉格式
-  \RenewDocumentCommand \sectionmark { m }
-    { \markright { \CTEXthesection \quad #1 } }
-
-\RequirePackage{xeCJK}
-
-
-\RequirePackage{graphicx}
+% 页脚
+\fancyfoot [ C ] { \thepage }
+% 关闭横线显示
+% \RenewDocumentCommand \headrulewidth { } { 0 pt }
 
 
+%%%%%%%%%% 西文字体、数学字体 %%%%%%%%%%
+\RequirePackage [ no-math ] { fontspec }
+\RequirePackage { unicode-math }
+\unimathsetup { math-style = ISO, bold-style = ISO }
 
-%\NewDocumentCommand \printinfo {}
-%{
-%  \l__fdu_info_title_tl \\
-%  \l__fdu_info_title_english_tl \\
-%  \l__fdu_info_author_tl \quad \l__fdu_info_author_english_tl
-%}
-
-%----- 西文字体设置 -----%
+% 西文字体设置
 \keys_define:nn { fdu / style }
   {
     font .choice:,
@@ -215,7 +144,28 @@
     }
   }
 
-%----- 中文字体设置 -----%
+
+%%%%%%%%%% 中文字体、版式 %%%%%%%%%%
+\RequirePackage [ UTF8, heading = true, zihao = -4 ] { ctex }
+\ctexset
+{
+  chapter = {
+    format     = {
+      \huge \normalfont \sffamily \CJKfamily { hei } \centering
+    },
+    beforeskip = { 30 pt },
+    afterskip  = { 20 pt },
+    number     = { \arabic{ chapter } }
+  },
+  section = {
+    format     = { \Large \bfseries \raggedright }
+  },
+  subsection = {
+    format     = { \large \bfseries \raggedright }
+  }
+}
+
+% 中文字体设置
 %BUG: 20170215  见 https://github.com/CTeX-org/ctex-kit/issues/268
 \keys_define:nn { fdu / style }
   {
@@ -272,25 +222,13 @@
     },
   }
 
-%----- 句号 -----%
-%\keys_define:nn { fdu / style }
-%  {
-%    fullwidth-stop .choice:,
-%    fullwidth-stop / true .code:n = {
-%      \ctex_after_end_preamble:n
-%        { \addCJKfontfeatures { Mapping = fullwidth-stop } }
-%    },
-%    fullwidth-stop / false .code:n = { Mapping = han-trad},
-%    fullwidth-stop .default:n = true
-%  }
-
-% 使用 bool 型 key
+% 半角、全角句号
 \keys_define:nn { fdu / style }
   {
     fullwidth-stop .bool_set:N = \l__fdu_info_fullstop_bool,
     fullwidth-stop .default:n = true
   }
-
+% `\addCJKfontfeatures' 要放在 `\begin{document}' 之后
 % 钩子使用 `ctexhook' 宏包
 \ctex_after_end_preamble:n
   {
@@ -298,7 +236,8 @@
       { \addCJKfontfeatures { Mapping = fullwidth-stop } }
   }
 
-%----- 默认字号 -----%
+% 默认字号设置
+% 小四号字体由 `ctex' 默认
 \keys_define:nn { fdu / style }
   {
     zihao .choice:,
@@ -318,15 +257,26 @@
     },
   }
 
+% `fancy' 版式必须在 `ctex' 调用之后
+\pagestyle { fancy }
+% 重定义右页眉格式
+\RenewDocumentCommand \sectionmark { m }
+  { \markright { \CTEXthesection \negthinspace \quad #1 } }
+
+% 默认已经载入 `xeCJK' 宏包
+%\RequirePackage{xeCJK}
 
 
 
-% 钩子使用 `ctexhook' 宏包
-% \ctex_at_end_preamble:n
-% {
-%   \bool_if:NT \g__fdu_draft_bool
-%     { \geometry { showframe } }
-% }
+
+
+
+
+
+
+
+\RequirePackage { graphicx }
+
 
 
 %----- meta 键值对 -----%
@@ -341,26 +291,78 @@
 
 
 
-
-
-%----- 封面 -----%
-%BUG: 20170218  \makebox[<dim>][s]{<content>} 会产生 underfull \hbox
-\cs_new:Nn \l_fdu_colon_tl: { ： }
-
-% #1=length, #2=content
-\cs_new:Npn \fdu_spread_CJK:Nn #1 #2
-  { \makebox [ #1 ] [ s ] { #2 }  }
-
-% #1=total-length, #2=content
-\cs_new:Npn \fdu_center_CJK:Nn #1 #2
-  { \makebox [ #1 ] [ c ] { #2 } }
-
-% #1=total-length, #2=spread-length, #3=content
-\cs_new:Npn \fdu_center_CJK:NNn #1 #2 #3
+%----- 论文信息 -----%
+\keys_define:nn { fdu / info }
   {
-    \makebox [ #1 ] [ c ]
-      { \fdu_spread_CJK:Nn { #2 } { #3 } }
+    title        .tl_set:N    = \l__fdu_info_title_tl,
+    title*       .tl_set:N    = \l__fdu_info_title_english_tl,
+    %
+    author       .tl_set:N    = \l__fdu_info_author_tl,
+    author*      .tl_set:N    = \l__fdu_info_author_english_tl,
+    supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
+    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_english_tl,
+    major        .tl_set:N    = \l__fdu_info_major_tl,
+    major*       .tl_set:N    = \l__fdu_info_major_english_tl,
+    department   .tl_set:N    = \l__fdu_info_department_tl,
+    department*  .tl_set:N    = \l__fdu_info_department_english_tl,
+    %
+    studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
+    schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
+    %
+    keyword      .clist_set:N = \l__fdu_info_keyword_clist,
+    keyword*     .clist_set:N = \l__fdu_info_keyword_english_clist
   }
+
+%\NewDocumentCommand \printinfo {}
+%{
+%  \l__fdu_info_title_tl \\
+%  \l__fdu_info_title_english_tl \\
+%  \l__fdu_info_author_tl \quad \l__fdu_info_author_english_tl
+%}
+
+
+
+
+%%%%%%%%%% 封面绘制 %%%%%%%%%%
+
+% 分散对齐盒子
+% #1=length, #2=content
+\cs_new:Npn \fdu_spread_box:Nn #1 #2
+ {
+  % With \tl_map_inline:nn we insert \hfil between letters;
+  % a final \unskip kills the last \hfil
+  % 见 http://tex.stackexchange.com/q/169689
+  \makebox [ #1 ] [ s ]
+    {
+      \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip
+    }
+ }
+
+% 居中对齐盒子
+% #1=length, #2=content
+\cs_new:Npn \fdu_center_box:Nn #1 #2
+  {
+    \makebox [ #1 ] [ c ] { #2 }
+  }
+
+% 文本宽度
+% #1=dim变量，#2= content
+\box_new:N \l__fdu_temp_box
+\cs_new:Npn \fdu_set_text_width:Nn #1 #2
+  {
+    \hbox_set:Nn \l__fdu_temp_box { #2 }
+    \dim_set:Nn #1
+      { \box_wd:N \l__fdu_temp_box }
+  }
+
+
+
+
+% 信息栏左右宽度
+\dim_new:N \l__fdu_cover_info_left_dim
+\dim_new:N \l__fdu_cover_info_right_dim
+
+\dim_new:N \l__fdu_cover_info_temp_dim
 
 
 \NewDocumentCommand \makecover { }
@@ -387,54 +389,110 @@
       \vfill
       
       \begin{center}
-%        \makebox [ 0.45 \textwidth ] [ s ]
+        \fdu_spread_box:Nn { 0.45 \textwidth }
           { \Huge 本科毕业论文 }
         \par
         
         \vspace { \stretch{ 3 } }
-        
+
+        % 中文标题
         { \LARGE \sffamily \CJKfamily { hei }  \l__fdu_info_title_tl }
         \par
         
         \vfill
         
+        % 西文标题
         { \Large \l__fdu_info_title_english_tl }
         \par
         
         \vspace { \stretch{ 4 } }
         
-        %TODO: 20170218  根据内容自动调整宽度
-        % 见 http://tex.stackexchange.com/q/169689
+        % 院系、姓名等
+        
+        % 设置左边宽度
+        \dim_set:Nn \l__fdu_cover_info_left_dim { 6 em }
+
+        % 设置右边宽度
+        % Compare with `department'
+        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+          { \l__fdu_info_department_tl }
+        \dim_compare:nNnT
+          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          {
+            \dim_set_eq:NN
+              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+          }
+        % Compare with `major'
+%        \dim_show:N \l__fdu_cover_info_right_dim
+        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+          { \l__fdu_info_major_tl }
+        \dim_compare:nNnT
+          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          {
+            \dim_set_eq:NN
+              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+          }
+        % Compare with `author'
+%        \dim_show:N \l__fdu_cover_info_right_dim
+        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+          { \l__fdu_info_author_tl }
+        \dim_compare:nNnT
+          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          {
+            \dim_set_eq:NN
+              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+          }
+        % Compare with `supervisor'
+%        \dim_show:N \l__fdu_cover_info_right_dim
+        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+          { \l__fdu_info_supervisor_tl }
+        \dim_compare:nNnT
+          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          {
+            \dim_set_eq:NN
+              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+          }
+        % Compare with `date'
+%        \dim_show:N \l__fdu_cover_info_right_dim
+        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+          { \today }
+        \dim_compare:nNnT
+          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          {
+            \dim_set_eq:NN
+              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+          }
+%        \dim_show:N \l__fdu_cover_info_right_dim
+        \dim_add:Nn \l__fdu_cover_info_right_dim { 2 em }
+
+        % 构建信息栏
         \parbox [ c ] { \textwidth }
         {
           \centering \large
-          
-%          \fdu_spread_CJK:Nn { 6 em } { 院系 } ：
-          院 \qquad 系：
-          \fdu_center_CJK:Nn { 10 em }
+
+          \fdu_spread_box:Nn { 6 em } { 院系 } 
+          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
             { \l__fdu_info_department_tl }
           \par
           
-%          \fdu_spread_CJK:Nn { 6 em } { 专业 } ：
-          专 \qquad 业：
-          \fdu_center_CJK:NNn { 10 em } { 3.1 em }
+          \fdu_spread_box:Nn { 6 em } { 专业 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
             { \l__fdu_info_major_tl }
           \par
           
-%          \fdu_spread_CJK:Nn { 6 em } { 姓名 } ：
-          姓 \qquad 名：
-          \fdu_center_CJK:NNn { 10 em } { 3.1 em }
+          \fdu_spread_box:Nn { 6 em } { 姓名 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
             { \l__fdu_info_author_tl }
           \par
           
-%          \fdu_spread_CJK:Nn { 6 em } { 指导老师 } ：
-          指导老师：
-          \fdu_center_CJK:Nn { 10 em } { \l__fdu_info_supervisor_tl }
+          \fdu_spread_box:Nn { 6 em } { 指导老师 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
+            { \l__fdu_info_supervisor_tl }
           \par
           
-%          \fdu_spread_CJK:Nn { 6 em } { 完成日期 } ：
-          完成日期：
-          \fdu_center_CJK:Nn { 10 em } { \today }
+          \fdu_spread_box:Nn { 6 em } { 完成日期 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
+            { \today }
         }
       \end{center}
       

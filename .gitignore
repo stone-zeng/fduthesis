@@ -1,4 +1,5 @@
 *.txt
 
-test/
 source/
+temp/
+test/
