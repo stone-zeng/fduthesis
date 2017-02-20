@@ -134,7 +134,7 @@
       \setmathfont { TeX~Gyre~Pagella~Math }
     },
     font / times .code:n = {
-      %HACK: 20170217  XITS 字体没有 small capital
+      %TODO: 20170217  XITS 字体没有 small capital
 %      \setmainfont { XITS }
       \setmainfont { TeX~Gyre~Termes }
       \setsansfont { TeX~Gyre~Heros  }
@@ -296,6 +296,7 @@
   {
     title        .tl_set:N    = \l__fdu_info_title_tl,
     title*       .tl_set:N    = \l__fdu_info_title_english_tl,
+    date         .tl_set:N    = \l__fdu_info_date_tl,
     %
     author       .tl_set:N    = \l__fdu_info_author_tl,
     author*      .tl_set:N    = \l__fdu_info_author_english_tl,
@@ -345,7 +346,7 @@
     \makebox [ #1 ] [ c ] { #2 }
   }
 
-% 文本宽度
+% 设置 dim 变量文本宽度
 % #1=dim变量，#2= content
 \box_new:N \l__fdu_temp_box
 \cs_new:Npn \fdu_set_text_width:Nn #1 #2
@@ -359,8 +360,8 @@
 
 
 % 信息栏左右宽度
-\dim_new:N \l__fdu_cover_info_left_dim
-\dim_new:N \l__fdu_cover_info_right_dim
+\dim_new:N \l__fdu_cover_info_L_dim
+\dim_new:N \l__fdu_cover_info_R_dim
 
 \dim_new:N \l__fdu_cover_info_temp_dim
 
@@ -410,89 +411,95 @@
         % 院系、姓名等
         
         % 设置左边宽度
-        \dim_set:Nn \l__fdu_cover_info_left_dim { 6 em }
+        \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
 
         % 设置右边宽度
+        % 实现方法概要：将字段宽度存入 `\l__fdu_cover_info_temp_dim'
+        % 变量，比较并将最长的宽度作为 `\l__fdu_cover_info_R_dim'
+        % 使用。
+        % TODO: 20170220  需要采用更简单的方法
+
         % Compare with `department'
+        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
-          { \l__fdu_info_department_tl }
-        \dim_compare:nNnT
-          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          { \large \l__fdu_info_department_tl }
+        \dim_set:Nn \l__fdu_cover_info_R_dim
           {
-            \dim_set_eq:NN
-              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+            \dim_max:nn
+              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `major'
-%        \dim_show:N \l__fdu_cover_info_right_dim
+        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
-          { \l__fdu_info_major_tl }
-        \dim_compare:nNnT
-          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          { \large \l__fdu_info_major_tl }
+        \dim_set:Nn \l__fdu_cover_info_R_dim
           {
-            \dim_set_eq:NN
-              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+            \dim_max:nn
+              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `author'
-%        \dim_show:N \l__fdu_cover_info_right_dim
+        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
-          { \l__fdu_info_author_tl }
-        \dim_compare:nNnT
-          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          { \large \l__fdu_info_author_tl }
+        \dim_set:Nn \l__fdu_cover_info_R_dim
           {
-            \dim_set_eq:NN
-              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+            \dim_max:nn
+              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `supervisor'
-%        \dim_show:N \l__fdu_cover_info_right_dim
+        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
-          { \l__fdu_info_supervisor_tl }
-        \dim_compare:nNnT
-          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          { \large \l__fdu_info_supervisor_tl }
+        \dim_set:Nn \l__fdu_cover_info_R_dim
           {
-            \dim_set_eq:NN
-              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+            \dim_max:nn
+              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `date'
-%        \dim_show:N \l__fdu_cover_info_right_dim
+        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
-          { \today }
-        \dim_compare:nNnT
-          { \l__fdu_cover_info_right_dim } < { \l__fdu_cover_info_temp_dim }
+          { \large \l__fdu_info_date_tl }
+        \dim_set:Nn \l__fdu_cover_info_R_dim
           {
-            \dim_set_eq:NN
-              \l__fdu_cover_info_right_dim \l__fdu_cover_info_temp_dim
+            \dim_max:nn
+              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
-%        \dim_show:N \l__fdu_cover_info_right_dim
-        \dim_add:Nn \l__fdu_cover_info_right_dim { 2 em }
+        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_add:Nn \l__fdu_cover_info_R_dim { 2 em }
 
         % 构建信息栏
         \parbox [ c ] { \textwidth }
         {
           \centering \large
 
-          \fdu_spread_box:Nn { 6 em } { 院系 } 
-          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
+          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
+            { 院系 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_department_tl }
           \par
           
-          \fdu_spread_box:Nn { 6 em } { 专业 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
+          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
+            { 专业 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_major_tl }
           \par
           
-          \fdu_spread_box:Nn { 6 em } { 姓名 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
+          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
+            { 姓名 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_author_tl }
           \par
           
-          \fdu_spread_box:Nn { 6 em } { 指导老师 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
+          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
+            { 指导老师 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_supervisor_tl }
           \par
           
-          \fdu_spread_box:Nn { 6 em } { 完成日期 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_right_dim
-            { \today }
+          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
+            { 完成日期 } ：
+          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
+            { \l__fdu_info_date_tl }
         }
       \end{center}
       
@@ -558,7 +565,8 @@
     style/font = times,
     style/CJKfont = fandol,
     style/fullwidth-stop = false,
-    style/zihao = -4
+    style/zihao = -4,
 %    draft = false
+    info/date = \today
   }
 
