@@ -1,5 +1,16 @@
+*.aux
+*.log
+
+*.idx
+*.ind
+*.ilg
+
+*.glo
+
+*.pdf
+
 *.txt
 
-source/
+source/*.cls
 temp/
 test/
