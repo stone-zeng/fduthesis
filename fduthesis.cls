@@ -99,10 +99,21 @@
     \fancyhead [ R ]
       { \small \nouppercase { \CJKfamily { kai } \rightmark } }
   }
-% 页脚
+% 页脚（页码）
 \fancyfoot [ C ] { \thepage }
 % 关闭横线显示
 % \RenewDocumentCommand \headrulewidth { } { 0 pt }
+% 完全清除偶数页面
+% 见 http://tex.stackexchange.com/q/1681
+\RenewDocumentCommand \cleardoublepage { }
+  {
+    \clearpage
+    \bool_if:NT \g__fdu_twoside_bool
+      {
+        \int_if_odd:nF \c@page
+          { \hbox:n { } \thispagestyle { empty } \newpage }
+      }
+  }
 
 
 %%%%%%%%%% 西文字体、数学字体 %%%%%%%%%%
@@ -147,6 +158,7 @@
 
 %%%%%%%%%% 中文字体、版式 %%%%%%%%%%
 \RequirePackage [ UTF8, heading = true, zihao = -4 ] { ctex }
+% 章节标题设置
 \ctexset
 {
   chapter = {
@@ -162,6 +174,22 @@
   },
   subsection = {
     format     = { \large \bfseries \raggedright }
+  }
+}
+
+% 目录设置
+\ctexset
+{
+  % 目录名称
+  contentsname = {目 \quad 录},
+  % 目录格式
+  chapter    / tocline = {
+    \normalfont \sffamily \CJKfamily { hei }
+    \CTEXnumberline { #1 }    #2
+  },
+  subsection / tocline = {
+    \CJKfamily{ kai }
+    \CTEXnumberline { #1 }    #2
   }
 }
 
@@ -263,47 +291,34 @@
 \RenewDocumentCommand \sectionmark { m }
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
 
-% 默认已经载入 `xeCJK' 宏包
-%\RequirePackage{xeCJK}
 
-
-
-
-
-
-
-
-
-
+%%%%%%%%%% 插图 %%%%%%%%%%
 \RequirePackage { graphicx }
 
 
 
-%----- meta 键值对 -----%
-\keys_define:nn { fdu }
-  {
-    info  .meta:nn = { fdu / info  } { #1 },
-    style .meta:nn = { fdu / style } { #1 }
-  }
-
-\NewDocumentCommand \fdusetup { m }
-  { \keys_set:nn { fdu } { #1 } }
 
 
 
-%----- 论文信息 -----%
+%%%%%%%%%% 论文信息 %%%%%%%%%%
 \keys_define:nn { fdu / info }
   {
     title        .tl_set:N    = \l__fdu_info_title_tl,
     title*       .tl_set:N    = \l__fdu_info_title_english_tl,
+    %
     date         .tl_set:N    = \l__fdu_info_date_tl,
     %
     author       .tl_set:N    = \l__fdu_info_author_tl,
     author*      .tl_set:N    = \l__fdu_info_author_english_tl,
+    %
     supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
     supervisor*  .tl_set:N    = \l__fdu_info_supervisor_english_tl,
+    %
+    instructors  .clist_set:N = \l__fdu_info_instructors_clist,
+    %
     major        .tl_set:N    = \l__fdu_info_major_tl,
     major*       .tl_set:N    = \l__fdu_info_major_english_tl,
+    %
     department   .tl_set:N    = \l__fdu_info_department_tl,
     department*  .tl_set:N    = \l__fdu_info_department_english_tl,
     %
@@ -311,7 +326,9 @@
     schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
     %
     keyword      .clist_set:N = \l__fdu_info_keyword_clist,
-    keyword*     .clist_set:N = \l__fdu_info_keyword_english_clist
+    keyword*     .clist_set:N = \l__fdu_info_keyword_english_clist,
+    %
+    CLC          .tl_set:N    = \l__fdu_info_CLC_tl
   }
 
 %\NewDocumentCommand \printinfo {}
@@ -322,9 +339,7 @@
 %}
 
 
-
-
-%%%%%%%%%% 封面绘制 %%%%%%%%%%
+%%%%%%%%%% 封面绘制——内部函数 %%%%%%%%%%
 
 % 分散对齐盒子
 % #1=length, #2=content
@@ -356,9 +371,6 @@
       { \box_wd:N \l__fdu_temp_box }
   }
 
-
-
-
 % 信息栏左右宽度
 \dim_new:N \l__fdu_cover_info_L_dim
 \dim_new:N \l__fdu_cover_info_R_dim
@@ -366,6 +378,7 @@
 \dim_new:N \l__fdu_cover_info_temp_dim
 
 
+%%%%%%%%%% 封面绘制——构建 %%%%%%%%%%
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
@@ -397,7 +410,7 @@
         \vspace { \stretch{ 3 } }
 
         % 中文标题
-        { \LARGE \sffamily \CJKfamily { hei }  \l__fdu_info_title_tl }
+        { \huge \sffamily \CJKfamily { hei }  \l__fdu_info_title_tl }
         \par
         
         \vfill
@@ -420,7 +433,7 @@
         % TODO: 20170220  需要采用更简单的方法
 
         % Compare with `department'
-        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
           { \large \l__fdu_info_department_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
@@ -429,7 +442,7 @@
               \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `major'
-        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
           { \large \l__fdu_info_major_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
@@ -438,7 +451,7 @@
               \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `author'
-        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
           { \large \l__fdu_info_author_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
@@ -447,7 +460,7 @@
               \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `supervisor'
-        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
           { \large \l__fdu_info_supervisor_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
@@ -456,7 +469,7 @@
               \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
         % Compare with `date'
-        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_show:N \l__fdu_cover_info_R_dim
         \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
           { \large \l__fdu_info_date_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
@@ -464,7 +477,7 @@
             \dim_max:nn
               \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
           }
-        \dim_show:N \l__fdu_cover_info_R_dim
+%        \dim_show:N \l__fdu_cover_info_R_dim
 %        \dim_add:Nn \l__fdu_cover_info_R_dim { 2 em }
 
         % 构建信息栏
@@ -491,7 +504,7 @@
           \par
           
           \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
-            { 指导老师 } ：
+            { 指导教师 } ：
           \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_supervisor_tl }
           \par
@@ -504,22 +517,43 @@
       \end{center}
       
       \vfill
+
+      \newpage
+
+      \thispagestyle { empty }
+      \vspace* { 30 pt }
+      \begin{center}
+        \huge \normalfont \sffamily \CJKfamily { hei }
+        \fdu_spread_box:Nn { 7 em }
+          { 指导小组成员 }
+      \end{center}
+      \vspace { 20 pt }
+
+      \begin{center}
+        \large
+        \clist_use:Nn \l__fdu_info_instructors_clist { \par }
+      \end{center}
     \end{titlepage}
     
-    \cleardoublepage
+    \tableofcontents
   }
 
-%----- 中文摘要 -----%
+
+%%%%%%%%%% 摘要 %%%%%%%%%%
+% 中文摘要
 \NewDocumentEnvironment { abstract } { }
   {
-    \thispagestyle { plain }
-    \vspace* { 10 pt }
-    \begin{center}
-      \Large \normalfont \sffamily \CJKfamily { hei }
-      摘 \quad 要
-    \end{center}
-    \vspace { 10 pt }
-    \par
+    \chapter*{摘 \quad 要}
+    \addcontentsline{toc}{chapter}
+      {\normalfont \sffamily \CJKfamily {hei} 摘 \quad 要}
+%    \thispagestyle { plain }
+%    \vspace* { 10 pt }
+%    \begin{center}
+%      \Large \normalfont \sffamily \CJKfamily { hei }
+%      摘 \quad 要
+%    \end{center}
+%    \vspace { 10 pt }
+%    \par
   }
   {
     \par
@@ -531,20 +565,28 @@
     \clist_use:Nn \l__fdu_info_keyword_clist { ； }
     \par
     
-    \cleardoublepage
+    \noindent
+    { \normalfont \sffamily \CJKfamily { hei } 中图分类号： }
+    \l__fdu_info_CLC_tl
+%    \par
+    
+%    \cleardoublepage
   }
 
-%----- 英文摘要 -----%
+% 英文摘要
 \NewDocumentEnvironment { abstract* } { }
   {
-    \thispagestyle { plain }
-    \vspace* { 10 pt }
-    \begin{center}
-      \Large \normalfont \sffamily \CJKfamily { hei } 
-      Abstract
-    \end{center}
-    \vspace { 10 pt }
-    \par
+    \chapter*{Abstract}
+    \addcontentsline{toc}{chapter}
+      {\normalfont \sffamily \CJKfamily {hei} Abstract}
+%    \thispagestyle { plain }
+%    \vspace* { 10 pt }
+%    \begin{center}
+%      \Large \normalfont \sffamily \CJKfamily { hei } 
+%      Abstract
+%    \end{center}
+%    \vspace { 10 pt }
+%    \par
   }
   {
     \par
@@ -552,14 +594,32 @@
     \par
     
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf{Keyword:} \quad
+    \textbf{Keywords:} \quad
     \clist_use:Nn \l__fdu_info_keyword_english_clist { \quad }
     \par
     
-    \cleardoublepage
+    \noindent
+    \textbf{CLC~ number:} \quad
+    \l__fdu_info_CLC_tl
+%    \par
+    
+%    \cleardoublepage
   }
 
-%%%%%%%%%% 初始设置 %%%%%%%%%%
+
+%%%%%%%%%% 键值设置 %%%%%%%%%%
+% meta 键值对
+\keys_define:nn { fdu }
+  {
+    info  .meta:nn = { fdu / info  } { #1 },
+    style .meta:nn = { fdu / style } { #1 }
+  }
+
+% fdusetup 函数
+\NewDocumentCommand \fdusetup { m }
+  { \keys_set:nn { fdu } { #1 } }
+
+% 初始设置
 \keys_set:nn { fdu }
   {
     style/font = times,
@@ -569,4 +629,3 @@
 %    draft = false
     info/date = \today
   }
-
