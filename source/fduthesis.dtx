@@ -50,16 +50,22 @@
 
 \geometry{
     paper  = a4paper,
-    left   = 2.40 in,
-    right  = 0.40 in,
+    left   = 2.50 in,
+    right  = 0.75 in,
     top    = 1.25 in,
-    bottom = 1.25 in
+    bottom = 1.00 in
 }
 
 \setmainfont{TeX Gyre Pagella}
 \setsansfont{TeX Gyre Heros}
 \setmonofont{TeX Gyre Cursor}%
   [HyphenChar = None, Ligatures = NoCommon]
+^^A\setmonofont{zcoN-Regular.otf}%
+^^A  [
+^^A    BoldFont   = zcoN-Regular.otf,
+^^A    ItalicFont = zcoN-Oblique.otf,
+^^A    HyphenChar = None, Ligatures = NoCommon
+^^A  ]
 \setmathfont{TeX Gyre Pagella Math}
 
 
@@ -148,7 +154,9 @@
 %   top    = 1.25 in,
 %   bottom = 1.25 in
 % }
+%
 % \maketitle
+%
 % \begin{abstract}
 %   这是摘要 abstract。
 % \end{abstract}
@@ -161,12 +169,8 @@
 % \restoregeometry
 %
 % \section{基本用法}
-% \cs{g__fdu_book_options_clist} 是一个内部命令。
-% \pkg{ctex} 是个宏包。
+% 什么都没写。
 %
-% \cs{setmainfont\meta{font name}}
-%
-% \cs{setmainCJKfont\meta{字体名}}
 % \StopEventually{
 %   \newgeometry{
 %     left   = 1.00 in,
@@ -190,9 +194,6 @@
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
 %    \begin{macrocode}
-%----- Begin of  70-words -----%
-%111111111222222222233333333334444444444555555555566666666667777777777
-%----- End   of  70-words -----%
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3}
 \RequirePackage{xparse,l3keys2e}
@@ -201,14 +202,17 @@
 %    \end{macrocode}
 %
 % \subsection{内部变量声明}
-% \begin{macro}{\l__fdu_temp_box,\l__fdu_temp_dim,
-%    \l__fdu_temp_tl,\l__fdu_temp_clist}
+% \begin{macro}{\l__fdu_tmpa_box,\l__fdu_tmpa_dim,
+%   \l__fdu_tmpa_tl,\l__fdu_tmpb_tl,
+%   \l__fdu_tmpa_clist,\l__fdu_tmpb_clist}
 % 临时变量。
 %    \begin{macrocode}
-\box_new:N   \l__fdu_temp_box
-\dim_new:N   \l__fdu_temp_dim
-\tl_new:N    \l__fdu_temp_tl
-\clist_new:N \l__fdu_temp_clist
+\box_new:N   \l__fdu_tmpa_box
+\dim_new:N   \l__fdu_tmpa_dim
+\tl_new:N    \l__fdu_tmpa_tl
+\tl_new:N    \l__fdu_tmpb_tl
+\clist_new:N \l__fdu_tmpa_clist
+\clist_new:N \l__fdu_tmpb_clist
 %    \end{macrocode}
 % \end{macro}
 %
@@ -333,8 +337,8 @@
 %
 % 构建页眉，要在单面或双面下分别设置。
 % \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）
-% 和奇数（odd）， 而 |L| 和 |R| 则分别表示左（left）和右（right）。
-% 按照通常的排版规则，偶数页在左，奇数页在右。
+% 和奇数（odd）， 而 |L| 和 |R| 则分别表示左（left）和
+% 右（right）。按照通常的排版规则，偶数页在左，奇数页在右。
 %    \begin{macrocode}
 % 页眉(见 `ctex' 下的重定义)
 \bool_if:NTF \g__fdu_twoside_bool
@@ -451,7 +455,8 @@
 % \begin{macro}{style/CJKfont}
 % 预定义中文（CJK）字体。
 %
-% BUG: 20170215  见 https://github.com/CTeX-org/ctex-kit/issues/268
+% BUG: 20170215
+% 见 https://github.com/CTeX-org/ctex-kit/issues/268
 %    \begin{macrocode}
     CJKfont .choice:,
     CJKfont .value_required:n = true,
@@ -507,8 +512,8 @@
 %
 % \subsubsection{字号}
 % \begin{macro}{style/fontsize}
-% 由于 |fontsize| 不是文档类选项，所以不能传给 \pkg{ctex} 宏包或者
-% \cls{book} 文档类，只能手动重定义字号命令。
+% 由于 |fontsize| 不是文档类选项，所以不能传给 \pkg{ctex} 宏包
+% 或者 \cls{book} 文档类，只能手动重定义字号命令。
 %
 % 默认使用小四号字，所以只有五号字需要重新设置。
 %    \begin{macrocode}
@@ -531,10 +536,11 @@
 % \end{macro}
 %
 % \subsubsection{句号（Part~I）}
-% \begin{macro}{style/fullwidth-stop,\l__fdu_info_fullstop_bool}
+% \begin{macro}{style/fullwidth-stop,
+%  \l__fdu_style_fstop_bool}
 % 设置句号形状（圆圈或是圆点）。
 %    \begin{macrocode}
-    fullwidth-stop .bool_set:N = \l__fdu_info_fullstop_bool,
+    fullwidth-stop .bool_set:N = \l__fdu_style_fstop_bool,
     fullwidth-stop .default:n  = true
   }
 %    \end{macrocode}
@@ -602,11 +608,12 @@
 % \subsection{其他中文样式}
 % \subsubsection{句号（Part~II）}
 % \cs{addCJKfontfeatures} 要放在 \cs{begin}|{document}| 之后。
-% 钩子 \cs{ctex_after_end_preamble:n} 利用了 \pkg{ctexhook} 宏包。
+% 钩子 \cs{ctex_after_end_preamble:n} 利用了
+% \pkg{ctexhook} 宏包。
 %    \begin{macrocode}
 \ctex_after_end_preamble:n
   {
-    \bool_if:NT \l__fdu_info_fullstop_bool
+    \bool_if:NT \l__fdu_style_fstop_bool
       { \addCJKfontfeatures { Mapping = fullwidth-stop } }
   }
 %    \end{macrocode}
@@ -636,7 +643,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}{info/title,info/title*,
-%    \l__fdu_info_title_tl,\l__fdu_info_title_e_tl}
+%   \l__fdu_info_title_tl,\l__fdu_info_title_e_tl}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
     title        .tl_set:N    = \l__fdu_info_title_tl,
@@ -652,7 +659,7 @@
 % \end{macro}
 %
 % \begin{macro}{info/author,info/author*,
-%    \l__fdu_info_author_tl,\l__fdu_info_author_e_tl}
+%   \l__fdu_info_author_tl,\l__fdu_info_author_e_tl}
 % 作者姓名。
 %    \begin{macrocode}
     author       .tl_set:N    = \l__fdu_info_author_tl,
@@ -661,32 +668,39 @@
 % \end{macro}
 %
 % \begin{macro}{info/supervisor,info/supervisor*,
-%    \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_e_tl}
+%   \l__fdu_info_superv_tl,\l__fdu_info_superv_e_tl}
 % 导师姓名。
+%
+% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
+% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
+% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导。
 %    \begin{macrocode}
-    supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_e_tl,
+%----- Begin of  70-words -----%
+%111111111222222222233333333334444444444555555555566666666667777777777
+%----- End   of  70-words -----%
+    supervisor   .tl_set:N    = \l__fdu_info_superv_tl,
+    supervisor*  .tl_set:N    = \l__fdu_info_superv_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/instructors,\l__fdu_info_instructors_clist}
+% \begin{macro}{info/instructors,\l__fdu_info_instr_clist}
 % 指导小组成员。
 %    \begin{macrocode}
-    instructors  .clist_set:N = \l__fdu_info_instructors_clist,
+    instructors  .clist_set:N = \l__fdu_info_instr_clist,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/department,info/department*,
-%    \l__fdu_info_department_tl,\l__fdu_info_department_e_tl}
+%   \l__fdu_info_depart_tl,\l__fdu_info_depart_e_tl}
 % 院系。
 %    \begin{macrocode}
-    department   .tl_set:N    = \l__fdu_info_department_tl,
-    department*  .tl_set:N    = \l__fdu_info_department_e_tl,
+    department   .tl_set:N    = \l__fdu_info_depart_tl,
+    department*  .tl_set:N    = \l__fdu_info_depart_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/major,info/major*,
-%    \l__fdu_info_major_tl,\l__fdu_info_major_e_tl}
+%   \l__fdu_info_major_tl,\l__fdu_info_major_e_tl}
 % 专业。
 %    \begin{macrocode}
     major        .tl_set:N    = \l__fdu_info_major_tl,
@@ -694,10 +708,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/studentID,\l__fdu_info_student_ID_tl}
+% \begin{macro}{info/studentID,\l__fdu_info_stu_ID_tl}
 % 学号。
 %    \begin{macrocode}
-    studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
+    studentID    .tl_set:N    = \l__fdu_info_stu_ID_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -709,11 +723,11 @@
 % \end{macro}
 %
 % \begin{macro}{info/keyword,info/keyword*,
-%    \l__fdu_info_keyword_clist,\l__fdu_info_keyword_e_clist}
+%   \l__fdu_info_kwd_clist,\l__fdu_info_kwd_e_clist}
 % 论文关键字。
 %    \begin{macrocode}
-    keyword      .clist_set:N = \l__fdu_info_keyword_clist,
-    keyword*     .clist_set:N = \l__fdu_info_keyword_e_clist,
+    keyword      .clist_set:N = \l__fdu_info_kwd_clist,
+    keyword*     .clist_set:N = \l__fdu_info_kwd_e_clist,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -726,11 +740,11 @@
 % \end{macro}
 %
 % \subsubsection{定义内部函数}
-% \begin{macro}{\fdu_spread_box:Nn}
+% \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV}
 % 分散对齐的盒子。|#1| = 长度， |#2| = 内容。
 %
 % 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
-% \tn{unskip} 去掉最后一个 \tn{hfil}。
+% 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。
 % 见 http://tex.stackexchange.com/q/169689
 %    \begin{macrocode}
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
@@ -738,33 +752,60 @@
     \makebox [ #1 ] [ s ]
       { \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip }
   }
+\cs_generate_variant:Nn \fdu_spread_box:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_center_box:Nn}
+% \begin{macro}{\fdu_center_box:Nn,\fdu_center_box:NV}
 % 居中对齐的盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_center_box:Nn #1 #2
   {
     \makebox [ #1 ] [ c ] { #2 }
   }
+\cs_generate_variant:Nn \fdu_center_box:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_set_text_width:Nn}
+% \begin{macro}{\fdu_get_text_width:Nn}
 % 获取文本宽度，并存入 |dim| 型变量。|#1| = |dim| 型变量，
 % |#2| = 内容。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_set_text_width:Nn #1 #2
+\cs_new:Npn \fdu_get_text_width:Nn #1 #2
   {
-    \hbox_set:Nn \l__fdu_temp_box { #2 }
+    \hbox_set:Nn \l__fdu_tmpa_box { #2 }
     \dim_set:Nn #1
-      { \box_wd:N \l__fdu_temp_box }
+      { \box_wd:N \l__fdu_tmpa_box }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\l__fdu_cover_info_L_dim,\l__fdu_cover_info_R_dim}
+% \begin{macro}{\fdu_get_max_text_width:Nn}
+% 获取多个文本中的最大宽度，并存入 |dim| 型变量。
+% |#1| = |dim| 型变量，|#2| = 文本 |clist|。
+%
+% 当 \cs{l__fdu_tmpa_clist} 非空时，弹出最后一个元素
+% 赋给 \cs{l__fdu_tmpa_tl}，获取其长度后与 |#1| 进行比较，
+% 二者中较大的那一个将成为 |#1| 的新值。
+% 不断循环，直至 \cs{l__fdu_tmpa_clist} 为空。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_get_max_text_width:NN #1 #2
+  {
+    \clist_set_eq:NN \l__fdu_tmpa_clist #2
+    \bool_until_do:nn { \clist_if_empty_p:N \l__fdu_tmpa_clist }
+      {
+        \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
+        \fdu_get_text_width:Nn \l__fdu_tmpa_dim
+          { \large \l__fdu_tmpa_tl }
+        \dim_set:Nn #1
+          { \dim_max:nn { #1 } { \l__fdu_tmpa_dim } }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\l__fdu_cover_info_L_dim,
+%   \l__fdu_cover_info_R_dim}
 % 保存信息栏左右列宽度。
 %    \begin{macrocode}
 \dim_new:N \l__fdu_cover_info_L_dim
@@ -772,176 +813,170 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{封面绘制}
+% \subsubsection{封面各部件}
 % \cs{includegraphics} 命令需要用到 \pkg{graphicx} 宏包。
 %    \begin{macrocode}
 \RequirePackage { graphicx }
 %    \end{macrocode}
 %
+% \begin{macro}{\fdu_coverA_ID:nn}
+% 右上角的学校代码和学号。|#1| = 宽度，|#2| = 超出页边的距离。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_coverA_ID:nn #1 #2
+  {
+    \begin{flushright}
+      \setlength { \rightskip } { #2 }
+      \parbox [ c ] { #1 }
+        {
+          \small
+          学校代码    ： \l__fdu_info_school_ID_tl  \par
+          学 \qquad 号： \l__fdu_info_stu_ID_tl
+        }
+    \end{flushright}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_coverA_logo:nn}
+% 插入学校 logo。|#1| = 文件名，|#2| = 宽度。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_coverA_logo:nn #1 #2
+  {
+    \begin{figure} [ h ]
+      \centering
+      \includegraphics [ width = #2 ] { #1 }
+    \end{figure}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_coverA_title:nn}
+% 标题，共有三行。第一行是论文类型，二、三两行分别是中英文题目。
+% |#1| = 论文类型，|#2| = 宽度。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_coverA_title:nn #1 #2
+  {
+    \begin{center}
+      \fdu_spread_box:Nn { #2 } { \Huge #1 }
+      \par
+      \vspace { \stretch{ 3 } }
+      {
+        \huge \sffamily \CJKfamily { hei }
+        \l__fdu_info_title_tl
+      }
+      \par
+      \vfill
+      { \Large \l__fdu_info_title_e_tl }
+      \par
+    \end{center}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_coverA_info:}
+% 信息栏。
+%    \begin{macrocode}
+\cs_new:Nn \fdu_coverA_info:
+  {
+    \begin{center}
+%    \end{macrocode}
+% 设置信息栏左侧宽度为 \SI{6}{em}。
+%    \begin{macrocode}
+      \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
+%    \end{macrocode}
+% 设置信息栏右侧宽度。读取各字段，
+% 并将最宽者的宽度赋给 \cs{l__fdu_cover_info_R_dim}。
+%    \begin{macrocode}
+      \clist_set:Nn \l__fdu_tmpa_clist
+        {
+          \l__fdu_info_depart_tl,
+          \l__fdu_info_major_tl,
+          \l__fdu_info_author_tl,
+          \l__fdu_info_superv_tl,
+          \l__fdu_info_date_tl
+        }
+      \clist_set_eq:NN
+        \l__fdu_tmpb_clist \l__fdu_tmpa_clist
+      \fdu_get_max_text_width:NN
+        \l__fdu_cover_info_R_dim \l__fdu_tmpa_clist
+%    \end{macrocode}
+% 读取名称字段。
+%    \begin{macrocode}
+      \clist_set:Nn \l__fdu_tmpa_clist
+        { 院系, 专业, 姓名, 指导教师, 完成日期 }
+%    \end{macrocode}
+% 在 |minipage| 环境中输出各字段。用循环实现。
+%    \begin{macrocode}
+      \begin{minipage} [ c ] { \textwidth }
+        \centering \large
+        \bool_until_do:nn
+          { \clist_if_empty_p:N \l__fdu_tmpa_clist }
+          {
+            \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
+            \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
+            \fdu_spread_box:NV
+              \l__fdu_cover_info_L_dim \l__fdu_tmpa_tl
+            ：
+            \fdu_center_box:NV
+              \l__fdu_cover_info_R_dim \l__fdu_tmpb_tl
+            \par
+          }
+      \end{minipage}
+    \end{center}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{绘制封面}
+% \begin{macro}{\makecoverA}
+% 生成 |titlepage| 的第一页，即真正的封面。
+% 各部件之间用橡皮长度隔开。
+%    \begin{macrocode}
+\NewDocumentCommand \makecoverA { }
+  {
+    \fdu_coverA_ID:nn {10em} {-2em}
+    \vfill
+    \fdu_coverA_logo:nn {Fudan_LOGO.pdf} {0.5 \textwidth}
+    \vfill
+    \fdu_coverA_title:nn {博士毕业论文} {0.45 \textwidth}
+    \vspace { \stretch{ 4 } }
+    \fdu_coverA_info:
+    \vfill
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\makecoverB}
+% 生成 |titlepage| 的第二页，即指导小组成员名单。
+% 该页要手动关闭页眉页脚的显示。
+%    \begin{macrocode}
+\NewDocumentCommand \makecoverB { }
+  {
+    \thispagestyle { empty }
+    \vspace* { 30 pt }
+    \begin{center}
+      \huge \normalfont \sffamily \CJKfamily { hei }
+      \fdu_spread_box:Nn { 7 em } { 指导小组成员 }
+    \end{center}
+    \vspace { 20 pt }
+    \begin{center}
+      \large
+      \clist_use:Nn \l__fdu_info_instr_clist { \par }
+    \end{center}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\makecover}
-% 生成封面。模板中的 |titlepage| 一共两页，第一页为封面，
-% 第二页为指导小组成员。
+% 生成封面、指导小组成员名单和目录的统一命令。
 %    \begin{macrocode}
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
-%    \end{macrocode}
-%
-% 第一页。
-%    \begin{macrocode}
-      \begin{flushright}
-        \setlength { \rightskip } { -2 em }
-        \parbox [ c ] { 10 em }
-          {
-            \small
-            学校代码    ： \l__fdu_info_school_ID_tl  \par
-            学 \qquad 号： \l__fdu_info_student_ID_tl
-          }
-      \end{flushright}
-
-      \vfill
-
-      \begin{figure} [ h ]
-        \centering
-        \includegraphics [width = 0.5 \textwidth]
-          { Fudan_LOGO.pdf }
-      \end{figure}
-
-      \vfill
-
-      \begin{center}
-        \fdu_spread_box:Nn { 0.45 \textwidth }
-          { \Huge 本科毕业论文 }
-        \par
-
-        \vspace { \stretch{ 3 } }
-
-        % 中文标题
-        { \huge \sffamily \CJKfamily { hei }  \l__fdu_info_title_tl }
-        \par
-
-        \vfill
-
-        % 西文标题
-        { \Large \l__fdu_info_title_e_tl }
-        \par
-
-        \vspace { \stretch{ 4 } }
-
-        % 院系、姓名等
-
-        % 设置左边宽度
-        \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
-
-        % 设置右边宽度
-        % 实现方法概要：将字段宽度存入 `\l__fdu_temp_dim'
-        % 变量，比较并将最长的宽度作为 `\l__fdu_cover_info_R_dim'
-        % 使用。
-        % TODO: 20170220  需要采用更简单的方法
-
-        % Compare with `department'
-%        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_temp_dim
-          { \large \l__fdu_info_department_tl }
-        \dim_set:Nn \l__fdu_cover_info_R_dim
-          {
-            \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
-          }
-        % Compare with `major'
-%        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_temp_dim
-          { \large \l__fdu_info_major_tl }
-        \dim_set:Nn \l__fdu_cover_info_R_dim
-          {
-            \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
-          }
-        % Compare with `author'
-%        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_temp_dim
-          { \large \l__fdu_info_author_tl }
-        \dim_set:Nn \l__fdu_cover_info_R_dim
-          {
-            \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
-          }
-        % Compare with `supervisor'
-%        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_temp_dim
-          { \large \l__fdu_info_supervisor_tl }
-        \dim_set:Nn \l__fdu_cover_info_R_dim
-          {
-            \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
-          }
-        % Compare with `date'
-%        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_temp_dim
-          { \large \l__fdu_info_date_tl }
-        \dim_set:Nn \l__fdu_cover_info_R_dim
-          {
-            \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
-          }
-%        \dim_show:N \l__fdu_cover_info_R_dim
-%        \dim_add:Nn \l__fdu_cover_info_R_dim { 2 em }
-
-        % 构建信息栏
-        \parbox [ c ] { \textwidth }
-        {
-          \centering \large
-
-          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
-            { 院系 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
-            { \l__fdu_info_department_tl }
-          \par
-
-          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
-            { 专业 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
-            { \l__fdu_info_major_tl }
-          \par
-
-          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
-            { 姓名 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
-            { \l__fdu_info_author_tl }
-          \par
-
-          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
-            { 指导教师 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
-            { \l__fdu_info_supervisor_tl }
-          \par
-
-          \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
-            { 完成日期 } ：
-          \fdu_center_box:Nn \l__fdu_cover_info_R_dim
-            { \l__fdu_info_date_tl }
-        }
-      \end{center}
-
-      \vfill
-
+      \makecoverA
       \newpage
-
-      \thispagestyle { empty }
-      \vspace* { 30 pt }
-      \begin{center}
-        \huge \normalfont \sffamily \CJKfamily { hei }
-        \fdu_spread_box:Nn { 7 em }
-          { 指导小组成员 }
-      \end{center}
-      \vspace { 20 pt }
-
-      \begin{center}
-        \large
-        \clist_use:Nn \l__fdu_info_instructors_clist { \par }
-      \end{center}
+      \makecoverB
     \end{titlepage}
-
     \tableofcontents
   }
 %    \end{macrocode}
@@ -971,7 +1006,7 @@
 
     \noindent \hangindent = 4 em \hangafter = 1
     { \normalfont \sffamily \CJKfamily { hei } 关键字： }
-    \clist_use:Nn \l__fdu_info_keyword_clist { ； }
+    \clist_use:Nn \l__fdu_info_kwd_clist { ； }
     \par
 
     \noindent
@@ -1004,7 +1039,7 @@
 
     \noindent \hangindent = 4 em \hangafter = 1
     \textbf{Keywords:} \quad
-    \clist_use:Nn \l__fdu_info_keyword_e_clist { \quad }
+    \clist_use:Nn \l__fdu_info_kwd_e_clist { \quad }
     \par
 
     \noindent
