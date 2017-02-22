@@ -1,24 +1,114 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2017 by Xiangdong Zeng
+% Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %
-% This file may be distributed and/or modified under the
+% This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
-% version 1.3 of this license or (at your option) any later
+% version 1.3c of this license or (at your option) any later
 % version. The latest version of this license is in:
 %
-% http://www.latex-project.org/lppl.txt
+%   http://www.latex-project.org/lppl.txt
 %
 % and version 1.3 or later is part of all distributions of
 % LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Xiangdong Zeng.
+%
+% This work consists of the files fduthesis.dtx
+%                                 fduthesis.ins
+%            and the derived file fduthesis.cls.
 %
 % \fi
 %
 % \iffalse
 %
+
 %<*driver>
-\documentclass{ltxdoc}
-\usepackage{ctex}
+
+%%%%%%%%%% 版本历史 %%%%%%%%%%
+% v0.1 2017/02/15
+%   开始
+% v0.2 2017/02/19
+%   git 管理
+%
+
+% 禁止调用 `thumbpdf' 宏包
+% 见 http://tex.stackexchange.com/q/39415
+% 又见 `ctxdoc.sty'
+\makeatletter
+\@namedef{ver@thumbpdf.sty}{9999/99/99}
+\makeatother
+
+\documentclass{l3doc}
+\usepackage[UTF8, heading = true]{ctex}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{unicode-math}
+\usepackage{siunitx}
+
+\geometry{
+    paper  = a4paper,
+    left   = 2.40 in,
+    right  = 0.40 in,
+    top    = 1.25 in,
+    bottom = 1.25 in
+}
+
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{TeX Gyre Cursor}%
+  [HyphenChar = None, Ligatures = NoCommon]
+\setmathfont{TeX Gyre Pagella Math}
+
+
+\setCJKmainfont{FZShuSong-Z01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+
+\setCJKfamilyfont{宋}{FZShuSong-Z01}
+\setCJKfamilyfont{黑}{FZHei-B01}
+\setCJKfamilyfont{仿}{FZFangSong-Z02}
+\setCJKfamilyfont{楷}{FZKai-Z03}
+
+
+\ctexset
+{
+  section = {
+    name    = {第,节},
+    format += \raggedright,
+    break   = \if@openright\cleardoublepage\else\clearpage\fi
+  }
+^^A  subsection = {
+^^A    format += {\normalfont \sffamily \CJKfamily{黑}}
+^^A  }
+}
+
+
+^^A\newcommand{\package}[1]{\textsf{#1}}
+\renewcommand{\pkg}[1]{\textsf{#1}}
+\renewcommand{\cls}[1]{\textsf{\textit{#1}}}
+
+\hypersetup{
+  ^^A PDF 标题作者
+  pdftitle = {fduthesis：复旦大学论文模板},
+  pdfauthor = {曾祥东},
+  ^^A PDF 书签
+  bookmarksopen = true,
+  ^^A bookmarksopenlevel = 1,
+  bookmarksnumbered = true,
+  ^^A 脚注
+  ^^A hyperfootnotes = false,
+  ^^A 目录  只引用页码
+  ^^A linktoc = page,
+  ^^A 超链接边框
+  pdfborder = 0 0 0,
+  ^^A 超链接颜色
+  colorlinks,
+  linkcolor = {red!60!black},
+  citecolor = {green!50!black},
+  urlcolor = {blue!70!black}
+}
 
 \EnableCrossrefs
 \CodelineIndex
@@ -48,62 +138,132 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \title{\textsf{fduthesis}：复旦大学论文模板}
+% \title{\textbf{fduthesis：复旦大学论文模板}}
 % \author{曾祥东}
 %
+%
+% \newgeometry{
+%   left   = 1.25 in,
+%   right  = 1.25 in,
+%   top    = 1.25 in,
+%   bottom = 1.25 in
+% }
 % \maketitle
-% \section{介绍}
-% 你好！\LaTeX{}!
-% \section{索引}
-% \PrintIndex
+% \begin{abstract}
+%   这是摘要 abstract。
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{模板介绍}
+% 你好！\LaTeX3!
+%
+% \restoregeometry
+%
+% \section{基本用法}
+% \cs{g__fdu_book_options_clist} 是一个内部命令。
+% \pkg{ctex} 是个宏包。
+%
+% \cs{setmainfont\meta{font name}}
+%
+% \cs{setmainCJKfont\meta{字体名}}
+% \StopEventually{
+%   \newgeometry{
+%     left   = 1.00 in,
+%     right  = 1.00 in,
+%     top    = 1.25 in,
+%     bottom = 1.25 in
+%   }
+%   \PrintIndex
+% }
+%
 % \section{实现细节}
 %    \begin{macrocode}
 %<*cls>
+%    \end{macrocode}
+%
+% 本模板使用 \LaTeX3 语法编写，依赖于 \pkg{expl3} 环境，
+% 并需要调用 \pkg{l3packages} 中的相关宏包。
+%
+% 按照 \LaTeX3 语法，代码中的空格、换行符与制表符完全忽略，
+% 而下划线“|_|”和冒号“|:|”则可作为一般字母使用。
+% 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
+% 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
+%    \begin{macrocode}
+%----- Begin of  70-words -----%
+%111111111222222222233333333334444444444555555555566666666667777777777
+%----- End   of  70-words -----%
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage{expl3,xparse,l3keys2e}
+\RequirePackage{expl3}
+\RequirePackage{xparse,l3keys2e}
 \ProvidesExplClass{fduthesis}
-  {2017/02/19}
-  {0.2}
-  {Fudan University Thesis Template}
-
-
-%%%%%%%%%% 版本历史 %%%%%%%%%%
-% v0.1 2017/02/15
-%   开始
-% v0.2 2017/02/19
-%   git 管理
-
-
-%%%%%%%%%% 全局变量声明 %%%%%%%%%%
-% 保存 fduthesis -> book 的选项列表
-\clist_new:N \g__fdu_book_options_clist
-% 保存 fduthesis -> geometry 的选项列表
-\clist_new:N \g__fdu_geometry_options_clist
-
-% 是否开启双页模式（默认打开）
+  {2017/02/19} {0.2} {Fudan University Thesis Template}
+%    \end{macrocode}
+%
+% \subsection{内部变量声明}
+% \begin{macro}{\l__fdu_temp_box,\l__fdu_temp_dim,
+%    \l__fdu_temp_tl,\l__fdu_temp_clist}
+% 临时变量。
+%    \begin{macrocode}
+\box_new:N   \l__fdu_temp_box
+\dim_new:N   \l__fdu_temp_dim
+\tl_new:N    \l__fdu_temp_tl
+\clist_new:N \l__fdu_temp_clist
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\g__fdu_to_book_clist}
+% 保存由 \cls{fduthesis} 传入 \cls{book} 文档类的选项列表。
+%    \begin{macrocode}
+\clist_new:N \g__fdu_to_book_clist
+%    \end{macrocode}
+% \end{macro}
+%
+%^^A \begin{macro}{\g__fdu_to_geometry_clist}
+%^^A 保存由 \cls{fduthesis} 传入 \pkg{geometry} 宏包的选项列表。
+%^^A    \begin{macrocode}
+%^^A\clist_new:N \g__fdu_to_geometry_clist
+%^^A    \end{macrocode}
+%^^A \end{macro}
+%^^A
+% \begin{macro}{\g__fdu_twoside_bool}
+% 是否开启双页模式（默认打开）。
+%    \begin{macrocode}
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-
-
-%%%%%%%%%% 文档类选项 %%%%%%%%%%
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{选项处理}
+% 定义 |fdu/option| 键值类。
+%    \begin{macrocode}
 \keys_define:nn { fdu / option }
   {
-    % 页面模式
+%    \end{macrocode}
+%
+% \begin{macro}{oneside,twoside}
+% 设置页面类型为单面或双面。
+%    \begin{macrocode}
     oneside .value_forbidden:n = true,
     twoside .value_forbidden:n = true,
     oneside .code:n = {
-      \clist_gput_right:Nn \g__fdu_book_options_clist { oneside }
+      \clist_gput_right:Nn \g__fdu_to_book_clist { oneside }
       \bool_set_false:N    \g__fdu_twoside_bool
     },
     twoside .code:n = {
-      \clist_gput_right:Nn \g__fdu_book_options_clist { twoside }
+      \clist_gput_right:Nn \g__fdu_to_book_clist { twoside }
       \bool_set_true:N     \g__fdu_twoside_bool
     },
-    % 草稿模式
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{draft}
+% 是否开启草稿模式（默认关闭）。
+%    \begin{macrocode}
     draft .choice:,
     draft / true  .code:n = {
       \bool_set_true:N     \g__fdu_draft_bool
-      \clist_gput_right:Nn \g__fdu_book_options_clist { draft }
+      \clist_gput_right:Nn \g__fdu_to_book_clist { draft }
     },
     draft / false .code:n = {
       \bool_set_false:N    \g__fdu_draft_bool
@@ -111,41 +271,71 @@
     draft .default:n = true,
     draft .initial:n = false
   }
-
-% 处理选项（使用 `l3keys2e' 宏包）
+%    \end{macrocode}
+% \end{macro}
+%
+% 将文档类选项传给 |fdu/option|。
+%    \begin{macrocode}
 \ProcessKeysOptions { fdu / option }
-
-
-%%%%%%%%%% 载入标准文档类 %%%%%%%%%%
-\PassOptionsToClass { \g__fdu_book_options_clist } { book }
+%    \end{macrocode}
+%
+% 载入 \cls{book} 标准文档类，并传入相应的选项。
+%    \begin{macrocode}
+\PassOptionsToClass { \g__fdu_to_book_clist } { book }
 \LoadClass { book }
-
-
-%%%%%%%%%% 版式设置 %%%%%%%%%%
+%    \end{macrocode}
+%
+% \subsection{页面布局}
+% 利用 \pkg{geometry} 宏包进行设置。
+%    \begin{macrocode}
 \RequirePackage { geometry }
 \geometry
   {
-    % 纸张大小
+%    \end{macrocode}
+%
+% 设置纸张大小。
+%    \begin{macrocode}
     paper      = a4paper,
-    % 页边距
+%    \end{macrocode}
+%
+% 设置页面边距。
+% 这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
+% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
+%    \begin{macrocode}
     left       = 2.54 cm,
     right      = 2.54 cm,
     top        = 3.18 cm,
     bottom     = 3.18 cm,
-    % 页眉高度
+%    \end{macrocode}
+%
+% 设置页眉的高度，使其与五号字相配。
+%    \begin{macrocode}
     headheight = 15 pt
   }
-% 草稿模式
+%    \end{macrocode}
+%
+% 草稿模式下显示页面边框及页眉、页脚线 。
+%    \begin{macrocode}
 \bool_if:NT \g__fdu_draft_bool
-  {
-    \geometry { showframe }
-  }
-
-
-%%%%%%%%%% 页眉页脚 %%%%%%%%%%
+  { \geometry { showframe } }
+%    \end{macrocode}
+%
+% \subsection{页眉页脚（Part~I）}
+% 利用 \pkg{fancyhdr} 宏包进行设置。
+%    \begin{macrocode}
 \RequirePackage { fancyhdr }
-% 清除所有页面格式
+%    \end{macrocode}
+%
+% 清除默认页眉页脚格式。
+%    \begin{macrocode}
 \fancyhf { }
+%    \end{macrocode}
+%
+% 构建页眉，要在单面或双面下分别设置。
+% \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）
+% 和奇数（odd）， 而 |L| 和 |R| 则分别表示左（left）和右（right）。
+% 按照通常的排版规则，偶数页在左，奇数页在右。
+%    \begin{macrocode}
 % 页眉(见 `ctex' 下的重定义)
 \bool_if:NTF \g__fdu_twoside_bool
   {
@@ -160,12 +350,24 @@
     \fancyhead [ R ]
       { \small \nouppercase { \CJKfamily { kai } \rightmark } }
   }
-% 页脚（页码）
+%    \end{macrocode}
+%
+% 构建页脚，用来显示页码。选项 |C| 表示居中（center）。
+%    \begin{macrocode}
 \fancyfoot [ C ] { \thepage }
-% 关闭横线显示
+%    \end{macrocode}
+%
+% 关闭横线显示（未启用）。
+%    \begin{macrocode}
 % \RenewDocumentCommand \headrulewidth { } { 0 pt }
-% 完全清除偶数页面
+%    \end{macrocode}
+%
+% \begin{macro}{\cleardoublepage}
+% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时
+% 也不显示页眉页脚。
+%
 % 见 http://tex.stackexchange.com/q/1681
+%    \begin{macrocode}
 \RenewDocumentCommand \cleardoublepage { }
   {
     \clearpage
@@ -175,93 +377,86 @@
           { \hbox:n { } \thispagestyle { empty } \newpage }
       }
   }
-
-
-%%%%%%%%%% 西文字体、数学字体 %%%%%%%%%%
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{字体}
+% \subsubsection{载入相关宏包}
+% 本模板字体设置采用 \pkg{fontspec} 机制。
+% |no-math| 选项保证该宏包不参与数学字体的设置。
+%    \begin{macrocode}
 \RequirePackage [ no-math ] { fontspec }
+%    \end{macrocode}
+%
+% 本模板使用 Unicode 编码的 OpenType 数学字体，
+% 此功能由 \pkg{unicode-math} 宏包实现。
+%
+% 按照有关规定，数学表达式中，表示变量的拉丁字母和希腊字母均应当
+% 使用斜体。
+%    \begin{macrocode}
 \RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
-
-% 西文字体设置
+%    \end{macrocode}
+%
+% 中文字体由 \pkg{xeCJK} 宏包负责处理。
+%    \begin{macrocode}
+\RequirePackage { xeCJK }
+%    \end{macrocode}
+%
+% \subsubsection{西文字体、数学字体配置}
+% 定义 |fdu/style| 键值类。
+%    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
+%    \end{macrocode}
+%
+% \begin{macro}{style/font}
+% 预定义西文字体。
+%
+% TODO: 20170217  XITS 字体没有 small capital
+%    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
     font / libertinus .code:n = {
-      \setmainfont { Libertinus~Serif }
-      \setsansfont { Libertinus~Sans  }
-      \setmonofont { TeX~Gyre~Cursor  } [ Ligatures = NoCommon ]
-      \setmathfont { Libertinus~Math  }
+      \setmainfont { Libertinus~ Serif }
+      \setsansfont { Libertinus~ Sans  }
+      \setmonofont { TeX~ Gyre~ Cursor }
+        [ Ligatures = NoCommon ]
+      \setmathfont { Libertinus~ Math  }
     },
     font / lm .code:n = {
-      \setmainfont { Latin~Modern~Roman }
-      \setsansfont { Latin~Modern~Sans  }
-      \setmonofont { Latin~Modern~Mono  }
-      \setmathfont { Latin~Modern~Math  }
+      \setmainfont { Latin~ Modern~ Roman }
+      \setsansfont { Latin~ Modern~ Sans  }
+      \setmonofont { Latin~ Modern~ Mono  }
+      \setmathfont { Latin~ Modern~ Math  }
     },
     font / palatino .code:n = {
-      \setmainfont { TeX~Gyre~Pagella      }
-      \setsansfont { TeX~Gyre~Heros        }
-      \setmonofont { TeX~Gyre~Cursor       } [ Ligatures = NoCommon ]
-      \setmathfont { TeX~Gyre~Pagella~Math }
+      \setmainfont { TeX~ Gyre~ Pagella       }
+      \setsansfont { TeX~ Gyre~ Heros         }
+      \setmonofont { TeX~ Gyre~ Cursor        }
+        [ Ligatures = NoCommon ]
+      \setmathfont { TeX~ Gyre~ Pagella~ Math }
     },
     font / times .code:n = {
-      %TODO: 20170217  XITS 字体没有 small capital
-%      \setmainfont { XITS }
-      \setmainfont { TeX~Gyre~Termes }
-      \setsansfont { TeX~Gyre~Heros  }
-      \setmonofont { TeX~Gyre~Cursor } [ Ligatures = NoCommon ]
-      \setmathfont { XITS~Math       }
-%      \setmathfont { TeX~Gyre~Termes~Math }
-    }
-  }
-
-
-%%%%%%%%%% 中文字体、版式 %%%%%%%%%%
-\RequirePackage [ UTF8, heading = true, zihao = -4 ] { ctex }
-% 章节标题设置
-\ctexset
-{
-  chapter = {
-    format     = {
-      \huge \normalfont \sffamily \CJKfamily { hei } \centering
+      \setmainfont { TeX~ Gyre~ Termes }
+      \setsansfont { TeX~ Gyre~ Heros  }
+      \setmonofont { TeX~ Gyre~ Cursor }
+        [ Ligatures = NoCommon ]
+      \setmathfont { XITS~ Math        }
     },
-    beforeskip = { 30 pt },
-    afterskip  = { 20 pt },
-    number     = { \arabic{ chapter } }
-  },
-  section = {
-    format     = { \Large \bfseries \raggedright }
-  },
-  subsection = {
-    format     = { \large \bfseries \raggedright }
-  }
-}
-
-% 目录设置
-\ctexset
-{
-  % 目录名称
-  contentsname = {目 \quad 录},
-  % 目录格式
-  chapter    / tocline = {
-    \normalfont \sffamily \CJKfamily { hei }
-    \CTEXnumberline { #1 }    #2
-  },
-  subsection / tocline = {
-    \CJKfamily{ kai }
-    \CTEXnumberline { #1 }    #2
-  }
-}
-
-% 中文字体设置
-%BUG: 20170215  见 https://github.com/CTeX-org/ctex-kit/issues/268
-\keys_define:nn { fdu / style }
-  {
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{中文字体配置}
+% \begin{macro}{style/CJKfont}
+% 预定义中文（CJK）字体。
+%
+% BUG: 20170215  见 https://github.com/CTeX-org/ctex-kit/issues/268
+%    \begin{macrocode}
     CJKfont .choice:,
     CJKfont .value_required:n = true,
     CJKfont / adobe .code:n = {
-      \setCJKmainfont{ Adobe~Song~Std~L }
+      \setCJKmainfont { Adobe~Song~Std~L }
         [
           BoldFont = Adobe~Heiti~Std~R,
           ItalicFont = Adobe~Kaiti~Std~R
@@ -277,10 +472,8 @@
       \setCJKfamilyfont { kai  } { FandolKai  }
     },
     CJKfont / founder .code:n = {
-      \setCJKmainfont{ FZShuSong-Z01 }
+      \setCJKmainfont { FZShuSong-Z01 }
         [ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
-%        [ ItalicFont = 方正楷体_GBK, AutoFakeBold = true ]
-%        [ BoldFont = 方正黑体_GBK, ItalicFont = 方正楷体_GBK ]
       \setCJKfamilyfont { song } { FZShuSong-Z01 }
         [ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
       \setCJKfamilyfont { hei  } { FZHei-B01      }
@@ -292,7 +485,7 @@
 %        [ BoldFont = SimHei, ItalicFont = KaiTi ]
 %    },
     CJKfont / mac .code:n = {
-      \setCJKmainfont{ STSong }
+      \setCJKmainfont { STSong }
         [ ItalicFont = STKaiti, AutoFakeBold = true ]
       \setCJKfamilyfont { song } { STSong     }
         [ ItalicFont = STKaiti, AutoFakeBold = true ]
@@ -301,7 +494,7 @@
       \setCJKfamilyfont { kai  } { STKaiti    }
     },
     CJKfont / windows .code:n = {
-      \setCJKmainfont{ SimSun }
+      \setCJKmainfont { SimSun }
         [ ItalicFont = KaiTi, AutoFakeBold = true ]
       \setCJKfamilyfont { song } { SimSun   }
         [ ItalicFont = KaiTi, AutoFakeBold = true ]
@@ -309,30 +502,20 @@
       \setCJKfamilyfont { fang } { FangSong }
       \setCJKfamilyfont { kai  } { KaiTi    }
     },
-  }
-
-% 半角、全角句号
-\keys_define:nn { fdu / style }
-  {
-    fullwidth-stop .bool_set:N = \l__fdu_info_fullstop_bool,
-    fullwidth-stop .default:n = true
-  }
-% `\addCJKfontfeatures' 要放在 `\begin{document}' 之后
-% 钩子使用 `ctexhook' 宏包
-\ctex_after_end_preamble:n
-  {
-    \bool_if:NT \l__fdu_info_fullstop_bool
-      { \addCJKfontfeatures { Mapping = fullwidth-stop } }
-  }
-
-% 默认字号设置
-% 小四号字体由 `ctex' 默认
-\keys_define:nn { fdu / style }
-  {
-    zihao .choice:,
-    zihao .value_required:n = true,
-    zihao / -4 .code:n = { },
-    zihao / 5  .code:n = {
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{字号}
+% \begin{macro}{style/fontsize}
+% 由于 |fontsize| 不是文档类选项，所以不能传给 \pkg{ctex} 宏包或者
+% \cls{book} 文档类，只能手动重定义字号命令。
+%
+% 默认使用小四号字，所以只有五号字需要重新设置。
+%    \begin{macrocode}
+    fontsize .choice:,
+    fontsize .value_required:n = true,
+    fontsize / -4 .code:n = { },
+    fontsize /  5 .code:n = {
       \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
       \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
       \RenewDocumentCommand \footnotesize { } { \zihao {  6 } }
@@ -344,105 +527,268 @@
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
     },
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{句号（Part~I）}
+% \begin{macro}{style/fullwidth-stop,\l__fdu_info_fullstop_bool}
+% 设置句号形状（圆圈或是圆点）。
+%    \begin{macrocode}
+    fullwidth-stop .bool_set:N = \l__fdu_info_fullstop_bool,
+    fullwidth-stop .default:n  = true
   }
-
-% `fancy' 版式必须在 `ctex' 调用之后
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{章节标题结构}
+% 中文排版支持采用 \pkg{ctex} 宏包。默认字号设置为小四。
+%    \begin{macrocode}
+\RequirePackage [ UTF8, heading = true, zihao = -4 ] { ctex }
+%    \end{macrocode}
+%
+% 使用 \cs{ctexset} 接口进行统一设置。
+%    \begin{macrocode}
+\ctexset
+{
+%    \end{macrocode}
+%
+% 章（chapter）标题设置为黑体、居中，同时微调前后间距。
+% 序号使用阿拉伯数字。
+%    \begin{macrocode}
+  chapter = {
+    format     = {
+      \huge \normalfont \sffamily \CJKfamily { hei } \centering
+    },
+    beforeskip = { 30 pt },
+    afterskip  = { 20 pt },
+    number     = { \arabic{ chapter } }
+  },
+%    \end{macrocode}
+%
+% 节（section）标题设置为粗体、靠左对齐
+%（但要用 \tn{raggedright}）。
+%    \begin{macrocode}
+  section = {
+    format     = { \Large \bfseries \raggedright }
+  },
+%    \end{macrocode}
+%
+% 小节（sub-section）标题同样设置为粗体、靠左对齐。
+%    \begin{macrocode}
+  subsection = {
+    format     = { \large \bfseries \raggedright }
+  },
+%    \end{macrocode}
+%
+% \subsection{目录}
+% 设置目录标题为“目 \quad 录”。
+%    \begin{macrocode}
+  contentsname = {目 \quad 录},
+%    \end{macrocode}
+%
+% 设置目录中章节标题的样式。
+%    \begin{macrocode}
+  chapter    / tocline = {
+    \normalfont \sffamily \CJKfamily { hei }
+    \CTEXnumberline { #1 }    #2
+  },
+  subsection / tocline = {
+    \CJKfamily{ kai }
+    \CTEXnumberline { #1 }    #2
+  }
+}
+%    \end{macrocode}
+%
+% \subsection{其他中文样式}
+% \subsubsection{句号（Part~II）}
+% \cs{addCJKfontfeatures} 要放在 \cs{begin}|{document}| 之后。
+% 钩子 \cs{ctex_after_end_preamble:n} 利用了 \pkg{ctexhook} 宏包。
+%    \begin{macrocode}
+\ctex_after_end_preamble:n
+  {
+    \bool_if:NT \l__fdu_info_fullstop_bool
+      { \addCJKfontfeatures { Mapping = fullwidth-stop } }
+  }
+%    \end{macrocode}
+%
+% \subsubsection{页眉页脚（Part~II）}
+% \pkg{ctex} 宏包使用 |heading| 选项后，会把页面格式
+% 设置为 |headings|。因此必须在 \pkg{ctex} 调用之后重新设置
+% \cs{pagestyle} 为 |fancy|。
+%    \begin{macrocode}
 \pagestyle { fancy }
-% 重定义右页眉格式
+%    \end{macrocode}
+%
+% \begin{macro}{\sectionmark}
+% 重定义右侧页眉格式（否则貌似少了一个空格）。
+%    \begin{macrocode}
 \RenewDocumentCommand \sectionmark { m }
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
-
-
-%%%%%%%%%% 插图 %%%%%%%%%%
-\RequirePackage { graphicx }
-
-
-
-
-
-
-%%%%%%%%%% 论文信息 %%%%%%%%%%
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{封面}
+% \subsubsection{信息录入}
+% 定义 |fdu/info| 键值类。
+%    \begin{macrocode}
 \keys_define:nn { fdu / info }
   {
+%    \end{macrocode}
+%
+% \begin{macro}{info/title,info/title*,
+%    \l__fdu_info_title_tl,\l__fdu_info_title_e_tl}
+% 论文题目。以下带星号的项目均表示相应的英文字段。
+%    \begin{macrocode}
     title        .tl_set:N    = \l__fdu_info_title_tl,
-    title*       .tl_set:N    = \l__fdu_info_title_english_tl,
-    %
+    title*       .tl_set:N    = \l__fdu_info_title_e_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/date,\l__fdu_info_date_tl}
+% 论文完成日期。
+%    \begin{macrocode}
     date         .tl_set:N    = \l__fdu_info_date_tl,
-    %
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/author,info/author*,
+%    \l__fdu_info_author_tl,\l__fdu_info_author_e_tl}
+% 作者姓名。
+%    \begin{macrocode}
     author       .tl_set:N    = \l__fdu_info_author_tl,
-    author*      .tl_set:N    = \l__fdu_info_author_english_tl,
-    %
+    author*      .tl_set:N    = \l__fdu_info_author_e_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/supervisor,info/supervisor*,
+%    \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_e_tl}
+% 导师姓名。
+%    \begin{macrocode}
     supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_english_tl,
-    %
+    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_e_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/instructors,\l__fdu_info_instructors_clist}
+% 指导小组成员。
+%    \begin{macrocode}
     instructors  .clist_set:N = \l__fdu_info_instructors_clist,
-    %
-    major        .tl_set:N    = \l__fdu_info_major_tl,
-    major*       .tl_set:N    = \l__fdu_info_major_english_tl,
-    %
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/department,info/department*,
+%    \l__fdu_info_department_tl,\l__fdu_info_department_e_tl}
+% 院系。
+%    \begin{macrocode}
     department   .tl_set:N    = \l__fdu_info_department_tl,
-    department*  .tl_set:N    = \l__fdu_info_department_english_tl,
-    %
+    department*  .tl_set:N    = \l__fdu_info_department_e_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/major,info/major*,
+%    \l__fdu_info_major_tl,\l__fdu_info_major_e_tl}
+% 专业。
+%    \begin{macrocode}
+    major        .tl_set:N    = \l__fdu_info_major_tl,
+    major*       .tl_set:N    = \l__fdu_info_major_e_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/studentID,\l__fdu_info_student_ID_tl}
+% 学号。
+%    \begin{macrocode}
     studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/schoolID,\l__fdu_info_school_ID_tl}
+% 学校代码。
+%    \begin{macrocode}
     schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
-    %
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/keyword,info/keyword*,
+%    \l__fdu_info_keyword_clist,\l__fdu_info_keyword_e_clist}
+% 论文关键字。
+%    \begin{macrocode}
     keyword      .clist_set:N = \l__fdu_info_keyword_clist,
-    keyword*     .clist_set:N = \l__fdu_info_keyword_english_clist,
-    %
+    keyword*     .clist_set:N = \l__fdu_info_keyword_e_clist,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/CLC,\l__fdu_info_CLC_tl}
+% 中国图书馆分类号。
+%    \begin{macrocode}
     CLC          .tl_set:N    = \l__fdu_info_CLC_tl
   }
-
-%\NewDocumentCommand \printinfo {}
-%{
-%  \l__fdu_info_title_tl \\
-%  \l__fdu_info_title_english_tl \\
-%  \l__fdu_info_author_tl \quad \l__fdu_info_author_english_tl
-%}
-
-
-%%%%%%%%%% 封面绘制——内部函数 %%%%%%%%%%
-
-% 分散对齐盒子
-% #1=length, #2=content
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{定义内部函数}
+% \begin{macro}{\fdu_spread_box:Nn}
+% 分散对齐的盒子。|#1| = 长度， |#2| = 内容。
+%
+% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
+% \tn{unskip} 去掉最后一个 \tn{hfil}。
+% 见 http://tex.stackexchange.com/q/169689
+%    \begin{macrocode}
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
- {
-  % With \tl_map_inline:nn we insert \hfil between letters;
-  % a final \unskip kills the last \hfil
-  % 见 http://tex.stackexchange.com/q/169689
-  \makebox [ #1 ] [ s ]
-    {
-      \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip
-    }
- }
-
-% 居中对齐盒子
-% #1=length, #2=content
+  {
+    \makebox [ #1 ] [ s ]
+      { \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_center_box:Nn}
+% 居中对齐的盒子。|#1| = 长度， |#2| = 内容。
+%    \begin{macrocode}
 \cs_new:Npn \fdu_center_box:Nn #1 #2
   {
     \makebox [ #1 ] [ c ] { #2 }
   }
-
-% 设置 dim 变量文本宽度
-% #1=dim变量，#2= content
-\box_new:N \l__fdu_temp_box
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_set_text_width:Nn}
+% 获取文本宽度，并存入 |dim| 型变量。|#1| = |dim| 型变量，
+% |#2| = 内容。
+%    \begin{macrocode}
 \cs_new:Npn \fdu_set_text_width:Nn #1 #2
   {
     \hbox_set:Nn \l__fdu_temp_box { #2 }
     \dim_set:Nn #1
       { \box_wd:N \l__fdu_temp_box }
   }
-
-% 信息栏左右宽度
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\l__fdu_cover_info_L_dim,\l__fdu_cover_info_R_dim}
+% 保存信息栏左右列宽度。
+%    \begin{macrocode}
 \dim_new:N \l__fdu_cover_info_L_dim
 \dim_new:N \l__fdu_cover_info_R_dim
-
-\dim_new:N \l__fdu_cover_info_temp_dim
-
-
-%%%%%%%%%% 封面绘制——构建 %%%%%%%%%%
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{封面绘制}
+% \cs{includegraphics} 命令需要用到 \pkg{graphicx} 宏包。
+%    \begin{macrocode}
+\RequirePackage { graphicx }
+%    \end{macrocode}
+%
+% \begin{macro}{\makecover}
+% 生成封面。模板中的 |titlepage| 一共两页，第一页为封面，
+% 第二页为指导小组成员。
+%    \begin{macrocode}
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
+%    \end{macrocode}
+%
+% 第一页。
+%    \begin{macrocode}
       \begin{flushright}
         \setlength { \rightskip } { -2 em }
         \parbox [ c ] { 10 em }
@@ -452,7 +798,7 @@
             学 \qquad 号： \l__fdu_info_student_ID_tl
           }
       \end{flushright}
-      
+
       \vfill
 
       \begin{figure} [ h ]
@@ -460,83 +806,83 @@
         \includegraphics [width = 0.5 \textwidth]
           { Fudan_LOGO.pdf }
       \end{figure}
-      
+
       \vfill
-      
+
       \begin{center}
         \fdu_spread_box:Nn { 0.45 \textwidth }
           { \Huge 本科毕业论文 }
         \par
-        
+
         \vspace { \stretch{ 3 } }
 
         % 中文标题
         { \huge \sffamily \CJKfamily { hei }  \l__fdu_info_title_tl }
         \par
-        
+
         \vfill
-        
+
         % 西文标题
-        { \Large \l__fdu_info_title_english_tl }
+        { \Large \l__fdu_info_title_e_tl }
         \par
-        
+
         \vspace { \stretch{ 4 } }
-        
+
         % 院系、姓名等
-        
+
         % 设置左边宽度
         \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
 
         % 设置右边宽度
-        % 实现方法概要：将字段宽度存入 `\l__fdu_cover_info_temp_dim'
+        % 实现方法概要：将字段宽度存入 `\l__fdu_temp_dim'
         % 变量，比较并将最长的宽度作为 `\l__fdu_cover_info_R_dim'
         % 使用。
         % TODO: 20170220  需要采用更简单的方法
 
         % Compare with `department'
 %        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+        \fdu_set_text_width:Nn \l__fdu_temp_dim
           { \large \l__fdu_info_department_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
           {
             \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
+              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
           }
         % Compare with `major'
 %        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+        \fdu_set_text_width:Nn \l__fdu_temp_dim
           { \large \l__fdu_info_major_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
           {
             \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
+              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
           }
         % Compare with `author'
 %        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+        \fdu_set_text_width:Nn \l__fdu_temp_dim
           { \large \l__fdu_info_author_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
           {
             \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
+              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
           }
         % Compare with `supervisor'
 %        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+        \fdu_set_text_width:Nn \l__fdu_temp_dim
           { \large \l__fdu_info_supervisor_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
           {
             \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
+              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
           }
         % Compare with `date'
 %        \dim_show:N \l__fdu_cover_info_R_dim
-        \fdu_set_text_width:Nn \l__fdu_cover_info_temp_dim
+        \fdu_set_text_width:Nn \l__fdu_temp_dim
           { \large \l__fdu_info_date_tl }
         \dim_set:Nn \l__fdu_cover_info_R_dim
           {
             \dim_max:nn
-              \l__fdu_cover_info_R_dim \l__fdu_cover_info_temp_dim
+              \l__fdu_cover_info_R_dim \l__fdu_temp_dim
           }
 %        \dim_show:N \l__fdu_cover_info_R_dim
 %        \dim_add:Nn \l__fdu_cover_info_R_dim { 2 em }
@@ -551,32 +897,32 @@
           \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_department_tl }
           \par
-          
+
           \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
             { 专业 } ：
           \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_major_tl }
           \par
-          
+
           \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
             { 姓名 } ：
           \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_author_tl }
           \par
-          
+
           \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
             { 指导教师 } ：
           \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_supervisor_tl }
           \par
-          
+
           \fdu_spread_box:Nn \l__fdu_cover_info_L_dim
             { 完成日期 } ：
           \fdu_center_box:Nn \l__fdu_cover_info_R_dim
             { \l__fdu_info_date_tl }
         }
       \end{center}
-      
+
       \vfill
 
       \newpage
@@ -595,11 +941,13 @@
         \clist_use:Nn \l__fdu_info_instructors_clist { \par }
       \end{center}
     \end{titlepage}
-    
+
     \tableofcontents
   }
+%    \end{macrocode}
+% \end{macro}
 
-
+%    \begin{macrocode}
 %%%%%%%%%% 摘要 %%%%%%%%%%
 % 中文摘要
 \NewDocumentEnvironment { abstract } { }
@@ -620,17 +968,17 @@
     \par
     \mbox{}
     \par
-    
+
     \noindent \hangindent = 4 em \hangafter = 1
     { \normalfont \sffamily \CJKfamily { hei } 关键字： }
     \clist_use:Nn \l__fdu_info_keyword_clist { ； }
     \par
-    
+
     \noindent
     { \normalfont \sffamily \CJKfamily { hei } 中图分类号： }
     \l__fdu_info_CLC_tl
 %    \par
-    
+
 %    \cleardoublepage
   }
 
@@ -643,7 +991,7 @@
 %    \thispagestyle { plain }
 %    \vspace* { 10 pt }
 %    \begin{center}
-%      \Large \normalfont \sffamily \CJKfamily { hei } 
+%      \Large \normalfont \sffamily \CJKfamily { hei }
 %      Abstract
 %    \end{center}
 %    \vspace { 10 pt }
@@ -653,17 +1001,17 @@
     \par
     \mbox{}
     \par
-    
+
     \noindent \hangindent = 4 em \hangafter = 1
     \textbf{Keywords:} \quad
-    \clist_use:Nn \l__fdu_info_keyword_english_clist { \quad }
+    \clist_use:Nn \l__fdu_info_keyword_e_clist { \quad }
     \par
-    
+
     \noindent
     \textbf{CLC~ number:} \quad
     \l__fdu_info_CLC_tl
 %    \par
-    
+
 %    \cleardoublepage
   }
 
@@ -686,9 +1034,11 @@
     style/font = times,
     style/CJKfont = fandol,
     style/fullwidth-stop = false,
-    style/zihao = -4,
+    style/fontsize = -4,
 %    draft = false
     info/date = \today
   }
 %</cls>
 %    \end{macrocode}
+%
+% \Finale
