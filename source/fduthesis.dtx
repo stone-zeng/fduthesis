@@ -42,6 +42,7 @@
 \makeatother
 
 \documentclass{l3doc}
+%\documentclass[draft]{l3doc}
 \usepackage[UTF8, heading = true]{ctex}
 \usepackage{geometry}
 \usepackage{xcolor}
@@ -50,10 +51,11 @@
 
 \geometry{
     paper  = a4paper,
-    left   = 2.50 in,
-    right  = 0.75 in,
-    top    = 1.25 in,
-    bottom = 1.00 in
+    left   = 6.40 cm,
+    right  = 1.80 cm,
+    top    = 3.18 cm,
+    bottom = 2.54 cm,
+%    showframe
 }
 
 \setmainfont{TeX Gyre Pagella}
@@ -149,10 +151,10 @@
 %
 %
 % \newgeometry{
-%   left   = 1.25 in,
-%   right  = 1.25 in,
-%   top    = 1.25 in,
-%   bottom = 1.25 in
+%   left   = 3.18 cm,
+%   right  = 3.18 cm,
+%   top    = 3.18 cm,
+%   bottom = 3.18 cm
 % }
 %
 % \maketitle
@@ -173,10 +175,10 @@
 %
 % \StopEventually{
 %   \newgeometry{
-%     left   = 1.00 in,
-%     right  = 1.00 in,
-%     top    = 1.25 in,
-%     bottom = 1.25 in
+%     left   = 2.54 cm,
+%     right  = 2.54 cm,
+%     top    = 3.18 cm,
+%     bottom = 3.18 cm
 %   }
 %   \PrintIndex
 % }
@@ -675,9 +677,9 @@
 % 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
 % 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导。
 %    \begin{macrocode}
-%----- Begin of  70-words -----%
-%111111111222222222233333333334444444444555555555566666666667777777777
-%----- End   of  70-words -----%
+%----- Begin of  65-words -----%
+%1111111112222222222333333333344444444445555555555666666666677777
+%----- End   of  65-words -----%
     supervisor   .tl_set:N    = \l__fdu_info_superv_tl,
     supervisor*  .tl_set:N    = \l__fdu_info_superv_e_tl,
 %    \end{macrocode}
@@ -981,97 +983,114 @@
   }
 %    \end{macrocode}
 % \end{macro}
-
+%
+% \subsection{摘要}
+% \subsubsection{中文摘要}
+% \begin{macro}{abstract}
+% 中文摘要及关键字。
 %    \begin{macrocode}
-%%%%%%%%%% 摘要 %%%%%%%%%%
-% 中文摘要
 \NewDocumentEnvironment { abstract } { }
   {
-    \chapter*{摘 \quad 要}
-    \addcontentsline{toc}{chapter}
-      {\normalfont \sffamily \CJKfamily {hei} 摘 \quad 要}
-%    \thispagestyle { plain }
-%    \vspace* { 10 pt }
-%    \begin{center}
-%      \Large \normalfont \sffamily \CJKfamily { hei }
-%      摘 \quad 要
-%    \end{center}
-%    \vspace { 10 pt }
-%    \par
+%    \end{macrocode}
+% 中文摘要标题为“摘 \quad 要”，需要添加到目录。
+%    \begin{macrocode}
+    \chapter* { 摘 \quad 要 }
+    \addcontentsline { toc } { chapter }
+      {
+        \normalfont \sffamily \CJKfamily {hei}
+        摘 \quad 要
+      }
   }
   {
-    \par
-    \mbox{}
-    \par
-
-    \noindent \hangindent = 4 em \hangafter = 1
-    { \normalfont \sffamily \CJKfamily { hei } 关键字： }
+%    \end{macrocode}
+% 摘要正文完成后，空行，输出关键字列表，之间用分号隔开。
+%    \begin{macrocode}
+    \par \mbox{} \par
+    \noindent \hangindent = 4 em  \hangafter = 1
+    {
+      \normalfont \sffamily \CJKfamily { hei }
+      关键字：
+    }
     \clist_use:Nn \l__fdu_info_kwd_clist { ； }
     \par
-
+%    \end{macrocode}
+% 下一行输出中图分类号（CLC）。
+%    \begin{macrocode}
     \noindent
-    { \normalfont \sffamily \CJKfamily { hei } 中图分类号： }
+    {
+      \normalfont \sffamily \CJKfamily { hei }
+      中图分类号：
+    }
     \l__fdu_info_CLC_tl
-%    \par
-
-%    \cleardoublepage
   }
 
-% 英文摘要
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{英文摘要}
+% \begin{macro}{abstract*}
+% 英文摘要及关键字。
+%    \begin{macrocode}
 \NewDocumentEnvironment { abstract* } { }
   {
-    \chapter*{Abstract}
-    \addcontentsline{toc}{chapter}
-      {\normalfont \sffamily \CJKfamily {hei} Abstract}
-%    \thispagestyle { plain }
-%    \vspace* { 10 pt }
-%    \begin{center}
-%      \Large \normalfont \sffamily \CJKfamily { hei }
-%      Abstract
-%    \end{center}
-%    \vspace { 10 pt }
-%    \par
+%    \end{macrocode}
+% 英文摘要标题为“Abstract”，也要添加到目录。
+%    \begin{macrocode}
+    \chapter* { Abstract }
+    \addcontentsline { toc } { chapter }
+      {
+        \normalfont \sffamily \CJKfamily {hei}
+        Abstract
+      }
   }
   {
-    \par
-    \mbox{}
-    \par
-
+%    \end{macrocode}
+% 空行，输出关键字，之间为全角空格。
+%    \begin{macrocode}
+    \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
     \textbf{Keywords:} \quad
     \clist_use:Nn \l__fdu_info_kwd_e_clist { \quad }
     \par
-
+%    \end{macrocode}
+% 下一行输出中图分类号（CLC）。
+%    \begin{macrocode}
     \noindent
     \textbf{CLC~ number:} \quad
     \l__fdu_info_CLC_tl
-%    \par
-
-%    \cleardoublepage
   }
-
-
-%%%%%%%%%% 键值设置 %%%%%%%%%%
-% meta 键值对
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{用户接口}
+% \begin{macro}{info，style}
+% 定义元（meta）键值对。
+%    \begin{macrocode}
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } { #1 },
     style .meta:nn = { fdu / style } { #1 }
   }
-
-% fdusetup 函数
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdusetup}
+% 用户设置接口。
+%    \begin{macrocode}
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } { #1 } }
-
-% 初始设置
+%    \end{macrocode}
+% \end{macro}
+%
+% 文档类初始设置。
+%    \begin{macrocode}
 \keys_set:nn { fdu }
   {
-    style/font = times,
-    style/CJKfont = fandol,
-    style/fullwidth-stop = false,
-    style/fontsize = -4,
-%    draft = false
-    info/date = \today
+    style / font            =  times,
+    style / CJKfont         =  fandol,
+    style / fullwidth-stop  =  false,
+    style / fontsize        =  -4,
+    info  / date            =  \today
   }
 %</cls>
 %    \end{macrocode}
