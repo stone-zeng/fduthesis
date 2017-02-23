@@ -62,12 +62,12 @@
 \setsansfont{TeX Gyre Heros}
 \setmonofont{TeX Gyre Cursor}%
   [HyphenChar = None, Ligatures = NoCommon]
-^^A\setmonofont{zcoN-Regular.otf}%
-^^A  [
-^^A    BoldFont   = zcoN-Regular.otf,
-^^A    ItalicFont = zcoN-Oblique.otf,
-^^A    HyphenChar = None, Ligatures = NoCommon
-^^A  ]
+%\setmonofont{zcoN-Regular.otf}%
+%  [
+%    BoldFont   = zcoN-Regular.otf,
+%    ItalicFont = zcoN-Oblique.otf,
+%    HyphenChar = None, Ligatures = NoCommon
+%  ]
 \setmathfont{TeX Gyre Pagella Math}
 
 
@@ -995,6 +995,7 @@
 % 中文摘要标题为“摘 \quad 要”，需要添加到目录。
 %    \begin{macrocode}
     \chapter* { 摘 \quad 要 }
+    \markboth { 摘 \quad 要 } { 摘 \quad 要 }
     \addcontentsline { toc } { chapter }
       {
         \normalfont \sffamily \CJKfamily {hei}
@@ -1037,6 +1038,7 @@
 % 英文摘要标题为“Abstract”，也要添加到目录。
 %    \begin{macrocode}
     \chapter* { Abstract }
+    \markboth { Abstract } { Abstract }
     \addcontentsline { toc } { chapter }
       {
         \normalfont \sffamily \CJKfamily {hei}
@@ -1058,6 +1060,34 @@
     \noindent
     \textbf{CLC~ number:} \quad
     \l__fdu_info_CLC_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{符号表}
+% 本模板中的符号表由 |longtable| 环境封装而成。
+%    \begin{macrocode}
+\RequirePackage { longtable }
+%    \end{macrocode}
+%
+% \begin{macro}{notation}
+% 符号表环境，可选参数为表格列格式说明符，
+% 默认为“|l p{25 em}|”，即第一列左对齐、宽度自动调整，
+% 第二列限宽 \SI{25}{em}，仍为左对齐。
+%    \begin{macrocode}
+\NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
+  {
+    \chapter* { 符号表 }
+    \markboth { 符号表 } { 符号表 }
+    \addcontentsline { toc } { chapter }
+      {
+        \normalfont \sffamily \CJKfamily {hei}
+        符号表
+      }
+    \begin{longtable} { #1 }
+  }
+  {
+    \end{longtable}
   }
 %    \end{macrocode}
 % \end{macro}
