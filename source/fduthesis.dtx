@@ -418,11 +418,12 @@
 %
 % \begin{macro}{style/font}
 % 预定义西文字体。
-%
-% TODO: 20170217  XITS 字体没有 small capital
 %    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
+%    \end{macrocode}
+% Libertinus 系列。
+%    \begin{macrocode}
     font / libertinus .code:n = {
       \setmainfont { Libertinus~ Serif }
       \setsansfont { Libertinus~ Sans  }
@@ -430,12 +431,18 @@
         [ Ligatures = NoCommon ]
       \setmathfont { Libertinus~ Math  }
     },
+%    \end{macrocode}
+% Latin Modern 系列。
+%    \begin{macrocode}
     font / lm .code:n = {
       \setmainfont { Latin~ Modern~ Roman }
       \setsansfont { Latin~ Modern~ Sans  }
       \setmonofont { Latin~ Modern~ Mono  }
       \setmathfont { Latin~ Modern~ Math  }
     },
+%    \end{macrocode}
+% Palatino 系列。
+%    \begin{macrocode}
     font / palatino .code:n = {
       \setmainfont { TeX~ Gyre~ Pagella       }
       \setsansfont { TeX~ Gyre~ Heros         }
@@ -443,6 +450,9 @@
         [ Ligatures = NoCommon ]
       \setmathfont { TeX~ Gyre~ Pagella~ Math }
     },
+%    \end{macrocode}
+% Times Roman 系列。
+%    \begin{macrocode}
     font / times .code:n = {
       \setmainfont { TeX~ Gyre~ Termes }
       \setsansfont { TeX~ Gyre~ Heros  }
@@ -456,55 +466,130 @@
 % \subsubsection{中文字体配置}
 % \begin{macro}{style/CJKfont}
 % 预定义中文（CJK）字体。
-%
-% BUG: 20170215
-% 见 https://github.com/CTeX-org/ctex-kit/issues/268
 %    \begin{macrocode}
     CJKfont .choice:,
     CJKfont .value_required:n = true,
+%    \end{macrocode}
+% Adobe 系列。
+%    \begin{macrocode}
     CJKfont / adobe .code:n = {
-      \setCJKmainfont { Adobe~Song~Std~L }
+      \setCJKmainfont { Adobe~ Song~ Std~ L     }
         [
-          BoldFont = Adobe~Heiti~Std~R,
-          ItalicFont = Adobe~Kaiti~Std~R
+          ItalicFont   = Adobe~ Kaiti~ Std~ R,
+          AutoFakeBold = true
         ]
+      \setCJKsansfont { Adobe~ Heiti~ Std~ R    }
+        [
+          ItalicFont   = Adobe~ Heiti~ Std~ R,
+          AutoFakeBold = true
+        ]
+      \setCJKmonofont { Adobe~ Fangsong~ Std~ R }
+        [
+          ItalicFont   = Adobe~ Fangsong~ Std~ R,
+          AutoFakeBold = true
+        ]
+      \setCJKfamilyfont { song } { Adobe~ Song~     Std~ L }
+      \setCJKfamilyfont { hei  } { Adobe~ Heiti~    Std~ R }
+      \setCJKfamilyfont { fang } { Adobe~ Fangsong~ Std~ R }
+      \setCJKfamilyfont { kai  } { Adobe~ Kaiti~    Std~ R }
     },
+%    \end{macrocode}
+% Fandol 系列。
+%    \begin{macrocode}
     CJKfont / fandol .code:n = {
       \setCJKmainfont { FandolSong }
-        [ ItalicFont = FandolKai ]
+        [
+          ItalicFont   = FandolKai
+        ]
+      \setCJKsansfont { FandolHei  }
+        [
+          ItalicFont   = FandolHei
+        ]
+      \setCJKmonofont { FandolFang }
+        [
+          ItalicFont   = FandolFang,
+          AutoFakeBold = true
+        ]
       \setCJKfamilyfont { song } { FandolSong }
-        [ ItalicFont = FandolKai ]
       \setCJKfamilyfont { hei  } { FandolHei  }
       \setCJKfamilyfont { fang } { FandolFang }
       \setCJKfamilyfont { kai  } { FandolKai  }
     },
+%    \end{macrocode}
+% 方正系列。
+%    \begin{macrocode}
     CJKfont / founder .code:n = {
-      \setCJKmainfont { FZShuSong-Z01 }
-        [ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
-      \setCJKfamilyfont { song } { FZShuSong-Z01 }
-        [ BoldFont = FZXiaoBiaoSong-B05, ItalicFont = FZKai-Z03 ]
-      \setCJKfamilyfont { hei  } { FZHei-B01      }
+      \setCJKmainfont { FZShuSong-Z01  }
+        [
+          BoldFont     = FZXiaoBiaoSong-B05,
+          ItalicFont   = FZKai-Z03
+        ]
+      \setCJKsansfont { FZHei-B01      }
+        [
+          ItalicFont   = FZHei-B01,
+          AutoFakeBold = true
+        ]
+      \setCJKmonofont { FZFangSong-Z02 }
+        [
+          ItalicFont   = FZFangSong-Z02,
+          AutoFakeBold = true
+        ]
+      \setCJKfamilyfont { song } { FZShuSong -Z01 }
+      \setCJKfamilyfont { hei  } { FZHei     -B01 }
       \setCJKfamilyfont { fang } { FZFangSong-Z02 }
-      \setCJKfamilyfont { kai  } { FZKai-Z03      }
+      \setCJKfamilyfont { kai  } { FZKai     -Z03 }
     },
+%    \end{macrocode}
+% Linux 系列。（没做）
+%    \begin{macrocode}
 %    CJKfont / linux .code:n = {
 %      \setCJKmainfont{ SimSun }
-%        [ BoldFont = SimHei, ItalicFont = KaiTi ]
+%        [ BoldFont = SimHei, ItalicFont   = KaiTi ]
 %    },
+%    \end{macrocode}
+% Mac （华文）系列。
+%    \begin{macrocode}
     CJKfont / mac .code:n = {
-      \setCJKmainfont { STSong }
-        [ ItalicFont = STKaiti, AutoFakeBold = true ]
+      \setCJKmainfont { STSong     }
+        [
+          BoldFont     = STZhongsong,
+          ItalicFont   = STKaiti
+        ]
+      \setCJKsansfont { STHeiti    }
+        [
+          ItalicFont   = STHeiti,
+          AutoFakeBold = true
+        ]
+      \setCJKmonofont { STFangsong }
+        [
+          ItalicFont   = STFangsong,
+          AutoFakeBold = true
+        ]
       \setCJKfamilyfont { song } { STSong     }
-        [ ItalicFont = STKaiti, AutoFakeBold = true ]
       \setCJKfamilyfont { hei  } { STHeiti    }
       \setCJKfamilyfont { fang } { STFangsong }
       \setCJKfamilyfont { kai  } { STKaiti    }
     },
+%    \end{macrocode}
+% Windows （中易）系列。
+%    \begin{macrocode}
     CJKfont / windows .code:n = {
-      \setCJKmainfont { SimSun }
-        [ ItalicFont = KaiTi, AutoFakeBold = true ]
+      \setCJKmainfont { SimSun   }
+        [
+          ItalicFont   = KaiTi,
+          AutoFakeBold = true
+        ]
+      \setCJKsansfont { SimHei   }
+        [
+          ItalicFont   = SimHei,
+          AutoFakeBold = true
+        ]
+      \setCJKmonofont { FangSong }
+        [
+          ItalicFont   = FangSong,
+          AutoFakeBold = true
+        ]
       \setCJKfamilyfont { song } { SimSun   }
-        [ ItalicFont = KaiTi, AutoFakeBold = true ]
       \setCJKfamilyfont { hei  } { SimHei   }
       \setCJKfamilyfont { fang } { FangSong }
       \setCJKfamilyfont { kai  } { KaiTi    }
@@ -565,7 +650,7 @@
 %    \begin{macrocode}
   chapter = {
     format     = {
-      \huge \normalfont \sffamily \CJKfamily { hei } \centering
+      \huge \normalfont \sffamily \centering
     },
     beforeskip = { 30 pt },
     afterskip  = { 20 pt },
@@ -597,11 +682,11 @@
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
   chapter    / tocline = {
-    \normalfont \sffamily \CJKfamily { hei }
+    \normalfont \sffamily
     \CTEXnumberline { #1 }    #2
   },
   subsection / tocline = {
-    \CJKfamily{ kai }
+    \CJKfamily { kai }
     \CTEXnumberline { #1 }    #2
   }
 }
@@ -863,7 +948,7 @@
       \par
       \vspace { \stretch{ 3 } }
       {
-        \huge \sffamily \CJKfamily { hei }
+        \huge \sffamily
         \l__fdu_info_title_tl
       }
       \par
@@ -957,7 +1042,7 @@
     \thispagestyle { empty }
     \vspace* { 30 pt }
     \begin{center}
-      \huge \normalfont \sffamily \CJKfamily { hei }
+      \huge \normalfont \sffamily
       \fdu_spread_box:Nn { 7 em } { 指导小组成员 }
     \end{center}
     \vspace { 20 pt }
@@ -998,7 +1083,7 @@
     \markboth { 摘 \quad 要 } { 摘 \quad 要 }
     \addcontentsline { toc } { chapter }
       {
-        \normalfont \sffamily \CJKfamily {hei}
+        \normalfont \sffamily
         摘 \quad 要
       }
   }
@@ -1009,7 +1094,7 @@
     \par \mbox{} \par
     \noindent \hangindent = 4 em  \hangafter = 1
     {
-      \normalfont \sffamily \CJKfamily { hei }
+      \normalfont \sffamily
       关键字：
     }
     \clist_use:Nn \l__fdu_info_kwd_clist { ； }
@@ -1019,7 +1104,7 @@
 %    \begin{macrocode}
     \noindent
     {
-      \normalfont \sffamily \CJKfamily { hei }
+      \normalfont \sffamily
       中图分类号：
     }
     \l__fdu_info_CLC_tl
@@ -1041,7 +1126,7 @@
     \markboth { Abstract } { Abstract }
     \addcontentsline { toc } { chapter }
       {
-        \normalfont \sffamily \CJKfamily {hei}
+        \normalfont \sffamily
         Abstract
       }
   }
@@ -1081,7 +1166,7 @@
     \markboth { 符号表 } { 符号表 }
     \addcontentsline { toc } { chapter }
       {
-        \normalfont \sffamily \CJKfamily {hei}
+        \normalfont \sffamily
         符号表
       }
     \begin{longtable} { #1 }
