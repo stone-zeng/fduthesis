@@ -47,6 +47,7 @@
 \usepackage{geometry}
 \usepackage{xcolor}
 \usepackage{unicode-math}
+\usepackage{pifont}
 \usepackage{siunitx}
 
 \geometry{
@@ -370,8 +371,7 @@
 %
 % \begin{macro}{\cleardoublepage}
 % 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时
-% 也不显示页眉页脚。
-%
+% 也不显示页眉页脚。\\
 % 见 http://tex.stackexchange.com/q/1681
 %    \begin{macrocode}
 \RenewDocumentCommand \cleardoublepage { }
@@ -601,12 +601,15 @@
 % \begin{macro}{style/fontsize}
 % 由于 |fontsize| 不是文档类选项，所以不能传给 \pkg{ctex} 宏包
 % 或者 \cls{book} 文档类，只能手动重定义字号命令。
-%
-% 默认使用小四号字，所以只有五号字需要重新设置。
 %    \begin{macrocode}
     fontsize .choice:,
     fontsize .value_required:n = true,
     fontsize / -4 .code:n = { },
+%    \end{macrocode}
+% \begin{macro}{\tiny,\scriptsize,\footnotesize,\small,\normalsize,
+%   \large,\Large,\LARGE,\huge,\Huge}
+% 默认使用小四号字，所以只有五号字需要重新设置。
+%    \begin{macrocode}
     fontsize /  5 .code:n = {
       \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
       \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
@@ -620,6 +623,7 @@
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
     },
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \subsubsection{句号（Part~I）}
@@ -831,7 +835,7 @@
 % 分散对齐的盒子。|#1| = 长度， |#2| = 内容。
 %
 % 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
-% 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。
+% 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。\\
 % 见 http://tex.stackexchange.com/q/169689
 %    \begin{macrocode}
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
@@ -1174,6 +1178,56 @@
   {
     \end{longtable}
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{脚注}
+% 脚注编号使用 \pkg{pifont} 宏包提供的带圈数字。
+%    \begin{macrocode}
+\RequirePackage { pifont }
+%    \end{macrocode}
+%
+% \begin{macro}{\fdu_footnote_symbol:n}
+% 脚注符号，无衬线阳文数字，由命令|\ding{192}| $\sim$
+% |\ding{201}| 表示。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_footnote_symbol:n #1
+  {
+    \ding { \int_eval:n { 191 + #1 } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\thefootnote}
+% 重定义脚注编号格式。
+%    \begin{macrocode}
+\RenewDocumentCommand \thefootnote { }
+  {
+    \fdu_footnote_symbol:n { \value { footnote } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@makefntext}
+% 重定义内部脚注文字命令。
+%    \begin{macrocode}
+\RenewDocumentCommand \@makefntext { +m }
+{
+%    \end{macrocode}
+% 脚注编号不使用上标，宽度为 \SI{1.5}{em}。\\
+% 见 http://tex.stackexchange.com/q/19844
+%    \begin{macrocode}
+  \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
+  \makebox [ 1.5 em ] [ l ] { \@thefnmark }
+%    \end{macrocode}
+% 脚注文字用 |parbox| 封装。首段无缩进，第二段起缩进 \SI{2}{em}。
+%    \begin{macrocode}
+  \parbox [ t ] { \l__fdu_tmpa_dim }
+    {
+      \everypar { \hspace* { 2 em } }
+      \hspace* { -2 em } #1
+    }
+}
 %    \end{macrocode}
 % \end{macro}
 %
