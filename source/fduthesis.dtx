@@ -1231,6 +1231,205 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{文字绕排}
+% WARNING：严重冲突，暂时不启用。
+%    \begin{macrocode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \RequirePackage{xgalley}
+
+
+% \box_new:N \l__fdu_tmpb_box
+
+% \dim_new:N \l__fdu_wrap_width_dim
+% \dim_new:N \l__fdu_wrap_height_dim
+
+% \clist_new:N \l__fdu_wrap_indent_clist
+
+% \int_new:N \l__fdu_tmpa_int
+% \int_new:N \l__fdu_wrap_lines_int
+
+% \fp_new:N \l__fdu_tmpa_fp
+
+
+% \keys_define:nn { xwrapfig }
+% {
+%   cutout .code:n = {
+%     \keys_set:nn { xwrapfig / cutout } { #1 }
+%   }
+% }
+
+% \keys_define:nn { fdu / wrap / cutout }
+% {
+%   % 环境前不改变的行数
+%   top~ lines    .int_set:N = \l__fdu_wrap_top_lines_int,
+%   % 左右边距
+%   left~  margin .dim_set:N = \l__fdu_wrap_L_margin_dim,
+%   right~ margin .dim_set:N = \l__fdu_wrap_R_margin_dim,
+%   % 上下行距
+%   before~ lines .int_set:N = \l__fdu_wrap_before_lines_int,
+%   after~  lines .int_set:N = \l__fdu_wrap_after_lines_int,
+%   %
+%   top~ lines    .initial:n = { 2 },
+%   left~  margin .initial:n = { 0.5 em },
+%   right~ margin .initial:n = { 0.5 em },
+%   before~ lines .initial:n = { 1 },
+%   after~  lines .initial:n = { 1 }
+% }
+
+
+% \cs_generate_variant:Nn \galley_cutout_right:nn { nV }
+% \cs_generate_variant:Nn \galley_cutout_left:nn  { nV }
+
+
+% % 预先准备
+% % 参数：内容
+% \cs_new_protected:Nn \fdu_wrap_prewrap:n
+% {
+%   % 清除列表，初始化
+%   \clist_clear:N \l__fdu_wrap_indent_clist
+
+%   % 装到 hbox
+%   \hbox_set:Nn \l__fdu_tmpa_box { #1 }
+%   % 总宽度 = 盒子宽 + 调整距离
+%   \dim_set:Nn \l__fdu_wrap_width_dim
+%     { \box_wd:N \l__fdu_tmpa_box }
+%   \dim_add:Nn \l__fdu_wrap_width_dim
+%     { \l__fdu_wrap_L_margin_dim + \l__fdu_wrap_R_margin_dim }
+
+%   % 内容装到 vbox
+%   \vbox_set:Nn \l__fdu_tmpb_box { #1 }
+%   % 总高度 = 盒子高 + 盒子深
+%   \dim_set:Nn \l__fdu_wrap_height_dim
+%     { \box_ht:N \l__fdu_tmpb_box + \box_dp:N \l__fdu_tmpb_box }
+%   % 总占据行数 = 总高度 / 行距 + 调整行数
+%   \int_set:Nn \l__fdu_wrap_lines_int
+%     {
+%       ( \l__fdu_wrap_height_dim / \baselineskip )
+%       + \l__fdu_wrap_before_lines_int
+%       + \l__fdu_wrap_after_lines_int
+%     }
+
+%   % 循环：构建 clist，共 {行数} 个元素，每个元素均为 {总宽度}
+%   \int_zero:N \l__fdu_tmpa_int
+%   \int_do_while:nn
+%     { \l__fdu_tmpa_int < \l__fdu_wrap_lines_int }
+%     {
+%       \int_incr:N \l__fdu_tmpa_int
+%       \clist_put_right:Nn \l__fdu_wrap_indent_clist
+%         { \l__fdu_wrap_width_dim }
+%     }
+% }
+
+% % 右边插入内容
+% % 参数1：不动的行数，参数2：内容
+% \cs_new_protected:Nn \fdu_wrap_put_right:nn
+% {
+%   \fdu_wrap_prewrap:n { #2 }
+
+%   % 开窗
+%   \galley_cutout_right:nV { #1 } \l__fdu_wrap_indent_clist
+
+%   % 内容存入盒子
+%   \vbox_set:Nn \l__fdu_tmpa_box
+%     {
+%       % 垂直移动距离 = （不动的行数 + 0.5 * 调整行数） * 行距
+%       \fp_set:Nn \l__fdu_tmpa_fp
+%         {
+%           ( #1 + \l__fdu_wrap_before_lines_int )
+%           * \baselineskip
+%         }
+%       \skip_vertical:n  { \fp_to_dim:N \l__fdu_tmpa_fp }
+
+%       % 插入盒子
+%       % 宽度：行宽
+%       % 内容：跳一个距离（行宽 - 内容总宽 + 左调整宽度）
+%       %      内容
+%       %      再跳一个距离（右调整宽度）
+%       \hbox_to_wd:nn { \linewidth }
+%         {
+%           \skip_horizontal:n
+%             {
+%               \linewidth
+%               - \l__fdu_wrap_width_dim
+%               + \l__fdu_wrap_L_margin_dim
+%             }
+%           #2
+%           % \skip_horizontal:n { \l__fdu_wrap_R_margin_dim }
+%         }
+%     }
+
+%   \box_set_ht:Nn \l__fdu_tmpa_box { 0pt }
+%   \box_set_dp:Nn \l__fdu_tmpa_box { 0pt }
+%   \skip_vertical:n { -\baselineskip }
+%   \box_use:N \l__fdu_tmpa_box
+% }
+
+% % 左边插入内容
+% % 参数1：不动的行数，参数2：内容
+% \cs_new_protected:Nn \fdu_wrap_put_left:nn
+% {
+%   \fdu_wrap_prewrap:n { #2 }
+
+%   % 开窗
+%   \galley_cutout_left:nV { #1 } \l__fdu_wrap_indent_clist
+
+%   % 内容存入盒子
+%   \vbox_set:Nn \l__fdu_tmpa_box
+%     {
+%       % 垂直移动距离 = （不动的行数 + 0.5 * 调整行数） * 行距
+%       \fp_set:Nn \l__fdu_tmpa_fp
+%         { ( #1 + \l__fdu_wrap_before_lines_int ) * \baselineskip }
+%       \skip_vertical:n  { \fp_to_dim:N \l__fdu_tmpa_fp }
+
+%       % 插入盒子
+%       % 宽度：行宽
+%       % 内容：跳一个距离（左调整宽度）
+%       %      内容
+%       \hbox_to_wd:nn { \linewidth }
+%         {
+%           \skip_horizontal:n {  \l__fdu_wrap_L_margin_dim }
+%           #2
+%         }
+%     }
+
+%   \box_set_ht:Nn \l__fdu_tmpa_box { 0pt }
+%   \box_set_dp:Nn \l__fdu_tmpa_box { 0pt }
+%   \skip_vertical:n { -\baselineskip }
+%   \box_use:N \l__fdu_tmpa_box
+% }
+
+% \cs_generate_variant:Nn \fdu_wrap_put_right:nn { Vn }
+% \cs_generate_variant:Nn \fdu_wrap_put_left:nn { Vn }
+
+
+% % 参数1：选项，参数2：内容
+% \NewDocumentCommand\putright { O { } +m }
+% {
+%   \keys_set:nn { fdu / wrap / cutout } { #1 }
+%   \fdu_wrap_put_right:Vn \l__fdu_wrap_top_lines_int { #2 }
+% }
+% \NewDocumentCommand\putleft { O { } +m }
+% {
+%   \keys_set:nn { fdu / wrap / cutout } { #1 }
+%   \fdu_wrap_put_left:Vn \l__fdu_wrap_top_lines_int { #2 }
+% }
+
+
+% \NewDocumentCommand\resetindents { }
+% {
+%   \galley_parshape_set_multi:nnnN { 0 } { 0pt } { 0pt } \c_true_bool
+% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    \end{macrocode}
+%
 % \subsection{用户接口}
 % \begin{macro}{info，style}
 % 定义元（meta）键值对。
