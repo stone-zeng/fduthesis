@@ -49,11 +49,12 @@
 \usepackage{unicode-math}
 \usepackage{pifont}
 \usepackage{siunitx}
+\usepackage{hologo}
 
 \geometry{
     paper  = a4paper,
-    left   = 6.40 cm,
-    right  = 1.80 cm,
+    left   = 6.00 cm,
+    right  = 2.00 cm,
     top    = 3.18 cm,
     bottom = 2.54 cm,
 %    showframe
@@ -80,6 +81,9 @@
 \setCJKfamilyfont{仿}{FZFangSong-Z02}
 \setCJKfamilyfont{楷}{FZKai-Z03}
 
+%% LuaLaTeX 下的句号处理
+\catcode`\。 = \active
+\newcommand{。}{．}
 
 \ctexset
 {
@@ -97,6 +101,9 @@
 ^^A\newcommand{\package}[1]{\textsf{#1}}
 \renewcommand{\pkg}[1]{\textsf{#1}}
 \renewcommand{\cls}[1]{\textsf{\textit{#1}}}
+
+\newcommand{\XeLaTeX}{\hologo{XeLaTeX}}
+\newcommand{\LuaLaTeX}{\hologo{LuaLaTeX}}
 
 \hypersetup{
   ^^A PDF 标题作者
@@ -394,19 +401,21 @@
 \RequirePackage [ no-math ] { fontspec }
 %    \end{macrocode}
 %
+% 中文排版支持采用 \pkg{ctex} 宏包。默认字号设置为小四。
+% 使用 \XeLaTeX{} 编译时，底层使用 \pkg{xeCJK} 宏包；
+% 使用 \LuaLaTeX{} 编译时，底层则会使用 \pkg{luatexja} 宏包。
+%    \begin{macrocode}
+\RequirePackage [ UTF8, heading = true, zihao = -4,
+  fontset = none ] { ctex }
+%    \end{macrocode}
+%
 % 本模板使用 Unicode 编码的 OpenType 数学字体，
 % 此功能由 \pkg{unicode-math} 宏包实现。
-%
-% 按照有关规定，数学表达式中，表示变量的拉丁字母和希腊字母均应当
+% 根据有关规定，数学表达式中，表示变量的拉丁字母和希腊字母均应当
 % 使用斜体。
 %    \begin{macrocode}
 \RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
-%    \end{macrocode}
-%
-% 中文字体由 \pkg{xeCJK} 宏包负责处理。
-%    \begin{macrocode}
-\RequirePackage { xeCJK }
 %    \end{macrocode}
 %
 % \subsubsection{西文字体、数学字体配置}
@@ -418,6 +427,7 @@
 %
 % \begin{macro}{style/font}
 % 预定义西文字体。
+% 等宽字体使用 |Ligatures = NoCommon| 选项，以禁用连字。
 %    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
@@ -465,7 +475,8 @@
 %
 % \subsubsection{中文字体配置}
 % \begin{macro}{style/CJKfont}
-% 预定义中文（CJK）字体。
+% 预定义中文（CJK）字体。对于没有粗体的字体，
+% 利用 |AutoFakeBold = true| 获得伪粗体。
 %    \begin{macrocode}
     CJKfont .choice:,
     CJKfont .value_required:n = true,
@@ -628,21 +639,16 @@
 %
 % \subsubsection{句号（Part~I）}
 % \begin{macro}{style/fullwidth-stop,
-%  \l__fdu_style_fstop_bool}
+%  \l__fdu_style_fullwidth_stop_bool}
 % 设置句号形状（圆圈或是圆点）。
 %    \begin{macrocode}
-    fullwidth-stop .bool_set:N = \l__fdu_style_fstop_bool,
+    fullwidth-stop .bool_set:N = \l__fdu_style_fullwidth_stop_bool,
     fullwidth-stop .default:n  = true
   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsection{章节标题结构}
-% 中文排版支持采用 \pkg{ctex} 宏包。默认字号设置为小四。
-%    \begin{macrocode}
-\RequirePackage [ UTF8, heading = true, zihao = -4 ] { ctex }
-%    \end{macrocode}
-%
 % 使用 \cs{ctexset} 接口进行统一设置。
 %    \begin{macrocode}
 \ctexset
@@ -698,14 +704,30 @@
 %
 % \subsection{其他中文样式}
 % \subsubsection{句号（Part~II）}
-% \cs{addCJKfontfeatures} 要放在 \cs{begin}|{document}| 之后。
-% 钩子 \cs{ctex_after_end_preamble:n} 利用了
-% \pkg{ctexhook} 宏包。
+% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
+%   \c__fdu_full_stop_fullwidth_tl}
+% 定义两种句号（其实只有 \LuaLaTeX{} 下要用到）。
+% U+3002 是句号“\symbol{12290}”（ideographic full stop），
+% U+FF0E 是句点“\symbol{65294}”（fullwidth full stop）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl
+  { \symbol{ "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
+  { \symbol{ "FF0E } }
+%    \end{macrocode}
+% \end{macro}
+%
+% 把“\symbol{12290}”设置为活动符，并定义为句点“\symbol{65294}”。
+% 钩子 \cs{ctex_after_end_preamble:n} 利用了 \pkg{ctexhook} 宏包。
 %    \begin{macrocode}
 \ctex_after_end_preamble:n
   {
-    \bool_if:NT \l__fdu_style_fstop_bool
-      { \addCJKfontfeatures { Mapping = fullwidth-stop } }
+    \bool_if:NT \l__fdu_style_fullwidth_stop_bool
+      {
+        \char_set_active_eq:nN { "3002 }
+          \c__fdu_full_stop_fullwidth_tl
+        \char_set_catcode_active:n { "3002 }
+      }
   }
 %    \end{macrocode}
 %
@@ -759,7 +781,7 @@
 % \end{macro}
 %
 % \begin{macro}{info/supervisor,info/supervisor*,
-%   \l__fdu_info_superv_tl,\l__fdu_info_superv_e_tl}
+%   \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_e_tl}
 % 导师姓名。
 %
 % 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
@@ -769,24 +791,24 @@
 %----- Begin of  65-words -----%
 %1111111112222222222333333333344444444445555555555666666666677777
 %----- End   of  65-words -----%
-    supervisor   .tl_set:N    = \l__fdu_info_superv_tl,
-    supervisor*  .tl_set:N    = \l__fdu_info_superv_e_tl,
+    supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
+    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/instructors,\l__fdu_info_instr_clist}
+% \begin{macro}{info/instructors,\l__fdu_info_instructors_clist}
 % 指导小组成员。
 %    \begin{macrocode}
-    instructors  .clist_set:N = \l__fdu_info_instr_clist,
+    instructors  .clist_set:N = \l__fdu_info_instructors_clist,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/department,info/department*,
-%   \l__fdu_info_depart_tl,\l__fdu_info_depart_e_tl}
+%   \l__fdu_info_department_tl,\l__fdu_info_department_e_tl}
 % 院系。
 %    \begin{macrocode}
-    department   .tl_set:N    = \l__fdu_info_depart_tl,
-    department*  .tl_set:N    = \l__fdu_info_depart_e_tl,
+    department   .tl_set:N    = \l__fdu_info_department_tl,
+    department*  .tl_set:N    = \l__fdu_info_department_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -799,10 +821,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/studentID,\l__fdu_info_stu_ID_tl}
+% \begin{macro}{info/studentID,\l__fdu_info_student_ID_tl}
 % 学号。
 %    \begin{macrocode}
-    studentID    .tl_set:N    = \l__fdu_info_stu_ID_tl,
+    studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -813,12 +835,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/keyword,info/keyword*,
-%   \l__fdu_info_kwd_clist,\l__fdu_info_kwd_e_clist}
+% \begin{macro}{info/keywords,info/keywords*,
+%   \l__fdu_info_keywords_clist,\l__fdu_info_keywords_e_clist}
 % 论文关键字。
 %    \begin{macrocode}
-    keyword      .clist_set:N = \l__fdu_info_kwd_clist,
-    keyword*     .clist_set:N = \l__fdu_info_kwd_e_clist,
+    keywords      .clist_set:N = \l__fdu_info_keywords_clist,
+    keywords*     .clist_set:N = \l__fdu_info_keywords_e_clist,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -921,7 +943,7 @@
         {
           \small
           学校代码    ： \l__fdu_info_school_ID_tl  \par
-          学 \qquad 号： \l__fdu_info_stu_ID_tl
+          学 \qquad 号： \l__fdu_info_student_ID_tl
         }
     \end{flushright}
   }
@@ -980,10 +1002,10 @@
 %    \begin{macrocode}
       \clist_set:Nn \l__fdu_tmpa_clist
         {
-          \l__fdu_info_depart_tl,
+          \l__fdu_info_department_tl,
           \l__fdu_info_major_tl,
           \l__fdu_info_author_tl,
-          \l__fdu_info_superv_tl,
+          \l__fdu_info_supervisor_tl,
           \l__fdu_info_date_tl
         }
       \clist_set_eq:NN
@@ -1052,7 +1074,7 @@
     \vspace { 20 pt }
     \begin{center}
       \large
-      \clist_use:Nn \l__fdu_info_instr_clist { \par }
+      \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
 %    \end{macrocode}
@@ -1101,7 +1123,7 @@
       \normalfont \sffamily
       关键字：
     }
-    \clist_use:Nn \l__fdu_info_kwd_clist { ； }
+    \clist_use:Nn \l__fdu_info_keywords_clist { ； }
     \par
 %    \end{macrocode}
 % 下一行输出中图分类号（CLC）。
@@ -1141,7 +1163,7 @@
     \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
     \textbf{Keywords:} \quad
-    \clist_use:Nn \l__fdu_info_kwd_e_clist { \quad }
+    \clist_use:Nn \l__fdu_info_keywords_e_clist { \quad }
     \par
 %    \end{macrocode}
 % 下一行输出中图分类号（CLC）。
@@ -1188,7 +1210,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\fdu_footnote_symbol:n}
-% 脚注符号，无衬线阳文数字，由命令|\ding{192}| $\sim$
+% 脚注符号，无衬线阳文数字，由命令 |\ding{192}| $\sim$
 % |\ding{201}| 表示。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_footnote_symbol:n #1
