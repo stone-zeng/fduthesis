@@ -10,10 +10,10 @@
 
 *.pdf
 
-*.bat
+# *.bat
 *.txt
 
 source/*.cls
 temp/
-test/
+# test/
 l3doc/
