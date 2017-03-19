@@ -706,7 +706,7 @@
 % \subsubsection{句号（Part~II）}
 % \begin{macro}{\c__fdu_full_stop_ideographic_tl,
 %   \c__fdu_full_stop_fullwidth_tl}
-% 定义两种句号（其实只有 \LuaLaTeX{} 下要用到）。
+% 定义两种句号：
 % U+3002 是句号“\symbol{12290}”（ideographic full stop），
 % U+FF0E 是句点“\symbol{65294}”（fullwidth full stop）。
 %    \begin{macrocode}
@@ -718,7 +718,7 @@
 % \end{macro}
 %
 % 把“\symbol{12290}”设置为活动符，并定义为句点“\symbol{65294}”。
-% 钩子 \cs{ctex_after_end_preamble:n} 利用了 \pkg{ctexhook} 宏包。
+% 钩子 \cs{ctex_after_end_preamble:n} 需要用到 \pkg{ctexhook} 宏包。
 %    \begin{macrocode}
 \ctex_after_end_preamble:n
   {
@@ -1207,6 +1207,27 @@
 % 利用 \pkg{footmisc} 让脚注编号每一页重新开始。
 %    \begin{macrocode}
 \RequirePackage [ perpage ] { footmisc }
+%    \end{macrocode}
+%
+% TODO: 改用字体自带符号，目前只适用于 XITS-Math。
+% 考虑增加 Libertinus 系列支持。
+% 其他字体似乎仍需使用 \pkg{pifont} 宏包。
+%    \begin{macrocode}
+%\cs_new:Npn \fdu_footnote_symbol:n #1
+%  {
+%    \int_compare:nTF { #1 >= 10 }
+%      {
+%        \int_compare:nTF { #1 >= 36 }
+%          { \symbol{ \int_eval:n { "24B6 - 36 + #1 } } }
+%          { \symbol{ \int_eval:n { "24D0 - 10 + #1 } } }
+%      }
+%      { \symbol{ \int_eval:n { "2460 - 1 + #1 } } }
+%  }
+
+%\RenewDocumentCommand \thefootnote { }
+%  {
+%    $\fdu_footnote_symbol:n { \value { footnote } }$
+%  }
 %    \end{macrocode}
 %
 % 脚注编号使用 \pkg{pifont} 宏包提供的带圈数字。
