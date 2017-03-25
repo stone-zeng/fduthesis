@@ -64,14 +64,7 @@
 \setsansfont{TeX Gyre Heros}
 \setmonofont{TeX Gyre Cursor}%
   [HyphenChar = None, Ligatures = NoCommon]
-%\setmonofont{zcoN-Regular.otf}%
-%  [
-%    BoldFont   = zcoN-Regular.otf,
-%    ItalicFont = zcoN-Oblique.otf,
-%    HyphenChar = None, Ligatures = NoCommon
-%  ]
 \setmathfont{TeX Gyre Pagella Math}
-
 
 \setCJKmainfont{FZShuSong-Z01}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
@@ -81,7 +74,7 @@
 \setCJKfamilyfont{仿}{FZFangSong-Z02}
 \setCJKfamilyfont{楷}{FZKai-Z03}
 
-%% LuaLaTeX 下的句号处理
+%% 句号处理
 \catcode`\。 = \active
 \newcommand{。}{．}
 
@@ -92,13 +85,8 @@
     format += \raggedright,
     break   = \if@openright\cleardoublepage\else\clearpage\fi
   }
-^^A  subsection = {
-^^A    format += {\normalfont \sffamily \CJKfamily{黑}}
-^^A  }
 }
 
-
-^^A\newcommand{\package}[1]{\textsf{#1}}
 \renewcommand{\pkg}[1]{\textsf{#1}}
 \renewcommand{\cls}[1]{\textsf{\textit{#1}}}
 
@@ -106,20 +94,15 @@
 \newcommand{\LuaLaTeX}{\hologo{LuaLaTeX}}
 
 \hypersetup{
-  ^^A PDF 标题作者
+  % PDF 标题作者
   pdftitle = {fduthesis：复旦大学论文模板},
   pdfauthor = {曾祥东},
-  ^^A PDF 书签
   bookmarksopen = true,
-  ^^A bookmarksopenlevel = 1,
+  % bookmarksopenlevel = 1,
   bookmarksnumbered = true,
-  ^^A 脚注
-  ^^A hyperfootnotes = false,
-  ^^A 目录  只引用页码
-  ^^A linktoc = page,
-  ^^A 超链接边框
+  % hyperfootnotes = false,
+  % linktoc = page,
   pdfborder = 0 0 0,
-  ^^A 超链接颜色
   colorlinks,
   linkcolor = {red!60!black},
   citecolor = {green!50!black},
@@ -194,6 +177,17 @@
 % \section{实现细节}
 %    \begin{macrocode}
 %<*cls>
+%    \end{macrocode}
+%
+% 长度控制
+%
+% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
+% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
+% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导。
+%    \begin{macrocode}
+%----- Begin of  65-words -----%
+%1111111112222222222333333333344444444445555555555666666666677777
+%----- End   of  65-words -----%
 %    \end{macrocode}
 %
 % 本模板使用 \LaTeX3 语法编写，依赖于 \pkg{expl3} 环境，
@@ -346,65 +340,6 @@
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
 %    \end{macrocode}
-%
-% \subsection{页眉页脚（Part~I）}
-% 利用 \pkg{fancyhdr} 宏包进行设置。
-%    \begin{macrocode}
-\RequirePackage { fancyhdr }
-%    \end{macrocode}
-%
-% 清除默认页眉页脚格式。
-%    \begin{macrocode}
-\fancyhf { }
-%    \end{macrocode}
-%
-% 构建页眉，要在单面或双面下分别设置。
-% \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）
-% 和奇数（odd）， 而 |L| 和 |R| 则分别表示左（left）和
-% 右（right）。按照通常的排版规则，偶数页在左，奇数页在右。
-%    \begin{macrocode}
-% 页眉(见 `ctex' 下的重定义)
-\bool_if:NTF \g__fdu_twoside_bool
-  {
-    \fancyhead [ EL ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ OR ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
-  }
-  {
-    \fancyhead [ L ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ R ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
-  }
-%    \end{macrocode}
-%
-% 构建页脚，用来显示页码。选项 |C| 表示居中（center）。
-%    \begin{macrocode}
-\fancyfoot [ C ] { \thepage }
-%    \end{macrocode}
-%
-% 关闭横线显示（未启用）。
-%    \begin{macrocode}
-% \RenewDocumentCommand \headrulewidth { } { 0 pt }
-%    \end{macrocode}
-%
-% \begin{macro}{\cleardoublepage}
-% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时
-% 也不显示页眉页脚。\\
-% 见 http://tex.stackexchange.com/q/1681
-%    \begin{macrocode}
-\RenewDocumentCommand \cleardoublepage { }
-  {
-    \clearpage
-    \bool_if:NT \g__fdu_twoside_bool
-      {
-        \int_if_odd:nF \c@page
-          { \hbox:n { } \thispagestyle { empty } \newpage }
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
 %
 % \subsection{字体}
 % \subsubsection{载入相关宏包}
@@ -728,8 +663,64 @@
 }
 %    \end{macrocode}
 %
-% \subsection{其他中文样式}
-% \subsubsection{页眉页脚（Part~II）}
+% \subsection{页眉页脚}
+% 利用 \pkg{fancyhdr} 宏包进行设置。
+%    \begin{macrocode}
+\RequirePackage { fancyhdr }
+%    \end{macrocode}
+%
+% 清除默认页眉页脚格式。
+%    \begin{macrocode}
+\fancyhf { }
+%    \end{macrocode}
+%
+% 构建页眉，要在单面或双面下分别设置。
+% \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）
+% 和奇数（odd）， 而 |L| 和 |R| 则分别表示左（left）和
+% 右（right）。按照通常的排版规则，偶数页在左，奇数页在右。
+%    \begin{macrocode}
+\bool_if:NTF \g__fdu_twoside_bool
+  {
+    \fancyhead [ EL ]
+      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
+    \fancyhead [ OR ]
+      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+  }
+  {
+    \fancyhead [ L ]
+      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
+    \fancyhead [ R ]
+      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+  }
+%    \end{macrocode}
+%
+% 构建页脚，用来显示页码。选项 |C| 表示居中（center）。
+%    \begin{macrocode}
+\fancyfoot [ C ] { \thepage }
+%    \end{macrocode}
+%
+% 关闭横线显示（未启用）。
+%    \begin{macrocode}
+% \RenewDocumentCommand \headrulewidth { } { 0 pt }
+%    \end{macrocode}
+%
+% \begin{macro}{\cleardoublepage}
+% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时
+% 也不显示页眉页脚。\\
+% 见 http://tex.stackexchange.com/q/1681
+%    \begin{macrocode}
+\RenewDocumentCommand \cleardoublepage { }
+  {
+    \clearpage
+    \bool_if:NT \g__fdu_twoside_bool
+      {
+        \int_if_odd:nF \c@page
+          { \hbox:n { } \thispagestyle { empty } \newpage }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \pkg{ctex} 宏包使用 |heading| 选项后，会把页面格式
 % 设置为 |headings|。因此必须在 \pkg{ctex} 调用之后重新设置
 % \cs{pagestyle} 为 |fancy|。
@@ -781,14 +772,7 @@
 % \begin{macro}{info/supervisor,info/supervisor*,
 %   \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_e_tl}
 % 导师姓名。
-%
-% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
-% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
-% 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导。
 %    \begin{macrocode}
-%----- Begin of  65-words -----%
-%1111111112222222222333333333344444444445555555555666666666677777
-%----- End   of  65-words -----%
     supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
     supervisor*  .tl_set:N    = \l__fdu_info_supervisor_e_tl,
 %    \end{macrocode}
@@ -1133,7 +1117,6 @@
     }
     \l__fdu_info_CLC_tl
   }
-
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1221,7 +1204,7 @@
 %      }
 %      { \symbol{ \int_eval:n { "2460 - 1 + #1 } } }
 %  }
-
+%
 %\RenewDocumentCommand \thefootnote { }
 %  {
 %    $\fdu_footnote_symbol:n { \value { footnote } }$
@@ -1280,34 +1263,29 @@
 % \subsection{文字绕排}
 % WARNING：严重冲突，暂时不启用。
 %    \begin{macrocode}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % \RequirePackage{xgalley}
-
-
+%
+%
 % \box_new:N \l__fdu_tmpb_box
-
+%
 % \dim_new:N \l__fdu_wrap_width_dim
 % \dim_new:N \l__fdu_wrap_height_dim
-
+%
 % \clist_new:N \l__fdu_wrap_indent_clist
-
+%
 % \int_new:N \l__fdu_tmpa_int
 % \int_new:N \l__fdu_wrap_lines_int
-
+%
 % \fp_new:N \l__fdu_tmpa_fp
-
-
+%
+%
 % \keys_define:nn { xwrapfig }
 % {
 %   cutout .code:n = {
 %     \keys_set:nn { xwrapfig / cutout } { #1 }
 %   }
 % }
-
+%
 % \keys_define:nn { fdu / wrap / cutout }
 % {
 %   % 环境前不改变的行数
@@ -1325,19 +1303,19 @@
 %   before~ lines .initial:n = { 1 },
 %   after~  lines .initial:n = { 1 }
 % }
-
-
+%
+%
 % \cs_generate_variant:Nn \galley_cutout_right:nn { nV }
 % \cs_generate_variant:Nn \galley_cutout_left:nn  { nV }
-
-
+%
+%
 % % 预先准备
 % % 参数：内容
 % \cs_new_protected:Nn \fdu_wrap_prewrap:n
 % {
 %   % 清除列表，初始化
 %   \clist_clear:N \l__fdu_wrap_indent_clist
-
+%
 %   % 装到 hbox
 %   \hbox_set:Nn \l__fdu_tmpa_box { #1 }
 %   % 总宽度 = 盒子宽 + 调整距离
@@ -1345,7 +1323,7 @@
 %     { \box_wd:N \l__fdu_tmpa_box }
 %   \dim_add:Nn \l__fdu_wrap_width_dim
 %     { \l__fdu_wrap_L_margin_dim + \l__fdu_wrap_R_margin_dim }
-
+%
 %   % 内容装到 vbox
 %   \vbox_set:Nn \l__fdu_tmpb_box { #1 }
 %   % 总高度 = 盒子高 + 盒子深
@@ -1358,7 +1336,7 @@
 %       + \l__fdu_wrap_before_lines_int
 %       + \l__fdu_wrap_after_lines_int
 %     }
-
+%
 %   % 循环：构建 clist，共 {行数} 个元素，每个元素均为 {总宽度}
 %   \int_zero:N \l__fdu_tmpa_int
 %   \int_do_while:nn
@@ -1369,16 +1347,16 @@
 %         { \l__fdu_wrap_width_dim }
 %     }
 % }
-
+%
 % % 右边插入内容
 % % 参数1：不动的行数，参数2：内容
 % \cs_new_protected:Nn \fdu_wrap_put_right:nn
 % {
 %   \fdu_wrap_prewrap:n { #2 }
-
+%
 %   % 开窗
 %   \galley_cutout_right:nV { #1 } \l__fdu_wrap_indent_clist
-
+%
 %   % 内容存入盒子
 %   \vbox_set:Nn \l__fdu_tmpa_box
 %     {
@@ -1389,7 +1367,7 @@
 %           * \baselineskip
 %         }
 %       \skip_vertical:n  { \fp_to_dim:N \l__fdu_tmpa_fp }
-
+%
 %       % 插入盒子
 %       % 宽度：行宽
 %       % 内容：跳一个距离（行宽 - 内容总宽 + 左调整宽度）
@@ -1407,22 +1385,22 @@
 %           % \skip_horizontal:n { \l__fdu_wrap_R_margin_dim }
 %         }
 %     }
-
+%
 %   \box_set_ht:Nn \l__fdu_tmpa_box { 0pt }
 %   \box_set_dp:Nn \l__fdu_tmpa_box { 0pt }
 %   \skip_vertical:n { -\baselineskip }
 %   \box_use:N \l__fdu_tmpa_box
 % }
-
+%
 % % 左边插入内容
 % % 参数1：不动的行数，参数2：内容
 % \cs_new_protected:Nn \fdu_wrap_put_left:nn
 % {
 %   \fdu_wrap_prewrap:n { #2 }
-
+%
 %   % 开窗
 %   \galley_cutout_left:nV { #1 } \l__fdu_wrap_indent_clist
-
+%
 %   % 内容存入盒子
 %   \vbox_set:Nn \l__fdu_tmpa_box
 %     {
@@ -1430,7 +1408,7 @@
 %       \fp_set:Nn \l__fdu_tmpa_fp
 %         { ( #1 + \l__fdu_wrap_before_lines_int ) * \baselineskip }
 %       \skip_vertical:n  { \fp_to_dim:N \l__fdu_tmpa_fp }
-
+%
 %       % 插入盒子
 %       % 宽度：行宽
 %       % 内容：跳一个距离（左调整宽度）
@@ -1441,17 +1419,17 @@
 %           #2
 %         }
 %     }
-
+%
 %   \box_set_ht:Nn \l__fdu_tmpa_box { 0pt }
 %   \box_set_dp:Nn \l__fdu_tmpa_box { 0pt }
 %   \skip_vertical:n { -\baselineskip }
 %   \box_use:N \l__fdu_tmpa_box
 % }
-
+%
 % \cs_generate_variant:Nn \fdu_wrap_put_right:nn { Vn }
 % \cs_generate_variant:Nn \fdu_wrap_put_left:nn { Vn }
-
-
+%
+%
 % % 参数1：选项，参数2：内容
 % \NewDocumentCommand\putright { O { } +m }
 % {
@@ -1463,21 +1441,16 @@
 %   \keys_set:nn { fdu / wrap / cutout } { #1 }
 %   \fdu_wrap_put_left:Vn \l__fdu_wrap_top_lines_int { #2 }
 % }
-
-
+%
+%
 % \NewDocumentCommand\resetindents { }
 % {
 %   \galley_parshape_set_multi:nnnN { 0 } { 0pt } { 0pt } \c_true_bool
 % }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    \end{macrocode}
 %
 % \subsection{用户接口}
-% \begin{macro}{info，style}
+% \begin{macro}{info,style}
 % 定义元（meta）键值对。
 %    \begin{macrocode}
 \keys_define:nn { fdu }

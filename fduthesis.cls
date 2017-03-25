@@ -83,31 +83,6 @@
   }
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
-\RequirePackage { fancyhdr }
-\fancyhf { }
-\bool_if:NTF \g__fdu_twoside_bool
-  {
-    \fancyhead [ EL ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ OR ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
-  }
-  {
-    \fancyhead [ L ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ R ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
-  }
-\fancyfoot [ C ] { \thepage }
-\RenewDocumentCommand \cleardoublepage { }
-  {
-    \clearpage
-    \bool_if:NT \g__fdu_twoside_bool
-      {
-        \int_if_odd:nF \c@page
-          { \hbox:n { } \thispagestyle { empty } \newpage }
-      }
-  }
 \RequirePackage [ no-math ] { fontspec }
 \RequirePackage [ UTF8, heading = true, zihao = -4,
   fontset = none ] { ctex }
@@ -299,6 +274,31 @@
     \CTEXnumberline { #1 }    #2
   }
 }
+\RequirePackage { fancyhdr }
+\fancyhf { }
+\bool_if:NTF \g__fdu_twoside_bool
+  {
+    \fancyhead [ EL ]
+      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
+    \fancyhead [ OR ]
+      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+  }
+  {
+    \fancyhead [ L ]
+      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
+    \fancyhead [ R ]
+      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+  }
+\fancyfoot [ C ] { \thepage }
+\RenewDocumentCommand \cleardoublepage { }
+  {
+    \clearpage
+    \bool_if:NT \g__fdu_twoside_bool
+      {
+        \int_if_odd:nF \c@page
+          { \hbox:n { } \thispagestyle { empty } \newpage }
+      }
+  }
 \pagestyle { fancy }
 \RenewDocumentCommand \sectionmark { m }
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
@@ -484,7 +484,6 @@
     }
     \l__fdu_info_CLC_tl
   }
-
 \NewDocumentEnvironment { abstract* } { }
   {
     \chapter* { Abstract }
@@ -521,7 +520,6 @@
     \end{longtable}
   }
 \RequirePackage [ perpage ] { footmisc }
-
 \RequirePackage { pifont }
 \cs_new:Npn \fdu_footnote_symbol:n #1
   {
@@ -541,41 +539,6 @@
       \hspace* { -2 em } #1
     }
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } { #1 },
