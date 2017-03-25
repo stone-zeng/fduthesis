@@ -41,6 +41,10 @@
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl
+  { \symbol{ "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
+  { \symbol{ "FF0E } }
 \keys_define:nn { fdu / option }
   {
     oneside .value_forbidden:n = true,
@@ -260,7 +264,13 @@
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
     },
-    fullwidth-stop .bool_set:N = \l__fdu_style_fullwidth_stop_bool,
+    fullwidth-stop .choice:,
+    fullwidth-stop / true  .code:n = {
+      \char_set_active_eq:nN { "3002 }
+        \c__fdu_full_stop_fullwidth_tl
+      \char_set_catcode_active:n { "3002 }
+    },
+    fullwidth-stop / false .code:n = { },
     fullwidth-stop .default:n  = true
   }
 \ctexset
@@ -289,19 +299,6 @@
     \CTEXnumberline { #1 }    #2
   }
 }
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl
-  { \symbol{ "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
-  { \symbol{ "FF0E } }
-\ctex_after_end_preamble:n
-  {
-    \bool_if:NT \l__fdu_style_fullwidth_stop_bool
-      {
-        \char_set_active_eq:nN { "3002 }
-          \c__fdu_full_stop_fullwidth_tl
-        \char_set_catcode_active:n { "3002 }
-      }
-  }
 \pagestyle { fancy }
 \RenewDocumentCommand \sectionmark { m }
   { \markright { \CTEXthesection \negthinspace \quad #1 } }

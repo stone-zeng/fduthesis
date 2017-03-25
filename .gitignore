@@ -16,4 +16,4 @@
 source/*.cls
 temp/
 # test/
-l3doc/
+files/

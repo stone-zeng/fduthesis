@@ -248,6 +248,19 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
+%   \c__fdu_full_stop_fullwidth_tl}
+% 定义两种句号：
+% U+3002 是圆圈句号“\symbol{12290}”（ideographic full stop），
+% U+FF0E 是全角实心句点“\symbol{65294}”（fullwidth full stop）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl
+  { \symbol{ "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
+  { \symbol{ "FF0E } }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{选项处理}
 % 定义 |fdu/option| 键值类。
 %    \begin{macrocode}
@@ -637,12 +650,25 @@
 % \end{macro}
 % \end{macro}
 %
-% \subsubsection{句号（Part~I）}
-% \begin{macro}{style/fullwidth-stop,
-%  \l__fdu_style_fullwidth_stop_bool}
+% \subsubsection{句号}
+% \begin{macro}{style/fullwidth-stop}
 % 设置句号形状（圆圈或是圆点）。
+% 本模板采用的实现方法是将“\symbol{12290}”设置为活动符，
+% 并定义为句点“\symbol{65294}”。
+%
+% \pkg{xeCJK} 宏包提供了 |Mapping = fullwidth-stop| 和 |full-stop|
+% 选项，也能实现两种句号的切换。此种方法是基于字体映射实现的，
+% 当需要同时使用两种句号的时候（比如本文档）将会带来不便。
+% 另外通过 \LuaLaTeX{} 编译时，将不调用 \pkg{xeCJK} 宏包，
+% 也必须采取 \tn{catcode} 的手段来切换。
 %    \begin{macrocode}
-    fullwidth-stop .bool_set:N = \l__fdu_style_fullwidth_stop_bool,
+    fullwidth-stop .choice:,
+    fullwidth-stop / true  .code:n = {
+      \char_set_active_eq:nN { "3002 }
+        \c__fdu_full_stop_fullwidth_tl
+      \char_set_catcode_active:n { "3002 }
+    },
+    fullwidth-stop / false .code:n = { },
     fullwidth-stop .default:n  = true
   }
 %    \end{macrocode}
@@ -703,34 +729,6 @@
 %    \end{macrocode}
 %
 % \subsection{其他中文样式}
-% \subsubsection{句号（Part~II）}
-% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
-%   \c__fdu_full_stop_fullwidth_tl}
-% 定义两种句号：
-% U+3002 是句号“\symbol{12290}”（ideographic full stop），
-% U+FF0E 是句点“\symbol{65294}”（fullwidth full stop）。
-%    \begin{macrocode}
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl
-  { \symbol{ "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
-  { \symbol{ "FF0E } }
-%    \end{macrocode}
-% \end{macro}
-%
-% 把“\symbol{12290}”设置为活动符，并定义为句点“\symbol{65294}”。
-% 钩子 \cs{ctex_after_end_preamble:n} 需要用到 \pkg{ctexhook} 宏包。
-%    \begin{macrocode}
-\ctex_after_end_preamble:n
-  {
-    \bool_if:NT \l__fdu_style_fullwidth_stop_bool
-      {
-        \char_set_active_eq:nN { "3002 }
-          \c__fdu_full_stop_fullwidth_tl
-        \char_set_catcode_active:n { "3002 }
-      }
-  }
-%    \end{macrocode}
-%
 % \subsubsection{页眉页脚（Part~II）}
 % \pkg{ctex} 宏包使用 |heading| 选项后，会把页面格式
 % 设置为 |headings|。因此必须在 \pkg{ctex} 调用之后重新设置
