@@ -6,6 +6,7 @@
 *.ind
 *.log
 *.out
+*.thm
 *.toc
 
 *.pdf

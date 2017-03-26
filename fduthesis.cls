@@ -249,31 +249,31 @@
     fullwidth-stop .default:n  = true
   }
 \ctexset
-{
-  chapter = {
-    format     = {
-      \huge \normalfont \sffamily \centering
+  {
+    chapter = {
+      format     = {
+        \huge \normalfont \sffamily \centering
+      },
+      beforeskip = { 30 pt },
+      afterskip  = { 20 pt },
+      number     = { \arabic{ chapter } }
     },
-    beforeskip = { 30 pt },
-    afterskip  = { 20 pt },
-    number     = { \arabic{ chapter } }
-  },
-  section = {
-    format     = { \Large \bfseries \raggedright }
-  },
-  subsection = {
-    format     = { \large \bfseries \raggedright }
-  },
-  contentsname = {目 \quad 录},
-  chapter    / tocline = {
-    \normalfont \sffamily
-    \CTEXnumberline { #1 }    #2
-  },
-  subsection / tocline = {
-    \CJKfamily { kai }
-    \CTEXnumberline { #1 }    #2
+    section = {
+      format     = { \Large \bfseries \raggedright }
+    },
+    subsection = {
+      format     = { \large \bfseries \raggedright }
+    },
+    contentsname = {目 \quad 录},
+    chapter    / tocline = {
+      \normalfont \sffamily
+      \CTEXnumberline { #1 }    #2
+    },
+    subsection / tocline = {
+      \CJKfamily { kai }
+      \CTEXnumberline { #1 }    #2
+    }
   }
-}
 \RequirePackage { fancyhdr }
 \fancyhf { }
 \bool_if:NTF \g__fdu_twoside_bool
@@ -318,8 +318,8 @@
     major*       .tl_set:N    = \l__fdu_info_major_e_tl,
     studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
     schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
-    keywords      .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*     .clist_set:N = \l__fdu_info_keywords_e_clist,
+    keywords     .clist_set:N = \l__fdu_info_keywords_clist,
+    keywords*    .clist_set:N = \l__fdu_info_keywords_e_clist,
     CLC          .tl_set:N    = \l__fdu_info_CLC_tl
   }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2

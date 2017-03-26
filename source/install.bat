@@ -1,2 +1,2 @@
 xetex fduthesis.ins
-COPY /Y "fduthesis.cls"  "..\fduthesis.cls"
+copy /Y "fduthesis.cls"  "..\fduthesis.cls"

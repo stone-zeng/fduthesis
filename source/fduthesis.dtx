@@ -613,54 +613,54 @@
 % 使用 \cs{ctexset} 接口进行统一设置。
 %    \begin{macrocode}
 \ctexset
-{
+  {
 %    \end{macrocode}
 %
 % 章（chapter）标题设置为黑体、居中，同时微调前后间距。
 % 序号使用阿拉伯数字。
 %    \begin{macrocode}
-  chapter = {
-    format     = {
-      \huge \normalfont \sffamily \centering
+    chapter = {
+      format     = {
+        \huge \normalfont \sffamily \centering
+      },
+      beforeskip = { 30 pt },
+      afterskip  = { 20 pt },
+      number     = { \arabic{ chapter } }
     },
-    beforeskip = { 30 pt },
-    afterskip  = { 20 pt },
-    number     = { \arabic{ chapter } }
-  },
 %    \end{macrocode}
 %
 % 节（section）标题设置为粗体、靠左对齐
 %（但要用 \tn{raggedright}）。
 %    \begin{macrocode}
-  section = {
-    format     = { \Large \bfseries \raggedright }
-  },
+    section = {
+      format     = { \Large \bfseries \raggedright }
+    },
 %    \end{macrocode}
 %
 % 小节（sub-section）标题同样设置为粗体、靠左对齐。
 %    \begin{macrocode}
-  subsection = {
-    format     = { \large \bfseries \raggedright }
-  },
+    subsection = {
+      format     = { \large \bfseries \raggedright }
+    },
 %    \end{macrocode}
 %
 % \subsection{目录}
 % 设置目录标题为“目 \quad 录”。
 %    \begin{macrocode}
-  contentsname = {目 \quad 录},
+    contentsname = {目 \quad 录},
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
-  chapter    / tocline = {
-    \normalfont \sffamily
-    \CTEXnumberline { #1 }    #2
-  },
-  subsection / tocline = {
-    \CJKfamily { kai }
-    \CTEXnumberline { #1 }    #2
+    chapter    / tocline = {
+      \normalfont \sffamily
+      \CTEXnumberline { #1 }    #2
+    },
+    subsection / tocline = {
+      \CJKfamily { kai }
+      \CTEXnumberline { #1 }    #2
+    }
   }
-}
 %    \end{macrocode}
 %
 % \subsection{页眉页脚}
@@ -821,8 +821,8 @@
 %   \l__fdu_info_keywords_clist,\l__fdu_info_keywords_e_clist}
 % 论文关键字。
 %    \begin{macrocode}
-    keywords      .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*     .clist_set:N = \l__fdu_info_keywords_e_clist,
+    keywords     .clist_set:N = \l__fdu_info_keywords_clist,
+    keywords*    .clist_set:N = \l__fdu_info_keywords_e_clist,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1259,6 +1259,142 @@
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{定理环境}
+% 希望实现类似 \pkg{thmtools} 的功能。目前还做不到。
+%    \begin{macrocode}
+% % amsmath 需要放在 unicode-math 之前，暂时不用
+% %\RequirePackage { amsmath }
+% \RequirePackage [ thmmarks ] { ntheorem }
+% %\theoremheaderfont { \sffamily }
+% %\theorembodyfont   { \CJKfamily { kai } }
+% %
+% %{
+% %  \theoremstyle { nonumberplain }
+% %  \theoremsymbol { \ensuremath { \QED } }
+% %  \newtheorem { proof       } { 证明 } 
+% %}
+% %
+% %{
+% %  \theoremstyle { plain }
+% %  \theoremsymbol { }
+% %  \newtheorem { assumption  } { 假设 } [ chapter ]
+% %  \newtheorem { definition  } { 定义 } [ chapter ]
+% %  \newtheorem { proposition } { 命题 } [ chapter ]
+% %  \newtheorem { lemma       } { 引理 } [ chapter ]
+% %  \newtheorem { theorem     } { 定理 } [ chapter ]
+% %  \newtheorem { axiom       } { 公理 } [ chapter ]
+% %  \newtheorem { corollary   } { 推论 } [ chapter ]
+% %  \newtheorem { exercise    } { 练习 } [ chapter ]
+% %  \newtheorem { example     } { 例   } [ chapter ]
+% %  \newtheorem { remark      } { 评注 } [ chapter ]
+% %  \newtheorem { problem     } { 问题 } [ chapter ]
+% %  \newtheorem { conjecture  } { 猜想 } [ chapter ]
+% %}
+%
+% %\l__fdu_theorem_name_proof      
+% %\l__fdu_theorem_name_assumption 
+% %\l__fdu_theorem_name_definition 
+% %\l__fdu_theorem_name_proposition
+% %\l__fdu_theorem_name_lemma      
+% %\l__fdu_theorem_name_theorem    
+% %\l__fdu_theorem_name_axiom      
+% %\l__fdu_theorem_name_corollary  
+% %\l__fdu_theorem_name_exercise   
+% %\l__fdu_theorem_name_example    
+% %\l__fdu_theorem_name_remark     
+% %\l__fdu_theorem_name_problem    
+% %\l__fdu_theorem_name_conjecture 
+%
+% \keys_define:nn { fdu / theorem }
+%  {
+%    style      .tl_set:N  = \l__fdu_theorem_style_tl,
+%    headerfont .tl_set:N  = \l__fdu_theorem_header_font_tl,
+%    bodyfont   .tl_set:N  = \l__fdu_theorem_body_font_tl,
+%    qed        .tl_set:N  = \l__fdu_theorem_qed_tl,
+%    numbering  .tl_set:N  = \l__fdu_theorem_numbering_tl,
+%
+%    headerfont .initial:n = { \sffamily },
+%    bodyfont   .initial:n = { \CJKfamily { kai } },
+%    qed        .initial:n = { \ensuremath { \QED } }
+%  }
+%
+% \cs_new:Npn \fdu_theorem_style:V #1
+%  {
+%    \theoremstyle { #1 }
+%  }
+%
+% \cs_new:Npn \fdu_theorem_symbol:V #1
+%  {
+%    \theoremsymbol { #1 }
+%  }
+%
+% % \fdunewtheorem : 带编号
+% % \fdunewtheorem*: 不带编号
+% \NewDocumentCommand \fdunewtheorem { s o m m }
+%  {
+%    \IfBooleanTF #1
+%      % 带 *，不编号
+%      {
+%        \tl_set:Nn \l__fdu_theorem_style_tl     { nonumberplain }
+% %\tl_show:n{001}
+%      }
+%      % 不带 *，编号
+%      {
+% %\tl_show:n{002}
+%        \tl_set:Nn \l__fdu_theorem_style_tl     { plain   }
+%        \tl_set:Nn \l__fdu_theorem_qed_tl       {         }
+%        \tl_set:Nn \l__fdu_theorem_numbering_tl { chapter }
+%        \tl_set:Nn \l__fdu_theorem_header_font_tl { \ttfamily }
+%      }
+%
+%    \IfValueT { #2 }
+%      { \keys_set:nn { fdu / theorem } { #2 } }
+%
+% %\tl_show:N \l__fdu_theorem_style_tl
+%    %\fdu_theorem_style:V \l__fdu_theorem_style_tl
+%    %\theoremstyle      { \l__fdu_theorem_style_tl       }
+%    %\theoremsymbol     { \l__fdu_theorem_qed_tl         }
+%    %\theoremheaderfont { \l__fdu_theorem_header_font_tl }
+%    %\theorembodyfont   { \l__fdu_theorem_body_font_tl   }
+%
+%    \IfBooleanTF #1
+%      % 带 *，不编号
+%      {
+% %\tl_show:n{003}
+%        \theoremstyle      { \l__fdu_theorem_style_tl       }
+%        \fdu_theorem_symbol:V \l__fdu_theorem_qed_tl         
+%        %\tl_show:N\l__fdu_theorem_qed_tl
+%        \theoremheaderfont { \l__fdu_theorem_header_font_tl }
+%        \theorembodyfont   { \l__fdu_theorem_body_font_tl   }
+%        \newtheorem { #3 } { #4 }
+%      }
+%      % 不带 *，编号
+%      {
+% %\tl_show:n{004}
+%        \theoremstyle      { \l__fdu_theorem_style_tl       }
+%        \theoremsymbol     { \l__fdu_theorem_qed_tl         }
+%        \theoremheaderfont { \l__fdu_theorem_header_font_tl }
+%        \theorembodyfont   { \l__fdu_theorem_body_font_tl   }
+%        \newtheorem { #3 } { #4 }
+%          [ \l__fdu_theorem_numbering_tl ]
+%      }
+%  }
+%
+% \fdunewtheorem* { proof       } { 证明 } 
+% \fdunewtheorem  { assumption  } { 假设 }
+% \fdunewtheorem  { definition  } { 定义 }
+% \fdunewtheorem  { proposition } { 命题 }
+% \fdunewtheorem  { lemma       } { 引理 }
+% \fdunewtheorem  { theorem     } { 定理 }
+% \fdunewtheorem  { axiom       } { 公理 }
+% \fdunewtheorem  { corollary   } { 推论 }
+% \fdunewtheorem  { exercise    } { 练习 }
+% \fdunewtheorem  { example     } { 例   }
+% \fdunewtheorem  { remark      } { 评注 }
+% \fdunewtheorem  { problem     } { 问题 }
+% \fdunewtheorem  { conjecture  } { 猜想 }
+%    \end{macrocode}
 %
 % \subsection{文字绕排}
 % WARNING：严重冲突，暂时不启用。

@@ -8,4 +8,5 @@ del *.ilg
 del *.ind
 del *.log
 del *.out
+del *.thm
 del *.toc

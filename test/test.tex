@@ -4,8 +4,8 @@
 
 \fdusetup{
   style = {
-    %font = times,
-    CJKfont = founder,
+    %font = libertinus,
+    %CJKfont = founder,
     fontsize = -4,
     %fullwidth-stop
   },
@@ -31,14 +31,27 @@
   }
 }
 
-% \ExplSyntaxOn
-% \tl_const:Nn \c__fdu_full_stop_ideographic_tl {\symbol{ "3002 }}
-% \tl_const:Nn \c__fdu_full_stop_fullwidth_tl   {\symbol{ "FF0E }}
+\usepackage[thmmarks]{ntheorem}
+\theorembodyfont{\CJKfamily{kai}}
+\theoremheaderfont{\sffamily}
 
-% \char_set_active_eq:nN {"3002} \c__fdu_full_stop_fullwidth_tl
-% \char_set_catcode_active:n {"3002}
+\theoremsymbol{\ensuremath{\QED}}
+\newtheorem*{proof}{证明}
 
-% \ExplSyntaxOff
+\theoremstyle{plain}
+\theoremsymbol{}
+\newtheorem{assumption}{假设}[chapter]
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{proposition}{命题}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{axiom}{公理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
+\newtheorem{exercise}{练习}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{remark}{注释}[chapter]
+\newtheorem{problem}{问题}[chapter]
+\newtheorem{conjecture}{猜想}[chapter]
 
 \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
 \newcommand\fonttest{%
@@ -47,9 +60,6 @@
   倾斜：\qquad\textit{\fonttesttext} \par
   小型大写：\qquad\textsc{\fonttesttext}
 }
-
-
-
 
 \begin{document}
 \frontmatter
@@ -403,13 +413,13 @@ Officers; and shall have the sole Power of Impeachment.
 \subsection{打字机字体 Typewriter}
 \texttt{\fonttest}
 
-\[\pi=\sb{33}\]
-
-\[
-  \int\sin x\,\mathrm{d}x=\cos x + C
-\]
-
-one\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}
+%\[\pi=\sb{33}\]
+%
+%\[
+%  \int\sin x\,\mathrm{d}x=\cos x + C
+%\]
+%
+%one\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}
 %\hbox{two}
 %three
 %
@@ -425,6 +435,20 @@ one\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is
   \int\sin x\,\mathrm{d}x=\cos x + C
 \]
 
+\begin{proof}
+道千乘之国，敬事而信，节用而爱人，使民以时。
+\end{proof}
+
+\begin{definition}
+证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”（这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以在证明的尾段写出，以显示证明所需的结论已经完整了。
+\end{definition}
+
+\begin{proof}
+先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
+\begin{equation}
+	\sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
+\end{equation}
+\end{proof}
 \chapter{测试3 Test}
 %\makeatletter
 %\iffdu@font@times
