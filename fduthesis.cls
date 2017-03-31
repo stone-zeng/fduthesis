@@ -36,15 +36,12 @@
 \dim_new:N   \l__fdu_tmpa_dim
 \tl_new:N    \l__fdu_tmpa_tl
 \tl_new:N    \l__fdu_tmpb_tl
+\int_new:N   \l__fdu_tmpa_int
 \clist_new:N \l__fdu_tmpa_clist
 \clist_new:N \l__fdu_tmpb_clist
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl
-  { \symbol{ "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
-  { \symbol{ "FF0E } }
 \keys_define:nn { fdu / option }
   {
     oneside .value_forbidden:n = true,
@@ -238,7 +235,14 @@
       \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
-    },
+    }
+  }
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl
+  { \symbol { "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
+  { \symbol { "FF0E } }
+\keys_define:nn { fdu / style }
+  {
     fullwidth-stop .choice:,
     fullwidth-stop / true  .code:n = {
       \char_set_active_eq:nN { "3002 }
@@ -519,16 +523,155 @@
   {
     \end{longtable}
   }
-\RequirePackage [ perpage ] { footmisc }
-\RequirePackage { pifont }
-\cs_new:Npn \fdu_footnote_symbol:n #1
+\tl_const:Nn \c__fdu_fn_style_times_tl
+  { times }
+\tl_const:Nn \c__fdu_fn_style_times_sans_tl
+  { times-sans }
+\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl
+  { times-sans* }
+\tl_const:Nn \c__fdu_fn_style_libertinus_tl
+  { libertinus }
+\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
+  { libertinus* }
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_t
+  { libertinus-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_tl
+  { pifont }
+\tl_const:Nn \c__fdu_fn_style_pifont_n_tl
+  { pifont* }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl
+  { pifont-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl
+  { pifont-sans* }
+\tl_const:Nn \c__fdu_fn_style_plain_tl
+  { plain }
+\tl_new:N \l__fdu_fn_style_tl
+\keys_define:nn { fdu / style }
+  {
+    footnotestyle .choices:nn = {
+      times, times-sans, times-sans*,
+      libertinus, libertinus*, libertinus-sans,
+      pifont, pifont*, pifont-sans, pifont-sans*,
+      plain
+    }
+    {
+      \tl_set_eq:NN \l__fdu_fn_style_tl \l_keys_choice_tl
+      \int_compare:nTF
+        { 1 <= \l_keys_choice_int <= 3 }
+        {
+          \setmathfont { XITS~ Math } [ version = footnote-XITS ]
+        }
+        {
+          \int_compare:nT
+            { 7 <= \l_keys_choice_int <= 10 }
+            { \RequirePackage { pifont } }
+        }
+    }
+  }
+\cs_new:Npn \fdu_fn_symbol_times:V #1
+  {
+    \int_compare:nTF { #1 >= 10 }
+      {
+        \int_compare:nTF { #1 >= 36 }
+          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+\cs_new:Npn \fdu_fn_symbol_times_sans:V #1
+  {
+    \symbol { \int_eval:n { "2780 - 1 + #1 } }
+  }
+\cs_new:Npn \fdu_fn_symbol_times_sans_n:V #1
+  {
+    \symbol { \int_eval:n { "278A - 1 + #1 } }
+  }
+\cs_new:Npn \fdu_fn_symbol_libertinus:V #1
+  {
+    \int_compare:nTF { #1 >= 21 }
+      {
+        \int_compare:nTF { #1 >= 47 }
+          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+\cs_new:Npn \fdu_fn_symbol_libertinus_n:V #1
+  {
+    \int_compare:nTF { #1 >= 11 }
+      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
+      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
+  }
+\cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
+  {
+    \fdu_fn_symbol_libertinus:V { #1 }
+  }
+\cs_new:Npn \fdu_fn_symbol_pifont:V #1
+  {
+    \ding { \int_eval:n { 171 + #1 } }
+  }
+\cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
+  {
+    \ding { \int_eval:n { 181 + #1 } }
+  }
+\cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
   {
     \ding { \int_eval:n { 191 + #1 } }
   }
+\cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
+  {
+    \ding { \int_eval:n { 201 + #1 } }
+  }
+\cs_generate_variant:Nn \int_case:nnF { VnF }
 \RenewDocumentCommand \thefootnote { }
   {
-    \fdu_footnote_symbol:n { \value { footnote } }
+    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
+    \tl_case:NnF \l__fdu_fn_style_tl
+      {
+        \c__fdu_fn_style_times_tl
+          {
+            \mathversion { footnote-XITS }
+            $ \fdu_fn_symbol_times:V        \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_times_sans_tl
+          {
+            \mathversion { footnote-XITS }
+            $ \fdu_fn_symbol_times_sans:V   \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_times_sans_n_tl
+          {
+            \mathversion { footnote-XITS }
+            $ \fdu_fn_symbol_times_sans_n:V \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_libertinus_tl
+          {
+            \fontspec { Libertinus~ Serif }
+            \fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_libertinus_n_tl
+          {
+            \fontspec { Libertinus~ Serif }
+            \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_libertinus_sans_t
+          {
+            \fontspec { Libertinus~ Sans }
+            \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_pifont_tl
+          { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_n_tl
+          { \fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_sans_tl
+          { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_sans_n_tl
+          { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
+        \c__fdu_fn_style_plain_tl
+          { \int_use:N \l__fdu_tmpa_int }
+      }
+      { \int_use:N \l__fdu_tmpa_int }
   }
+\RequirePackage [ perpage ] { footmisc }
 \RenewDocumentCommand \@makefntext { +m }
 {
   \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }

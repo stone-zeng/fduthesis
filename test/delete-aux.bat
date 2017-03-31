@@ -1,6 +1,8 @@
 @echo off
 
 del *.aux
+del *.fdb_latexmk
+del *.fls
 del *.glo
 del *.hd
 del *.idx
