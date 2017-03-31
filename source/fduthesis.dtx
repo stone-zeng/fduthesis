@@ -42,6 +42,36 @@
 \makeatother
 
 \documentclass{l3doc}
+
+% 重定义 `\__codedoc_print_macroname:nN`，
+
+\ExplSyntaxOn
+\int_const:Nn \l_fdu_doc_max_name_length_int { 99 }
+\cs_gset_protected:Npn \__codedoc_print_macroname:nN #1#2
+  {
+    \strut
+    \__codedoc_get_hyper_target:xN
+      {
+        \exp_not:n {#1}
+        \bool_if:NT #2 { \tl_to_str:n {TF} }
+      }
+      \l__codedoc_tmpa_tl
+    \cs_if_exist:cTF { r@ \l__codedoc_tmpa_tl }
+      { \exp_last_unbraced:NNo \hyperref [ \l__codedoc_tmpa_tl ] }
+      { \use:n }
+      {
+        \int_compare:nTF { \str_count:n {#1} <= \l_fdu_doc_max_name_length_int }
+          { \MacroFont } { \MacroLongFont }
+        \tl_set:Nn \l__codedoc_tmpa_tl {#1}
+        \tl_replace_all:Nno \l__codedoc_tmpa_tl
+          { ~ } { \c_catcode_other_space_tl }
+        \__codedoc_macroname_prefix:o \l__codedoc_tmpa_tl
+        \__codedoc_macroname_suffix:N #2
+      }
+  }
+\ExplSyntaxOff
+
+
 %\documentclass[draft]{l3doc}
 \usepackage[UTF8, heading = true]{ctex}
 \usepackage{geometry}
@@ -62,8 +92,8 @@
 
 \geometry{
   paper  = a4paper,
-  left   = 6.00 cm,
-  right  = 2.00 cm,
+  left   = 6.50 cm,
+  right  = 2.50 cm,
   top    = 3.18 cm,
   bottom = 2.54 cm,
 %  showframe
@@ -71,7 +101,9 @@
 
 \setmainfont{TeX Gyre Pagella}
 \setsansfont{TeX Gyre Heros}
-\setmonofont{TeX Gyre Cursor}%
+%\setmonofont{TeX Gyre Cursor}%
+%  [HyphenChar = None, Ligatures = NoCommon]
+\setmonofont{Latin Modern Mono Light}%
   [HyphenChar = None, Ligatures = NoCommon]
 \setmathfont{TeX Gyre Pagella Math}
 
@@ -238,18 +270,69 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%^^A \begin{macro}{\g__fdu_to_geometry_clist}
-%^^A 保存由 \cls{fduthesis} 传入 \pkg{geometry} 宏包的选项列表。
-%^^A    \begin{macrocode}
-%^^A\clist_new:N \g__fdu_to_geometry_clist
-%^^A    \end{macrocode}
-%^^A \end{macro}
-%^^A
 % \begin{macro}{\g__fdu_twoside_bool}
 % 是否开启双页模式（默认打开）。
 %    \begin{macrocode}
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
+%   \c__fdu_full_stop_fullwidth_tl}
+% 定义两种句号：
+% U+3002 是圆圈句号“\symbol{12290}”（ideographic full stop），
+% U+FF0E 是全角实心句点“\symbol{65294}”（fullwidth full stop）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl
+  { \symbol { "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
+  { \symbol { "FF0E } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_fn_style_plain_tl,
+%   \c__fdu_fn_style_libertinus_tl,
+%   \c__fdu_fn_style_libertinus_n_tl,
+%   \c__fdu_fn_style_libertinus_sans_t,
+%   \c__fdu_fn_style_pifont_tl,
+%   \c__fdu_fn_style_pifont_n_tl,
+%   \c__fdu_fn_style_pifont_sans_tl,
+%   \c__fdu_fn_style_pifont_sans_n_tl,
+%   \c__fdu_fn_style_times_tl,
+%   \c__fdu_fn_style_times_sans_tl,
+%   \c__fdu_fn_style_times_sans_n_tl}
+% 各种脚注编号样式的名称。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_fn_style_plain_tl
+  { plain }
+\tl_const:Nn \c__fdu_fn_style_libertinus_tl
+  { libertinus }
+\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
+  { libertinus* }
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_t
+  { libertinus-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_tl
+  { pifont }
+\tl_const:Nn \c__fdu_fn_style_pifont_n_tl
+  { pifont* }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl
+  { pifont-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl
+  { pifont-sans* }
+\tl_const:Nn \c__fdu_fn_style_times_tl
+  { times }
+\tl_const:Nn \c__fdu_fn_style_times_sans_tl
+  { times-sans }
+\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl
+  { times-sans* }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\g__fdu_fn_style_tl}
+% 保存当前使用的脚注编号样式。
+%    \begin{macrocode}
+\tl_new:N \g__fdu_fn_style_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -386,6 +469,7 @@
       \setmonofont { TeX~ Gyre~ Cursor }
         [ Ligatures = NoCommon ]
       \setmathfont { Libertinus~ Math  }
+      \tl_set:Nn \g__fdu_fn_style_tl { libertinus }
     },
 %    \end{macrocode}
 % Latin Modern 系列。
@@ -395,6 +479,7 @@
       \setsansfont { Latin~ Modern~ Sans  }
       \setmonofont { Latin~ Modern~ Mono  }
       \setmathfont { Latin~ Modern~ Math  }
+      \tl_set:Nn \g__fdu_fn_style_tl { pifont }
     },
 %    \end{macrocode}
 % Palatino 系列。
@@ -405,6 +490,7 @@
       \setmonofont { TeX~ Gyre~ Cursor        }
         [ Ligatures = NoCommon ]
       \setmathfont { TeX~ Gyre~ Pagella~ Math }
+      \tl_set:Nn \g__fdu_fn_style_tl { pifont }
     },
 %    \end{macrocode}
 % Times Roman 系列。
@@ -415,6 +501,7 @@
       \setmonofont { TeX~ Gyre~ Cursor }
         [ Ligatures = NoCommon ]
       \setmathfont { XITS~ Math        }
+      \tl_set:Nn \g__fdu_fn_style_tl { times }
     },
 %    \end{macrocode}
 % \end{macro}
@@ -578,30 +665,12 @@
       \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
-    }
-  }
+    },
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \subsubsection{句号}
-% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
-%   \c__fdu_full_stop_fullwidth_tl}
-% 定义两种句号：
-% U+3002 是圆圈句号“\symbol{12290}”（ideographic full stop），
-% U+FF0E 是全角实心句点“\symbol{65294}”（fullwidth full stop）。
-%    \begin{macrocode}
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl
-  { \symbol { "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
-  { \symbol { "FF0E } }
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
-\keys_define:nn { fdu / style }
-  {
-%    \end{macrocode}
 % \begin{macro}{style/fullwidth-stop}
 % 设置句号形状（圆圈或是圆点）。
 % 本模板采用的实现方法是将“\symbol{12290}”设置为活动符，
@@ -891,7 +960,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_get_max_text_width:Nn}
+% \begin{macro}{\fdu_get_max_text_width:NN}
 % 获取多个文本中的最大宽度，并存入 |dim| 型变量。
 % |#1| = |dim| 型变量，|#2| = 文本 |clist|。
 %
@@ -1202,50 +1271,6 @@
 %
 % \subsection{脚注}
 % \subsubsection{编号样式}
-% \begin{macro}{\c__fdu_fn_style_times_tl,
-%   \c__fdu_fn_style_times_sans_tl,
-%   \c__fdu_fn_style_times_sans_n_tl,
-%   \c__fdu_fn_style_libertinus_tl,
-%   \c__fdu_fn_style_libertinus_n_tl,
-%   \c__fdu_fn_style_libertinus_sans_t,
-%   \c__fdu_fn_style_pifont_tl,
-%   \c__fdu_fn_style_pifont_n_tl,
-%   \c__fdu_fn_style_pifont_sans_tl,
-%   \c__fdu_fn_style_pifont_sans_n_tl,
-%   \c__fdu_fn_style_plain_tl}
-% 各种编号样式的名称。
-%    \begin{macrocode}
-\tl_const:Nn \c__fdu_fn_style_times_tl
-  { times }
-\tl_const:Nn \c__fdu_fn_style_times_sans_tl
-  { times-sans }
-\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl
-  { times-sans* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl
-  { libertinus }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
-  { libertinus* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_t
-  { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl
-  { pifont }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl
-  { pifont* }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl
-  { pifont-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl
-  { pifont-sans* }
-\tl_const:Nn \c__fdu_fn_style_plain_tl
-  { plain }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\l__fdu_fn_style_tl}
-% 保存当前使用的编号样式。
-%    \begin{macrocode}
-\tl_new:N \l__fdu_fn_style_tl
-%    \end{macrocode}
-% \end{macro}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -1254,72 +1279,38 @@
 %
 % \begin{macro}{style/footnotestyle}
 % 脚注类型共分四大类：
-% |times|：取自 XITS-Math 字体；
+% |plain|：使用当前字体;
 % |libertinus|：取自 Libertinus Serif 和 Libertinus Sans 字体；
 % |pifont|：使用 \pkg{pifont} 宏包；
-% |plain|：使用当前字体。
+% |times|：取自 XITS-Math 字体。
 %
 % 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，
 % 带“|*|”的为阴文版本。
 %    \begin{macrocode}
     footnotestyle .choices:nn = {
-      times, times-sans, times-sans*,
+      plain,
       libertinus, libertinus*, libertinus-sans,
-      pifont, pifont*, pifont-sans, pifont-sans*,
-      plain
+      pifont, pifont*, pifont-sans, pifont-sans*
+      times, times-sans, times-sans*,
     }
 %    \end{macrocode}
-% 若使用 |times| 类型，则需调用 XITS Math 字体；
-% 若使用 |pifont| 类型，则需引入 \pkg{pifont} 宏包。
+% 若使用 |pifont| 类型，则需引入 \pkg{pifont} 宏包；
+% 若使用 |times| 类型，则需调用 XITS Math 字体。
 %    \begin{macrocode}
     {
-      \tl_set_eq:NN \l__fdu_fn_style_tl \l_keys_choice_tl
+      \tl_set_eq:NN \g__fdu_fn_style_tl \l_keys_choice_tl
       \int_compare:nTF
-        { 1 <= \l_keys_choice_int <= 3 }
-        {
-          \setmathfont { XITS~ Math } [ version = footnote-XITS ]
-        }
+        { 5 <= \l_keys_choice_int <= 8 }
+        { \RequirePackage { pifont } }
         {
           \int_compare:nT
-            { 7 <= \l_keys_choice_int <= 10 }
-            { \RequirePackage { pifont } }
+            { 9 <= \l_keys_choice_int <= 11 }
+            {
+              \setmathfont { XITS~ Math }
+                [ version = footnote-XITS ]
+            }
         }
     }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_times:V}
-% |times| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35}
-% 为小写英文字母，\numrange{36}{61} 为大写英文字母。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_times:V #1
-  {
-    \int_compare:nTF { #1 >= 10 }
-      {
-        \int_compare:nTF { #1 >= 36 }
-          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\fdu_fn_symbol_times_sans:V}
-% |times| 阳文无衬线版。只包含 \numrange{1}{10}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_times_sans:V #1
-  {
-    \symbol { \int_eval:n { "2780 - 1 + #1 } }
-  }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\fdu_fn_symbol_times_sans_n:V}
-% |times| 阴文无衬线版。也只包含 \numrange{1}{10}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_times_sans_n:V #1
-  {
-    \symbol { \int_eval:n { "278A - 1 + #1 } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1398,6 +1389,41 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\fdu_fn_symbol_times:V}
+% |times| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35}
+% 为小写英文字母，\numrange{36}{61} 为大写英文字母。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_times:V #1
+  {
+    \int_compare:nTF { #1 >= 10 }
+      {
+        \int_compare:nTF { #1 >= 36 }
+          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\fdu_fn_symbol_times_sans:V}
+% |times| 阳文无衬线版。只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_times_sans:V #1
+  {
+    \symbol { \int_eval:n { "2780 - 1 + #1 } }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\fdu_fn_symbol_times_sans_n:V}
+% |times| 阴文无衬线版。也只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_times_sans_n:V #1
+  {
+    \symbol { \int_eval:n { "278A - 1 + #1 } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\int_case:VnF}
 % 生成 \cs{int_case:nnF} 的变体。
 %    \begin{macrocode}
@@ -1411,26 +1437,13 @@
 \RenewDocumentCommand \thefootnote { }
   {
     \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
-    \tl_case:NnF \l__fdu_fn_style_tl
+    \tl_case:NnF \g__fdu_fn_style_tl
       {
 %    \end{macrocode}
-% |times| 类型需要临时切换数学字体。
+% |plain| 类型直接使用计数器 |footnote| 的值。
 %    \begin{macrocode}
-        \c__fdu_fn_style_times_tl
-          {
-            \mathversion { footnote-XITS }
-            $ \fdu_fn_symbol_times:V        \l__fdu_tmpa_int $
-          }
-        \c__fdu_fn_style_times_sans_tl
-          {
-            \mathversion { footnote-XITS }
-            $ \fdu_fn_symbol_times_sans:V   \l__fdu_tmpa_int $
-          }
-        \c__fdu_fn_style_times_sans_n_tl
-          {
-            \mathversion { footnote-XITS }
-            $ \fdu_fn_symbol_times_sans_n:V \l__fdu_tmpa_int $
-          }
+        \c__fdu_fn_style_plain_tl
+          { \int_use:N \l__fdu_tmpa_int }
 %    \end{macrocode}
 % |libertinus| 类型需要使用 Libertinus Serif 或
 % Libertinus Sans 字体。
@@ -1451,7 +1464,7 @@
             \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
           }
 %    \end{macrocode}
-% |pifont| 和 |plain| 类型无需进行额外的操作。
+% |pifont| 类型无需进行额外的操作。
 %    \begin{macrocode}
         \c__fdu_fn_style_pifont_tl
           { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
@@ -1461,11 +1474,27 @@
           { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
         \c__fdu_fn_style_pifont_sans_n_tl
           { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
-        \c__fdu_fn_style_plain_tl
-          { \int_use:N \l__fdu_tmpa_int }
+%    \end{macrocode}
+% |times| 类型需要临时切换数学字体。
+%    \begin{macrocode}
+        \c__fdu_fn_style_times_tl
+          {
+            \mathversion { footnote-XITS }
+            $ \fdu_fn_symbol_times:V        \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_times_sans_tl
+          {
+            \mathversion { footnote-XITS }
+            $ \fdu_fn_symbol_times_sans:V   \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_times_sans_n_tl
+          {
+            \mathversion { footnote-XITS }
+            $ \fdu_fn_symbol_times_sans_n:V \l__fdu_tmpa_int $
+          }
       }
 %    \end{macrocode}
-% \cs{l__fdu_fn_style_tl} 保存的类型未知时，
+% 变量 \cs{g__fdu_fn_style_tl} 保存的类型未知时，
 % 默认使用 |plain| 类型。
 %    \begin{macrocode}
       { \int_use:N \l__fdu_tmpa_int }
