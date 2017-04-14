@@ -52,7 +52,7 @@
   { libertinus }
 \tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
   { libertinus* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_t
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl
   { libertinus-sans }
 \tl_const:Nn \c__fdu_fn_style_pifont_tl
   { pifont }
@@ -642,7 +642,7 @@
             \fontspec { Libertinus~ Serif }
             \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
           }
-        \c__fdu_fn_style_libertinus_sans_t
+        \c__fdu_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
             \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int

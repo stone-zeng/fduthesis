@@ -16,7 +16,7 @@
 # *.bat
 *.txt
 
-source/*.cls
+source/fduthesis.cls
 temp/
 # test/
 files/

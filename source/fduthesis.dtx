@@ -34,51 +34,46 @@
 %   git 管理
 %
 
-% 禁止调用 `thumbpdf' 宏包
-% 见 http://tex.stackexchange.com/q/39415
-% 又见 `ctxdoc.sty'
-\makeatletter
-\@namedef{ver@thumbpdf.sty}{9999/99/99}
-\makeatother
+\documentclass{ctxdoc-m}
 
-\documentclass{l3doc}
+%% 字体设置。
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{Latin Modern Mono Light}[HyphenChar = None]
+\setmathfont{TeX Gyre Pagella Math}
+\setCJKmainfont{FZShuSong-Z01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\setCJKmonofont{FZFangSong-Z02}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 
-% 重定义 `\__codedoc_print_macroname:nN`，
+\setCJKfamilyfont{宋}{FZShuSong-Z01}
+\setCJKfamilyfont{黑}{FZHei-B01}
+\setCJKfamilyfont{仿}{FZFangSong-Z02}
+\setCJKfamilyfont{楷}{FZKai-Z03}
 
-\ExplSyntaxOn
-\int_const:Nn \l_fdu_doc_max_name_length_int { 99 }
-\cs_gset_protected:Npn \__codedoc_print_macroname:nN #1#2
-  {
-    \strut
-    \__codedoc_get_hyper_target:xN
-      {
-        \exp_not:n {#1}
-        \bool_if:NT #2 { \tl_to_str:n {TF} }
-      }
-      \l__codedoc_tmpa_tl
-    \cs_if_exist:cTF { r@ \l__codedoc_tmpa_tl }
-      { \exp_last_unbraced:NNo \hyperref [ \l__codedoc_tmpa_tl ] }
-      { \use:n }
-      {
-        \int_compare:nTF { \str_count:n {#1} <= \l_fdu_doc_max_name_length_int }
-          { \MacroFont } { \MacroLongFont }
-        \tl_set:Nn \l__codedoc_tmpa_tl {#1}
-        \tl_replace_all:Nno \l__codedoc_tmpa_tl
-          { ~ } { \c_catcode_other_space_tl }
-        \__codedoc_macroname_prefix:o \l__codedoc_tmpa_tl
-        \__codedoc_macroname_suffix:N #2
-      }
-  }
-\ExplSyntaxOff
+%% 中文排版格式。
+\ctexset
+{
+  section = {
+    name    = {第,节},
+    format += \raggedright,
+    break   = \if@openright\cleardoublepage\else\clearpage\fi
+  },
+  subsubsection = {
+    tocline = {\CJKfamily{楷} \CTEXnumberline{#1}#2}
+  },
+  indexname = {代码索引}
+}
 
+%% 代码部分页边距。
+\geometry{
+  paper  = a4paper,
+  left   = 6.35 cm,
+  right  = 2.54 cm,
+  top    = 3.18 cm,
+  bottom = 2.54 cm
+}
 
-%\documentclass[draft]{l3doc}
-\usepackage[UTF8, heading = true]{ctex}
-\usepackage{geometry}
-\usepackage{xcolor}
-\usepackage{unicode-math}
-\usepackage{pifont}
-\usepackage{siunitx}
 \sisetup{
   number-math-rm       = \ensuremath,
   inter-unit-product   = \ensuremath{{}\cdot{}},
@@ -88,67 +83,26 @@
   range-phrase         = \symbol{65374},
   separate-uncertainty = true
 }
-\usepackage{hologo}
 
-\geometry{
-  paper  = a4paper,
-  left   = 6.50 cm,
-  right  = 2.50 cm,
-  top    = 3.18 cm,
-  bottom = 2.54 cm,
-%  showframe
+\hypersetup{
+  pdftitle          = {fduthesis：复旦大学论文模板},
+  pdfauthor         = {曾祥东},
+  bookmarksopen     = true,
+  bookmarksnumbered = true,
+  pdfborder         = 0 0 0,
+  colorlinks,
+  linkcolor         = {red!60!black},
+  citecolor         = {green!50!black},
+  urlcolor          = {blue!63!green}
 }
-
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
-%\setmonofont{TeX Gyre Cursor}%
-%  [HyphenChar = None, Ligatures = NoCommon]
-\setmonofont{Latin Modern Mono Light}%
-  [HyphenChar = None, Ligatures = NoCommon]
-\setmathfont{TeX Gyre Pagella Math}
-
-\setCJKmainfont{FZShuSong-Z01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-
-\setCJKfamilyfont{宋}{FZShuSong-Z01}
-\setCJKfamilyfont{黑}{FZHei-B01}
-\setCJKfamilyfont{仿}{FZFangSong-Z02}
-\setCJKfamilyfont{楷}{FZKai-Z03}
 
 %% 句号处理
 \catcode`\。 = \active
 \newcommand{。}{．}
 
-\ctexset
-{
-  section = {
-    name    = {第,节},
-    format += \raggedright,
-    break   = \if@openright\cleardoublepage\else\clearpage\fi
-  }
-}
-
 \renewcommand{\pkg}[1]{\textsf{#1}}
 \renewcommand{\cls}[1]{\textsf{\textit{#1}}}
 
-\newcommand{\XeLaTeX}{\hologo{XeLaTeX}}
-\newcommand{\LuaLaTeX}{\hologo{LuaLaTeX}}
-
-\hypersetup{
-  % PDF 标题作者
-  pdftitle = {fduthesis：复旦大学论文模板},
-  pdfauthor = {曾祥东},
-  bookmarksopen = true,
-  % bookmarksopenlevel = 1,
-  bookmarksnumbered = true,
-  % hyperfootnotes = false,
-  % linktoc = page,
-  pdfborder = 0 0 0,
-  colorlinks,
-  linkcolor = {red!60!black},
-  citecolor = {green!50!black},
-  urlcolor = {blue!70!black}
-}
 
 \EnableCrossrefs
 \CodelineIndex
@@ -294,7 +248,7 @@
 % \begin{macro}{\c__fdu_fn_style_plain_tl,
 %   \c__fdu_fn_style_libertinus_tl,
 %   \c__fdu_fn_style_libertinus_n_tl,
-%   \c__fdu_fn_style_libertinus_sans_t,
+%   \c__fdu_fn_style_libertinus_sans_tl,
 %   \c__fdu_fn_style_pifont_tl,
 %   \c__fdu_fn_style_pifont_n_tl,
 %   \c__fdu_fn_style_pifont_sans_tl,
@@ -310,7 +264,7 @@
   { libertinus }
 \tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
   { libertinus* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_t
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl
   { libertinus-sans }
 \tl_const:Nn \c__fdu_fn_style_pifont_tl
   { pifont }
@@ -1458,7 +1412,7 @@
             \fontspec { Libertinus~ Serif }
             \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
           }
-        \c__fdu_fn_style_libertinus_sans_t
+        \c__fdu_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
             \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
