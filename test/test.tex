@@ -1,14 +1,15 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
 \documentclass[oneside]{../source/fduthesis}
-
+\usepackage{kantlipsum}
+\usepackage{zhlipsum}
 
 \fdusetup{
   style = {
-    font = palatino,
+    font = times,
     CJKfont = founder,
     fontsize = -4,
     %fullwidth-stop
-    footnotestyle = pifont,
+    footnotestyle = times
   },
   info = {
     title = {半导体 PN 结的物理特性},
@@ -74,10 +75,6 @@
 的本质在于组成生命的各物质之间以及生命的物质、能量与信息之间和生命
 自身与环境之间的不断的相互作用。不少人不少人，如果是到无穷大。
 
-上标vasdv；此时的的
-
-上标vasdv ；此时的的
-
 上标\TeX；此时的的
 
 上标\TeX ；此时的的
@@ -85,50 +82,8 @@
 上标\LaTeX；此时的的
 
 上标\LaTeX ；此时的的
-本科毕业论文工作是高校实现人才培养目标的重要教学环节。为
-贯彻落实教育部和上海市关于加强普通高等学校毕业论文工作的有
-关文件和学校的要求，为进一步推进物理系本科毕业论文工作的规范
-管理，作好充分准备迎接教育部明年对我校的本科教学工作水平评
-估，结合物理系的学科特点，明确物理系本科毕业论文应达到的质量
-标准，建立有效的管理和监控机制，特制订《复旦大学物理系本科毕
-业论文工作管理办法》。
-每年的十二月上旬开始启动毕业论文工作。由物理系分管系主
-任、教学秘书、凝聚态物理、理论物理和光学科研组的教授各一人组
-成物理系本科毕业论文领导小组，负责整个毕业论文工作。
-在启动后的第一周内，由各学科的有关教授为学生介绍本学科的
-研究方向和目前的研究课题，接受学生的有关咨询，指导教师提出可
-供学生选择的毕业论文题目。鼓励学生和不同的指导教师接触交流，
-确定自己感兴趣的论文题目和指导教师，一般情况下不鼓励学生做 2
-个以上的题目。一位指导教师可以同时指导 2-3 名学生，一般不超过
-5 名。在学期结束以前确定指导教师和论文题目。对外推直研的学生
-允许到对应的研究所或学校去做毕业论文，也要事先确定指导教师和
-论文题目。
 
-确定指导教师和论文题目后，要求学生在寒假期间阅读导师布
-置的有关文献资料，熟悉自己的研究方向，并在开学后的 2 周内在导
-师指导下填写开题报告，明确研究内容和预期目标。如果原定的论文
-题目确实不适合自己，可以提出申请更换题目或导师，在有关导师的
-同意下，经系毕业论文工作领导小组批准更换论文题目或导师，并重
-新填写开题报告。
-
-学生要在导师的指导下拟定工作进度，导师应当督促学生积极
-投入毕业论文的工作，并给予具体的指导，把握学生的研究方向和进
-展。
-
-四月上旬进行毕业论文的中期检查，学生在导师指导下填写中
-期汇报表。对于工作努力，论文进展顺利的同学予以表扬和鼓励。对
-于没能按时间进度完成任务的同学要予以予以批评和警告。导师应当
-督促检查学生的论文进展情况，及时帮助解决学生在研究中遇到的问
-题和困难。
-
-五月中旬进入毕业论文写作阶段，论文必须经导师审阅修改。
-论文应当按统一格式撰写，封面由学校提供，内页用 A4 纸打印。论
-文可以使用 Word 或 \LaTeX{} 等软件打印，应当包括论文题目、作者和
-指导教师、中英文摘要、关键词、正文、图表、参考文献等部分，凡
-属于引用别人的工作必须给出相关的参考文献，坚决杜绝抄袭行为。
-导师应当认真审阅学生的毕业论文，提出具体的修改意见，把握论文
-的科学性，并在最后给出论文的审阅意见。6 月 10 号前应当完成论
-文的写作。
+\zhlipsum[1-3]
 \end{abstract}
 
 \begin{abstract*}
@@ -139,19 +94,7 @@ logical units using separates the name of the function from the
 argument specifier (``arg-spec''). This describes the arguments
 expected by the function.
 
-In most cases, each argument is represented by a single letter. The
-complete list of arg-spec letters for a function is referred to as
-the signature of the function.
-
-Each function name starts with the module to which it belongs. Thus
-apart from a small number of very basic functions, all expl3
-function names contain at least one under-score to divide the
-module name from the descriptive name of the function. For example,
-all functions concerned with comma lists are in module clist and
-begin. Every function must include an argument specifier. For
-functions which take no arguments, this will be blank and the
-function name will end :. Most functions take one or more
-arguments, and use the following argument specifiers.
+\kant[2-4]
 \end{abstract*}
 
 \begin{notation}
@@ -189,107 +132,42 @@ MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
 PBI         &  聚苯并咪唑 \\
 MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
 PY          &  聚吡咙
-% PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-% $\Delta G$  &  活化自由能 (Activation Free Energy) \\
-% $\chi$      &  传输系数 (Transmission Coefficient) \\
-% $E$         &  能量 \\
-% $m$         &  质量 \\
-% $c$         &  光速 \\
-% $P$         &  概率 \\
-% $T$         &  时间 \\
-% $v$         &  速度 \\
-% 劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
-%   直中绳。輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
-%   砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况 \\
-% $\sin$      &  正弦 \\
-% HPC         &  高性能计算 (High Performance Computing) \\
-% cluster     &  集群 \\
-% Itanium     &  安腾 \\
-% SMP         &  对称多处理 \\
-% API         &  应用程序编程接口 \\
-% PI          &  聚酰亚胺 \\
-% MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-% PBI         &  聚苯并咪唑 \\
-% MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-% PY          &  聚吡咙 \\
-% PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-% $\Delta G$  &  活化自由能 (Activation Free Energy) \\
-% $\chi$      &  传输系数 (Transmission Coefficient) \\
-% $E$         &  能量 \\
-% $m$         &  质量 \\
-% $c$         &  光速 \\
-% $P$         &  概率 \\
-% $T$         &  时间 \\
-% $v$         &  速度 \\
-% 劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
-%   直中绳。輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
-%   砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况 \\
-% $\sin$      &  正弦 \\
-% HPC         &  高性能计算 (High Performance Computing) \\
-% cluster     &  集群 \\
-% Itanium     &  安腾 \\
-% SMP         &  对称多处理 \\
-% API         &  应用程序编程接口 \\
-% PI          &  聚酰亚胺 \\
-% MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-% PBI         &  聚苯并咪唑 \\
-% MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-% PY          &  聚吡咙 \\
-% PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-% $\Delta G$  &  活化自由能 (Activation Free Energy) \\
-% $\chi$      &  传输系数 (Transmission Coefficient) \\
-% $E$         &  能量 \\
-% $m$         &  质量 \\
-% $c$         &  光速 \\
-% $P$         &  概率 \\
-% $T$         &  时间 \\
-% $v$         &  速度 \\
-% 劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
-%   直中绳。輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
-%   砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况
 \end{notation}
-
-
-
 
 \chapter{测试 Test}
 \section{文字与段落 Text and paragraph}
 \subsection{中文文本 Chinese}
-如果\symbol{"002E}会突然：FULL STOP
+\zhlipsum
 
-如果\symbol{"3002}会突然：IDEOGRAPHIC FULL STOP
+\subsection{英文文本 English}
+\kant
 
-如果\symbol{"FF0E}会突然：FULLWIDTH FULL STOP
+\clearpage
 
-如果\symbol{"FF61}会突然：HALFWIDTH IDEOGRAPHIC FULL STOP
+\section{字体 Font}
+\subsection{普通字体 Roman}
+\fonttest
 
+\subsection{无衬线字体 Sans-serif}
+\textsf{\fonttest}
+
+\subsection{打字机字体 Typewriter}
+\texttt{\fonttest}
+
+\subsection{句号}
+如果\symbol{"002E}会突然：\textsc{Full Stop} \par
+如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
+如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
+如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+
+\clearpage
+
+\section{脚注 Footnote}
 脚注\footnote{脚注1如果会突然}。
 
 脚注 \footnote{脚注2。千千万的。}。未取得的
 
-脚注。\footnote{脚注3是一个长脚注。未取得的那一年是一九三六年。何满子六岁，剃个光葫芦头，天灵盖上留着个木梳背儿；
-一交立夏就光屁股，晒得两道眉毛只剩下淡淡的痕影，鼻梁子裂了皮，
-全身上下就像刚从烟囱里爬出来，连眼珠都比立夏之前乌黑。她家坐落在北运河岸上，门口外就是大河。有一回，一只外江大帆船打门口路
-过，也正是歇晌时分。一丈青大娘站在篱笆外的伞柳阴下放鸭子，
-一见几个纤夫赤身露体，只系着一条围腰，裤子卷起来盘在头上，便断喝一声：
-
-“站住！”这几个纤夫头顶着火盆子，拉了百八十里路，顶水又逆风，
-还没有歇脚打尖，个顶个窝着一肚子饿火。一丈青大娘的这一声断喝，
-他们只当耳旁风。一丈青大娘见他们头也不抬，理也不理，气更大了，又吆喝
-了一声：“都给我穿上裤子！”有个年轻不知好歹的纤夫，白瞪了一丈青大娘
-一眼，没好气地说：“一大把岁数儿，什么没见过；不爱看合上眼，
-掉过脸去！”一丈青大娘火了起来，挽了挽袖口，手腕子上露出两只叮叮当当
-响的黄铜镯子，一阵风冲下河坡，阻挡在这几个纤夫的面前，手戳着他们的
-鼻子说：“不能叫你们腌臢了我们大姑娘小媳妇的眼睛！”那个不知好歹的年
-轻纤夫，是个生楞儿，用手一推一丈青大娘，
-
-说：“好狗不挡道！”
-这一下可捅了蜂窝。一丈青大娘勃然大怒，老大一个耳刮子抢圆了扇过去；
-那个年轻的纤夫就像风吹乍篷，转了三转，拧了三圈儿，满脸开花，
-口鼻出血，一头栽倒在滚烫的沙滩上，紧一口慢一口倒气，高一声低一声呻吟。
-几个纤夫见他们的伙伴挨了打，唿哨而上；只听咯吧一声，一丈青大娘折断了
-一棵茶碗口粗细的河柳，带着呼呼风声挥舞起来，把这几个纤夫扫下河去，
-就像正月十五煮元宵，纷纷落水。}未取得的
+脚注。\footnote{脚注3是一个长脚注。\zhlipsum*[2]}未取得的
 
 \textit{脚注倾斜。 \footnote{脚注4}未取得的}
 
@@ -306,127 +184,67 @@ vs\footnote{脚注8}ge
 
 vs\footnote{脚注9} jsty
 
-vs\footnote{脚注10分三段。青大娘；大高个儿，一双大脚，青铜肤色，
+vs\footnote{脚注10分三段。青大娘大高个儿，一双大脚，青铜肤色，
 嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-一丈青大娘骂人，就像雨打芭蕉，长短句。\par 青大娘；大高个儿，一双大脚，青铜肤色，
+一丈青大娘骂人，就像雨打芭蕉，长短句。\par
+青大娘大高个儿，一双大脚，青铜肤色，
 嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-一丈青大娘骂人，就像雨打芭蕉，长短句。 \par 青大娘；大高个儿，一双大脚，青铜肤色，
+一丈青大娘骂人，就像雨打芭蕉，长短句。 \par
+青大娘大高个儿，一双大脚，青铜肤色，
 嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
 一丈青大娘骂人，就像雨打芭蕉，长短句。}
 
-七月天，中伏大晌午，热得像天上下火。何满子被爷爷拴在葡萄架的, oooooooo oooo oooooooo ooooooo 立柱上，
-系的是挂贼扣儿。
-那一年是一九三六年。何满子六岁，剃个光葫芦头，天灵盖上留着个木梳背儿；
-一交立夏就光屁股，晒得两道眉毛只剩下淡淡的痕影，鼻梁子裂了皮，
-全身上下就像刚从烟囱里爬出来，连眼珠都比立夏之前乌黑。
-奶奶叫东隔壁的望日莲姑姑给何满子做了一条大红兜肚，兜肚上还用五彩细线
-绣了一大堆花草。人配衣裳马配鞍，何满子穿上这条花红兜肚，
-一定会在小伙伴们中间出人头地。可是，何满子一天也不穿。
-何满子整天在运河滩上野跑，头顶着毒热的阳光，身上再裹起兜肚，一不风凉，
-二又窝汗，穿不了一天，就得起大半身痱子。再有，全村跟他一般大的小姑娘，
-谁的兜肚也没有这么花儿草儿的鲜艳，他穿在身上，男不男，女不女，
-小姑娘们要用手指刮破脸蛋儿，臊得他找个田鼠窝钻进去；
-小小子儿们也要敲起锣鼓似的叫他小丫头儿，管叫他一辈子抬不起头。
-
-何满子不穿花红兜肚，奶奶气得咬牙切齿地骂他，手握着擀面杖要梆他，还威
-吓要三天不给他饭吃。原来，这条兜肚大有讲究。何满子是个娇哥儿，
-奶奶老是怕阎王爷打发白无常把他勾走；听说阎王爷非常重男轻女，
-何满子穿上花红兜肚，男扮女妆，阎王爷老眼昏花地看不真切，
-也就起不了勾魂索命的恶念。
-
-何满子的奶奶，人人都管她叫一丈青大娘；大高个儿，一双大脚，青铜肤色，
-嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-一丈青大娘骂人，就像雨打芭蕉，长短句，四六体，鼓点似的骂一天，
-一气呵成，也不倒嗓子。她也能打架，动起手来，别看五六十岁了，
-三五个大小伙子不够她打一锅的。
-
-她家坐落在北运河岸上，门口外就是大河。有一回，一只外江大帆船打门口路
-过，也正是歇晌时分。一丈青大娘站在篱笆外的伞柳阴下放鸭子，
-一见几个纤夫赤身露体，只系着一条围腰，裤子卷起来盘在头上，便断喝一声：
-“站住！”这几个纤夫头顶着火盆子，拉了百八十里路，顶水又逆风，
-还没有歇脚打尖，个顶个窝着一肚子饿火。一丈青大娘的这一声断喝，
-他们只当耳旁风。一丈青大娘见他们头也不抬，理也不理，气更大了，又吆喝
-了一声：“都给我穿上裤子！”有个年轻不知好歹的纤夫，白瞪了一丈青大娘
-一眼，没好气地说：“一大把岁数儿，什么没见过；不爱看合上眼，
-掉过脸去！”一丈青大娘火了起来，挽了挽袖口，手腕子上露出两只叮叮当当
-响的黄铜镯子，一阵风冲下河坡，阻挡在这几个纤夫的面前，手戳着他们的
-鼻子说：“不能叫你们腌臢了我们大姑娘小媳妇的眼睛！”那个不知好歹的年
-轻纤夫，是个生楞儿，用手一推一丈青大娘，说：“好狗不挡道！”
-这一下可捅了蜂窝。一丈青大娘勃然大怒，老大一个耳刮子抢圆了扇过去；
-那个年轻的纤夫就像风吹乍篷，转了三转，拧了三圈儿，满脸开花，
-口鼻出血，一头栽倒在滚烫的沙滩上，紧一口慢一口倒气，高一声低一声呻吟。
-几个纤夫见他们的伙伴挨了打，唿哨而上；只听咯吧一声，一丈青大娘折断了
-一棵茶碗口粗细的河柳，带着呼呼风声挥舞起来，把这几个纤夫扫下河去，
-就像正月十五煮元宵，纷纷落水。一丈青大娘不依不饶，站在河边大骂不住声，
-还不许那几个纤夫爬上岸来；大帆船失去了纤力，掌舵的绽裂了虎口，
-也驾驭不住，在河上转开了磨。最后，还是船老板请出了摆渡船的柳罐斗，
-钉掌铺的吉老秤，老木匠郑端午，开小店的花鞋杜四，说和了两三个时辰，
-一丈青大娘才算开恩放行。
-
-一丈青大娘有一双长满老茧的大手，种地、撑船、打鱼都是行家。她还会扎针、
-拔罐子、接生。接骨、看红伤。这个小村大人小孩有个头痛脑热，都来找她
-妙手回春；全村三十岁以下的人，都是她那一双粗大的手给接来了人间。
-
-\subsection{英文文本 English}
-The House of Representatives shall be composed of Members chosen
-every second Year by the People of the several States, and the
-Electors in each State shall have the Qualifications requisite for
-Electors of the most numerous Branch of the State Legislature.
-
-No Person shall be a Representative who shall not have attained to
-the Age of twenty five Years, and been seven Years a Citizen of the
-United States, and who shall not, when elected, be an Inhabitant of
-that State in which he shall be chosen.
-
-Representatives and direct Taxes shall be apportioned among the
-several States which may be included within this Union, according to
-their respective Numbers, which shall be determined by adding to the
-whole Number of free Persons, including those bound to Service for a
-Term of Years, and excluding Indians not taxed, three fifths of all
-other Persons.
-
-The actual Enumerationoraten shall be made within three Years after the
-first Meeting onoratef the Conoratengress onoratef the United States, and within every
-subsequent Term onoratef ten Years, in such Manner as they shall by Law
-direct. The Number onoratef Representatives shall nonoratet exceed onoratene fonorater every
-thirty Thonorateusand, but each State shall have at Least onoratene
-Representative; and until such enumerationoraten shall be made, the State
-onoratef New Hampshire shall be entitled tonorate chuse three, Massachusetts
-eight, Rhonoratede Island and Pronoratevidence Plantationoratens onoratene, Conoratennecticut five,
-New Yonoraterk six, New Jersey fonorateur, Pennsylvania eight, Delaware onoratene,
-Maryland six, Virginia ten, Nonoraterth Caronoratelina five, Sonorateuth Caronoratelina
-five and Geonoratergia three.
-
-When vacancies happen in the Representation from any State, the
-Executive Authority thereof shall issue Writs of Election to fill
-such Vacancies.
-
-The House of Representatives shall chuse their Speaker and other
-Officers; and shall have the sole Power of Impeachment.
-
-\section{字体 Font}
-\subsection{普通字体 Roman}
-\fonttest
-
-\subsection{无衬线字体 Sans-serif}
-\textsf{\fonttest}
-
-\subsection{打字机字体 Typewriter}
-\texttt{\fonttest}
-
-%\[\pi=\sb{33}\]
-%
-%\[
-%  \int\sin x\,\mathrm{d}x=\cos x + C
-%\]
-%
-one\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is a footnote.}
-%\hbox{two}
-%three
-%
-%\mbox{one}
-%\mbox{two}
-%three
+Text%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
+\footnote{This is a footnote.}%
 
 \chapter{测试2 Test}
 \section{数学 Math}
@@ -450,18 +268,6 @@ one\footnote{This is a footnote.}\footnote{This is a footnote.}\footnote{This is
 	\sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
 \end{equation}
 \end{proof}
+
 \chapter{测试3 Test}
-%\makeatletter
-%\iffdu@font@times
-%	times true
-%\else
-%	times false
-%\fi
-%
-%\iffdu@font@lm
-%	latin modern true
-%\else
-%	latin modern false
-%\fi
-%\makeatother
 \end{document}

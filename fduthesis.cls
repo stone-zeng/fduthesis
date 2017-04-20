@@ -552,7 +552,7 @@
     footnotestyle .choices:nn = {
       plain,
       libertinus, libertinus*, libertinus-sans,
-      pifont, pifont*, pifont-sans, pifont-sans*
+      pifont, pifont*, pifont-sans, pifont-sans*,
       times, times-sans, times-sans*,
     }
     {
