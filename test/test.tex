@@ -33,28 +33,6 @@
   }
 }
 
-\usepackage[thmmarks]{ntheorem}
-\theorembodyfont{\CJKfamily{kai}}
-\theoremheaderfont{\sffamily}
-
-\theoremsymbol{\ensuremath{\QED}}
-\newtheorem*{proof}{证明}
-
-\theoremstyle{plain}
-\theoremsymbol{}
-\newtheorem{assumption}{假设}[chapter]
-\newtheorem{definition}{定义}[chapter]
-\newtheorem{proposition}{命题}[chapter]
-\newtheorem{lemma}{引理}[chapter]
-\newtheorem{theorem}{定理}[chapter]
-\newtheorem{axiom}{公理}[chapter]
-\newtheorem{corollary}{推论}[chapter]
-\newtheorem{exercise}{练习}[chapter]
-\newtheorem{example}{例}[chapter]
-\newtheorem{remark}{注释}[chapter]
-\newtheorem{problem}{问题}[chapter]
-\newtheorem{conjecture}{猜想}[chapter]
-
 \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
 \newcommand\fonttest{%
   正常：\qquad\fonttesttext \par
@@ -262,12 +240,34 @@ Text%
 证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”（这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以在证明的尾段写出，以显示证明所需的结论已经完整了。
 \end{definition}
 
+\begin{lemma}
+  这是一条华丽丽的引理。
+\end{lemma}
+
 \begin{proof}
 先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
 \begin{equation}
-	\sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
+  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
 \end{equation}
 \end{proof}
 
+\begin{proof}
+先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
+\begin{equation*}
+  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
+\end{equation*}
+\end{proof}
+
+\begin{lemma}
+  这又是一条华丽丽的引理。
+\end{lemma}
+
 \chapter{测试3 Test}
+
+\begin{proof}
+先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
+\begin{equation}
+  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
+\end{equation}
+\end{proof}
 \end{document}

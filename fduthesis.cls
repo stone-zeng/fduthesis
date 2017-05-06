@@ -46,28 +46,17 @@
   { \symbol { "3002 } }
 \tl_const:Nn \c__fdu_full_stop_fullwidth_tl
   { \symbol { "FF0E } }
-\tl_const:Nn \c__fdu_fn_style_plain_tl
-  { plain }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl
-  { libertinus }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
-  { libertinus* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl
-  { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl
-  { pifont }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl
-  { pifont* }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl
-  { pifont-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl
-  { pifont-sans* }
-\tl_const:Nn \c__fdu_fn_style_times_tl
-  { times }
-\tl_const:Nn \c__fdu_fn_style_times_sans_tl
-  { times-sans }
-\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl
-  { times-sans* }
+\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
+\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
+\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
+\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c__fdu_fn_style_times_tl           { times           }
+\tl_const:Nn \c__fdu_fn_style_times_sans_tl      { times-sans      }
+\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl    { times-sans*     }
 \tl_new:N \g__fdu_fn_style_tl
 \keys_define:nn { fdu / option }
   {
@@ -110,6 +99,7 @@
 \RequirePackage [ no-math ] { fontspec }
 \RequirePackage [ UTF8, heading = true, zihao = -4,
   fontset = none ] { ctex }
+\RequirePackage { amsmath }
 \RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
 \keys_define:nn { fdu / style }
@@ -675,15 +665,136 @@
   }
 \RequirePackage [ perpage ] { footmisc }
 \RenewDocumentCommand \@makefntext { +m }
-{
-  \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
-  \makebox [ 1.5 em ] [ l ] { \@thefnmark }
-  \parbox [ t ] { \l__fdu_tmpa_dim }
-    {
-      \everypar { \hspace* { 2 em } }
-      \hspace* { -2 em } #1
-    }
-}
+  {
+    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
+    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
+    \parbox [ t ] { \l__fdu_tmpa_dim }
+      {
+        \everypar { \hspace* { 2 em } }
+        \hspace* { -2 em } #1
+      }
+  }
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
+\keys_define:nn { fdu / theorem }
+  {
+    style      .tl_set:N  = \l__fdu_thm_style_tl,
+    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
+    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
+    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
+    headerfont .initial:n = { \sffamily },
+    bodyfont   .initial:n = { \CJKfamily { kai } },
+    counter    .initial:n = { chapter }
+  }
+\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #3 } { #4 } [ #2 ]
+  }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
+\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #2 } { #3 }
+  }
+\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
+\clist_const:Nn \c__fdu_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c__fdu_thm_style_break_clist
+  { break, marginbreak, changebreak }
+\clist_const:Nn \c__fdu_thm_style_nonumber_clist
+  { nonumberplain, nonumberbreak }
+\cs_new:Npn \fdu_thm_set_qed:n         #1
+  { \theoremsymbol     { #1 } }
+\cs_new:Npn \fdu_thm_set_header_font:n #1
+  { \theoremheaderfont { #1 } }
+\cs_new:Npn \fdu_thm_set_body_font:n   #1
+  { \theorembodyfont   { #1 } }
+\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
+\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
+\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
+\NewDocumentCommand \fdunewtheorem { s o m m }
+  {
+    \IfBooleanTF #1
+      {
+        % 带 *，不编号，有 QED （用于证明环境）
+        \tl_set:Nn \l__fdu_thm_style_tl { nonumberplain }
+        \tl_set:Nn \l__fdu_thm_qed_tl   { \ensuremath { \QED } }
+      }
+      {
+        % 不带 *，编号，没有 QED
+        \tl_set:Nn \l__fdu_thm_style_tl { plain }
+        \tl_set:Nn \l__fdu_thm_qed_tl   { }
+      }
+
+    \IfValueT { #2 }
+      { \keys_set:nn { fdu / theorem } { #2 } }
+    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
+
+    \IfBooleanTF #1
+      {
+        % 带 *，不编号，有 QED （用于证明环境）
+        \clist_if_in:NVF
+          \c__fdu_thm_style_nonumber_clist
+          \l__fdu_thm_style_tl
+          {
+            \clist_if_in:NVTF
+              \c__fdu_thm_style_plain_clist
+              \l__fdu_thm_style_tl
+              { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+              {
+                \clist_if_in:NVTF
+                  \c__fdu_thm_style_break_clist
+                  \l__fdu_thm_style_tl
+                  { \tl_set:Nn \l__fdu_thm_style_tl { break } }
+                  {
+                    %TODO: Error massage.
+                  }
+              }
+          }
+
+        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
+          { #3 } { #4 }
+      }
+      {
+        % 不带 *，编号，没有 QED
+        \clist_clear:N \l__fdu_tmpa_clist
+        \clist_concat:NNN \l__fdu_tmpa_clist
+          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
+
+        \clist_if_in:NVTF
+          \c__fdu_thm_style_nonumber_clist \l__fdu_thm_style_tl
+          {
+            \tl_remove_once:Nn \l__fdu_thm_style_tl { nonumber }
+          }
+          {
+            \clist_if_in:NVF
+              \l__fdu_tmpa_clist \l__fdu_thm_style_tl
+              {
+                %TODO: Error massage.
+              }
+          }
+
+        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
+          { \l__fdu_thm_counter_tl }
+          { #3 } { #4 }
+      }
+  }
+\fdunewtheorem* { proof       } { 证明 }
+\fdunewtheorem  { assumption  } { 假设 }
+\fdunewtheorem  { axiom       } { 公理 }
+\fdunewtheorem  { conjecture  } { 猜想 }
+\fdunewtheorem  { corollary   } { 推论 }
+\fdunewtheorem  { definition  } { 定义 }
+\fdunewtheorem  { example     } { 例   }
+\fdunewtheorem  { exercise    } { 练习 }
+\fdunewtheorem  { lemma       } { 引理 }
+\fdunewtheorem  { problem     } { 问题 }
+\fdunewtheorem  { proposition } { 命题 }
+\fdunewtheorem  { remark      } { 评注 }
+\fdunewtheorem  { theorem     } { 定理 }
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } { #1 },

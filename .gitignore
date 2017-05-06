@@ -16,6 +16,7 @@
 # *.bat
 *.txt
 
+.vscode/
 source/fduthesis.cls
 temp/
 # test/

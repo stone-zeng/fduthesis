@@ -201,7 +201,8 @@
 %    \end{macrocode}
 %
 % \subsection{内部变量声明}
-% \begin{macro}{\l__fdu_tmpa_box,\l__fdu_tmpa_dim,
+% \begin{macro}{\l__fdu_tmpa_box,
+%   \l__fdu_tmpa_dim,
 %   \l__fdu_tmpa_tl,\l__fdu_tmpb_tl,
 %   \l__fdu_tmpa_int,
 %   \l__fdu_tmpa_clist,\l__fdu_tmpb_clist}
@@ -258,28 +259,17 @@
 %   \c__fdu_fn_style_times_sans_n_tl}
 % 各种脚注编号样式的名称。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_fn_style_plain_tl
-  { plain }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl
-  { libertinus }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl
-  { libertinus* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl
-  { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl
-  { pifont }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl
-  { pifont* }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl
-  { pifont-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl
-  { pifont-sans* }
-\tl_const:Nn \c__fdu_fn_style_times_tl
-  { times }
-\tl_const:Nn \c__fdu_fn_style_times_sans_tl
-  { times-sans }
-\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl
-  { times-sans* }
+\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
+\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
+\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
+\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c__fdu_fn_style_times_tl           { times           }
+\tl_const:Nn \c__fdu_fn_style_times_sans_tl      { times-sans      }
+\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl    { times-sans*     }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -394,10 +384,15 @@
 %
 % 本模板使用 Unicode 编码的 OpenType 数学字体，
 % 此功能由 \pkg{unicode-math} 宏包实现。
-% 根据有关规定，数学表达式中，表示变量的拉丁字母和希腊字母均应当
-% 使用斜体。
+% 为防止冲突，\pkg{amsmath} 必须在它之前引入。
 %    \begin{macrocode}
+\RequirePackage { amsmath }
 \RequirePackage { unicode-math }
+%    \end{macrocode}
+%
+% 根据相关规定，数学表达式中，表示变量的拉丁字母和希腊字母
+% 均应当使用斜体。
+%    \begin{macrocode}
 \unimathsetup { math-style = ISO, bold-style = ISO }
 %    \end{macrocode}
 %
@@ -1225,7 +1220,7 @@
 %
 % \subsection{脚注}
 % \subsubsection{编号样式}
-%
+% 脚注样式也归入 |fdu/style| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
@@ -1457,7 +1452,7 @@
 % \end{macro}
 %
 % \subsubsection{整体样式}
-% 利用 \pkg{footmisc} 宏包让脚注编号每一页重新开始。
+% 使脚注编号每一页重新开始是利用 \pkg{footmisc} 宏包实现的。
 %    \begin{macrocode}
 \RequirePackage [ perpage ] { footmisc }
 %    \end{macrocode}
@@ -1466,160 +1461,207 @@
 % 重定义内部脚注文字命令。
 %    \begin{macrocode}
 \RenewDocumentCommand \@makefntext { +m }
-{
+  {
 %    \end{macrocode}
 % 脚注编号不使用上标，宽度为 \SI{1.5}{em}。\\
 % 见 http://tex.stackexchange.com/q/19844
 %    \begin{macrocode}
-  \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
-  \makebox [ 1.5 em ] [ l ] { \@thefnmark }
+    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
+    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
 %    \end{macrocode}
 % 脚注文字用 |parbox| 封装。首段无缩进，第二段起缩进 \SI{2}{em}。
 %    \begin{macrocode}
-  \parbox [ t ] { \l__fdu_tmpa_dim }
-    {
-      \everypar { \hspace* { 2 em } }
-      \hspace* { -2 em } #1
-    }
-}
+    \parbox [ t ] { \l__fdu_tmpa_dim }
+      {
+        \everypar { \hspace* { 2 em } }
+        \hspace* { -2 em } #1
+      }
+  }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsection{定理环境}
-% 希望实现类似 \pkg{thmtools} 的功能。目前还做不到。
+% 定理环境的核心内容依靠 \pkg{ntheorem} 宏包实现。
 %    \begin{macrocode}
-% % amsmath 需要放在 unicode-math 之前，暂时不用
-% %\RequirePackage { amsmath }
-% \RequirePackage [ thmmarks ] { ntheorem }
-% %\theoremheaderfont { \sffamily }
-% %\theorembodyfont   { \CJKfamily { kai } }
-% %
-% %{
-% %  \theoremstyle { nonumberplain }
-% %  \theoremsymbol { \ensuremath { \QED } }
-% %  \newtheorem { proof       } { 证明 }
-% %}
-% %
-% %{
-% %  \theoremstyle { plain }
-% %  \theoremsymbol { }
-% %  \newtheorem { assumption  } { 假设 } [ chapter ]
-% %  \newtheorem { definition  } { 定义 } [ chapter ]
-% %  \newtheorem { proposition } { 命题 } [ chapter ]
-% %  \newtheorem { lemma       } { 引理 } [ chapter ]
-% %  \newtheorem { theorem     } { 定理 } [ chapter ]
-% %  \newtheorem { axiom       } { 公理 } [ chapter ]
-% %  \newtheorem { corollary   } { 推论 } [ chapter ]
-% %  \newtheorem { exercise    } { 练习 } [ chapter ]
-% %  \newtheorem { example     } { 例   } [ chapter ]
-% %  \newtheorem { remark      } { 评注 } [ chapter ]
-% %  \newtheorem { problem     } { 问题 } [ chapter ]
-% %  \newtheorem { conjecture  } { 猜想 } [ chapter ]
-% %}
-%
-% %\l__fdu_theorem_name_proof
-% %\l__fdu_theorem_name_assumption
-% %\l__fdu_theorem_name_definition
-% %\l__fdu_theorem_name_proposition
-% %\l__fdu_theorem_name_lemma
-% %\l__fdu_theorem_name_theorem
-% %\l__fdu_theorem_name_axiom
-% %\l__fdu_theorem_name_corollary
-% %\l__fdu_theorem_name_exercise
-% %\l__fdu_theorem_name_example
-% %\l__fdu_theorem_name_remark
-% %\l__fdu_theorem_name_problem
-% %\l__fdu_theorem_name_conjecture
-%
-% \keys_define:nn { fdu / theorem }
-%  {
-%    style      .tl_set:N  = \l__fdu_theorem_style_tl,
-%    headerfont .tl_set:N  = \l__fdu_theorem_header_font_tl,
-%    bodyfont   .tl_set:N  = \l__fdu_theorem_body_font_tl,
-%    qed        .tl_set:N  = \l__fdu_theorem_qed_tl,
-%    numbering  .tl_set:N  = \l__fdu_theorem_numbering_tl,
-%
-%    headerfont .initial:n = { \sffamily },
-%    bodyfont   .initial:n = { \CJKfamily { kai } },
-%    qed        .initial:n = { \ensuremath { \QED } }
-%  }
-%
-% \cs_new:Npn \fdu_theorem_style:V #1
-%  {
-%    \theoremstyle { #1 }
-%  }
-%
-% \cs_new:Npn \fdu_theorem_symbol:V #1
-%  {
-%    \theoremsymbol { #1 }
-%  }
-%
-% % \fdunewtheorem : 带编号
-% % \fdunewtheorem*: 不带编号
-% \NewDocumentCommand \fdunewtheorem { s o m m }
-%  {
-%    \IfBooleanTF #1
-%      % 带 *，不编号
-%      {
-%        \tl_set:Nn \l__fdu_theorem_style_tl     { nonumberplain }
-% %\tl_show:n{001}
-%      }
-%      % 不带 *，编号
-%      {
-% %\tl_show:n{002}
-%        \tl_set:Nn \l__fdu_theorem_style_tl     { plain   }
-%        \tl_set:Nn \l__fdu_theorem_qed_tl       {         }
-%        \tl_set:Nn \l__fdu_theorem_numbering_tl { chapter }
-%        \tl_set:Nn \l__fdu_theorem_header_font_tl { \ttfamily }
-%      }
-%
-%    \IfValueT { #2 }
-%      { \keys_set:nn { fdu / theorem } { #2 } }
-%
-% %\tl_show:N \l__fdu_theorem_style_tl
-%    %\fdu_theorem_style:V \l__fdu_theorem_style_tl
-%    %\theoremstyle      { \l__fdu_theorem_style_tl       }
-%    %\theoremsymbol     { \l__fdu_theorem_qed_tl         }
-%    %\theoremheaderfont { \l__fdu_theorem_header_font_tl }
-%    %\theorembodyfont   { \l__fdu_theorem_body_font_tl   }
-%
-%    \IfBooleanTF #1
-%      % 带 *，不编号
-%      {
-% %\tl_show:n{003}
-%        \theoremstyle      { \l__fdu_theorem_style_tl       }
-%        \fdu_theorem_symbol:V \l__fdu_theorem_qed_tl
-%        %\tl_show:N\l__fdu_theorem_qed_tl
-%        \theoremheaderfont { \l__fdu_theorem_header_font_tl }
-%        \theorembodyfont   { \l__fdu_theorem_body_font_tl   }
-%        \newtheorem { #3 } { #4 }
-%      }
-%      % 不带 *，编号
-%      {
-% %\tl_show:n{004}
-%        \theoremstyle      { \l__fdu_theorem_style_tl       }
-%        \theoremsymbol     { \l__fdu_theorem_qed_tl         }
-%        \theoremheaderfont { \l__fdu_theorem_header_font_tl }
-%        \theorembodyfont   { \l__fdu_theorem_body_font_tl   }
-%        \newtheorem { #3 } { #4 }
-%          [ \l__fdu_theorem_numbering_tl ]
-%      }
-%  }
-%
-% \fdunewtheorem* { proof       } { 证明 }
-% \fdunewtheorem  { assumption  } { 假设 }
-% \fdunewtheorem  { definition  } { 定义 }
-% \fdunewtheorem  { proposition } { 命题 }
-% \fdunewtheorem  { lemma       } { 引理 }
-% \fdunewtheorem  { theorem     } { 定理 }
-% \fdunewtheorem  { axiom       } { 公理 }
-% \fdunewtheorem  { corollary   } { 推论 }
-% \fdunewtheorem  { exercise    } { 练习 }
-% \fdunewtheorem  { example     } { 例   }
-% \fdunewtheorem  { remark      } { 评注 }
-% \fdunewtheorem  { problem     } { 问题 }
-% \fdunewtheorem  { conjecture  } { 猜想 }
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
 %    \end{macrocode}
+%
+% 定义 |fdu/theorem| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / theorem }
+  {
+    style      .tl_set:N  = \l__fdu_thm_style_tl,
+    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
+    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
+    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
+    headerfont .initial:n = { \sffamily },
+    bodyfont   .initial:n = { \CJKfamily { kai } },
+    counter    .initial:n = { chapter }
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
+% 1 样式
+% 2 计数器
+% 3 环境名
+% 4 定理头文字
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #3 } { #4 } [ #2 ]
+  }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_no_number_new:nnn,\fdu_thm_no_number_new:Vnn}
+% 1 定理样式
+% 2 定理环境名称
+% 3 定理头文字
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #2 } { #3 }
+  }
+\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_thm_style_plain_clist,
+%   \c__fdu_thm_style_break_clist,
+%   \c__fdu_thm_style_nonumber_clist}
+%    \begin{macrocode}
+\clist_const:Nn \c__fdu_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c__fdu_thm_style_break_clist
+  { break, marginbreak, changebreak }
+\clist_const:Nn \c__fdu_thm_style_nonumber_clist
+  { nonumberplain, nonumberbreak }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_set_qed:n,
+%   \fdu_thm_set_header_font:n,\fdu_thm_set_body_font:n}
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_set_qed:n         #1
+  { \theoremsymbol     { #1 } }
+\cs_new:Npn \fdu_thm_set_header_font:n #1
+  { \theoremheaderfont { #1 } }
+\cs_new:Npn \fdu_thm_set_body_font:n   #1
+  { \theorembodyfont   { #1 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_set_qed:V,
+%   \fdu_thm_set_header_font:V,\fdu_thm_set_body_font:V}
+% 生成以上三个函数的变体。
+%    \begin{macrocode}
+\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
+\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
+\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
+% \cs{fdunewtheorem}：带编号；
+% \cs{fdunewtheorem*}：不带编号
+%    \begin{macrocode}
+\NewDocumentCommand \fdunewtheorem { s o m m }
+  {
+    \IfBooleanTF #1
+      {
+        % 带 *，不编号，有 QED （用于证明环境）
+        \tl_set:Nn \l__fdu_thm_style_tl { nonumberplain }
+        \tl_set:Nn \l__fdu_thm_qed_tl   { \ensuremath { \QED } }
+      }
+      {
+        % 不带 *，编号，没有 QED
+        \tl_set:Nn \l__fdu_thm_style_tl { plain }
+        \tl_set:Nn \l__fdu_thm_qed_tl   { }
+      }
+
+    \IfValueT { #2 }
+      { \keys_set:nn { fdu / theorem } { #2 } }
+    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
+
+    \IfBooleanTF #1
+      {
+        % 带 *，不编号，有 QED （用于证明环境）
+        \clist_if_in:NVF
+          \c__fdu_thm_style_nonumber_clist
+          \l__fdu_thm_style_tl
+          {
+            \clist_if_in:NVTF
+              \c__fdu_thm_style_plain_clist
+              \l__fdu_thm_style_tl
+              { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+              {
+                \clist_if_in:NVTF
+                  \c__fdu_thm_style_break_clist
+                  \l__fdu_thm_style_tl
+                  { \tl_set:Nn \l__fdu_thm_style_tl { break } }
+                  {
+                    %TODO: Error massage.
+                  }
+              }
+          }
+
+        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
+          { #3 } { #4 }
+      }
+      {
+        % 不带 *，编号，没有 QED
+        \clist_clear:N \l__fdu_tmpa_clist
+        \clist_concat:NNN \l__fdu_tmpa_clist
+          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
+
+        \clist_if_in:NVTF
+          \c__fdu_thm_style_nonumber_clist \l__fdu_thm_style_tl
+          {
+            \tl_remove_once:Nn \l__fdu_thm_style_tl { nonumber }
+          }
+          {
+            \clist_if_in:NVF
+              \l__fdu_tmpa_clist \l__fdu_thm_style_tl
+              {
+                %TODO: Error massage.
+              }
+          }
+
+        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
+          { \l__fdu_thm_counter_tl }
+          { #3 } { #4 }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{proof,
+%   assumption,axiom,conjecture,corollary,definition,example,
+%   exercise,lemma,problem,proposition,remark,theorem}
+% 模板预定义的常用数学环境。
+% 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
+%    \begin{macrocode}
+\fdunewtheorem* { proof       } { 证明 }
+\fdunewtheorem  { assumption  } { 假设 }
+\fdunewtheorem  { axiom       } { 公理 }
+\fdunewtheorem  { conjecture  } { 猜想 }
+\fdunewtheorem  { corollary   } { 推论 }
+\fdunewtheorem  { definition  } { 定义 }
+\fdunewtheorem  { example     } { 例   }
+\fdunewtheorem  { exercise    } { 练习 }
+\fdunewtheorem  { lemma       } { 引理 }
+\fdunewtheorem  { problem     } { 问题 }
+\fdunewtheorem  { proposition } { 命题 }
+\fdunewtheorem  { remark      } { 评注 }
+\fdunewtheorem  { theorem     } { 定理 }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{文字绕排}
 % WARNING：严重冲突，暂时不启用。
