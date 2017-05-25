@@ -64,7 +64,6 @@ tlmgr install         \
   adobemapping        \
   amsfonts            \
   fandol              \
-  fix-cm              \
   libertinus          \
   lm                  \
   lm-math             \
