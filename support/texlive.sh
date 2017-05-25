@@ -36,7 +36,9 @@ tlmgr install         \
   l3kernel            \
   l3experimental      \
   l3packages          \
-  l3build
+  l3build             \
+  l3keys2e            \
+  xparse
 
 # XeTeX
 tlmgr install         \
@@ -62,6 +64,7 @@ tlmgr install         \
   adobemapping        \
   amsfonts            \
   fandol              \
+  fix-cm              \
   libertinus          \
   lm                  \
   lm-math             \
@@ -98,6 +101,7 @@ tlmgr install         \
   siunitx             \
   tools               \
   trimspaces          \
+  ucharcat            \
   ulem                \
   xcolor              \
   xunicode            \
