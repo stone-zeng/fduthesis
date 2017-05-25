@@ -48,6 +48,7 @@ tlmgr install         \
 # LuaTeX
 tlmgr install         \
   luatex              \
+  ctablestack         \
   ifluatex            \
   lualatex-math       \
   lualibs             \
