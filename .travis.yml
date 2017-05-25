@@ -1,0 +1,14 @@
+install:
+  - source ./support/texlive.sh
+
+cache:
+  directories:
+    - /tmp/texlive
+    - $HOME/.texlive
+
+script:
+  - cd source
+  - xetex fduthesis.ins
+  - cd ../test
+  - xelatex  -interaction=nonstopmode test
+  - lualatex -interaction=nonstopmode test
