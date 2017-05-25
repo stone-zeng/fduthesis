@@ -97,6 +97,7 @@ tlmgr install         \
   pgf                 \
   siunitx             \
   tools               \
+  trimspaces          \
   ulem                \
   xcolor              \
   xunicode            \
