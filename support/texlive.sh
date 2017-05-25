@@ -91,6 +91,7 @@ tlmgr install         \
   hyperref            \
   longtable           \
   ntheorem            \
+  ms                  \
   oberdiek            \
   pgf                 \
   siunitx             \
