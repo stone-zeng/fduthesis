@@ -36,9 +36,7 @@ tlmgr install         \
   l3kernel            \
   l3experimental      \
   l3packages          \
-  l3build             \
-  l3keys2e            \
-  xparse
+  l3build
 
 # XeTeX
 tlmgr install         \
@@ -90,9 +88,7 @@ tlmgr install         \
   graphics            \
   graphics-cfg        \
   graphics-def        \
-  graphicx            \
   hyperref            \
-  longtable           \
   ntheorem            \
   ms                  \
   oberdiek            \
