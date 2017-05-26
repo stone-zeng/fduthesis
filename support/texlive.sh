@@ -29,24 +29,18 @@ tlmgr install         \
   knuth-lib           \
   latex-bin           \
   tex-ini-files       \
-  cm
-
+  cm                  \
 # LaTeX3 packages
-tlmgr install         \
   l3kernel            \
   l3experimental      \
   l3packages          \
-  l3build
-
+  l3build             \
 # XeTeX
-tlmgr install         \
   xetex               \
   ifxetex             \
   unicode-data        \
-  xecjk
-
+  xecjk               \
 # LuaTeX
-tlmgr install         \
   luatex              \
   ctablestack         \
   ifluatex            \
@@ -54,10 +48,8 @@ tlmgr install         \
   lualibs             \
   luaotfload          \
   luatexbase          \
-  luatexja
-
+  luatexja            \
 # Fonts
-tlmgr install         \
   fontspec            \
   adobemapping        \
   amsfonts            \
@@ -69,15 +61,11 @@ tlmgr install         \
   mfware              \
   psnfss              \
   tex-gyre            \
-  xits
-
+  xits                \
 # Math
-tlmgr install         \
   amsmath             \
-  unicode-math
-
+  unicode-math        \
 # Other
-tlmgr install         \
   ctex                \
   environ             \
   etoolbox            \
