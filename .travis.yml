@@ -9,8 +9,13 @@ cache:
 script:
   - cp -r /tmp/texlive/texmf-dist/fonts/opentype /home/travis/.fonts
   - fc-cache -rv
-  - cd source
-  - xetex fduthesis.ins
-  - cd ../test
-  - xelatex  -interaction=nonstopmode test
-  - lualatex -interaction=nonstopmode test
+  - kpsewhich --var-value=TEXMFLOCAL
+  - kpsewhich --var-value=TEXMFHOME
+  - kpsewhich kantlipsum.sty
+  - kpsewhich zhlipsum.sty
+  
+#  - cd source
+#  - xetex fduthesis.ins
+#  - cd ../test
+#  - xelatex  -interaction=nonstopmode test
+#  - lualatex -interaction=nonstopmode test
