@@ -11,9 +11,9 @@ cache:
     - $HOME/.texlive
 
 script:
-  - cat /etc/fonts/fonts.conf
-  - fc-cache -rv /tmp/texlive/texmf-dist/fonts/opentype
-  - fc-cache -rv /tmp/texlive/texmf-dist/fonts/truetype
+  - cp -r /tmp/texlive/texmf-dist/fonts/opentype /usr/local/share/fonts
+  - cp -r /tmp/texlive/texmf-dist/fonts/truetype /usr/local/share/fonts
+  - fc-cache -rv
   - fc-list
 #  - cd source
 #  - xetex fduthesis.ins
