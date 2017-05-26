@@ -7,6 +7,8 @@ cache:
     - $HOME/.texlive
 
 script:
+  - cp -r /tmp/texlive/texmf-dist/fonts/opentype /home/travis/.fonts
+  - fc-cache -rv
   - cd source
   - xetex fduthesis.ins
   - cd ../test

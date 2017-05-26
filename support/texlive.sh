@@ -88,15 +88,15 @@ tlmgr install         \
   graphics            \
   graphics-cfg        \
   graphics-def        \
-  graphicx            \
   hyperref            \
-  longtable           \
   ntheorem            \
   ms                  \
   oberdiek            \
   pgf                 \
   siunitx             \
   tools               \
+  trimspaces          \
+  ucharcat            \
   ulem                \
   xcolor              \
   xunicode            \
