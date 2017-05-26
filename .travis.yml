@@ -11,7 +11,7 @@ cache:
     - $HOME/.texlive
 
 script:
-  - mktexlsr
+  - cat /etc/fonts/fonts.conf
   - fc-cache -rv /tmp/texlive/texmf-dist/fonts/opentype
   - fc-cache -rv /tmp/texlive/texmf-dist/fonts/truetype
   - fc-list
