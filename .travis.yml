@@ -8,7 +8,7 @@ cache:
 
 script:
   - git clone https://github.com/Stone-Zeng/zhlipsum.git
-  - mkdir /home/travis/texmf/tex/latex/zhlipsum
+  - mkdir -p /home/travis/texmf/tex/latex/zhlipsum
   - cp zhlipsum/zhlipsum.sty /home/travis/texmf/tex/latex/zhlipsum
   - cp zhlipsum/zhlipsum-zh-cn.def /home/travis/texmf/tex/latex/zhlipsum
   - texhash
