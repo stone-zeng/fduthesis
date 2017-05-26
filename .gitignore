@@ -17,7 +17,8 @@
 *.txt
 
 .vscode/
+files/
 source/fduthesis.cls
 temp/
-# test/
-files/
+
+!test/Fudan_*.pdf
