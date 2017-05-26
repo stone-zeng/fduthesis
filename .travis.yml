@@ -11,8 +11,7 @@ cache:
     - $HOME/.texlive
 
 script:
-  - cp -r /tmp/texlive/texmf-dist/fonts/opentype /usr/local/share/fonts
-  - cp -r /tmp/texlive/texmf-dist/fonts/truetype /usr/local/share/fonts
+  - cp -r /tmp/texlive/texmf-dist/fonts/opentype /home/travis/.fonts
   - fc-cache -rv
   - fc-list
 #  - cd source
