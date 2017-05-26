@@ -22,31 +22,43 @@ if ! command -v texlua > /dev/null; then
   cd ..
 fi
 
-
+# TeX Base
 tlmgr install         \
-  tex                 \  # TeX Base
+  tex                 \
   etex                \
   knuth-lib           \
   latex-bin           \
   tex-ini-files       \
-  cm                  \
-  l3kernel            \  # LaTeX3 packages
+  cm
+
+# LaTeX3 packages
+tlmgr install         \
+  l3kernel            \
   l3experimental      \
   l3packages          \
-  l3build             \
-  xetex               \  # XeTeX
+  l3build
+
+# XeTeX
+tlmgr install         \
+  xetex               \
   ifxetex             \
   unicode-data        \
-  xecjk               \
-  luatex              \  # LuaTeX
+  xecjk
+
+# LuaTeX
+tlmgr install         \
+  luatex              \
   ctablestack         \
   ifluatex            \
   lualatex-math       \
   lualibs             \
   luaotfload          \
   luatexbase          \
-  luatexja            \
-  fontspec            \  # Fonts
+  luatexja
+
+# Fonts
+tlmgr install         \
+  fontspec            \
   adobemapping        \
   amsfonts            \
   fandol              \
@@ -57,10 +69,16 @@ tlmgr install         \
   mfware              \
   psnfss              \
   tex-gyre            \
-  xits                \
-  amsmath             \  # Math
-  unicode-math        \
-  ctex                \  # Other
+  xits
+
+# Math
+tlmgr install         \
+  amsmath             \
+  unicode-math
+
+# Other
+tlmgr install         \
+  ctex                \
   environ             \
   etoolbox            \
   fancyhdr            \
