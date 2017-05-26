@@ -112,10 +112,10 @@ tlmgr update --self --all --no-auto-install
 # Install `zhlipsum`
 git clone https://github.com/Stone-Zeng/zhlipsum.git
 
+mkdir /tmp/texlive/texmf-local/tex/latex/zhlipsum
 cp zhlipsum/zhlipsum.sty          \
-  /home/travis/texmf/tex/latex/zhlipsum
+  /tmp/texlive/texmf-local/tex/latex/zhlipsum
 cp zhlipsum/zhlipsum-zh-cn.def    \
-  /home/travis/texmf/tex/latex/zhlipsum
+  /tmp/texlive/texmf-local/tex/latex/zhlipsum
 
 texhash
-texhash /home/travis/texmf
