@@ -89,6 +89,7 @@ tlmgr install         \
   graphics-cfg        \
   graphics-def        \
   hyperref            \
+  kantlipsum          \
   ntheorem            \
   ms                  \
   oberdiek            \
@@ -107,3 +108,11 @@ tlmgr option -- autobackup 0
 
 # Update the TL install but add nothing new
 tlmgr update --self --all --no-auto-install
+
+# Install `zhlipsum`
+git clone https://github.com/Stone-Zeng/zhlipsum.git
+cp zhlipsum/zhlipsum.sty          \
+  /tmp/texlive/texmf-local/tex/latex/zhlipsum
+cp zhlipsum/zhlipsum-zh-cn.def    \
+  /tmp/texlive/texmf-local/tex/latex/zhlipsum
+texhash
