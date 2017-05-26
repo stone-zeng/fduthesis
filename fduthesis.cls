@@ -446,7 +446,7 @@
   {
     \fdu_coverA_ID:nn {10em} {-2em}
     \vfill
-    \fdu_coverA_logo:nn {Fudan_LOGO.pdf} {0.5 \textwidth}
+    \fdu_coverA_logo:nn {Fudan_Logo.pdf} {0.5 \textwidth}
     \vfill
     \fdu_coverA_title:nn {博士毕业论文} {0.45 \textwidth}
     \vspace { \stretch{ 4 } }
