@@ -1,10 +1,6 @@
 install:
   - source ./support/texlive.sh
 
-addons:
-  artifacts:
-    debug: true
-
 cache:
   directories:
     - /tmp/texlive
@@ -13,9 +9,8 @@ cache:
 script:
   - cp -r /tmp/texlive/texmf-dist/fonts/opentype /home/travis/.fonts
   - fc-cache -rv
-  - fc-list
-#  - cd source
-#  - xetex fduthesis.ins
-#  - cd ../test
-#  - xelatex  -interaction=nonstopmode test
-#  - lualatex -interaction=nonstopmode test
+  - cd source
+  - xetex fduthesis.ins
+  - cd ../test
+  - xelatex  -interaction=nonstopmode test
+  - lualatex -interaction=nonstopmode test
