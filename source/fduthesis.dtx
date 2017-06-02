@@ -280,6 +280,17 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\c__fdu_thm_style_plain_clist,
+%   \c__fdu_thm_style_break_clist}
+% 保存 |plain|、|break| 两种类型的定理样式名称。
+%    \begin{macrocode}
+\clist_const:Nn \c__fdu_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c__fdu_thm_style_break_clist
+  { break, marginbreak, changebreak }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{选项处理}
 % 定义 |fdu/option| 键值类。
 %    \begin{macrocode}
@@ -1486,6 +1497,11 @@
 \RequirePackage [ amsmath, thmmarks ] { ntheorem }
 %    \end{macrocode}
 %
+% \begin{macro}{\l__fdu_thm_style_tl,
+%   \l__fdu_thm_header_font_tl,
+%   \l__fdu_thm_body_font_tl,
+%   \l__fdu_thm_qed_tl,
+%   \l__fdu_thm_counter_tl}
 % 定义 |fdu/theorem| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / theorem }
@@ -1500,12 +1516,11 @@
     counter    .initial:n = { chapter }
   }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
-% 1 样式
-% 2 计数器
-% 3 环境名
-% 4 定理头文字
+% 带编号的定理环境。|#1| = 样式， |#2| = 计数器，
+% |#3| = 定理环境名称，|#4| = 定理头文字。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
   {
@@ -1516,10 +1531,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_thm_no_number_new:nnn,\fdu_thm_no_number_new:Vnn}
-% 1 定理样式
-% 2 定理环境名称
-% 3 定理头文字
+% \begin{macro}{\fdu_thm_no_number_new:nnn,
+%   \fdu_thm_no_number_new:Vnn}
+% 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
+% |#3| = 定理头文字。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
   {
@@ -1530,21 +1545,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_thm_style_plain_clist,
-%   \c__fdu_thm_style_break_clist,
-%   \c__fdu_thm_style_nonumber_clist}
-%    \begin{macrocode}
-\clist_const:Nn \c__fdu_thm_style_plain_clist
-  { plain, margin, change }
-\clist_const:Nn \c__fdu_thm_style_break_clist
-  { break, marginbreak, changebreak }
-\clist_const:Nn \c__fdu_thm_style_nonumber_clist
-  { nonumberplain, nonumberbreak }
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\fdu_thm_set_qed:n,
 %   \fdu_thm_set_header_font:n,\fdu_thm_set_body_font:n}
+% 封装 \pkg{ntheorem} 宏包提供的若干命令，分别用以设置证毕符号、
+% 定理头字体和定理正文字体。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_set_qed:n         #1
   { \theoremsymbol     { #1 } }
@@ -1566,76 +1570,78 @@
 % \end{macro}
 %
 % \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
-% \cs{fdunewtheorem}：带编号；
-% \cs{fdunewtheorem*}：不带编号
+% 创建新的定理环境。
 %    \begin{macrocode}
 \NewDocumentCommand \fdunewtheorem { s o m m }
   {
+%    \end{macrocode}
+% 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
+% \cs{QED}，而由 \cs{fdunewtheorem} 创建的则不带证毕符号。
+% 符号 \cs{QED} 由 \pkg{unicode-math} 宏包提供。
+%    \begin{macrocode}
     \IfBooleanTF #1
-      {
-        % 带 *，不编号，有 QED （用于证明环境）
-        \tl_set:Nn \l__fdu_thm_style_tl { nonumberplain }
-        \tl_set:Nn \l__fdu_thm_qed_tl   { \ensuremath { \QED } }
-      }
-      {
-        % 不带 *，编号，没有 QED
-        \tl_set:Nn \l__fdu_thm_style_tl { plain }
-        \tl_set:Nn \l__fdu_thm_qed_tl   { }
-      }
-
+      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
+%    \end{macrocode}
+% 设置默认样式为 |plain|。
+%    \begin{macrocode}
+    \tl_set:Nn \l__fdu_thm_style_tl { plain }
+%    \end{macrocode}
+% 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
+% 定理头字体和定理正文字体。
+%    \begin{macrocode}
     \IfValueT { #2 }
       { \keys_set:nn { fdu / theorem } { #2 } }
     \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
     \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
     \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
-
+%    \end{macrocode}
+% \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
+% 则负责创建无编号定理。以下分这两种情况处理。
+%    \begin{macrocode}
     \IfBooleanTF #1
       {
-        % 带 *，不编号，有 QED （用于证明环境）
-        \clist_if_in:NVF
-          \c__fdu_thm_style_nonumber_clist
+%    \end{macrocode}
+% 带 |*| 的版本原则上只接受 |plain| 和 |break| 两种样式，其余样式
+% 将被转换成这两者其中之一。\\
+% TODO(20170602)：给出重定义样式的警告。
+%    \begin{macrocode}
+        \clist_if_in:NVTF
+          \c__fdu_thm_style_plain_clist
           \l__fdu_thm_style_tl
+          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
           {
             \clist_if_in:NVTF
-              \c__fdu_thm_style_plain_clist
+              \c__fdu_thm_style_break_clist
               \l__fdu_thm_style_tl
-              { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
               {
-                \clist_if_in:NVTF
-                  \c__fdu_thm_style_break_clist
-                  \l__fdu_thm_style_tl
-                  { \tl_set:Nn \l__fdu_thm_style_tl { break } }
-                  {
-                    %TODO: Error massage.
-                  }
+                %TODO(20170602): 给出样式未定义错误。
               }
           }
-
+%    \end{macrocode}
+% \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
+% 这里我们将其加上。
+%    \begin{macrocode}
+        \tl_put_left:Nn \l__fdu_thm_style_tl {nonumber}
         \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
           { #3 } { #4 }
       }
       {
+%    \end{macrocode}
+% 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式，并且直接交由
+%    \begin{macrocode}
         % 不带 *，编号，没有 QED
         \clist_clear:N \l__fdu_tmpa_clist
         \clist_concat:NNN \l__fdu_tmpa_clist
           \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
-
-        \clist_if_in:NVTF
-          \c__fdu_thm_style_nonumber_clist \l__fdu_thm_style_tl
+        \clist_if_in:NVF
+          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
           {
-            \tl_remove_once:Nn \l__fdu_thm_style_tl { nonumber }
+            %TODO(20170602): 给出样式未定义错误。
           }
-          {
-            \clist_if_in:NVF
-              \l__fdu_tmpa_clist \l__fdu_thm_style_tl
-              {
-                %TODO: Error massage.
-              }
-          }
-
         \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
-          { \l__fdu_thm_counter_tl }
-          { #3 } { #4 }
+          { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }
   }
 %    \end{macrocode}

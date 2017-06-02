@@ -263,11 +263,108 @@ Text%
 \end{lemma}
 
 \chapter{测试3 Test}
+\newcounter{thm}
 
-\begin{proof}
-先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
-\begin{equation}
-  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
-\end{equation}
-\end{proof}
+\fdunewtheorem[style=plain,qed=\ensuremath{\sin}]{p}{平凡}
+\fdunewtheorem[style=margin]{mm}{打断}
+\fdunewtheorem[style=change]{fduc}{变革}
+\fdunewtheorem[style=break]{fdub}{平凡}
+\fdunewtheorem[style=marginbreak]{mb}{打断}
+\fdunewtheorem[style=break]{cb}{变革}
+\fdunewtheorem*[style=plain]{np}{平凡}
+\fdunewtheorem*[style=margin]{nmm}{打断}
+\fdunewtheorem*[style=change]{nfduc}{变革}
+\fdunewtheorem*[style=break,qed=]{nfdub}{平凡}
+\fdunewtheorem*[style=marginbreak,qed={}]{nmb}{打断}
+\fdunewtheorem[style=break,counter=thm]{ncb}{变革}
+
+\newtheorem{prop}[thm]{命题}[chapter]
+
+\begin{prop}
+  直角三角形。
+\end{prop}
+\begin{prop}[圆形]
+  直角三角形。
+\end{prop}
+\begin{prop}
+  直角三角形。
+\end{prop}
+
+\begin{p}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{p}
+
+\begin{mm}[明早]
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{mm}
+
+\begin{fduc}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{fduc}
+
+\begin{fdub}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{fdub}
+
+\begin{mb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{mb}
+
+\begin{cb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{cb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{np}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{np}
+
+\begin{nmm}[明天一早]
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{nmm}
+
+\begin{nfduc}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{nfduc}
+
+\begin{nfdub}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{nfdub}
+
+\begin{nmb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{nmb}
+
+\begin{ncb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{ncb}
+
+\begin{ncb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{ncb}
+
+\begin{ncb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{ncb}
+
+\begin{ncb}
+这是一条定理。
+\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
+\end{ncb}
+
 \end{document}

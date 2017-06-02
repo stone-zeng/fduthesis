@@ -58,6 +58,10 @@
 \tl_const:Nn \c__fdu_fn_style_times_sans_tl      { times-sans      }
 \tl_const:Nn \c__fdu_fn_style_times_sans_n_tl    { times-sans*     }
 \tl_new:N \g__fdu_fn_style_tl
+\clist_const:Nn \c__fdu_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c__fdu_thm_style_break_clist
+  { break, marginbreak, changebreak }
 \keys_define:nn { fdu / option }
   {
     oneside .value_forbidden:n = true,
@@ -698,12 +702,6 @@
     \newtheorem { #2 } { #3 }
   }
 \cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
-\clist_const:Nn \c__fdu_thm_style_plain_clist
-  { plain, margin, change }
-\clist_const:Nn \c__fdu_thm_style_break_clist
-  { break, marginbreak, changebreak }
-\clist_const:Nn \c__fdu_thm_style_nonumber_clist
-  { nonumberplain, nonumberbreak }
 \cs_new:Npn \fdu_thm_set_qed:n         #1
   { \theoremsymbol     { #1 } }
 \cs_new:Npn \fdu_thm_set_header_font:n #1
@@ -716,45 +714,30 @@
 \NewDocumentCommand \fdunewtheorem { s o m m }
   {
     \IfBooleanTF #1
-      {
-        % 带 *，不编号，有 QED （用于证明环境）
-        \tl_set:Nn \l__fdu_thm_style_tl { nonumberplain }
-        \tl_set:Nn \l__fdu_thm_qed_tl   { \ensuremath { \QED } }
-      }
-      {
-        % 不带 *，编号，没有 QED
-        \tl_set:Nn \l__fdu_thm_style_tl { plain }
-        \tl_set:Nn \l__fdu_thm_qed_tl   { }
-      }
-
+      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
+    \tl_set:Nn \l__fdu_thm_style_tl { plain }
     \IfValueT { #2 }
       { \keys_set:nn { fdu / theorem } { #2 } }
     \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
     \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
     \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
-
     \IfBooleanTF #1
       {
-        % 带 *，不编号，有 QED （用于证明环境）
-        \clist_if_in:NVF
-          \c__fdu_thm_style_nonumber_clist
+        \clist_if_in:NVTF
+          \c__fdu_thm_style_plain_clist
           \l__fdu_thm_style_tl
+          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
           {
             \clist_if_in:NVTF
-              \c__fdu_thm_style_plain_clist
+              \c__fdu_thm_style_break_clist
               \l__fdu_thm_style_tl
-              { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
               {
-                \clist_if_in:NVTF
-                  \c__fdu_thm_style_break_clist
-                  \l__fdu_thm_style_tl
-                  { \tl_set:Nn \l__fdu_thm_style_tl { break } }
-                  {
-                    %TODO: Error massage.
-                  }
+                %TODO(20170602): 给出样式未定义错误。
               }
           }
-
+        \tl_put_left:Nn \l__fdu_thm_style_tl {nonumber}
         \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
           { #3 } { #4 }
       }
@@ -763,23 +746,13 @@
         \clist_clear:N \l__fdu_tmpa_clist
         \clist_concat:NNN \l__fdu_tmpa_clist
           \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
-
-        \clist_if_in:NVTF
-          \c__fdu_thm_style_nonumber_clist \l__fdu_thm_style_tl
+        \clist_if_in:NVF
+          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
           {
-            \tl_remove_once:Nn \l__fdu_thm_style_tl { nonumber }
+            %TODO(20170602): 给出样式未定义错误。
           }
-          {
-            \clist_if_in:NVF
-              \l__fdu_tmpa_clist \l__fdu_thm_style_tl
-              {
-                %TODO: Error massage.
-              }
-          }
-
         \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
-          { \l__fdu_thm_counter_tl }
-          { #3 } { #4 }
+          { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }
   }
 \fdunewtheorem* { proof       } { 证明 }

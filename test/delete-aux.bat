@@ -10,5 +10,6 @@ del *.ilg
 del *.ind
 del *.log
 del *.out
+del *.synctex.gz
 del *.thm
 del *.toc
