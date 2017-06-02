@@ -732,11 +732,11 @@
 \seq_new:N \g__ctxdoc_slash_format_seq
 \seq_gput_right:Nn \g__ctxdoc_format_seq { \MacroFont }
 \seq_gput_right:Nn \g__ctxdoc_format_seq { \AltMacroFont }
-%% Modified by Xiangdong Zeng, 2017-04-08.
-% linespread: 1 -> 1.2.
+%% Modified by Xiangdong Zeng, 2017-06-02.
+% linespread: 1 -> 1.1.
 \cs_set_protected:Npn \MacroFont
   {
-    \linespread { 1.2 }
+    \linespread { 1.1 }
     \small
     \fontseries { \mddefault }
     \fontshape  { \updefault }
@@ -745,7 +745,7 @@
   }
 \cs_set_protected:Npn \AltMacroFont
   {
-    \linespread { 1.2 }
+    \linespread { 1.1 }
     \small
     \fontseries { \mddefault }
     \fontshape  { \sldefault }

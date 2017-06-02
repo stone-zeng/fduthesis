@@ -28,8 +28,7 @@
 %% 
 
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage{expl3}
-\RequirePackage{xparse,l3keys2e}
+\RequirePackage{expl3,xparse,l3keys2e}
 \ProvidesExplClass{fduthesis}
   {2017/02/19} {0.2} {Fudan University Thesis Template}
 \box_new:N   \l__fdu_tmpa_box
@@ -42,10 +41,10 @@
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl
-  { \symbol { "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl
-  { \symbol { "FF0E } }
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
+\tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
+\tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
 \tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
 \tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
@@ -383,8 +382,10 @@
       \parbox [ c ] { #1 }
         {
           \small
-          学校代码    ： \l__fdu_info_school_ID_tl  \par
-          学 \qquad 号： \l__fdu_info_student_ID_tl
+          学校代码     \c__fdu_colon_fullwidth_tl
+            \l__fdu_info_school_ID_tl  \par
+          学 \qquad 号 \c__fdu_colon_fullwidth_tl
+            \l__fdu_info_student_ID_tl
         }
     \end{flushright}
   }
@@ -438,7 +439,7 @@
             \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
             \fdu_spread_box:NV
               \l__fdu_cover_info_L_dim \l__fdu_tmpa_tl
-            ：
+            \c__fdu_colon_fullwidth_tl
             \fdu_center_box:NV
               \l__fdu_cover_info_R_dim \l__fdu_tmpb_tl
             \par
@@ -485,25 +486,17 @@
     \chapter* { 摘 \quad 要 }
     \markboth { 摘 \quad 要 } { 摘 \quad 要 }
     \addcontentsline { toc } { chapter }
-      {
-        \normalfont \sffamily
-        摘 \quad 要
-      }
+      { \normalfont \sffamily 摘 \quad 要 }
   }
   {
     \par \mbox{} \par
     \noindent \hangindent = 4 em  \hangafter = 1
-    {
-      \normalfont \sffamily
-      关键字：
-    }
-    \clist_use:Nn \l__fdu_info_keywords_clist { ； }
+    { \normalfont \sffamily 关键字 \c__fdu_colon_fullwidth_tl }
+    \clist_use:Nn \l__fdu_info_keywords_clist
+      { \c__fdu_semicolon_fullwidth_tl }
     \par
     \noindent
-    {
-      \normalfont \sffamily
-      中图分类号：
-    }
+    { \normalfont \sffamily 中图分类号 \c__fdu_colon_fullwidth_tl }
     \l__fdu_info_CLC_tl
   }
 \NewDocumentEnvironment { abstract* } { }
@@ -511,10 +504,7 @@
     \chapter* { Abstract }
     \markboth { Abstract } { Abstract }
     \addcontentsline { toc } { chapter }
-      {
-        \normalfont \sffamily
-        Abstract
-      }
+      { \normalfont \sffamily Abstract }
   }
   {
     \par \mbox{} \par
@@ -532,15 +522,10 @@
     \chapter* { 符号表 }
     \markboth { 符号表 } { 符号表 }
     \addcontentsline { toc } { chapter }
-      {
-        \normalfont \sffamily
-        符号表
-      }
+      { \normalfont \sffamily 符号表 }
     \begin{longtable} { #1 }
   }
-  {
-    \end{longtable}
-  }
+  { \end{longtable} }
 \keys_define:nn { fdu / style }
   {
     footnotestyle .choices:nn = {
@@ -557,10 +542,7 @@
         {
           \int_compare:nT
             { 9 <= \l_keys_choice_int <= 11 }
-            {
-              \setmathfont { XITS~ Math }
-                [ version = footnote-XITS ]
-            }
+            { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
         }
     }
   }
@@ -581,25 +563,15 @@
       { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
   }
 \cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
-  {
-    \fdu_fn_symbol_libertinus:V { #1 }
-  }
+  { \fdu_fn_symbol_libertinus:V { #1 } }
 \cs_new:Npn \fdu_fn_symbol_pifont:V #1
-  {
-    \ding { \int_eval:n { 171 + #1 } }
-  }
+  { \ding { \int_eval:n { 171 + #1 } } }
 \cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
-  {
-    \ding { \int_eval:n { 181 + #1 } }
-  }
+  { \ding { \int_eval:n { 181 + #1 } } }
 \cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
-  {
-    \ding { \int_eval:n { 191 + #1 } }
-  }
+  { \ding { \int_eval:n { 191 + #1 } } }
 \cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
-  {
-    \ding { \int_eval:n { 201 + #1 } }
-  }
+  { \ding { \int_eval:n { 201 + #1 } } }
 \cs_new:Npn \fdu_fn_symbol_times:V #1
   {
     \int_compare:nTF { #1 >= 10 }
@@ -611,13 +583,9 @@
       { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
   }
 \cs_new:Npn \fdu_fn_symbol_times_sans:V #1
-  {
-    \symbol { \int_eval:n { "2780 - 1 + #1 } }
-  }
+  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
 \cs_new:Npn \fdu_fn_symbol_times_sans_n:V #1
-  {
-    \symbol { \int_eval:n { "278A - 1 + #1 } }
-  }
+  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
 \cs_generate_variant:Nn \int_case:nnF { VnF }
 \RenewDocumentCommand \thefootnote { }
   {
@@ -651,17 +619,17 @@
           { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
         \c__fdu_fn_style_times_tl
           {
-            \mathversion { footnote-XITS }
+            \mathversion { fn-XITS }
             $ \fdu_fn_symbol_times:V        \l__fdu_tmpa_int $
           }
         \c__fdu_fn_style_times_sans_tl
           {
-            \mathversion { footnote-XITS }
+            \mathversion { fn-XITS }
             $ \fdu_fn_symbol_times_sans:V   \l__fdu_tmpa_int $
           }
         \c__fdu_fn_style_times_sans_n_tl
           {
-            \mathversion { footnote-XITS }
+            \mathversion { fn-XITS }
             $ \fdu_fn_symbol_times_sans_n:V \l__fdu_tmpa_int $
           }
       }
@@ -742,7 +710,6 @@
           { #3 } { #4 }
       }
       {
-        % 不带 *，编号，没有 QED
         \clist_clear:N \l__fdu_tmpa_clist
         \clist_concat:NNN \l__fdu_tmpa_clist
           \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
