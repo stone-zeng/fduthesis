@@ -91,17 +91,17 @@
 \geometry
   {
     paper      = a4paper,
-    left       = 2.54 cm,
-    right      = 2.54 cm,
-    top        = 3.18 cm,
-    bottom     = 3.18 cm,
+    top        = 2.54 cm,
+    bottom     = 2.54 cm,
+    left       = 3.18 cm,
+    right      = 3.18 cm,
     headheight = 15 pt
   }
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
 \RequirePackage [ no-math ] { fontspec }
-\RequirePackage [ UTF8, heading = true, zihao = -4,
-  fontset = none ] { ctex }
+\RequirePackage [ UTF8, heading = true, fontset = none,
+  zihao = -4, linespread = 1.3837 ] { ctex }
 \RequirePackage { amsmath }
 \RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
@@ -323,23 +323,23 @@
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
 \keys_define:nn { fdu / info }
   {
-    title        .tl_set:N    = \l__fdu_info_title_tl,
-    title*       .tl_set:N    = \l__fdu_info_title_e_tl,
-    date         .tl_set:N    = \l__fdu_info_date_tl,
-    author       .tl_set:N    = \l__fdu_info_author_tl,
-    author*      .tl_set:N    = \l__fdu_info_author_e_tl,
-    supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_e_tl,
-    instructors  .clist_set:N = \l__fdu_info_instructors_clist,
-    department   .tl_set:N    = \l__fdu_info_department_tl,
-    department*  .tl_set:N    = \l__fdu_info_department_e_tl,
-    major        .tl_set:N    = \l__fdu_info_major_tl,
-    major*       .tl_set:N    = \l__fdu_info_major_e_tl,
-    studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
-    schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
-    keywords     .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*    .clist_set:N = \l__fdu_info_keywords_e_clist,
-    CLC          .tl_set:N    = \l__fdu_info_CLC_tl
+    title       .tl_set:N    = \l__fdu_info_title_tl,
+    title*      .tl_set:N    = \l__fdu_info_title_e_tl,
+    date        .tl_set:N    = \l__fdu_info_date_tl,
+    author      .tl_set:N    = \l__fdu_info_author_tl,
+    author*     .tl_set:N    = \l__fdu_info_author_e_tl,
+    supervisor  .tl_set:N    = \l__fdu_info_supervisor_tl,
+    supervisor* .tl_set:N    = \l__fdu_info_supervisor_e_tl,
+    instructors .clist_set:N = \l__fdu_info_instructors_clist,
+    department  .tl_set:N    = \l__fdu_info_department_tl,
+    department* .tl_set:N    = \l__fdu_info_department_e_tl,
+    major       .tl_set:N    = \l__fdu_info_major_tl,
+    major*      .tl_set:N    = \l__fdu_info_major_e_tl,
+    studentID   .tl_set:N    = \l__fdu_info_student_ID_tl,
+    schoolID    .tl_set:N    = \l__fdu_info_school_ID_tl,
+    keywords    .clist_set:N = \l__fdu_info_keywords_clist,
+    keywords*   .clist_set:N = \l__fdu_info_keywords_e_clist,
+    CLC         .tl_set:N    = \l__fdu_info_CLC_tl
   }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
@@ -379,7 +379,7 @@
       \setlength { \rightskip } { #2 }
       \parbox [ c ] { #1 }
         {
-          \small
+          \zihao { -5 }
           学校代码     \c__fdu_colon_fullwidth_tl
             \l__fdu_info_school_ID_tl  \par
           学 \qquad 号 \c__fdu_colon_fullwidth_tl
@@ -397,17 +397,11 @@
 \cs_new:Npn \fdu_coverA_title:nn #1 #2
   {
     \begin{center}
-      \fdu_spread_box:Nn { #2 } { \Huge #1 }
-      \par
-      \vspace { \stretch{ 3 } }
-      {
-        \huge \sffamily
-        \l__fdu_info_title_tl
-      }
-      \par
-      \vfill
-      { \Large \l__fdu_info_title_e_tl }
-      \par
+      { \zihao {  2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
+      \vspace { \stretch { 3 } }
+      { \zihao { -2 } \sffamily \l__fdu_info_title_tl \par}
+      \vspace { \stretch { 1 } }
+      { \zihao {  4 } \bfseries \l__fdu_info_title_e_tl \par}
     \end{center}
   }
 \cs_new:Nn \fdu_coverA_info:
@@ -429,7 +423,7 @@
       \clist_set:Nn \l__fdu_tmpa_clist
         { 院系, 专业, 姓名, 指导教师, 完成日期 }
       \begin{minipage} [ c ] { \textwidth }
-        \centering \large
+        \centering \zihao { 4 }
         \bool_until_do:nn
           { \clist_if_empty_p:N \l__fdu_tmpa_clist }
           {
@@ -447,12 +441,12 @@
   }
 \NewDocumentCommand \makecoverA { }
   {
-    \fdu_coverA_ID:nn {10em} {-2em}
+    \fdu_coverA_ID:nn   { 10em } { -2em }
     \vfill
-    \fdu_coverA_logo:nn {Fudan_Logo.pdf} {0.5 \textwidth}
+    \fdu_coverA_logo:nn { Fudan_Logo.pdf } { 0.5 \textwidth }
     \vfill
-    \fdu_coverA_title:nn {博士毕业论文} {0.45 \textwidth}
-    \vspace { \stretch{ 4 } }
+    \fdu_coverA_title:nn { 博士毕业论文 } { 0.45 \textwidth }
+    \vspace { \stretch { 4 } }
     \fdu_coverA_info:
     \vfill
   }

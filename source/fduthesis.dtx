@@ -368,13 +368,13 @@
 % 这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
 % $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
 %    \begin{macrocode}
-    left       = 2.54 cm,
-    right      = 2.54 cm,
-    top        = 3.18 cm,
-    bottom     = 3.18 cm,
+    top        = 2.54 cm,
+    bottom     = 2.54 cm,
+    left       = 3.18 cm,
+    right      = 3.18 cm,
 %    \end{macrocode}
 %
-% 设置页眉的高度，使其与五号字相配。
+% 设置页眉的高度，使其与五号字大致相配。
 %    \begin{macrocode}
     headheight = 15 pt
   }
@@ -398,8 +398,8 @@
 % 使用 \XeLaTeX{} 编译时，底层使用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则会使用 \pkg{luatexja} 宏包。
 %    \begin{macrocode}
-\RequirePackage [ UTF8, heading = true, zihao = -4,
-  fontset = none ] { ctex }
+\RequirePackage [ UTF8, heading = true, fontset = none,
+  zihao = -4, linespread = 1.3837 ] { ctex }
 %    \end{macrocode}
 %
 % 本模板使用 Unicode 编码的 OpenType 数学字体，
@@ -801,15 +801,15 @@
 %   \l__fdu_info_title_tl,\l__fdu_info_title_e_tl}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
-    title        .tl_set:N    = \l__fdu_info_title_tl,
-    title*       .tl_set:N    = \l__fdu_info_title_e_tl,
+    title       .tl_set:N    = \l__fdu_info_title_tl,
+    title*      .tl_set:N    = \l__fdu_info_title_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/date,\l__fdu_info_date_tl}
 % 论文完成日期。
 %    \begin{macrocode}
-    date         .tl_set:N    = \l__fdu_info_date_tl,
+    date        .tl_set:N    = \l__fdu_info_date_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -817,8 +817,8 @@
 %   \l__fdu_info_author_tl,\l__fdu_info_author_e_tl}
 % 作者姓名。
 %    \begin{macrocode}
-    author       .tl_set:N    = \l__fdu_info_author_tl,
-    author*      .tl_set:N    = \l__fdu_info_author_e_tl,
+    author      .tl_set:N    = \l__fdu_info_author_tl,
+    author*     .tl_set:N    = \l__fdu_info_author_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -826,15 +826,15 @@
 %   \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_e_tl}
 % 导师姓名。
 %    \begin{macrocode}
-    supervisor   .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor*  .tl_set:N    = \l__fdu_info_supervisor_e_tl,
+    supervisor  .tl_set:N    = \l__fdu_info_supervisor_tl,
+    supervisor* .tl_set:N    = \l__fdu_info_supervisor_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/instructors,\l__fdu_info_instructors_clist}
 % 指导小组成员。
 %    \begin{macrocode}
-    instructors  .clist_set:N = \l__fdu_info_instructors_clist,
+    instructors .clist_set:N = \l__fdu_info_instructors_clist,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -842,8 +842,8 @@
 %   \l__fdu_info_department_tl,\l__fdu_info_department_e_tl}
 % 院系。
 %    \begin{macrocode}
-    department   .tl_set:N    = \l__fdu_info_department_tl,
-    department*  .tl_set:N    = \l__fdu_info_department_e_tl,
+    department  .tl_set:N    = \l__fdu_info_department_tl,
+    department* .tl_set:N    = \l__fdu_info_department_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -851,22 +851,22 @@
 %   \l__fdu_info_major_tl,\l__fdu_info_major_e_tl}
 % 专业。
 %    \begin{macrocode}
-    major        .tl_set:N    = \l__fdu_info_major_tl,
-    major*       .tl_set:N    = \l__fdu_info_major_e_tl,
+    major       .tl_set:N    = \l__fdu_info_major_tl,
+    major*      .tl_set:N    = \l__fdu_info_major_e_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/studentID,\l__fdu_info_student_ID_tl}
 % 学号。
 %    \begin{macrocode}
-    studentID    .tl_set:N    = \l__fdu_info_student_ID_tl,
+    studentID   .tl_set:N    = \l__fdu_info_student_ID_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/schoolID,\l__fdu_info_school_ID_tl}
 % 学校代码。
 %    \begin{macrocode}
-    schoolID     .tl_set:N    = \l__fdu_info_school_ID_tl,
+    schoolID    .tl_set:N    = \l__fdu_info_school_ID_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -874,15 +874,15 @@
 %   \l__fdu_info_keywords_clist,\l__fdu_info_keywords_e_clist}
 % 论文关键字。
 %    \begin{macrocode}
-    keywords     .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*    .clist_set:N = \l__fdu_info_keywords_e_clist,
+    keywords    .clist_set:N = \l__fdu_info_keywords_clist,
+    keywords*   .clist_set:N = \l__fdu_info_keywords_e_clist,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/CLC,\l__fdu_info_CLC_tl}
 % 中国图书馆分类号。
 %    \begin{macrocode}
-    CLC          .tl_set:N    = \l__fdu_info_CLC_tl
+    CLC         .tl_set:N    = \l__fdu_info_CLC_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -976,7 +976,7 @@
       \setlength { \rightskip } { #2 }
       \parbox [ c ] { #1 }
         {
-          \small
+          \zihao { -5 }
           学校代码     \c__fdu_colon_fullwidth_tl
             \l__fdu_info_school_ID_tl  \par
           学 \qquad 号 \c__fdu_colon_fullwidth_tl
@@ -1007,17 +1007,11 @@
 \cs_new:Npn \fdu_coverA_title:nn #1 #2
   {
     \begin{center}
-      \fdu_spread_box:Nn { #2 } { \Huge #1 }
-      \par
-      \vspace { \stretch{ 3 } }
-      {
-        \huge \sffamily
-        \l__fdu_info_title_tl
-      }
-      \par
-      \vfill
-      { \Large \l__fdu_info_title_e_tl }
-      \par
+      { \zihao {  2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
+      \vspace { \stretch { 3 } }
+      { \zihao { -2 } \sffamily \l__fdu_info_title_tl \par}
+      \vspace { \stretch { 1 } }
+      { \zihao {  4 } \bfseries \l__fdu_info_title_e_tl \par}
     \end{center}
   }
 %    \end{macrocode}
@@ -1062,7 +1056,7 @@
 % 在 |minipage| 环境中输出各字段。用循环实现。
 %    \begin{macrocode}
       \begin{minipage} [ c ] { \textwidth }
-        \centering \large
+        \centering \zihao { 4 }
         \bool_until_do:nn
           { \clist_if_empty_p:N \l__fdu_tmpa_clist }
           {
@@ -1088,12 +1082,12 @@
 %    \begin{macrocode}
 \NewDocumentCommand \makecoverA { }
   {
-    \fdu_coverA_ID:nn {10em} {-2em}
+    \fdu_coverA_ID:nn   { 10em } { -2em }
     \vfill
-    \fdu_coverA_logo:nn {Fudan_Logo.pdf} {0.5 \textwidth}
+    \fdu_coverA_logo:nn { Fudan_Logo.pdf } { 0.5 \textwidth }
     \vfill
-    \fdu_coverA_title:nn {博士毕业论文} {0.45 \textwidth}
-    \vspace { \stretch{ 4 } }
+    \fdu_coverA_title:nn { 博士毕业论文 } { 0.45 \textwidth }
+    \vspace { \stretch { 4 } }
     \fdu_coverA_info:
     \vfill
   }
