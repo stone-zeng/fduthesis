@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% fduthesis.dtx  (with options: `cls')
+%% fduthesis.dtx  (with options: `class')
 %% 
 %%     Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %% 
@@ -287,12 +287,10 @@
     },
     contentsname = {目 \quad 录},
     chapter    / tocline = {
-      \normalfont \sffamily
-      \CTEXnumberline { #1 }    #2
+      \normalfont \sffamily \CTEXnumberline { #1 } #2
     },
     subsection / tocline = {
-      \CJKfamily { kai }
-      \CTEXnumberline { #1 }    #2
+      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
     }
   }
 \RequirePackage { fancyhdr }
@@ -475,9 +473,7 @@
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
-      \makecoverA
-      \newpage
-      \makecoverB
+      \makecoverA \newpage \makecoverB
     \end{titlepage}
     \tableofcontents
   }

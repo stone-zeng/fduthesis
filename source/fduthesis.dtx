@@ -145,6 +145,12 @@
 %
 % \maketitle
 %
+% \ctexset{abstractname={摘 \quad 要}}
+% \begin{abstract}
+%   这是摘要 abstract。
+% \end{abstract}
+%
+% \ctexset{abstractname={用户协议}}
 % \begin{abstract}
 %   这是摘要 abstract。
 % \end{abstract}
@@ -171,7 +177,7 @@
 %
 % \section{实现细节}
 %    \begin{macrocode}
-%<*cls>
+%<*class>
 %    \end{macrocode}
 %^^A
 %^^A 长度控制
@@ -702,12 +708,10 @@
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
     chapter    / tocline = {
-      \normalfont \sffamily
-      \CTEXnumberline { #1 }    #2
+      \normalfont \sffamily \CTEXnumberline { #1 } #2
     },
     subsection / tocline = {
-      \CJKfamily { kai }
-      \CTEXnumberline { #1 }    #2
+      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
     }
   }
 %    \end{macrocode}
@@ -1123,9 +1127,7 @@
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
-      \makecoverA
-      \newpage
-      \makecoverB
+      \makecoverA \newpage \makecoverB
     \end{titlepage}
     \tableofcontents
   }
@@ -1894,7 +1896,7 @@
     style / fontsize        =  -4,
     info  / date            =  \today
   }
-%</cls>
+%</class>
 %    \end{macrocode}
 %
 % \Finale
