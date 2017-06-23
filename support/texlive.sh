@@ -38,6 +38,10 @@ tlmgr install         \
   l3packages          \
   l3build
 
+# pdfTeX
+tlmgr install         \
+  ifpdf
+
 # XeTeX
 tlmgr install         \
   xetex               \
@@ -79,6 +83,7 @@ tlmgr install         \
 # Other
 tlmgr install         \
   ctex                \
+  currfile            \
   environ             \
   etoolbox            \
   fancyhdr            \
@@ -94,11 +99,14 @@ tlmgr install         \
   ms                  \
   oberdiek            \
   pgf                 \
+  preview             \
   siunitx             \
+  standalone          \
   tools               \
   trimspaces          \
   ucharcat            \
   ulem                \
+  varwidth            \
   xcolor              \
   xkeyval             \
   xunicode            \
