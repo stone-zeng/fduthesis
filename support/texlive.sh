@@ -57,6 +57,7 @@ tlmgr install         \
   lualatex-math       \
   lualibs             \
   luaotfload          \
+  luatex85            \
   luatexbase          \
   luatexja
 
