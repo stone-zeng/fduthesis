@@ -11,5 +11,6 @@ del *.ind
 del *.log
 del *.out
 del *.synctex.gz
+del *.synctex(busy)
 del *.thm
 del *.toc

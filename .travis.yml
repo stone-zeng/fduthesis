@@ -10,6 +10,16 @@ script:
   - source ./support/local.sh
   - cd source
   - xetex fduthesis.ins
+  - cd ../logo
+  - pdflatex -interaction=nonstopmode fudan-emblem
+  - pdflatex -interaction=nonstopmode fudan-motto
+  - pdflatex -interaction=nonstopmode fudan-name
+  - xelatex  -interaction=nonstopmode fudan-emblem
+  - xelatex  -interaction=nonstopmode fudan-motto
+  - xelatex  -interaction=nonstopmode fudan-name
+  - lualatex -interaction=nonstopmode fudan-emblem
+  - lualatex -interaction=nonstopmode fudan-motto
+  - lualatex -interaction=nonstopmode fudan-name
   - cd ../test
   - xelatex  -interaction=nonstopmode test
   - lualatex -interaction=nonstopmode test

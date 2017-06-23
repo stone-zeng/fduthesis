@@ -100,6 +100,7 @@ tlmgr install         \
   ucharcat            \
   ulem                \
   xcolor              \
+  xkeyval             \
   xunicode            \
   zhnumber
 

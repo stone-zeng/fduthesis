@@ -9,9 +9,11 @@
 *.log
 *.out
 *.synctex.gz
+*.synctex(busy)
 *.thm
 *.toc
 
+*.ai
 *.pdf
 
 # *.bat
@@ -19,6 +21,7 @@
 
 .vscode/
 files/
+logo/original-files
 source/fduthesis.cls
 temp/
 

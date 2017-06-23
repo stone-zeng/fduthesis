@@ -31,7 +31,7 @@
 % v0.1 2017/02/15
 %   开始
 % v0.2 2017/02/19
-%   git 管理
+%   git 管理，使用 doc 和 DocStrip
 %
 
 \documentclass{ctxdoc-m}
@@ -42,6 +42,8 @@
 \setmonofont{Latin Modern Mono Light}[HyphenChar = None]
 \setmathfont{TeX Gyre Pagella Math}
 \setCJKmainfont{FZShuSong-Z01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\setCJKsansfont{FZHei-B01}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 \setCJKmonofont{FZFangSong-Z02}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
@@ -56,8 +58,8 @@
 {
   section = {
     name    = {第,节},
-    format += \raggedright,
-    break   = \if@openright\cleardoublepage\else\clearpage\fi
+    format += \raggedright
+^^A    break   = \if@openright\cleardoublepage\else\clearpage\fi
   },
   subsubsection = {
     tocline = {\CJKfamily{楷} \CTEXnumberline{#1}#2}
@@ -80,7 +82,7 @@
   group-digits         = true,
   group-minimum-digits = 4,
   group-separator      = \text{~},
-  range-phrase         = \symbol{65374},
+  range-phrase         = \symbol{"FF5E},
   separate-uncertainty = true
 }
 
@@ -101,7 +103,7 @@
 \newcommand{。}{．}
 
 \renewcommand{\pkg}[1]{\textsf{#1}}
-\renewcommand{\cls}[1]{\textsf{\textit{#1}}}
+\renewcommand{\cls}[1]{\textsf{#1}}
 
 
 \EnableCrossrefs
@@ -132,9 +134,12 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
+%^^A 禁止使用 " 符号作为抄录文本缩略符
+% \DeleteShortVerb\"
+%
+%
 % \title{\textbf{fduthesis：复旦大学论文模板}}
 % \author{曾祥东}
-%
 %
 % \newgeometry{
 %   left   = 3.18 cm,
@@ -143,24 +148,49 @@
 %   bottom = 3.18 cm
 % }
 %
-% \maketitle
+% \clearpage\maketitle
+% \vfill
+% \begin{center}
+%   \includegraphics[width=8cm]{xiaoxun.pdf}
+% \end{center}
+% \vfill
+% \thispagestyle{empty}
+% \clearpage
 %
-% \ctexset{abstractname={摘 \quad 要}}
-% \begin{abstract}
-%   这是摘要 abstract。
-% \end{abstract}
+%^^A \ctexset{abstractname={摘 \quad 要}}
+%^^A \begin{abstract}
+%^^A   这是摘要 abstract。
+%^^A \end{abstract}
 %
-% \ctexset{abstractname={用户协议}}
-% \begin{abstract}
-%   这是摘要 abstract。
-% \end{abstract}
+%^^A \ctexset{abstractname={用户协议}}
+%^^A \begin{abstract}
+%^^A   这是用户协议。
+%^^A \end{abstract}
+%
+%^^A \clearpage
 %
 % \tableofcontents
 %
-% \section{模板介绍}
-% 你好！\LaTeX3!
-%
 % \restoregeometry
+%
+% \section{介绍}
+% 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板有以下这些：
+% \begin{itemize}
+%   \item 数学科学学院 2001 级的何力同学和李湛同学在 2005 年
+% 根据学校要求所设计的\cls{毕业论文格式 tex04 版}，以及 2008 年
+% 张越同学修改之后的\cls{毕业论文格式 tex08 版}，这是专为数院本科生
+% 撰写毕业论文而设计的；
+%   \item Pandoxie 编写的 \cls{FDU-Thesis-Latex}，基本满足了博士
+% （硕士）毕业论文格式要求，使用人数较多；
+%   \item richarddzh 编写的 \cls{fudan-thesis}；
+%   \item hmshan 编写的 \cls{FDU_PhD_Thesis_Template}。
+% \end{itemize}
+% 以上这些模板大都没有经过系统的设计，也鲜有后续维护。相比之下，
+% 清华大学、中国科学技术大学以及友校上海交通大学，都有成熟、稳定的
+% 解决方案，值得参考。
+%
+% 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3 编写，以适应
+% \TeX{} 技术发展潮流；同时还将构建一套简洁的接口，方便大家使用。
 %
 % \section{基本用法}
 % 什么都没写。
@@ -243,10 +273,10 @@
 %   \c__fdu_colon_fullwidth_tl,
 %   \c__fdu_semicolon_fullwidth_tl}
 % 一些标点符号：
-% U+3002 是圆圈句号“\symbol{12290}”（ideographic full stop），
-% U+FF0E 是全角实心句点“\symbol{65294}”（fullwidth full stop），
-% U+FF1A 是全角冒号“\symbol{65306}”（fullwidth colon），
-% U+FF1B 是全角冒号“\symbol{65307}”（fullwidth semicolon）。
+% U+3002 是圆圈句号“\char"3002”（ideographic full stop），
+% U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
+% U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
+% U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
 %    \begin{macrocode}
 \tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
 \tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
@@ -643,8 +673,8 @@
 % \subsubsection{句号}
 % \begin{macro}{style/fullwidth-stop}
 % 设置句号形状（圆圈或是圆点）。
-% 本模板采用的实现方法是将“\symbol{12290}”设置为活动符，
-% 并定义为句点“\symbol{65294}”。
+% 本模板采用的实现方法是将“\symbol{"3002}”设置为活动符，
+% 并定义为句点“\symbol{"FF0E}”。
 %
 % \pkg{xeCJK} 宏包提供了 |Mapping = fullwidth-stop| 和 |full-stop|
 % 选项，也能实现两种句号的切换。此种方法是基于字体映射实现的，
