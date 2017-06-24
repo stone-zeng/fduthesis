@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # From latex3
-# https://github.com/latex3/latex3/blob/master/support/texlive.profile
+# https://github.com/latex3/latex3/blob/master/support/texlive.sh
 
 # This script is used for testing using Travis
 # It is intended to work on their VM set up: Ubuntu 12.04 LTS

@@ -284,17 +284,11 @@
     },
     subsection = {
       format     = { \large \bfseries \raggedright }
-    },
-    contentsname = {目 \quad 录},
-    chapter    / tocline = {
-      \normalfont \sffamily \CTEXnumberline { #1 } #2
-    },
-    subsection / tocline = {
-      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
     }
   }
 \RequirePackage { fancyhdr }
 \fancyhf { }
+\tl_new:N \l__fdu_header_center_mark_tl
 \bool_if:NTF \g__fdu_twoside_bool
   {
     \fancyhead [ EL ]
@@ -307,8 +301,22 @@
       { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
     \fancyhead [ R ]
       { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ C ]
+      {
+        \small \nouppercase
+          { \CJKfamily { kai } \l__fdu_header_center_mark_tl }
+      }
   }
 \fancyfoot [ C ] { \thepage }
+\cs_new:Npn \fdu_front_matter_header:n #1
+  {
+    \bool_if:NTF \g__fdu_twoside_bool
+      { \markboth { #1 } { #1 } }
+      {
+        \markboth { } { }
+        \tl_gset:Nn \l__fdu_header_center_mark_tl { #1 }
+      }
+  }
 \RenewDocumentCommand \cleardoublepage { }
   {
     \clearpage
@@ -317,6 +325,7 @@
         \int_if_odd:nF \c@page
           { \hbox:n { } \thispagestyle { empty } \newpage }
       }
+    \tl_gset:Nn \l__fdu_header_center_mark_tl { }
   }
 \pagestyle { fancy }
 \RenewDocumentCommand \sectionmark { m }
@@ -469,12 +478,34 @@
     \begin{titlepage}
       \makecoverA \newpage \makecoverB
     \end{titlepage}
-    \tableofcontents
   }
+\ctexset
+  {
+    contentsname = {目 \quad 录},
+    chapter    / tocline = {
+      \normalfont \sffamily \CTEXnumberline { #1 } #2
+    },
+    subsection / tocline = {
+      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
+    }
+  }
+\ctex_patch_cmd_once:NnnnTF \tableofcontents
+  { }
+  {
+    \chapter*{\contentsname
+      \@mkboth{%
+        \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+  }
+  {
+    \chapter* { \contentsname }
+    \fdu_front_matter_header:n { 目 \quad 录 }
+  }
+  { }
+  { \ctex_patch_failure:N \tableofcontents }
 \NewDocumentEnvironment { abstract } { }
   {
     \chapter* { 摘 \quad 要 }
-    \markboth { 摘 \quad 要 } { 摘 \quad 要 }
+    \fdu_front_matter_header:n { 摘 \quad 要 }
     \addcontentsline { toc } { chapter }
       { \normalfont \sffamily 摘 \quad 要 }
   }
@@ -492,7 +523,7 @@
 \NewDocumentEnvironment { abstract* } { }
   {
     \chapter* { Abstract }
-    \markboth { Abstract } { Abstract }
+    \fdu_front_matter_header:n { Abstract }
     \addcontentsline { toc } { chapter }
       { \normalfont \sffamily Abstract }
   }
@@ -510,7 +541,7 @@
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
     \chapter* { 符号表 }
-    \markboth { 符号表 } { 符号表 }
+    \fdu_front_matter_header:n { 符号表 }
     \addcontentsline { toc } { chapter }
       { \normalfont \sffamily 符号表 }
     \begin{longtable} { #1 }
@@ -521,8 +552,8 @@
     footnotestyle .choices:nn = {
       plain,
       libertinus, libertinus*, libertinus-sans,
-      pifont, pifont*, pifont-sans, pifont-sans*,
-      times, times-sans, times-sans*,
+      pifont,     pifont*,     pifont-sans,     pifont-sans*,
+      times,                   times-sans,      times-sans*,
     }
     {
       \tl_set_eq:NN \g__fdu_fn_style_tl \l_keys_choice_tl
