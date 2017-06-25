@@ -35,81 +35,6 @@
 %
 
 \documentclass{ctxdoc-m}
-
-%% 字体设置。
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
-\setmonofont{Latin Modern Mono Light}[HyphenChar = None]
-\setmathfont{TeX Gyre Pagella Math}
-\setCJKmainfont{FZShuSong-Z01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-\setCJKsansfont{FZHei-B01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-\setCJKmonofont{FZFangSong-Z02}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-
-\setCJKfamilyfont{宋}{FZShuSong-Z01}
-\setCJKfamilyfont{黑}{FZHei-B01}
-\setCJKfamilyfont{仿}{FZFangSong-Z02}
-\setCJKfamilyfont{楷}{FZKai-Z03}
-
-%% 中文排版格式。
-\ctexset
-{
-  section = {
-    name    = {第,节},
-    format += \raggedright
-^^A    break   = \if@openright\cleardoublepage\else\clearpage\fi
-  },
-  subsubsection = {
-    tocline = {\CJKfamily{楷} \CTEXnumberline{#1}#2}
-  },
-  indexname = {代码索引}
-}
-
-%% 代码部分页边距。
-\geometry{
-  paper  = a4paper,
-  left   = 6.35 cm,
-  right  = 2.54 cm,
-  top    = 3.18 cm,
-  bottom = 2.54 cm
-}
-
-\sisetup{
-  number-math-rm       = \ensuremath,
-  inter-unit-product   = \ensuremath{{}\cdot{}},
-  group-digits         = true,
-  group-minimum-digits = 4,
-  group-separator      = \text{~},
-  range-phrase         = \symbol{"FF5E},
-  separate-uncertainty = true
-}
-
-\hypersetup{
-  pdftitle          = {fduthesis：复旦大学论文模板},
-  pdfauthor         = {曾祥东},
-  bookmarksopen     = true,
-  bookmarksnumbered = true,
-  pdfborder         = 0 0 0,
-  colorlinks,
-  linkcolor         = {red!60!black},
-  citecolor         = {green!50!black},
-  urlcolor          = {blue!63!green}
-}
-
-%% 句号处理
-\catcode`\。 = \active
-\newcommand{。}{．}
-
-\renewcommand{\pkg}[1]{\textsf{#1}}
-\renewcommand{\cls}[1]{\textsf{#1}}
-
-
-\EnableCrossrefs
-\CodelineIndex
-\RecordChanges
-
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
@@ -188,6 +113,19 @@
 % \LuaLaTeX{} 编译。推荐使用 \XeLaTeX{}。
 %
 % \StopEventually{
+%   \begin{thebibliography}{9}
+%     \bibitem{knuthtex1986}
+%     \textsc{Donald~Ervin Knuth}.
+%     \newblock \textit{The {{\TeX{}book}}}, \textit{Computers \& Typesetting},
+%       volume~A.
+%     \newblock Addison-Wesley, 1986
+%^^A 
+%     \bibitem{mittelbach2004}
+%     \textsc{Frank Mittelbach} and \textsc{Michel Goossens}.
+%     \newblock \textit{The {{\LaTeX}} Companion}.
+%     \newblock Tools and Techniques for Computer Typesetting. Boston:
+%       Addison-Wesley, second edition, 2004
+%   \end{thebibliography}
 %   \newgeometry{
 %     left   = 2.54 cm,
 %     right  = 2.54 cm,
@@ -693,30 +631,32 @@
   {
 %    \end{macrocode}
 %
-% 章（chapter）标题设置为黑体、居中，同时微调前后间距。
-% 序号使用阿拉伯数字。
+% 章（chapter）标题设置为黑体、居中。序号使用阿拉伯数字。
+% |fixskip = true| 选项用来取消前后多余间距。
 %    \begin{macrocode}
     chapter = {
       format     = {
         \huge \normalfont \sffamily \centering
       },
-      beforeskip = { 30 pt },
-      afterskip  = { 20 pt },
+%     beforeskip = { 30 pt },
+%     afterskip  = { 20 pt },
+      fixskip    = true,
       number     = { \arabic{ chapter } }
     },
 %    \end{macrocode}
 %
-% 节（section）标题设置为粗体、靠左对齐（但要用 \tn{raggedright}）。
+% 节（section）与小节（sub-section）标题均设置为黑体、靠左对齐
+% （但要用 \tn{raggedright}），同时修正前后间距，并略作调整。
 %    \begin{macrocode}
     section = {
-      format     = { \Large \bfseries \raggedright }
+      format     = { \Large \sffamily \raggedright },
+      afterskip  = { 2.7 ex plus 0.5 ex },
+      fixskip    = true,
     },
-%    \end{macrocode}
-%
-% 小节（sub-section）标题同样设置为粗体、靠左对齐。
-%    \begin{macrocode}
     subsection = {
-      format     = { \large \bfseries \raggedright }
+      format     = { \large \sffamily \raggedright },
+      afterskip  = { 2.5 ex plus 0.3 ex },
+      fixskip    = true,
     }
   }
 %    \end{macrocode}
@@ -1046,7 +986,7 @@
     \begin{center}
       { \zihao {  2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
       \vspace { \stretch { 3 } }
-      { \zihao { -2 } \sffamily \l__fdu_info_title_tl \par}
+      { \zihao { -2 } \sffamily \l__fdu_info_title_tl   \par}
       \vspace { \stretch { 1 } }
       { \zihao {  4 } \bfseries \l__fdu_info_title_e_tl \par}
     \end{center}
@@ -1132,20 +1072,17 @@
 % \end{macro}
 %
 % \begin{macro}{\makecoverB}
-% 生成 |titlepage| 的第二页，即指导小组成员名单。
-% 该页需要手动关闭页眉页脚的显示。
+% 生成 |titlepage| 的第二页，即指导小组成员名单。为禁止之后的分页，
+% 此处将 \tn{cleardoublepage} 临时设置为 \tn{relax}。
 %    \begin{macrocode}
 \NewDocumentCommand \makecoverB { }
   {
-    \thispagestyle { empty }
-    \vspace* { 30 pt }
+    \group_begin:
+      \cs_set_eq:NN \cleardoublepage \relax
+      \chapter* { \fdu_spread_box:Nn { 7 em } { 指导小组成员 } }
+    \group_end:
     \begin{center}
-      \huge \normalfont \sffamily
-      \fdu_spread_box:Nn { 7 em } { 指导小组成员 }
-    \end{center}
-    \vspace { 20 pt }
-    \begin{center}
-      \large
+      \zihao { 4 }
       \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
@@ -1197,8 +1134,7 @@
     \chapter* { \contentsname }
     \fdu_front_matter_header:n { 目 \quad 录 }
   }
-  { }
-  { \ctex_patch_failure:N \tableofcontents }
+  { } { \ctex_patch_failure:N \tableofcontents }
 %    \end{macrocode}
 %
 % \subsection{摘要}
@@ -1285,7 +1221,8 @@
 % 符号表环境，可选参数为表格列格式说明符，
 % 默认为“|l p{25 em}|”，即第一列左对齐、宽度自动调整，
 % 第二列限宽 \SI{25}{em}，仍为左对齐。
-% 与摘要类似，需要修改页眉，并添加到目录。
+% 与摘要类似，需要修改页眉，并添加到目录。另外需要调整 \cs{LTpre}
+% 和 \cs{LTpost}，以删去 |longtable| 前后的空白。
 %    \begin{macrocode}
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
@@ -1293,9 +1230,15 @@
     \fdu_front_matter_header:n { 符号表 }
     \addcontentsline { toc } { chapter }
       { \normalfont \sffamily 符号表 }
-    \begin{longtable} { #1 }
+    \group_begin:
+      \dim_set_eq:NN \LTpre  \c_zero_dim
+      \dim_set_eq:NN \LTpost \c_zero_dim
+      \begin{longtable} { #1 }
   }
-  { \end{longtable} }
+  {
+      \end{longtable}
+    \group_end:
+  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1690,16 +1633,15 @@
               \c__fdu_thm_style_break_clist
               \l__fdu_thm_style_tl
               { \tl_set:Nn \l__fdu_thm_style_tl { break } }
-              {
-                %TODO(20170602): 给出样式未定义错误。
-              }
+% TODO(20170602): 给出样式未定义错误。
+              { }
           }
 %    \end{macrocode}
 %
 % \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
 % 这里我们将其加上。
 %    \begin{macrocode}
-        \tl_put_left:Nn \l__fdu_thm_style_tl {nonumber}
+        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
         \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
           { #3 } { #4 }
       }
@@ -1713,9 +1655,8 @@
           \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
         \clist_if_in:NVF
           \l__fdu_tmpa_clist \l__fdu_thm_style_tl
-          {
-            %TODO(20170602): 给出样式未定义错误。
-          }
+% TODO(20170602): 给出样式未定义错误。
+          { }
         \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
           { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }

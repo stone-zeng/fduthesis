@@ -275,15 +275,18 @@
       format     = {
         \huge \normalfont \sffamily \centering
       },
-      beforeskip = { 30 pt },
-      afterskip  = { 20 pt },
+      fixskip    = true,
       number     = { \arabic{ chapter } }
     },
     section = {
-      format     = { \Large \bfseries \raggedright }
+      format     = { \Large \sffamily \raggedright },
+      afterskip  = { 2.7 ex plus 0.5 ex },
+      fixskip    = true,
     },
     subsection = {
-      format     = { \large \bfseries \raggedright }
+      format     = { \large \sffamily \raggedright },
+      afterskip  = { 2.5 ex plus 0.3 ex },
+      fixskip    = true,
     }
   }
 \RequirePackage { fancyhdr }
@@ -461,15 +464,12 @@
   }
 \NewDocumentCommand \makecoverB { }
   {
-    \thispagestyle { empty }
-    \vspace* { 30 pt }
+    \group_begin:
+      \cs_set_eq:NN \cleardoublepage \relax
+      \chapter* { \fdu_spread_box:Nn { 7 em } { 指导小组成员 } }
+    \group_end:
     \begin{center}
-      \huge \normalfont \sffamily
-      \fdu_spread_box:Nn { 7 em } { 指导小组成员 }
-    \end{center}
-    \vspace { 20 pt }
-    \begin{center}
-      \large
+      \zihao { 4 }
       \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
@@ -500,8 +500,7 @@
     \chapter* { \contentsname }
     \fdu_front_matter_header:n { 目 \quad 录 }
   }
-  { }
-  { \ctex_patch_failure:N \tableofcontents }
+  { } { \ctex_patch_failure:N \tableofcontents }
 \NewDocumentEnvironment { abstract } { }
   {
     \chapter* { 摘 \quad 要 }
@@ -544,9 +543,15 @@
     \fdu_front_matter_header:n { 符号表 }
     \addcontentsline { toc } { chapter }
       { \normalfont \sffamily 符号表 }
-    \begin{longtable} { #1 }
+    \group_begin:
+      \dim_set_eq:NN \LTpre  \c_zero_dim
+      \dim_set_eq:NN \LTpost \c_zero_dim
+      \begin{longtable} { #1 }
   }
-  { \end{longtable} }
+  {
+      \end{longtable}
+    \group_end:
+  }
 \keys_define:nn { fdu / style }
   {
     footnotestyle .choices:nn = {
@@ -722,9 +727,7 @@
               \c__fdu_thm_style_break_clist
               \l__fdu_thm_style_tl
               { \tl_set:Nn \l__fdu_thm_style_tl { break } }
-              {
-                %TODO(20170602): 给出样式未定义错误。
-              }
+              { }
           }
         \tl_put_left:Nn \l__fdu_thm_style_tl {nonumber}
         \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
@@ -736,9 +739,7 @@
           \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
         \clist_if_in:NVF
           \l__fdu_tmpa_clist \l__fdu_thm_style_tl
-          {
-            %TODO(20170602): 给出样式未定义错误。
-          }
+          { }
         \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
           { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }

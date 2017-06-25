@@ -1,6 +1,6 @@
 %%
 %% This is the modified version of `ctxdoc.cls'.
-%% Modified by Xiangdong Zeng, last update 2017-04-14.
+%% Modified by Xiangdong Zeng, last update 2017-06-24.
 %%
 %%     Copyright (C) 2003--2017
 %%     CTEX.ORG and any individual authors listed in the documentation.
@@ -884,7 +884,10 @@
 \def\glossaryname{版本历史}
 \GlossaryPrologue{\section{\glossaryname}}
 \IndexPrologue{%
-  \section{\indexname}
+%% Modified by Xiangdong Zeng, 2017-06-24.
+%% \section -> \section*
+  %\section{\indexname}
+  \section*{\indexname}
   \textit{意大利体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
   罗马字体的数字表示使用对应索引项的代码行号。}}
@@ -894,9 +897,104 @@
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Added by Xiangdong Zeng, 2017-06-24.
+\renewenvironment{thebibliography}[1]
+     {\section{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+%% Added by Xiangdong Zeng, 2017-06-24.
+%% 字体设置。
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{Latin Modern Mono Light}[HyphenChar = None]
+\setmathfont{TeX Gyre Pagella Math}
+\setCJKmainfont{FZShuSong-Z01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\setCJKsansfont{FZHei-B01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\setCJKmonofont{FZFangSong-Z02}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+
+\setCJKfamilyfont{宋}{FZShuSong-Z01}
+\setCJKfamilyfont{黑}{FZHei-B01}
+\setCJKfamilyfont{仿}{FZFangSong-Z02}
+\setCJKfamilyfont{楷}{FZKai-Z03}
+
+%% 中文排版格式。
+\ctexset
+{
+  section = {
+    name    = {第,节},
+    format += \raggedright
+^^A    break   = \if@openright\cleardoublepage\else\clearpage\fi
+  },
+  subsubsection = {
+    tocline = {\CJKfamily{楷} \CTEXnumberline{#1}#2}
+  },
+  indexname = {代码索引}
+}
+
+%% 代码部分页边距。
+\geometry{
+  paper  = a4paper,
+  left   = 6.35 cm,
+  right  = 2.54 cm,
+  top    = 3.18 cm,
+  bottom = 2.54 cm
+}
+
+\sisetup{
+  number-math-rm       = \ensuremath,
+  inter-unit-product   = \ensuremath{{}\cdot{}},
+  group-digits         = true,
+  group-minimum-digits = 4,
+  group-separator      = \text{~},
+  range-phrase         = \symbol{"FF5E},
+  separate-uncertainty = true
+}
+
+\hypersetup{
+  pdftitle          = {fduthesis：复旦大学论文模板},
+  pdfauthor         = {曾祥东},
+  bookmarksopen     = true,
+  bookmarksnumbered = true,
+  pdfborder         = 0 0 0,
+  colorlinks,
+  linkcolor         = {red!60!black},
+  citecolor         = {green!50!black},
+  urlcolor          = {blue!63!green}
+}
+
+%% 句号处理
+\catcode`\。 = \active
+\newcommand{。}{．}
+
+\renewcommand{\pkg}[1]{\textsf{#1}}
+\renewcommand{\cls}[1]{\textsf{#1}}
+
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
-%% 
+%%
 %%
 %% End of file `ctxdoc.cls'.

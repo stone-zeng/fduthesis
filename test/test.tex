@@ -1,5 +1,5 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
-\documentclass[twoside]{../fduthesis}
+\documentclass[twoside,draft]{../fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 
@@ -63,7 +63,7 @@
 
 上标\LaTeX ；此时的的
 
-\zhlipsum[1-15]
+\zhlipsum[1-3]
 \end{abstract}
 
 \begin{abstract*}
@@ -74,7 +74,7 @@ logical units using separates the name of the function from the
 argument specifier (``arg-spec''). This describes the arguments
 expected by the function.
 
-\kant[2-20]
+\kant[1-5]
 \end{abstract*}
 
 \begin{notation}
@@ -139,7 +139,7 @@ PY          &  聚吡咙
 如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
 如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
 如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
-
+\iffalse
 \clearpage
 
 \section{脚注 Footnote}
@@ -369,7 +369,7 @@ Text%
 \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
 \end{ncb}
 
-\chapter{章节}
+\chapter{章节 \\ 章节}
 \section{title}
 \section{title}
 \section{title}
@@ -454,6 +454,6 @@ Text%
 \section{title}
 \section{title}
 \section{title}
-
+\fi
 
 \end{document}
