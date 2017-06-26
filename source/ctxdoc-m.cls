@@ -1,6 +1,6 @@
 %%
 %% This is the modified version of `ctxdoc.cls'.
-%% Modified by Xiangdong Zeng, last update 2017-06-24.
+%% Modified by Xiangdong Zeng, last update 2017-06-26.
 %%
 %%     Copyright (C) 2003--2017
 %%     CTEX.ORG and any individual authors listed in the documentation.
@@ -25,12 +25,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3}
 %% Modified by Xiangdong Zeng, 2017-04-14.
-%\GetIdInfo$Id: ctex.dtx d459e18 2017-02-23 02:07:49 +0800 Qing Lee <sobenlee@gmail.com> $
-%  {ctex documentation (CTEX)}
-%\ProvidesExplClass{ctxdoc}
-%  {\ExplFileDate}{2.4.8}{\ExplFileDescription}
 \ProvidesExplClass{ctxdoc-m}
   {2017/04/14}{0.alpha}{The modified version of `ctxdoc.cls'}
+%%%%\GetIdInfo$Id: ctex.dtx d459e18 2017-02-23 02:07:49 +0800 Qing Lee <sobenlee@gmail.com> $
+%%%%  {ctex documentation (CTEX)}
+%%%%\ProvidesExplClass{ctxdoc}
+%%%%  {\ExplFileDate}{2.4.8}{\ExplFileDescription}
 \ExplSyntaxOff
 \let\pdfmdfivesum\mdfivesum
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{l3doc}}
@@ -39,22 +39,22 @@
 \@namedef{ver@thumbpdf.sty}{9999/99/99}
 \LoadClass{l3doc}
 %% Modified by Xiangdong Zeng, 2017-04-08.
-%\RequirePackage[UTF8, punct = kaiming, heading, fontset = none,
-%  linespread = 1.2, sub3section]{ctex}
-\RequirePackage[UTF8, heading = true]{ctex}
+\RequirePackage[UTF8, heading, fontset = none]{ctex}
+%%%%\RequirePackage[UTF8, punct = kaiming, heading, fontset = none,
+%%%%  linespread = 1.2, sub3section]{ctex}
 \ifxetex
   \xeCJKsetup{AutoFakeBold=false}
 \fi
 %% Modified by Xiangdong Zeng, 2017-04-08.
-%\ctexset{
-%  fontset,
-%  abstractname   = 简介,
-%  indexname      = 代码索引,
-%  section        = {
-%    format = \Large\bfseries\raggedright,
-%    name   = {第,节},
-%  },
-%}
+%%%%\ctexset{
+%%%%  fontset,
+%%%%  abstractname   = 简介,
+%%%%  indexname      = 代码索引,
+%%%%  section        = {
+%%%%    format = \Large\bfseries\raggedright,
+%%%%    name   = {第,节},
+%%%%  },
+%%%%}
 \RequirePackage[toc]{multitoc}
 \RequirePackage{geometry}
 \RequirePackage{tabularx}
@@ -66,21 +66,23 @@
 \RequirePackage{caption}
 \RequirePackage{fvrb-ex}
 \RequirePackage{zref-base}
+%% Added by Xiangdong Zeng, 2017-06-25.
+\RequirePackage{listings}
+\RequirePackage{xcolor-material}
 %% Modified by Xiangdong Zeng, 2017-04-08.
-%\geometry{includemp,hmargin={0mm,15mm},vmargin={25mm,15mm},footskip=7mm}
-%\hypersetup{pdfstartview=FitH,bookmarksdepth=subparagraph}
+%%%%\geometry{includemp,hmargin={0mm,15mm},vmargin={25mm,15mm},footskip=7mm}
+%%%%\hypersetup{pdfstartview=FitH,bookmarksdepth=subparagraph}
 %% Modified by Xiangdong Zeng, 2017-04-14.
-%\setcounter{secnumdepth}{4}
-%\setcounter{tocdepth}{2}
+%%%%\setcounter{secnumdepth}{4}
+%%%%\setcounter{tocdepth}{2}
 \newcommand*\email{\nolinkurl}
-%% Modified by Xiangdong Zeng, 2017-04-08.
-%\setmainfont{TeX Gyre Pagella}
-%\setsansfont{TeX Gyre Heros}
-%\setmonofont[
-%  HyphenChar = None ,
-%  UprightFont=* Light, BoldFont=* Bold,
-%  SlantedFont=* Light Oblique]{CMU Typewriter Text}
-%\setmathfont{texgyrepagella-math.otf}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmonofont[
+  HyphenChar = None ,
+  UprightFont=* Light, BoldFont=* Bold,
+  SlantedFont=* Light Oblique]{CMU Typewriter Text}
+\setmathfont{texgyrepagella-math.otf}
 \captionsetup{strut=off, labelsep=quad, labelfont+=bf}
 %% <--- http://tex.stackexchange.com/a/40896
 \patchcmd{\@addtocurcol}%
@@ -110,12 +112,12 @@
 \patchcmd{\@getpen}{\@M}{\@Mi}
   {\typeout{*** SUCCESS ***}}{\typeout{*** FAIL ***}}
 %% --->
-%% Modified by Xiangdong Zeng, 2017-04-14.
 %% 不对代码实现的 \section 以下标题编目录。
-%\AtBeginEnvironment{implementation}{%
-%  \ifnum\value{tocdepth}>\@ne
-%    \addtocontents{toc}{\protect\value{tocdepth}=1\relax}%
-%  \fi}
+%% Modified by Xiangdong Zeng, 2017-04-14.
+%%%%\AtBeginEnvironment{implementation}{%
+%%%%  \ifnum\value{tocdepth}>\@ne
+%%%%    \addtocontents{toc}{\protect\value{tocdepth}=1\relax}%
+%%%%  \fi}
 \ifxetex
   \let\ctexdocverbaddon\xeCJKVerbAddon
   \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
@@ -153,23 +155,23 @@
   \Hy@raisedlink{\hyper@anchor{\curr@tpt@id-#1}}#1}
 \def\TPTtagStyle#1{\hyperlink{\curr@tpt@id-#1}{#1}}
 \fvset{
-  fontsize=\small,baselinestretch=1,numbersep=5pt,
-  formatcom=\ctexdocverbaddon,
-  listparameters=\setlength\topsep{\MacrocodeTopsep}}
+ fontsize=\small,baselinestretch=1,numbersep=5pt,
+ formatcom=\ctexdocverbaddon,
+ listparameters=\setlength\topsep{\MacrocodeTopsep}}
 \DefineVerbatimEnvironment{frameverb}{Verbatim}{%
-  gobble=4,
-  frame=single,framesep=8pt,
-  listparameters=
-    \setlength\topsep{\medskipamount}%
-    \appto\FV@EndList{\nointerlineskip}}
+ gobble=4,
+ frame=single,framesep=8pt,
+ listparameters=
+   \setlength\topsep{\medskipamount}%
+   \appto\FV@EndList{\nointerlineskip}}
 \DefineVerbatimEnvironment{ctexexam}{Verbatim}{%
-  gobble=4,
-  frame=single,framesep=10pt,
-  label=\rule{0pt}{12pt}\textnormal{\bfseries 例 \arabic{ctexexam}},
-  listparameters=
-    \setlength\topsep{\bigskipamount}%
-    \refstepcounter{ctexexam}\ctexexamlabelref
-    \appto\FV@EndList{\nointerlineskip}}
+ gobble=4,
+ frame=single,framesep=10pt,
+ label=\rule{0pt}{12pt}\textnormal{\bfseries 例 \arabic{ctexexam}},
+ listparameters=
+   \setlength\topsep{\bigskipamount}%
+   \refstepcounter{ctexexam}\ctexexamlabelref
+   \appto\FV@EndList{\nointerlineskip}}
 \define@key{FV}{labelref}{\def\ctexexamlabelref{\label{#1}}}
 \let\ctexexamlabelref\empty
 \newcounter{ctexexam}
@@ -178,8 +180,8 @@
   \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
 \AfterEndEnvironment{function}{\ctexfixprevdepth}
 %% Modified by Xiangdong Zeng, 2017-04-08.
-% linespread: 1 -> 1.2.
 \AtBeginEnvironment{syntax}{\linespread{1.2}\ctexplainps\ctexdisableecglue}
+%%%%\AtBeginEnvironment{syntax}{\linespread{1}\ctexplainps\ctexdisableecglue}
 \BeforeBeginEnvironment{SideBySideExample}{\par\addvspace{\medskipamount}}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
@@ -243,8 +245,8 @@
           { \__codedoc_print_macroname:nN {#1} #2 }
 %% Modified by Xiangdong Zeng, 2017-04-14.
 %% HACK: I just use the marginsep of my doc.
-        %\dim_set:Nn \l_tmpa_dim { \marginparwidth - \labelsep }
         \dim_set:Nn \l_tmpa_dim { 5.72cm }
+%%%%        \dim_set:Nn \l_tmpa_dim { \marginparwidth - \labelsep }
         \dim_compare:nNnT { \box_wd:N \l_tmpa_box } > \l_tmpa_dim
           {
             \box_resize_to_wd_and_ht:Nnn \l_tmpa_box
@@ -282,42 +284,41 @@
   }
 %% Modified by Xiangdong Zeng, 2017-04-14.
 %% This function is from `l3doc.sty'. Deprecated.
-%\cs_gset_protected:Npn \__codedoc_print_macroname:nN #1#2
-%  {
-%    \strut
-%    \__codedoc_get_hyper_target:xN
-%      {
-%        \exp_not:n {#1}
-%        \bool_if:NT #2 { \tl_to_str:n {TF} }
-%      }
-%      \l__codedoc_tmpa_tl
-%    \cs_if_exist:cTF { r@ \l__codedoc_tmpa_tl }
-%      {
-%        \exp_last_unbraced:NNo \hyperref
-%          [ \l__codedoc_tmpa_tl ]
-%      }
-%      { \use:n }
-%      {
-%        \int_compare:nTF
-%          % 修改不使用紧缩字体的最大命令长度为 99
-%          { \str_count:n {#1} <= 99 }
-%          { \MacroFont }
-%          { \MacroLongFont }
-%        \tl_set:Nn \l__codedoc_tmpa_tl {#1}
-%        \tl_replace_all:Nno \l__codedoc_tmpa_tl
-%          { ~ } { \c_catcode_other_space_tl }
-%        \__codedoc_macroname_prefix:o \l__codedoc_tmpa_tl
-%        \__codedoc_macroname_suffix:N #2
-%      }
-%  }
-%% Modified by Xiangdong Zeng, 2017-04-08.
-%\AtBeginEnvironment { syntax }
-%  {
-%    \char_set_catcode_active:N \|
-%    \char_set_active_eq:NN \| \orbar
-%    \char_set_catcode_active:N \(
-%    \char_set_active_eq:NN \( \defaultvalaux
-%  }
+%%%%\cs_gset_protected:Npn \__codedoc_print_macroname:nN #1#2
+%%%%  {
+%%%%    \strut
+%%%%    \__codedoc_get_hyper_target:xN
+%%%%      {
+%%%%        \exp_not:n {#1}
+%%%%        \bool_if:NT #2 { \tl_to_str:n {TF} }
+%%%%      }
+%%%%      \l__codedoc_tmpa_tl
+%%%%    \cs_if_exist:cTF { r@ \l__codedoc_tmpa_tl }
+%%%%      {
+%%%%        \exp_last_unbraced:NNo \hyperref
+%%%%          [ \l__codedoc_tmpa_tl ]
+%%%%      }
+%%%%      { \use:n }
+%%%%      {
+%%%%        \int_compare:nTF
+%%%%          % 修改不使用紧缩字体的最大命令长度为 99
+%%%%          { \str_count:n {#1} <= 99 }
+%%%%          { \MacroFont }
+%%%%          { \MacroLongFont }
+%%%%        \tl_set:Nn \l__codedoc_tmpa_tl {#1}
+%%%%        \tl_replace_all:Nno \l__codedoc_tmpa_tl
+%%%%          { ~ } { \c_catcode_other_space_tl }
+%%%%        \__codedoc_macroname_prefix:o \l__codedoc_tmpa_tl
+%%%%        \__codedoc_macroname_suffix:N #2
+%%%%      }
+%%%%  }
+\AtBeginEnvironment { syntax }
+  {
+    \char_set_catcode_active:N \|
+    \char_set_active_eq:NN \| \orbar
+    \char_set_catcode_active:N \(
+    \char_set_active_eq:NN \( \defaultvalaux
+  }
 %% 不对目录中出现的 \cs 和 \tn 等编索引
 \DeclareDocumentCommand \StopSpecialIndexModule { }
   { \cs_set_eq:NN \__codedoc_special_index_module:nnnnN \use_none:nnnnn }
@@ -732,11 +733,11 @@
 \seq_new:N \g__ctxdoc_slash_format_seq
 \seq_gput_right:Nn \g__ctxdoc_format_seq { \MacroFont }
 \seq_gput_right:Nn \g__ctxdoc_format_seq { \AltMacroFont }
-%% Modified by Xiangdong Zeng, 2017-06-02.
-% linespread: 1 -> 1.1.
 \cs_set_protected:Npn \MacroFont
   {
-    \linespread { 1.1 }
+%% Modified by Xiangdong Zeng, 2017-06-25.
+    \linespread { 1.05 }
+%%%%    \linespread { 1 }
     \small
     \fontseries { \mddefault }
     \fontshape  { \updefault }
@@ -745,7 +746,9 @@
   }
 \cs_set_protected:Npn \AltMacroFont
   {
-    \linespread { 1.1 }
+%% Modified by Xiangdong Zeng, 2017-06-25.
+    \linespread { 1.05 }
+%%%%    \linespread { 1 }
     \small
     \fontseries { \mddefault }
     \fontshape  { \sldefault }
@@ -797,9 +800,13 @@
 \definecolorseries { guard@series }
   { cmyk } { last } { blue } { purple }
 \resetcolorseries [ 3 ] { guard@series }
-\definecolor { verb@guard } { rgb }  { 0.5  , 0.5 , 0 }
-\definecolor { at@guard }   { rgb }  { 0.5  , 0   , 0.5 }
-\definecolor { code@gray }  { gray } { 0.5 }
+%% Modified by Xiangdong Zeng, 2017-06-26.
+\definecolor { verb@guard } { named } { MaterialLime600 }
+\definecolor { at@guard }   { named } { MaterialPink    }
+\definecolor { code@gray }  { named } { MaterialGrey    }
+%%%%\definecolor { verb@guard } { rgb }  { 0.5  , 0.5 , 0 }
+%%%%\definecolor { at@guard }   { rgb }  { 0.5  , 0   , 0.5 }
+%%%%\definecolor { code@gray }  { gray } { 0.5 }
 \cs_new_protected:Npn \__ctxdoc_module_angle:n #1
   { \textlangle #1 \textrangle }
 \cs_new_protected_nopar:Npn \__ctxdoc_code_line_no:
@@ -872,9 +879,9 @@
   \ExplSyntaxOff
   \MakePercentIgnore}{}
 %% Modified by Xiangdong Zeng, 2017-04-08.
-%\def\ctexkit{\href{https://github.com/CTeX-org/ctex-kit/}{\texttt{ctex-kit}}}
-%\def\ctexkitrev#1{%
-%  \href{https://github.com/CTeX-org/ctex-kit/commit/#1}{\texttt{ctex-kit} rev. #1}}
+%%%%\def\ctexkit{\href{https://github.com/CTeX-org/ctex-kit/}{\texttt{ctex-kit}}}
+%%%%\def\ctexkitrev#1{%
+%%%%  \href{https://github.com/CTeX-org/ctex-kit/commit/#1}{\texttt{ctex-kit} rev. #1}}
 \appto\GlossaryParms{%
   \raggedcolumns
   \let\Hy@writebookmark\HDorg@writebookmark
@@ -884,16 +891,17 @@
 \def\glossaryname{版本历史}
 \GlossaryPrologue{\section{\glossaryname}}
 \IndexPrologue{%
-%% Modified by Xiangdong Zeng, 2017-06-24.
-%% \section -> \section*
-  %\section{\indexname}
+%% Modified by Xiangdong Zeng, 2017-06-26.
   \section*{\indexname}
+  \addcontentsline{toc}{section}{\normalfont\sffamily\indexname}
+  \markright{\indexname}
+%%%%\section{\indexname}
   \textit{意大利体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
   罗马字体的数字表示使用对应索引项的代码行号。}}
 %% Modified by Xiangdong Zeng, 2017-04-08.
 \def\IndexLayout{%
-  %\newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
+%%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
@@ -924,10 +932,11 @@
 
 %% Added by Xiangdong Zeng, 2017-06-24.
 %% 字体设置。
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
-\setmonofont{Latin Modern Mono Light}[HyphenChar = None]
-\setmathfont{TeX Gyre Pagella Math}
+% \setmainfont{TeX Gyre Pagella}
+% \setsansfont{TeX Gyre Heros}
+% \setmonofont{Latin Modern Mono Light}[HyphenChar = None]
+% \setmathfont{TeX Gyre Pagella Math}
+
 \setCJKmainfont{FZShuSong-Z01}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 \setCJKsansfont{FZHei-B01}%
@@ -939,6 +948,10 @@
 \setCJKfamilyfont{黑}{FZHei-B01}
 \setCJKfamilyfont{仿}{FZFangSong-Z02}
 \setCJKfamilyfont{楷}{FZKai-Z03}
+
+\newfontfamily\CodeFont{Source Code Pro}
+\newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
+  [ItalicFont = Source Han Sans SC]
 
 %% 中文排版格式。
 \ctexset
@@ -980,10 +993,52 @@
   bookmarksnumbered = true,
   pdfborder         = 0 0 0,
   colorlinks,
-  linkcolor         = {red!60!black},
-  citecolor         = {green!50!black},
-  urlcolor          = {blue!63!green}
+  linkcolor         = {MaterialIndigo},
+  citecolor         = {MaterialGreen},
+  urlcolor          = {MaterialPink}
 }
+
+\makeatletter
+\lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
+\@empty\z@\@empty
+\makeatother
+
+\lstdefinestyle{lstStyleBase}{%
+  extendedchars   = true,
+  gobble          = 2,
+  lineskip        = 2 pt,
+  frame           = l,
+  framerule       = 1 pt,
+  framesep        = 0 pt,
+  basicstyle      = \small\CodeFont\CJKCodeFont%
+      \color{MaterialGrey900},
+  keywordstyle    = \bfseries\color{MaterialIndigo},
+  commentstyle    = \itshape\color{MaterialGrey600},
+  stringstyle     = \color{MaterialDeepOrange},
+  backgroundcolor = \color{MaterialGrey50}
+}
+
+\lstdefinestyle{lstStyleShell}{%
+  style           = lstStyleBase,
+  rulecolor       = \color{MaterialPink},
+  language        = bash,
+  morekeywords    = {mkdir,cp,git,fc}
+}
+
+\lstdefinestyle{lstStyleLaTeX}{%
+  style           = lstStyleBase,
+  rulecolor       = \color{MaterialIndigo},
+  language        = [LaTeX]TeX,
+  texcsstyle      = *\bfseries\color{MaterialPink},
+  morekeywords    = {\fdusetup},
+  emph            = {style,info,%
+      font,fontsize,%
+      author,department,title},
+  emphstyle       = \color{MaterialGreen800}
+}
+
+\lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
+\lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
 
 %% 句号处理
 \catcode`\。 = \active
@@ -991,6 +1046,8 @@
 
 \renewcommand{\pkg}[1]{\textsf{#1}}
 \renewcommand{\cls}[1]{\textsf{#1}}
+
+\def\fduthesis{fdu\-thesis}
 
 \EnableCrossrefs
 \CodelineIndex

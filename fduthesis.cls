@@ -133,7 +133,7 @@
       \tl_set:Nn \g__fdu_fn_style_tl { pifont }
     },
     font / times .code:n = {
-      \setmainfont { TeX~ Gyre~ Termes }
+      \setmainfont { XITS              }
       \setsansfont { TeX~ Gyre~ Heros  }
       \setmonofont { TeX~ Gyre~ Cursor }
         [ Ligatures = NoCommon ]
@@ -409,11 +409,21 @@
 \cs_new:Npn \fdu_coverA_title:nn #1 #2
   {
     \begin{center}
-      { \zihao {  2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
+      { \zihao { 2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
       \vspace { \stretch { 3 } }
-      { \zihao { -2 } \sffamily \l__fdu_info_title_tl \par}
+      {
+        \zihao { -2 } \sffamily
+        \parbox [ c ] { 20 em }
+          { \centering \l__fdu_info_title_tl }
+        \par
+      }
       \vspace { \stretch { 1 } }
-      { \zihao {  4 } \bfseries \l__fdu_info_title_e_tl \par}
+      {
+        \zihao { 4 } \bfseries
+        \parbox [ c ] { 25 em }
+          { \centering \l__fdu_info_title_e_tl }
+        \par
+      }
     \end{center}
   }
 \cs_new:Nn \fdu_coverA_info:
@@ -729,7 +739,7 @@
               { \tl_set:Nn \l__fdu_thm_style_tl { break } }
               { }
           }
-        \tl_put_left:Nn \l__fdu_thm_style_tl {nonumber}
+        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
         \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
           { #3 } { #4 }
       }
@@ -768,9 +778,10 @@
   {
     style / font            =  times,
     style / CJKfont         =  fandol,
-    style / fullwidth-stop  =  false,
     style / fontsize        =  -4,
-    info  / date            =  \today
+    style / fullwidth-stop  =  false,
+    info  / date            =  \today,
+    info  / schoolID        =  10246
   }
 \endinput
 %%

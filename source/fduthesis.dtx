@@ -108,9 +108,260 @@
 % 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3 编写，以适应
 % \TeX{} 技术发展潮流；同时还将构建一套简洁的接口，方便大家使用。
 %
-% \section{基本用法}
+% \section{使用说明}
+% \subsection{基本用法}
 % 重要提醒：本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或
 % \LuaLaTeX{} 编译。推荐使用 \XeLaTeX{}。
+%
+% \subsection{模板选项}
+% 所谓“模板选项”，指需要在引入文档类的时候指定的选项。
+%
+% \begin{function}{oneside,twoside}
+%   指明论文的单双面模式，默认为 |twoside|。
+%   该选项会影响章（chapter）出现的位置，还会影响页眉样式。
+% \end{function}
+%
+% 在双面模式（|twoside|）下，按照通常的排版惯例，\tn{chapter}
+% 只出现在奇数页（在右侧）；而在单页模式（|oneside|）下，
+% 则可以出现在任意页面。本模板中，目录、摘要、符号表等均视作章，
+% 也按相同方式排版。
+%
+% 双面模式下，正文部分偶数页（在左）的左页眉显示章标题，奇数页
+% （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，
+% 但文字均为对应标题（如“\textit{目 \quad 录}”、
+% “\textit{摘 \quad 要}”等）。
+% 而在单面模式下，正文部分页面不分奇偶，均会同时显示左、右页眉，
+% 文字分别为章标题和节标题；前置部分只有中页眉，显示对应标题。
+%
+% \begin{function}{draft}
+%   \begin{syntax}
+%     draft = <\TFF>
+%   \end{syntax}
+%   选择是否开启草稿模式，默认关闭。注意，单独一个 |draft| 的写法，
+%   与 |draft = true| 是一致的。
+% \end{function}
+%
+% 草稿模式为全局选项，会影响到很多宏包的工作方式。
+% 开启之后，主要的变化有：
+% \begin{itemize}
+%   \item 把行溢出的盒子显示为黑色方块；
+%   \item 不实际插入图片，只输出一个占位方框；
+%   \item 关闭超链接渲染，也不添加 PDF 书签（还未调用
+%     \pkg{hyperref}，目前暂时不受影响）；
+%   \item 显示页面边框。
+% \end{itemize}
+%
+% \subsection{参数设置}
+% 本模板提供了一系列选项，可由用户自行配置。以下所有选项均可通过
+% 统一的命令 \cs{fdusetup} 来设置。
+%
+% \begin{function}{\fdusetup}
+%   \begin{syntax}
+%     \cs{fdusetup}\Arg{键值列表}
+%   \end{syntax}
+%   这是本模板的通用控制命令，用来在载入文档类之后实现各种功能，
+%   如修改论文格式、录入论文信息等。
+% \end{function}
+%
+% \cs{fdusetup} 的参数是一组由（英文）逗号隔开的选项列表，列表中的
+% 选项通常是 \meta{key} |=| \meta{value} 的形式。部分选项的
+% \meta{value} 可以省略。对于同一项，后面的设置将会覆盖前面的设置。
+% 在下文的说明中，我们将用\textbf{粗体}表示默认值。
+%
+% \cs{fdusetup} 采用 \LaTeX3 风格的键值设置，支持不同类型以及多种
+% 层次的选项设定。键值列表中，“|=|”左右的空格不影响设置；但需注意，
+% 参数列表中不可以出现空行。
+%
+% 有些选项为布尔型，即只能取 |true| 和 |false| 两个值。对于这些选项，
+% \meta{key} |= true| 中的“|= true|”可以省略。
+%
+% 另有一些选项包含子选项，如 |style| 和 |info| 等。它们可以按如下
+% 两种等价方式来设定：
+% \begin{latexexample}
+%   \fdusetup{
+%     style = {font = adobe, fontsize = -4},
+%     info  = {
+%       author     = {张三},
+%       department = {物理系},
+%       title      = {论如何使用 fduthesis 写好论文}
+%     }
+%   }
+% \end{latexexample}
+% 或者
+% \begin{latexexample}
+%   \fdusetup{
+%     style / font       = adobe,
+%     style / fontsize   = -4,
+%     info  / author     = {张三},
+%     info  / department = {物理系},
+%     info  / title      = {论如何使用 fduthesis 写好论文}
+%   }
+% \end{latexexample}
+%
+% 在第二种方式中，“|/|” 与 “|=|” 类似，前后的空白对设置没有影响。
+%
+% \subsubsection{论文格式}
+% \begin{function}{style}
+%   \begin{syntax}
+%     style = \Arg{键值列表}
+%     style / \meta{key} = \meta{value}
+%   \end{syntax}
+%   设置论文格式的通用选项，具体内容见下。
+% \end{function}
+%
+% \begin{function}{style/font}
+%   \begin{syntax}
+%     font = <libertinus|lm|palatino|(times)>
+%   \end{syntax}
+%   设置西文字体以及相应的数学字体。
+% \end{function}
+%
+% \begin{function}{style/CJKfont}
+%   \begin{syntax}
+%     CJKfont = <adobe|(fandol)|founder|linux|mac|windows>
+%   \end{syntax}
+%   设置中文字体。
+% \end{function}
+%
+% \begin{function}{style/fontsize}
+%   \begin{syntax}
+%     fontsize = <(-4)|5>
+%   \end{syntax}
+%   设置论文的基础字号。
+% \end{function}
+%
+% \begin{function}{style/fullwidth-stop}
+%   \begin{syntax}
+%     fontsize = <\TFF>
+%   \end{syntax}
+%   选择是否使用全角实心句点“\symbol{"FF0E}”为默认的句号形状。
+%   这种句号一般用于科技类文章，以便与下标 o 或 0 区分。
+% \end{function}
+%
+% \begin{function}{style/footnotestyle}
+%   \begin{syntax}
+%     footnotestyle = <plain|libertinus|libertinus*|libertinus-sans|
+% \hspace{2.79cm}pifont|pifont*|pifont-sans|pifont-sans*|
+% \hspace{2.79cm}times|times-sans|times-sans*>
+%   \end{syntax}
+%   设置脚注样式。西文字体设置会影响其默认取值。因此，要使得该选项
+%   生效，需将其放置在 |font| 选项之后。
+% \end{function}
+%
+%^^A \begin{shellexample}
+%^^A   #!/usr/bin/env sh
+%^^A
+%^^A   # Install `zhlipsum`
+%^^A   git clone https://github.com/Stone-Zeng/zhlipsum.git
+%^^A
+%^^A   mkdir -p /home/travis/texmf/tex/latex/zhlipsum
+%^^A   cp zhlipsum/zhlipsum.sty        \
+%^^A     /home/travis/texmf/tex/latex/zhlipsum
+%^^A   cp zhlipsum/zhlipsum-zh-cn.def  \
+%^^A     /home/travis/texmf/tex/latex/zhlipsum
+%^^A
+%^^A   mktexlsr
+%^^A \end{shellexample}
+%
+% \subsubsection{信息录入}
+% \begin{function}{info}
+%   \begin{syntax}
+%     info = \Arg{键值列表}
+%     info / \meta{key} = \meta{value}
+%   \end{syntax}
+%   录入论文信息的通用选项，具体内容见下。
+% \end{function}
+%
+% 以下各选项中，带“|*|”的为对应的英文字段。
+%
+% \begin{function}{info/title,info/title*}
+%   \begin{syntax}
+%     title  = \Arg{中文标题}
+%     title* = \Arg{English title}
+%   \end{syntax}
+%   论文标题。中文标题会在 20 个汉字字宽处强制断行，而英文标题会在
+%   25 个汉字字宽处断行 \footnotemark。
+%   但为了语义的连贯以及排版的美观，如果您的标题长于一行，建议自行
+%   使用“|\\|”手动断行。
+% \end{function}
+% \footnotetext{英文标题字号较小，所以实际上二者宽度基本一致。}
+%
+% \begin{function}{info/author,info/author*}
+%   \begin{syntax}
+%     author  = \Arg{姓名}
+%     author* = \Arg{English name}
+%   \end{syntax}
+%   作者姓名。
+% \end{function}
+%
+% \begin{function}{info/supervisor}
+%   \begin{syntax}
+%     supervisor = \Arg{姓名}
+%   \end{syntax}
+%   导师姓名。
+% \end{function}
+%
+% \begin{function}{info/department}
+%   \begin{syntax}
+%     department = \Arg{名称}
+%   \end{syntax}
+%   院系名称。
+% \end{function}
+%
+% \begin{function}{info/major}
+%   \begin{syntax}
+%     major = \Arg{名称}
+%   \end{syntax}
+%   专业名称。
+% \end{function}
+%
+% \begin{function}{info/studentID}
+%   \begin{syntax}
+%     studentID = \Arg{数字}
+%   \end{syntax}
+%   作者学号。
+% \end{function}
+%
+% 复旦大学学号共 11 位，前两位为入学年份，之后一位为学生类型代码
+% （本科生为 1，硕士生为 2，博士生为 3），接下来的五位为专业代码，
+% 最后两位为顺序号。
+%
+% \begin{function}{info/schoolID}
+%   \begin{syntax}
+%     schoolID = \Arg{数字}
+%   \end{syntax}
+%   学校代码。默认值为 10246（这是复旦大学的学校代码）。
+% \end{function}
+%
+% \begin{function}{info/date}
+%   \begin{syntax}
+%     date = \Arg{日期}
+%   \end{syntax}
+%   论文完成日期。默认值为文档编译日期（\tn{today}）。
+% \end{function}
+%
+% \begin{function}{info/instructors}
+%   \begin{syntax}
+%     instructors = \Arg{成员 1, 成员 2, ...}
+%   \end{syntax}
+%   指导小组成员。各成员之间需使用英文逗号隔开。为防止歧义，可以用
+%   分组括号“|{...}|”把各成员字段括起来。
+% \end{function}
+%
+% \begin{function}{info/keywords,info/keywords*}
+%   \begin{syntax}
+%     keywords  = \Arg{中文关键字}
+%     keywords* = \Arg{English keywords}
+%   \end{syntax}
+%   关键字。
+% \end{function}
+%
+% \begin{function}{info/CLC}
+%   \begin{syntax}
+%     CLC = \Arg{分类号}
+%   \end{syntax}
+%   中国图书馆分类号。
+% \end{function}
 %
 % \StopEventually{
 %   \begin{thebibliography}{9}
@@ -203,7 +454,7 @@
 %   \c__fdu_colon_fullwidth_tl,
 %   \c__fdu_semicolon_fullwidth_tl}
 % 一些标点符号：
-% U+3002 是圆圈句号“\char"3002”（ideographic full stop），
+% U+3002 是圆圈句号“\symbol{"3002}”（ideographic full stop），
 % U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
 % U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
 % U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
@@ -425,7 +676,7 @@
 % Times Roman 系列。
 %    \begin{macrocode}
     font / times .code:n = {
-      \setmainfont { TeX~ Gyre~ Termes }
+      \setmainfont { XITS              }
       \setsansfont { TeX~ Gyre~ Heros  }
       \setmonofont { TeX~ Gyre~ Cursor }
         [ Ligatures = NoCommon ]
@@ -631,8 +882,8 @@
   {
 %    \end{macrocode}
 %
-% 章（chapter）标题设置为黑体、居中。序号使用阿拉伯数字。
-% |fixskip = true| 选项用来取消前后多余间距。
+% 章（chapter）标题设置为黑体、居中，同时利用 |fixskip = true| 选项
+% 来取消前后的多余间距。序号使用阿拉伯数字。
 %    \begin{macrocode}
     chapter = {
       format     = {
@@ -681,8 +932,8 @@
 % \end{macro}
 %
 % 构建页眉，要在单面或双面下分别设置。
-% \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）和
-% 奇数（odd）， 而 |L|、|R| 和 |C| 则分别表示左（left）、右（right）
+% \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）和奇数
+% （odd）， 而 |L|、|R| 和 |C| 则分别表示左（left）、右（right）
 % 和中间（center）。按照通常的排版规则，在双面模式下，偶数页中页眉
 % 文字在左，奇数页中则在右。单面模式下，左右页眉都要显示。
 %    \begin{macrocode}
@@ -984,11 +1235,21 @@
 \cs_new:Npn \fdu_coverA_title:nn #1 #2
   {
     \begin{center}
-      { \zihao {  2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
+      { \zihao { 2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
       \vspace { \stretch { 3 } }
-      { \zihao { -2 } \sffamily \l__fdu_info_title_tl   \par}
+      {
+        \zihao { -2 } \sffamily
+        \parbox [ c ] { 20 em }
+          { \centering \l__fdu_info_title_tl }
+        \par
+      }
       \vspace { \stretch { 1 } }
-      { \zihao {  4 } \bfseries \l__fdu_info_title_e_tl \par}
+      {
+        \zihao { 4 } \bfseries
+        \parbox [ c ] { 25 em }
+          { \centering \l__fdu_info_title_e_tl }
+        \par
+      }
     \end{center}
   }
 %    \end{macrocode}
@@ -1901,9 +2162,10 @@
   {
     style / font            =  times,
     style / CJKfont         =  fandol,
-    style / fullwidth-stop  =  false,
     style / fontsize        =  -4,
-    info  / date            =  \today
+    style / fullwidth-stop  =  false,
+    info  / date            =  \today,
+    info  / schoolID        =  10246
   }
 %</class>
 %    \end{macrocode}
