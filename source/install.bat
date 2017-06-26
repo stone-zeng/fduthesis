@@ -1,2 +1,4 @@
+@echo off
 xetex fduthesis.ins
-copy /Y "fduthesis.cls"  "..\fduthesis.cls"
+move /Y "fduthesis.cls"  "..\test\fduthesis.cls"
+move /Y "fduthesis.def"  "..\test\fduthesis.def"

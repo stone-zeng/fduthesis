@@ -281,8 +281,8 @@
 %   \end{syntax}
 %   论文标题。中文标题会在 20 个汉字字宽处强制断行，而英文标题会在
 %   25 个汉字字宽处断行 \footnotemark。
-%   但为了语义的连贯以及排版的美观，如果您的标题长于一行，建议自行
-%   使用“|\\|”手动断行。
+%   但为了语义的连贯以及排版的美观，如果您的标题长于一行，建议使用
+%   “|\\|”手动断行。
 % \end{function}
 % \footnotetext{英文标题字号较小，所以实际上二者宽度基本一致。}
 %
@@ -387,21 +387,6 @@
 % }
 %
 % \section{实现细节}
-%    \begin{macrocode}
-%<*class>
-%    \end{macrocode}
-%^^A
-%^^A 长度控制
-%^^A
-%^^A 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
-%^^A 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导
-%^^A 导导导导导导导导导导导导导导导导导导导导导导导导导导导导导。
-%^^A    \begin{macrocode}
-%^^A----- Begin of  70-words -----%
-%^^A111111111222222222233333333334444444444555555555566666666667777777777
-%^^A----- End   of  70-words -----%
-%^^A    \end{macrocode}
-%
 % 本模板使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境，
 % 并需调用 \pkg{l3packages} 中的相关宏包。
 %
@@ -410,10 +395,16 @@
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
 %    \begin{macrocode}
+%<*cls>
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3,xparse,l3keys2e}
 \ProvidesExplClass{fduthesis}
   {2017/02/19} {0.2} {Fudan University Thesis Template}
+%    \end{macrocode}
+%
+% 载入参数配置文件。
+%    \begin{macrocode}
+\file_input:n { fduthesis.def }
 %    \end{macrocode}
 %
 % \subsection{内部变量声明}
@@ -2167,7 +2158,15 @@
     info  / date            =  \today,
     info  / schoolID        =  10246
   }
-%</class>
+%</cls>
+%    \end{macrocode}
+%
+% \subsection{模板参数配置文件}
+%    \begin{macrocode}
+%<*def>
+\ProvidesExplFile{fduthesis.def}
+  {2017/02/19} {0.2} {Parameters for `fduthesis'}
+%</def>
 %    \end{macrocode}
 %
 % \Finale

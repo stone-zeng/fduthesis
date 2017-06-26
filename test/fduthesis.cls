@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% fduthesis.dtx  (with options: `class')
+%% fduthesis.dtx  (with options: `cls')
 %% 
 %%     Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %% 
@@ -31,6 +31,7 @@
 \RequirePackage{expl3,xparse,l3keys2e}
 \ProvidesExplClass{fduthesis}
   {2017/02/19} {0.2} {Fudan University Thesis Template}
+\file_input:n { fduthesis.def }
 \box_new:N   \l__fdu_tmpa_box
 \dim_new:N   \l__fdu_tmpa_dim
 \tl_new:N    \l__fdu_tmpa_tl

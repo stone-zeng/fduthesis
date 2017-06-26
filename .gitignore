@@ -21,8 +21,8 @@
 
 .vscode/
 files/
-logo/original-files
-source/fduthesis.cls
 temp/
+
+logo/original-files
 
 !test/Fudan_*.pdf

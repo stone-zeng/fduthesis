@@ -69,6 +69,9 @@
 %% Added by Xiangdong Zeng, 2017-06-25.
 \RequirePackage{listings}
 \RequirePackage{xcolor-material}
+%% Added by Xiangdong Zeng, 2017-06-26.
+\RequirePackage[stable,perpage,bottom]{footmisc}
+\RequirePackage{pifont}
 %% Modified by Xiangdong Zeng, 2017-04-08.
 %%%%\geometry{includemp,hmargin={0mm,15mm},vmargin={25mm,15mm},footskip=7mm}
 %%%%\hypersetup{pdfstartview=FitH,bookmarksdepth=subparagraph}
@@ -932,11 +935,6 @@
 
 %% Added by Xiangdong Zeng, 2017-06-24.
 %% 字体设置。
-% \setmainfont{TeX Gyre Pagella}
-% \setsansfont{TeX Gyre Heros}
-% \setmonofont{Latin Modern Mono Light}[HyphenChar = None]
-% \setmathfont{TeX Gyre Pagella Math}
-
 \setCJKmainfont{FZShuSong-Z01}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 \setCJKsansfont{FZHei-B01}%
@@ -976,6 +974,7 @@
   bottom = 2.54 cm
 }
 
+%% 单位设置
 \sisetup{
   number-math-rm       = \ensuremath,
   inter-unit-product   = \ensuremath{{}\cdot{}},
@@ -986,6 +985,7 @@
   separate-uncertainty = true
 }
 
+%% 超链接
 \hypersetup{
   pdftitle          = {fduthesis：复旦大学论文模板},
   pdfauthor         = {曾祥东},
@@ -998,10 +998,11 @@
   urlcolor          = {MaterialPink}
 }
 
-\makeatletter
+%% listings 代码样式
+% \makeatletter
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
-\makeatother
+% \makeatother
 
 \lstdefinestyle{lstStyleBase}{%
   extendedchars   = true,
@@ -1040,12 +1041,27 @@
 \lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
 \lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
 
+%% 脚注
+\renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote}}}
+% \makeatletter
+\newlength{\fnBreite}
+\renewcommand{\@makefntext}[1]{%
+	\settowidth{\fnBreite}{\footnotesize\@thefnmark.i}%
+	\protect\footnotesize\upshape%
+	\setlength{\@tempdima}{\columnwidth}%
+	\addtolength{\@tempdima}{-\fnBreite}%
+	\makebox[\fnBreite][l]{\@thefnmark\phantom{  }}%
+	\parbox[t]{\@tempdima}%
+	{\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}%
+}
+% \makeatother
+
 %% 句号处理
 \catcode`\。 = \active
 \newcommand{。}{．}
 
-\renewcommand{\pkg}[1]{\textsf{#1}}
-\renewcommand{\cls}[1]{\textsf{#1}}
+% \renewcommand{\pkg}[1]{\textsf{#1}}
+% \renewcommand{\cls}[1]{\textsf{#1}}
 
 \def\fduthesis{fdu\-thesis}
 
