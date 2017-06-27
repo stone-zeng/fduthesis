@@ -106,7 +106,7 @@
     heading    = true,
     fontset    = none,
     zihao      = \c__fdu_def_font_size_tl,
-    linespread = \c__fdu_def_line_speard_fp
+    linespread = \c__fdu_def_line_spread_fp
   ] { ctex }
 \RequirePackage { amsmath }
 \RequirePackage { unicode-math }
@@ -431,25 +431,25 @@
           \c__fdu_def_cover_type_width_tl
           \c__fdu_def_name_thesis_type_tl
       }
-      \par \vspace { \c__fdu_def_cover_verical_sep_iii_tl }
+      \par \vspace { \c__fdu_def_cover_v_sep_iii_tl }
       {
         \__fdu_cover_font_size_normal:
         \c__fdu_def_name_degree_type_tl
       }
-      \par \vspace { \c__fdu_def_cover_verical_sep_iv_tl }
+      \par \vspace { \c__fdu_def_cover_v_sep_iv_tl }
       {
         \__fdu_cover_font_size_large:  \sffamily
         \fdu_fixed_width_center_box:NV
           \c__fdu_def_cover_title_width_tl
           \l__fdu_info_title_tl
       }
-      \par \vspace { \c__fdu_def_cover_verical_sep_v_tl }
+      \par \vspace { \c__fdu_def_cover_v_sep_v_tl }
       {
         \__fdu_cover_font_size_normal: \bfseries
         \fdu_fixed_width_center_box:Nn
           \c__fdu_def_cover_title_e_width_tl
           {
-            \linespread { \c__fdu_def_cover_title_e_line_speard_tl }
+            \linespread { \c__fdu_def_cover_title_e_line_spread_tl }
             \selectfont
             \l__fdu_info_title_e_tl
           }
@@ -494,13 +494,13 @@
 \NewDocumentCommand \makecoveri { }
   {
     \__fdu_cover_ID:
-    \vspace { \c__fdu_def_cover_verical_sep_i_tl   }
+    \vspace { \c__fdu_def_cover_v_sep_i_tl   }
     \__fdu_cover_logo:
-    \vspace { \c__fdu_def_cover_verical_sep_ii_tl  }
+    \vspace { \c__fdu_def_cover_v_sep_ii_tl  }
     \__fdu_cover_title:
-    \vspace { \c__fdu_def_cover_verical_sep_vi_tl  }
+    \vspace { \c__fdu_def_cover_v_sep_vi_tl  }
     \__fdu_cover_info:
-    \vspace { \c__fdu_def_cover_verical_sep_vii_tl }
+    \vspace { \c__fdu_def_cover_v_sep_vii_tl }
   }
 \NewDocumentCommand \makecoverii { }
   {

@@ -578,7 +578,7 @@
     heading    = true,
     fontset    = none,
     zihao      = \c__fdu_def_font_size_tl,
-    linespread = \c__fdu_def_line_speard_fp
+    linespread = \c__fdu_def_line_spread_fp
   ] { ctex }
 %    \end{macrocode}
 %
@@ -1246,7 +1246,7 @@
         \fdu_fixed_width_center_box:Nn
           \c__fdu_def_cover_title_e_width_tl
           {
-            \linespread { \c__fdu_def_cover_title_e_line_speard_tl }
+            \linespread { \c__fdu_def_cover_title_e_line_spread_tl }
             \selectfont
             \l__fdu_info_title_e_tl
           }
@@ -2229,7 +2229,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_line_speard_fp}
+% \begin{macro}{\c__fdu_def_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
 %   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}。
@@ -2238,7 +2238,7 @@
 % 的大小，\SI{20}{pt} 是行距固定值。代码中的 $72.27 \, / \, 72$ 是
 % \si{bp} 到 \si{pt} 的换算因子。
 %    \begin{macrocode}
-\fp_const:Nn \c__fdu_def_line_speard_fp
+\fp_const:Nn \c__fdu_def_line_spread_fp
   { 20 / ( 1.2 * 12 * ( 72.27 / 72 ) ) }
 %    \end{macrocode}
 % \end{macro}
@@ -2336,10 +2336,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_cover_title_e_line_speard_tl}
+% \begin{macro}{\c__fdu_def_cover_title_e_line_spread_tl}
 % 英文标题的行距倍数。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_title_e_line_speard_tl { 1.2 }
+\tl_const:Nn \c__fdu_def_cover_title_e_line_spread_tl { 1.2 }
 %    \end{macrocode}
 % \end{macro}
 %

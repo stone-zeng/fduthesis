@@ -43,7 +43,7 @@
 \dim_const:Nn \c__fdu_def_page_margin_right_dim  { 3.18 cm }
 \dim_const:Nn \c__fdu_def_header_height_dim { 15 pt }
 \tl_const:Nn \c__fdu_def_font_size_tl { -4 }
-\fp_const:Nn \c__fdu_def_line_speard_fp
+\fp_const:Nn \c__fdu_def_line_spread_fp
   { 20 / ( 1.2 * 12 * ( 72.27 / 72 ) ) }
 \tl_const:Nn \c__fdu_def_chapter_format_tl
   { \huge  \normalfont \sffamily \centering   }
@@ -71,15 +71,15 @@
 \tl_const:Nn \c__fdu_def_cover_type_width_tl    { 0.45 \textwidth }
 \tl_const:Nn \c__fdu_def_cover_title_width_tl   { 0.9  \textwidth }
 \tl_const:Nn \c__fdu_def_cover_title_e_width_tl { 0.9  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_i_tl   { \stretch { 1.5 } }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_ii_tl  { \stretch { 0.8 } }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_iii_tl { 0.4 cm }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_iv_tl  { \stretch { 2  } }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_v_tl   { 0.8 cm }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_vi_tl  { \stretch { 2.5 } }
-\tl_const:Nn \c__fdu_def_cover_verical_sep_vii_tl { \stretch { 1.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_iii_tl { 0.4 cm }
+\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { \stretch { 2  } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_v_tl   { 0.8 cm }
+\tl_const:Nn \c__fdu_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_vii_tl { \stretch { 1.5 } }
 \tl_const:Nn \c__fdu_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
-\tl_const:Nn \c__fdu_def_cover_title_e_line_speard_tl { 1.2 }
+\tl_const:Nn \c__fdu_def_cover_title_e_line_spread_tl { 1.2 }
 \tl_const:Nn \c__fdu_def_name_school_ID_tl   { 学校代码     }
 \tl_const:Nn \c__fdu_def_name_student_ID_tl  { 学 \qquad 号 }
 \tl_const:Nn \c__fdu_def_name_thesis_type_tl { 博士学位论文 }
