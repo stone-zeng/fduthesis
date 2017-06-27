@@ -1,4 +1,6 @@
 % \iffalse meta-comment
+% !TeX program  = XeLaTeX
+% !TeX encoding = UTF-8
 %
 % Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %
@@ -18,15 +20,25 @@
 %
 % This work consists of the files fduthesis.dtx
 %                                 fduthesis.ins
-%            and the derived file fduthesis.cls.
+%           and the derived files fduthesis.cls
+%                                 fduthesis.def
+%                                 fduthesis-user.def.
 %
 % \fi
 %
 % \iffalse
 %
-
+%<cls>\NeedsTeXFormat{LaTeX2e}
+%<cls>\RequirePackage{expl3,xparse,l3keys2e}
+%<cls|def|user>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<driver|cls>  {Thesis template for Fudan University}
+%<def>  {Definition file for fduthesis}
+%<user>  {User definition file for fduthesis}
+%<cls>\ProvidesExplClass{\ExplFileName}
+%<def|user>\ProvidesExplFile{\ExplFileName}
+%<cls|def|user>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %<*driver>
-
+%
 %%%%%%%%%% 版本历史 %%%%%%%%%%
 % v0.1 2017/02/15
 %   开始
@@ -394,17 +406,12 @@
 % 而下划线“|_|”和冒号“|:|”则可作为一般字母使用。
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
-%    \begin{macrocode}
-%<*cls>
-\NeedsTeXFormat{LaTeX2e}
-\RequirePackage{expl3,xparse,l3keys2e}
-\ProvidesExplClass{fduthesis}
-  {2017/02/19} {0.2} {Fudan University Thesis Template}
-%    \end{macrocode}
 %
 % 载入参数配置文件。
 %    \begin{macrocode}
+%<*cls>
 \file_input:n { fduthesis.def }
+\file_input:n { fduthesis-user.def }
 %    \end{macrocode}
 %
 % \subsection{内部变量声明}
@@ -437,23 +444,6 @@
 %    \begin{macrocode}
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
-%   \c__fdu_full_stop_fullwidth_tl,
-%   \c__fdu_colon_fullwidth_tl,
-%   \c__fdu_semicolon_fullwidth_tl}
-% 一些标点符号：
-% U+3002 是圆圈句号“\symbol{"3002}”（ideographic full stop），
-% U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
-% U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
-% U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
-%    \begin{macrocode}
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
-\tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
-\tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -851,8 +841,8 @@
 % \pkg{xeCJK} 宏包提供了 |Mapping = fullwidth-stop| 和 |full-stop|
 % 选项，也能实现两种句号的切换。此种方法是基于字体映射实现的，
 % 当需要同时使用两种句号的时候（比如本文档）将会带来不便。
-% 另外通过 \LuaLaTeX{} 编译时，将不调用 \pkg{xeCJK} 宏包，
-% 也必须采取 \tn{catcode} 的手段来切换。
+% 另外通过 \LuaLaTeX{} 编译时，底层使用 \pkg{luatexja} 而非
+% \pkg{xeCJK}，也必须采取 \tn{catcode} 的手段来切换。
 %    \begin{macrocode}
     fullwidth-stop .choice:,
     fullwidth-stop / true  .code:n = {
@@ -2164,9 +2154,34 @@
 % \subsection{模板参数配置文件}
 %    \begin{macrocode}
 %<*def>
-\ProvidesExplFile{fduthesis.def}
-  {2017/02/19} {0.2} {Parameters for `fduthesis'}
+%    \end{macrocode}
+%
+% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
+%   \c__fdu_full_stop_fullwidth_tl,
+%   \c__fdu_colon_fullwidth_tl,
+%   \c__fdu_semicolon_fullwidth_tl}
+% 一些标点符号：
+% U+3002 是圆圈句号“\symbol{"3002}”（ideographic full stop），
+% U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
+% U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
+% U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
+\tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
+\tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
+\tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 %</def>
+%    \end{macrocode}
+%
+% \subsection{用户配置文件}
+%    \begin{macrocode}
+%<*user>
+%% TODO(20170627): 增加一些示例
+%</user>
 %    \end{macrocode}
 %
 % \Finale

@@ -1,10 +1,10 @@
 %%
-%% This is file `fduthesis.def',
+%% This is file `fduthesis-user.def',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% fduthesis.dtx  (with options: `def')
+%% fduthesis.dtx  (with options: `user')
 %% 
 %%     Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %% 
@@ -29,13 +29,10 @@
 %%                                     fduthesis-user.def.
 %% 
 \GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
-  {Definition file for fduthesis}
+  {User definition file for fduthesis}
 \ProvidesExplFile{\ExplFileName}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
-\tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
-\tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
+%% TODO(20170627): 增加一些示例
 \endinput
 %%
-%% End of file `fduthesis.def'.
+%% End of file `fduthesis-user.def'.

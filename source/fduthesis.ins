@@ -17,7 +17,9 @@
 %%
 %% This work consists of the files fduthesis.dtx
 %%                                 fduthesis.ins
-%%            and the derived file fduthesis.cls.
+%%           and the derived files fduthesis.cls
+%%                                 fduthesis.def
+%%                                 fduthesis-user.def.
 %%
 
 \input l3docstrip.tex
@@ -46,26 +48,33 @@
 
     This work consists of the files fduthesis.dtx
                                     fduthesis.ins
-               and the derived file fduthesis.cls.
+              and the derived files fduthesis.cls
+                                    fduthesis.def
+                                    fduthesis-user.def.
 
 \endpreamble
 
 \generate{\file{\jobname.cls}{\from{\jobname.dtx}{cls}}}
 \generate{\file{\jobname.def}{\from{\jobname.dtx}{def}}}
+\generate{\file{\jobname-user.def}{\from{\jobname.dtx}{user}}}
 
-%\obeyspaces
-%\Msg{****************************************************}
-%\Msg{*                                                  *}
-%\Msg{* To finish the installation you have to move the  *}
-%\Msg{* following file into a directory searched by TeX: *}
-%\Msg{*                                                  *}
-%\Msg{* hpackagei.sty                                    *}
-%\Msg{*                                                  *}
-%\Msg{* To produce the documentation run the file        *}
-%\Msg{* hpackagei.dtx through LaTeX.                     *}
-%\Msg{*                                                  *}
-%\Msg{* Happy TeXing!                                    *}
-%\Msg{*                                                  *}
-%\Msg{****************************************************}
+\obeyspaces
+\Msg{*************************************************************}
+\Msg{*                                                           *}
+\Msg{* To finish the installation you have to move the following *}
+\Msg{* files into a directory searched by TeX:                   *}
+\Msg{*                                                           *}
+\Msg{* The recommended directory is TDS:tex/latex/fduthesis      *}
+\Msg{*                                                           *}
+\Msg{*     fduthesis.cls                                         *}
+\Msg{*     fduthesis.def                                         *}
+\Msg{*     fduthesis-user.def                                    *}
+\Msg{*                                                           *}
+\Msg{* To produce the documentation run the file fduthesis.dtx   *}
+\Msg{* through XeLaTeX.                                          *}
+\Msg{*                                                           *}
+\Msg{* Happy TeXing!                                             *}
+\Msg{*                                                           *}
+\Msg{*************************************************************}
 
 \endbatchfile

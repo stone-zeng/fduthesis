@@ -24,14 +24,18 @@
 %% 
 %%     This work consists of the files fduthesis.dtx
 %%                                     fduthesis.ins
-%%                and the derived file fduthesis.cls.
+%%               and the derived files fduthesis.cls
+%%                                     fduthesis.def
+%%                                     fduthesis-user.def.
 %% 
-
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3,xparse,l3keys2e}
-\ProvidesExplClass{fduthesis}
-  {2017/02/19} {0.2} {Fudan University Thesis Template}
+\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+  {Thesis template for Fudan University}
+\ProvidesExplClass{\ExplFileName}
+  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 \file_input:n { fduthesis.def }
+\file_input:n { fduthesis-user.def }
 \box_new:N   \l__fdu_tmpa_box
 \dim_new:N   \l__fdu_tmpa_dim
 \tl_new:N    \l__fdu_tmpa_tl
@@ -42,10 +46,6 @@
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
-\tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
-\tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
 \tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
 \tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
