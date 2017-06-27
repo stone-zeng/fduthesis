@@ -91,18 +91,23 @@
 \RequirePackage { geometry }
 \geometry
   {
-    paper      = a4paper,
-    top        = 2.54 cm,
-    bottom     = 2.54 cm,
-    left       = 3.18 cm,
-    right      = 3.18 cm,
-    headheight = 15 pt
+    paper      = \c__fdu_def_paper_size_tl,
+    top        = \c__fdu_def_page_margin_top_dim,
+    bottom     = \c__fdu_def_page_margin_bottom_dim,
+    left       = \c__fdu_def_page_margin_left_dim,
+    right      = \c__fdu_def_page_margin_right_dim,
+    headheight = \c__fdu_def_header_height_dim
   }
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
 \RequirePackage [ no-math ] { fontspec }
-\RequirePackage [ UTF8, heading = true, fontset = none,
-  zihao = -4, linespread = 1.3837 ] { ctex }
+\RequirePackage [
+    UTF8,
+    heading    = true,
+    fontset    = none,
+    zihao      = \c__fdu_def_font_size_tl,
+    linespread = \c__fdu_def_line_speard_fp
+  ] { ctex }
 \RequirePackage { amsmath }
 \RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
@@ -273,21 +278,23 @@
 \ctexset
   {
     chapter = {
-      format     = {
-        \huge \normalfont \sffamily \centering
-      },
-      fixskip    = true,
-      number     = { \arabic{ chapter } }
+      format     = \c__fdu_def_chapter_format_tl,
+      beforeskip = \c__fdu_def_chapter_before_sep_tl,
+      afterskip  = \c__fdu_def_chapter_after_sep_tl,
+      number     = { \arabic{ chapter } },
+      fixskip    = true
     },
     section = {
-      format     = { \Large \sffamily \raggedright },
-      afterskip  = { 2.7 ex plus 0.5 ex },
-      fixskip    = true,
+      format     = \c__fdu_def_section_format_tl,
+      beforeskip = \c__fdu_def_section_before_sep_tl,
+      afterskip  = \c__fdu_def_section_after_sep_tl,
+      fixskip    = true
     },
     subsection = {
-      format     = { \large \sffamily \raggedright },
-      afterskip  = { 2.5 ex plus 0.3 ex },
-      fixskip    = true,
+      format     = \c__fdu_def_subsection_format_tl,
+      beforeskip = \c__fdu_def_subsection_before_sep_tl,
+      afterskip  = \c__fdu_def_subsection_after_sep_tl,
+      fixskip    = true
     }
   }
 \RequirePackage { fancyhdr }
@@ -361,10 +368,13 @@
   }
 \cs_generate_variant:Nn \fdu_spread_box:Nn { NV }
 \cs_new:Npn \fdu_center_box:Nn #1 #2
-  {
-    \makebox [ #1 ] [ c ] { #2 }
-  }
+  { \makebox [ #1 ] [ c ] { #2 } }
 \cs_generate_variant:Nn \fdu_center_box:Nn { NV }
+\cs_new:Npn \fdu_fixed_width_box:Nn #1 #2
+  { \parbox { #1 } { #2 } }
+\cs_new:Npn \fdu_fixed_width_center_box:Nn #1 #2
+  { \fdu_fixed_width_box:Nn { #1 } { \centering #2 } }
+\cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
 \cs_new:Npn \fdu_get_text_width:Nn #1 #2
   {
     \hbox_set:Nn \l__fdu_tmpa_box { #2 }
@@ -386,48 +396,67 @@
 \dim_new:N \l__fdu_cover_info_L_dim
 \dim_new:N \l__fdu_cover_info_R_dim
 \RequirePackage { graphicx }
-\cs_new:Npn \fdu_coverA_ID:nn #1 #2
+\cs_new:Npn \__fdu_cover_ID:
   {
     \begin{flushright}
-      \setlength { \rightskip } { #2 }
-      \parbox [ c ] { #1 }
+      \dim_set:Nn \rightskip { \c__fdu_def_cover_ID_margin_sep_tl }
+      % WARNING: I don't know whether the following is OK!
+      \fdu_fixed_width_box:Nn \c__fdu_def_cover_ID_width_tl
         {
-          \zihao { -5 }
-          学校代码     \c__fdu_colon_fullwidth_tl
-            \l__fdu_info_school_ID_tl  \par
-          学 \qquad 号 \c__fdu_colon_fullwidth_tl
-            \l__fdu_info_student_ID_tl
+          \__fdu_cover_font_size_small:
+          \c__fdu_def_name_school_ID_tl
+          \c__fdu_colon_fullwidth_tl
+          \l__fdu_info_school_ID_tl
+          \par
+          \c__fdu_def_name_student_ID_tl
+          \c__fdu_colon_fullwidth_tl
+          \l__fdu_info_student_ID_tl
         }
     \end{flushright}
   }
-\cs_new:Npn \fdu_coverA_logo:nn #1 #2
-  {
-    \begin{figure} [ h ]
-      \centering
-      \includegraphics [ width = #2 ] { #1 }
-    \end{figure}
-  }
-\cs_new:Npn \fdu_coverA_title:nn #1 #2
+\cs_new:Npn \__fdu_cover_logo:
   {
     \begin{center}
-      { \zihao { 2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
-      \vspace { \stretch { 3 } }
+      \includegraphics [
+        width = \c__fdu_def_cover_logo_width_tl
+      ] { \c__fdu_def_cover_logo_file_name_tl }
+    \end{center}
+  }
+\cs_new:Npn \__fdu_cover_title:
+  {
+    \begin{center}
       {
-        \zihao { -2 } \sffamily
-        \parbox [ c ] { 20 em }
-          { \centering \l__fdu_info_title_tl }
-        \par
+        \__fdu_cover_font_size_huge:
+        \fdu_spread_box:NV
+          \c__fdu_def_cover_type_width_tl
+          \c__fdu_def_name_thesis_type_tl
       }
-      \vspace { \stretch { 1 } }
+      \par \vspace { \c__fdu_def_cover_verical_sep_iii_tl }
       {
-        \zihao { 4 } \bfseries
-        \parbox [ c ] { 25 em }
-          { \centering \l__fdu_info_title_e_tl }
-        \par
+        \__fdu_cover_font_size_normal:
+        \c__fdu_def_name_degree_type_tl
+      }
+      \par \vspace { \c__fdu_def_cover_verical_sep_iv_tl }
+      {
+        \__fdu_cover_font_size_large:  \sffamily
+        \fdu_fixed_width_center_box:NV
+          \c__fdu_def_cover_title_width_tl
+          \l__fdu_info_title_tl
+      }
+      \par \vspace { \c__fdu_def_cover_verical_sep_v_tl }
+      {
+        \__fdu_cover_font_size_normal: \bfseries
+        \fdu_fixed_width_center_box:Nn
+          \c__fdu_def_cover_title_e_width_tl
+          {
+            \linespread { \c__fdu_def_cover_title_e_line_speard_tl }
+            \selectfont
+            \l__fdu_info_title_e_tl
+          }
       }
     \end{center}
   }
-\cs_new:Nn \fdu_coverA_info:
+\cs_new:Nn \__fdu_cover_info:
   {
     \begin{center}
       \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
@@ -446,7 +475,7 @@
       \clist_set:Nn \l__fdu_tmpa_clist
         { 院系, 专业, 姓名, 指导教师, 完成日期 }
       \begin{minipage} [ c ] { \textwidth }
-        \centering \zihao { 4 }
+        \centering \__fdu_cover_font_size_normal:
         \bool_until_do:nn
           { \clist_if_empty_p:N \l__fdu_tmpa_clist }
           {
@@ -457,37 +486,37 @@
             \c__fdu_colon_fullwidth_tl
             \fdu_center_box:NV
               \l__fdu_cover_info_R_dim \l__fdu_tmpb_tl
-            \par
+            \par \vspace{1ex}
           }
       \end{minipage}
     \end{center}
   }
-\NewDocumentCommand \makecoverA { }
+\NewDocumentCommand \makecoveri { }
   {
-    \fdu_coverA_ID:nn   { 10em } { -2em }
-    \vfill
-    \fdu_coverA_logo:nn { Fudan_Logo.pdf } { 0.5 \textwidth }
-    \vfill
-    \fdu_coverA_title:nn { 博士毕业论文 } { 0.45 \textwidth }
-    \vspace { \stretch { 4 } }
-    \fdu_coverA_info:
-    \vfill
+    \__fdu_cover_ID:
+    \vspace { \c__fdu_def_cover_verical_sep_i_tl   }
+    \__fdu_cover_logo:
+    \vspace { \c__fdu_def_cover_verical_sep_ii_tl  }
+    \__fdu_cover_title:
+    \vspace { \c__fdu_def_cover_verical_sep_vi_tl  }
+    \__fdu_cover_info:
+    \vspace { \c__fdu_def_cover_verical_sep_vii_tl }
   }
-\NewDocumentCommand \makecoverB { }
+\NewDocumentCommand \makecoverii { }
   {
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
       \chapter* { \fdu_spread_box:Nn { 7 em } { 指导小组成员 } }
     \group_end:
     \begin{center}
-      \zihao { 4 }
+      \large
       \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
-      \makecoverA \newpage \makecoverB
+      \makecoveri \newpage \makecoverii
     \end{titlepage}
   }
 \ctexset

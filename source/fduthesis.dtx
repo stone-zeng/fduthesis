@@ -291,12 +291,9 @@
 %     title  = \Arg{中文标题}
 %     title* = \Arg{English title}
 %   \end{syntax}
-%   论文标题。中文标题会在 20 个汉字字宽处强制断行，而英文标题会在
-%   25 个汉字字宽处断行 \footnotemark。
-%   但为了语义的连贯以及排版的美观，如果您的标题长于一行，建议使用
-%   “|\\|”手动断行。
+%   论文标题。默认会在约 20 个汉字字宽处强制断行，但为了语义的连贯
+%   以及排版的美观，如果您的标题长于一行，建议使用“|\\|”手动断行。
 % \end{function}
-% \footnotetext{英文标题字号较小，所以实际上二者宽度基本一致。}
 %
 % \begin{function}{info/author,info/author*}
 %   \begin{syntax}
@@ -544,31 +541,17 @@
 %    \end{macrocode}
 %
 % \subsection{页面布局}
-% 利用 \pkg{geometry} 宏包进行设置。
+% 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
 %    \begin{macrocode}
 \RequirePackage { geometry }
 \geometry
   {
-%    \end{macrocode}
-%
-% 设置纸张大小。
-%    \begin{macrocode}
-    paper      = a4paper,
-%    \end{macrocode}
-%
-% 设置页面边距。
-% 这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
-% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
-%    \begin{macrocode}
-    top        = 2.54 cm,
-    bottom     = 2.54 cm,
-    left       = 3.18 cm,
-    right      = 3.18 cm,
-%    \end{macrocode}
-%
-% 设置页眉的高度，使其与五号字大致相配。
-%    \begin{macrocode}
-    headheight = 15 pt
+    paper      = \c__fdu_def_paper_size_tl,
+    top        = \c__fdu_def_page_margin_top_dim,
+    bottom     = \c__fdu_def_page_margin_bottom_dim,
+    left       = \c__fdu_def_page_margin_left_dim,
+    right      = \c__fdu_def_page_margin_right_dim,
+    headheight = \c__fdu_def_header_height_dim
   }
 %    \end{macrocode}
 %
@@ -590,8 +573,13 @@
 % 使用 \XeLaTeX{} 编译时，底层使用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则会使用 \pkg{luatexja} 宏包。
 %    \begin{macrocode}
-\RequirePackage [ UTF8, heading = true, fontset = none,
-  zihao = -4, linespread = 1.3837 ] { ctex }
+\RequirePackage [
+    UTF8,
+    heading    = true,
+    fontset    = none,
+    zihao      = \c__fdu_def_font_size_tl,
+    linespread = \c__fdu_def_line_speard_fp
+  ] { ctex }
 %    \end{macrocode}
 %
 % 本模板使用 Unicode 编码的 OpenType 数学字体，
@@ -863,32 +851,27 @@
   {
 %    \end{macrocode}
 %
-% 章（chapter）标题设置为黑体、居中，同时利用 |fixskip = true| 选项
-% 来取消前后的多余间距。序号使用阿拉伯数字。
+% 设置章（chapter）、节（section）与小节（sub-section）标题样式。
+% 此处使用 |fixskip = true| 选项来抑制前后的多余间距。
 %    \begin{macrocode}
     chapter = {
-      format     = {
-        \huge \normalfont \sffamily \centering
-      },
-%     beforeskip = { 30 pt },
-%     afterskip  = { 20 pt },
-      fixskip    = true,
-      number     = { \arabic{ chapter } }
+      format     = \c__fdu_def_chapter_format_tl,
+      beforeskip = \c__fdu_def_chapter_before_sep_tl,
+      afterskip  = \c__fdu_def_chapter_after_sep_tl,
+      number     = { \arabic{ chapter } },
+      fixskip    = true
     },
-%    \end{macrocode}
-%
-% 节（section）与小节（sub-section）标题均设置为黑体、靠左对齐
-% （但要用 \tn{raggedright}），同时修正前后间距，并略作调整。
-%    \begin{macrocode}
     section = {
-      format     = { \Large \sffamily \raggedright },
-      afterskip  = { 2.7 ex plus 0.5 ex },
-      fixskip    = true,
+      format     = \c__fdu_def_section_format_tl,
+      beforeskip = \c__fdu_def_section_before_sep_tl,
+      afterskip  = \c__fdu_def_section_after_sep_tl,
+      fixskip    = true
     },
     subsection = {
-      format     = { \large \sffamily \raggedright },
-      afterskip  = { 2.5 ex plus 0.3 ex },
-      fixskip    = true,
+      format     = \c__fdu_def_subsection_format_tl,
+      beforeskip = \c__fdu_def_subsection_before_sep_tl,
+      afterskip  = \c__fdu_def_subsection_after_sep_tl,
+      fixskip    = true
     }
   }
 %    \end{macrocode}
@@ -1103,6 +1086,8 @@
 % 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
 % 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。\\
 % 见 http://tex.stackexchange.com/q/169689
+%
+% |NV| 版本的命令可以避免展开 token list 时出现 bad box。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
@@ -1117,10 +1102,26 @@
 % 居中对齐的盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_center_box:Nn #1 #2
-  {
-    \makebox [ #1 ] [ c ] { #2 }
-  }
+  { \makebox [ #1 ] [ c ] { #2 } }
 \cs_generate_variant:Nn \fdu_center_box:Nn { NV }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fixed_width_box:Nn}
+% 限宽盒子。|#1| = 长度， |#2| = 内容。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fixed_width_box:Nn #1 #2
+  { \parbox { #1 } { #2 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fixed_width_center_box:Nn,
+%   \fdu_fixed_width_center_box:Nn}
+% 居中对齐的限宽盒子。|#1| = 长度， |#2| = 内容。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fixed_width_center_box:Nn #1 #2
+  { \fdu_fixed_width_box:Nn { #1 } { \centering #2 } }
+\cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1176,70 +1177,89 @@
 \RequirePackage { graphicx }
 %    \end{macrocode}
 %
-% \begin{macro}{\fdu_coverA_ID:nn}
-% 右上角的学校代码和学号。|#1| = 宽度，|#2| = 超出页边的距离。
+% \begin{macro}{\__fdu_cover_ID:}
+% 右上角的学校代码和学号。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_coverA_ID:nn #1 #2
+\cs_new:Npn \__fdu_cover_ID:
   {
     \begin{flushright}
-      \setlength { \rightskip } { #2 }
-      \parbox [ c ] { #1 }
+      \dim_set:Nn \rightskip { \c__fdu_def_cover_ID_margin_sep_tl }
+      % WARNING: I don't know whether the following is OK!
+      \fdu_fixed_width_box:Nn \c__fdu_def_cover_ID_width_tl
         {
-          \zihao { -5 }
-          学校代码     \c__fdu_colon_fullwidth_tl
-            \l__fdu_info_school_ID_tl  \par
-          学 \qquad 号 \c__fdu_colon_fullwidth_tl
-            \l__fdu_info_student_ID_tl
+          \__fdu_cover_font_size_small:
+          \c__fdu_def_name_school_ID_tl
+          \c__fdu_colon_fullwidth_tl
+          \l__fdu_info_school_ID_tl
+          \par
+          \c__fdu_def_name_student_ID_tl
+          \c__fdu_colon_fullwidth_tl
+          \l__fdu_info_student_ID_tl
         }
     \end{flushright}
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_coverA_logo:nn}
-% 插入学校 logo。|#1| = 文件名，|#2| = 宽度。
+% \begin{macro}{\__fdu_cover_logo:}
+% 插入校名（毛体“復旦大學”）。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_coverA_logo:nn #1 #2
+\cs_new:Npn \__fdu_cover_logo:
   {
-    \begin{figure} [ h ]
-      \centering
-      \includegraphics [ width = #2 ] { #1 }
-    \end{figure}
+    \begin{center}
+      \includegraphics [
+        width = \c__fdu_def_cover_logo_width_tl
+      ] { \c__fdu_def_cover_logo_file_name_tl }
+    \end{center}
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_coverA_title:nn}
-% 标题，共有三行。第一行是论文类型，二、三两行分别是中英文题目。
-% |#1| = 论文类型，|#2| = 宽度。
+% \begin{macro}{\__fdu_cover_title:}
+% 标题，共有四行。第一行是论文类型，第二行是学位类型，三、四两行分别
+% 是中英文题目。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_coverA_title:nn #1 #2
+\cs_new:Npn \__fdu_cover_title:
   {
     \begin{center}
-      { \zihao { 2 } \fdu_spread_box:Nn { #2 } { #1 } } \par
-      \vspace { \stretch { 3 } }
       {
-        \zihao { -2 } \sffamily
-        \parbox [ c ] { 20 em }
-          { \centering \l__fdu_info_title_tl }
-        \par
+        \__fdu_cover_font_size_huge:
+        \fdu_spread_box:NV
+          \c__fdu_def_cover_type_width_tl
+          \c__fdu_def_name_thesis_type_tl
       }
-      \vspace { \stretch { 1 } }
+      \par \vspace { \c__fdu_def_cover_v_sep_iii_tl }
       {
-        \zihao { 4 } \bfseries
-        \parbox [ c ] { 25 em }
-          { \centering \l__fdu_info_title_e_tl }
-        \par
+        \__fdu_cover_font_size_normal:
+        \c__fdu_def_name_degree_type_tl
+      }
+      \par \vspace { \c__fdu_def_cover_v_sep_iv_tl }
+      {
+        \__fdu_cover_font_size_large:  \sffamily
+        \fdu_fixed_width_center_box:NV
+          \c__fdu_def_cover_title_width_tl
+          \l__fdu_info_title_tl
+      }
+      \par \vspace { \c__fdu_def_cover_v_sep_v_tl }
+      {
+        \__fdu_cover_font_size_normal: \bfseries
+        \fdu_fixed_width_center_box:Nn
+          \c__fdu_def_cover_title_e_width_tl
+          {
+            \linespread { \c__fdu_def_cover_title_e_line_speard_tl }
+            \selectfont
+            \l__fdu_info_title_e_tl
+          }
       }
     \end{center}
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_coverA_info:}
+% \begin{macro}{\__fdu_cover_info:}
 % 信息栏。
 %    \begin{macrocode}
-\cs_new:Nn \fdu_coverA_info:
+\cs_new:Nn \__fdu_cover_info:
   {
     \begin{center}
 %    \end{macrocode}
@@ -1275,7 +1295,7 @@
 % 在 |minipage| 环境中输出各字段。用循环实现。
 %    \begin{macrocode}
       \begin{minipage} [ c ] { \textwidth }
-        \centering \zihao { 4 }
+        \centering \__fdu_cover_font_size_normal:
         \bool_until_do:nn
           { \clist_if_empty_p:N \l__fdu_tmpa_clist }
           {
@@ -1286,7 +1306,7 @@
             \c__fdu_colon_fullwidth_tl
             \fdu_center_box:NV
               \l__fdu_cover_info_R_dim \l__fdu_tmpb_tl
-            \par
+            \par \vspace{1ex}
           }
       \end{minipage}
     \end{center}
@@ -1295,36 +1315,36 @@
 % \end{macro}
 %
 % \subsubsection{绘制封面}
-% \begin{macro}{\makecoverA}
+% \begin{macro}{\makecoveri}
 % 生成 |titlepage| 的第一页，即真正的封面。
 % 各部件之间用橡皮长度隔开。
 %    \begin{macrocode}
-\NewDocumentCommand \makecoverA { }
+\NewDocumentCommand \makecoveri { }
   {
-    \fdu_coverA_ID:nn   { 10em } { -2em }
-    \vfill
-    \fdu_coverA_logo:nn { Fudan_Logo.pdf } { 0.5 \textwidth }
-    \vfill
-    \fdu_coverA_title:nn { 博士毕业论文 } { 0.45 \textwidth }
-    \vspace { \stretch { 4 } }
-    \fdu_coverA_info:
-    \vfill
+    \__fdu_cover_ID:
+    \vspace { \c__fdu_def_cover_v_sep_i_tl   }
+    \__fdu_cover_logo:
+    \vspace { \c__fdu_def_cover_v_sep_ii_tl  }
+    \__fdu_cover_title:
+    \vspace { \c__fdu_def_cover_v_sep_vi_tl  }
+    \__fdu_cover_info:
+    \vspace { \c__fdu_def_cover_v_sep_vii_tl }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\makecoverB}
+% \begin{macro}{\makecoverii}
 % 生成 |titlepage| 的第二页，即指导小组成员名单。为禁止之后的分页，
 % 此处将 \tn{cleardoublepage} 临时设置为 \tn{relax}。
 %    \begin{macrocode}
-\NewDocumentCommand \makecoverB { }
+\NewDocumentCommand \makecoverii { }
   {
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
       \chapter* { \fdu_spread_box:Nn { 7 em } { 指导小组成员 } }
     \group_end:
     \begin{center}
-      \zihao { 4 }
+      \large
       \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
@@ -1337,7 +1357,7 @@
 \NewDocumentCommand \makecover { }
   {
     \begin{titlepage}
-      \makecoverA \newpage \makecoverB
+      \makecoveri \newpage \makecoverii
     \end{titlepage}
   }
 %    \end{macrocode}
@@ -2113,7 +2133,8 @@
 %
 % \NewDocumentCommand\resetindents { }
 % {
-%   \galley_parshape_set_multi:nnnN { 0 } { 0pt } { 0pt } \c_true_bool
+%   \galley_parshape_set_multi:nnnN
+%     { 0 } { 0pt } { 0pt } \c_true_bool
 % }
 %    \end{macrocode}
 %
@@ -2170,6 +2191,166 @@
 \tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
 \tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
 \tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_paper_size_tl}
+% 纸张大小（A4）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_paper_size_tl { a4paper }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_page_margin_top_dim,
+%   \c__fdu_def_page_margin_bottom_dim,
+%   \c__fdu_def_page_margin_left_dim,
+%   \c__fdu_def_page_margin_right_dim}
+% 页面边距。这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
+% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
+%    \begin{macrocode}
+\dim_const:Nn \c__fdu_def_page_margin_top_dim    { 2.54 cm }
+\dim_const:Nn \c__fdu_def_page_margin_bottom_dim { 2.54 cm }
+\dim_const:Nn \c__fdu_def_page_margin_left_dim   { 3.18 cm }
+\dim_const:Nn \c__fdu_def_page_margin_right_dim  { 3.18 cm }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_header_height_dim}
+% 页眉高度。此高度与五号字大致相配。
+%    \begin{macrocode}
+\dim_const:Nn \c__fdu_def_header_height_dim { 15 pt }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_font_size_tl}
+% 字号（小四）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_font_size_tl { -4 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_line_speard_fp}
+% 行距倍数。行距倍数 $k$ 由下式确定：
+% \begin{equation*}
+%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}。
+% \end{equation*}
+% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
+% 的大小，\SI{20}{pt} 是行距固定值。代码中的 $72.27 \, / \, 72$ 是
+% \si{bp} 到 \si{pt} 的换算因子。
+%    \begin{macrocode}
+\fp_const:Nn \c__fdu_def_line_speard_fp
+  { 20 / ( 1.2 * 12 * ( 72.27 / 72 ) ) }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_chapter_format_tl,
+%   \c__fdu_def_section_format_tl,
+%   \c__fdu_def_subsection_format_tl}
+% 章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐（但需要
+% 使用 \tn{raggedright}）。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_chapter_format_tl
+  { \huge  \normalfont \sffamily \centering   }
+\tl_const:Nn \c__fdu_def_section_format_tl
+  { \Large \normalfont \sffamily \raggedright }
+\tl_const:Nn \c__fdu_def_subsection_format_tl
+  { \large \normalfont \sffamily \raggedright }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_chapter_before_sep_tl,
+%   \c__fdu_def_chapter_after_sep_tl,
+%   \c__fdu_def_section_before_sep_tl,
+%   \c__fdu_def_section_after_sep_tl,
+%   \c__fdu_def_subsection_before_sep_tl,
+%   \c__fdu_def_subsection_after_sep_tl}
+% 章节标题前后间距。使用 |tl| 而非 |skip|，是为了防止在没有上下文的
+% 时候 |ex| 被展开成 0。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_chapter_before_sep_tl { 50 pt }
+\tl_const:Nn \c__fdu_def_chapter_after_sep_tl  { 40 pt }
+\tl_const:Nn \c__fdu_def_section_before_sep_tl
+  { 3.5  ex plus 1   ex minus 0.2 ex }
+\tl_const:Nn \c__fdu_def_section_after_sep_tl
+  { 2.7  ex plus 0.5 ex }
+\tl_const:Nn \c__fdu_def_subsection_before_sep_tl
+  { 3.25 ex plus 1   ex minus 0.2 ex }
+\tl_const:Nn \c__fdu_def_subsection_after_sep_tl
+  { 2.5  ex plus 0.3 ex }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\__fdu_cover_font_size_small:,
+%   \__fdu_cover_font_size_normal:,
+%   \__fdu_cover_font_size_large:,
+%   \__fdu_cover_font_size_huge:}
+% 封面字号，使用固定值。这里的定义与正文字号有所不同。
+%    \begin{macrocode}
+\cs_new:Nn \__fdu_cover_font_size_small:  { \zihao { -5 } }
+\cs_new:Nn \__fdu_cover_font_size_normal: { \zihao {  4 } }
+\cs_new:Nn \__fdu_cover_font_size_large:  { \zihao { -2 } }
+\cs_new:Nn \__fdu_cover_font_size_huge:   { \zihao {  2 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_cover_ID_width_tl,
+%   \c__fdu_def_cover_ID_margin_sep_tl,
+%   \c__fdu_def_cover_logo_width_tl,
+%   \c__fdu_def_cover_type_width_tl,
+%   \c__fdu_def_cover_title_width_tl,
+%   \c__fdu_def_cover_title_e_width_tl}
+% 封面中的一些长度。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_cover_ID_width_tl      { 10 em }
+\tl_const:Nn \c__fdu_def_cover_ID_margin_sep_tl { -2 em }
+\tl_const:Nn \c__fdu_def_cover_logo_width_tl    { 0.5  \textwidth }
+\tl_const:Nn \c__fdu_def_cover_type_width_tl    { 0.45 \textwidth }
+\tl_const:Nn \c__fdu_def_cover_title_width_tl   { 0.9  \textwidth }
+\tl_const:Nn \c__fdu_def_cover_title_e_width_tl { 0.9  \textwidth }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_cover_v_sep_i_tl,
+%   \c__fdu_def_cover_v_sep_ii_tl,
+%   \c__fdu_def_cover_v_sep_iii_tl,
+%   \c__fdu_def_cover_v_sep_iv_tl,
+%   \c__fdu_def_cover_v_sep_v_tl,
+%   \c__fdu_def_cover_v_sep_vi_tl,
+%   \c__fdu_def_cover_v_sep_vii_tl}
+% 封面中的一些垂直间距，按自上而下的顺序排列。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_iii_tl { 0.4 cm }
+\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { \stretch { 2  } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_v_tl   { 0.8 cm }
+\tl_const:Nn \c__fdu_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_vii_tl { \stretch { 1.5 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_cover_logo_file_name_tl}
+% 校名 logo 文件名。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_cover_title_e_line_speard_tl}
+% 英文标题的行距倍数。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_cover_title_e_line_speard_tl { 1.2 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_name_school_ID_tl,
+%   \c__fdu_def_name_student_ID_tl}
+% 默认名称。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_name_school_ID_tl   { 学校代码     }
+\tl_const:Nn \c__fdu_def_name_student_ID_tl  { 学 \qquad 号 }
+\tl_const:Nn \c__fdu_def_name_thesis_type_tl { 博士学位论文 }
+\tl_const:Nn \c__fdu_def_name_degree_type_tl { （学术学位） }
 %    \end{macrocode}
 % \end{macro}
 %
