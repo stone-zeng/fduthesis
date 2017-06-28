@@ -413,7 +413,7 @@
 %
 % \subsection{内部变量声明}
 % \begin{macro}{\l__fdu_tmpa_box,
-%   \l__fdu_tmpa_dim,
+%   \l__fdu_tmpa_dim,\l__fdu_tmpb_dim,
 %   \l__fdu_tmpa_tl,\l__fdu_tmpb_tl,
 %   \l__fdu_tmpa_int,
 %   \l__fdu_tmpa_clist,\l__fdu_tmpb_clist}
@@ -421,6 +421,7 @@
 %    \begin{macrocode}
 \box_new:N   \l__fdu_tmpa_box
 \dim_new:N   \l__fdu_tmpa_dim
+\dim_new:N   \l__fdu_tmpb_dim
 \tl_new:N    \l__fdu_tmpa_tl
 \tl_new:N    \l__fdu_tmpb_tl
 \int_new:N   \l__fdu_tmpa_int
@@ -1149,25 +1150,18 @@
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_max_text_width:NN #1 #2
   {
+    \group_begin:
     \clist_set_eq:NN \l__fdu_tmpa_clist #2
     \bool_until_do:nn { \clist_if_empty_p:N \l__fdu_tmpa_clist }
       {
         \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
         \fdu_get_text_width:Nn \l__fdu_tmpa_dim
           { \large \l__fdu_tmpa_tl }
-        \dim_set:Nn #1
+        \dim_gset:Nn #1
           { \dim_max:nn { #1 } { \l__fdu_tmpa_dim } }
       }
+    \group_end:
   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\l__fdu_cover_info_L_dim,
-%   \l__fdu_cover_info_R_dim}
-% 保存信息栏左右列宽度。
-%    \begin{macrocode}
-\dim_new:N \l__fdu_cover_info_L_dim
-\dim_new:N \l__fdu_cover_info_R_dim
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1264,15 +1258,22 @@
     \begin{center}
 %    \end{macrocode}
 %
-% 设置信息栏左侧宽度为 \SI{6}{em}。
-%    \begin{macrocode}
-      \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
-%    \end{macrocode}
-%
-% 设置信息栏右侧宽度。读取各字段，
-% 并将最宽者的宽度赋给 \cs{l__fdu_cover_info_R_dim}。
+% 读取左侧名称字段。
 %    \begin{macrocode}
       \clist_set:Nn \l__fdu_tmpa_clist
+        {
+          \c__fdu_def_name_department_tl,
+          \c__fdu_def_name_major_tl,
+          \c__fdu_def_name_author_tl,
+          \c__fdu_def_name_supervisor_tl,
+          \c__fdu_def_name_date_tl,
+        }
+%    \end{macrocode}
+%
+% 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
+% \cs{l__fdu_tmpb_dim}。
+%    \begin{macrocode}
+      \clist_set:Nn \l__fdu_tmpb_clist
         {
           \l__fdu_info_department_tl,
           \l__fdu_info_major_tl,
@@ -1280,16 +1281,8 @@
           \l__fdu_info_supervisor_tl,
           \l__fdu_info_date_tl
         }
-      \clist_set_eq:NN
-        \l__fdu_tmpb_clist \l__fdu_tmpa_clist
       \fdu_get_max_text_width:NN
-        \l__fdu_cover_info_R_dim \l__fdu_tmpa_clist
-%    \end{macrocode}
-%
-% 读取名称字段。
-%    \begin{macrocode}
-      \clist_set:Nn \l__fdu_tmpa_clist
-        { 院系, 专业, 姓名, 指导教师, 完成日期 }
+        \l__fdu_tmpb_dim \l__fdu_tmpb_clist
 %    \end{macrocode}
 %
 % 在 |minipage| 环境中输出各字段。用循环实现。
@@ -1302,11 +1295,11 @@
             \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
             \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
             \fdu_spread_box:NV
-              \l__fdu_cover_info_L_dim \l__fdu_tmpa_tl
+              \c__fdu_def_cover_info_left_width_tl \l__fdu_tmpa_tl
             \c__fdu_colon_fullwidth_tl
             \fdu_center_box:NV
-              \l__fdu_cover_info_R_dim \l__fdu_tmpb_tl
-            \par \vspace{1ex}
+              \l__fdu_tmpb_dim \l__fdu_tmpb_tl
+            \par \vspace { \c__fdu_def_cover_v_sep_vii_tl }
           }
       \end{minipage}
     \end{center}
@@ -1316,19 +1309,18 @@
 %
 % \subsubsection{绘制封面}
 % \begin{macro}{\makecoveri}
-% 生成 |titlepage| 的第一页，即真正的封面。
-% 各部件之间用橡皮长度隔开。
+% 生成 |titlepage| 的第一页，即真正的封面。各部件之间用橡皮长度隔开。
 %    \begin{macrocode}
 \NewDocumentCommand \makecoveri { }
   {
     \__fdu_cover_ID:
-    \vspace { \c__fdu_def_cover_v_sep_i_tl   }
+    \vspace { \c__fdu_def_cover_v_sep_i_tl  }
     \__fdu_cover_logo:
-    \vspace { \c__fdu_def_cover_v_sep_ii_tl  }
+    \vspace { \c__fdu_def_cover_v_sep_ii_tl }
     \__fdu_cover_title:
-    \vspace { \c__fdu_def_cover_v_sep_vi_tl  }
+    \vspace { \c__fdu_def_cover_v_sep_vi_tl }
     \__fdu_cover_info:
-    \vspace { \c__fdu_def_cover_v_sep_vii_tl }
+    \vspace { \c__fdu_def_cover_v_sep_ix_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1341,7 +1333,12 @@
   {
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
-      \chapter* { \fdu_spread_box:Nn { 7 em } { 指导小组成员 } }
+      \chapter*
+        {
+          \fdu_spread_box:NV
+            \c__fdu_def_cover_instructors_width_tl
+            \c__fdu_def_name_instructors_title_tl
+        }
     \group_end:
     \begin{center}
       \large
@@ -2298,15 +2295,23 @@
 %   \c__fdu_def_cover_logo_width_tl,
 %   \c__fdu_def_cover_type_width_tl,
 %   \c__fdu_def_cover_title_width_tl,
-%   \c__fdu_def_cover_title_e_width_tl}
+%   \c__fdu_def_cover_title_e_width_tl,
+%   \c__fdu_def_cover_info_left_width_tl,
+%   \c__fdu_def_cover_instructors_width_tl}
 % 封面中的一些长度。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_ID_width_tl      { 10 em }
-\tl_const:Nn \c__fdu_def_cover_ID_margin_sep_tl { -2 em }
-\tl_const:Nn \c__fdu_def_cover_logo_width_tl    { 0.5  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_type_width_tl    { 0.45 \textwidth }
-\tl_const:Nn \c__fdu_def_cover_title_width_tl   { 0.9  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_title_e_width_tl { 0.9  \textwidth }
+\tl_const:Nn \c__fdu_def_cover_ID_width_tl          { 10 em }
+\tl_const:Nn \c__fdu_def_cover_ID_margin_sep_tl     { -2 em }
+\tl_const:Nn \c__fdu_def_cover_logo_width_tl
+  { 0.5  \textwidth }
+\tl_const:Nn \c__fdu_def_cover_type_width_tl
+  { 0.45 \textwidth }
+\tl_const:Nn \c__fdu_def_cover_title_width_tl
+  { 0.9  \textwidth }
+\tl_const:Nn \c__fdu_def_cover_title_e_width_tl
+  { 0.9  \textwidth }
+\tl_const:Nn \c__fdu_def_cover_info_left_width_tl   { 6 em }
+\tl_const:Nn \c__fdu_def_cover_instructors_width_tl { 7 em }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2316,16 +2321,18 @@
 %   \c__fdu_def_cover_v_sep_iv_tl,
 %   \c__fdu_def_cover_v_sep_v_tl,
 %   \c__fdu_def_cover_v_sep_vi_tl,
-%   \c__fdu_def_cover_v_sep_vii_tl}
+%   \c__fdu_def_cover_v_sep_vii_tl,
+%   \c__fdu_def_cover_v_sep_ix_tl}
 % 封面中的一些垂直间距，按自上而下的顺序排列。
 %    \begin{macrocode}
 \tl_const:Nn \c__fdu_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
 \tl_const:Nn \c__fdu_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
 \tl_const:Nn \c__fdu_def_cover_v_sep_iii_tl { 0.4 cm }
-\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { \stretch { 2  } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { \stretch { 2   } }
 \tl_const:Nn \c__fdu_def_cover_v_sep_v_tl   { 0.8 cm }
 \tl_const:Nn \c__fdu_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
-\tl_const:Nn \c__fdu_def_cover_v_sep_vii_tl { \stretch { 1.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_vii_tl { 1 ex }
+\tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2343,18 +2350,18 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_name_school_ID_tl,
-%   \c__fdu_def_name_student_ID_tl}
 % 默认名称。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_name_school_ID_tl   { 学校代码     }
-\tl_const:Nn \c__fdu_def_name_student_ID_tl  { 学 \qquad 号 }
-\tl_const:Nn \c__fdu_def_name_thesis_type_tl { 博士学位论文 }
-\tl_const:Nn \c__fdu_def_name_degree_type_tl { （学术学位） }
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_name_school_ID_tl         { 学校代码     }
+\tl_const:Nn \c__fdu_def_name_student_ID_tl        { 学 \qquad 号 }
+\tl_const:Nn \c__fdu_def_name_thesis_type_tl       { 博士学位论文 }
+\tl_const:Nn \c__fdu_def_name_degree_type_tl       { （学术学位） }
+\tl_const:Nn \c__fdu_def_name_department_tl        { 院系         }
+\tl_const:Nn \c__fdu_def_name_major_tl             { 专业         }
+\tl_const:Nn \c__fdu_def_name_author_tl            { 姓名         }
+\tl_const:Nn \c__fdu_def_name_supervisor_tl        { 指导教师     }
+\tl_const:Nn \c__fdu_def_name_date_tl              { 完成日期     }
+\tl_const:Nn \c__fdu_def_name_instructors_title_tl { 指导小组成员 }
 %</def>
 %    \end{macrocode}
 %

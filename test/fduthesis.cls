@@ -38,6 +38,7 @@
 \file_input:n { fduthesis-user.def }
 \box_new:N   \l__fdu_tmpa_box
 \dim_new:N   \l__fdu_tmpa_dim
+\dim_new:N   \l__fdu_tmpb_dim
 \tl_new:N    \l__fdu_tmpa_tl
 \tl_new:N    \l__fdu_tmpb_tl
 \int_new:N   \l__fdu_tmpa_int
@@ -383,18 +384,18 @@
   }
 \cs_new:Npn \fdu_get_max_text_width:NN #1 #2
   {
+    \group_begin:
     \clist_set_eq:NN \l__fdu_tmpa_clist #2
     \bool_until_do:nn { \clist_if_empty_p:N \l__fdu_tmpa_clist }
       {
         \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
         \fdu_get_text_width:Nn \l__fdu_tmpa_dim
           { \large \l__fdu_tmpa_tl }
-        \dim_set:Nn #1
+        \dim_gset:Nn #1
           { \dim_max:nn { #1 } { \l__fdu_tmpa_dim } }
       }
+    \group_end:
   }
-\dim_new:N \l__fdu_cover_info_L_dim
-\dim_new:N \l__fdu_cover_info_R_dim
 \RequirePackage { graphicx }
 \cs_new:Npn \__fdu_cover_ID:
   {
@@ -459,8 +460,15 @@
 \cs_new:Nn \__fdu_cover_info:
   {
     \begin{center}
-      \dim_set:Nn \l__fdu_cover_info_L_dim { 6 em }
       \clist_set:Nn \l__fdu_tmpa_clist
+        {
+          \c__fdu_def_name_department_tl,
+          \c__fdu_def_name_major_tl,
+          \c__fdu_def_name_author_tl,
+          \c__fdu_def_name_supervisor_tl,
+          \c__fdu_def_name_date_tl,
+        }
+      \clist_set:Nn \l__fdu_tmpb_clist
         {
           \l__fdu_info_department_tl,
           \l__fdu_info_major_tl,
@@ -468,12 +476,8 @@
           \l__fdu_info_supervisor_tl,
           \l__fdu_info_date_tl
         }
-      \clist_set_eq:NN
-        \l__fdu_tmpb_clist \l__fdu_tmpa_clist
       \fdu_get_max_text_width:NN
-        \l__fdu_cover_info_R_dim \l__fdu_tmpa_clist
-      \clist_set:Nn \l__fdu_tmpa_clist
-        { 院系, 专业, 姓名, 指导教师, 完成日期 }
+        \l__fdu_tmpb_dim \l__fdu_tmpb_clist
       \begin{minipage} [ c ] { \textwidth }
         \centering \__fdu_cover_font_size_normal:
         \bool_until_do:nn
@@ -482,11 +486,11 @@
             \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
             \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
             \fdu_spread_box:NV
-              \l__fdu_cover_info_L_dim \l__fdu_tmpa_tl
+              \c__fdu_def_cover_info_left_width_tl \l__fdu_tmpa_tl
             \c__fdu_colon_fullwidth_tl
             \fdu_center_box:NV
-              \l__fdu_cover_info_R_dim \l__fdu_tmpb_tl
-            \par \vspace{1ex}
+              \l__fdu_tmpb_dim \l__fdu_tmpb_tl
+            \par \vspace { \c__fdu_def_cover_v_sep_vii_tl }
           }
       \end{minipage}
     \end{center}
@@ -494,19 +498,24 @@
 \NewDocumentCommand \makecoveri { }
   {
     \__fdu_cover_ID:
-    \vspace { \c__fdu_def_cover_v_sep_i_tl   }
+    \vspace { \c__fdu_def_cover_v_sep_i_tl  }
     \__fdu_cover_logo:
-    \vspace { \c__fdu_def_cover_v_sep_ii_tl  }
+    \vspace { \c__fdu_def_cover_v_sep_ii_tl }
     \__fdu_cover_title:
-    \vspace { \c__fdu_def_cover_v_sep_vi_tl  }
+    \vspace { \c__fdu_def_cover_v_sep_vi_tl }
     \__fdu_cover_info:
-    \vspace { \c__fdu_def_cover_v_sep_vii_tl }
+    \vspace { \c__fdu_def_cover_v_sep_ix_tl }
   }
 \NewDocumentCommand \makecoverii { }
   {
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
-      \chapter* { \fdu_spread_box:Nn { 7 em } { 指导小组成员 } }
+      \chapter*
+        {
+          \fdu_spread_box:NV
+            \c__fdu_def_cover_instructors_width_tl
+            \c__fdu_def_name_instructors_title_tl
+        }
     \group_end:
     \begin{center}
       \large
