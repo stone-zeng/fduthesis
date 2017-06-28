@@ -368,6 +368,7 @@
       { \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip }
   }
 \cs_generate_variant:Nn \fdu_spread_box:Nn { NV }
+\cs_generate_variant:Nn \fdu_spread_box:Nn { Nx }
 \cs_new:Npn \fdu_center_box:Nn #1 #2
   { \makebox [ #1 ] [ c ] { #2 } }
 \cs_generate_variant:Nn \fdu_center_box:Nn { NV }
@@ -485,7 +486,7 @@
           {
             \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
             \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
-            \fdu_spread_box:NV
+            \fdu_spread_box:Nx
               \c__fdu_def_cover_info_left_width_tl \l__fdu_tmpa_tl
             \c__fdu_colon_fullwidth_tl
             \fdu_center_box:NV
