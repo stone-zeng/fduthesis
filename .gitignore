@@ -12,11 +12,12 @@
 *.synctex(busy)
 *.thm
 *.toc
+*.xdv
 
 *.ai
 *.pdf
 
-# *.bat
+*.bat
 *.txt
 
 .vscode/

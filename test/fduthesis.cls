@@ -55,9 +55,9 @@
 \tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
 \tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
 \tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
-\tl_const:Nn \c__fdu_fn_style_times_tl           { times           }
-\tl_const:Nn \c__fdu_fn_style_times_sans_tl      { times-sans      }
-\tl_const:Nn \c__fdu_fn_style_times_sans_n_tl    { times-sans*     }
+\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
 \tl_new:N \g__fdu_fn_style_tl
 \clist_const:Nn \c__fdu_thm_style_plain_clist
   { plain, margin, change }
@@ -122,14 +122,14 @@
       \setmonofont { TeX~ Gyre~ Cursor }
         [ Ligatures = NoCommon ]
       \setmathfont { Libertinus~ Math  }
-      \tl_set:Nn \g__fdu_fn_style_tl { libertinus }
+      \keys_set:nn { fdu / style } { footnotestyle = libertinus }
     },
     font / lm .code:n = {
       \setmainfont { Latin~ Modern~ Roman }
       \setsansfont { Latin~ Modern~ Sans  }
       \setmonofont { Latin~ Modern~ Mono  }
       \setmathfont { Latin~ Modern~ Math  }
-      \tl_set:Nn \g__fdu_fn_style_tl { pifont }
+      \keys_set:nn { fdu / style } { footnotestyle = pifont }
     },
     font / palatino .code:n = {
       \setmainfont { TeX~ Gyre~ Pagella       }
@@ -137,7 +137,7 @@
       \setmonofont { TeX~ Gyre~ Cursor        }
         [ Ligatures = NoCommon ]
       \setmathfont { TeX~ Gyre~ Pagella~ Math }
-      \tl_set:Nn \g__fdu_fn_style_tl { pifont }
+      \keys_set:nn { fdu / style } { footnotestyle = pifont }
     },
     font / times .code:n = {
       \setmainfont { XITS              }
@@ -145,11 +145,11 @@
       \setmonofont { TeX~ Gyre~ Cursor }
         [ Ligatures = NoCommon ]
       \setmathfont { XITS~ Math        }
-      \tl_set:Nn \g__fdu_fn_style_tl { times }
+      \keys_set:nn { fdu / style } { footnotestyle = xits }
     },
-    CJKfont .choice:,
-    CJKfont .value_required:n = true,
-    CJKfont / adobe .code:n = {
+    cjkfont .choice:,
+    cjkfont .value_required:n = true,
+    cjkfont / adobe .code:n = {
       \setCJKmainfont { Adobe~ Song~ Std~ L     }
         [
           ItalicFont   = Adobe~ Kaiti~ Std~ R,
@@ -170,7 +170,7 @@
       \setCJKfamilyfont { fang } { Adobe~ Fangsong~ Std~ R }
       \setCJKfamilyfont { kai  } { Adobe~ Kaiti~    Std~ R }
     },
-    CJKfont / fandol .code:n = {
+    cjkfont / fandol .code:n = {
       \setCJKmainfont { FandolSong }
         [
           ItalicFont   = FandolKai
@@ -189,7 +189,7 @@
       \setCJKfamilyfont { fang } { FandolFang }
       \setCJKfamilyfont { kai  } { FandolKai  }
     },
-    CJKfont / founder .code:n = {
+    cjkfont / founder .code:n = {
       \setCJKmainfont { FZShuSong-Z01  }
         [
           BoldFont     = FZXiaoBiaoSong-B05,
@@ -210,7 +210,7 @@
       \setCJKfamilyfont { fang } { FZFangSong-Z02 }
       \setCJKfamilyfont { kai  } { FZKai     -Z03 }
     },
-    CJKfont / mac .code:n = {
+    cjkfont / mac .code:n = {
       \setCJKmainfont { STSong     }
         [
           BoldFont     = STZhongsong,
@@ -231,7 +231,7 @@
       \setCJKfamilyfont { fang } { STFangsong }
       \setCJKfamilyfont { kai  } { STKaiti    }
     },
-    CJKfont / windows .code:n = {
+    cjkfont / windows .code:n = {
       \setCJKmainfont { SimSun   }
         [
           ItalicFont   = KaiTi,
@@ -356,11 +356,11 @@
     department* .tl_set:N    = \l__fdu_info_department_e_tl,
     major       .tl_set:N    = \l__fdu_info_major_tl,
     major*      .tl_set:N    = \l__fdu_info_major_e_tl,
-    studentID   .tl_set:N    = \l__fdu_info_student_ID_tl,
-    schoolID    .tl_set:N    = \l__fdu_info_school_ID_tl,
+    studentid   .tl_set:N    = \l__fdu_info_student_id_tl,
+    schoolid    .tl_set:N    = \l__fdu_info_school_id_tl,
     keywords    .clist_set:N = \l__fdu_info_keywords_clist,
     keywords*   .clist_set:N = \l__fdu_info_keywords_e_clist,
-    CLC         .tl_set:N    = \l__fdu_info_CLC_tl
+    clc         .tl_set:N    = \l__fdu_info_clc_tl
   }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
@@ -398,21 +398,21 @@
     \group_end:
   }
 \RequirePackage { graphicx }
-\cs_new:Npn \__fdu_cover_ID:
+\cs_new:Npn \__fdu_cover_id:
   {
     \begin{flushright}
-      \dim_set:Nn \rightskip { \c__fdu_def_cover_ID_margin_sep_tl }
+      \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
       % WARNING: I don't know whether the following is OK!
-      \fdu_fixed_width_box:Nn \c__fdu_def_cover_ID_width_tl
+      \fdu_fixed_width_box:Nn \c__fdu_def_cover_id_width_tl
         {
           \__fdu_cover_font_size_small:
-          \c__fdu_def_name_school_ID_tl
+          \c__fdu_def_name_school_id_tl
           \c__fdu_colon_fullwidth_tl
-          \l__fdu_info_school_ID_tl
+          \l__fdu_info_school_id_tl
           \par
-          \c__fdu_def_name_student_ID_tl
+          \c__fdu_def_name_student_id_tl
           \c__fdu_colon_fullwidth_tl
-          \l__fdu_info_student_ID_tl
+          \l__fdu_info_student_id_tl
         }
     \end{flushright}
   }
@@ -498,7 +498,7 @@
   }
 \NewDocumentCommand \makecoveri { }
   {
-    \__fdu_cover_ID:
+    \__fdu_cover_id:
     \vspace { \c__fdu_def_cover_v_sep_i_tl  }
     \__fdu_cover_logo:
     \vspace { \c__fdu_def_cover_v_sep_ii_tl }
@@ -567,7 +567,7 @@
     \par
     \noindent
     { \normalfont \sffamily 中图分类号 \c__fdu_colon_fullwidth_tl }
-    \l__fdu_info_CLC_tl
+    \l__fdu_info_clc_tl
   }
 \NewDocumentEnvironment { abstract* } { }
   {
@@ -584,7 +584,7 @@
     \par
     \noindent
     \textbf{CLC~ number:} \quad
-    \l__fdu_info_CLC_tl
+    \l__fdu_info_clc_tl
   }
 \RequirePackage { longtable }
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
@@ -608,10 +608,10 @@
       plain,
       libertinus, libertinus*, libertinus-sans,
       pifont,     pifont*,     pifont-sans,     pifont-sans*,
-      times,                   times-sans,      times-sans*,
+      xits,                    xits-sans,       xits-sans*
     }
     {
-      \tl_set_eq:NN \g__fdu_fn_style_tl \l_keys_choice_tl
+      \tl_gset_eq:NN \g__fdu_fn_style_tl \l_keys_choice_tl
       \int_compare:nTF
         { 5 <= \l_keys_choice_int <= 8 }
         { \RequirePackage { pifont } }
@@ -648,7 +648,7 @@
   { \ding { \int_eval:n { 191 + #1 } } }
 \cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
   { \ding { \int_eval:n { 201 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_times:V #1
+\cs_new:Npn \fdu_fn_symbol_xits:V #1
   {
     \int_compare:nTF { #1 >= 10 }
       {
@@ -658,11 +658,10 @@
       }
       { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
   }
-\cs_new:Npn \fdu_fn_symbol_times_sans:V #1
+\cs_new:Npn \fdu_fn_symbol_xits_sans:V #1
   { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_times_sans_n:V #1
+\cs_new:Npn \fdu_fn_symbol_xits_sans_n:V #1
   { \symbol { \int_eval:n { "278A - 1 + #1 } } }
-\cs_generate_variant:Nn \int_case:nnF { VnF }
 \RenewDocumentCommand \thefootnote { }
   {
     \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
@@ -693,20 +692,20 @@
           { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
         \c__fdu_fn_style_pifont_sans_n_tl
           { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
-        \c__fdu_fn_style_times_tl
+        \c__fdu_fn_style_xits_tl
           {
             \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_times:V        \l__fdu_tmpa_int $
+            $ \fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
           }
-        \c__fdu_fn_style_times_sans_tl
+        \c__fdu_fn_style_xits_sans_tl
           {
             \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_times_sans:V   \l__fdu_tmpa_int $
+            $ \fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
           }
-        \c__fdu_fn_style_times_sans_n_tl
+        \c__fdu_fn_style_xits_sans_n_tl
           {
             \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_times_sans_n:V \l__fdu_tmpa_int $
+            $ \fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
           }
       }
       { \int_use:N \l__fdu_tmpa_int }
@@ -817,11 +816,11 @@
 \keys_set:nn { fdu }
   {
     style / font            =  times,
-    style / CJKfont         =  fandol,
+    style / cjkfont         =  fandol,
     style / fontsize        =  -4,
     style / fullwidth-stop  =  false,
     info  / date            =  \today,
-    info  / schoolID        =  10246
+    info  / schoolid        =  10246
   }
 \endinput
 %%
