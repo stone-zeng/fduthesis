@@ -74,7 +74,8 @@ tlmgr install         \
   mfware              \
   psnfss              \
   tex-gyre            \
-  xits
+  xits                \
+  zapfding
 
 # Math
 tlmgr install         \
