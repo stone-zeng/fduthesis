@@ -72,6 +72,7 @@ tlmgr install         \
   lm-math             \
   metafont            \
   mfware              \
+  pifont              \
   psnfss              \
   tex-gyre            \
   xits                \
