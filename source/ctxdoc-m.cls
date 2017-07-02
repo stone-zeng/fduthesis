@@ -72,6 +72,8 @@
 %% Added by Xiangdong Zeng, 2017-06-26.
 \RequirePackage[stable,perpage,bottom]{footmisc}
 \RequirePackage{pifont}
+%% Added by Xiangdong Zeng, 2017-07-02.
+\RequirePackage{booktabs}
 %% Modified by Xiangdong Zeng, 2017-04-08.
 %%%%\geometry{includemp,hmargin={0mm,15mm},vmargin={25mm,15mm},footskip=7mm}
 %%%%\hypersetup{pdfstartview=FitH,bookmarksdepth=subparagraph}
@@ -86,7 +88,8 @@
   UprightFont=* Light, BoldFont=* Bold,
   SlantedFont=* Light Oblique]{CMU Typewriter Text}
 \setmathfont{texgyrepagella-math.otf}
-\captionsetup{strut=off, labelsep=quad, labelfont+=bf}
+%% Added by Xiangdong Zeng, 2017-07-02.
+%%%%\captionsetup{strut=off, labelsep=quad, labelfont+=bf}
 %% <--- http://tex.stackexchange.com/a/40896
 \patchcmd{\@addtocurcol}%
     {\vskip \intextsep}%
@@ -998,11 +1001,20 @@
   urlcolor          = {MaterialPink}
 }
 
+%% 浮动体标题
+% \captionsetup[figure]{
+% 	labelsep      = quad,
+% 	justification = centering
+% }
+\captionsetup[table]{
+	labelsep      = quad,
+  font          = sf,
+	justification = centering
+}
+
 %% listings 代码样式
-% \makeatletter
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
-% \makeatother
 
 \lstdefinestyle{lstStyleBase}{%
   extendedchars   = true,

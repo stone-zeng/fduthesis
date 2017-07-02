@@ -260,6 +260,18 @@
 %   生效，需将其放置在 |font| 选项之后。
 % \end{function}
 %
+% \begin{table}[h]
+% \caption{西文字体设置与脚注样式默认值的对应关系}
+% \centering
+% \begin{tabular}{ccccc}
+%   \toprule
+%   西文字体设置   & |libertinus| & |lm|     & |palatino| & |times| \\
+%   \midrule
+%   脚注样式默认值 & |libertinus| & |pifont| & |pifont|   & |xits|  \\
+%   \bottomrule
+% \end{tabular}
+% \end{table}
+%
 %^^A \begin{shellexample}
 %^^A   #!/usr/bin/env sh
 %^^A
@@ -275,16 +287,15 @@
 %^^A   mktexlsr
 %^^A \end{shellexample}
 %
-% \subsubsection{信息录入}
+% \subsubsection{信息录入} \label{subsubsec:信息录入}
 % \begin{function}{info}
 %   \begin{syntax}
 %     info = \Arg{键值列表}
 %     info / \meta{key} = \meta{value}
 %   \end{syntax}
-%   录入论文信息的通用选项，具体内容见下。
+%   录入论文信息的通用选项，具体内容见下。以下各选项中，带“|*|”的为
+%   对应的英文字段。
 % \end{function}
-%
-% 以下各选项中，带“|*|”的为对应的英文字段。
 %
 % \begin{function}{info/title,info/title*}
 %   \begin{syntax}
@@ -333,7 +344,7 @@
 %
 % 复旦大学学号共 11 位，前两位为入学年份，之后一位为学生类型代码
 % （本科生为 1，硕士生为 2，博士生为 3），接下来的五位为专业代码，
-% 最后两位为顺序号。
+% 最后三位为顺序号。
 %
 % \begin{function}{info/schoolid}
 %   \begin{syntax}
@@ -371,6 +382,62 @@
 %   \end{syntax}
 %   中国图书馆分类号（CLC）。
 % \end{function}
+%
+% \subsection{正文编写}
+% \subsubsection{凤头}
+% \begin{function}{\frontmatter}
+%   声明前置部分开始。
+% \end{function}
+%
+% 在本模板中，前置部分包含封面、指导小组成员名单、目录、中英文摘要
+% 以及符号表等。前置部分的页码采用小写罗马字母，并且与正文分开计数。
+% 其中，指导小组成员名单不计入目录项。
+%
+% \begin{function}{\makecover}
+%   生成论文封面和指导小组成员名单。其中的各项信息，可通过
+%   \cs{fdusetup} 录入，具体请参阅 \ref{subsubsec:信息录入}~节。
+% \end{function}
+%
+% \begin{function}{\makecoveri,\makecoverii}
+%   分别生成论文封面和指导小组成员名单。这两个命令已经利用
+%   \cs{makecover} 进行了封装，如无特殊需求，不建议您直接使用它们。
+% \end{function}
+%
+% \begin{function}{\tableofcontents}
+%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
+% \end{function}
+%
+% \begin{function}{abstract,abstract*}
+%   \begin{syntax}
+%     \tn{begin}\{abstract\}
+%       \quad{}中文摘要。
+%     \tn{end}\{abstract\}
+%
+%     \tn{begin}\{abstract*\}
+%       \quad{}English abstract.
+%     \tn{end}\{abstract*\}
+%   \end{syntax}
+%   中英文摘要。在摘要的最后，会显示关键字列表以及
+%   中国图书馆分类号（CLC）。这两项可通过 \cs{fdusetup} 录入，具体
+%   请参阅 \ref{subsubsec:信息录入}~节。
+% \end{function}
+%
+% \begin{function}{notation}
+%   \begin{syntax}
+%     \tn{begin}\{notation\}\oarg{列格式说明}
+%       \quad{}符号 1  \&  说明  \backslash\backslash
+%       \quad{}符号 2  \&  说明  \backslash\backslash
+%       \quad{}符号 3  \&  说明  \backslash\backslash
+%       \quad{}...
+%     \tn{end}\{notation\}
+%   \end{syntax}
+%   符号表。可选参数“列格式说明”与 \LaTeX 中标准表格的列格式相同，
+%   默认值为“|l p{25 em}|”，即第一列宽度自动调整，第二列限宽
+%   \SI{25}{em}，均采用左对齐。
+% \end{function}
+%
+% \subsubsection{猪肚}
+% \subsubsection{豹尾}
 %
 % \StopEventually{
 %   \begin{thebibliography}{9}
@@ -469,13 +536,6 @@
 \tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
 \tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
 \tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\g__fdu_fn_style_tl}
-% 保存当前使用的脚注编号样式。
-%    \begin{macrocode}
-\tl_new:N \g__fdu_fn_style_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -982,6 +1042,450 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{脚注}
+% \subsubsection{编号样式}
+% \begin{macro}{\l__fdu_fn_style_tl}
+% 保存当前使用的脚注编号样式。
+%    \begin{macrocode}
+\tl_new:N \l__fdu_fn_style_tl
+%    \end{macrocode}
+% \end{macro}
+%
+% 脚注样式也归入 |fdu/style| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{style/footnotestyle}
+% 脚注类型共分四大类：
+% |plain|：使用当前字体；
+% |libertinus|：取自 Libertinus Serif 和 Libertinus Sans 字体；
+% |pifont|：使用 \pkg{pifont} 宏包；
+% |xits|：取自 XITS-Math 字体。
+%
+% 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，
+% 带“|*|”的为阴文版本。
+%    \begin{macrocode}
+    footnotestyle .choices:nn = {
+      plain,
+      libertinus, libertinus*, libertinus-sans,
+      pifont,     pifont*,     pifont-sans,     pifont-sans*,
+      xits,                    xits-sans,       xits-sans*
+    }
+%    \end{macrocode}
+%
+% 若使用 |pifont| 类型，则需引入 \pkg{pifont} 宏包；
+% 若使用 |xits| 类型，则需调用 XITS Math 字体。
+%    \begin{macrocode}
+    {
+      \tl_gset_eq:NN \l__fdu_fn_style_tl \l_keys_choice_tl
+      \int_compare:nTF
+        { 5 <= \l_keys_choice_int <= 8 }
+        { \RequirePackage { pifont } }
+        {
+          \int_compare:nT
+            { 9 <= \l_keys_choice_int <= 11 }
+            { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
+        }
+    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_libertinus:V}
+% |libertinus| 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
+% 为小写英文字母，\numrange{47}{72} 为大写英文字母。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_libertinus:V #1
+  {
+    \int_compare:nTF { #1 >= 21 }
+      {
+        \int_compare:nTF { #1 >= 47 }
+          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_libertinus_n:V}
+% |libertinus| 阴文衬线版。只含 \numrange{1}{20}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_libertinus_n:V #1
+  {
+    \int_compare:nTF { #1 >= 11 }
+      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
+      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_libertinus_sans:V}
+% |libertinus| 阳文无衬线版。符号排列与普通版相同。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
+  { \fdu_fn_symbol_libertinus:V { #1 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_pifont:V}
+% |pifont| 普通版。以下四种都只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_pifont:V #1
+  { \ding { \int_eval:n { 171 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_pifont_n:V}
+% |pifont| 阴文衬线版。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
+  { \ding { \int_eval:n { 181 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_pifont_sans:V}
+% |pifont| 阳文无衬线版。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
+  { \ding { \int_eval:n { 191 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_pifont_sans_n:V}
+% |pifont| 阴文无衬线版。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
+  { \ding { \int_eval:n { 201 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_xits:V}
+% |xits| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35} 为小写
+% 英文字母，\numrange{36}{61} 为大写英文字母。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_xits:V #1
+  {
+    \int_compare:nTF { #1 >= 10 }
+      {
+        \int_compare:nTF { #1 >= 36 }
+          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_xits_sans:V}
+% |xits| 阳文无衬线版。只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_xits_sans:V #1
+  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_fn_symbol_xits_sans_n:V}
+% |xits| 阴文无衬线版。也只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_fn_symbol_xits_sans_n:V #1
+  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\thefootnote}
+% 重定义脚注编号。
+%    \begin{macrocode}
+\RenewDocumentCommand \thefootnote { }
+  {
+    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
+    \tl_case:NnF \l__fdu_fn_style_tl
+      {
+%    \end{macrocode}
+%
+% |plain| 类型直接使用计数器 |footnote| 的值。
+%    \begin{macrocode}
+        \c__fdu_fn_style_plain_tl
+          { \int_use:N \l__fdu_tmpa_int }
+%    \end{macrocode}
+%
+% |libertinus| 类型需要使用 Libertinus Serif 或
+% Libertinus Sans 字体。
+%    \begin{macrocode}
+        \c__fdu_fn_style_libertinus_tl
+          {
+            \fontspec { Libertinus~ Serif }
+            \fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_libertinus_n_tl
+          {
+            \fontspec { Libertinus~ Serif }
+            \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_libertinus_sans_tl
+          {
+            \fontspec { Libertinus~ Sans }
+            \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
+          }
+%    \end{macrocode}
+%
+% |pifont| 类型无需进行额外的操作。
+%    \begin{macrocode}
+        \c__fdu_fn_style_pifont_tl
+          { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_n_tl
+          { \fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_sans_tl
+          { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_sans_n_tl
+          { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
+%    \end{macrocode}
+%
+% |xits| 类型需要临时切换数学字体。
+%    \begin{macrocode}
+        \c__fdu_fn_style_xits_tl
+          {
+            \mathversion { fn-XITS }
+            $ \fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_xits_sans_tl
+          {
+            \mathversion { fn-XITS }
+            $ \fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_xits_sans_n_tl
+          {
+            \mathversion { fn-XITS }
+            $ \fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
+          }
+      }
+%    \end{macrocode}
+%
+% 变量 \cs{g__fdu_fn_style_tl} 保存的类型未知时，
+% 默认使用 |plain| 类型。
+%    \begin{macrocode}
+      { \int_use:N \l__fdu_tmpa_int }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{整体样式}
+% 使脚注编号每一页重新开始是利用 \pkg{footmisc} 宏包实现的。
+%    \begin{macrocode}
+\RequirePackage [ perpage ] { footmisc }
+%    \end{macrocode}
+%
+% \begin{macro}{\@makefntext}
+% 重定义内部脚注文字命令。
+%    \begin{macrocode}
+\RenewDocumentCommand \@makefntext { +m }
+  {
+%    \end{macrocode}
+%
+% 脚注编号不使用上标，宽度为 \SI{1.5}{em}。
+%
+% 见 http://tex.stackexchange.com/q/19844
+%    \begin{macrocode}
+    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
+    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
+%    \end{macrocode}
+%
+% 脚注文字用 |parbox| 封装。首段无缩进，第二段起缩进 \SI{2}{em}。
+%    \begin{macrocode}
+    \parbox [ t ] { \l__fdu_tmpa_dim }
+      {
+        \everypar { \hspace* { 2 em } }
+        \hspace* { -2 em } #1
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{定理环境}
+% 定理环境的核心内容依靠 \pkg{ntheorem} 宏包实现。
+%    \begin{macrocode}
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
+%    \end{macrocode}
+%
+% \begin{macro}{\l__fdu_thm_style_tl,
+%   \l__fdu_thm_header_font_tl,
+%   \l__fdu_thm_body_font_tl,
+%   \l__fdu_thm_qed_tl,
+%   \l__fdu_thm_counter_tl}
+% 定义 |fdu/theorem| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / theorem }
+  {
+    style      .tl_set:N  = \l__fdu_thm_style_tl,
+    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
+    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
+    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
+    headerfont .initial:n = { \sffamily },
+    bodyfont   .initial:n = { \CJKfamily { kai } },
+    counter    .initial:n = { chapter }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
+% 带编号的定理环境。|#1| = 样式， |#2| = 计数器，
+% |#3| = 定理环境名称，|#4| = 定理头文字。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #3 } { #4 } [ #2 ]
+  }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_no_number_new:nnn,
+%   \fdu_thm_no_number_new:Vnn}
+% 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
+% |#3| = 定理头文字。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #2 } { #3 }
+  }
+\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_set_qed:n,
+%   \fdu_thm_set_header_font:n,\fdu_thm_set_body_font:n}
+% 封装 \pkg{ntheorem} 宏包提供的若干命令，分别用以设置证毕符号、
+% 定理头字体和定理正文字体。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_set_qed:n         #1
+  { \theoremsymbol     { #1 } }
+\cs_new:Npn \fdu_thm_set_header_font:n #1
+  { \theoremheaderfont { #1 } }
+\cs_new:Npn \fdu_thm_set_body_font:n   #1
+  { \theorembodyfont   { #1 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_set_qed:V,
+%   \fdu_thm_set_header_font:V,\fdu_thm_set_body_font:V}
+% 生成以上三个函数的变体。
+%    \begin{macrocode}
+\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
+\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
+\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
+% 创建新的定理环境。
+%    \begin{macrocode}
+\NewDocumentCommand \fdunewtheorem { s o m m }
+  {
+%    \end{macrocode}
+%
+% 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
+% \cs{QED}，而由 \cs{fdunewtheorem} 创建的则不带证毕符号。
+% 符号 \cs{QED} 由 \pkg{unicode-math} 宏包提供。
+%    \begin{macrocode}
+    \IfBooleanTF #1
+      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
+%    \end{macrocode}
+%
+% 设置默认样式为 |plain|。
+%    \begin{macrocode}
+    \tl_set:Nn \l__fdu_thm_style_tl { plain }
+%    \end{macrocode}
+%
+% 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
+% 定理头字体和定理正文字体。
+%    \begin{macrocode}
+    \IfValueT { #2 }
+      { \keys_set:nn { fdu / theorem } { #2 } }
+    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
+%    \end{macrocode}
+%
+% \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
+% 则负责创建无编号定理。以下分这两种情况处理。
+%    \begin{macrocode}
+    \IfBooleanTF #1
+      {
+%    \end{macrocode}
+%
+% 带 |*| 的版本原则上只接受 |plain| 和 |break| 两种样式，其余样式
+% 将被转换成这两者其中之一。
+%
+% TODO(20170602)：给出重定义样式的警告。
+%    \begin{macrocode}
+        \clist_if_in:NVTF
+          \c__fdu_thm_style_plain_clist
+          \l__fdu_thm_style_tl
+          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+          {
+            \clist_if_in:NVTF
+              \c__fdu_thm_style_break_clist
+              \l__fdu_thm_style_tl
+              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
+% TODO(20170602): 给出样式未定义错误。
+              { }
+          }
+%    \end{macrocode}
+%
+% \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
+% 这里我们将其加上。
+%    \begin{macrocode}
+        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
+        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
+          { #3 } { #4 }
+      }
+      {
+%    \end{macrocode}
+%
+% 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式。
+%    \begin{macrocode}
+        \clist_clear:N \l__fdu_tmpa_clist
+        \clist_concat:NNN \l__fdu_tmpa_clist
+          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
+        \clist_if_in:NVF
+          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
+% TODO(20170602): 给出样式未定义错误。
+          { }
+        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
+          { \l__fdu_thm_counter_tl } { #3 } { #4 }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{proof,
+%   assumption,axiom,conjecture,corollary,definition,example,
+%   exercise,lemma,problem,proposition,remark,theorem}
+% 模板预定义的常用数学环境。
+% 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
+%    \begin{macrocode}
+\fdunewtheorem* { proof       } { 证明 }
+\fdunewtheorem  { assumption  } { 假设 }
+\fdunewtheorem  { axiom       } { 公理 }
+\fdunewtheorem  { conjecture  } { 猜想 }
+\fdunewtheorem  { corollary   } { 推论 }
+\fdunewtheorem  { definition  } { 定义 }
+\fdunewtheorem  { example     } { 例   }
+\fdunewtheorem  { exercise    } { 练习 }
+\fdunewtheorem  { lemma       } { 引理 }
+\fdunewtheorem  { problem     } { 问题 }
+\fdunewtheorem  { proposition } { 命题 }
+\fdunewtheorem  { remark      } { 评注 }
+\fdunewtheorem  { theorem     } { 定理 }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{封面}
 % \subsubsection{信息录入}
 % 定义 |fdu/info| 键值类。
@@ -1339,7 +1843,7 @@
         {
           \fdu_spread_box:NV
             \c__fdu_def_cover_instructors_width_tl
-            \c__fdu_def_name_instructors_title_tl
+            \c__fdu_def_name_instructors_tl
         }
     \group_end:
     \begin{center}
@@ -1367,7 +1871,7 @@
 %    \begin{macrocode}
 \ctexset
   {
-    contentsname = {目 \quad 录},
+    contentsname = { \c__fdu_def_name_toc_tl },
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
@@ -1381,6 +1885,7 @@
   }
 %    \end{macrocode}
 %
+% \begin{macro}{\tableofcontents}
 % 修改 \tn{tableofcontents} 定义，使得页眉按照正确显示。
 % 第二个参数中的代码来源于 \LaTeXe{} 标准文档类 \file{book.cls}。
 %    \begin{macrocode}
@@ -1393,10 +1898,11 @@
   }
   {
     \chapter* { \contentsname }
-    \fdu_front_matter_header:n { 目 \quad 录 }
+    \fdu_front_matter_header:n { \c__fdu_def_name_toc_tl }
   }
   { } { \ctex_patch_failure:N \tableofcontents }
 %    \end{macrocode}
+% \end{macro}
 %
 % \subsection{摘要}
 % \subsubsection{中文摘要}
@@ -1409,10 +1915,10 @@
 %
 % 中文摘要标题为“摘 \quad 要”，需要修改页眉，并添加到目录。
 %    \begin{macrocode}
-    \chapter* { 摘 \quad 要 }
-    \fdu_front_matter_header:n { 摘 \quad 要 }
+    \chapter* { \c__fdu_def_name_abstract_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily 摘 \quad 要 }
+      { \normalfont \sffamily \c__fdu_def_name_abstract_tl }
   }
   {
 %    \end{macrocode}
@@ -1421,7 +1927,10 @@
 %    \begin{macrocode}
     \par \mbox{} \par
     \noindent \hangindent = 4 em  \hangafter = 1
-    { \normalfont \sffamily 关键字 \c__fdu_colon_fullwidth_tl }
+    {
+      \normalfont \sffamily
+      \c__fdu_def_name_keywords_tl \c__fdu_colon_fullwidth_tl
+    }
     \clist_use:Nn \l__fdu_info_keywords_clist
       { \c__fdu_semicolon_fullwidth_tl }
     \par
@@ -1430,7 +1939,10 @@
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    { \normalfont \sffamily 中图分类号 \c__fdu_colon_fullwidth_tl }
+    {
+      \normalfont \sffamily
+      \c__fdu_def_name_clc_tl \c__fdu_colon_fullwidth_tl
+    }
     \l__fdu_info_clc_tl
   }
 %    \end{macrocode}
@@ -1446,10 +1958,10 @@
 %
 % 英文摘要标题为“Abstract”，也要修改页眉并添加到目录。
 %    \begin{macrocode}
-    \chapter* { Abstract }
-    \fdu_front_matter_header:n { Abstract }
+    \chapter* { \c__fdu_def_name_abstract_e_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_e_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily Abstract }
+      { \normalfont \sffamily \c__fdu_def_name_abstract_e_tl }
   }
   {
 %    \end{macrocode}
@@ -1458,7 +1970,7 @@
 %    \begin{macrocode}
     \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf{Keywords:} \quad
+    \textbf{\c__fdu_def_name_keywords_e_tl} \quad
     \clist_use:Nn \l__fdu_info_keywords_e_clist { \quad }
     \par
 %    \end{macrocode}
@@ -1466,7 +1978,7 @@
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    \textbf{CLC~ number:} \quad
+    \textbf{\c__fdu_def_name_clc_e_tl} \quad
     \l__fdu_info_clc_tl
   }
 %    \end{macrocode}
@@ -1479,18 +1991,16 @@
 %    \end{macrocode}
 %
 % \begin{macro}{notation}
-% 符号表环境，可选参数为表格列格式说明符，
-% 默认为“|l p{25 em}|”，即第一列左对齐、宽度自动调整，
-% 第二列限宽 \SI{25}{em}，仍为左对齐。
+% 符号表环境，可选参数为表格列格式说明符，默认为“|l p{25 em}|”。
 % 与摘要类似，需要修改页眉，并添加到目录。另外需要调整 \cs{LTpre}
 % 和 \cs{LTpost}，以删去 |longtable| 前后的空白。
 %    \begin{macrocode}
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
-    \chapter* { 符号表 }
-    \fdu_front_matter_header:n { 符号表 }
+    \chapter* { \c__fdu_def_name_notation_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily 符号表 }
+      { \normalfont \sffamily \c__fdu_def_name_notation_tl }
     \group_begin:
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
@@ -1500,443 +2010,6 @@
       \end{longtable}
     \group_end:
   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsection{脚注}
-% \subsubsection{编号样式}
-% 脚注样式也归入 |fdu/style| 键值类。
-%    \begin{macrocode}
-\keys_define:nn { fdu / style }
-  {
-%    \end{macrocode}
-%
-% \begin{macro}{style/footnotestyle}
-% 脚注类型共分四大类：
-% |plain|：使用当前字体；
-% |libertinus|：取自 Libertinus Serif 和 Libertinus Sans 字体；
-% |pifont|：使用 \pkg{pifont} 宏包；
-% |xits|：取自 XITS-Math 字体。
-%
-% 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，
-% 带“|*|”的为阴文版本。
-%    \begin{macrocode}
-    footnotestyle .choices:nn = {
-      plain,
-      libertinus, libertinus*, libertinus-sans,
-      pifont,     pifont*,     pifont-sans,     pifont-sans*,
-      xits,                    xits-sans,       xits-sans*
-    }
-%    \end{macrocode}
-%
-% 若使用 |pifont| 类型，则需引入 \pkg{pifont} 宏包；
-% 若使用 |xits| 类型，则需调用 XITS Math 字体。
-%    \begin{macrocode}
-    {
-      \tl_gset_eq:NN \g__fdu_fn_style_tl \l_keys_choice_tl
-      \int_compare:nTF
-        { 5 <= \l_keys_choice_int <= 8 }
-        { \RequirePackage { pifont } }
-        {
-          \int_compare:nT
-            { 9 <= \l_keys_choice_int <= 11 }
-            { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
-        }
-    }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_libertinus:V}
-% |libertinus| 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
-% 为小写英文字母，\numrange{47}{72} 为大写英文字母。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_libertinus:V #1
-  {
-    \int_compare:nTF { #1 >= 21 }
-      {
-        \int_compare:nTF { #1 >= 47 }
-          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_libertinus_n:V}
-% |libertinus| 阴文衬线版。只含 \numrange{1}{20}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_libertinus_n:V #1
-  {
-    \int_compare:nTF { #1 >= 11 }
-      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
-      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_libertinus_sans:V}
-% |libertinus| 阳文无衬线版。符号排列与普通版相同。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
-  { \fdu_fn_symbol_libertinus:V { #1 } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_pifont:V}
-% |pifont| 普通版。以下四种都只包含 \numrange{1}{10}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont:V #1
-  { \ding { \int_eval:n { 171 + #1 } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_pifont_n:V}
-% |pifont| 阴文衬线版。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
-  { \ding { \int_eval:n { 181 + #1 } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_pifont_sans:V}
-% |pifont| 阳文无衬线版。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
-  { \ding { \int_eval:n { 191 + #1 } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_pifont_sans_n:V}
-% |pifont| 阴文无衬线版。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
-  { \ding { \int_eval:n { 201 + #1 } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_xits:V}
-% |xits| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35} 为小写
-% 英文字母，\numrange{36}{61} 为大写英文字母。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_xits:V #1
-  {
-    \int_compare:nTF { #1 >= 10 }
-      {
-        \int_compare:nTF { #1 >= 36 }
-          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_xits_sans:V}
-% |xits| 阳文无衬线版。只包含 \numrange{1}{10}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_xits_sans:V #1
-  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_fn_symbol_xits_sans_n:V}
-% |xits| 阴文无衬线版。也只包含 \numrange{1}{10}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_xits_sans_n:V #1
-  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\thefootnote}
-% 重定义脚注编号。
-%    \begin{macrocode}
-\RenewDocumentCommand \thefootnote { }
-  {
-    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
-    \tl_case:NnF \g__fdu_fn_style_tl
-      {
-%    \end{macrocode}
-%
-% |plain| 类型直接使用计数器 |footnote| 的值。
-%    \begin{macrocode}
-        \c__fdu_fn_style_plain_tl
-          { \int_use:N \l__fdu_tmpa_int }
-%    \end{macrocode}
-%
-% |libertinus| 类型需要使用 Libertinus Serif 或
-% Libertinus Sans 字体。
-%    \begin{macrocode}
-        \c__fdu_fn_style_libertinus_tl
-          {
-            \fontspec { Libertinus~ Serif }
-            \fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
-          }
-        \c__fdu_fn_style_libertinus_n_tl
-          {
-            \fontspec { Libertinus~ Serif }
-            \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
-          }
-        \c__fdu_fn_style_libertinus_sans_tl
-          {
-            \fontspec { Libertinus~ Sans }
-            \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
-          }
-%    \end{macrocode}
-%
-% |pifont| 类型无需进行额外的操作。
-%    \begin{macrocode}
-        \c__fdu_fn_style_pifont_tl
-          { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_n_tl
-          { \fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_tl
-          { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_n_tl
-          { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
-%    \end{macrocode}
-%
-% |xits| 类型需要临时切换数学字体。
-%    \begin{macrocode}
-        \c__fdu_fn_style_xits_tl
-          {
-            \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
-          }
-        \c__fdu_fn_style_xits_sans_tl
-          {
-            \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
-          }
-        \c__fdu_fn_style_xits_sans_n_tl
-          {
-            \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
-          }
-      }
-%    \end{macrocode}
-%
-% 变量 \cs{g__fdu_fn_style_tl} 保存的类型未知时，
-% 默认使用 |plain| 类型。
-%    \begin{macrocode}
-      { \int_use:N \l__fdu_tmpa_int }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsubsection{整体样式}
-% 使脚注编号每一页重新开始是利用 \pkg{footmisc} 宏包实现的。
-%    \begin{macrocode}
-\RequirePackage [ perpage ] { footmisc }
-%    \end{macrocode}
-%
-% \begin{macro}{\@makefntext}
-% 重定义内部脚注文字命令。
-%    \begin{macrocode}
-\RenewDocumentCommand \@makefntext { +m }
-  {
-%    \end{macrocode}
-%
-% 脚注编号不使用上标，宽度为 \SI{1.5}{em}。
-%
-% 见 http://tex.stackexchange.com/q/19844
-%    \begin{macrocode}
-    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
-    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
-%    \end{macrocode}
-%
-% 脚注文字用 |parbox| 封装。首段无缩进，第二段起缩进 \SI{2}{em}。
-%    \begin{macrocode}
-    \parbox [ t ] { \l__fdu_tmpa_dim }
-      {
-        \everypar { \hspace* { 2 em } }
-        \hspace* { -2 em } #1
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsection{定理环境}
-% 定理环境的核心内容依靠 \pkg{ntheorem} 宏包实现。
-%    \begin{macrocode}
-\RequirePackage [ amsmath, thmmarks ] { ntheorem }
-%    \end{macrocode}
-%
-% \begin{macro}{\l__fdu_thm_style_tl,
-%   \l__fdu_thm_header_font_tl,
-%   \l__fdu_thm_body_font_tl,
-%   \l__fdu_thm_qed_tl,
-%   \l__fdu_thm_counter_tl}
-% 定义 |fdu/theorem| 键值类。
-%    \begin{macrocode}
-\keys_define:nn { fdu / theorem }
-  {
-    style      .tl_set:N  = \l__fdu_thm_style_tl,
-    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
-    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
-    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
-    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
-    headerfont .initial:n = { \sffamily },
-    bodyfont   .initial:n = { \CJKfamily { kai } },
-    counter    .initial:n = { chapter }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
-% 带编号的定理环境。|#1| = 样式， |#2| = 计数器，
-% |#3| = 定理环境名称，|#4| = 定理头文字。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
-  {
-    \theoremstyle { #1 }
-    \newtheorem { #3 } { #4 } [ #2 ]
-  }
-\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_thm_no_number_new:nnn,
-%   \fdu_thm_no_number_new:Vnn}
-% 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
-% |#3| = 定理头文字。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
-  {
-    \theoremstyle { #1 }
-    \newtheorem { #2 } { #3 }
-  }
-\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_thm_set_qed:n,
-%   \fdu_thm_set_header_font:n,\fdu_thm_set_body_font:n}
-% 封装 \pkg{ntheorem} 宏包提供的若干命令，分别用以设置证毕符号、
-% 定理头字体和定理正文字体。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_thm_set_qed:n         #1
-  { \theoremsymbol     { #1 } }
-\cs_new:Npn \fdu_thm_set_header_font:n #1
-  { \theoremheaderfont { #1 } }
-\cs_new:Npn \fdu_thm_set_body_font:n   #1
-  { \theorembodyfont   { #1 } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_thm_set_qed:V,
-%   \fdu_thm_set_header_font:V,\fdu_thm_set_body_font:V}
-% 生成以上三个函数的变体。
-%    \begin{macrocode}
-\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
-\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
-\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
-% 创建新的定理环境。
-%    \begin{macrocode}
-\NewDocumentCommand \fdunewtheorem { s o m m }
-  {
-%    \end{macrocode}
-%
-% 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
-% \cs{QED}，而由 \cs{fdunewtheorem} 创建的则不带证毕符号。
-% 符号 \cs{QED} 由 \pkg{unicode-math} 宏包提供。
-%    \begin{macrocode}
-    \IfBooleanTF #1
-      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
-      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
-%    \end{macrocode}
-%
-% 设置默认样式为 |plain|。
-%    \begin{macrocode}
-    \tl_set:Nn \l__fdu_thm_style_tl { plain }
-%    \end{macrocode}
-%
-% 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
-% 定理头字体和定理正文字体。
-%    \begin{macrocode}
-    \IfValueT { #2 }
-      { \keys_set:nn { fdu / theorem } { #2 } }
-    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
-    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
-    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
-%    \end{macrocode}
-%
-% \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
-% 则负责创建无编号定理。以下分这两种情况处理。
-%    \begin{macrocode}
-    \IfBooleanTF #1
-      {
-%    \end{macrocode}
-%
-% 带 |*| 的版本原则上只接受 |plain| 和 |break| 两种样式，其余样式
-% 将被转换成这两者其中之一。
-%
-% TODO(20170602)：给出重定义样式的警告。
-%    \begin{macrocode}
-        \clist_if_in:NVTF
-          \c__fdu_thm_style_plain_clist
-          \l__fdu_thm_style_tl
-          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
-          {
-            \clist_if_in:NVTF
-              \c__fdu_thm_style_break_clist
-              \l__fdu_thm_style_tl
-              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
-% TODO(20170602): 给出样式未定义错误。
-              { }
-          }
-%    \end{macrocode}
-%
-% \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
-% 这里我们将其加上。
-%    \begin{macrocode}
-        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
-          { #3 } { #4 }
-      }
-      {
-%    \end{macrocode}
-%
-% 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式。
-%    \begin{macrocode}
-        \clist_clear:N \l__fdu_tmpa_clist
-        \clist_concat:NNN \l__fdu_tmpa_clist
-          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
-        \clist_if_in:NVF
-          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
-% TODO(20170602): 给出样式未定义错误。
-          { }
-        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
-          { \l__fdu_thm_counter_tl } { #3 } { #4 }
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{proof,
-%   assumption,axiom,conjecture,corollary,definition,example,
-%   exercise,lemma,problem,proposition,remark,theorem}
-% 模板预定义的常用数学环境。
-% 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
-%    \begin{macrocode}
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2347,16 +2420,24 @@
 %
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_name_school_id_tl         { 学 校  代 码 }
-\tl_const:Nn \c__fdu_def_name_student_id_tl        { 学 \qquad 号 }
-\tl_const:Nn \c__fdu_def_name_thesis_type_tl       { 博士学位论文 }
-\tl_const:Nn \c__fdu_def_name_degree_type_tl       { （学术学位） }
-\tl_const:Nn \c__fdu_def_name_department_tl        {   院    系   }
-\tl_const:Nn \c__fdu_def_name_major_tl             {   专    业   }
-\tl_const:Nn \c__fdu_def_name_author_tl            {   姓    名   }
-\tl_const:Nn \c__fdu_def_name_supervisor_tl        {   指导教师   }
-\tl_const:Nn \c__fdu_def_name_date_tl              {   完成日期   }
-\tl_const:Nn \c__fdu_def_name_instructors_title_tl { 指导小组成员 }
+\tl_const:Nn \c__fdu_def_name_school_id_tl      { 学校代码     }
+\tl_const:Nn \c__fdu_def_name_student_id_tl     { 学 \qquad 号 }
+\tl_const:Nn \c__fdu_def_name_thesis_type_tl    { 博士学位论文 }
+\tl_const:Nn \c__fdu_def_name_degree_type_tl    { （学术学位） }
+\tl_const:Nn \c__fdu_def_name_department_tl     { 院系         }
+\tl_const:Nn \c__fdu_def_name_major_tl          { 专业         }
+\tl_const:Nn \c__fdu_def_name_author_tl         { 姓名         }
+\tl_const:Nn \c__fdu_def_name_supervisor_tl     { 指导教师     }
+\tl_const:Nn \c__fdu_def_name_date_tl           { 完成日期     }
+\tl_const:Nn \c__fdu_def_name_instructors_tl    { 指导小组成员 }
+\tl_const:Nn \c__fdu_def_name_toc_tl            { 目 \quad 录  }
+\tl_const:Nn \c__fdu_def_name_abstract_tl       { 摘 \quad 要  }
+\tl_const:Nn \c__fdu_def_name_keywords_tl       { 关键字       }
+\tl_const:Nn \c__fdu_def_name_clc_tl            { 中图分类号   }
+\tl_const:Nn \c__fdu_def_name_abstract_e_tl     { Abstract     }
+\tl_const:Nn \c__fdu_def_name_keywords_e_tl     { Keywords:    }
+\tl_const:Nn \c__fdu_def_name_clc_e_tl          { CLC~ number: }
+\tl_const:Nn \c__fdu_def_name_notation_tl       { 符号表       }
 %</def>
 %    \end{macrocode}
 %

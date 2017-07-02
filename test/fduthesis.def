@@ -87,16 +87,24 @@
 \tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
 \tl_const:Nn \c__fdu_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
 \tl_const:Nn \c__fdu_def_cover_title_e_line_spread_tl { 1.2 }
-\tl_const:Nn \c__fdu_def_name_school_id_tl         { 学 校  代 码 }
-\tl_const:Nn \c__fdu_def_name_student_id_tl        { 学 \qquad 号 }
-\tl_const:Nn \c__fdu_def_name_thesis_type_tl       { 博士学位论文 }
-\tl_const:Nn \c__fdu_def_name_degree_type_tl       { （学术学位） }
-\tl_const:Nn \c__fdu_def_name_department_tl        {   院    系   }
-\tl_const:Nn \c__fdu_def_name_major_tl             {   专    业   }
-\tl_const:Nn \c__fdu_def_name_author_tl            {   姓    名   }
-\tl_const:Nn \c__fdu_def_name_supervisor_tl        {   指导教师   }
-\tl_const:Nn \c__fdu_def_name_date_tl              {   完成日期   }
-\tl_const:Nn \c__fdu_def_name_instructors_title_tl { 指导小组成员 }
+\tl_const:Nn \c__fdu_def_name_school_id_tl      { 学校代码     }
+\tl_const:Nn \c__fdu_def_name_student_id_tl     { 学 \qquad 号 }
+\tl_const:Nn \c__fdu_def_name_thesis_type_tl    { 博士学位论文 }
+\tl_const:Nn \c__fdu_def_name_degree_type_tl    { （学术学位） }
+\tl_const:Nn \c__fdu_def_name_department_tl     { 院系         }
+\tl_const:Nn \c__fdu_def_name_major_tl          { 专业         }
+\tl_const:Nn \c__fdu_def_name_author_tl         { 姓名         }
+\tl_const:Nn \c__fdu_def_name_supervisor_tl     { 指导教师     }
+\tl_const:Nn \c__fdu_def_name_date_tl           { 完成日期     }
+\tl_const:Nn \c__fdu_def_name_instructors_tl    { 指导小组成员 }
+\tl_const:Nn \c__fdu_def_name_toc_tl            { 目 \quad 录  }
+\tl_const:Nn \c__fdu_def_name_abstract_tl       { 摘 \quad 要  }
+\tl_const:Nn \c__fdu_def_name_keywords_tl       { 关键字       }
+\tl_const:Nn \c__fdu_def_name_clc_tl            { 中图分类号   }
+\tl_const:Nn \c__fdu_def_name_abstract_e_tl     { Abstract     }
+\tl_const:Nn \c__fdu_def_name_keywords_e_tl     { Keywords:    }
+\tl_const:Nn \c__fdu_def_name_clc_e_tl          { CLC~ number: }
+\tl_const:Nn \c__fdu_def_name_notation_tl       { 符号表       }
 \endinput
 %%
 %% End of file `fduthesis.def'.

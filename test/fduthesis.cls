@@ -58,7 +58,6 @@
 \tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
 \tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
 \tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
-\tl_new:N \g__fdu_fn_style_tl
 \clist_const:Nn \c__fdu_thm_style_plain_clist
   { plain, margin, change }
 \clist_const:Nn \c__fdu_thm_style_break_clist
@@ -342,6 +341,211 @@
 \pagestyle { fancy }
 \RenewDocumentCommand \sectionmark { m }
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
+\tl_new:N \l__fdu_fn_style_tl
+\keys_define:nn { fdu / style }
+  {
+    footnotestyle .choices:nn = {
+      plain,
+      libertinus, libertinus*, libertinus-sans,
+      pifont,     pifont*,     pifont-sans,     pifont-sans*,
+      xits,                    xits-sans,       xits-sans*
+    }
+    {
+      \tl_gset_eq:NN \l__fdu_fn_style_tl \l_keys_choice_tl
+      \int_compare:nTF
+        { 5 <= \l_keys_choice_int <= 8 }
+        { \RequirePackage { pifont } }
+        {
+          \int_compare:nT
+            { 9 <= \l_keys_choice_int <= 11 }
+            { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
+        }
+    }
+  }
+\cs_new:Npn \fdu_fn_symbol_libertinus:V #1
+  {
+    \int_compare:nTF { #1 >= 21 }
+      {
+        \int_compare:nTF { #1 >= 47 }
+          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+\cs_new:Npn \fdu_fn_symbol_libertinus_n:V #1
+  {
+    \int_compare:nTF { #1 >= 11 }
+      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
+      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
+  }
+\cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
+  { \fdu_fn_symbol_libertinus:V { #1 } }
+\cs_new:Npn \fdu_fn_symbol_pifont:V #1
+  { \ding { \int_eval:n { 171 + #1 } } }
+\cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
+  { \ding { \int_eval:n { 181 + #1 } } }
+\cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
+  { \ding { \int_eval:n { 191 + #1 } } }
+\cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
+  { \ding { \int_eval:n { 201 + #1 } } }
+\cs_new:Npn \fdu_fn_symbol_xits:V #1
+  {
+    \int_compare:nTF { #1 >= 10 }
+      {
+        \int_compare:nTF { #1 >= 36 }
+          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
+          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
+      }
+      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+\cs_new:Npn \fdu_fn_symbol_xits_sans:V #1
+  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
+\cs_new:Npn \fdu_fn_symbol_xits_sans_n:V #1
+  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
+\RenewDocumentCommand \thefootnote { }
+  {
+    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
+    \tl_case:NnF \l__fdu_fn_style_tl
+      {
+        \c__fdu_fn_style_plain_tl
+          { \int_use:N \l__fdu_tmpa_int }
+        \c__fdu_fn_style_libertinus_tl
+          {
+            \fontspec { Libertinus~ Serif }
+            \fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_libertinus_n_tl
+          {
+            \fontspec { Libertinus~ Serif }
+            \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_libertinus_sans_tl
+          {
+            \fontspec { Libertinus~ Sans }
+            \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
+          }
+        \c__fdu_fn_style_pifont_tl
+          { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_n_tl
+          { \fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_sans_tl
+          { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
+        \c__fdu_fn_style_pifont_sans_n_tl
+          { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
+        \c__fdu_fn_style_xits_tl
+          {
+            \mathversion { fn-XITS }
+            $ \fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_xits_sans_tl
+          {
+            \mathversion { fn-XITS }
+            $ \fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
+          }
+        \c__fdu_fn_style_xits_sans_n_tl
+          {
+            \mathversion { fn-XITS }
+            $ \fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
+          }
+      }
+      { \int_use:N \l__fdu_tmpa_int }
+  }
+\RequirePackage [ perpage ] { footmisc }
+\RenewDocumentCommand \@makefntext { +m }
+  {
+    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
+    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
+    \parbox [ t ] { \l__fdu_tmpa_dim }
+      {
+        \everypar { \hspace* { 2 em } }
+        \hspace* { -2 em } #1
+      }
+  }
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
+\keys_define:nn { fdu / theorem }
+  {
+    style      .tl_set:N  = \l__fdu_thm_style_tl,
+    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
+    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
+    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
+    headerfont .initial:n = { \sffamily },
+    bodyfont   .initial:n = { \CJKfamily { kai } },
+    counter    .initial:n = { chapter }
+  }
+\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #3 } { #4 } [ #2 ]
+  }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
+\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
+  {
+    \theoremstyle { #1 }
+    \newtheorem { #2 } { #3 }
+  }
+\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
+\cs_new:Npn \fdu_thm_set_qed:n         #1
+  { \theoremsymbol     { #1 } }
+\cs_new:Npn \fdu_thm_set_header_font:n #1
+  { \theoremheaderfont { #1 } }
+\cs_new:Npn \fdu_thm_set_body_font:n   #1
+  { \theorembodyfont   { #1 } }
+\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
+\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
+\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
+\NewDocumentCommand \fdunewtheorem { s o m m }
+  {
+    \IfBooleanTF #1
+      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
+    \tl_set:Nn \l__fdu_thm_style_tl { plain }
+    \IfValueT { #2 }
+      { \keys_set:nn { fdu / theorem } { #2 } }
+    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
+    \IfBooleanTF #1
+      {
+        \clist_if_in:NVTF
+          \c__fdu_thm_style_plain_clist
+          \l__fdu_thm_style_tl
+          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+          {
+            \clist_if_in:NVTF
+              \c__fdu_thm_style_break_clist
+              \l__fdu_thm_style_tl
+              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
+              { }
+          }
+        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
+        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
+          { #3 } { #4 }
+      }
+      {
+        \clist_clear:N \l__fdu_tmpa_clist
+        \clist_concat:NNN \l__fdu_tmpa_clist
+          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
+        \clist_if_in:NVF
+          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
+          { }
+        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
+          { \l__fdu_thm_counter_tl } { #3 } { #4 }
+      }
+  }
+\fdunewtheorem* { proof       } { 证明 }
+\fdunewtheorem  { assumption  } { 假设 }
+\fdunewtheorem  { axiom       } { 公理 }
+\fdunewtheorem  { conjecture  } { 猜想 }
+\fdunewtheorem  { corollary   } { 推论 }
+\fdunewtheorem  { definition  } { 定义 }
+\fdunewtheorem  { example     } { 例   }
+\fdunewtheorem  { exercise    } { 练习 }
+\fdunewtheorem  { lemma       } { 引理 }
+\fdunewtheorem  { problem     } { 问题 }
+\fdunewtheorem  { proposition } { 命题 }
+\fdunewtheorem  { remark      } { 评注 }
+\fdunewtheorem  { theorem     } { 定理 }
 \keys_define:nn { fdu / info }
   {
     title       .tl_set:N    = \l__fdu_info_title_tl,
@@ -515,7 +719,7 @@
         {
           \fdu_spread_box:NV
             \c__fdu_def_cover_instructors_width_tl
-            \c__fdu_def_name_instructors_title_tl
+            \c__fdu_def_name_instructors_tl
         }
     \group_end:
     \begin{center}
@@ -531,7 +735,7 @@
   }
 \ctexset
   {
-    contentsname = {目 \quad 录},
+    contentsname = { \c__fdu_def_name_toc_tl },
     chapter    / tocline = {
       \normalfont \sffamily \CTEXnumberline { #1 } #2
     },
@@ -548,51 +752,57 @@
   }
   {
     \chapter* { \contentsname }
-    \fdu_front_matter_header:n { 目 \quad 录 }
+    \fdu_front_matter_header:n { \c__fdu_def_name_toc_tl }
   }
   { } { \ctex_patch_failure:N \tableofcontents }
 \NewDocumentEnvironment { abstract } { }
   {
-    \chapter* { 摘 \quad 要 }
-    \fdu_front_matter_header:n { 摘 \quad 要 }
+    \chapter* { \c__fdu_def_name_abstract_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily 摘 \quad 要 }
+      { \normalfont \sffamily \c__fdu_def_name_abstract_tl }
   }
   {
     \par \mbox{} \par
     \noindent \hangindent = 4 em  \hangafter = 1
-    { \normalfont \sffamily 关键字 \c__fdu_colon_fullwidth_tl }
+    {
+      \normalfont \sffamily
+      \c__fdu_def_name_keywords_tl \c__fdu_colon_fullwidth_tl
+    }
     \clist_use:Nn \l__fdu_info_keywords_clist
       { \c__fdu_semicolon_fullwidth_tl }
     \par
     \noindent
-    { \normalfont \sffamily 中图分类号 \c__fdu_colon_fullwidth_tl }
+    {
+      \normalfont \sffamily
+      \c__fdu_def_name_clc_tl \c__fdu_colon_fullwidth_tl
+    }
     \l__fdu_info_clc_tl
   }
 \NewDocumentEnvironment { abstract* } { }
   {
-    \chapter* { Abstract }
-    \fdu_front_matter_header:n { Abstract }
+    \chapter* { \c__fdu_def_name_abstract_e_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_e_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily Abstract }
+      { \normalfont \sffamily \c__fdu_def_name_abstract_e_tl }
   }
   {
     \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf{Keywords:} \quad
+    \textbf{\c__fdu_def_name_keywords_e_tl} \quad
     \clist_use:Nn \l__fdu_info_keywords_e_clist { \quad }
     \par
     \noindent
-    \textbf{CLC~ number:} \quad
+    \textbf{\c__fdu_def_name_clc_e_tl} \quad
     \l__fdu_info_clc_tl
   }
 \RequirePackage { longtable }
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
-    \chapter* { 符号表 }
-    \fdu_front_matter_header:n { 符号表 }
+    \chapter* { \c__fdu_def_name_notation_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily 符号表 }
+      { \normalfont \sffamily \c__fdu_def_name_notation_tl }
     \group_begin:
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
@@ -602,210 +812,6 @@
       \end{longtable}
     \group_end:
   }
-\keys_define:nn { fdu / style }
-  {
-    footnotestyle .choices:nn = {
-      plain,
-      libertinus, libertinus*, libertinus-sans,
-      pifont,     pifont*,     pifont-sans,     pifont-sans*,
-      xits,                    xits-sans,       xits-sans*
-    }
-    {
-      \tl_gset_eq:NN \g__fdu_fn_style_tl \l_keys_choice_tl
-      \int_compare:nTF
-        { 5 <= \l_keys_choice_int <= 8 }
-        { \RequirePackage { pifont } }
-        {
-          \int_compare:nT
-            { 9 <= \l_keys_choice_int <= 11 }
-            { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
-        }
-    }
-  }
-\cs_new:Npn \fdu_fn_symbol_libertinus:V #1
-  {
-    \int_compare:nTF { #1 >= 21 }
-      {
-        \int_compare:nTF { #1 >= 47 }
-          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-\cs_new:Npn \fdu_fn_symbol_libertinus_n:V #1
-  {
-    \int_compare:nTF { #1 >= 11 }
-      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
-      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
-  }
-\cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
-  { \fdu_fn_symbol_libertinus:V { #1 } }
-\cs_new:Npn \fdu_fn_symbol_pifont:V #1
-  { \ding { \int_eval:n { 171 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
-  { \ding { \int_eval:n { 181 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
-  { \ding { \int_eval:n { 191 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
-  { \ding { \int_eval:n { 201 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_xits:V #1
-  {
-    \int_compare:nTF { #1 >= 10 }
-      {
-        \int_compare:nTF { #1 >= 36 }
-          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-\cs_new:Npn \fdu_fn_symbol_xits_sans:V #1
-  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
-\cs_new:Npn \fdu_fn_symbol_xits_sans_n:V #1
-  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
-\RenewDocumentCommand \thefootnote { }
-  {
-    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
-    \tl_case:NnF \g__fdu_fn_style_tl
-      {
-        \c__fdu_fn_style_plain_tl
-          { \int_use:N \l__fdu_tmpa_int }
-        \c__fdu_fn_style_libertinus_tl
-          {
-            \fontspec { Libertinus~ Serif }
-            \fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
-          }
-        \c__fdu_fn_style_libertinus_n_tl
-          {
-            \fontspec { Libertinus~ Serif }
-            \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
-          }
-        \c__fdu_fn_style_libertinus_sans_tl
-          {
-            \fontspec { Libertinus~ Sans }
-            \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
-          }
-        \c__fdu_fn_style_pifont_tl
-          { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_n_tl
-          { \fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_tl
-          { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_n_tl
-          { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
-        \c__fdu_fn_style_xits_tl
-          {
-            \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
-          }
-        \c__fdu_fn_style_xits_sans_tl
-          {
-            \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
-          }
-        \c__fdu_fn_style_xits_sans_n_tl
-          {
-            \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
-          }
-      }
-      { \int_use:N \l__fdu_tmpa_int }
-  }
-\RequirePackage [ perpage ] { footmisc }
-\RenewDocumentCommand \@makefntext { +m }
-  {
-    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
-    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
-    \parbox [ t ] { \l__fdu_tmpa_dim }
-      {
-        \everypar { \hspace* { 2 em } }
-        \hspace* { -2 em } #1
-      }
-  }
-\RequirePackage [ amsmath, thmmarks ] { ntheorem }
-\keys_define:nn { fdu / theorem }
-  {
-    style      .tl_set:N  = \l__fdu_thm_style_tl,
-    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
-    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
-    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
-    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
-    headerfont .initial:n = { \sffamily },
-    bodyfont   .initial:n = { \CJKfamily { kai } },
-    counter    .initial:n = { chapter }
-  }
-\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
-  {
-    \theoremstyle { #1 }
-    \newtheorem { #3 } { #4 } [ #2 ]
-  }
-\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
-\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
-  {
-    \theoremstyle { #1 }
-    \newtheorem { #2 } { #3 }
-  }
-\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
-\cs_new:Npn \fdu_thm_set_qed:n         #1
-  { \theoremsymbol     { #1 } }
-\cs_new:Npn \fdu_thm_set_header_font:n #1
-  { \theoremheaderfont { #1 } }
-\cs_new:Npn \fdu_thm_set_body_font:n   #1
-  { \theorembodyfont   { #1 } }
-\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
-\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
-\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
-\NewDocumentCommand \fdunewtheorem { s o m m }
-  {
-    \IfBooleanTF #1
-      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
-      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
-    \tl_set:Nn \l__fdu_thm_style_tl { plain }
-    \IfValueT { #2 }
-      { \keys_set:nn { fdu / theorem } { #2 } }
-    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
-    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
-    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
-    \IfBooleanTF #1
-      {
-        \clist_if_in:NVTF
-          \c__fdu_thm_style_plain_clist
-          \l__fdu_thm_style_tl
-          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
-          {
-            \clist_if_in:NVTF
-              \c__fdu_thm_style_break_clist
-              \l__fdu_thm_style_tl
-              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
-              { }
-          }
-        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
-          { #3 } { #4 }
-      }
-      {
-        \clist_clear:N \l__fdu_tmpa_clist
-        \clist_concat:NNN \l__fdu_tmpa_clist
-          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
-        \clist_if_in:NVF
-          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
-          { }
-        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
-          { \l__fdu_thm_counter_tl } { #3 } { #4 }
-      }
-  }
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } { #1 },
