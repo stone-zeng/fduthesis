@@ -64,7 +64,8 @@
 \RequirePackage{unicode-math}
 \RequirePackage{xcolor}
 \RequirePackage{caption}
-\RequirePackage{fvrb-ex}
+%% Modified by Xiangdong Zeng, 2017-07-02.
+%%%%\RequirePackage{fvrb-ex}
 \RequirePackage{zref-base}
 %% Added by Xiangdong Zeng, 2017-06-25.
 \RequirePackage{listings}
@@ -188,7 +189,8 @@
 %% Modified by Xiangdong Zeng, 2017-04-08.
 \AtBeginEnvironment{syntax}{\linespread{1.2}\ctexplainps\ctexdisableecglue}
 %%%%\AtBeginEnvironment{syntax}{\linespread{1}\ctexplainps\ctexdisableecglue}
-\BeforeBeginEnvironment{SideBySideExample}{\par\addvspace{\medskipamount}}
+%% Modified by Xiangdong Zeng, 2017-07-02.
+%%%%\BeforeBeginEnvironment{SideBySideExample}{\par\addvspace{\medskipamount}}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
 \newcommand*\expstar{\hyperlink{expstar}{$\star$}}

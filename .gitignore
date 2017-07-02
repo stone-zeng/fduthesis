@@ -1,4 +1,5 @@
 *.aux
+*.bak
 *.fdb_latexmk
 *.fls
 *.glo
@@ -8,6 +9,7 @@
 *.ind
 *.log
 *.out
+*.sav
 *.synctex.gz
 *.synctex(busy)
 *.thm

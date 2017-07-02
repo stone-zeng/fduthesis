@@ -318,7 +318,7 @@
           { \CJKfamily { kai } \l__fdu_header_center_mark_tl }
       }
   }
-\fancyfoot [ C ] { \thepage }
+\fancyfoot [ C ] { \small \thepage }
 \cs_new:Npn \fdu_front_matter_header:n #1
   {
     \bool_if:NTF \g__fdu_twoside_bool
