@@ -7,24 +7,30 @@
 - 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档 `fduthesis.pdf`。
 该文档可通过如下命令生成：
 
-  ```batch
+  ```
   xelatex fduthesis.dtx
   makeindex -s gind.ist fduthesis
   xelatex fduthesis.dtx
   xelatex fduthesis.dtx
   ```
 
+- 若需要生成模板各部件，请执行如下命令：
+
+  ```
+  xetex fduthesis.dtx
+  ```
+
 ### 模板组成
 
 - `source/`             源代码
   - `fduthesis.dtx`       模板代码、注释以及文档
-  - `fduthesis.ins`       模板安装文件
   - `ctxdoc-m.cls`        模板文档样式（修改自 `ctxdoc.cls`）
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
   - `fduthesis.def`       模板定义文件
   - `fduthesis-user.def`  用户定义文件
+  - `test.tex`            测试论文
 
 - `support/`            Travis CI 支持文件
   - `texlive.sh`          安装最新版本 TeX Live
@@ -40,6 +46,8 @@
 
 - `.travis.yml`         Travis CI 配置文件
 
+- `README.md`           自述文件（本文档）
+
 ### 许可证
 
 - 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)
@@ -53,11 +61,18 @@
 `fduthesis.pdf` carefully. This file can be generated with the
 following commands:
 
-  ```batch
+  ```
   xelatex fduthesis.dtx
   makeindex -s gind.ist fduthesis
   xelatex fduthesis.dtx
   xelatex fduthesis.dtx
+  ```
+
+- If you want to get all components of `fduthesis`, please excute
+the following commands:
+
+  ```
+  xetex fduthesis.dtx
   ```
 
 ### License

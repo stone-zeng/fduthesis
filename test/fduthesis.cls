@@ -22,11 +22,13 @@
 %% 
 %%     The Current Maintainer of this work is Xiangdong Zeng.
 %% 
-%%     This work consists of the files fduthesis.dtx
-%%                                     fduthesis.ins
-%%               and the derived files fduthesis.cls
-%%                                     fduthesis.def
-%%                                     fduthesis-user.def.
+%%     This work consists of the file fduthesis.dtx
+%%              and the derived files fduthesis.ins,
+%%                                    fduthesis.cls,
+%%                                    fduthesis.def,
+%%                                    fduthesis-user.def,
+%%                                    fduthesis.pdf
+%%                                and README.md.
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3,xparse,l3keys2e}
