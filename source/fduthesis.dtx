@@ -118,15 +118,16 @@ version.
 %
 %<*internal>
 \fi
-\def\nameofplainTeX{plain}
-\ifx\fmtname\nameofplainTeX\else
-  \expandafter\begingroup
-\fi
+\begingroup
+  \def\NameOfLaTeXe{LaTeX2e}
+\expandafter\endgroup\ifx\NameOfLaTeXe\fmtname\else
+\csname fi\endcsname
 %</internal>
 %
 %<*install>
 \input l3docstrip.tex
 \keepsilent
+\askforoverwritefalse
 
 \preamble
 
@@ -156,11 +157,20 @@ version.
 
 \endpreamble
 
-\usedir{tex/latex/fduthesis}
 \generate{
+  \usedir{tex/latex/fduthesis}
   \file{\jobname.cls}{\from{\jobname.dtx}{cls}}
   \file{\jobname.def}{\from{\jobname.dtx}{def}}
   \file{\jobname-user.def}{\from{\jobname.dtx}{user}}
+%</install>
+%<*internal>
+  \usedir{source/latex/fduthesis}
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+%</internal>
+%<*install>
+  \nopreamble\nopostamble
+  \usedir{doc/latex/fduthesis}
+  \file{README.md}{\from{\jobname.dtx}{readme}}
 }
 
 \obeyspaces
@@ -181,20 +191,11 @@ version.
 \Msg{* Happy TeXing!                                             *}
 \Msg{*                                                           *}
 \Msg{*************************************************************}
+
+\endbatchfile
 %</install>
-%<install>\endbatchfile
 %
 %<*internal>
-\usedir{source/latex/fduthesis}
-\generate{\file{\jobname.ins}{\from{\jobname.dtx}{install}}}
-\nopreamble\nopostamble
-\usedir{doc/latex/fduthesis}
-\generate{\file{README.md}{\from{\jobname.dtx}{readme}}}
-
-\ifx\fmtname\nameofplainTeX
-  \expandafter\endbatchfile
-\else
-  \expandafter\endgroup
 \fi
 %</internal>
 %
