@@ -362,7 +362,8 @@
             { 9 <= \l_keys_choice_int <= 11 }
             { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
         }
-    }
+    },
+    footnotestyle .value_required:n = true
   }
 \cs_new:Npn \fdu_fn_symbol_libertinus:V #1
   {
@@ -568,6 +569,30 @@
     keywords*   .clist_set:N = \l__fdu_info_keywords_e_clist,
     clc         .tl_set:N    = \l__fdu_info_clc_tl
   }
+\bool_new:N \l__fdu_secret_bool
+\tl_new:N \l__fdu_info_secret_level_tl
+\keys_define:nn { fdu / info }
+  {
+    secretlevel .choices:nn  = {
+      none, i, ii, iii
+    }
+    {
+      \int_compare:nTF
+        { \l_keys_choice_int >= 2 }
+        {
+          \bool_set_true:N \l__fdu_secret_bool
+          \setmathfont { XITS~ Math } [ version = secret-XITS ]
+          \tl_set:Nn \l__fdu_info_secret_level_tl
+            {
+              \clist_item:Nn \c__fdu_def_name_secret_clist
+                { \l_keys_choice_int - 1 }
+            }
+        }
+        { \bool_set_false:N \l__fdu_secret_bool }
+    },
+    secretlevel .value_required:n = true,
+    secretyear .tl_set:N = \l__fdu_info_secret_year_tl
+  }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
     \makebox [ #1 ] [ s ]
@@ -608,10 +633,21 @@
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
-      % WARNING: I don't know whether the following is OK!
       \fdu_fixed_width_box:Nn \c__fdu_def_cover_id_width_tl
         {
           \__fdu_cover_font_size_small:
+          \bool_if:NT \l__fdu_secret_bool
+            {
+              \group_begin:
+                \sffamily \mathversion { secret-XITS }
+                \c__fdu_def_name_secret_level_tl
+                \c__fdu_colon_fullwidth_tl
+                \l__fdu_info_secret_level_tl
+                \c__fdu_def_name_secret_star_tl
+                \l__fdu_info_secret_year_tl
+              \group_end:
+              \par
+            }
           \c__fdu_def_name_school_id_tl
           \c__fdu_colon_fullwidth_tl
           \l__fdu_info_school_id_tl
@@ -827,6 +863,7 @@
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
     style / fullwidth-stop  =  false,
+    info  / secretlevel     =  none,
     info  / date            =  \today,
     info  / schoolid        =  10246
   }

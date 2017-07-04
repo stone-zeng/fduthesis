@@ -415,7 +415,7 @@ version.
 %
 % \begin{function}{style/fullwidth-stop}
 %   \begin{syntax}
-%     fontsize = <\TFF>
+%     fullwidth-stop = <\TFF>
 %   \end{syntax}
 %   选择是否把全角实心句点“\symbol{"FF0E}”作为默认的句号形状。
 %   这种句号一般用于科技类文章，以便与下标 o 或 0 区分。
@@ -529,6 +529,22 @@ version.
 %     date = \Arg{日期}
 %   \end{syntax}
 %   论文完成日期。默认值为文档编译日期（\tn{today}）。
+% \end{function}
+%
+% \begin{function}{info/secretlevel}
+%   \begin{syntax}
+%     secretlevel = <(none)|i|ii|iii>
+%   \end{syntax}
+%   密级。|i|、|ii|、|iii| 分别表示秘密、机密、绝密；|none| 表示论文不
+%   涉密，即不显示密级与保密年限。
+% \end{function}
+%
+% \begin{function}{info/secretyear}
+%   \begin{syntax}
+%     secretlevel = \Arg{年限}
+%   \end{syntax}
+%   保密年限。建议您使用中文，如“五年”。此选项在 |secretlevel = none|
+%   时无效。
 % \end{function}
 %
 % \begin{function}{info/instructors}
@@ -1235,8 +1251,8 @@ version.
 % |pifont|：使用 \pkg{pifont} 宏包；
 % |xits|：取自 XITS-Math 字体。
 %
-% 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，
-% 带“|*|”的为阴文版本。
+% 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，带“|*|”的
+% 为阴文版本。
 %    \begin{macrocode}
     footnotestyle .choices:nn = {
       plain,
@@ -1259,7 +1275,8 @@ version.
             { 9 <= \l_keys_choice_int <= 11 }
             { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
         }
-    }
+    },
+    footnotestyle .value_required:n = true
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1755,6 +1772,60 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{密级}
+% \begin{macro}{\l__fdu_secret_bool}
+% 是否显示密级。
+%    \begin{macrocode}
+\bool_new:N \l__fdu_secret_bool
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\l__fdu_info_secret_level_tl}
+% 保存当前的密级。
+%    \begin{macrocode}
+\tl_new:N \l__fdu_info_secret_level_tl
+%    \end{macrocode}
+% \end{macro}
+%
+% 密级也放在 |fdu/info| 键值类中。
+%    \begin{macrocode}
+\keys_define:nn { fdu / info }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{info/secretlevel}
+% 密级。|none| 表示不涉密，|i|、|ii|、|iii| 分别为秘密、机密、绝密。
+% 密级与保密年限中间的五角星符号需要利用 XITS-Math 字体。
+%    \begin{macrocode}
+    secretlevel .choices:nn  = {
+      none, i, ii, iii
+    }
+    {
+      \int_compare:nTF
+        { \l_keys_choice_int >= 2 }
+        {
+          \bool_set_true:N \l__fdu_secret_bool
+          \setmathfont { XITS~ Math } [ version = secret-XITS ]
+          \tl_set:Nn \l__fdu_info_secret_level_tl
+            {
+              \clist_item:Nn \c__fdu_def_name_secret_clist
+                { \l_keys_choice_int - 1 }
+            }
+        }
+        { \bool_set_false:N \l__fdu_secret_bool }
+    },
+    secretlevel .value_required:n = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/secretyear}
+% 保密年限。
+%    \begin{macrocode}
+    secretyear .tl_set:N = \l__fdu_info_secret_year_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{定义内部函数}
 % \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV,
 %   \fdu_spread_box:Nx}
@@ -1855,10 +1926,21 @@ version.
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
-      % WARNING: I don't know whether the following is OK!
       \fdu_fixed_width_box:Nn \c__fdu_def_cover_id_width_tl
         {
           \__fdu_cover_font_size_small:
+          \bool_if:NT \l__fdu_secret_bool
+            {
+              \group_begin:
+                \sffamily \mathversion { secret-XITS }
+                \c__fdu_def_name_secret_level_tl
+                \c__fdu_colon_fullwidth_tl
+                \l__fdu_info_secret_level_tl
+                \c__fdu_def_name_secret_star_tl
+                \l__fdu_info_secret_year_tl
+              \group_end:
+              \par
+            }
           \c__fdu_def_name_school_id_tl
           \c__fdu_colon_fullwidth_tl
           \l__fdu_info_school_id_tl
@@ -2402,6 +2484,7 @@ version.
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
     style / fullwidth-stop  =  false,
+    info  / secretlevel     =  none,
     info  / date            =  \today,
     info  / schoolid        =  10246
   }
@@ -2589,8 +2672,17 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\c__fdu_def_name_secret_clist}
+% 三种密级。
+%    \begin{macrocode}
+\clist_const:Nn \c__fdu_def_name_secret_clist { 秘密, 机密, 绝密 }
+%    \end{macrocode}
+% \end{macro}
+%
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_name_secret_level_tl   { 密 \qquad 级 }
+\tl_const:Nn \c__fdu_def_name_secret_star_tl    { $ \bigstar $ }
 \tl_const:Nn \c__fdu_def_name_school_id_tl      { 学校代码     }
 \tl_const:Nn \c__fdu_def_name_student_id_tl     { 学 \qquad 号 }
 \tl_const:Nn \c__fdu_def_name_thesis_type_tl    { 博士学位论文 }

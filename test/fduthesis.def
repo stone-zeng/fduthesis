@@ -89,6 +89,9 @@
 \tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
 \tl_const:Nn \c__fdu_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
 \tl_const:Nn \c__fdu_def_cover_title_e_line_spread_tl { 1.2 }
+\clist_const:Nn \c__fdu_def_name_secret_clist { 秘密, 机密, 绝密 }
+\tl_const:Nn \c__fdu_def_name_secret_level_tl   { 密 \qquad 级 }
+\tl_const:Nn \c__fdu_def_name_secret_star_tl    { $ \bigstar $ }
 \tl_const:Nn \c__fdu_def_name_school_id_tl      { 学校代码     }
 \tl_const:Nn \c__fdu_def_name_student_id_tl     { 学 \qquad 号 }
 \tl_const:Nn \c__fdu_def_name_thesis_type_tl    { 博士学位论文 }
