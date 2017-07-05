@@ -2267,9 +2267,9 @@ version.
 % \end{macro}
 %
 % \subsection{声明页}
-% 下划线需要利用 \pkg{xeCJKfntef} 宏包。
+% 下划线需要利用 \pkg{ulem} 宏包。
 %    \begin{macrocode}
-\RequirePackage{xeCJKfntef}
+\RequirePackage{ulem}
 %    \end{macrocode}
 %
 % \begin{macro}{\__fdu_decl_text:NNn}
@@ -2304,7 +2304,7 @@ version.
 % 生成下划线占位符。|#1| = 长度。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_blank_underline:N #1
-  { \CJKunderline { \hbox_to_wd:nn { #1 } { } } }
+  { \uline { \hbox_to_wd:nn { #1 } { } } }
 %    \end{macrocode}
 % \end{macro}
 %

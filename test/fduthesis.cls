@@ -850,7 +850,7 @@
       \end{longtable}
     \group_end:
   }
-\RequirePackage{xeCJKfntef}
+\RequirePackage{ulem}
 \cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
   {
     \begin{center}
@@ -869,7 +869,7 @@
     { \hfill #3 }
   }
 \cs_new:Npn \fdu_blank_underline:N #1
-  { \CJKunderline { \hbox_to_wd:nn { #1 } { } } }
+  { \uline { \hbox_to_wd:nn { #1 } { } } }
 \AtEndDocument{
   \cleardoublepage
   \thispagestyle { empty }
