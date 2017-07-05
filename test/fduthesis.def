@@ -89,27 +89,57 @@
 \tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
 \tl_const:Nn \c__fdu_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
 \tl_const:Nn \c__fdu_def_cover_title_e_line_spread_tl { 1.2 }
+\tl_const:Nn \c__fdu_def_decl_v_sep_i_tl   { \stretch { 0.2 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_ii_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_iii_tl { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_iv_tl  { 0.8 cm }
+\tl_const:Nn \c__fdu_def_decl_text_line_spread_tl { 1.8 }
+\tl_const:Nn \c__fdu_def_decl_sign_width_tl { 6 em }
+\tl_const:Nn \c__fdu_def_decl_date_width_tl { 5 em }
+\tl_const:Nn \c__fdu_def_originality_decl_text_tl
+  {
+    本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研
+    究工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人
+    或机构已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集
+    体，均已在论文中作了明确的声明并表示了谢意。本声明的法律结果由本
+    人承担。
+  }
+\tl_const:Nn \c__fdu_def_authorization_decl_text_tl
+  {
+    本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：
+    学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版
+    本；允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以
+    采用影印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此
+    规定。
+  }
 \clist_const:Nn \c__fdu_def_name_secret_clist { 秘密, 机密, 绝密 }
-\tl_const:Nn \c__fdu_def_name_secret_level_tl   { 密 \qquad 级 }
-\tl_const:Nn \c__fdu_def_name_secret_star_tl    { $ \bigstar $ }
-\tl_const:Nn \c__fdu_def_name_school_id_tl      { 学校代码     }
-\tl_const:Nn \c__fdu_def_name_student_id_tl     { 学 \qquad 号 }
-\tl_const:Nn \c__fdu_def_name_thesis_type_tl    { 博士学位论文 }
-\tl_const:Nn \c__fdu_def_name_degree_type_tl    { （学术学位） }
-\tl_const:Nn \c__fdu_def_name_department_tl     { 院系         }
-\tl_const:Nn \c__fdu_def_name_major_tl          { 专业         }
-\tl_const:Nn \c__fdu_def_name_author_tl         { 姓名         }
-\tl_const:Nn \c__fdu_def_name_supervisor_tl     { 指导教师     }
-\tl_const:Nn \c__fdu_def_name_date_tl           { 完成日期     }
-\tl_const:Nn \c__fdu_def_name_instructors_tl    { 指导小组成员 }
-\tl_const:Nn \c__fdu_def_name_toc_tl            { 目 \quad 录  }
-\tl_const:Nn \c__fdu_def_name_abstract_tl       { 摘 \quad 要  }
-\tl_const:Nn \c__fdu_def_name_keywords_tl       { 关键字       }
-\tl_const:Nn \c__fdu_def_name_clc_tl            { 中图分类号   }
-\tl_const:Nn \c__fdu_def_name_abstract_e_tl     { Abstract     }
-\tl_const:Nn \c__fdu_def_name_keywords_e_tl     { Keywords:    }
-\tl_const:Nn \c__fdu_def_name_clc_e_tl          { CLC~ number: }
-\tl_const:Nn \c__fdu_def_name_notation_tl       { 符号表       }
+\tl_const:Nn \c__fdu_def_name_secret_level_tl     { 密 \qquad 级 }
+\tl_const:Nn \c__fdu_def_name_secret_star_tl      { $ \bigstar $ }
+\tl_const:Nn \c__fdu_def_name_school_id_tl        { 学校代码     }
+\tl_const:Nn \c__fdu_def_name_student_id_tl       { 学 \qquad 号 }
+\tl_const:Nn \c__fdu_def_name_thesis_type_tl      { 博士学位论文 }
+\tl_const:Nn \c__fdu_def_name_degree_type_tl      { （学术学位） }
+\tl_const:Nn \c__fdu_def_name_department_tl       { 院系         }
+\tl_const:Nn \c__fdu_def_name_major_tl            { 专业         }
+\tl_const:Nn \c__fdu_def_name_author_tl           { 姓名         }
+\tl_const:Nn \c__fdu_def_name_supervisor_tl       { 指导教师     }
+\tl_const:Nn \c__fdu_def_name_date_tl             { 完成日期     }
+\tl_const:Nn \c__fdu_def_name_instructors_tl      { 指导小组成员 }
+\tl_const:Nn \c__fdu_def_name_toc_tl              { 目 \quad 录  }
+\tl_const:Nn \c__fdu_def_name_abstract_tl         { 摘 \quad 要  }
+\tl_const:Nn \c__fdu_def_name_keywords_tl         { 关键字       }
+\tl_const:Nn \c__fdu_def_name_clc_tl              { 中图分类号   }
+\tl_const:Nn \c__fdu_def_name_abstract_e_tl       { Abstract     }
+\tl_const:Nn \c__fdu_def_name_keywords_e_tl       { Keywords:    }
+\tl_const:Nn \c__fdu_def_name_clc_e_tl            { CLC~ number: }
+\tl_const:Nn \c__fdu_def_name_notation_tl         { 符号表       }
+\tl_const:Nn \c__fdu_def_name_originality_decl_tl
+  { 复旦大学 \\ 学位论文独创性声明   }
+\tl_const:Nn \c__fdu_def_name_authorization_decl_tl
+  { 复旦大学 \\ 学位论文使用授权声明 }
+\tl_const:Nn \c__fdu_def_name_author_sign_tl      { 作者签名     }
+\tl_const:Nn \c__fdu_def_name_supervisor_sign_tl  { 导师签名     }
+\tl_const:Nn \c__fdu_def_name_sign_date_tl        { 日期         }
 \endinput
 %%
 %% End of file `fduthesis.def'.

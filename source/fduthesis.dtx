@@ -2266,6 +2266,95 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{声明页}
+% 下划线需要利用 \pkg{xeCJKfntef} 宏包。
+%    \begin{macrocode}
+\RequirePackage{xeCJKfntef}
+%    \end{macrocode}
+%
+% \begin{macro}{\__fdu_decl_text:NNn}
+% 构建声明文本。|#1| = 标题，|#2| = 内容，|#3| = 签名行。段前空格
+% 需要用 \tn{qquad} 手动生成。
+%    \begin{macrocode}
+\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
+  {
+    \begin{center}
+      \__fdu_cover_font_size_large: \sffamily #1
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \begin{center}
+      \fdu_fixed_width_box:Nn \textwidth
+        {
+          \linespread { \c__fdu_def_decl_text_line_spread_tl }
+          \selectfont
+          \qquad #2
+        }
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+%    \end{macrocode}
+%
+% \tn{hfill} 用来确保签名行靠右对齐。
+%    \begin{macrocode}
+    { \hfill #3 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_blank_underline:N}
+% 生成下划线占位符。|#1| = 长度。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_blank_underline:N #1
+  { \CJKunderline { \hbox_to_wd:nn { #1 } { } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% 声明页放在全文末尾，并且需要关闭页眉、页脚显示。
+%    \begin{macrocode}
+\AtEndDocument{
+  \cleardoublepage
+  \thispagestyle { empty }
+  \vspace* { \c__fdu_def_decl_v_sep_i_tl }
+%    \end{macrocode}
+%
+% 论文独创性声明。
+%    \begin{macrocode}
+  \__fdu_decl_text:NNn
+    \c__fdu_def_name_originality_decl_tl
+    \c__fdu_def_originality_decl_text_tl
+    {
+      \c__fdu_def_name_author_sign_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+      \quad
+      \c__fdu_def_name_sign_date_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+    }
+  \vspace{ \c__fdu_def_decl_v_sep_ii_tl }
+%    \end{macrocode}
+%
+% 论文使用授权声明。
+%    \begin{macrocode}
+  \__fdu_decl_text:NNn
+    \c__fdu_def_name_authorization_decl_tl
+    \c__fdu_def_authorization_decl_text_tl
+    {
+      \c__fdu_def_name_author_sign_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+      \quad
+      \c__fdu_def_name_supervisor_sign_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+      \quad
+      \c__fdu_def_name_sign_date_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+    }
+  \vspace{ \c__fdu_def_decl_v_sep_iii_tl }
+}
+%    \end{macrocode}
+%
 % \subsection{文字绕排}
 % WARNING：严重冲突，暂时不启用。
 %    \begin{macrocode}
@@ -2496,6 +2585,7 @@ version.
 %<*def>
 %    \end{macrocode}
 %
+% \subsubsection{通用配置}
 % \begin{macro}{\c__fdu_full_stop_ideographic_tl,
 %   \c__fdu_full_stop_fullwidth_tl,
 %   \c__fdu_colon_fullwidth_tl,
@@ -2599,11 +2689,12 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{封面}
 % \begin{macro}{\__fdu_cover_font_size_small:,
 %   \__fdu_cover_font_size_normal:,
 %   \__fdu_cover_font_size_large:,
 %   \__fdu_cover_font_size_huge:}
-% 封面字号，使用固定值。这里的定义与正文字号有所不同。
+% 字号，使用固定值。这里的定义与正文字号有所不同。
 %    \begin{macrocode}
 \cs_new:Nn \__fdu_cover_font_size_small:  { \zihao { -5 } }
 \cs_new:Nn \__fdu_cover_font_size_normal: { \zihao {  4 } }
@@ -2672,6 +2763,74 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{声明页}
+% \begin{macro}{\c__fdu_def_decl_v_sep_i_tl,
+%   \c__fdu_def_decl_v_sep_ii_tl,
+%   \c__fdu_def_decl_v_sep_iii_tl,
+%   \c__fdu_def_decl_v_sep_iv_tl}
+% 声明页中的一些垂直间距，按自上而下的顺序排列。最后一项是标题与
+% 文本、文本与签名行的间距。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_decl_v_sep_i_tl   { \stretch { 0.2 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_ii_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_iii_tl { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_iv_tl  { 0.8 cm }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_decl_text_line_spread_tl}
+% 声明文本的行距倍数。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_decl_text_line_spread_tl { 1.8 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_decl_sign_width_tl,
+%   \c__fdu_def_decl_date_width_tl}
+% 签名栏和日期栏的宽度。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_decl_sign_width_tl { 6 em }
+\tl_const:Nn \c__fdu_def_decl_date_width_tl { 5 em }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_originality_decl_text_tl}
+% 论文独创性声明。
+% ^^A 这里切换一下句号的类别码，以使代码中显示为圆圈句号。
+% ^^A 这不会影响最终论文输出（最终将始终输出圆圈句号）。
+% \catcode`\。=12
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_originality_decl_text_tl
+  {
+    本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研
+    究工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人
+    或机构已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集
+    体，均已在论文中作了明确的声明并表示了谢意。本声明的法律结果由本
+    人承担。
+  }
+%    \end{macrocode}
+% \catcode`\。 = \active
+% \newcommand{。}{．}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_authorization_decl_text_tl}
+% 论文使用授权声明。
+% \catcode`\。=12
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_authorization_decl_text_tl
+  {
+    本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：
+    学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版
+    本；允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以
+    采用影印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此
+    规定。
+  }
+%    \end{macrocode}
+% \catcode`\。 = \active
+% \newcommand{。}{．}
+% \end{macro}
+%
+% \subsubsection{默认名称}
 % \begin{macro}{\c__fdu_def_name_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
@@ -2681,26 +2840,33 @@ version.
 %
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_name_secret_level_tl   { 密 \qquad 级 }
-\tl_const:Nn \c__fdu_def_name_secret_star_tl    { $ \bigstar $ }
-\tl_const:Nn \c__fdu_def_name_school_id_tl      { 学校代码     }
-\tl_const:Nn \c__fdu_def_name_student_id_tl     { 学 \qquad 号 }
-\tl_const:Nn \c__fdu_def_name_thesis_type_tl    { 博士学位论文 }
-\tl_const:Nn \c__fdu_def_name_degree_type_tl    { （学术学位） }
-\tl_const:Nn \c__fdu_def_name_department_tl     { 院系         }
-\tl_const:Nn \c__fdu_def_name_major_tl          { 专业         }
-\tl_const:Nn \c__fdu_def_name_author_tl         { 姓名         }
-\tl_const:Nn \c__fdu_def_name_supervisor_tl     { 指导教师     }
-\tl_const:Nn \c__fdu_def_name_date_tl           { 完成日期     }
-\tl_const:Nn \c__fdu_def_name_instructors_tl    { 指导小组成员 }
-\tl_const:Nn \c__fdu_def_name_toc_tl            { 目 \quad 录  }
-\tl_const:Nn \c__fdu_def_name_abstract_tl       { 摘 \quad 要  }
-\tl_const:Nn \c__fdu_def_name_keywords_tl       { 关键字       }
-\tl_const:Nn \c__fdu_def_name_clc_tl            { 中图分类号   }
-\tl_const:Nn \c__fdu_def_name_abstract_e_tl     { Abstract     }
-\tl_const:Nn \c__fdu_def_name_keywords_e_tl     { Keywords:    }
-\tl_const:Nn \c__fdu_def_name_clc_e_tl          { CLC~ number: }
-\tl_const:Nn \c__fdu_def_name_notation_tl       { 符号表       }
+\tl_const:Nn \c__fdu_def_name_secret_level_tl     { 密 \qquad 级 }
+\tl_const:Nn \c__fdu_def_name_secret_star_tl      { $ \bigstar $ }
+\tl_const:Nn \c__fdu_def_name_school_id_tl        { 学校代码     }
+\tl_const:Nn \c__fdu_def_name_student_id_tl       { 学 \qquad 号 }
+\tl_const:Nn \c__fdu_def_name_thesis_type_tl      { 博士学位论文 }
+\tl_const:Nn \c__fdu_def_name_degree_type_tl      { （学术学位） }
+\tl_const:Nn \c__fdu_def_name_department_tl       { 院系         }
+\tl_const:Nn \c__fdu_def_name_major_tl            { 专业         }
+\tl_const:Nn \c__fdu_def_name_author_tl           { 姓名         }
+\tl_const:Nn \c__fdu_def_name_supervisor_tl       { 指导教师     }
+\tl_const:Nn \c__fdu_def_name_date_tl             { 完成日期     }
+\tl_const:Nn \c__fdu_def_name_instructors_tl      { 指导小组成员 }
+\tl_const:Nn \c__fdu_def_name_toc_tl              { 目 \quad 录  }
+\tl_const:Nn \c__fdu_def_name_abstract_tl         { 摘 \quad 要  }
+\tl_const:Nn \c__fdu_def_name_keywords_tl         { 关键字       }
+\tl_const:Nn \c__fdu_def_name_clc_tl              { 中图分类号   }
+\tl_const:Nn \c__fdu_def_name_abstract_e_tl       { Abstract     }
+\tl_const:Nn \c__fdu_def_name_keywords_e_tl       { Keywords:    }
+\tl_const:Nn \c__fdu_def_name_clc_e_tl            { CLC~ number: }
+\tl_const:Nn \c__fdu_def_name_notation_tl         { 符号表       }
+\tl_const:Nn \c__fdu_def_name_originality_decl_tl
+  { 复旦大学 \\ 学位论文独创性声明   }
+\tl_const:Nn \c__fdu_def_name_authorization_decl_tl
+  { 复旦大学 \\ 学位论文使用授权声明 }
+\tl_const:Nn \c__fdu_def_name_author_sign_tl      { 作者签名     }
+\tl_const:Nn \c__fdu_def_name_supervisor_sign_tl  { 导师签名     }
+\tl_const:Nn \c__fdu_def_name_sign_date_tl        { 日期         }
 %</def>
 %    \end{macrocode}
 %

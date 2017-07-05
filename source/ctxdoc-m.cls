@@ -904,9 +904,13 @@
   \addcontentsline{toc}{section}{\normalfont\sffamily\indexname}
   \markright{\indexname}
 %%%%\section{\indexname}
+%% Modified by Xiangdong Zeng, 2017-07-05.
+%%%%  \textit{意大利体的数字表示描述对应索引项的页码；
+%%%%  带下划线的数字表示定义对应索引项的代码行号；
+%%%%  罗马字体的数字表示使用对应索引项的代码行号。}}
   \textit{意大利体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
-  罗马字体的数字表示使用对应索引项的代码行号。}}
+  罗马字体的数字表示使用对应索引项的代码行号．}}
 %% Modified by Xiangdong Zeng, 2017-04-08.
 \def\IndexLayout{%
 %%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%

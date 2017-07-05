@@ -850,6 +850,61 @@
       \end{longtable}
     \group_end:
   }
+\RequirePackage{xeCJKfntef}
+\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
+  {
+    \begin{center}
+      \__fdu_cover_font_size_large: \sffamily #1
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \begin{center}
+      \fdu_fixed_width_box:Nn \textwidth
+        {
+          \linespread { \c__fdu_def_decl_text_line_spread_tl }
+          \selectfont
+          \qquad #2
+        }
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    { \hfill #3 }
+  }
+\cs_new:Npn \fdu_blank_underline:N #1
+  { \CJKunderline { \hbox_to_wd:nn { #1 } { } } }
+\AtEndDocument{
+  \cleardoublepage
+  \thispagestyle { empty }
+  \vspace* { \c__fdu_def_decl_v_sep_i_tl }
+  \__fdu_decl_text:NNn
+    \c__fdu_def_name_originality_decl_tl
+    \c__fdu_def_originality_decl_text_tl
+    {
+      \c__fdu_def_name_author_sign_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+      \quad
+      \c__fdu_def_name_sign_date_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+    }
+  \vspace{ \c__fdu_def_decl_v_sep_ii_tl }
+  \__fdu_decl_text:NNn
+    \c__fdu_def_name_authorization_decl_tl
+    \c__fdu_def_authorization_decl_text_tl
+    {
+      \c__fdu_def_name_author_sign_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+      \quad
+      \c__fdu_def_name_supervisor_sign_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+      \quad
+      \c__fdu_def_name_sign_date_tl
+      \c__fdu_colon_fullwidth_tl
+      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+    }
+  \vspace{ \c__fdu_def_decl_v_sep_iii_tl }
+}
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } { #1 },
