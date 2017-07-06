@@ -432,7 +432,7 @@ version.
 % \end{function}
 %
 % \begin{table}[h]
-% \caption{西文字体设置与脚注样式默认值的对应关系}
+% \caption{西文字体与脚注样式默认值的对应关系}
 % \centering
 % \begin{tabular}{ccccc}
 %   \toprule
@@ -443,20 +443,18 @@ version.
 % \end{tabular}
 % \end{table}
 %
-%^^A \begin{shellexample}
-%^^A   #!/usr/bin/env sh
-%^^A
-%^^A   # Install `zhlipsum`
-%^^A   git clone https://github.com/Stone-Zeng/zhlipsum.git
-%^^A
-%^^A   mkdir -p /home/travis/texmf/tex/latex/zhlipsum
-%^^A   cp zhlipsum/zhlipsum.sty        \
-%^^A     /home/travis/texmf/tex/latex/zhlipsum
-%^^A   cp zhlipsum/zhlipsum-zh-cn.def  \
-%^^A     /home/travis/texmf/tex/latex/zhlipsum
-%^^A
-%^^A   mktexlsr
-%^^A \end{shellexample}
+% \begin{function}{style/automakecover}
+%   \begin{syntax}
+%     automakecover = <\TTF>
+%   \end{syntax}
+%   是否自动生成封面以及指导小组成员名单。其中的各项信息，可通过
+%   \cs{fdusetup} 录入，具体请参阅 \ref{subsubsec:信息录入}~节。
+% \end{function}
+%
+% \begin{function}{\makecoveri,\makecoverii}
+%   用于手动生成论文封面和指导小组成员名单。这两个命令不能保证页码的
+%   正确编排，因此除非必要，您应当始终使用自动生成的封面。
+% \end{function}
 %
 % \subsubsection{信息录入} \label{subsubsec:信息录入}
 % \begin{function}{info}
@@ -576,19 +574,8 @@ version.
 %   声明前置部分开始。
 % \end{function}
 %
-% 在本模板中，前置部分包含封面、指导小组成员名单、目录、中英文摘要
-% 以及符号表等。前置部分的页码采用小写罗马字母，并且与正文分开计数。
-% 其中，指导小组成员名单不计入目录项。
-%
-% \begin{function}{\makecover}
-%   生成论文封面和指导小组成员名单。其中的各项信息，可通过
-%   \cs{fdusetup} 录入，具体请参阅 \ref{subsubsec:信息录入}~节。
-% \end{function}
-%
-% \begin{function}{\makecoveri,\makecoverii}
-%   分别生成论文封面和指导小组成员名单。这两个命令已经利用
-%   \cs{makecover} 进行了封装，如无特殊需求，不建议您直接使用它们。
-% \end{function}
+% 在本模板中，前置部分包含目录、中英文摘要以及符号表等。前置部分的
+% 页码采用小写罗马字母，并且与正文分开计数。
 %
 % \begin{function}{\tableofcontents}
 %   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
@@ -624,6 +611,7 @@ version.
 % \end{function}
 %
 % \subsubsection{猪肚}
+%
 % \subsubsection{豹尾}
 %
 % \StopEventually{
@@ -760,7 +748,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{draft}
+% \begin{macro}{draft,\g__fdu_draft_bool}
 % 是否开启草稿模式（默认关闭）。
 %    \begin{macrocode}
     draft .choice:,
@@ -1451,8 +1439,8 @@ version.
       }
 %    \end{macrocode}
 %
-% 变量 \cs{g__fdu_fn_style_tl} 保存的类型未知时，
-% 默认使用 |plain| 类型。
+% 变量 \cs{l__fdu_fn_style_tl} 保存的类型未知时，默认使用 |plain|
+% 类型。
 %    \begin{macrocode}
       { \int_use:N \l__fdu_tmpa_int }
   }
@@ -1519,8 +1507,8 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
-% 带编号的定理环境。|#1| = 样式， |#2| = 计数器，
-% |#3| = 定理环境名称，|#4| = 定理头文字。
+% 带编号的定理环境。|#1| = 样式， |#2| = 计数器，|#3| = 定理环境名称，
+% |#4| = 定理头文字。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
   {
@@ -1577,8 +1565,8 @@ version.
 %    \end{macrocode}
 %
 % 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
-% \cs{QED}，而由 \cs{fdunewtheorem} 创建的则不带证毕符号。
-% 符号 \cs{QED} 由 \pkg{unicode-math} 宏包提供。
+% \cs{QED}，而由 \cs{fdunewtheorem} 创建的则不带证毕符号。符号
+% \cs{QED} 由 \pkg{unicode-math} 宏包提供。
 %    \begin{macrocode}
     \IfBooleanTF #1
       { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
@@ -2086,13 +2074,15 @@ version.
 %
 % \begin{macro}{\makecoverii}
 % 生成 |titlepage| 的第二页，即指导小组成员名单。为禁止之后的分页，
-% 此处将 \tn{cleardoublepage} 临时设置为 \tn{relax}。
+% 此处将 \tn{cleardoublepage} 临时设置为 \tn{relax}。为了关闭该页的
+% 页眉页脚，此处使用了生成不编号章节的原始命令 \tn{@schapter}。
 %    \begin{macrocode}
 \NewDocumentCommand \makecoverii { }
   {
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
-      \chapter*
+      \thispagestyle { empty }
+      \@schapter
         {
           \fdu_spread_box:NV
             \c__fdu_def_cover_instructors_width_tl
@@ -2107,17 +2097,29 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\makecover}
-% 生成封面和指导小组成员名单的统一命令。
+% \begin{macro}{style/automakecover,\l__fdu_auto_make_cover_bool}
+% 是否自动生成封面。
 %    \begin{macrocode}
-\NewDocumentCommand \makecover { }
+\keys_define:nn { fdu / style }
   {
-    \begin{titlepage}
-      \makecoveri \newpage \makecoverii
-    \end{titlepage}
+    automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
+    automakecover .default:n  = true
   }
 %    \end{macrocode}
 % \end{macro}
+%
+% 在 |document| 开始处添加封面以及指导小组成员名单。
+%    \begin{macrocode}
+\AtBeginDocument
+  {
+    \bool_if:NT \l__fdu_auto_make_cover_bool
+      {
+        \begin{titlepage}
+          \makecoveri \newpage \makecoverii
+        \end{titlepage}
+      }
+  }
+%    \end{macrocode}
 %
 % \subsection{目录}
 % 设置目录标题为“目 \quad 录”。
@@ -2573,6 +2575,7 @@ version.
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
     style / fullwidth-stop  =  false,
+    style / automakecover   =  true,
     info  / secretlevel     =  none,
     info  / date            =  \today,
     info  / schoolid        =  10246
@@ -2871,9 +2874,11 @@ version.
 %    \end{macrocode}
 %
 % \subsection{用户配置文件}
+% 以下是一个示例：修改论文类型为“硕士学位论文”。
 %    \begin{macrocode}
 %<*user>
-%% TODO(20170627): 增加一些示例
+%%
+%% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
 %</user>
 %    \end{macrocode}
 %

@@ -753,7 +753,8 @@
   {
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
-      \chapter*
+      \thispagestyle { empty }
+      \@schapter
         {
           \fdu_spread_box:NV
             \c__fdu_def_cover_instructors_width_tl
@@ -765,11 +766,19 @@
       \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
-\NewDocumentCommand \makecover { }
+\keys_define:nn { fdu / style }
   {
-    \begin{titlepage}
-      \makecoveri \newpage \makecoverii
-    \end{titlepage}
+    automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
+    automakecover .default:n  = true
+  }
+\AtBeginDocument
+  {
+    \bool_if:NT \l__fdu_auto_make_cover_bool
+      {
+        \begin{titlepage}
+          \makecoveri \newpage \makecoverii
+        \end{titlepage}
+      }
   }
 \ctexset
   {
@@ -918,6 +927,7 @@
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
     style / fullwidth-stop  =  false,
+    style / automakecover   =  true,
     info  / secretlevel     =  none,
     info  / date            =  \today,
     info  / schoolid        =  10246

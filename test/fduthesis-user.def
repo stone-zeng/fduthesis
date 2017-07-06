@@ -34,7 +34,8 @@
   {User definition file for fduthesis}
 \ProvidesExplFile{\ExplFileName}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
-%% TODO(20170627): 增加一些示例
+%%
+%% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
 \endinput
 %%
 %% End of file `fduthesis-user.def'.
