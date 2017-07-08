@@ -1078,10 +1078,19 @@
 \catcode`\。 = \active
 \newcommand{。}{．}
 
+%% 命令
+\let\DocCs=\cs
+\let\DocTn=\tn
+\renewcommand\cs[2][]{\textcolor{MaterialIndigo}{\DocCs[#1]{#2}}}
+\renewcommand\tn[2][]{\textcolor{MaterialPink}{\DocTn[#1]{#2}}}
+
 % \renewcommand{\pkg}[1]{\textsf{#1}}
 % \renewcommand{\cls}[1]{\textsf{#1}}
 
-\def\fduthesis{fdu\-thesis}
+\hyphenation{fdu-the-sis}
+\hyphenation{clear-dou-ble-page}
+
+\DoNotIndex{\begin,\end}
 
 \EnableCrossrefs
 \CodelineIndex

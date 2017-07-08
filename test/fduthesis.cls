@@ -268,14 +268,14 @@
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
     },
-    fullwidth-stop .choice:,
-    fullwidth-stop / true  .code:n = {
+    fullwidthstop .choice:,
+    fullwidthstop / true  .code:n = {
       \char_set_active_eq:nN { "3002 }
         \c__fdu_full_stop_fullwidth_tl
       \char_set_catcode_active:n { "3002 }
     },
-    fullwidth-stop / false .code:n = { },
-    fullwidth-stop .default:n  = true
+    fullwidthstop / false .code:n = { },
+    fullwidthstop .default:n  = true
   }
 \ctexset
   {
@@ -593,6 +593,7 @@
     secretlevel .value_required:n = true,
     secretyear .tl_set:N = \l__fdu_info_secret_year_tl
   }
+\RequirePackage { graphicx, ulem }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
     \makebox [ #1 ] [ s ]
@@ -628,7 +629,8 @@
       }
     \group_end:
   }
-\RequirePackage { graphicx }
+\cs_new:Npn \fdu_blank_underline:N #1
+  { \uline { \hbox_to_wd:nn { #1 } { } } }
 \cs_new:Npn \__fdu_cover_id:
   {
     \begin{flushright}
@@ -738,6 +740,23 @@
       \end{minipage}
     \end{center}
   }
+\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
+  {
+    \begin{center}
+      \__fdu_cover_font_size_large: \sffamily #1
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \begin{center}
+      \fdu_fixed_width_box:Nn \textwidth
+        {
+          \linespread { \c__fdu_def_decl_text_line_spread_tl }
+          \selectfont
+          \qquad #2
+        }
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    { \hfill #3 }
+  }
 \NewDocumentCommand \makecoveri { }
   {
     \__fdu_cover_id:
@@ -766,6 +785,42 @@
       \clist_use:Nn \l__fdu_info_instructors_clist { \par }
     \end{center}
   }
+\NewDocumentCommand \makecoveriii { }
+  {
+    \cleardoublepage
+    \thispagestyle { empty }
+    \vspace* { \c__fdu_def_decl_v_sep_i_tl }
+    \__fdu_decl_text:NNn
+      \c__fdu_def_name_originality_decl_tl
+      \c__fdu_def_originality_decl_text_tl
+      {
+        \c__fdu_def_name_author_sign_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \quad
+        \c__fdu_def_name_sign_date_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+      }
+    \vspace { \c__fdu_def_decl_v_sep_ii_tl }
+    \__fdu_decl_text:NNn
+      \c__fdu_def_name_authorization_decl_tl
+      \c__fdu_def_authorization_decl_text_tl
+      {
+        \c__fdu_def_name_author_sign_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \quad
+        \c__fdu_def_name_supervisor_sign_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \quad
+        \c__fdu_def_name_sign_date_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+      }
+    \vspace { \c__fdu_def_decl_v_sep_iii_tl }
+  }
 \keys_define:nn { fdu / style }
   {
     automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
@@ -780,6 +835,8 @@
         \end{titlepage}
       }
   }
+\AtEndDocument
+  { \bool_if:NT \l__fdu_auto_make_cover_bool { \makecoveriii } }
 \ctexset
   {
     contentsname = { \c__fdu_def_name_toc_tl },
@@ -859,61 +916,6 @@
       \end{longtable}
     \group_end:
   }
-\RequirePackage{ulem}
-\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
-  {
-    \begin{center}
-      \__fdu_cover_font_size_large: \sffamily #1
-    \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
-    \begin{center}
-      \fdu_fixed_width_box:Nn \textwidth
-        {
-          \linespread { \c__fdu_def_decl_text_line_spread_tl }
-          \selectfont
-          \qquad #2
-        }
-    \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
-    { \hfill #3 }
-  }
-\cs_new:Npn \fdu_blank_underline:N #1
-  { \uline { \hbox_to_wd:nn { #1 } { } } }
-\AtEndDocument{
-  \cleardoublepage
-  \thispagestyle { empty }
-  \vspace* { \c__fdu_def_decl_v_sep_i_tl }
-  \__fdu_decl_text:NNn
-    \c__fdu_def_name_originality_decl_tl
-    \c__fdu_def_originality_decl_text_tl
-    {
-      \c__fdu_def_name_author_sign_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-      \quad
-      \c__fdu_def_name_sign_date_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
-    }
-  \vspace{ \c__fdu_def_decl_v_sep_ii_tl }
-  \__fdu_decl_text:NNn
-    \c__fdu_def_name_authorization_decl_tl
-    \c__fdu_def_authorization_decl_text_tl
-    {
-      \c__fdu_def_name_author_sign_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-      \quad
-      \c__fdu_def_name_supervisor_sign_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-      \quad
-      \c__fdu_def_name_sign_date_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
-    }
-  \vspace{ \c__fdu_def_decl_v_sep_iii_tl }
-}
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } { #1 },
@@ -926,7 +928,7 @@
     style / font            =  times,
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
-    style / fullwidth-stop  =  false,
+    style / fullwidthstop  =  false,
     style / automakecover   =  true,
     info  / secretlevel     =  none,
     info  / date            =  \today,

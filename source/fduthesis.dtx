@@ -246,7 +246,8 @@ version.
 % \DeleteShortVerb\"
 %
 %
-% \title{\textbf{fduthesis：复旦大学论文模板}}
+% \title{\textcolor{MaterialIndigo800}{%
+%   \textbf{fduthesis：复旦大学论文模板}}}
 % \author{曾祥东}
 % \date{\today \quad v0.2^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}^^A
@@ -413,9 +414,9 @@ version.
 %   设置论文的基础字号。
 % \end{function}
 %
-% \begin{function}{style/fullwidth-stop}
+% \begin{function}{style/fullwidthstop}
 %   \begin{syntax}
-%     fullwidth-stop = <\TFF>
+%     fullwidthstop = <\TFF>
 %   \end{syntax}
 %   选择是否把全角实心句点“\symbol{"FF0E}”作为默认的句号形状。
 %   这种句号一般用于科技类文章，以便与下标 o 或 0 区分。
@@ -447,13 +448,15 @@ version.
 %   \begin{syntax}
 %     automakecover = <\TTF>
 %   \end{syntax}
-%   是否自动生成封面以及指导小组成员名单。其中的各项信息，可通过
-%   \cs{fdusetup} 录入，具体请参阅 \ref{subsubsec:信息录入}~节。
+%   是否自动生成论文封面（封一）、指导小组成员名单（封二）和声明页
+%   （封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，具体请参阅
+%   \ref{subsubsec:信息录入}~节。
 % \end{function}
 %
-% \begin{function}{\makecoveri,\makecoverii}
-%   用于手动生成论文封面和指导小组成员名单。这两个命令不能保证页码的
-%   正确编排，因此除非必要，您应当始终使用自动生成的封面。
+% \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
+%   用于\emph{手动}生成论文封面、指导小组成员名单和声明页。这几个
+%   命令不能确保页码的正确编排，因此除非必要，您应当始终使用自动生成
+%   的封面。
 % \end{function}
 %
 % \subsubsection{信息录入} \label{subsubsec:信息录入}
@@ -613,6 +616,8 @@ version.
 % \subsubsection{猪肚}
 %
 % \subsubsection{豹尾}
+%
+% \section{宏包依赖情况}
 %
 % \StopEventually{
 %   \begin{thebibliography}{9}
@@ -1057,7 +1062,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{句号}
-% \begin{macro}{style/fullwidth-stop}
+% \begin{macro}{style/fullwidthstop}
 % 设置句号形状（圆圈或是圆点）。
 % 本模板采用的实现方法是将“\symbol{"3002}”设置为活动符，
 % 并定义为句点“\symbol{"FF0E}”。
@@ -1068,14 +1073,14 @@ version.
 % 另外通过 \LuaLaTeX{} 编译时，底层使用 \pkg{luatexja} 而非
 % \pkg{xeCJK}，也必须采取 \tn{catcode} 的手段来切换。
 %    \begin{macrocode}
-    fullwidth-stop .choice:,
-    fullwidth-stop / true  .code:n = {
+    fullwidthstop .choice:,
+    fullwidthstop / true  .code:n = {
       \char_set_active_eq:nN { "3002 }
         \c__fdu_full_stop_fullwidth_tl
       \char_set_catcode_active:n { "3002 }
     },
-    fullwidth-stop / false .code:n = { },
-    fullwidth-stop .default:n  = true
+    fullwidthstop / false .code:n = { },
+    fullwidthstop .default:n  = true
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1815,6 +1820,12 @@ version.
 % \end{macro}
 %
 % \subsubsection{定义内部函数}
+% \cs{includegraphics} 命令需要用到 \pkg{graphicx} 宏包，而下划线则
+% 要利用 \pkg{ulem} 宏包。
+%    \begin{macrocode}
+\RequirePackage { graphicx, ulem }
+%    \end{macrocode}
+%
 % \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV,
 %   \fdu_spread_box:Nx}
 % 分散对齐的盒子。|#1| = 长度， |#2| = 内容。
@@ -1901,12 +1912,15 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{封面各部件}
-% \cs{includegraphics} 命令需要用到 \pkg{graphicx} 宏包。
+% \begin{macro}{\fdu_blank_underline:N}
+% 下划线占位符。|#1| = 长度。
 %    \begin{macrocode}
-\RequirePackage { graphicx }
+\cs_new:Npn \fdu_blank_underline:N #1
+  { \uline { \hbox_to_wd:nn { #1 } { } } }
 %    \end{macrocode}
+% \end{macro}
 %
+% \subsubsection{封面各部件}
 % \begin{macro}{\__fdu_cover_id:}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
@@ -2054,9 +2068,37 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\__fdu_decl_text:NNn}
+% 构建声明文本。|#1| = 标题，|#2| = 内容，|#3| = 签名行。段前空格
+% 需要用 \tn{qquad} 手动生成。
+%    \begin{macrocode}
+\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
+  {
+    \begin{center}
+      \__fdu_cover_font_size_large: \sffamily #1
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \begin{center}
+      \fdu_fixed_width_box:Nn \textwidth
+        {
+          \linespread { \c__fdu_def_decl_text_line_spread_tl }
+          \selectfont
+          \qquad #2
+        }
+    \end{center}
+    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+%    \end{macrocode}
+%
+% \tn{hfill} 用来确保签名行靠右对齐。
+%    \begin{macrocode}
+    { \hfill #3 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{绘制封面}
 % \begin{macro}{\makecoveri}
-% 生成 |titlepage| 的第一页，即真正的封面。各部件之间用橡皮长度隔开。
+% 生成封一，即真正的封面。各部件之间用橡皮长度隔开。
 %    \begin{macrocode}
 \NewDocumentCommand \makecoveri { }
   {
@@ -2073,15 +2115,21 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\makecoverii}
-% 生成 |titlepage| 的第二页，即指导小组成员名单。为禁止之后的分页，
-% 此处将 \tn{cleardoublepage} 临时设置为 \tn{relax}。为了关闭该页的
-% 页眉页脚，此处使用了生成不编号章节的原始命令 \tn{@schapter}。
+% 生成封二，即指导小组成员名单。
 %    \begin{macrocode}
 \NewDocumentCommand \makecoverii { }
   {
     \group_begin:
+%    \end{macrocode}
+%
+% 临时禁用 \tn{cleardoublepage} 带来的分页。
+%    \begin{macrocode}
       \cs_set_eq:NN \cleardoublepage \relax
       \thispagestyle { empty }
+%    \end{macrocode}
+%
+% 为了关闭页眉页脚，此处使用了不编号章节的原始命令 \tn{@schapter}。
+%    \begin{macrocode}
       \@schapter
         {
           \fdu_spread_box:NV
@@ -2097,6 +2145,56 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\makecoveriii}
+% 生成封三，即声明页。该页也需要关闭页眉、页脚显示。
+%    \begin{macrocode}
+\NewDocumentCommand \makecoveriii { }
+  {
+    \cleardoublepage
+    \thispagestyle { empty }
+    \vspace* { \c__fdu_def_decl_v_sep_i_tl }
+%    \end{macrocode}
+%
+% 独创性声明。
+%    \begin{macrocode}
+    \__fdu_decl_text:NNn
+      \c__fdu_def_name_originality_decl_tl
+      \c__fdu_def_originality_decl_text_tl
+      {
+        \c__fdu_def_name_author_sign_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \quad
+        \c__fdu_def_name_sign_date_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+      }
+    \vspace { \c__fdu_def_decl_v_sep_ii_tl }
+%    \end{macrocode}
+%
+% 使用授权声明。
+%    \begin{macrocode}
+    \__fdu_decl_text:NNn
+      \c__fdu_def_name_authorization_decl_tl
+      \c__fdu_def_authorization_decl_text_tl
+      {
+        \c__fdu_def_name_author_sign_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \quad
+        \c__fdu_def_name_supervisor_sign_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \quad
+        \c__fdu_def_name_sign_date_tl
+        \c__fdu_colon_fullwidth_tl
+        \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+      }
+    \vspace { \c__fdu_def_decl_v_sep_iii_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{style/automakecover,\l__fdu_auto_make_cover_bool}
 % 是否自动生成封面。
 %    \begin{macrocode}
@@ -2108,7 +2206,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% 在 |document| 开始处添加封面以及指导小组成员名单。
+% 在 |document| 开始位置添加封面以及指导小组成员名单。
 %    \begin{macrocode}
 \AtBeginDocument
   {
@@ -2119,6 +2217,12 @@ version.
         \end{titlepage}
       }
   }
+%    \end{macrocode}
+%
+% 在 |document| 结束位置添加声明页。
+%    \begin{macrocode}
+\AtEndDocument
+  { \bool_if:NT \l__fdu_auto_make_cover_bool { \makecoveriii } }
 %    \end{macrocode}
 %
 % \subsection{目录}
@@ -2267,95 +2371,6 @@ version.
   }
 %    \end{macrocode}
 % \end{macro}
-%
-% \subsection{声明页}
-% 下划线需要利用 \pkg{ulem} 宏包。
-%    \begin{macrocode}
-\RequirePackage{ulem}
-%    \end{macrocode}
-%
-% \begin{macro}{\__fdu_decl_text:NNn}
-% 构建声明文本。|#1| = 标题，|#2| = 内容，|#3| = 签名行。段前空格
-% 需要用 \tn{qquad} 手动生成。
-%    \begin{macrocode}
-\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
-  {
-    \begin{center}
-      \__fdu_cover_font_size_large: \sffamily #1
-    \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
-    \begin{center}
-      \fdu_fixed_width_box:Nn \textwidth
-        {
-          \linespread { \c__fdu_def_decl_text_line_spread_tl }
-          \selectfont
-          \qquad #2
-        }
-    \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
-%    \end{macrocode}
-%
-% \tn{hfill} 用来确保签名行靠右对齐。
-%    \begin{macrocode}
-    { \hfill #3 }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_blank_underline:N}
-% 生成下划线占位符。|#1| = 长度。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_blank_underline:N #1
-  { \uline { \hbox_to_wd:nn { #1 } { } } }
-%    \end{macrocode}
-% \end{macro}
-%
-% 声明页放在全文末尾，并且需要关闭页眉、页脚显示。
-%    \begin{macrocode}
-\AtEndDocument{
-  \cleardoublepage
-  \thispagestyle { empty }
-  \vspace* { \c__fdu_def_decl_v_sep_i_tl }
-%    \end{macrocode}
-%
-% 论文独创性声明。
-%    \begin{macrocode}
-  \__fdu_decl_text:NNn
-    \c__fdu_def_name_originality_decl_tl
-    \c__fdu_def_originality_decl_text_tl
-    {
-      \c__fdu_def_name_author_sign_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-      \quad
-      \c__fdu_def_name_sign_date_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
-    }
-  \vspace{ \c__fdu_def_decl_v_sep_ii_tl }
-%    \end{macrocode}
-%
-% 论文使用授权声明。
-%    \begin{macrocode}
-  \__fdu_decl_text:NNn
-    \c__fdu_def_name_authorization_decl_tl
-    \c__fdu_def_authorization_decl_text_tl
-    {
-      \c__fdu_def_name_author_sign_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-      \quad
-      \c__fdu_def_name_supervisor_sign_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-      \quad
-      \c__fdu_def_name_sign_date_tl
-      \c__fdu_colon_fullwidth_tl
-      \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
-    }
-  \vspace{ \c__fdu_def_decl_v_sep_iii_tl }
-}
-%    \end{macrocode}
 %
 % \subsection{文字绕排}
 % WARNING：严重冲突，暂时不启用。
@@ -2574,7 +2589,7 @@ version.
     style / font            =  times,
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
-    style / fullwidth-stop  =  false,
+    style / fullwidthstop  =  false,
     style / automakecover   =  true,
     info  / secretlevel     =  none,
     info  / date            =  \today,
