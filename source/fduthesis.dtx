@@ -1099,7 +1099,7 @@ version.
       format     = \c__fdu_def_chapter_format_tl,
       beforeskip = \c__fdu_def_chapter_before_sep_tl,
       afterskip  = \c__fdu_def_chapter_after_sep_tl,
-      number     = { \arabic{ chapter } },
+      number     = { \arabic { chapter } },
       fixskip    = true
     },
     section = {
@@ -1664,6 +1664,36 @@ version.
 \fdunewtheorem  { proposition } { 命题 }
 \fdunewtheorem  { remark      } { 评注 }
 \fdunewtheorem  { theorem     } { 定理 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{图表绘制；浮动体}
+% 浮动体标题控制需要利用 \pkg{caption} 宏包。
+%    \begin{macrocode}
+\RequirePackage { caption }
+%    \end{macrocode}
+%
+% 分别设置浮动体 |figure| 和 |table| 的标题样式。
+%    \begin{macrocode}
+\captionsetup [ figure ]
+  {
+    font     = small,
+    labelsep = quad
+  }
+\captionsetup [ table  ]
+  {
+    font     = { small, sf },
+    labelsep = quad
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\thefigure,\thetable}
+% 重定义图表编号。
+%    \begin{macrocode}
+\RenewDocumentCommand \thefigure { }
+  { \arabic { chapter } - \arabic { figure } }
+\RenewDocumentCommand \thetable  { }
+  { \arabic { chapter } - \arabic { table  } }
 %    \end{macrocode}
 % \end{macro}
 %

@@ -283,7 +283,7 @@
       format     = \c__fdu_def_chapter_format_tl,
       beforeskip = \c__fdu_def_chapter_before_sep_tl,
       afterskip  = \c__fdu_def_chapter_after_sep_tl,
-      number     = { \arabic{ chapter } },
+      number     = { \arabic { chapter } },
       fixskip    = true
     },
     section = {
@@ -549,6 +549,21 @@
 \fdunewtheorem  { proposition } { 命题 }
 \fdunewtheorem  { remark      } { 评注 }
 \fdunewtheorem  { theorem     } { 定理 }
+\RequirePackage { caption }
+\captionsetup [ figure ]
+  {
+    font     = small,
+    labelsep = quad
+  }
+\captionsetup [ table  ]
+{
+  font     = { small, sf },
+  labelsep = quad
+}
+\RenewDocumentCommand \thefigure { }
+  { \arabic { chapter } - \arabic { figure } }
+\RenewDocumentCommand \thetable  { }
+  { \arabic { chapter } - \arabic { table  } }
 \keys_define:nn { fdu / info }
   {
     title       .tl_set:N    = \l__fdu_info_title_tl,

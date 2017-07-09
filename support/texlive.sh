@@ -85,6 +85,7 @@ tlmgr install         \
 
 # Other
 tlmgr install         \
+  caption             \
   ctex                \
   currfile            \
   environ             \
