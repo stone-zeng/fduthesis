@@ -25,6 +25,7 @@
 %%     This work consists of the file fduthesis.dtx
 %%              and the derived files fduthesis.ins,
 %%                                    fduthesis.cls,
+%%                                    fduthesis-en.cls,
 %%                                    fduthesis.def,
 %%                                    fduthesis-user.def,
 %%                                    fduthesis.pdf
@@ -556,10 +557,10 @@
     labelsep = quad
   }
 \captionsetup [ table  ]
-{
-  font     = { small, sf },
-  labelsep = quad
-}
+  {
+    font     = { small, sf },
+    labelsep = quad
+  }
 \RenewDocumentCommand \thefigure { }
   { \arabic { chapter } - \arabic { figure } }
 \RenewDocumentCommand \thetable  { }

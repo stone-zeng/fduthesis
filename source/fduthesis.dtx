@@ -21,6 +21,7 @@
 % This work consists of the file fduthesis.dtx
 %          and the derived files fduthesis.ins,
 %                                fduthesis.cls,
+%                                fduthesis-en.cls,
 %                                fduthesis.def,
 %                                fduthesis-user.def,
 %                                fduthesis.pdf
@@ -61,6 +62,7 @@
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
+  - `fduthesis-en.cls`    fduthesis 模板类（英文版）
   - `fduthesis.def`       模板定义文件
   - `fduthesis-user.def`  用户定义文件
   - `test.tex`            测试论文
@@ -150,6 +152,7 @@ version.
     This work consists of the file fduthesis.dtx
              and the derived files fduthesis.ins,
                                    fduthesis.cls,
+                                   fduthesis-en.cls,
                                    fduthesis.def,
                                    fduthesis-user.def,
                                    fduthesis.pdf
@@ -159,18 +162,19 @@ version.
 
 \generate{
   \usedir{tex/latex/fduthesis}
-  \file{\jobname.cls}{\from{\jobname.dtx}{cls}}
-  \file{\jobname.def}{\from{\jobname.dtx}{def}}
-  \file{\jobname-user.def}{\from{\jobname.dtx}{user}}
+  \file{\jobname.cls}       {\from{\jobname.dtx}{cls}}
+  \file{\jobname-en.cls}    {\from{\jobname.dtx}{cls-en}}
+  \file{\jobname.def}       {\from{\jobname.dtx}{def}}
+  \file{\jobname-user.def}  {\from{\jobname.dtx}{user}}
 %</install>
 %<*internal>
   \usedir{source/latex/fduthesis}
-  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+  \file{\jobname.ins}       {\from{\jobname.dtx}{install}}
 %</internal>
 %<*install>
   \nopreamble\nopostamble
   \usedir{doc/latex/fduthesis}
-  \file{README.md}{\from{\jobname.dtx}{readme}}
+  \file{README.md}          {\from{\jobname.dtx}{readme}}
 }
 
 \obeyspaces
@@ -182,6 +186,7 @@ version.
 \Msg{* The recommended directory is TDS:tex/latex/fduthesis      *}
 \Msg{*                                                           *}
 \Msg{*     fduthesis.cls                                         *}
+\Msg{*     fduthesis-en.cls                                      *}
 \Msg{*     fduthesis.def                                         *}
 \Msg{*     fduthesis-user.def                                    *}
 \Msg{*                                                           *}
@@ -199,15 +204,16 @@ version.
 \fi
 %</internal>
 %
-%<cls>\NeedsTeXFormat{LaTeX2e}
-%<cls>\RequirePackage{expl3,xparse,l3keys2e}
-%<cls|def|user>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
-%<driver|cls>  {Thesis template for Fudan University}
+%<cls|cls-en>\NeedsTeXFormat{LaTeX2e}
+%<cls|cls-en>\RequirePackage{expl3,xparse,l3keys2e}
+%<cls|cls-en|def|user>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<cls>  {Thesis template for Fudan University}
+%<cls-en>  {Thesis template for Fudan University (English version)}
 %<def>  {Definition file for fduthesis}
 %<user>  {User definition file for fduthesis}
-%<cls>\ProvidesExplClass{\ExplFileName}
+%<cls|cls-en>\ProvidesExplClass{\ExplFileName}
 %<def|user>\ProvidesExplFile{\ExplFileName}
-%<cls|def|user>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%<cls|cls-en|def|user>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %<*driver>
 %
 %%%%%%%%%% 版本历史 %%%%%%%%%%

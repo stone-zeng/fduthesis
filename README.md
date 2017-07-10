@@ -28,6 +28,7 @@
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
+  - `fduthesis-en.cls`    fduthesis 模板类（英文版）
   - `fduthesis.def`       模板定义文件
   - `fduthesis-user.def`  用户定义文件
   - `test.tex`            测试论文

@@ -1,10 +1,10 @@
 %%
-%% This is file `fduthesis-user.def',
+%% This is file `fduthesis-en.cls',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% fduthesis.dtx  (with options: `user')
+%% fduthesis.dtx  (with options: `cls-en')
 %% 
 %%     Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %% 
@@ -31,12 +31,12 @@
 %%                                    fduthesis.pdf
 %%                                and README.md.
 %% 
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{expl3,xparse,l3keys2e}
 \GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
-  {User definition file for fduthesis}
-\ProvidesExplFile{\ExplFileName}
+  {Thesis template for Fudan University (English version)}
+\ProvidesExplClass{\ExplFileName}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
-%%
-%% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
 \endinput
 %%
-%% End of file `fduthesis-user.def'.
+%% End of file `fduthesis-en.cls'.

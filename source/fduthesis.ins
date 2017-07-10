@@ -25,6 +25,7 @@
 %%     This work consists of the file fduthesis.dtx
 %%              and the derived files fduthesis.ins,
 %%                                    fduthesis.cls,
+%%                                    fduthesis-en.cls,
 %%                                    fduthesis.def,
 %%                                    fduthesis-user.def,
 %%                                    fduthesis.pdf
@@ -55,6 +56,7 @@
     This work consists of the file fduthesis.dtx
              and the derived files fduthesis.ins,
                                    fduthesis.cls,
+                                   fduthesis-en.cls,
                                    fduthesis.def,
                                    fduthesis-user.def,
                                    fduthesis.pdf
@@ -64,12 +66,13 @@
 
 \generate{
   \usedir{tex/latex/fduthesis}
-  \file{\jobname.cls}{\from{\jobname.dtx}{cls}}
-  \file{\jobname.def}{\from{\jobname.dtx}{def}}
-  \file{\jobname-user.def}{\from{\jobname.dtx}{user}}
+  \file{\jobname.cls}       {\from{\jobname.dtx}{cls}}
+  \file{\jobname-en.cls}    {\from{\jobname.dtx}{cls-en}}
+  \file{\jobname.def}       {\from{\jobname.dtx}{def}}
+  \file{\jobname-user.def}  {\from{\jobname.dtx}{user}}
   \nopreamble\nopostamble
   \usedir{doc/latex/fduthesis}
-  \file{README.md}{\from{\jobname.dtx}{readme}}
+  \file{README.md}          {\from{\jobname.dtx}{readme}}
 }
 
 \obeyspaces
@@ -81,6 +84,7 @@
 \Msg{* The recommended directory is TDS:tex/latex/fduthesis      *}
 \Msg{*                                                           *}
 \Msg{*     fduthesis.cls                                         *}
+\Msg{*     fduthesis-en.cls                                      *}
 \Msg{*     fduthesis.def                                         *}
 \Msg{*     fduthesis-user.def                                    *}
 \Msg{*                                                           *}
