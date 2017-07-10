@@ -32,11 +32,12 @@
 %%                                and README.md.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage{expl3,xparse,l3keys2e}
+\RequirePackage{expl3}
 \GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
   {Thesis template for Fudan University (English version)}
 \ProvidesExplClass{\ExplFileName}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+\RequirePackage { xparse, l3keys2e }
 \file_input:n { fduthesis.def }
 \file_input:n { fduthesis-user.def }
 \box_new:N   \l__fdu_tmpa_box
@@ -91,7 +92,17 @@
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
 \LoadClass { book }
-\RequirePackage { geometry }
+\RequirePackage [ no-math ] { fontspec }
+\RequirePackage { ctexsize, ctexheading, ctexpatch }
+\RequirePackage { amsmath }
+\RequirePackage { unicode-math }
+\RequirePackage { geometry, fancyhdr }
+\RequirePackage [ perpage ] { footmisc }
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
+\RequirePackage { graphicx }
+\RequirePackage { longtable }
+\RequirePackage { caption }
+\RequirePackage { ulem }
 \geometry
   {
     paper      = \c__fdu_def_paper_size_tl,
@@ -103,9 +114,6 @@
   }
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
-\RequirePackage [ no-math ] { fontspec }
-\RequirePackage { amsmath }
-\RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
 \keys_define:nn { fdu / style }
   {
@@ -142,111 +150,6 @@
       \setmathfont { XITS~ Math        }
       \keys_set:nn { fdu / style } { footnotestyle = xits }
     },
-    cjkfont .choice:,
-    cjkfont .value_required:n = true,
-    cjkfont / adobe .code:n = {
-      \setCJKmainfont { Adobe~ Song~ Std~ L     }
-        [
-          ItalicFont   = Adobe~ Kaiti~ Std~ R,
-          AutoFakeBold = true
-        ]
-      \setCJKsansfont { Adobe~ Heiti~ Std~ R    }
-        [
-          ItalicFont   = Adobe~ Heiti~ Std~ R,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { Adobe~ Fangsong~ Std~ R }
-        [
-          ItalicFont   = Adobe~ Fangsong~ Std~ R,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { Adobe~ Song~     Std~ L }
-      \setCJKfamilyfont { hei  } { Adobe~ Heiti~    Std~ R }
-      \setCJKfamilyfont { fang } { Adobe~ Fangsong~ Std~ R }
-      \setCJKfamilyfont { kai  } { Adobe~ Kaiti~    Std~ R }
-    },
-    cjkfont / fandol .code:n = {
-      \setCJKmainfont { FandolSong }
-        [
-          ItalicFont   = FandolKai
-        ]
-      \setCJKsansfont { FandolHei  }
-        [
-          ItalicFont   = FandolHei
-        ]
-      \setCJKmonofont { FandolFang }
-        [
-          ItalicFont   = FandolFang,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { FandolSong }
-      \setCJKfamilyfont { hei  } { FandolHei  }
-      \setCJKfamilyfont { fang } { FandolFang }
-      \setCJKfamilyfont { kai  } { FandolKai  }
-    },
-    cjkfont / founder .code:n = {
-      \setCJKmainfont { FZShuSong-Z01  }
-        [
-          BoldFont     = FZXiaoBiaoSong-B05,
-          ItalicFont   = FZKai-Z03
-        ]
-      \setCJKsansfont { FZHei-B01      }
-        [
-          ItalicFont   = FZHei-B01,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { FZFangSong-Z02 }
-        [
-          ItalicFont   = FZFangSong-Z02,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { FZShuSong -Z01 }
-      \setCJKfamilyfont { hei  } { FZHei     -B01 }
-      \setCJKfamilyfont { fang } { FZFangSong-Z02 }
-      \setCJKfamilyfont { kai  } { FZKai     -Z03 }
-    },
-    cjkfont / mac .code:n = {
-      \setCJKmainfont { STSong     }
-        [
-          BoldFont     = STZhongsong,
-          ItalicFont   = STKaiti
-        ]
-      \setCJKsansfont { STHeiti    }
-        [
-          ItalicFont   = STHeiti,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { STFangsong }
-        [
-          ItalicFont   = STFangsong,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { STSong     }
-      \setCJKfamilyfont { hei  } { STHeiti    }
-      \setCJKfamilyfont { fang } { STFangsong }
-      \setCJKfamilyfont { kai  } { STKaiti    }
-    },
-    cjkfont / windows .code:n = {
-      \setCJKmainfont { SimSun   }
-        [
-          ItalicFont   = KaiTi,
-          AutoFakeBold = true
-        ]
-      \setCJKsansfont { SimHei   }
-        [
-          ItalicFont   = SimHei,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { FangSong }
-        [
-          ItalicFont   = FangSong,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { SimSun   }
-      \setCJKfamilyfont { hei  } { SimHei   }
-      \setCJKfamilyfont { fang } { FangSong }
-      \setCJKfamilyfont { kai  } { KaiTi    }
-    },
     fontsize .choice:,
     fontsize .value_required:n = true,
     fontsize / -4 .code:n = { },
@@ -261,39 +164,8 @@
       \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
-    },
-    fullwidthstop .choice:,
-    fullwidthstop / true  .code:n = {
-      \char_set_active_eq:nN { "3002 }
-        \c__fdu_full_stop_fullwidth_tl
-      \char_set_catcode_active:n { "3002 }
-    },
-    fullwidthstop / false .code:n = { },
-    fullwidthstop .default:n  = true
-  }
-\ctexset
-  {
-    chapter = {
-      format     = \c__fdu_def_chapter_format_tl,
-      beforeskip = \c__fdu_def_chapter_before_sep_tl,
-      afterskip  = \c__fdu_def_chapter_after_sep_tl,
-      number     = { \arabic { chapter } },
-      fixskip    = true
-    },
-    section = {
-      format     = \c__fdu_def_section_format_tl,
-      beforeskip = \c__fdu_def_section_before_sep_tl,
-      afterskip  = \c__fdu_def_section_after_sep_tl,
-      fixskip    = true
-    },
-    subsection = {
-      format     = \c__fdu_def_subsection_format_tl,
-      beforeskip = \c__fdu_def_subsection_before_sep_tl,
-      afterskip  = \c__fdu_def_subsection_after_sep_tl,
-      fixskip    = true
     }
   }
-\RequirePackage { fancyhdr }
 \fancyhf { }
 \tl_new:N \l__fdu_header_center_mark_tl
 \bool_if:NTF \g__fdu_twoside_bool
@@ -447,7 +319,6 @@
       }
       { \int_use:N \l__fdu_tmpa_int }
   }
-\RequirePackage [ perpage ] { footmisc }
 \RenewDocumentCommand \@makefntext { +m }
   {
     \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
@@ -458,7 +329,6 @@
         \hspace* { -2 em } #1
       }
   }
-\RequirePackage [ amsmath, thmmarks ] { ntheorem }
 \keys_define:nn { fdu / theorem }
   {
     style      .tl_set:N  = \l__fdu_thm_style_tl,
@@ -543,7 +413,6 @@
 \fdunewtheorem  { proposition } { 命题 }
 \fdunewtheorem  { remark      } { 评注 }
 \fdunewtheorem  { theorem     } { 定理 }
-\RequirePackage { caption }
 \captionsetup [ figure ]
   {
     font     = small,
@@ -602,7 +471,6 @@
     secretlevel .value_required:n = true,
     secretyear .tl_set:N = \l__fdu_info_secret_year_tl
   }
-\RequirePackage { graphicx, ulem }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
     \makebox [ #1 ] [ s ]
@@ -909,7 +777,6 @@
     \textbf{\c__fdu_def_name_clc_e_tl} \quad
     \l__fdu_info_clc_tl
   }
-\RequirePackage { longtable }
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
     \chapter* { \c__fdu_def_name_notation_tl }

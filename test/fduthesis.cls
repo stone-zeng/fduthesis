@@ -32,11 +32,12 @@
 %%                                and README.md.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage{expl3,xparse,l3keys2e}
+\RequirePackage{expl3}
 \GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
   {Thesis template for Fudan University}
 \ProvidesExplClass{\ExplFileName}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+\RequirePackage { xparse, l3keys2e }
 \file_input:n { fduthesis.def }
 \file_input:n { fduthesis-user.def }
 \box_new:N   \l__fdu_tmpa_box
@@ -91,7 +92,23 @@
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
 \LoadClass { book }
-\RequirePackage { geometry }
+\RequirePackage [ no-math ] { fontspec }
+\RequirePackage [
+    UTF8,
+    heading    = true,
+    fontset    = none,
+    zihao      = \c__fdu_def_font_size_tl,
+    linespread = \c__fdu_def_line_spread_fp
+  ] { ctex }
+\RequirePackage { amsmath }
+\RequirePackage { unicode-math }
+\RequirePackage { geometry, fancyhdr }
+\RequirePackage [ perpage ] { footmisc }
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
+\RequirePackage { graphicx }
+\RequirePackage { longtable }
+\RequirePackage { caption }
+\RequirePackage { ulem }
 \geometry
   {
     paper      = \c__fdu_def_paper_size_tl,
@@ -103,16 +120,6 @@
   }
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
-\RequirePackage [ no-math ] { fontspec }
-\RequirePackage [
-    UTF8,
-    heading    = true,
-    fontset    = none,
-    zihao      = \c__fdu_def_font_size_tl,
-    linespread = \c__fdu_def_line_spread_fp
-  ] { ctex }
-\RequirePackage { amsmath }
-\RequirePackage { unicode-math }
 \unimathsetup { math-style = ISO, bold-style = ISO }
 \keys_define:nn { fdu / style }
   {
@@ -300,7 +307,6 @@
       fixskip    = true
     }
   }
-\RequirePackage { fancyhdr }
 \fancyhf { }
 \tl_new:N \l__fdu_header_center_mark_tl
 \bool_if:NTF \g__fdu_twoside_bool
@@ -454,7 +460,6 @@
       }
       { \int_use:N \l__fdu_tmpa_int }
   }
-\RequirePackage [ perpage ] { footmisc }
 \RenewDocumentCommand \@makefntext { +m }
   {
     \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
@@ -465,7 +470,6 @@
         \hspace* { -2 em } #1
       }
   }
-\RequirePackage [ amsmath, thmmarks ] { ntheorem }
 \keys_define:nn { fdu / theorem }
   {
     style      .tl_set:N  = \l__fdu_thm_style_tl,
@@ -550,7 +554,6 @@
 \fdunewtheorem  { proposition } { 命题 }
 \fdunewtheorem  { remark      } { 评注 }
 \fdunewtheorem  { theorem     } { 定理 }
-\RequirePackage { caption }
 \captionsetup [ figure ]
   {
     font     = small,
@@ -609,7 +612,6 @@
     secretlevel .value_required:n = true,
     secretyear .tl_set:N = \l__fdu_info_secret_year_tl
   }
-\RequirePackage { graphicx, ulem }
 \cs_new:Npn \fdu_spread_box:Nn #1 #2
   {
     \makebox [ #1 ] [ s ]
@@ -916,7 +918,6 @@
     \textbf{\c__fdu_def_name_clc_e_tl} \quad
     \l__fdu_info_clc_tl
   }
-\RequirePackage { longtable }
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
     \chapter* { \c__fdu_def_name_notation_tl }

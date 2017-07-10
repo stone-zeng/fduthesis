@@ -205,7 +205,7 @@ version.
 %</internal>
 %
 %<class|class-en>\NeedsTeXFormat{LaTeX2e}
-%<class|class-en>\RequirePackage{expl3,xparse,l3keys2e}
+%<class|class-en>\RequirePackage{expl3}
 %<*!(driver|install)>
 %<!readme>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
@@ -658,10 +658,13 @@ version.
 % 而下划线“|_|”和冒号“|:|”则可作为一般字母使用。
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
+%    \begin{macrocode}
+%<*class|class-en>
+\RequirePackage { xparse, l3keys2e }
+%    \end{macrocode}
 %
 % 载入参数配置文件。
 %    \begin{macrocode}
-%<*class|class-en>
 \file_input:n { fduthesis.def }
 \file_input:n { fduthesis-user.def }
 %    \end{macrocode}
@@ -783,16 +786,76 @@ version.
 \ProcessKeysOptions { fdu / option }
 %    \end{macrocode}
 %
+% \subsection{载入宏包、文档类}
 % 载入 \cls{book} 标准文档类，并传入相应的选项。
 %    \begin{macrocode}
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
 \LoadClass { book }
 %    \end{macrocode}
 %
+% \XeLaTeX{} \LuaLaTeX{} 下的字体选取。|no-math| 选项保证该宏包不参与
+% 数学字体的设置。
+%    \begin{macrocode}
+\RequirePackage [ no-math ] { fontspec }
+%    \end{macrocode}
+%
+% 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
+% 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{luatexja} 宏包。
+%    \begin{macrocode}
+%<*class>
+\RequirePackage [
+    UTF8,
+    heading    = true,
+    fontset    = none,
+    zihao      = \c__fdu_def_font_size_tl,
+    linespread = \c__fdu_def_line_spread_fp
+  ] { ctex }
+%</class>
+%    \end{macrocode}
+%
+% 英文模板仍需利用 \CTeX{} 宏集中的一些工具宏包。
+%    \begin{macrocode}
+%<class-en>\RequirePackage { ctexsize, ctexheading, ctexpatch }
+%    \end{macrocode}
+%
+% 本模板使用 Unicode 编码的 OpenType 数学字体，此功能由
+% \pkg{unicode-math} 宏包实现。为防止冲突，\pkg{amsmath} 必须在它
+% 之前引入。
+%    \begin{macrocode}
+\RequirePackage { amsmath }
+\RequirePackage { unicode-math }
+%    \end{macrocode}
+%
+% 设置页面尺寸与页眉页脚。
+%    \begin{macrocode}
+\RequirePackage { geometry, fancyhdr }
+%    \end{macrocode}
+%
+% 处理脚注。|perpage| 选项将使脚注编号每页清零。
+%    \begin{macrocode}
+\RequirePackage [ perpage ] { footmisc }
+%    \end{macrocode}
+%
+% 定理环境。
+%    \begin{macrocode}
+\RequirePackage [ amsmath, thmmarks ] { ntheorem }
+%    \end{macrocode}
+%
+% 插图、表格与浮动体控制。
+%    \begin{macrocode}
+\RequirePackage { graphicx }
+\RequirePackage { longtable }
+\RequirePackage { caption }
+%    \end{macrocode}
+%
+% 下划线。
+%    \begin{macrocode}
+\RequirePackage { ulem }
+%    \end{macrocode}
+%
 % \subsection{页面布局}
 % 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
 %    \begin{macrocode}
-\RequirePackage { geometry }
 \geometry
   {
     paper      = \c__fdu_def_paper_size_tl,
@@ -811,38 +874,8 @@ version.
 %    \end{macrocode}
 %
 % \subsection{字体}
-% \subsubsection{载入相关宏包}
-% 本模板字体设置采用 \pkg{fontspec} 机制。
-% |no-math| 选项保证该宏包不参与数学字体的设置。
-%    \begin{macrocode}
-\RequirePackage [ no-math ] { fontspec }
-%    \end{macrocode}
-%
-% 中文排版支持采用 \pkg{ctex} 宏包。默认字号设置为小四。
-% 使用 \XeLaTeX{} 编译时，底层调用 \pkg{xeCJK} 宏包；
-% 使用 \LuaLaTeX{} 编译时，底层则会调用 \pkg{luatexja} 宏包。
-%    \begin{macrocode}
-%<*class>
-\RequirePackage [
-    UTF8,
-    heading    = true,
-    fontset    = none,
-    zihao      = \c__fdu_def_font_size_tl,
-    linespread = \c__fdu_def_line_spread_fp
-  ] { ctex }
-%</class>
-%    \end{macrocode}
-%
-% 本模板使用 Unicode 编码的 OpenType 数学字体，
-% 此功能由 \pkg{unicode-math} 宏包实现。
-% 为防止冲突，\pkg{amsmath} 必须在它之前引入。
-%    \begin{macrocode}
-\RequirePackage { amsmath }
-\RequirePackage { unicode-math }
-%    \end{macrocode}
-%
-% 根据相关规定，数学表达式中，表示变量的拉丁字母和希腊字母
-% 均应当使用斜体。
+% 根据相关规定，数学表达式中，表示变量的拉丁字母和希腊字母均应当
+% 使用斜体。
 %    \begin{macrocode}
 \unimathsetup { math-style = ISO, bold-style = ISO }
 %    \end{macrocode}
@@ -855,8 +888,7 @@ version.
 %    \end{macrocode}
 %
 % \begin{macro}{style/font}
-% 预定义西文字体。
-% 等宽字体使用 |Ligatures = NoCommon| 选项，以禁用连字。
+% 预定义西文字体。等宽字体使用 |Ligatures = NoCommon| 选项以禁用连字。
 %    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
@@ -908,9 +940,10 @@ version.
 %
 % \subsubsection{中文字体配置}
 % \begin{macro}{style/cjkfont}
-% 预定义中文（CJK）字体。对于没有粗体的字体，
-% 利用 |AutoFakeBold = true| 获得伪粗体。
+% 预定义中文（CJK）字体。对于没有粗体的字体，利用
+% |AutoFakeBold = true| 获得伪粗体。
 %    \begin{macrocode}
+%<*class>
     cjkfont .choice:,
     cjkfont .value_required:n = true,
 %    \end{macrocode}
@@ -1038,6 +1071,7 @@ version.
       \setCJKfamilyfont { fang } { FangSong }
       \setCJKfamilyfont { kai  } { KaiTi    }
     },
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1067,7 +1101,8 @@ version.
       \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
       \RenewDocumentCommand \huge         { } { \zihao {  2 } }
       \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
-    },
+%<class>    },
+%<class-en>    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1083,6 +1118,7 @@ version.
 % 另外通过 \LuaLaTeX{} 编译时，底层使用 \pkg{luatexja} 而非
 % \pkg{xeCJK}，也必须采取 \tn{catcode} 的手段来切换。
 %    \begin{macrocode}
+%<*class>
     fullwidthstop .choice:,
     fullwidthstop / true  .code:n = {
       \char_set_active_eq:nN { "3002 }
@@ -1091,6 +1127,7 @@ version.
     },
     fullwidthstop / false .code:n = { },
     fullwidthstop .default:n  = true
+%</class>
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1098,6 +1135,7 @@ version.
 % \subsection{章节标题结构}
 % 使用 \cs{ctexset} 接口进行统一设置。
 %    \begin{macrocode}
+%<*class>
 \ctexset
   {
 %    \end{macrocode}
@@ -1125,14 +1163,10 @@ version.
       fixskip    = true
     }
   }
+%</class>
 %    \end{macrocode}
 %
 % \subsection{页眉页脚}
-% 利用 \pkg{fancyhdr} 宏包进行设置。
-%    \begin{macrocode}
-\RequirePackage { fancyhdr }
-%    \end{macrocode}
-%
 % 清除默认页眉页脚格式。
 %    \begin{macrocode}
 \fancyhf { }
@@ -1463,11 +1497,6 @@ version.
 % \end{macro}
 %
 % \subsubsection{整体样式}
-% 使脚注编号每一页重新开始是利用 \pkg{footmisc} 宏包实现的。
-%    \begin{macrocode}
-\RequirePackage [ perpage ] { footmisc }
-%    \end{macrocode}
-%
 % \begin{macro}{\@makefntext}
 % 重定义内部脚注文字命令。
 %    \begin{macrocode}
@@ -1495,12 +1524,12 @@ version.
 % \end{macro}
 %
 % \subsection{定理环境}
-% 定理环境的核心内容依靠 \pkg{ntheorem} 宏包实现。
-%    \begin{macrocode}
-\RequirePackage [ amsmath, thmmarks ] { ntheorem }
-%    \end{macrocode}
-%
-% \begin{macro}{\l__fdu_thm_style_tl,
+% \begin{macro}{theorem/style,
+%   theorem/headerfont,
+%   theorem/bodyfont,
+%   theorem/qed,
+%   theorem/counter,
+%   \l__fdu_thm_style_tl,
 %   \l__fdu_thm_header_font_tl,
 %   \l__fdu_thm_body_font_tl,
 %   \l__fdu_thm_qed_tl,
@@ -1678,11 +1707,6 @@ version.
 % \end{macro}
 %
 % \subsection{图表绘制；浮动体}
-% 浮动体标题控制需要利用 \pkg{caption} 宏包。
-%    \begin{macrocode}
-\RequirePackage { caption }
-%    \end{macrocode}
-%
 % 分别设置浮动体 |figure| 和 |table| 的标题样式。
 %    \begin{macrocode}
 \captionsetup [ figure ]
@@ -1860,12 +1884,6 @@ version.
 % \end{macro}
 %
 % \subsubsection{定义内部函数}
-% \cs{includegraphics} 命令需要用到 \pkg{graphicx} 宏包，而下划线则
-% 要利用 \pkg{ulem} 宏包。
-%    \begin{macrocode}
-\RequirePackage { graphicx, ulem }
-%    \end{macrocode}
-%
 % \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV,
 %   \fdu_spread_box:Nx}
 % 分散对齐的盒子。|#1| = 长度， |#2| = 内容。
@@ -2384,15 +2402,11 @@ version.
 % \end{macro}
 %
 % \subsection{符号表}
-% 本模板中的符号表由 |longtable| 环境封装而成。
-%    \begin{macrocode}
-\RequirePackage { longtable }
-%    \end{macrocode}
-%
 % \begin{macro}{notation}
-% 符号表环境，可选参数为表格列格式说明符，默认为“|l p{25 em}|”。
-% 与摘要类似，需要修改页眉，并添加到目录。另外需要调整 \cs{LTpre}
-% 和 \cs{LTpost}，以删去 |longtable| 前后的空白。
+% 符号表环境，利用 |longtable| 封装。可选参数为表格列格式说明符，
+% 默认为“|l p{25 em}|”。与摘要类似，符号表页需要修改页眉，并添加到
+% 目录。另外需要调整 \cs{LTpre} 和 \cs{LTpost}，以删去 |longtable|
+% 前后的空白。
 %    \begin{macrocode}
 \NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
   {
