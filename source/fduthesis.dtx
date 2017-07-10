@@ -162,9 +162,9 @@ version.
 
 \generate{
   \usedir{tex/latex/fduthesis}
-  \file{\jobname.cls}       {\from{\jobname.dtx}{cls}}
-  \file{\jobname-en.cls}    {\from{\jobname.dtx}{cls-en}}
-  \file{\jobname.def}       {\from{\jobname.dtx}{def}}
+  \file{\jobname.cls}       {\from{\jobname.dtx}{class}}
+  \file{\jobname-en.cls}    {\from{\jobname.dtx}{class-en}}
+  \file{\jobname.def}       {\from{\jobname.dtx}{definition}}
   \file{\jobname-user.def}  {\from{\jobname.dtx}{user}}
 %</install>
 %<*internal>
@@ -204,16 +204,18 @@ version.
 \fi
 %</internal>
 %
-%<cls|cls-en>\NeedsTeXFormat{LaTeX2e}
-%<cls|cls-en>\RequirePackage{expl3,xparse,l3keys2e}
-%<cls|cls-en|def|user>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
-%<cls>  {Thesis template for Fudan University}
-%<cls-en>  {Thesis template for Fudan University (English version)}
-%<def>  {Definition file for fduthesis}
+%<class|class-en>\NeedsTeXFormat{LaTeX2e}
+%<class|class-en>\RequirePackage{expl3,xparse,l3keys2e}
+%<*!(driver|install)>
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<class>  {Thesis template for Fudan University}
+%<class-en>  {Thesis template for Fudan University (English version)}
+%<definition>  {Definition file for fduthesis}
 %<user>  {User definition file for fduthesis}
-%<cls|cls-en>\ProvidesExplClass{\ExplFileName}
-%<def|user>\ProvidesExplFile{\ExplFileName}
-%<cls|cls-en|def|user>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%<class|class-en>\ProvidesExplClass{\ExplFileName}
+%<definition|user>\ProvidesExplFile{\ExplFileName}
+%<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%</!(driver|install)>
 %<*driver>
 %
 %%%%%%%%%% 版本历史 %%%%%%%%%%
@@ -659,7 +661,7 @@ version.
 %
 % 载入参数配置文件。
 %    \begin{macrocode}
-%<*cls>
+%<*class|class-en>
 \file_input:n { fduthesis.def }
 \file_input:n { fduthesis-user.def }
 %    \end{macrocode}
@@ -817,9 +819,10 @@ version.
 %    \end{macrocode}
 %
 % 中文排版支持采用 \pkg{ctex} 宏包。默认字号设置为小四。
-% 使用 \XeLaTeX{} 编译时，底层使用 \pkg{xeCJK} 宏包；
-% 使用 \LuaLaTeX{} 编译时，底层则会使用 \pkg{luatexja} 宏包。
+% 使用 \XeLaTeX{} 编译时，底层调用 \pkg{xeCJK} 宏包；
+% 使用 \LuaLaTeX{} 编译时，底层则会调用 \pkg{luatexja} 宏包。
 %    \begin{macrocode}
+%<*class>
 \RequirePackage [
     UTF8,
     heading    = true,
@@ -827,6 +830,7 @@ version.
     zihao      = \c__fdu_def_font_size_tl,
     linespread = \c__fdu_def_line_spread_fp
   ] { ctex }
+%</class>
 %    \end{macrocode}
 %
 % 本模板使用 Unicode 编码的 OpenType 数学字体，
@@ -2631,12 +2635,12 @@ version.
     info  / date            =  \today,
     info  / schoolid        =  10246
   }
-%</cls>
+%</class|class-en>
 %    \end{macrocode}
 %
 % \subsection{模板参数配置文件}
 %    \begin{macrocode}
-%<*def>
+%<*definition>
 %    \end{macrocode}
 %
 % \subsubsection{通用配置}
@@ -2921,7 +2925,7 @@ version.
 \tl_const:Nn \c__fdu_def_name_author_sign_tl      { 作者签名     }
 \tl_const:Nn \c__fdu_def_name_supervisor_sign_tl  { 导师签名     }
 \tl_const:Nn \c__fdu_def_name_sign_date_tl        { 日期         }
-%</def>
+%</definition>
 %    \end{macrocode}
 %
 % \subsection{用户配置文件}

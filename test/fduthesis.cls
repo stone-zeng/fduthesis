@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% fduthesis.dtx  (with options: `cls')
+%% fduthesis.dtx  (with options: `class')
 %% 
 %%     Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>
 %% 
