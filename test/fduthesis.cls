@@ -285,7 +285,7 @@
     fullwidthstop / false .code:n = { },
     fullwidthstop .default:n  = true
   }
-\ctexset
+\keys_set:nn { ctex }
   {
     chapter = {
       format     = \c__fdu_def_chapter_format_tl,
@@ -649,6 +649,9 @@
   }
 \cs_new:Npn \fdu_blank_underline:N #1
   { \uline { \hbox_to_wd:nn { #1 } { } } }
+\cs_new:Npn \fdu_line_spread:N #1
+  { \linespread { #1 } \selectfont }
+\cs_generate_variant:Nn \fdu_line_spread:N { n }
 \cs_new:Npn \__fdu_cover_id:
   {
     \begin{flushright}
@@ -713,8 +716,8 @@
         \fdu_fixed_width_center_box:Nn
           \c__fdu_def_cover_title_e_width_tl
           {
-            \linespread { \c__fdu_def_cover_title_e_line_spread_tl }
-            \selectfont
+            \fdu_line_spread:N
+              \c__fdu_def_cover_title_e_line_spread_tl
             \l__fdu_info_title_e_tl
           }
       }
@@ -767,8 +770,7 @@
     \begin{center}
       \fdu_fixed_width_box:Nn \textwidth
         {
-          \linespread { \c__fdu_def_decl_text_line_spread_tl }
-          \selectfont
+          \fdu_line_spread:N \c__fdu_def_decl_text_line_spread_tl
           \qquad #2
         }
     \end{center}
@@ -777,14 +779,16 @@
   }
 \NewDocumentCommand \makecoveri { }
   {
-    \__fdu_cover_id:
-    \vspace { \c__fdu_def_cover_v_sep_i_tl  }
-    \__fdu_cover_logo:
-    \vspace { \c__fdu_def_cover_v_sep_ii_tl }
-    \__fdu_cover_title:
-    \vspace { \c__fdu_def_cover_v_sep_vi_tl }
-    \__fdu_cover_info:
-    \vspace { \c__fdu_def_cover_v_sep_ix_tl }
+    \group_begin:
+      \__fdu_cover_id:
+      \vspace { \c__fdu_def_cover_v_sep_i_tl  }
+      \__fdu_cover_logo:
+      \vspace { \c__fdu_def_cover_v_sep_ii_tl }
+      \__fdu_cover_title:
+      \vspace { \c__fdu_def_cover_v_sep_vi_tl }
+      \__fdu_cover_info:
+      \vspace { \c__fdu_def_cover_v_sep_ix_tl }
+    \group_end:
   }
 \NewDocumentCommand \makecoverii { }
   {
@@ -855,7 +859,7 @@
   }
 \AtEndDocument
   { \bool_if:NT \l__fdu_auto_make_cover_bool { \makecoveriii } }
-\ctexset
+\keys_set:nn { ctex }
   {
     contentsname = { \c__fdu_def_name_toc_tl },
     chapter    / tocline = {
@@ -945,10 +949,10 @@
     style / font            =  times,
     style / cjkfont         =  fandol,
     style / fontsize        =  -4,
-    style / fullwidthstop  =  false,
+    style / fullwidthstop   =  false,
     style / automakecover   =  true,
     info  / secretlevel     =  none,
-    info  / date            =  \today,
+    info  / date            =  \zhtoday,
     info  / schoolid        =  10246
   }
 \endinput

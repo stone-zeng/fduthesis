@@ -802,20 +802,15 @@ version.
 % 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{luatexja} 宏包。
 %    \begin{macrocode}
-%<*class>
 \RequirePackage [
     UTF8,
+%<class-en>    scheme     = plain,
     heading    = true,
-    fontset    = none,
+%<class>    fontset    = none,
+%<class-en>    fontset    = fandol,
     zihao      = \c__fdu_def_font_size_tl,
-    linespread = \c__fdu_def_line_spread_fp
+%<class>    linespread = \c__fdu_def_line_spread_fp
   ] { ctex }
-%</class>
-%    \end{macrocode}
-%
-% 英文模板仍需利用 \CTeX{} 宏集中的一些工具宏包。
-%    \begin{macrocode}
-%<class-en>\RequirePackage { ctexsize, ctexheading, ctexpatch }
 %    \end{macrocode}
 %
 % 本模板使用 Unicode 编码的 OpenType 数学字体，此功能由
@@ -1133,10 +1128,9 @@ version.
 % \end{macro}
 %
 % \subsection{章节标题结构}
-% 使用 \cs{ctexset} 接口进行统一设置。
+% |\keys_set:nn {ctex}| 实际相当于 \cs{ctexset}。
 %    \begin{macrocode}
-%<*class>
-\ctexset
+\keys_set:nn { ctex }
   {
 %    \end{macrocode}
 %
@@ -1163,7 +1157,6 @@ version.
       fixskip    = true
     }
   }
-%</class>
 %    \end{macrocode}
 %
 % \subsection{页眉页脚}
@@ -1978,6 +1971,15 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\fdu_line_spread:N,\fdu_line_spread:n}
+% 设置行距。|#1| = 行距倍数。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_line_spread:N #1
+  { \linespread { #1 } \selectfont }
+\cs_generate_variant:Nn \fdu_line_spread:N { n }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{封面各部件}
 % \begin{macro}{\__fdu_cover_id:}
 % 右上角的学校代码和学号。
@@ -2059,8 +2061,8 @@ version.
         \fdu_fixed_width_center_box:Nn
           \c__fdu_def_cover_title_e_width_tl
           {
-            \linespread { \c__fdu_def_cover_title_e_line_spread_tl }
-            \selectfont
+            \fdu_line_spread:N
+              \c__fdu_def_cover_title_e_line_spread_tl
             \l__fdu_info_title_e_tl
           }
       }
@@ -2133,14 +2135,14 @@ version.
 \cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
   {
     \begin{center}
+%<class-en>      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
       \__fdu_cover_font_size_large: \sffamily #1
     \end{center}
     \vspace { \c__fdu_def_decl_v_sep_iv_tl }
     \begin{center}
       \fdu_fixed_width_box:Nn \textwidth
         {
-          \linespread { \c__fdu_def_decl_text_line_spread_tl }
-          \selectfont
+          \fdu_line_spread:N \c__fdu_def_decl_text_line_spread_tl
           \qquad #2
         }
     \end{center}
@@ -2160,14 +2162,17 @@ version.
 %    \begin{macrocode}
 \NewDocumentCommand \makecoveri { }
   {
-    \__fdu_cover_id:
-    \vspace { \c__fdu_def_cover_v_sep_i_tl  }
-    \__fdu_cover_logo:
-    \vspace { \c__fdu_def_cover_v_sep_ii_tl }
-    \__fdu_cover_title:
-    \vspace { \c__fdu_def_cover_v_sep_vi_tl }
-    \__fdu_cover_info:
-    \vspace { \c__fdu_def_cover_v_sep_ix_tl }
+    \group_begin:
+%<class-en>      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
+      \__fdu_cover_id:
+      \vspace { \c__fdu_def_cover_v_sep_i_tl  }
+      \__fdu_cover_logo:
+      \vspace { \c__fdu_def_cover_v_sep_ii_tl }
+      \__fdu_cover_title:
+      \vspace { \c__fdu_def_cover_v_sep_vi_tl }
+      \__fdu_cover_info:
+      \vspace { \c__fdu_def_cover_v_sep_ix_tl }
+    \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2286,7 +2291,7 @@ version.
 % \subsection{目录}
 % 设置目录标题为“目 \quad 录”。
 %    \begin{macrocode}
-\ctexset
+\keys_set:nn { ctex }
   {
     contentsname = { \c__fdu_def_name_toc_tl },
 %    \end{macrocode}
@@ -2641,12 +2646,12 @@ version.
 \keys_set:nn { fdu }
   {
     style / font            =  times,
-    style / cjkfont         =  fandol,
+%<class>    style / cjkfont         =  fandol,
     style / fontsize        =  -4,
-    style / fullwidthstop  =  false,
+%<class>    style / fullwidthstop   =  false,
     style / automakecover   =  true,
     info  / secretlevel     =  none,
-    info  / date            =  \today,
+    info  / date            =  \zhtoday,
     info  / schoolid        =  10246
   }
 %</class|class-en>
@@ -2716,11 +2721,10 @@ version.
 %   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}。
 % \end{equation*}
 % 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
-% 的大小，\SI{20}{pt} 是行距固定值。代码中的 $72.27 \, / \, 72$ 是
-% \si{bp} 到 \si{pt} 的换算因子。
+% 的大小，\SI{20}{pt} 是行距固定值。
 %    \begin{macrocode}
 \fp_const:Nn \c__fdu_def_line_spread_fp
-  { 20 / ( 1.2 * 12 * ( 72.27 / 72 ) ) }
+  { ( 20 pt ) / ( 12 bp ) / 1.2 }
 %    \end{macrocode}
 % \end{macro}
 %

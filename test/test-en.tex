@@ -1,12 +1,13 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
 \documentclass[twoside]{fduthesis-en}
 \usepackage{kantlipsum}
+\usepackage{zhlipsum}
 
 \fdusetup{
   style = {
     % font = libertinus,
     % cjkfont = founder,
-    fullwidthstop,
+    % fullwidthstop,
     % footnotestyle = pifont,
     % automakecover = false
   },
@@ -113,24 +114,24 @@ PY          &  聚吡咙
 \end{notation}
 
 \mainmatter
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
-\section{文字与段落 Text and paragraph}
-\subsection{中文文本 Chinese}
+\chapter{Text, font and footnote}
+\section{Text and paragraph}
+\subsection{Chinese}
 \zhlipsum
 
-\subsection{英文文本 English}
+\subsection{English}
 \kant
 
 \clearpage
 
-\section{字体 Font}
-\subsection{普通字体 Roman}
+\section{Font}
+\subsection{Roman}
 \fonttest
 
-\subsection{无衬线字体 Sans-serif}
+\subsection{Sans-serif}
 \textsf{\fonttest}
 
-\subsection{打字机字体 Typewriter}
+\subsection{Typewriter}
 \texttt{\fonttest}
 
 \subsection{句号}

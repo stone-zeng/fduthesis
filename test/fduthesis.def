@@ -47,7 +47,7 @@
 \dim_const:Nn \c__fdu_def_header_height_dim { 15 pt }
 \tl_const:Nn \c__fdu_def_font_size_tl { -4 }
 \fp_const:Nn \c__fdu_def_line_spread_fp
-  { 20 / ( 1.2 * 12 * ( 72.27 / 72 ) ) }
+  { ( 20 pt ) / ( 12 bp ) / 1.2 }
 \tl_const:Nn \c__fdu_def_chapter_format_tl
   { \huge  \normalfont \sffamily \centering   }
 \tl_const:Nn \c__fdu_def_section_format_tl
