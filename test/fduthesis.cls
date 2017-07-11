@@ -288,23 +288,23 @@
 \keys_set:nn { ctex }
   {
     chapter = {
-      format     = \c__fdu_def_chapter_format_tl,
-      beforeskip = \c__fdu_def_chapter_before_sep_tl,
-      afterskip  = \c__fdu_def_chapter_after_sep_tl,
-      number     = { \arabic { chapter } },
-      fixskip    = true
+      format      = \c__fdu_def_chapter_format_tl,
+      beforeskip  = \c__fdu_def_chapter_before_sep_tl,
+      afterskip   = \c__fdu_def_chapter_after_sep_tl,
+      number      = { \arabic { chapter } },
+      fixskip     = true
     },
     section = {
-      format     = \c__fdu_def_section_format_tl,
-      beforeskip = \c__fdu_def_section_before_sep_tl,
-      afterskip  = \c__fdu_def_section_after_sep_tl,
-      fixskip    = true
+      format      = \c__fdu_def_section_format_tl,
+      beforeskip  = \c__fdu_def_section_before_sep_tl,
+      afterskip   = \c__fdu_def_section_after_sep_tl,
+      fixskip     = true
     },
     subsection = {
-      format     = \c__fdu_def_subsection_format_tl,
-      beforeskip = \c__fdu_def_subsection_before_sep_tl,
-      afterskip  = \c__fdu_def_subsection_after_sep_tl,
-      fixskip    = true
+      format      = \c__fdu_def_subsection_format_tl,
+      beforeskip  = \c__fdu_def_subsection_before_sep_tl,
+      afterskip   = \c__fdu_def_subsection_after_sep_tl,
+      fixskip     = true
     }
   }
 \fancyhf { }
@@ -571,21 +571,21 @@
 \keys_define:nn { fdu / info }
   {
     title       .tl_set:N    = \l__fdu_info_title_tl,
-    title*      .tl_set:N    = \l__fdu_info_title_e_tl,
+    title*      .tl_set:N    = \l__fdu_info_title_en_tl,
     date        .tl_set:N    = \l__fdu_info_date_tl,
     author      .tl_set:N    = \l__fdu_info_author_tl,
-    author*     .tl_set:N    = \l__fdu_info_author_e_tl,
+    author*     .tl_set:N    = \l__fdu_info_author_en_tl,
     supervisor  .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor* .tl_set:N    = \l__fdu_info_supervisor_e_tl,
+    supervisor* .tl_set:N    = \l__fdu_info_supervisor_en_tl,
     instructors .clist_set:N = \l__fdu_info_instructors_clist,
     department  .tl_set:N    = \l__fdu_info_department_tl,
-    department* .tl_set:N    = \l__fdu_info_department_e_tl,
+    department* .tl_set:N    = \l__fdu_info_department_en_tl,
     major       .tl_set:N    = \l__fdu_info_major_tl,
-    major*      .tl_set:N    = \l__fdu_info_major_e_tl,
+    major*      .tl_set:N    = \l__fdu_info_major_en_tl,
     studentid   .tl_set:N    = \l__fdu_info_student_id_tl,
     schoolid    .tl_set:N    = \l__fdu_info_school_id_tl,
     keywords    .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*   .clist_set:N = \l__fdu_info_keywords_e_clist,
+    keywords*   .clist_set:N = \l__fdu_info_keywords_en_clist,
     clc         .tl_set:N    = \l__fdu_info_clc_tl
   }
 \bool_new:N \l__fdu_secret_bool
@@ -603,7 +603,7 @@
           \setmathfont { XITS~ Math } [ version = secret-XITS ]
           \tl_set:Nn \l__fdu_info_secret_level_tl
             {
-              \clist_item:Nn \c__fdu_def_name_secret_clist
+              \clist_item:Nn \c__fdu_def_secret_clist
                 { \l_keys_choice_int - 1 }
             }
         }
@@ -714,11 +714,11 @@
       {
         \__fdu_cover_font_size_normal: \bfseries
         \fdu_fixed_width_center_box:Nn
-          \c__fdu_def_cover_title_e_width_tl
+          \c__fdu_def_cover_title_en_width_tl
           {
             \fdu_line_spread:N
-              \c__fdu_def_cover_title_e_line_spread_tl
-            \l__fdu_info_title_e_tl
+              \c__fdu_def_cover_title_en_line_spread_tl
+            \l__fdu_info_title_en_tl
           }
       }
     \end{center}
@@ -907,22 +907,23 @@
   }
 \NewDocumentEnvironment { abstract* } { }
   {
-    \chapter* { \c__fdu_def_name_abstract_e_tl }
-    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_e_tl }
+    \chapter* { \c__fdu_def_name_abstract_en_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_e_tl }
+      { \normalfont \sffamily \c__fdu_def_name_abstract_en_tl }
   }
   {
     \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf{\c__fdu_def_name_keywords_e_tl} \quad
-    \clist_use:Nn \l__fdu_info_keywords_e_clist { \quad }
+    \textbf{\c__fdu_def_name_keywords_en_tl} \quad
+    \clist_use:Nn \l__fdu_info_keywords_en_clist { \quad }
     \par
     \noindent
-    \textbf{\c__fdu_def_name_clc_e_tl} \quad
+    \textbf{\c__fdu_def_name_clc_en_tl} \quad
     \l__fdu_info_clc_tl
   }
-\NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
+\NewDocumentEnvironment { notation }
+  { O { \c__fdu_def_notation_arg_tl } }
   {
     \chapter* { \c__fdu_def_name_notation_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }

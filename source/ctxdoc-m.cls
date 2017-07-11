@@ -752,17 +752,17 @@
     \ttfamily
     \ctexdocverbaddon
   }
-\cs_set_protected:Npn \AltMacroFont
-  {
-%% Modified by Xiangdong Zeng, 2017-06-25.
-    \linespread { 1.05 }
+%% Modified by Xiangdong Zeng, 2017-07-11.
+\cs_set_eq:NN \AltMacroFont \MacroFont
+%%%%\cs_set_protected:Npn \AltMacroFont
+%%%%  {
 %%%%    \linespread { 1 }
-    \small
-    \fontseries { \mddefault }
-    \fontshape  { \sldefault }
-    \ttfamily
-    \ctexdocverbaddon
-  }
+%%%%    \small
+%%%%    \fontseries { \mddefault }
+%%%%    \fontshape  { \sldefault }
+%%%%    \ttfamily
+%%%%    \ctexdocverbaddon
+%%%%  }
 \AtBeginDocument
   {
     \tl_gset:Nx \macro@font

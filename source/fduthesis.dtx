@@ -617,8 +617,8 @@ version.
 %     \tn{end}\{notation\}
 %   \end{syntax}
 %   符号表。可选参数“列格式说明”与 \LaTeX 中标准表格的列格式相同，
-%   默认值为“|l p{25 em}|”，即第一列宽度自动调整，第二列限宽
-%   \SI{25}{em}，均采用左对齐。
+%   默认值为“|l p{7.5 cm}|”，即第一列宽度自动调整，第二列限宽
+%   \SI{7.5}{cm}，均采用左对齐。
 % \end{function}
 %
 % \subsubsection{猪肚}
@@ -1138,23 +1138,31 @@ version.
 % 此处使用 |fixskip = true| 选项来抑制前后的多余间距。
 %    \begin{macrocode}
     chapter = {
-      format     = \c__fdu_def_chapter_format_tl,
-      beforeskip = \c__fdu_def_chapter_before_sep_tl,
-      afterskip  = \c__fdu_def_chapter_after_sep_tl,
-      number     = { \arabic { chapter } },
-      fixskip    = true
+%<class>      format      = \c__fdu_def_chapter_format_tl,
+%<*class-en>
+      format      = \c__fdu_def_chapter_format_en_tl,
+      nameformat  = \c__fdu_def_chapter_name_format_en_tl,
+      titleformat = \c__fdu_def_chapter_title_format_en_tl,
+      aftername   = \c__fdu_def_chapter_after_name_en_tl,
+%</class-en>
+      beforeskip  = \c__fdu_def_chapter_before_sep_tl,
+      afterskip   = \c__fdu_def_chapter_after_sep_tl,
+      number      = { \arabic { chapter } },
+      fixskip     = true
     },
     section = {
-      format     = \c__fdu_def_section_format_tl,
-      beforeskip = \c__fdu_def_section_before_sep_tl,
-      afterskip  = \c__fdu_def_section_after_sep_tl,
-      fixskip    = true
+%<class>      format      = \c__fdu_def_section_format_tl,
+%<class-en>      format      = \c__fdu_def_section_format_en_tl,
+      beforeskip  = \c__fdu_def_section_before_sep_tl,
+      afterskip   = \c__fdu_def_section_after_sep_tl,
+      fixskip     = true
     },
     subsection = {
-      format     = \c__fdu_def_subsection_format_tl,
-      beforeskip = \c__fdu_def_subsection_before_sep_tl,
-      afterskip  = \c__fdu_def_subsection_after_sep_tl,
-      fixskip    = true
+%<class>      format      = \c__fdu_def_subsection_format_tl,
+%<class-en>      format      = \c__fdu_def_subsection_format_en_tl,
+      beforeskip  = \c__fdu_def_subsection_before_sep_tl,
+      afterskip   = \c__fdu_def_subsection_after_sep_tl,
+      fixskip     = true
     }
   }
 %    \end{macrocode}
@@ -1733,11 +1741,11 @@ version.
 %    \end{macrocode}
 %
 % \begin{macro}{info/title,info/title*,
-%   \l__fdu_info_title_tl,\l__fdu_info_title_e_tl}
+%   \l__fdu_info_title_tl,\l__fdu_info_title_en_tl}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
     title       .tl_set:N    = \l__fdu_info_title_tl,
-    title*      .tl_set:N    = \l__fdu_info_title_e_tl,
+    title*      .tl_set:N    = \l__fdu_info_title_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1749,20 +1757,20 @@ version.
 % \end{macro}
 %
 % \begin{macro}{info/author,info/author*,
-%   \l__fdu_info_author_tl,\l__fdu_info_author_e_tl}
+%   \l__fdu_info_author_tl,\l__fdu_info_author_en_tl}
 % 作者姓名。
 %    \begin{macrocode}
     author      .tl_set:N    = \l__fdu_info_author_tl,
-    author*     .tl_set:N    = \l__fdu_info_author_e_tl,
+    author*     .tl_set:N    = \l__fdu_info_author_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/supervisor,info/supervisor*,
-%   \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_e_tl}
+%   \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_en_tl}
 % 导师姓名。
 %    \begin{macrocode}
     supervisor  .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor* .tl_set:N    = \l__fdu_info_supervisor_e_tl,
+    supervisor* .tl_set:N    = \l__fdu_info_supervisor_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1774,20 +1782,20 @@ version.
 % \end{macro}
 %
 % \begin{macro}{info/department,info/department*,
-%   \l__fdu_info_department_tl,\l__fdu_info_department_e_tl}
+%   \l__fdu_info_department_tl,\l__fdu_info_department_en_tl}
 % 院系。
 %    \begin{macrocode}
     department  .tl_set:N    = \l__fdu_info_department_tl,
-    department* .tl_set:N    = \l__fdu_info_department_e_tl,
+    department* .tl_set:N    = \l__fdu_info_department_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/major,info/major*,
-%   \l__fdu_info_major_tl,\l__fdu_info_major_e_tl}
+%   \l__fdu_info_major_tl,\l__fdu_info_major_en_tl}
 % 专业。
 %    \begin{macrocode}
     major       .tl_set:N    = \l__fdu_info_major_tl,
-    major*      .tl_set:N    = \l__fdu_info_major_e_tl,
+    major*      .tl_set:N    = \l__fdu_info_major_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1806,11 +1814,11 @@ version.
 % \end{macro}
 %
 % \begin{macro}{info/keywords,info/keywords*,
-%   \l__fdu_info_keywords_clist,\l__fdu_info_keywords_e_clist}
+%   \l__fdu_info_keywords_clist,\l__fdu_info_keywords_en_clist}
 % 论文关键字。
 %    \begin{macrocode}
     keywords    .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*   .clist_set:N = \l__fdu_info_keywords_e_clist,
+    keywords*   .clist_set:N = \l__fdu_info_keywords_en_clist,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1858,7 +1866,7 @@ version.
           \setmathfont { XITS~ Math } [ version = secret-XITS ]
           \tl_set:Nn \l__fdu_info_secret_level_tl
             {
-              \clist_item:Nn \c__fdu_def_name_secret_clist
+              \clist_item:Nn \c__fdu_def_secret_clist
                 { \l_keys_choice_int - 1 }
             }
         }
@@ -2059,11 +2067,11 @@ version.
       {
         \__fdu_cover_font_size_normal: \bfseries
         \fdu_fixed_width_center_box:Nn
-          \c__fdu_def_cover_title_e_width_tl
+          \c__fdu_def_cover_title_en_width_tl
           {
             \fdu_line_spread:N
-              \c__fdu_def_cover_title_e_line_spread_tl
-            \l__fdu_info_title_e_tl
+              \c__fdu_def_cover_title_en_line_spread_tl
+            \l__fdu_info_title_en_tl
           }
       }
     \end{center}
@@ -2289,11 +2297,12 @@ version.
 %    \end{macrocode}
 %
 % \subsection{目录}
-% 设置目录标题为“目 \quad 录”。
+% 设置目录标题。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-    contentsname = { \c__fdu_def_name_toc_tl },
+%<class>    contentsname = { \c__fdu_def_name_toc_tl },
+%<class-en>    contentsname = { \c__fdu_def_name_toc_en_tl },
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
@@ -2308,8 +2317,8 @@ version.
 %    \end{macrocode}
 %
 % \begin{macro}{\tableofcontents}
-% 修改 \tn{tableofcontents} 定义，使得页眉按照正确显示。
-% 第二个参数中的代码来源于 \LaTeXe{} 标准文档类 \file{book.cls}。
+% 修改 \tn{tableofcontents} 的定义，使得页眉正确显示。第二个参数中的
+% 代码来源于 \LaTeXe{} 标准文档类 \file{book.cls}。
 %    \begin{macrocode}
 \ctex_patch_cmd_once:NnnnTF \tableofcontents
   { }
@@ -2320,9 +2329,26 @@ version.
   }
   {
     \chapter* { \contentsname }
-    \fdu_front_matter_header:n { \c__fdu_def_name_toc_tl }
+%<class>    \fdu_front_matter_header:n { \c__fdu_def_name_toc_tl }
+%<class-en>    \fdu_front_matter_header:n { \c__fdu_def_name_toc_en_tl }
   }
   { } { \ctex_patch_failure:N \tableofcontents }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@starttoc}
+% 修改 \tn{@starttoc} 的定义以调整英文模板中的目录行距。
+%    \begin{macrocode}
+%<*class-en>
+\ctex_patch_cmd_once:NnnnTF \@starttoc
+  { }
+  { \begingroup }
+  {
+    \begingroup
+      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
+  }
+  { } { \ctex_patch_failure:N \@starttoc }
+%</class-en>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2331,6 +2357,7 @@ version.
 % \begin{macro}{abstract}
 % 中文摘要及关键字。
 %    \begin{macrocode}
+%<*class>
 \NewDocumentEnvironment { abstract } { }
   {
 %    \end{macrocode}
@@ -2367,23 +2394,26 @@ version.
     }
     \l__fdu_info_clc_tl
   }
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{英文摘要}
-% \begin{macro}{abstract*}
-% 英文摘要及关键字。
+% \begin{macro}{abstract*,abstract}
+% 英文摘要及关键字。注意英文模板中的 |abstract*| 与中文模板中的
+% |abstract| 是相同的。
 %    \begin{macrocode}
-\NewDocumentEnvironment { abstract* } { }
+%<class>\NewDocumentEnvironment { abstract* } { }
+%<class-en>\NewDocumentEnvironment { abstract } { }
   {
 %    \end{macrocode}
 %
 % 英文摘要标题为“Abstract”，也要修改页眉并添加到目录。
 %    \begin{macrocode}
-    \chapter* { \c__fdu_def_name_abstract_e_tl }
-    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_e_tl }
+    \chapter* { \c__fdu_def_name_abstract_en_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_e_tl }
+      { \normalfont \sffamily \c__fdu_def_name_abstract_en_tl }
   }
   {
 %    \end{macrocode}
@@ -2392,15 +2422,15 @@ version.
 %    \begin{macrocode}
     \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf{\c__fdu_def_name_keywords_e_tl} \quad
-    \clist_use:Nn \l__fdu_info_keywords_e_clist { \quad }
+    \textbf{\c__fdu_def_name_keywords_en_tl} \quad
+    \clist_use:Nn \l__fdu_info_keywords_en_clist { \quad }
     \par
 %    \end{macrocode}
 %
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    \textbf{\c__fdu_def_name_clc_e_tl} \quad
+    \textbf{\c__fdu_def_name_clc_en_tl} \quad
     \l__fdu_info_clc_tl
   }
 %    \end{macrocode}
@@ -2408,18 +2438,29 @@ version.
 %
 % \subsection{符号表}
 % \begin{macro}{notation}
-% 符号表环境，利用 |longtable| 封装。可选参数为表格列格式说明符，
-% 默认为“|l p{25 em}|”。与摘要类似，符号表页需要修改页眉，并添加到
-% 目录。另外需要调整 \cs{LTpre} 和 \cs{LTpost}，以删去 |longtable|
-% 前后的空白。
+% 符号表环境，利用 |longtable| 封装。可选参数为表格列格式说明符。
+% 与摘要类似，符号表页需要修改页眉，并添加到目录。另外需要调整
+% \cs{LTpre} 和 \cs{LTpost}，以删去 |longtable| 前后的空白。
 %    \begin{macrocode}
-\NewDocumentEnvironment { notation } { O{ l p{ 25 em } } }
+\NewDocumentEnvironment { notation }
+  { O { \c__fdu_def_notation_arg_tl } }
   {
+%<*class>
     \chapter* { \c__fdu_def_name_notation_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }
     \addcontentsline { toc } { chapter }
       { \normalfont \sffamily \c__fdu_def_name_notation_tl }
     \group_begin:
+%</class>
+%<*class-en>
+    \chapter* { \c__fdu_def_name_notation_en_tl }
+    \fdu_front_matter_header:n { \c__fdu_def_name_notation_en_tl }
+    \addcontentsline { toc } { chapter }
+      { \normalfont \sffamily \c__fdu_def_name_notation_en_tl }
+    \group_begin:
+      \cs_set_eq:NN \arraystretch
+        \c__fdu_def_notation_line_stretch_en_tl
+%</class-en>
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
       \begin{longtable} { #1 }
@@ -2728,11 +2769,12 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{章节标题}
 % \begin{macro}{\c__fdu_def_chapter_format_tl,
 %   \c__fdu_def_section_format_tl,
 %   \c__fdu_def_subsection_format_tl}
-% 章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐（但需要
-% 使用 \tn{raggedright}）。
+% 中文模板章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐
+% （但需要使用 \tn{raggedright}）。
 %    \begin{macrocode}
 \tl_const:Nn \c__fdu_def_chapter_format_tl
   { \huge  \normalfont \sffamily \centering   }
@@ -2743,6 +2785,28 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\c__fdu_def_chapter_format_en_tl,
+%   \c__fdu_def_chapter_name_format_en_tl,
+%   \c__fdu_def_chapter_title_format_en_tl,
+%   \c__fdu_def_chapter_after_name_en_tl,
+%   \c__fdu_def_section_format_en_tl,
+%   \c__fdu_def_subsection_format_en_tl}
+% 英文模板章节标题样式。均使用粗体。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_chapter_format_en_tl { \centering }
+\tl_const:Nn \c__fdu_def_chapter_name_format_en_tl
+  { \LARGE \bfseries }
+\tl_const:Nn \c__fdu_def_chapter_title_format_en_tl
+  { \huge  \bfseries }
+\tl_const:Nn \c__fdu_def_chapter_after_name_en_tl
+  { \par \nobreak \vskip 10 pt }
+\tl_const:Nn \c__fdu_def_section_format_en_tl
+  { \Large \bfseries \raggedright }
+\tl_const:Nn \c__fdu_def_subsection_format_en_tl
+  { \large \bfseries \raggedright }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\c__fdu_def_chapter_before_sep_tl,
 %   \c__fdu_def_chapter_after_sep_tl,
 %   \c__fdu_def_section_before_sep_tl,
@@ -2750,7 +2814,7 @@ version.
 %   \c__fdu_def_subsection_before_sep_tl,
 %   \c__fdu_def_subsection_after_sep_tl}
 % 章节标题前后间距。使用 |tl| 而非 |skip|，是为了防止在没有上下文的
-% 时候 |ex| 被展开成 0。
+% 时候 |ex| 被展开成 0。之后的不少间距也是这样定义的。
 %    \begin{macrocode}
 \tl_const:Nn \c__fdu_def_chapter_before_sep_tl { 50 pt }
 \tl_const:Nn \c__fdu_def_chapter_after_sep_tl  { 40 pt }
@@ -2784,7 +2848,7 @@ version.
 %   \c__fdu_def_cover_logo_width_tl,
 %   \c__fdu_def_cover_type_width_tl,
 %   \c__fdu_def_cover_title_width_tl,
-%   \c__fdu_def_cover_title_e_width_tl,
+%   \c__fdu_def_cover_title_en_width_tl,
 %   \c__fdu_def_cover_info_left_width_tl,
 %   \c__fdu_def_cover_instructors_width_tl}
 % 封面中的一些长度。
@@ -2797,7 +2861,7 @@ version.
   { 0.45 \textwidth }
 \tl_const:Nn \c__fdu_def_cover_title_width_tl
   { 0.9  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_title_e_width_tl
+\tl_const:Nn \c__fdu_def_cover_title_en_width_tl
   { 0.9  \textwidth }
 \tl_const:Nn \c__fdu_def_cover_info_left_width_tl   { 6 em }
 \tl_const:Nn \c__fdu_def_cover_instructors_width_tl { 7 em }
@@ -2832,10 +2896,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_cover_title_e_line_spread_tl}
+% \begin{macro}{\c__fdu_def_cover_title_en_line_spread_tl}
 % 英文标题的行距倍数。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_title_e_line_spread_tl { 1.2 }
+\tl_const:Nn \c__fdu_def_cover_title_en_line_spread_tl { 1.2 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2906,11 +2970,25 @@ version.
 % \newcommand{。}{．}
 % \end{macro}
 %
-% \subsubsection{默认名称}
-% \begin{macro}{\c__fdu_def_name_secret_clist}
+% \subsubsection{杂项}
+% \begin{macro}{\c__fdu_def_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
-\clist_const:Nn \c__fdu_def_name_secret_clist { 秘密, 机密, 绝密 }
+\clist_const:Nn \c__fdu_def_secret_clist { 秘密, 机密, 绝密 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_notation_arg_tl}
+% 符号表默认参数。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_notation_arg_tl { l p { 7.5 cm } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_notation_line_stretch_en_tl}
+% 英文模板中符号表的行间距。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_notation_line_stretch_en_tl { 1.3 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2932,10 +3010,13 @@ version.
 \tl_const:Nn \c__fdu_def_name_abstract_tl         { 摘 \quad 要  }
 \tl_const:Nn \c__fdu_def_name_keywords_tl         { 关键字       }
 \tl_const:Nn \c__fdu_def_name_clc_tl              { 中图分类号   }
-\tl_const:Nn \c__fdu_def_name_abstract_e_tl       { Abstract     }
-\tl_const:Nn \c__fdu_def_name_keywords_e_tl       { Keywords:    }
-\tl_const:Nn \c__fdu_def_name_clc_e_tl            { CLC~ number: }
 \tl_const:Nn \c__fdu_def_name_notation_tl         { 符号表       }
+\tl_const:Nn \c__fdu_def_name_toc_en_tl           { Contents     }
+\tl_const:Nn \c__fdu_def_name_abstract_en_tl      { Abstract     }
+\tl_const:Nn \c__fdu_def_name_keywords_en_tl      { Keywords:    }
+\tl_const:Nn \c__fdu_def_name_clc_en_tl           { CLC~ number: }
+\tl_const:Nn \c__fdu_def_name_notation_en_tl
+  { List~ of~ Symbols }
 \tl_const:Nn \c__fdu_def_name_originality_decl_tl
   { 复旦大学 \\ 学位论文独创性声明   }
 \tl_const:Nn \c__fdu_def_name_authorization_decl_tl
