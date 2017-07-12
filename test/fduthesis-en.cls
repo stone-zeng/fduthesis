@@ -201,20 +201,15 @@
 \tl_new:N \l__fdu_header_center_mark_tl
 \bool_if:NTF \g__fdu_twoside_bool
   {
-    \fancyhead [ EL ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ OR ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
+    \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
   }
   {
-    \fancyhead [ L ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ R ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
+    \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
     \fancyhead [ C ]
       {
-        \small \nouppercase
-          { \CJKfamily { kai } \l__fdu_header_center_mark_tl }
+        \small \nouppercase { \itshape \l__fdu_header_center_mark_tl }
       }
   }
 \fancyfoot [ C ] { \small \thepage }
@@ -366,10 +361,7 @@
     headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
     bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
     qed        .tl_set:N  = \l__fdu_thm_qed_tl,
-    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
-    headerfont .initial:n = { \sffamily },
-    bodyfont   .initial:n = { \CJKfamily { kai } },
-    counter    .initial:n = { chapter }
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl
   }
 \cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
   {
@@ -431,19 +423,6 @@
           { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }
   }
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
 \captionsetup [ figure ]
   {
     font     = small,
@@ -687,17 +666,20 @@
     \group_begin:
       \cs_set_eq:NN \cleardoublepage \relax
       \thispagestyle { empty }
+      \keys_set:nn { ctex }
+        { chapter / titleformat = \c__fdu_def_chapter_format_tl }
+      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
       \@schapter
         {
           \fdu_spread_box:NV
             \c__fdu_def_cover_instructors_width_tl
             \c__fdu_def_name_instructors_tl
         }
+      \begin{center}
+        \large
+        \clist_use:Nn \l__fdu_info_instructors_clist { \par }
+      \end{center}
     \group_end:
-    \begin{center}
-      \large
-      \clist_use:Nn \l__fdu_info_instructors_clist { \par }
-    \end{center}
   }
 \NewDocumentCommand \makecoveriii { }
   {
@@ -755,10 +737,14 @@
   {
     contentsname = { \c__fdu_def_name_toc_en_tl },
     chapter    / tocline = {
-      \normalfont \sffamily \CTEXnumberline { #1 } #2
+      \c__fdu_def_chapter_toc_format_en_tl \CTEXnumberline { #1 } #2
+    },
+    section    / tocline = {
+      \c__fdu_def_section_toc_format_en_tl \CTEXnumberline { #1 } #2
     },
     subsection / tocline = {
-      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
+      \c__fdu_def_subsection_toc_format_en_tl
+        \CTEXnumberline { #1 } #2
     }
   }
 \ctex_patch_cmd_once:NnnnTF \tableofcontents
@@ -786,7 +772,10 @@
     \chapter* { \c__fdu_def_name_abstract_en_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_en_tl }
+      {
+        \c__fdu_def_chapter_toc_format_en_tl
+        \c__fdu_def_name_abstract_en_tl
+      }
   }
   {
     \par \mbox{} \par
@@ -804,7 +793,10 @@
     \chapter* { \c__fdu_def_name_notation_en_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_notation_en_tl }
+      {
+        \c__fdu_def_chapter_toc_format_en_tl
+        \c__fdu_def_name_notation_en_tl
+      }
     \group_begin:
       \cs_set_eq:NN \arraystretch
         \c__fdu_def_notation_line_stretch_en_tl
@@ -821,17 +813,33 @@
     info  .meta:nn = { fdu / info  } { #1 },
     style .meta:nn = { fdu / style } { #1 }
   }
-\NewDocumentCommand \fdusetup { m }
-  { \keys_set:nn { fdu } { #1 } }
 \keys_set:nn { fdu }
   {
-    style / font            =  times,
-    style / fontsize        =  -4,
-    style / automakecover   =  true,
-    info  / secretlevel     =  none,
-    info  / date            =  \zhtoday,
-    info  / schoolid        =  10246
+    style   / font          =  times,
+    style   / fontsize      =  -4,
+    style   / automakecover =  true,
+    info    / secretlevel   =  none,
+    info    / date          =  \zhtoday,
+    info    / schoolid      =  10246,
+    theorem / headerfont    = { \bfseries \upshape },
+    theorem / bodyfont      = { \itshape },
+    theorem / counter       = { chapter }
   }
+\NewDocumentCommand \fdusetup { m }
+  { \keys_set:nn { fdu } { #1 } }
+\fdunewtheorem* { proof       } { Proof       }
+\fdunewtheorem  { assumption  } { Assumption  }
+\fdunewtheorem  { axiom       } { Axiom       }
+\fdunewtheorem  { conjecture  } { Conjecture  }
+\fdunewtheorem  { corollary   } { Corollary   }
+\fdunewtheorem  { definition  } { Definition  }
+\fdunewtheorem  { example     } { Example     }
+\fdunewtheorem  { exercise    } { Exercise    }
+\fdunewtheorem  { lemma       } { Lemma       }
+\fdunewtheorem  { problem     } { Problem     }
+\fdunewtheorem  { proposition } { Proposition }
+\fdunewtheorem  { remark      } { Remark      }
+\fdunewtheorem  { theorem     } { Theorem     }
 \endinput
 %%
 %% End of file `fduthesis-en.cls'.

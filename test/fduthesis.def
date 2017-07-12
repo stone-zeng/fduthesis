@@ -75,6 +75,15 @@
   { 3.25 ex plus 1   ex minus 0.2 ex }
 \tl_const:Nn \c__fdu_def_subsection_after_sep_tl
   { 2.5  ex plus 0.3 ex }
+\tl_const:Nn \c__fdu_def_chapter_toc_format_tl
+  { \normalfont \sffamily }
+\tl_const:Nn \c__fdu_def_section_toc_format_tl
+  { }
+\tl_const:Nn \c__fdu_def_subsection_toc_format_tl
+  { \CJKfamily { kai } }
+\tl_const:Nn \c__fdu_def_chapter_toc_format_en_tl    { \bfseries }
+\tl_const:Nn \c__fdu_def_section_toc_format_en_tl    { \bfseries }
+\tl_const:Nn \c__fdu_def_subsection_toc_format_en_tl { }
 \cs_new:Nn \__fdu_cover_font_size_small:  { \zihao { -5 } }
 \cs_new:Nn \__fdu_cover_font_size_normal: { \zihao {  4 } }
 \cs_new:Nn \__fdu_cover_font_size_large:  { \zihao { -2 } }

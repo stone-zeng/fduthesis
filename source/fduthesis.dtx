@@ -1182,6 +1182,7 @@ version.
 % 文字在左，奇数页中则在右。单面模式下，左右页眉都要显示。
 %    \begin{macrocode}
 \bool_if:NTF \g__fdu_twoside_bool
+%<*class>
   {
     \fancyhead [ EL ]
       { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
@@ -1199,6 +1200,22 @@ version.
           { \CJKfamily { kai } \l__fdu_header_center_mark_tl }
       }
   }
+%</class>
+%<*class-en>
+  {
+    \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
+    \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
+  }
+  {
+    \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
+    \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
+    \fancyhead [ C ]
+      {
+        \small \nouppercase
+          { \itshape \l__fdu_header_center_mark_tl }
+      }
+  }
+%</class-en>
 %    \end{macrocode}
 %
 % 构建页脚，用来显示页码。选项 |C| 表示居中（center）。
@@ -1537,10 +1554,7 @@ version.
     headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
     bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
     qed        .tl_set:N  = \l__fdu_thm_qed_tl,
-    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
-    headerfont .initial:n = { \sffamily },
-    bodyfont   .initial:n = { \CJKfamily { kai } },
-    counter    .initial:n = { chapter }
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1676,28 +1690,6 @@ version.
           { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }
   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{proof,
-%   assumption,axiom,conjecture,corollary,definition,example,
-%   exercise,lemma,problem,proposition,remark,theorem}
-% 模板预定义的常用数学环境。
-% 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
-%    \begin{macrocode}
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2193,6 +2185,15 @@ version.
       \thispagestyle { empty }
 %    \end{macrocode}
 %
+% 保持英文模板与中文模板的一致。
+%    \begin{macrocode}
+%<*class-en>
+      \keys_set:nn { ctex }
+        { chapter / titleformat = \c__fdu_def_chapter_format_tl }
+      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
+%</class-en>
+%    \end{macrocode}
+%
 % 为了关闭页眉页脚，此处使用了不编号章节的原始命令 \tn{@schapter}。
 %    \begin{macrocode}
       \@schapter
@@ -2201,11 +2202,11 @@ version.
             \c__fdu_def_cover_instructors_width_tl
             \c__fdu_def_name_instructors_tl
         }
+      \begin{center}
+        \large
+        \clist_use:Nn \l__fdu_info_instructors_clist { \par }
+      \end{center}
     \group_end:
-    \begin{center}
-      \large
-      \clist_use:Nn \l__fdu_info_instructors_clist { \par }
-    \end{center}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2302,10 +2303,17 @@ version.
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
     chapter    / tocline = {
-      \normalfont \sffamily \CTEXnumberline { #1 } #2
+%<class>      \c__fdu_def_chapter_toc_format_tl    \CTEXnumberline { #1 } #2
+%<class-en>      \c__fdu_def_chapter_toc_format_en_tl \CTEXnumberline { #1 } #2
+    },
+    section    / tocline = {
+%<class>      \c__fdu_def_section_toc_format_tl    \CTEXnumberline { #1 } #2
+%<class-en>      \c__fdu_def_section_toc_format_en_tl \CTEXnumberline { #1 } #2
     },
     subsection / tocline = {
-      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
+%<class>      \c__fdu_def_subsection_toc_format_tl \CTEXnumberline { #1 } #2
+%<class-en>      \c__fdu_def_subsection_toc_format_en_tl
+%<class-en>        \CTEXnumberline { #1 } #2
     }
   }
 %    \end{macrocode}
@@ -2361,7 +2369,10 @@ version.
     \chapter* { \c__fdu_def_name_abstract_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_abstract_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_tl }
+      {
+        \c__fdu_def_chapter_toc_format_tl
+        \c__fdu_def_name_abstract_tl
+      }
   }
   {
 %    \end{macrocode}
@@ -2407,7 +2418,11 @@ version.
     \chapter* { \c__fdu_def_name_abstract_en_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_en_tl }
+      {
+%<class>        \c__fdu_def_chapter_toc_format_tl
+%<class-en>        \c__fdu_def_chapter_toc_format_en_tl
+        \c__fdu_def_name_abstract_en_tl
+      }
   }
   {
 %    \end{macrocode}
@@ -2443,14 +2458,20 @@ version.
     \chapter* { \c__fdu_def_name_notation_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_notation_tl }
+      {
+        \c__fdu_def_chapter_toc_format_tl
+        \c__fdu_def_name_notation_tl
+      }
     \group_begin:
 %</class>
 %<*class-en>
     \chapter* { \c__fdu_def_name_notation_en_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_notation_en_tl }
+      {
+        \c__fdu_def_chapter_toc_format_en_tl
+        \c__fdu_def_name_notation_en_tl
+      }
     \group_begin:
       \cs_set_eq:NN \arraystretch
         \c__fdu_def_notation_line_stretch_en_tl
@@ -2668,6 +2689,26 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% 文档类初始设置。
+%    \begin{macrocode}
+\keys_set:nn { fdu }
+  {
+    style   / font          =  times,
+%<class>    style   / cjkfont       =  fandol,
+    style   / fontsize      =  -4,
+%<class>    style   / fullwidthstop =  false,
+    style   / automakecover =  true,
+    info    / secretlevel   =  none,
+    info    / date          =  \zhtoday,
+    info    / schoolid      =  10246,
+%<class>    theorem / headerfont    = { \sffamily },
+%<class-en>    theorem / headerfont    = { \bfseries \upshape },
+%<class>    theorem / bodyfont      = { \CJKfamily { kai } },
+%<class-en>    theorem / bodyfont      = { \itshape },
+    theorem / counter       = { chapter }
+  }
+%    \end{macrocode}
+%
 % \begin{macro}{\fdusetup}
 % 用户设置接口。
 %    \begin{macrocode}
@@ -2676,21 +2717,45 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% 文档类初始设置。
+% \begin{macro}{proof,
+%   assumption,axiom,conjecture,corollary,definition,example,
+%   exercise,lemma,problem,proposition,remark,theorem}
+% 模板预定义的常用数学环境。
+% 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
 %    \begin{macrocode}
-\keys_set:nn { fdu }
-  {
-    style / font            =  times,
-%<class>    style / cjkfont         =  fandol,
-    style / fontsize        =  -4,
-%<class>    style / fullwidthstop   =  false,
-    style / automakecover   =  true,
-    info  / secretlevel     =  none,
-    info  / date            =  \zhtoday,
-    info  / schoolid        =  10246
-  }
+%<*class>
+\fdunewtheorem* { proof       } { 证明 }
+\fdunewtheorem  { assumption  } { 假设 }
+\fdunewtheorem  { axiom       } { 公理 }
+\fdunewtheorem  { conjecture  } { 猜想 }
+\fdunewtheorem  { corollary   } { 推论 }
+\fdunewtheorem  { definition  } { 定义 }
+\fdunewtheorem  { example     } { 例   }
+\fdunewtheorem  { exercise    } { 练习 }
+\fdunewtheorem  { lemma       } { 引理 }
+\fdunewtheorem  { problem     } { 问题 }
+\fdunewtheorem  { proposition } { 命题 }
+\fdunewtheorem  { remark      } { 评注 }
+\fdunewtheorem  { theorem     } { 定理 }
+%</class>
+%<*class-en>
+\fdunewtheorem* { proof       } { Proof       }
+\fdunewtheorem  { assumption  } { Assumption  }
+\fdunewtheorem  { axiom       } { Axiom       }
+\fdunewtheorem  { conjecture  } { Conjecture  }
+\fdunewtheorem  { corollary   } { Corollary   }
+\fdunewtheorem  { definition  } { Definition  }
+\fdunewtheorem  { example     } { Example     }
+\fdunewtheorem  { exercise    } { Exercise    }
+\fdunewtheorem  { lemma       } { Lemma       }
+\fdunewtheorem  { problem     } { Problem     }
+\fdunewtheorem  { proposition } { Proposition }
+\fdunewtheorem  { remark      } { Remark      }
+\fdunewtheorem  { theorem     } { Theorem     }
+%</class-en>
 %</class|class-en>
 %    \end{macrocode}
+% \end{macro}
 %
 % \subsection{模板参数配置文件}
 %    \begin{macrocode}
@@ -2820,6 +2885,26 @@ version.
   { 3.25 ex plus 1   ex minus 0.2 ex }
 \tl_const:Nn \c__fdu_def_subsection_after_sep_tl
   { 2.5  ex plus 0.3 ex }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c__fdu_def_chapter_toc_format_tl,
+%   \c__fdu_def_section_toc_format_tl,
+%   \c__fdu_def_subsection_toc_format_tl,
+%   \c__fdu_def_chapter_toc_format_en_tl,
+%   \c__fdu_def_section_toc_format_en_tl,
+%   \c__fdu_def_subsection_toc_format_en_tl}
+% 章节目录在目录中的样式。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_chapter_toc_format_tl
+  { \normalfont \sffamily }
+\tl_const:Nn \c__fdu_def_section_toc_format_tl
+  { }
+\tl_const:Nn \c__fdu_def_subsection_toc_format_tl
+  { \CJKfamily { kai } }
+\tl_const:Nn \c__fdu_def_chapter_toc_format_en_tl    { \bfseries }
+\tl_const:Nn \c__fdu_def_section_toc_format_en_tl    { \bfseries }
+\tl_const:Nn \c__fdu_def_subsection_toc_format_en_tl { }
 %    \end{macrocode}
 % \end{macro}
 %
