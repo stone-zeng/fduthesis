@@ -476,10 +476,7 @@
     headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
     bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
     qed        .tl_set:N  = \l__fdu_thm_qed_tl,
-    counter    .tl_set:N  = \l__fdu_thm_counter_tl,
-    headerfont .initial:n = { \sffamily },
-    bodyfont   .initial:n = { \CJKfamily { kai } },
-    counter    .initial:n = { chapter }
+    counter    .tl_set:N  = \l__fdu_thm_counter_tl
   }
 \cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
   {
@@ -541,19 +538,6 @@
           { \l__fdu_thm_counter_tl } { #3 } { #4 }
       }
   }
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
 \captionsetup [ figure ]
   {
     font     = small,
@@ -801,11 +785,11 @@
             \c__fdu_def_cover_instructors_width_tl
             \c__fdu_def_name_instructors_tl
         }
+      \begin{center}
+        \large
+        \clist_use:Nn \l__fdu_info_instructors_clist { \par }
+      \end{center}
     \group_end:
-    \begin{center}
-      \large
-      \clist_use:Nn \l__fdu_info_instructors_clist { \par }
-    \end{center}
   }
 \NewDocumentCommand \makecoveriii { }
   {
@@ -863,10 +847,13 @@
   {
     contentsname = { \c__fdu_def_name_toc_tl },
     chapter    / tocline = {
-      \normalfont \sffamily \CTEXnumberline { #1 } #2
+      \c__fdu_def_chapter_toc_format_tl    \CTEXnumberline { #1 } #2
+    },
+    section    / tocline = {
+      \c__fdu_def_section_toc_format_tl    \CTEXnumberline { #1 } #2
     },
     subsection / tocline = {
-      \CJKfamily { kai }    \CTEXnumberline { #1 } #2
+      \c__fdu_def_subsection_toc_format_tl \CTEXnumberline { #1 } #2
     }
   }
 \ctex_patch_cmd_once:NnnnTF \tableofcontents
@@ -886,7 +873,10 @@
     \chapter* { \c__fdu_def_name_abstract_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_abstract_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_tl }
+      {
+        \c__fdu_def_chapter_toc_format_tl
+        \c__fdu_def_name_abstract_tl
+      }
   }
   {
     \par \mbox{} \par
@@ -910,7 +900,10 @@
     \chapter* { \c__fdu_def_name_abstract_en_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_abstract_en_tl }
+      {
+        \c__fdu_def_chapter_toc_format_tl
+        \c__fdu_def_name_abstract_en_tl
+      }
   }
   {
     \par \mbox{} \par
@@ -928,7 +921,10 @@
     \chapter* { \c__fdu_def_name_notation_tl }
     \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }
     \addcontentsline { toc } { chapter }
-      { \normalfont \sffamily \c__fdu_def_name_notation_tl }
+      {
+        \c__fdu_def_chapter_toc_format_tl
+        \c__fdu_def_name_notation_tl
+      }
     \group_begin:
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
@@ -943,19 +939,35 @@
     info  .meta:nn = { fdu / info  } { #1 },
     style .meta:nn = { fdu / style } { #1 }
   }
-\NewDocumentCommand \fdusetup { m }
-  { \keys_set:nn { fdu } { #1 } }
 \keys_set:nn { fdu }
   {
-    style / font            =  times,
-    style / cjkfont         =  fandol,
-    style / fontsize        =  -4,
-    style / fullwidthstop   =  false,
-    style / automakecover   =  true,
-    info  / secretlevel     =  none,
-    info  / date            =  \zhtoday,
-    info  / schoolid        =  10246
+    style   / font          =  times,
+    style   / cjkfont       =  fandol,
+    style   / fontsize      =  -4,
+    style   / fullwidthstop =  false,
+    style   / automakecover =  true,
+    info    / secretlevel   =  none,
+    info    / date          =  \zhtoday,
+    info    / schoolid      =  10246,
+    theorem / headerfont    = { \sffamily },
+    theorem / bodyfont      = { \CJKfamily { kai } },
+    theorem / counter       = { chapter }
   }
+\NewDocumentCommand \fdusetup { m }
+  { \keys_set:nn { fdu } { #1 } }
+\fdunewtheorem* { proof       } { 证明 }
+\fdunewtheorem  { assumption  } { 假设 }
+\fdunewtheorem  { axiom       } { 公理 }
+\fdunewtheorem  { conjecture  } { 猜想 }
+\fdunewtheorem  { corollary   } { 推论 }
+\fdunewtheorem  { definition  } { 定义 }
+\fdunewtheorem  { example     } { 例   }
+\fdunewtheorem  { exercise    } { 练习 }
+\fdunewtheorem  { lemma       } { 引理 }
+\fdunewtheorem  { problem     } { 问题 }
+\fdunewtheorem  { proposition } { 命题 }
+\fdunewtheorem  { remark      } { 评注 }
+\fdunewtheorem  { theorem     } { 定理 }
 \endinput
 %%
 %% End of file `fduthesis.cls'.
