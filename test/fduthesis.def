@@ -165,6 +165,20 @@
 \tl_const:Nn \c__fdu_def_name_author_sign_tl      { 作者签名     }
 \tl_const:Nn \c__fdu_def_name_supervisor_sign_tl  { 导师签名     }
 \tl_const:Nn \c__fdu_def_name_sign_date_tl        { 日期         }
+\tl_const:Nn \c__fdu_def_name_proof_tl         { 证明 }
+\tl_const:Nn \c__fdu_def_name_axiom_tl         { 公理 }
+\tl_const:Nn \c__fdu_def_name_corollary_tl     { 推论 }
+\tl_const:Nn \c__fdu_def_name_definition_tl    { 定义 }
+\tl_const:Nn \c__fdu_def_name_example_tl       { 例   }
+\tl_const:Nn \c__fdu_def_name_lemma_tl         { 引理 }
+\tl_const:Nn \c__fdu_def_name_theorem_tl       { 定理 }
+\tl_const:Nn \c__fdu_def_name_proof_en_tl      { Proof      }
+\tl_const:Nn \c__fdu_def_name_axiom_en_tl      { Axiom      }
+\tl_const:Nn \c__fdu_def_name_corollary_en_tl  { Corollary  }
+\tl_const:Nn \c__fdu_def_name_definition_en_tl { Definition }
+\tl_const:Nn \c__fdu_def_name_example_en_tl    { Example    }
+\tl_const:Nn \c__fdu_def_name_lemma_en_tl      { Lemma      }
+\tl_const:Nn \c__fdu_def_name_theorem_en_tl    { Theorem    }
 \endinput
 %%
 %% End of file `fduthesis.def'.

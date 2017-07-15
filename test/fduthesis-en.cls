@@ -858,19 +858,13 @@
   { \keys_set:nn { fdu } { style / font = times } }
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } { #1 } }
-\fdunewtheorem* { proof       } { Proof       }
-\fdunewtheorem  { assumption  } { Assumption  }
-\fdunewtheorem  { axiom       } { Axiom       }
-\fdunewtheorem  { conjecture  } { Conjecture  }
-\fdunewtheorem  { corollary   } { Corollary   }
-\fdunewtheorem  { definition  } { Definition  }
-\fdunewtheorem  { example     } { Example     }
-\fdunewtheorem  { exercise    } { Exercise    }
-\fdunewtheorem  { lemma       } { Lemma       }
-\fdunewtheorem  { problem     } { Problem     }
-\fdunewtheorem  { proposition } { Proposition }
-\fdunewtheorem  { remark      } { Remark      }
-\fdunewtheorem  { theorem     } { Theorem     }
+\fdunewtheorem* { proof       } { \c__fdu_def_name_proof_en_tl      }
+\fdunewtheorem  { axiom       } { \c__fdu_def_name_axiom_en_tl      }
+\fdunewtheorem  { corollary   } { \c__fdu_def_name_corollary_en_tl  }
+\fdunewtheorem  { definition  } { \c__fdu_def_name_definition_en_tl }
+\fdunewtheorem  { example     } { \c__fdu_def_name_example_en_tl    }
+\fdunewtheorem  { lemma       } { \c__fdu_def_name_lemma_en_tl      }
+\fdunewtheorem  { theorem     } { \c__fdu_def_name_theorem_en_tl    }
 \endinput
 %%
 %% End of file `fduthesis-en.cls'.

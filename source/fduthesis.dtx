@@ -2867,40 +2867,27 @@ version.
 % \end{macro}
 %
 % \begin{macro}{proof,
-%   assumption,axiom,conjecture,corollary,definition,example,
-%   exercise,lemma,problem,proposition,remark,theorem}
+%   axiom,corollary,definition,example,lemma,theorem}
 % 模板预定义的常用数学环境。
 % 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
 %    \begin{macrocode}
 %<*class>
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
+\fdunewtheorem* { proof       } { \c__fdu_def_name_proof_tl      }
+\fdunewtheorem  { axiom       } { \c__fdu_def_name_axiom_tl      }
+\fdunewtheorem  { corollary   } { \c__fdu_def_name_corollary_tl  }
+\fdunewtheorem  { definition  } { \c__fdu_def_name_definition_tl }
+\fdunewtheorem  { example     } { \c__fdu_def_name_example_tl    }
+\fdunewtheorem  { lemma       } { \c__fdu_def_name_lemma_tl      }
+\fdunewtheorem  { theorem     } { \c__fdu_def_name_theorem_tl    }
 %</class>
 %<*class-en>
-\fdunewtheorem* { proof       } { Proof       }
-\fdunewtheorem  { assumption  } { Assumption  }
-\fdunewtheorem  { axiom       } { Axiom       }
-\fdunewtheorem  { conjecture  } { Conjecture  }
-\fdunewtheorem  { corollary   } { Corollary   }
-\fdunewtheorem  { definition  } { Definition  }
-\fdunewtheorem  { example     } { Example     }
-\fdunewtheorem  { exercise    } { Exercise    }
-\fdunewtheorem  { lemma       } { Lemma       }
-\fdunewtheorem  { problem     } { Problem     }
-\fdunewtheorem  { proposition } { Proposition }
-\fdunewtheorem  { remark      } { Remark      }
-\fdunewtheorem  { theorem     } { Theorem     }
+\fdunewtheorem* { proof       } { \c__fdu_def_name_proof_en_tl      }
+\fdunewtheorem  { axiom       } { \c__fdu_def_name_axiom_en_tl      }
+\fdunewtheorem  { corollary   } { \c__fdu_def_name_corollary_en_tl  }
+\fdunewtheorem  { definition  } { \c__fdu_def_name_definition_en_tl }
+\fdunewtheorem  { example     } { \c__fdu_def_name_example_en_tl    }
+\fdunewtheorem  { lemma       } { \c__fdu_def_name_lemma_en_tl      }
+\fdunewtheorem  { theorem     } { \c__fdu_def_name_theorem_en_tl    }
 %</class-en>
 %</class|class-en>
 %    \end{macrocode}
@@ -3251,6 +3238,24 @@ version.
 \tl_const:Nn \c__fdu_def_name_author_sign_tl      { 作者签名     }
 \tl_const:Nn \c__fdu_def_name_supervisor_sign_tl  { 导师签名     }
 \tl_const:Nn \c__fdu_def_name_sign_date_tl        { 日期         }
+%    \end{macrocode}
+%
+% 默认定理头名称。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_def_name_proof_tl         { 证明 }
+\tl_const:Nn \c__fdu_def_name_axiom_tl         { 公理 }
+\tl_const:Nn \c__fdu_def_name_corollary_tl     { 推论 }
+\tl_const:Nn \c__fdu_def_name_definition_tl    { 定义 }
+\tl_const:Nn \c__fdu_def_name_example_tl       { 例   }
+\tl_const:Nn \c__fdu_def_name_lemma_tl         { 引理 }
+\tl_const:Nn \c__fdu_def_name_theorem_tl       { 定理 }
+\tl_const:Nn \c__fdu_def_name_proof_en_tl      { Proof      }
+\tl_const:Nn \c__fdu_def_name_axiom_en_tl      { Axiom      }
+\tl_const:Nn \c__fdu_def_name_corollary_en_tl  { Corollary  }
+\tl_const:Nn \c__fdu_def_name_definition_en_tl { Definition }
+\tl_const:Nn \c__fdu_def_name_example_en_tl    { Example    }
+\tl_const:Nn \c__fdu_def_name_lemma_en_tl      { Lemma      }
+\tl_const:Nn \c__fdu_def_name_theorem_en_tl    { Theorem    }
 %</definition>
 %    \end{macrocode}
 %

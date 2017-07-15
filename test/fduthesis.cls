@@ -1013,19 +1013,13 @@
   }
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } { #1 } }
-\fdunewtheorem* { proof       } { 证明 }
-\fdunewtheorem  { assumption  } { 假设 }
-\fdunewtheorem  { axiom       } { 公理 }
-\fdunewtheorem  { conjecture  } { 猜想 }
-\fdunewtheorem  { corollary   } { 推论 }
-\fdunewtheorem  { definition  } { 定义 }
-\fdunewtheorem  { example     } { 例   }
-\fdunewtheorem  { exercise    } { 练习 }
-\fdunewtheorem  { lemma       } { 引理 }
-\fdunewtheorem  { problem     } { 问题 }
-\fdunewtheorem  { proposition } { 命题 }
-\fdunewtheorem  { remark      } { 评注 }
-\fdunewtheorem  { theorem     } { 定理 }
+\fdunewtheorem* { proof       } { \c__fdu_def_name_proof_tl      }
+\fdunewtheorem  { axiom       } { \c__fdu_def_name_axiom_tl      }
+\fdunewtheorem  { corollary   } { \c__fdu_def_name_corollary_tl  }
+\fdunewtheorem  { definition  } { \c__fdu_def_name_definition_tl }
+\fdunewtheorem  { example     } { \c__fdu_def_name_example_tl    }
+\fdunewtheorem  { lemma       } { \c__fdu_def_name_lemma_tl      }
+\fdunewtheorem  { theorem     } { \c__fdu_def_name_theorem_tl    }
 \endinput
 %%
 %% End of file `fduthesis.cls'.

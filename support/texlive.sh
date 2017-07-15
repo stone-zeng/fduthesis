@@ -75,6 +75,7 @@ tlmgr install         \
   pifont              \
   psnfss              \
   tex-gyre            \
+  tex-gyre-math       \
   xits                \
   zapfding
 
