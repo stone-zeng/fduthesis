@@ -697,6 +697,20 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\g__fdu_draft_bool}
+% 是否开启草稿模式。
+%    \begin{macrocode}
+\bool_new:N \g__fdu_draft_bool
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\g__fdu_no_fonts_bool}
+% 是否禁用默认字体设置。
+%    \begin{macrocode}
+\bool_new:N \g__fdu_no_fonts_bool
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\c__fdu_fn_style_plain_tl,
 %   \c__fdu_fn_style_libertinus_tl,
 %   \c__fdu_fn_style_libertinus_n_tl,
@@ -758,7 +772,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{draft,\g__fdu_draft_bool}
+% \begin{macro}{draft}
 % 是否开启草稿模式（默认关闭）。
 %    \begin{macrocode}
     draft .choice:,
@@ -770,7 +784,17 @@ version.
       \bool_set_false:N    \g__fdu_draft_bool
     },
     draft .default:n = true,
-    draft .initial:n = false
+    draft .initial:n = false,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{nofonts}
+% 是否禁用默认字体设置（默认关闭）。
+%    \begin{macrocode}
+    nofonts .choice:,
+    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    nofonts .default:n = true,
+    nofonts .initial:n = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1059,12 +1083,79 @@ version.
       \setCJKfamilyfont { hei  } { SimHei   }
       \setCJKfamilyfont { fang } { FangSong }
       \setCJKfamilyfont { kai  } { KaiTi    }
-    },
-%</class>
+    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 以下为宋、黑、仿、楷各定义一些内部函数。注意
+% \cs{xeCJK_family_if_exist:nTF} 是不能展开的，因此这里用了
+% \cs{cs_new_protected:Nn} 禁止展开。
+% 见 \url{https://tex.stackexchange.com/q/380612} 和
+% \url{https://tex.stackexchange.com/q/380556}。
+%
+% \begin{macro}{\fdu_cjk_font_song:}
+% 宋体，相当于普通罗马字体。
+%    \begin{macrocode}
+\cs_new_protected:Nn \fdu_cjk_font_song:
+  {
+    \xeCJK_family_if_exist:nTF { song }
+      { \CJKfamily { song } } { \rmfamily }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_cjk_font_hei:}
+% 黑体，相当于无衬线体。
+%    \begin{macrocode}
+\cs_new_protected:Nn \fdu_cjk_font_hei:
+  {
+    \xeCJK_family_if_exist:nTF { hei  }
+      { \CJKfamily { hei  } } { \sffamily }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_cjk_font_fang:}
+% 仿宋，相当于打字机字体（或等宽字体）。
+%    \begin{macrocode}
+\cs_new_protected:Nn \fdu_cjk_font_fang:
+  {
+    \xeCJK_family_if_exist:nTF { fang }
+      { \CJKfamily { fang } } { \ttfamily }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_cjk_font_kai:}
+% 楷体，相当于罗马字体的意大利形状（斜体）。
+%    \begin{macrocode}
+\cs_new_protected:Nn \fdu_cjk_font_kai:
+  {
+    \xeCJK_family_if_exist:nTF { kai  }
+      { \CJKfamily { kai  } } { \rmfamily \itshape }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu@song,\fdu@hei,\fdu@fang,\fdu@kai}
+% \cs{fdu_cjk_font_kai:} 等一些 \LaTeX3 风格的命令在 |toc| 文件里面
+% 无法正常使用，因此重新定义为 \LaTeXe{} 风格的命令。
+%    \begin{macrocode}
+\NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
+\NewDocumentCommand \fdu@hei  { } { \fdu_cjk_font_hei:  }
+\NewDocumentCommand \fdu@fang { } { \fdu_cjk_font_fang: }
+\NewDocumentCommand \fdu@kai  { } { \fdu_cjk_font_kai:  }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{字号}
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%</class>
+%    \end{macrocode}
+%
 % \begin{macro}{style/fontsize}
 % |fontsize| 不是文档类选项，不能传给 \pkg{ctex} 宏包
 % 或者 \cls{book} 文档类，因此只能手动重定义字号命令。
@@ -1184,20 +1275,16 @@ version.
 \bool_if:NTF \g__fdu_twoside_bool
 %<*class>
   {
-    \fancyhead [ EL ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ OR ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
+    \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
   }
   {
-    \fancyhead [ L ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ R ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
+    \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
     \fancyhead [ C ]
       {
         \small \nouppercase
-          { \CJKfamily { kai } \l__fdu_header_center_mark_tl }
+          { \fdu@kai \l__fdu_header_center_mark_tl }
       }
   }
 %</class>
@@ -1536,16 +1623,26 @@ version.
 % \end{macro}
 %
 % \subsection{定理环境}
-% \begin{macro}{theorem/style,
-%   theorem/headerfont,
-%   theorem/bodyfont,
-%   theorem/qed,
-%   theorem/counter,
-%   \l__fdu_thm_style_tl,
+% \begin{macro}{\l__fdu_thm_style_tl,
 %   \l__fdu_thm_header_font_tl,
 %   \l__fdu_thm_body_font_tl,
 %   \l__fdu_thm_qed_tl,
 %   \l__fdu_thm_counter_tl}
+% 定理所需的一些字段。
+%    \begin{macrocode}
+\tl_new:N \l__fdu_thm_style_tl
+\tl_new:N \l__fdu_thm_header_font_tl
+\tl_new:N \l__fdu_thm_body_font_tl
+\tl_new:N \l__fdu_thm_qed_tl
+\tl_new:N \l__fdu_thm_counter_tl
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{theorem/style,
+%   theorem/headerfont,
+%   theorem/bodyfont,
+%   theorem/qed,
+%   theorem/counter}
 % 定义 |fdu/theorem| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / theorem }
@@ -1720,14 +1817,57 @@ version.
 %
 % \subsection{封面}
 % \subsubsection{信息录入}
+% \begin{macro}{\l__fdu_info_title_tl,
+%   \l__fdu_info_date_tl,
+%   \l__fdu_info_author_tl,
+%   \l__fdu_info_supervisor_tl,
+%   \l__fdu_info_instructors_clist,
+%   \l__fdu_info_department_tl,
+%   \l__fdu_info_major_tl,
+%   \l__fdu_info_student_id_tl,
+%   \l__fdu_info_school_id_tl,
+%   \l__fdu_info_keywords_clist,
+%   \l__fdu_info_clc_tl}
+% 封面所需的一些字段。
+%    \begin{macrocode}
+\tl_new:N    \l__fdu_info_title_tl
+\tl_new:N    \l__fdu_info_date_tl
+\tl_new:N    \l__fdu_info_author_tl
+\tl_new:N    \l__fdu_info_supervisor_tl
+\clist_new:N \l__fdu_info_instructors_clist
+\tl_new:N    \l__fdu_info_department_tl
+\tl_new:N    \l__fdu_info_major_tl
+\tl_new:N    \l__fdu_info_student_id_tl
+\tl_new:N    \l__fdu_info_school_id_tl
+\clist_new:N \l__fdu_info_keywords_clist
+\tl_new:N    \l__fdu_info_clc_tl
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\l__fdu_info_title_en_tl,
+%   \l__fdu_info_author_en_tl,
+%   \l__fdu_info_supervisor_en_tl,
+%   \l__fdu_info_department_en_tl,
+%   \l__fdu_info_major_en_tl,
+%   \l__fdu_info_keywords_en_clist}
+% 对应的英文字段。
+%    \begin{macrocode}
+\tl_new:N    \l__fdu_info_title_en_tl
+\tl_new:N    \l__fdu_info_author_en_tl
+\tl_new:N    \l__fdu_info_supervisor_en_tl
+\tl_new:N    \l__fdu_info_department_en_tl
+\tl_new:N    \l__fdu_info_major_en_tl
+\clist_new:N \l__fdu_info_keywords_en_clist
+%    \end{macrocode}
+% \end{macro}
+%
 % 定义 |fdu/info| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / info }
   {
 %    \end{macrocode}
 %
-% \begin{macro}{info/title,info/title*,
-%   \l__fdu_info_title_tl,\l__fdu_info_title_en_tl}
+% \begin{macro}{info/title,info/title}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
     title       .tl_set:N    = \l__fdu_info_title_tl,
@@ -1735,15 +1875,14 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/date,\l__fdu_info_date_tl}
+% \begin{macro}{info/date}
 % 论文完成日期。
 %    \begin{macrocode}
     date        .tl_set:N    = \l__fdu_info_date_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/author,info/author*,
-%   \l__fdu_info_author_tl,\l__fdu_info_author_en_tl}
+% \begin{macro}{info/author,info/author*}
 % 作者姓名。
 %    \begin{macrocode}
     author      .tl_set:N    = \l__fdu_info_author_tl,
@@ -1751,8 +1890,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/supervisor,info/supervisor*,
-%   \l__fdu_info_supervisor_tl,\l__fdu_info_supervisor_en_tl}
+% \begin{macro}{info/supervisor,info/supervisor*}
 % 导师姓名。
 %    \begin{macrocode}
     supervisor  .tl_set:N    = \l__fdu_info_supervisor_tl,
@@ -1760,15 +1898,14 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/instructors,\l__fdu_info_instructors_clist}
+% \begin{macro}{info/instructors}
 % 指导小组成员。
 %    \begin{macrocode}
     instructors .clist_set:N = \l__fdu_info_instructors_clist,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/department,info/department*,
-%   \l__fdu_info_department_tl,\l__fdu_info_department_en_tl}
+% \begin{macro}{info/department,info/department*}
 % 院系。
 %    \begin{macrocode}
     department  .tl_set:N    = \l__fdu_info_department_tl,
@@ -1776,8 +1913,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/major,info/major*,
-%   \l__fdu_info_major_tl,\l__fdu_info_major_en_tl}
+% \begin{macro}{info/major,info/major*}
 % 专业。
 %    \begin{macrocode}
     major       .tl_set:N    = \l__fdu_info_major_tl,
@@ -1785,22 +1921,21 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/studentid,\l__fdu_info_student_id_tl}
+% \begin{macro}{info/studentid}
 % 学号。
 %    \begin{macrocode}
     studentid   .tl_set:N    = \l__fdu_info_student_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/schoolid,\l__fdu_info_school_id_tl}
+% \begin{macro}{info/schoolid}
 % 学校代码。
 %    \begin{macrocode}
     schoolid    .tl_set:N    = \l__fdu_info_school_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/keywords,info/keywords*,
-%   \l__fdu_info_keywords_clist,\l__fdu_info_keywords_en_clist}
+% \begin{macro}{info/keywords,info/keywords*}
 % 论文关键字。
 %    \begin{macrocode}
     keywords    .clist_set:N = \l__fdu_info_keywords_clist,
@@ -1808,7 +1943,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/clc,\l__fdu_info_clc_tl}
+% \begin{macro}{info/clc}
 % 中国图书馆分类号。
 %    \begin{macrocode}
     clc         .tl_set:N    = \l__fdu_info_clc_tl
@@ -1978,7 +2113,7 @@ version.
 % \begin{macro}{\__fdu_cover_id:}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_cover_id:
+\cs_new:Nn \__fdu_cover_id:
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
@@ -2013,7 +2148,7 @@ version.
 % \begin{macro}{\__fdu_cover_logo:}
 % 插入校名（毛体“復旦大學”）。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_cover_logo:
+\cs_new:Nn \__fdu_cover_logo:
   {
     \begin{center}
       \includegraphics [
@@ -2028,7 +2163,7 @@ version.
 % 标题，共有四行。第一行是论文类型，第二行是学位类型，三、四两行分别
 % 是中英文题目。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_cover_title:
+\cs_new:Nn \__fdu_cover_title:
   {
     \begin{center}
       {
@@ -2261,9 +2396,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{style/automakecover,\l__fdu_auto_make_cover_bool}
+% \begin{macro}{\l__fdu_auto_make_cover_bool,style/automakecover}
 % 是否自动生成封面。
 %    \begin{macrocode}
+\bool_new:N \l__fdu_auto_make_cover_bool
 \keys_define:nn { fdu / style }
   {
     automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
@@ -2693,8 +2829,6 @@ version.
 %    \begin{macrocode}
 \keys_set:nn { fdu }
   {
-    style   / font          =  times,
-%<class>    style   / cjkfont       =  fandol,
     style   / fontsize      =  -4,
 %<class>    style   / fullwidthstop =  false,
     style   / automakecover =  true,
@@ -2703,10 +2837,25 @@ version.
     info    / schoolid      =  10246,
 %<class>    theorem / headerfont    = { \sffamily },
 %<class-en>    theorem / headerfont    = { \bfseries \upshape },
-%<class>    theorem / bodyfont      = { \CJKfamily { kai } },
+%<class>    theorem / bodyfont      = { \fdu@kai },
 %<class-en>    theorem / bodyfont      = { \itshape },
     theorem / counter       = { chapter }
   }
+%    \end{macrocode}
+%
+% 在 |nofonts=false| 的情况下设置默认字体。
+%    \begin{macrocode}
+\bool_if:NF \g__fdu_no_fonts_bool
+%<*class>
+  {
+    \keys_set:nn { fdu }
+      {
+        style / font    = times,
+        style / cjkfont = fandol
+      }
+  }
+%</class>
+%<class-en>  { \keys_set:nn { fdu } { style / font = times } }
 %    \end{macrocode}
 %
 % \begin{macro}{\fdusetup}
@@ -2900,8 +3049,7 @@ version.
   { \normalfont \sffamily }
 \tl_const:Nn \c__fdu_def_section_toc_format_tl
   { }
-\tl_const:Nn \c__fdu_def_subsection_toc_format_tl
-  { \CJKfamily { kai } }
+\tl_const:Nn \c__fdu_def_subsection_toc_format_tl    { \fdu@kai  }
 \tl_const:Nn \c__fdu_def_chapter_toc_format_en_tl    { \bfseries }
 \tl_const:Nn \c__fdu_def_section_toc_format_en_tl    { \bfseries }
 \tl_const:Nn \c__fdu_def_subsection_toc_format_en_tl { }

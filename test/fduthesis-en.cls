@@ -51,6 +51,8 @@
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
+\bool_new:N \g__fdu_draft_bool
+\bool_new:N \g__fdu_no_fonts_bool
 \tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
 \tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
@@ -87,7 +89,11 @@
       \bool_set_false:N    \g__fdu_draft_bool
     },
     draft .default:n = true,
-    draft .initial:n = false
+    draft .initial:n = false,
+    nofonts .choice:,
+    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    nofonts .default:n = true,
+    nofonts .initial:n = false
   }
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
@@ -209,7 +215,8 @@
     \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
     \fancyhead [ C ]
       {
-        \small \nouppercase { \itshape \l__fdu_header_center_mark_tl }
+        \small \nouppercase
+          { \itshape \l__fdu_header_center_mark_tl }
       }
   }
 \fancyfoot [ C ] { \small \thepage }
@@ -355,6 +362,11 @@
         \hspace* { -2 em } #1
       }
   }
+\tl_new:N \l__fdu_thm_style_tl
+\tl_new:N \l__fdu_thm_header_font_tl
+\tl_new:N \l__fdu_thm_body_font_tl
+\tl_new:N \l__fdu_thm_qed_tl
+\tl_new:N \l__fdu_thm_counter_tl
 \keys_define:nn { fdu / theorem }
   {
     style      .tl_set:N  = \l__fdu_thm_style_tl,
@@ -437,6 +449,23 @@
   { \arabic { chapter } - \arabic { figure } }
 \RenewDocumentCommand \thetable  { }
   { \arabic { chapter } - \arabic { table  } }
+\tl_new:N    \l__fdu_info_title_tl
+\tl_new:N    \l__fdu_info_date_tl
+\tl_new:N    \l__fdu_info_author_tl
+\tl_new:N    \l__fdu_info_supervisor_tl
+\clist_new:N \l__fdu_info_instructors_clist
+\tl_new:N    \l__fdu_info_department_tl
+\tl_new:N    \l__fdu_info_major_tl
+\tl_new:N    \l__fdu_info_student_id_tl
+\tl_new:N    \l__fdu_info_school_id_tl
+\clist_new:N \l__fdu_info_keywords_clist
+\tl_new:N    \l__fdu_info_clc_tl
+\tl_new:N    \l__fdu_info_title_en_tl
+\tl_new:N    \l__fdu_info_author_en_tl
+\tl_new:N    \l__fdu_info_supervisor_en_tl
+\tl_new:N    \l__fdu_info_department_en_tl
+\tl_new:N    \l__fdu_info_major_en_tl
+\clist_new:N \l__fdu_info_keywords_en_clist
 \keys_define:nn { fdu / info }
   {
     title       .tl_set:N    = \l__fdu_info_title_tl,
@@ -521,7 +550,7 @@
 \cs_new:Npn \fdu_line_spread:N #1
   { \linespread { #1 } \selectfont }
 \cs_generate_variant:Nn \fdu_line_spread:N { n }
-\cs_new:Npn \__fdu_cover_id:
+\cs_new:Nn \__fdu_cover_id:
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
@@ -550,7 +579,7 @@
         }
     \end{flushright}
   }
-\cs_new:Npn \__fdu_cover_logo:
+\cs_new:Nn \__fdu_cover_logo:
   {
     \begin{center}
       \includegraphics [
@@ -558,7 +587,7 @@
       ] { \c__fdu_def_cover_logo_file_name_tl }
     \end{center}
   }
-\cs_new:Npn \__fdu_cover_title:
+\cs_new:Nn \__fdu_cover_title:
   {
     \begin{center}
       {
@@ -717,6 +746,7 @@
       }
     \vspace { \c__fdu_def_decl_v_sep_iii_tl }
   }
+\bool_new:N \l__fdu_auto_make_cover_bool
 \keys_define:nn { fdu / style }
   {
     automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
@@ -815,7 +845,6 @@
   }
 \keys_set:nn { fdu }
   {
-    style   / font          =  times,
     style   / fontsize      =  -4,
     style   / automakecover =  true,
     info    / secretlevel   =  none,
@@ -825,6 +854,8 @@
     theorem / bodyfont      = { \itshape },
     theorem / counter       = { chapter }
   }
+\bool_if:NF \g__fdu_no_fonts_bool
+  { \keys_set:nn { fdu } { style / font = times } }
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } { #1 } }
 \fdunewtheorem* { proof       } { Proof       }

@@ -1,14 +1,17 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
-\documentclass[twoside]{fduthesis}
+\documentclass[twoside,nofonts]{fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
+% \ExplSyntaxOn
+% \bool_show:N\g__fdu_no_font_bool
+% \ExplSyntaxOff
 
 \fdusetup{
   style = {
     % font = libertinus,
     % cjkfont = founder,
     fullwidthstop,
-    % footnotestyle = pifont,
+    % footnotestyle = plain,
     % automakecover = false
   },
   info = {
@@ -35,6 +38,11 @@
   }
 }
 
+\setCJKmainfont[ItalicFont=FandolFang]{FandolHei}
+\setCJKsansfont{FandolSong}
+\setCJKfamilyfont{kai}{FandolFang}
+\setmathfont{TeX Gyre Pagella Math}
+
 \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
 \newcommand\fonttest{%
   正常：\qquad\fonttesttext \par
@@ -48,7 +56,10 @@
 \tableofcontents
 
 \begin{abstract}
-中心法则形成了分子生物学的生命观：生命世界在信息和规律上是统一的；
+\ExplSyntaxOn
+% \cs_show:N \fdu_cjk_font_kai:
+\ExplSyntaxOff
+\emph{中心法则}形成了分子生物学的生命观：生命世界在信息和规律上是统一的；
 生命的物质基础和主宰物质是不同的，生命的物质基础是以核酸蛋白质整合
 体系为主宰的原生质各种必要的物质组分及其实在的相互作用；生命运动
 的本质在于组成生命的各物质之间以及生命的物质、能量与信息之间和生命

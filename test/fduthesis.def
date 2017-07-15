@@ -79,8 +79,7 @@
   { \normalfont \sffamily }
 \tl_const:Nn \c__fdu_def_section_toc_format_tl
   { }
-\tl_const:Nn \c__fdu_def_subsection_toc_format_tl
-  { \CJKfamily { kai } }
+\tl_const:Nn \c__fdu_def_subsection_toc_format_tl    { \fdu@kai  }
 \tl_const:Nn \c__fdu_def_chapter_toc_format_en_tl    { \bfseries }
 \tl_const:Nn \c__fdu_def_section_toc_format_en_tl    { \bfseries }
 \tl_const:Nn \c__fdu_def_subsection_toc_format_en_tl { }

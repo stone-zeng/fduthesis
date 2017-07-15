@@ -51,6 +51,8 @@
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
+\bool_new:N \g__fdu_draft_bool
+\bool_new:N \g__fdu_no_fonts_bool
 \tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
 \tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
@@ -87,7 +89,11 @@
       \bool_set_false:N    \g__fdu_draft_bool
     },
     draft .default:n = true,
-    draft .initial:n = false
+    draft .initial:n = false,
+    nofonts .choice:,
+    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    nofonts .default:n = true,
+    nofonts .initial:n = false
   }
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
@@ -260,7 +266,34 @@
       \setCJKfamilyfont { hei  } { SimHei   }
       \setCJKfamilyfont { fang } { FangSong }
       \setCJKfamilyfont { kai  } { KaiTi    }
-    },
+    }
+  }
+\cs_new_protected:Nn \fdu_cjk_font_song:
+  {
+    \xeCJK_family_if_exist:nTF { song }
+      { \CJKfamily { song } } { \rmfamily }
+  }
+\cs_new_protected:Nn \fdu_cjk_font_hei:
+  {
+    \xeCJK_family_if_exist:nTF { hei  }
+      { \CJKfamily { hei  } } { \sffamily }
+  }
+\cs_new_protected:Nn \fdu_cjk_font_fang:
+  {
+    \xeCJK_family_if_exist:nTF { fang }
+      { \CJKfamily { fang } } { \ttfamily }
+  }
+\cs_new_protected:Nn \fdu_cjk_font_kai:
+  {
+    \xeCJK_family_if_exist:nTF { kai  }
+      { \CJKfamily { kai  } } { \rmfamily \itshape }
+  }
+\NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
+\NewDocumentCommand \fdu@hei  { } { \fdu_cjk_font_hei:  }
+\NewDocumentCommand \fdu@fang { } { \fdu_cjk_font_fang: }
+\NewDocumentCommand \fdu@kai  { } { \fdu_cjk_font_kai:  }
+\keys_define:nn { fdu / style }
+  {
     fontsize .choice:,
     fontsize .value_required:n = true,
     fontsize / -4 .code:n = { },
@@ -311,20 +344,16 @@
 \tl_new:N \l__fdu_header_center_mark_tl
 \bool_if:NTF \g__fdu_twoside_bool
   {
-    \fancyhead [ EL ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ OR ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
+    \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
   }
   {
-    \fancyhead [ L ]
-      { \small \nouppercase { \CJKfamily { kai } \leftmark  } }
-    \fancyhead [ R ]
-      { \small \nouppercase { \CJKfamily { kai } \rightmark } }
+    \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
+    \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
     \fancyhead [ C ]
       {
         \small \nouppercase
-          { \CJKfamily { kai } \l__fdu_header_center_mark_tl }
+          { \fdu@kai \l__fdu_header_center_mark_tl }
       }
   }
 \fancyfoot [ C ] { \small \thepage }
@@ -470,6 +499,11 @@
         \hspace* { -2 em } #1
       }
   }
+\tl_new:N \l__fdu_thm_style_tl
+\tl_new:N \l__fdu_thm_header_font_tl
+\tl_new:N \l__fdu_thm_body_font_tl
+\tl_new:N \l__fdu_thm_qed_tl
+\tl_new:N \l__fdu_thm_counter_tl
 \keys_define:nn { fdu / theorem }
   {
     style      .tl_set:N  = \l__fdu_thm_style_tl,
@@ -552,6 +586,23 @@
   { \arabic { chapter } - \arabic { figure } }
 \RenewDocumentCommand \thetable  { }
   { \arabic { chapter } - \arabic { table  } }
+\tl_new:N    \l__fdu_info_title_tl
+\tl_new:N    \l__fdu_info_date_tl
+\tl_new:N    \l__fdu_info_author_tl
+\tl_new:N    \l__fdu_info_supervisor_tl
+\clist_new:N \l__fdu_info_instructors_clist
+\tl_new:N    \l__fdu_info_department_tl
+\tl_new:N    \l__fdu_info_major_tl
+\tl_new:N    \l__fdu_info_student_id_tl
+\tl_new:N    \l__fdu_info_school_id_tl
+\clist_new:N \l__fdu_info_keywords_clist
+\tl_new:N    \l__fdu_info_clc_tl
+\tl_new:N    \l__fdu_info_title_en_tl
+\tl_new:N    \l__fdu_info_author_en_tl
+\tl_new:N    \l__fdu_info_supervisor_en_tl
+\tl_new:N    \l__fdu_info_department_en_tl
+\tl_new:N    \l__fdu_info_major_en_tl
+\clist_new:N \l__fdu_info_keywords_en_clist
 \keys_define:nn { fdu / info }
   {
     title       .tl_set:N    = \l__fdu_info_title_tl,
@@ -636,7 +687,7 @@
 \cs_new:Npn \fdu_line_spread:N #1
   { \linespread { #1 } \selectfont }
 \cs_generate_variant:Nn \fdu_line_spread:N { n }
-\cs_new:Npn \__fdu_cover_id:
+\cs_new:Nn \__fdu_cover_id:
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
@@ -665,7 +716,7 @@
         }
     \end{flushright}
   }
-\cs_new:Npn \__fdu_cover_logo:
+\cs_new:Nn \__fdu_cover_logo:
   {
     \begin{center}
       \includegraphics [
@@ -673,7 +724,7 @@
       ] { \c__fdu_def_cover_logo_file_name_tl }
     \end{center}
   }
-\cs_new:Npn \__fdu_cover_title:
+\cs_new:Nn \__fdu_cover_title:
   {
     \begin{center}
       {
@@ -827,6 +878,7 @@
       }
     \vspace { \c__fdu_def_decl_v_sep_iii_tl }
   }
+\bool_new:N \l__fdu_auto_make_cover_bool
 \keys_define:nn { fdu / style }
   {
     automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
@@ -941,8 +993,6 @@
   }
 \keys_set:nn { fdu }
   {
-    style   / font          =  times,
-    style   / cjkfont       =  fandol,
     style   / fontsize      =  -4,
     style   / fullwidthstop =  false,
     style   / automakecover =  true,
@@ -950,8 +1000,16 @@
     info    / date          =  \zhtoday,
     info    / schoolid      =  10246,
     theorem / headerfont    = { \sffamily },
-    theorem / bodyfont      = { \CJKfamily { kai } },
+    theorem / bodyfont      = { \fdu@kai },
     theorem / counter       = { chapter }
+  }
+\bool_if:NF \g__fdu_no_fonts_bool
+  {
+    \keys_set:nn { fdu }
+      {
+        style / font    = times,
+        style / cjkfont = fandol
+      }
   }
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } { #1 } }
