@@ -45,7 +45,7 @@
 
 3. - [ ] (2017/07/13) `\CJKfamily` -> `\xeCJK_switch_family:n`
 
-4. - [ ] (2017/07/16) `\fdunewtheorem` 的内部命令
+4. - [ ] (2017/07/17) `\fdunewtheorem`、`\thefootnote` 等的内部命令
 
 # 文档
 1. - [ ] (2017/7/10) 用 `\IfFontExistsTF` 确保文档正确编译

@@ -319,12 +319,24 @@ version.
 % 而在单面模式下，正文部分页面不分奇偶，均会同时显示左、右页眉，
 % 文字分别为章标题和节标题；前置部分只有中页眉，显示对应标题。
 %
+% \begin{function}{nofonts}
+%   \begin{syntax}
+%     nofonts = <\TFF>
+%   \end{syntax}
+%   选择是否禁用默认字体设置，默认关闭。
+% \end{function}
+%
+% 禁用默认字体设置后，中文将无法正常显示，而西文则会按照 \LaTeX{}
+% 的默认配置采用 Computer Modern 字体系列。此时，您需要使用
+% \cs{setmainfont}、\cs{setmainCJKfont}、\cs{setmathfont} 等命令来
+% 配置字体。
+% TODO：关于此处 Computer Modern / Latin Modern 的说明。
+%
 % \begin{function}{draft}
 %   \begin{syntax}
 %     draft = <\TFF>
 %   \end{syntax}
-%   选择是否开启草稿模式，默认关闭。注意，单独一个 |draft| 的写法，
-%   与 |draft = true| 是一致的。
+%   选择是否开启草稿模式，默认关闭。
 % \end{function}
 %
 % 草稿模式为全局选项，会影响到很多宏包的工作方式。
@@ -697,13 +709,6 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\g__fdu_draft_bool}
-% 是否开启草稿模式。
-%    \begin{macrocode}
-\bool_new:N \g__fdu_draft_bool
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\g__fdu_no_fonts_bool}
 % 是否禁用默认字体设置。
 %    \begin{macrocode}
@@ -711,41 +716,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_fn_style_plain_tl,
-%   \c__fdu_fn_style_libertinus_tl,
-%   \c__fdu_fn_style_libertinus_n_tl,
-%   \c__fdu_fn_style_libertinus_sans_tl,
-%   \c__fdu_fn_style_pifont_tl,
-%   \c__fdu_fn_style_pifont_n_tl,
-%   \c__fdu_fn_style_pifont_sans_tl,
-%   \c__fdu_fn_style_pifont_sans_n_tl,
-%   \c__fdu_fn_style_xits_tl,
-%   \c__fdu_fn_style_xits_sans_tl,
-%   \c__fdu_fn_style_xits_sans_n_tl}
-% 各种脚注编号样式的名称。
+% \begin{macro}{\g__fdu_draft_bool}
+% 是否开启草稿模式。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
-\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\c__fdu_thm_style_plain_clist,
-%   \c__fdu_thm_style_break_clist}
-% 保存 |plain|、|break| 两种类型的定理样式名称。
-%    \begin{macrocode}
-\clist_const:Nn \c__fdu_thm_style_plain_clist
-  { plain, margin, change }
-\clist_const:Nn \c__fdu_thm_style_break_clist
-  { break, marginbreak, changebreak }
+\bool_new:N \g__fdu_draft_bool
 %    \end{macrocode}
 % \end{macro}
 %
@@ -772,6 +746,16 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{nofonts}
+% 是否禁用默认字体设置（默认关闭）。
+%    \begin{macrocode}
+    nofonts .choice:,
+    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    nofonts .default:n = true,
+    nofonts .initial:n = false,
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{draft}
 % 是否开启草稿模式（默认关闭）。
 %    \begin{macrocode}
@@ -784,17 +768,7 @@ version.
       \bool_set_false:N    \g__fdu_draft_bool
     },
     draft .default:n = true,
-    draft .initial:n = false,
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{nofonts}
-% 是否禁用默认字体设置（默认关闭）。
-%    \begin{macrocode}
-    nofonts .choice:,
-    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
-    nofonts .default:n = true,
-    nofonts .initial:n = false
+    draft .initial:n = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1088,8 +1062,8 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% 以下为宋、黑、仿、楷各定义一些内部函数。注意
-% \cs{xeCJK_family_if_exist:nTF} 是不能展开的，因此这里用了
+% 以下为宋、黑、仿、楷四种中文字体各定义了一些内部函数。函数
+% \cs{xeCJK_family_if_exist:nTF} 是不能展开的，因此此处使用了
 % \cs{cs_new_protected:Nn} 禁止展开。
 % 见 \url{https://tex.stackexchange.com/q/380612} 和
 % \url{https://tex.stackexchange.com/q/380556}。
@@ -1367,12 +1341,45 @@ version.
 %
 % \subsection{脚注}
 % \subsubsection{编号样式}
+% \begin{macro}{\c__fdu_fn_style_plain_tl,
+%   \c__fdu_fn_style_libertinus_tl,
+%   \c__fdu_fn_style_libertinus_n_tl,
+%   \c__fdu_fn_style_libertinus_sans_tl,
+%   \c__fdu_fn_style_pifont_tl,
+%   \c__fdu_fn_style_pifont_n_tl,
+%   \c__fdu_fn_style_pifont_sans_tl,
+%   \c__fdu_fn_style_pifont_sans_n_tl,
+%   \c__fdu_fn_style_xits_tl,
+%   \c__fdu_fn_style_xits_sans_tl,
+%   \c__fdu_fn_style_xits_sans_n_tl}
+% 各种脚注编号样式的名称。
+%    \begin{macrocode}
+\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
+\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
+\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
+\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\l__fdu_fn_style_tl}
 % 保存当前使用的脚注编号样式。
 %    \begin{macrocode}
 \tl_new:N \l__fdu_fn_style_tl
 %    \end{macrocode}
 % \end{macro}
+%
+% 在 |nofonts=true| 的情况下设置脚注样式为 |plain|。
+%    \begin{macrocode}
+\bool_if:NT \g__fdu_no_fonts_bool
+  { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
+%    \end{macrocode}
 %
 % 脚注样式也归入 |fdu/style| 键值类。
 %    \begin{macrocode}
@@ -1623,6 +1630,17 @@ version.
 % \end{macro}
 %
 % \subsection{定理环境}
+% \begin{macro}{\c__fdu_thm_style_plain_clist,
+%   \c__fdu_thm_style_break_clist}
+% 保存 |plain|、|break| 两种类型的定理样式名称。
+%    \begin{macrocode}
+\clist_const:Nn \c__fdu_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c__fdu_thm_style_break_clist
+  { break, marginbreak, changebreak }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\l__fdu_thm_style_tl,
 %   \l__fdu_thm_header_font_tl,
 %   \l__fdu_thm_body_font_tl,

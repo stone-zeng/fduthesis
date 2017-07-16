@@ -51,23 +51,8 @@
 \clist_new:N \g__fdu_to_book_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-\bool_new:N \g__fdu_draft_bool
 \bool_new:N \g__fdu_no_fonts_bool
-\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
-\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
-\clist_const:Nn \c__fdu_thm_style_plain_clist
-  { plain, margin, change }
-\clist_const:Nn \c__fdu_thm_style_break_clist
-  { break, marginbreak, changebreak }
+\bool_new:N \g__fdu_draft_bool
 \keys_define:nn { fdu / option }
   {
     oneside .value_forbidden:n = true,
@@ -80,6 +65,10 @@
       \clist_gput_right:Nn \g__fdu_to_book_clist { twoside }
       \bool_set_true:N     \g__fdu_twoside_bool
     },
+    nofonts .choice:,
+    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    nofonts .default:n = true,
+    nofonts .initial:n = false,
     draft .choice:,
     draft / true  .code:n = {
       \bool_set_true:N     \g__fdu_draft_bool
@@ -89,11 +78,7 @@
       \bool_set_false:N    \g__fdu_draft_bool
     },
     draft .default:n = true,
-    draft .initial:n = false,
-    nofonts .choice:,
-    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
-    nofonts .default:n = true,
-    nofonts .initial:n = false
+    draft .initial:n = false
   }
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
@@ -242,7 +227,20 @@
 \pagestyle { fancy }
 \RenewDocumentCommand \sectionmark { m }
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
+\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
+\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
+\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
+\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
+\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
 \tl_new:N \l__fdu_fn_style_tl
+\bool_if:NT \g__fdu_no_fonts_bool
+  { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
 \keys_define:nn { fdu / style }
   {
     footnotestyle .choices:nn = {
@@ -362,6 +360,10 @@
         \hspace* { -2 em } #1
       }
   }
+\clist_const:Nn \c__fdu_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c__fdu_thm_style_break_clist
+  { break, marginbreak, changebreak }
 \tl_new:N \l__fdu_thm_style_tl
 \tl_new:N \l__fdu_thm_header_font_tl
 \tl_new:N \l__fdu_thm_body_font_tl
