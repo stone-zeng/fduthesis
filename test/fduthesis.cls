@@ -45,7 +45,6 @@
 \dim_new:N   \l__fdu_tmpb_dim
 \tl_new:N    \l__fdu_tmpa_tl
 \tl_new:N    \l__fdu_tmpb_tl
-\int_new:N   \l__fdu_tmpa_int
 \clist_new:N \l__fdu_tmpa_clist
 \clist_new:N \l__fdu_tmpb_clist
 \clist_new:N \g__fdu_to_book_clist
@@ -366,15 +365,18 @@
   { \markright { \CTEXthesection \negthinspace \quad #1 } }
 \tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c__fdu_fn_style_libertinus_negative_tl
+  { libertinus* }
 \tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
 \tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c__fdu_fn_style_pifont_negative_tl { pifont*         }
 \tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c__fdu_fn_style_pifont_sans_negative_tl
+  { pifont-sans* }
 \tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
 \tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
+\tl_const:Nn \c__fdu_fn_style_xits_sans_negative_tl
+  { xits-sans* }
 \tl_new:N \l__fdu_fn_style_tl
 \bool_if:NT \g__fdu_no_fonts_bool
   { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
@@ -399,7 +401,7 @@
     },
     footnotestyle .value_required:n = true
   }
-\cs_new:Npn \__fdu_fn_symbol_libertinus:V #1
+\cs_new:Npn \__fdu_fn_symbol_libertinus:n #1
   {
     \int_compare:nTF { #1 >= 21 }
       {
@@ -409,23 +411,23 @@
       }
       { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
   }
-\cs_new:Npn \__fdu_fn_symbol_libertinus_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_libertinus_negative:n #1
   {
     \int_compare:nTF { #1 >= 11 }
       { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
       { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
   }
-\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:V
-  \__fdu_fn_symbol_libertinus:V
-\cs_new:Npn \__fdu_fn_symbol_pifont:V #1
+\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:n
+  \__fdu_fn_symbol_libertinus:n
+\cs_new:Npn \__fdu_fn_symbol_pifont:n #1
   { \ding { \int_eval:n { 171 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_pifont_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont_negative:n #1
   { \ding { \int_eval:n { 181 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_pifont_sans:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont_sans:n #1
   { \ding { \int_eval:n { 191 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_pifont_sans_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont_sans_negative:n #1
   { \ding { \int_eval:n { 201 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_xits:V #1
+\cs_new:Npn \__fdu_fn_symbol_xits:n #1
   {
     \int_compare:nTF { #1 >= 10 }
       {
@@ -435,57 +437,58 @@
       }
       { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
   }
-\cs_new:Npn \__fdu_fn_symbol_xits_sans:V #1
+\cs_new:Npn \__fdu_fn_symbol_xits_sans:n #1
   { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_xits_sans_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_xits_sans_negative:n #1
   { \symbol { \int_eval:n { "278A - 1 + #1 } } }
 \RenewDocumentCommand \thefootnote { }
+  { \fdu_footnote_number:n { \value { footnote } } }
+\cs_new:Npn \fdu_footnote_number:n #1
   {
-    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
     \tl_case:NnF \l__fdu_fn_style_tl
       {
         \c__fdu_fn_style_plain_tl
-          { \int_use:N \l__fdu_tmpa_int }
+          { #1 }
         \c__fdu_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
-            \__fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
+            \__fdu_fn_symbol_libertinus:n { #1 }
           }
-        \c__fdu_fn_style_libertinus_n_tl
+        \c__fdu_fn_style_libertinus_negative_tl
           {
             \fontspec { Libertinus~ Serif }
-            \__fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
+            \__fdu_fn_symbol_libertinus_negative:n { #1 }
           }
         \c__fdu_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
-            \__fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
+            \__fdu_fn_symbol_libertinus_sans:n { #1 }
           }
         \c__fdu_fn_style_pifont_tl
-          { \__fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_n_tl
-          { \__fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
+          { \__fdu_fn_symbol_pifont:n { #1 } }
+        \c__fdu_fn_style_pifont_negative_tl
+          { \__fdu_fn_symbol_pifont_negative:n { #1 } }
         \c__fdu_fn_style_pifont_sans_tl
-          { \__fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_n_tl
-          { \__fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
+          { \__fdu_fn_symbol_pifont_sans:n { #1 } }
+        \c__fdu_fn_style_pifont_sans_negative_tl
+          { \__fdu_fn_symbol_pifont_sans_negative:n { #1 } }
         \c__fdu_fn_style_xits_tl
           {
             \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
+            $ \__fdu_fn_symbol_xits:n { #1 } $
           }
         \c__fdu_fn_style_xits_sans_tl
           {
             \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
+            $ \__fdu_fn_symbol_xits_sans:n { #1 } $
           }
-        \c__fdu_fn_style_xits_sans_n_tl
+        \c__fdu_fn_style_xits_sans_negative_tl
           {
             \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
+            $ \__fdu_fn_symbol_xits_sans_negative:n { #1 } $
           }
       }
-      { \int_use:N \l__fdu_tmpa_int }
+      { #1 }
   }
 \RenewDocumentCommand \@makefntext { +m }
   {
@@ -520,12 +523,12 @@
     \newtheorem { #3 } { #4 } [ #2 ]
   }
 \cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
-\cs_new:Npn \fdu_thm_new_nonum:nnn #1 #2 #3
+\cs_new:Npn \fdu_thm_new_no_number:nnn #1 #2 #3
   {
     \theoremstyle { #1 }
     \newtheorem { #2 } { #3 }
   }
-\cs_generate_variant:Nn \fdu_thm_new_nonum:nnn { Vnn }
+\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vnn }
 \cs_new:Npn \fdu_thm_set_qed:n         #1
   { \theoremsymbol     { #1 } }
 \cs_new:Npn \fdu_thm_set_header_font:n #1
@@ -560,7 +563,7 @@
               { }
           }
         \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_new_nonum:Vnn \l__fdu_thm_style_tl
+        \fdu_thm_new_no_number:Vnn \l__fdu_thm_style_tl
           { #3 } { #4 }
       }
       {

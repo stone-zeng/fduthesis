@@ -680,7 +680,7 @@ version.
 % \begin{macro}{\l_@@_tmpa_box,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
-%   \l_@@_tmpa_int,
+%^^A   \l_@@_tmpa_int,
 %   \l_@@_tmpa_clist,\l_@@_tmpb_clist}
 % 临时变量。
 %    \begin{macrocode}
@@ -689,7 +689,7 @@ version.
 \dim_new:N   \l_@@_tmpb_dim
 \tl_new:N    \l_@@_tmpa_tl
 \tl_new:N    \l_@@_tmpb_tl
-\int_new:N   \l_@@_tmpa_int
+% \int_new:N   \l_@@_tmpa_int
 \clist_new:N \l_@@_tmpa_clist
 \clist_new:N \l_@@_tmpb_clist
 %    \end{macrocode}
@@ -1344,28 +1344,31 @@ version.
 % \subsubsection{编号样式}
 % \begin{macro}{\c_@@_fn_style_plain_tl,
 %   \c_@@_fn_style_libertinus_tl,
-%   \c_@@_fn_style_libertinus_n_tl,
+%   \c_@@_fn_style_libertinus_negative_tl,
 %   \c_@@_fn_style_libertinus_sans_tl,
 %   \c_@@_fn_style_pifont_tl,
-%   \c_@@_fn_style_pifont_n_tl,
+%   \c_@@_fn_style_pifont_negative_tl,
 %   \c_@@_fn_style_pifont_sans_tl,
-%   \c_@@_fn_style_pifont_sans_n_tl,
+%   \c_@@_fn_style_pifont_sans_negative_tl,
 %   \c_@@_fn_style_xits_tl,
 %   \c_@@_fn_style_xits_sans_tl,
-%   \c_@@_fn_style_xits_sans_n_tl}
+%   \c_@@_fn_style_xits_sans_negative_tl}
 % 各种脚注编号样式的名称。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c_@@_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c_@@_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c_@@_fn_style_libertinus_negative_tl
+  { libertinus* }
 \tl_const:Nn \c_@@_fn_style_libertinus_sans_tl { libertinus-sans }
 \tl_const:Nn \c_@@_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c_@@_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c_@@_fn_style_pifont_negative_tl { pifont*         }
 \tl_const:Nn \c_@@_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c_@@_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c_@@_fn_style_pifont_sans_negative_tl
+  { pifont-sans* }
 \tl_const:Nn \c_@@_fn_style_xits_tl            { xits            }
 \tl_const:Nn \c_@@_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c_@@_fn_style_xits_sans_n_tl     { xits-sans*      }
+\tl_const:Nn \c_@@_fn_style_xits_sans_negative_tl
+  { xits-sans* }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1425,11 +1428,11 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_libertinus:V}
+% \begin{macro}{\@@_fn_symbol_libertinus:n}
 % |libertinus| 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
 % 为小写英文字母，\numrange{47}{72} 为大写英文字母。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_libertinus:V #1
+\cs_new:Npn \@@_fn_symbol_libertinus:n #1
   {
     \int_compare:nTF { #1 >= 21 }
       {
@@ -1442,10 +1445,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_libertinus_n:V}
+% \begin{macro}{\@@_fn_symbol_libertinus_negative:n}
 % |libertinus| 阴文衬线版。只含 \numrange{1}{20}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_libertinus_n:V #1
+\cs_new:Npn \@@_fn_symbol_libertinus_negative:n #1
   {
     \int_compare:nTF { #1 >= 11 }
       { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
@@ -1454,51 +1457,51 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_libertinus_sans:V}
+% \begin{macro}{\@@_fn_symbol_libertinus_sans:n}
 % |libertinus| 阳文无衬线版。符号排列与普通版相同。
 %    \begin{macrocode}
-\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:V
-  \@@_fn_symbol_libertinus:V
+\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n
+  \@@_fn_symbol_libertinus:n
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_pifont:V}
+% \begin{macro}{\@@_fn_symbol_pifont:n}
 % |pifont| 普通版。以下四种都只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_pifont:V #1
+\cs_new:Npn \@@_fn_symbol_pifont:n #1
   { \ding { \int_eval:n { 171 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_pifont_n:V}
+% \begin{macro}{\@@_fn_symbol_pifont_negative:n}
 % |pifont| 阴文衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_pifont_n:V #1
+\cs_new:Npn \@@_fn_symbol_pifont_negative:n #1
   { \ding { \int_eval:n { 181 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_pifont_sans:V}
+% \begin{macro}{\@@_fn_symbol_pifont_sans:n}
 % |pifont| 阳文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_pifont_sans:V #1
+\cs_new:Npn \@@_fn_symbol_pifont_sans:n #1
   { \ding { \int_eval:n { 191 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_pifont_sans_n:V}
+% \begin{macro}{\@@_fn_symbol_pifont_sans_negative:n}
 % |pifont| 阴文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_pifont_sans_n:V #1
+\cs_new:Npn \@@_fn_symbol_pifont_sans_negative:n #1
   { \ding { \int_eval:n { 201 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_xits:V}
+% \begin{macro}{\@@_fn_symbol_xits:n}
 % |xits| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35} 为小写
 % 英文字母，\numrange{36}{61} 为大写英文字母。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_xits:V #1
+\cs_new:Npn \@@_fn_symbol_xits:n #1
   {
     \int_compare:nTF { #1 >= 10 }
       {
@@ -1511,28 +1514,29 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_xits_sans:V}
+% \begin{macro}{\@@_fn_symbol_xits_sans:n}
 % |xits| 阳文无衬线版。只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_xits_sans:V #1
+\cs_new:Npn \@@_fn_symbol_xits_sans:n #1
   { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_xits_sans_n:V}
+% \begin{macro}{\@@_fn_symbol_xits_sans_negative:n}
 % |xits| 阴文无衬线版。也只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_xits_sans_n:V #1
+\cs_new:Npn \@@_fn_symbol_xits_sans_negative:n #1
   { \symbol { \int_eval:n { "278A - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\thefootnote}
+% \begin{macro}{\thefootnote,\fdu_footnote_number:n}
 % 重定义脚注编号。
 %    \begin{macrocode}
 \RenewDocumentCommand \thefootnote { }
+  { \fdu_footnote_number:n { \value { footnote } } }
+\cs_new:Npn \fdu_footnote_number:n #1
   {
-    \int_set:Nn \l_@@_tmpa_int { \value { footnote } }
     \tl_case:NnF \l_@@_fn_style_tl
       {
 %    \end{macrocode}
@@ -1540,7 +1544,7 @@ version.
 % |plain| 类型直接使用计数器 |footnote| 的值。
 %    \begin{macrocode}
         \c_@@_fn_style_plain_tl
-          { \int_use:N \l_@@_tmpa_int }
+          { #1 }
 %    \end{macrocode}
 %
 % |libertinus| 类型需要使用 Libertinus Serif 或
@@ -1549,30 +1553,30 @@ version.
         \c_@@_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
-            \@@_fn_symbol_libertinus:V      \l_@@_tmpa_int
+            \@@_fn_symbol_libertinus:n { #1 }
           }
-        \c_@@_fn_style_libertinus_n_tl
+        \c_@@_fn_style_libertinus_negative_tl
           {
             \fontspec { Libertinus~ Serif }
-            \@@_fn_symbol_libertinus_n:V    \l_@@_tmpa_int
+            \@@_fn_symbol_libertinus_negative:n { #1 }
           }
         \c_@@_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
-            \@@_fn_symbol_libertinus_sans:V \l_@@_tmpa_int
+            \@@_fn_symbol_libertinus_sans:n { #1 }
           }
 %    \end{macrocode}
 %
 % |pifont| 类型无需进行额外的操作。
 %    \begin{macrocode}
         \c_@@_fn_style_pifont_tl
-          { \@@_fn_symbol_pifont:V        \l_@@_tmpa_int }
-        \c_@@_fn_style_pifont_n_tl
-          { \@@_fn_symbol_pifont_n:V      \l_@@_tmpa_int }
+          { \@@_fn_symbol_pifont:n { #1 } }
+        \c_@@_fn_style_pifont_negative_tl
+          { \@@_fn_symbol_pifont_negative:n { #1 } }
         \c_@@_fn_style_pifont_sans_tl
-          { \@@_fn_symbol_pifont_sans:V   \l_@@_tmpa_int }
-        \c_@@_fn_style_pifont_sans_n_tl
-          { \@@_fn_symbol_pifont_sans_n:V \l_@@_tmpa_int }
+          { \@@_fn_symbol_pifont_sans:n { #1 } }
+        \c_@@_fn_style_pifont_sans_negative_tl
+          { \@@_fn_symbol_pifont_sans_negative:n { #1 } }
 %    \end{macrocode}
 %
 % |xits| 类型需要临时切换数学字体。
@@ -1580,17 +1584,17 @@ version.
         \c_@@_fn_style_xits_tl
           {
             \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits:V        \l_@@_tmpa_int $
+            $ \@@_fn_symbol_xits:n { #1 } $
           }
         \c_@@_fn_style_xits_sans_tl
           {
             \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits_sans:V   \l_@@_tmpa_int $
+            $ \@@_fn_symbol_xits_sans:n { #1 } $
           }
-        \c_@@_fn_style_xits_sans_n_tl
+        \c_@@_fn_style_xits_sans_negative_tl
           {
             \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits_sans_n:V \l_@@_tmpa_int $
+            $ \@@_fn_symbol_xits_sans_negative:n { #1 } $
           }
       }
 %    \end{macrocode}
@@ -1598,7 +1602,7 @@ version.
 % 变量 \cs{l_@@_fn_style_tl} 保存的类型未知时，默认使用 |plain|
 % 类型。
 %    \begin{macrocode}
-      { \int_use:N \l_@@_tmpa_int }
+      { #1 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1688,17 +1692,17 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_thm_new_nonum:nnn,
-%   \fdu_thm_new_nonum:Vnn}
+% \begin{macro}{\fdu_thm_new_no_number:nnn,
+%   \fdu_thm_new_no_number:Vnn}
 % 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
 % |#3| = 定理头文字。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_thm_new_nonum:nnn #1 #2 #3
+\cs_new:Npn \fdu_thm_new_no_number:nnn #1 #2 #3
   {
     \theoremstyle { #1 }
     \newtheorem { #2 } { #3 }
   }
-\cs_generate_variant:Nn \fdu_thm_new_nonum:nnn { Vnn }
+\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vnn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1787,7 +1791,7 @@ version.
 % 这里我们将其加上。
 %    \begin{macrocode}
         \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
-        \fdu_thm_new_nonum:Vnn \l_@@_thm_style_tl
+        \fdu_thm_new_no_number:Vnn \l_@@_thm_style_tl
           { #3 } { #4 }
       }
       {
@@ -3283,7 +3287,7 @@ version.
 %    \begin{macrocode}
 %<*user>
 %%
-%% \tl_set:Nn \c_@@_def_name_thesis_type_tl { 硕士学位论文 }
+%% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
 %</user>
 %    \end{macrocode}
 %
