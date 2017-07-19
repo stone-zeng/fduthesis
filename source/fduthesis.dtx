@@ -665,6 +665,7 @@ version.
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
 %    \begin{macrocode}
+%<@@=fdu>
 %<*class|class-en>
 \RequirePackage { xparse, l3keys2e }
 %    \end{macrocode}
@@ -676,50 +677,50 @@ version.
 %    \end{macrocode}
 %
 % \subsection{内部变量声明}
-% \begin{macro}{\l__fdu_tmpa_box,
-%   \l__fdu_tmpa_dim,\l__fdu_tmpb_dim,
-%   \l__fdu_tmpa_tl,\l__fdu_tmpb_tl,
-%   \l__fdu_tmpa_int,
-%   \l__fdu_tmpa_clist,\l__fdu_tmpb_clist}
+% \begin{macro}{\l_@@_tmpa_box,
+%   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
+%   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
+%   \l_@@_tmpa_int,
+%   \l_@@_tmpa_clist,\l_@@_tmpb_clist}
 % 临时变量。
 %    \begin{macrocode}
-\box_new:N   \l__fdu_tmpa_box
-\dim_new:N   \l__fdu_tmpa_dim
-\dim_new:N   \l__fdu_tmpb_dim
-\tl_new:N    \l__fdu_tmpa_tl
-\tl_new:N    \l__fdu_tmpb_tl
-\int_new:N   \l__fdu_tmpa_int
-\clist_new:N \l__fdu_tmpa_clist
-\clist_new:N \l__fdu_tmpb_clist
+\box_new:N   \l_@@_tmpa_box
+\dim_new:N   \l_@@_tmpa_dim
+\dim_new:N   \l_@@_tmpb_dim
+\tl_new:N    \l_@@_tmpa_tl
+\tl_new:N    \l_@@_tmpb_tl
+\int_new:N   \l_@@_tmpa_int
+\clist_new:N \l_@@_tmpa_clist
+\clist_new:N \l_@@_tmpb_clist
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\g__fdu_to_book_clist}
+% \begin{macro}{\g_@@_to_book_clist}
 % 保存由 \cls{fduthesis} 传入 \cls{book} 文档类的选项列表。
 %    \begin{macrocode}
-\clist_new:N \g__fdu_to_book_clist
+\clist_new:N \g_@@_to_book_clist
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\g__fdu_twoside_bool}
+% \begin{macro}{\g_@@_twoside_bool}
 % 是否开启双页模式（默认打开）。
 %    \begin{macrocode}
-\bool_new:N \g__fdu_twoside_bool
-\bool_set_true:N \g__fdu_twoside_bool
+\bool_new:N \g_@@_twoside_bool
+\bool_set_true:N \g_@@_twoside_bool
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\g__fdu_no_fonts_bool}
+% \begin{macro}{\g_@@_no_fonts_bool}
 % 是否禁用默认字体设置。
 %    \begin{macrocode}
-\bool_new:N \g__fdu_no_fonts_bool
+\bool_new:N \g_@@_no_fonts_bool
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\g__fdu_draft_bool}
+% \begin{macro}{\g_@@_draft_bool}
 % 是否开启草稿模式。
 %    \begin{macrocode}
-\bool_new:N \g__fdu_draft_bool
+\bool_new:N \g_@@_draft_bool
 %    \end{macrocode}
 % \end{macro}
 %
@@ -736,12 +737,12 @@ version.
     oneside .value_forbidden:n = true,
     twoside .value_forbidden:n = true,
     oneside .code:n = {
-      \clist_gput_right:Nn \g__fdu_to_book_clist { oneside }
-      \bool_set_false:N    \g__fdu_twoside_bool
+      \clist_gput_right:Nn \g_@@_to_book_clist { oneside }
+      \bool_set_false:N    \g_@@_twoside_bool
     },
     twoside .code:n = {
-      \clist_gput_right:Nn \g__fdu_to_book_clist { twoside }
-      \bool_set_true:N     \g__fdu_twoside_bool
+      \clist_gput_right:Nn \g_@@_to_book_clist { twoside }
+      \bool_set_true:N     \g_@@_twoside_bool
     },
 %    \end{macrocode}
 % \end{macro}
@@ -750,7 +751,7 @@ version.
 % 是否禁用默认字体设置（默认关闭）。
 %    \begin{macrocode}
     nofonts .choice:,
-    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    nofonts .bool_set:N = \g_@@_no_fonts_bool,
     nofonts .default:n = true,
     nofonts .initial:n = false,
 %    \end{macrocode}
@@ -761,11 +762,11 @@ version.
 %    \begin{macrocode}
     draft .choice:,
     draft / true  .code:n = {
-      \bool_set_true:N     \g__fdu_draft_bool
-      \clist_gput_right:Nn \g__fdu_to_book_clist { draft }
+      \bool_set_true:N     \g_@@_draft_bool
+      \clist_gput_right:Nn \g_@@_to_book_clist { draft }
     },
     draft / false .code:n = {
-      \bool_set_false:N    \g__fdu_draft_bool
+      \bool_set_false:N    \g_@@_draft_bool
     },
     draft .default:n = true,
     draft .initial:n = false
@@ -781,7 +782,7 @@ version.
 % \subsection{载入宏包、文档类}
 % 载入 \cls{book} 标准文档类，并传入相应的选项。
 %    \begin{macrocode}
-\PassOptionsToClass { \g__fdu_to_book_clist } { book }
+\PassOptionsToClass { \g_@@_to_book_clist } { book }
 \LoadClass { book }
 %    \end{macrocode}
 %
@@ -800,8 +801,8 @@ version.
     heading    = true,
 %<class>    fontset    = none,
 %<class-en>    fontset    = fandol,
-    zihao      = \c__fdu_def_font_size_tl,
-%<class>    linespread = \c__fdu_def_line_spread_fp
+    zihao      = \c_@@_def_font_size_tl,
+%<class>    linespread = \c_@@_def_line_spread_fp
   ] { ctex }
 %    \end{macrocode}
 %
@@ -845,18 +846,18 @@ version.
 %    \begin{macrocode}
 \geometry
   {
-    paper      = \c__fdu_def_paper_size_tl,
-    top        = \c__fdu_def_page_margin_top_dim,
-    bottom     = \c__fdu_def_page_margin_bottom_dim,
-    left       = \c__fdu_def_page_margin_left_dim,
-    right      = \c__fdu_def_page_margin_right_dim,
-    headheight = \c__fdu_def_header_height_dim
+    paper      = \c_@@_def_paper_size_tl,
+    top        = \c_@@_def_page_margin_top_dim,
+    bottom     = \c_@@_def_page_margin_bottom_dim,
+    left       = \c_@@_def_page_margin_left_dim,
+    right      = \c_@@_def_page_margin_right_dim,
+    headheight = \c_@@_def_header_height_dim
   }
 %    \end{macrocode}
 %
 % 草稿模式下显示页面边框及页眉、页脚线 。
 %    \begin{macrocode}
-\bool_if:NT \g__fdu_draft_bool
+\bool_if:NT \g_@@_draft_bool
   { \geometry { showframe } }
 %    \end{macrocode}
 %
@@ -1176,7 +1177,7 @@ version.
     fullwidthstop .choice:,
     fullwidthstop / true  .code:n = {
       \char_set_active_eq:nN { "3002 }
-        \c__fdu_full_stop_fullwidth_tl
+        \c_@@_full_stop_fullwidth_tl
       \char_set_catcode_active:n { "3002 }
     },
     fullwidthstop / false .code:n = { },
@@ -1197,30 +1198,30 @@ version.
 % 此处使用 |fixskip = true| 选项来抑制前后的多余间距。
 %    \begin{macrocode}
     chapter = {
-%<class>      format      = \c__fdu_def_chapter_format_tl,
+%<class>      format      = \c_@@_def_chapter_format_tl,
 %<*class-en>
-      format      = \c__fdu_def_chapter_format_en_tl,
-      nameformat  = \c__fdu_def_chapter_name_format_en_tl,
-      titleformat = \c__fdu_def_chapter_title_format_en_tl,
-      aftername   = \c__fdu_def_chapter_after_name_en_tl,
+      format      = \c_@@_def_chapter_format_en_tl,
+      nameformat  = \c_@@_def_chapter_name_format_en_tl,
+      titleformat = \c_@@_def_chapter_title_format_en_tl,
+      aftername   = \c_@@_def_chapter_after_name_en_tl,
 %</class-en>
-      beforeskip  = \c__fdu_def_chapter_before_sep_tl,
-      afterskip   = \c__fdu_def_chapter_after_sep_tl,
+      beforeskip  = \c_@@_def_chapter_before_sep_tl,
+      afterskip   = \c_@@_def_chapter_after_sep_tl,
       number      = { \arabic { chapter } },
       fixskip     = true
     },
     section = {
-%<class>      format      = \c__fdu_def_section_format_tl,
-%<class-en>      format      = \c__fdu_def_section_format_en_tl,
-      beforeskip  = \c__fdu_def_section_before_sep_tl,
-      afterskip   = \c__fdu_def_section_after_sep_tl,
+%<class>      format      = \c_@@_def_section_format_tl,
+%<class-en>      format      = \c_@@_def_section_format_en_tl,
+      beforeskip  = \c_@@_def_section_before_sep_tl,
+      afterskip   = \c_@@_def_section_after_sep_tl,
       fixskip     = true
     },
     subsection = {
-%<class>      format      = \c__fdu_def_subsection_format_tl,
-%<class-en>      format      = \c__fdu_def_subsection_format_en_tl,
-      beforeskip  = \c__fdu_def_subsection_before_sep_tl,
-      afterskip   = \c__fdu_def_subsection_after_sep_tl,
+%<class>      format      = \c_@@_def_subsection_format_tl,
+%<class-en>      format      = \c_@@_def_subsection_format_en_tl,
+      beforeskip  = \c_@@_def_subsection_before_sep_tl,
+      afterskip   = \c_@@_def_subsection_after_sep_tl,
       fixskip     = true
     }
   }
@@ -1232,11 +1233,11 @@ version.
 \fancyhf { }
 %    \end{macrocode}
 %
-% \begin{macro}{\l__fdu_header_center_mark_tl}
+% \begin{macro}{\l_@@_header_center_mark_tl}
 % 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为
 % 相应标题。
 %    \begin{macrocode}
-\tl_new:N \l__fdu_header_center_mark_tl
+\tl_new:N \l_@@_header_center_mark_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1246,7 +1247,7 @@ version.
 % 和中间（center）。按照通常的排版规则，在双面模式下，偶数页中页眉
 % 文字在左，奇数页中则在右。单面模式下，左右页眉都要显示。
 %    \begin{macrocode}
-\bool_if:NTF \g__fdu_twoside_bool
+\bool_if:NTF \g_@@_twoside_bool
 %<*class>
   {
     \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
@@ -1258,7 +1259,7 @@ version.
     \fancyhead [ C ]
       {
         \small \nouppercase
-          { \fdu@kai \l__fdu_header_center_mark_tl }
+          { \fdu@kai \l_@@_header_center_mark_tl }
       }
   }
 %</class>
@@ -1273,7 +1274,7 @@ version.
     \fancyhead [ C ]
       {
         \small \nouppercase
-          { \itshape \l__fdu_header_center_mark_tl }
+          { \itshape \l_@@_header_center_mark_tl }
       }
   }
 %</class-en>
@@ -1295,11 +1296,11 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_front_matter_header:n #1
   {
-    \bool_if:NTF \g__fdu_twoside_bool
+    \bool_if:NTF \g_@@_twoside_bool
       { \markboth { #1 } { #1 } }
       { 
         \markboth { } { }
-        \tl_gset:Nn \l__fdu_header_center_mark_tl { #1 }
+        \tl_gset:Nn \l_@@_header_center_mark_tl { #1 }
       }
   }
 %    \end{macrocode}
@@ -1314,12 +1315,12 @@ version.
 \RenewDocumentCommand \cleardoublepage { }
   {
     \clearpage
-    \bool_if:NT \g__fdu_twoside_bool
+    \bool_if:NT \g_@@_twoside_bool
       {
         \int_if_odd:nF \c@page
           { \hbox:n { } \thispagestyle { empty } \newpage }
       }
-    \tl_gset:Nn \l__fdu_header_center_mark_tl { }
+    \tl_gset:Nn \l_@@_header_center_mark_tl { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1341,44 +1342,44 @@ version.
 %
 % \subsection{脚注}
 % \subsubsection{编号样式}
-% \begin{macro}{\c__fdu_fn_style_plain_tl,
-%   \c__fdu_fn_style_libertinus_tl,
-%   \c__fdu_fn_style_libertinus_n_tl,
-%   \c__fdu_fn_style_libertinus_sans_tl,
-%   \c__fdu_fn_style_pifont_tl,
-%   \c__fdu_fn_style_pifont_n_tl,
-%   \c__fdu_fn_style_pifont_sans_tl,
-%   \c__fdu_fn_style_pifont_sans_n_tl,
-%   \c__fdu_fn_style_xits_tl,
-%   \c__fdu_fn_style_xits_sans_tl,
-%   \c__fdu_fn_style_xits_sans_n_tl}
+% \begin{macro}{\c_@@_fn_style_plain_tl,
+%   \c_@@_fn_style_libertinus_tl,
+%   \c_@@_fn_style_libertinus_n_tl,
+%   \c_@@_fn_style_libertinus_sans_tl,
+%   \c_@@_fn_style_pifont_tl,
+%   \c_@@_fn_style_pifont_n_tl,
+%   \c_@@_fn_style_pifont_sans_tl,
+%   \c_@@_fn_style_pifont_sans_n_tl,
+%   \c_@@_fn_style_xits_tl,
+%   \c_@@_fn_style_xits_sans_tl,
+%   \c_@@_fn_style_xits_sans_n_tl}
 % 各种脚注编号样式的名称。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c__fdu_fn_style_libertinus_n_tl    { libertinus*     }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c__fdu_fn_style_pifont_n_tl        { pifont*         }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_n_tl   { pifont-sans*    }
-\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_n_tl     { xits-sans*      }
+\tl_const:Nn \c_@@_fn_style_plain_tl           { plain           }
+\tl_const:Nn \c_@@_fn_style_libertinus_tl      { libertinus      }
+\tl_const:Nn \c_@@_fn_style_libertinus_n_tl    { libertinus*     }
+\tl_const:Nn \c_@@_fn_style_libertinus_sans_tl { libertinus-sans }
+\tl_const:Nn \c_@@_fn_style_pifont_tl          { pifont          }
+\tl_const:Nn \c_@@_fn_style_pifont_n_tl        { pifont*         }
+\tl_const:Nn \c_@@_fn_style_pifont_sans_tl     { pifont-sans     }
+\tl_const:Nn \c_@@_fn_style_pifont_sans_n_tl   { pifont-sans*    }
+\tl_const:Nn \c_@@_fn_style_xits_tl            { xits            }
+\tl_const:Nn \c_@@_fn_style_xits_sans_tl       { xits-sans       }
+\tl_const:Nn \c_@@_fn_style_xits_sans_n_tl     { xits-sans*      }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\l__fdu_fn_style_tl}
+% \begin{macro}{\l_@@_fn_style_tl}
 % 保存当前使用的脚注编号样式。
 %    \begin{macrocode}
-\tl_new:N \l__fdu_fn_style_tl
+\tl_new:N \l_@@_fn_style_tl
 %    \end{macrocode}
 % \end{macro}
 %
 % 在 |nofonts=true| 的情况下设置脚注样式为 |plain|。
 %    \begin{macrocode}
-\bool_if:NT \g__fdu_no_fonts_bool
-  { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
+\bool_if:NT \g_@@_no_fonts_bool
+  { \tl_set_eq:NN \l_@@_fn_style_tl \c_@@_fn_style_plain_tl }
 %    \end{macrocode}
 %
 % 脚注样式也归入 |fdu/style| 键值类。
@@ -1409,7 +1410,7 @@ version.
 % 若使用 |xits| 类型，则需调用 XITS Math 字体。
 %    \begin{macrocode}
     {
-      \tl_gset_eq:NN \l__fdu_fn_style_tl \l_keys_choice_tl
+      \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
       \int_compare:nTF
         { 5 <= \l_keys_choice_int <= 8 }
         { \RequirePackage { pifont } }
@@ -1424,11 +1425,11 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_libertinus:V}
+% \begin{macro}{\@@_fn_symbol_libertinus:V}
 % |libertinus| 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
 % 为小写英文字母，\numrange{47}{72} 为大写英文字母。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_libertinus:V #1
+\cs_new:Npn \@@_fn_symbol_libertinus:V #1
   {
     \int_compare:nTF { #1 >= 21 }
       {
@@ -1441,10 +1442,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_libertinus_n:V}
+% \begin{macro}{\@@_fn_symbol_libertinus_n:V}
 % |libertinus| 阴文衬线版。只含 \numrange{1}{20}。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_libertinus_n:V #1
+\cs_new:Npn \@@_fn_symbol_libertinus_n:V #1
   {
     \int_compare:nTF { #1 >= 11 }
       { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
@@ -1453,51 +1454,51 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_libertinus_sans:V}
+% \begin{macro}{\@@_fn_symbol_libertinus_sans:V}
 % |libertinus| 阳文无衬线版。符号排列与普通版相同。
 %    \begin{macrocode}
-\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:V
-  \__fdu_fn_symbol_libertinus:V
+\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:V
+  \@@_fn_symbol_libertinus:V
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_pifont:V}
+% \begin{macro}{\@@_fn_symbol_pifont:V}
 % |pifont| 普通版。以下四种都只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_pifont:V #1
+\cs_new:Npn \@@_fn_symbol_pifont:V #1
   { \ding { \int_eval:n { 171 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_pifont_n:V}
+% \begin{macro}{\@@_fn_symbol_pifont_n:V}
 % |pifont| 阴文衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_pifont_n:V #1
+\cs_new:Npn \@@_fn_symbol_pifont_n:V #1
   { \ding { \int_eval:n { 181 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_pifont_sans:V}
+% \begin{macro}{\@@_fn_symbol_pifont_sans:V}
 % |pifont| 阳文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_pifont_sans:V #1
+\cs_new:Npn \@@_fn_symbol_pifont_sans:V #1
   { \ding { \int_eval:n { 191 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_pifont_sans_n:V}
+% \begin{macro}{\@@_fn_symbol_pifont_sans_n:V}
 % |pifont| 阴文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_pifont_sans_n:V #1
+\cs_new:Npn \@@_fn_symbol_pifont_sans_n:V #1
   { \ding { \int_eval:n { 201 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_xits:V}
+% \begin{macro}{\@@_fn_symbol_xits:V}
 % |xits| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35} 为小写
 % 英文字母，\numrange{36}{61} 为大写英文字母。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_xits:V #1
+\cs_new:Npn \@@_fn_symbol_xits:V #1
   {
     \int_compare:nTF { #1 >= 10 }
       {
@@ -1510,18 +1511,18 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_xits_sans:V}
+% \begin{macro}{\@@_fn_symbol_xits_sans:V}
 % |xits| 阳文无衬线版。只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_xits_sans:V #1
+\cs_new:Npn \@@_fn_symbol_xits_sans:V #1
   { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_fn_symbol_xits_sans_n:V}
+% \begin{macro}{\@@_fn_symbol_xits_sans_n:V}
 % |xits| 阴文无衬线版。也只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_fn_symbol_xits_sans_n:V #1
+\cs_new:Npn \@@_fn_symbol_xits_sans_n:V #1
   { \symbol { \int_eval:n { "278A - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
@@ -1531,73 +1532,73 @@ version.
 %    \begin{macrocode}
 \RenewDocumentCommand \thefootnote { }
   {
-    \int_set:Nn \l__fdu_tmpa_int { \value { footnote } }
-    \tl_case:NnF \l__fdu_fn_style_tl
+    \int_set:Nn \l_@@_tmpa_int { \value { footnote } }
+    \tl_case:NnF \l_@@_fn_style_tl
       {
 %    \end{macrocode}
 %
 % |plain| 类型直接使用计数器 |footnote| 的值。
 %    \begin{macrocode}
-        \c__fdu_fn_style_plain_tl
-          { \int_use:N \l__fdu_tmpa_int }
+        \c_@@_fn_style_plain_tl
+          { \int_use:N \l_@@_tmpa_int }
 %    \end{macrocode}
 %
 % |libertinus| 类型需要使用 Libertinus Serif 或
 % Libertinus Sans 字体。
 %    \begin{macrocode}
-        \c__fdu_fn_style_libertinus_tl
+        \c_@@_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
-            \__fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
+            \@@_fn_symbol_libertinus:V      \l_@@_tmpa_int
           }
-        \c__fdu_fn_style_libertinus_n_tl
+        \c_@@_fn_style_libertinus_n_tl
           {
             \fontspec { Libertinus~ Serif }
-            \__fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
+            \@@_fn_symbol_libertinus_n:V    \l_@@_tmpa_int
           }
-        \c__fdu_fn_style_libertinus_sans_tl
+        \c_@@_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
-            \__fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
+            \@@_fn_symbol_libertinus_sans:V \l_@@_tmpa_int
           }
 %    \end{macrocode}
 %
 % |pifont| 类型无需进行额外的操作。
 %    \begin{macrocode}
-        \c__fdu_fn_style_pifont_tl
-          { \__fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_n_tl
-          { \__fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_tl
-          { \__fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
-        \c__fdu_fn_style_pifont_sans_n_tl
-          { \__fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
+        \c_@@_fn_style_pifont_tl
+          { \@@_fn_symbol_pifont:V        \l_@@_tmpa_int }
+        \c_@@_fn_style_pifont_n_tl
+          { \@@_fn_symbol_pifont_n:V      \l_@@_tmpa_int }
+        \c_@@_fn_style_pifont_sans_tl
+          { \@@_fn_symbol_pifont_sans:V   \l_@@_tmpa_int }
+        \c_@@_fn_style_pifont_sans_n_tl
+          { \@@_fn_symbol_pifont_sans_n:V \l_@@_tmpa_int }
 %    \end{macrocode}
 %
 % |xits| 类型需要临时切换数学字体。
 %    \begin{macrocode}
-        \c__fdu_fn_style_xits_tl
+        \c_@@_fn_style_xits_tl
           {
             \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
+            $ \@@_fn_symbol_xits:V        \l_@@_tmpa_int $
           }
-        \c__fdu_fn_style_xits_sans_tl
+        \c_@@_fn_style_xits_sans_tl
           {
             \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
+            $ \@@_fn_symbol_xits_sans:V   \l_@@_tmpa_int $
           }
-        \c__fdu_fn_style_xits_sans_n_tl
+        \c_@@_fn_style_xits_sans_n_tl
           {
             \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
+            $ \@@_fn_symbol_xits_sans_n:V \l_@@_tmpa_int $
           }
       }
 %    \end{macrocode}
 %
-% 变量 \cs{l__fdu_fn_style_tl} 保存的类型未知时，默认使用 |plain|
+% 变量 \cs{l_@@_fn_style_tl} 保存的类型未知时，默认使用 |plain|
 % 类型。
 %    \begin{macrocode}
-      { \int_use:N \l__fdu_tmpa_int }
+      { \int_use:N \l_@@_tmpa_int }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1614,13 +1615,13 @@ version.
 %
 % 见 http://tex.stackexchange.com/q/19844
 %    \begin{macrocode}
-    \dim_set:Nn \l__fdu_tmpa_dim { \textwidth - 1.5 em }
+    \dim_set:Nn \l_@@_tmpa_dim { \textwidth - 1.5 em }
     \makebox [ 1.5 em ] [ l ] { \@thefnmark }
 %    \end{macrocode}
 %
 % 脚注文字用 |parbox| 封装。首段无缩进，第二段起缩进 \SI{2}{em}。
 %    \begin{macrocode}
-    \parbox [ t ] { \l__fdu_tmpa_dim }
+    \parbox [ t ] { \l_@@_tmpa_dim }
       {
         \everypar { \hspace* { 2 em } }
         \hspace* { -2 em } #1
@@ -1630,29 +1631,29 @@ version.
 % \end{macro}
 %
 % \subsection{定理环境}
-% \begin{macro}{\c__fdu_thm_style_plain_clist,
-%   \c__fdu_thm_style_break_clist}
+% \begin{macro}{\c_@@_thm_style_plain_clist,
+%   \c_@@_thm_style_break_clist}
 % 保存 |plain|、|break| 两种类型的定理样式名称。
 %    \begin{macrocode}
-\clist_const:Nn \c__fdu_thm_style_plain_clist
+\clist_const:Nn \c_@@_thm_style_plain_clist
   { plain, margin, change }
-\clist_const:Nn \c__fdu_thm_style_break_clist
+\clist_const:Nn \c_@@_thm_style_break_clist
   { break, marginbreak, changebreak }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\l__fdu_thm_style_tl,
-%   \l__fdu_thm_header_font_tl,
-%   \l__fdu_thm_body_font_tl,
-%   \l__fdu_thm_qed_tl,
-%   \l__fdu_thm_counter_tl}
+% \begin{macro}{\l_@@_thm_style_tl,
+%   \l_@@_thm_header_font_tl,
+%   \l_@@_thm_body_font_tl,
+%   \l_@@_thm_qed_tl,
+%   \l_@@_thm_counter_tl}
 % 定理所需的一些字段。
 %    \begin{macrocode}
-\tl_new:N \l__fdu_thm_style_tl
-\tl_new:N \l__fdu_thm_header_font_tl
-\tl_new:N \l__fdu_thm_body_font_tl
-\tl_new:N \l__fdu_thm_qed_tl
-\tl_new:N \l__fdu_thm_counter_tl
+\tl_new:N \l_@@_thm_style_tl
+\tl_new:N \l_@@_thm_header_font_tl
+\tl_new:N \l_@@_thm_body_font_tl
+\tl_new:N \l_@@_thm_qed_tl
+\tl_new:N \l_@@_thm_counter_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1665,11 +1666,11 @@ version.
 %    \begin{macrocode}
 \keys_define:nn { fdu / theorem }
   {
-    style      .tl_set:N  = \l__fdu_thm_style_tl,
-    headerfont .tl_set:N  = \l__fdu_thm_header_font_tl,
-    bodyfont   .tl_set:N  = \l__fdu_thm_body_font_tl,
-    qed        .tl_set:N  = \l__fdu_thm_qed_tl,
-    counter    .tl_set:N  = \l__fdu_thm_counter_tl
+    style      .tl_set:N  = \l_@@_thm_style_tl,
+    headerfont .tl_set:N  = \l_@@_thm_header_font_tl,
+    bodyfont   .tl_set:N  = \l_@@_thm_body_font_tl,
+    qed        .tl_set:N  = \l_@@_thm_qed_tl,
+    counter    .tl_set:N  = \l_@@_thm_counter_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1737,13 +1738,13 @@ version.
 % \cs{QED} 由 \pkg{unicode-math} 宏包提供。
 %    \begin{macrocode}
     \IfBooleanTF #1
-      { \tl_set:Nn \l__fdu_thm_qed_tl { \ensuremath { \QED } } }
-      { \tl_set:Nn \l__fdu_thm_qed_tl { } }
+      { \tl_set:Nn \l_@@_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l_@@_thm_qed_tl { } }
 %    \end{macrocode}
 %
 % 设置默认样式为 |plain|。
 %    \begin{macrocode}
-    \tl_set:Nn \l__fdu_thm_style_tl { plain }
+    \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 %
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
@@ -1751,9 +1752,9 @@ version.
 %    \begin{macrocode}
     \IfValueT { #2 }
       { \keys_set:nn { fdu / theorem } { #2 } }
-    \fdu_thm_set_header_font:V \l__fdu_thm_header_font_tl
-    \fdu_thm_set_body_font:V   \l__fdu_thm_body_font_tl
-    \fdu_thm_set_qed:V         \l__fdu_thm_qed_tl
+    \fdu_thm_set_header_font:V \l_@@_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l_@@_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l_@@_thm_qed_tl
 %    \end{macrocode}
 %
 % \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
@@ -1769,14 +1770,14 @@ version.
 % TODO(20170602)：给出重定义样式的警告。
 %    \begin{macrocode}
         \clist_if_in:NVTF
-          \c__fdu_thm_style_plain_clist
-          \l__fdu_thm_style_tl
-          { \tl_set:Nn \l__fdu_thm_style_tl { plain } }
+          \c_@@_thm_style_plain_clist
+          \l_@@_thm_style_tl
+          { \tl_set:Nn \l_@@_thm_style_tl { plain } }
           {
             \clist_if_in:NVTF
-              \c__fdu_thm_style_break_clist
-              \l__fdu_thm_style_tl
-              { \tl_set:Nn \l__fdu_thm_style_tl { break } }
+              \c_@@_thm_style_break_clist
+              \l_@@_thm_style_tl
+              { \tl_set:Nn \l_@@_thm_style_tl { break } }
 % TODO(20170602): 给出样式未定义错误。
               { }
           }
@@ -1785,8 +1786,8 @@ version.
 % \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
 % 这里我们将其加上。
 %    \begin{macrocode}
-        \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_new_nonum:Vnn \l__fdu_thm_style_tl
+        \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
+        \fdu_thm_new_nonum:Vnn \l_@@_thm_style_tl
           { #3 } { #4 }
       }
       {
@@ -1794,15 +1795,15 @@ version.
 %
 % 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式。
 %    \begin{macrocode}
-        \clist_clear:N \l__fdu_tmpa_clist
-        \clist_concat:NNN \l__fdu_tmpa_clist
-          \c__fdu_thm_style_plain_clist \c__fdu_thm_style_break_clist
+        \clist_clear:N \l_@@_tmpa_clist
+        \clist_concat:NNN \l_@@_tmpa_clist
+          \c_@@_thm_style_plain_clist \c_@@_thm_style_break_clist
         \clist_if_in:NVF
-          \l__fdu_tmpa_clist \l__fdu_thm_style_tl
+          \l_@@_tmpa_clist \l_@@_thm_style_tl
 % TODO(20170602): 给出样式未定义错误。
           { }
-        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
-          { \l__fdu_thm_counter_tl } { #3 } { #4 }
+        \fdu_thm_new:Vnnn \l_@@_thm_style_tl
+          { \l_@@_thm_counter_tl } { #3 } { #4 }
       }
   }
 %    \end{macrocode}
@@ -1835,47 +1836,47 @@ version.
 %
 % \subsection{封面}
 % \subsubsection{信息录入}
-% \begin{macro}{\l__fdu_info_title_tl,
-%   \l__fdu_info_date_tl,
-%   \l__fdu_info_author_tl,
-%   \l__fdu_info_supervisor_tl,
-%   \l__fdu_info_instructors_clist,
-%   \l__fdu_info_department_tl,
-%   \l__fdu_info_major_tl,
-%   \l__fdu_info_student_id_tl,
-%   \l__fdu_info_school_id_tl,
-%   \l__fdu_info_keywords_clist,
-%   \l__fdu_info_clc_tl}
+% \begin{macro}{\l_@@_info_title_tl,
+%   \l_@@_info_date_tl,
+%   \l_@@_info_author_tl,
+%   \l_@@_info_supervisor_tl,
+%   \l_@@_info_instructors_clist,
+%   \l_@@_info_department_tl,
+%   \l_@@_info_major_tl,
+%   \l_@@_info_student_id_tl,
+%   \l_@@_info_school_id_tl,
+%   \l_@@_info_keywords_clist,
+%   \l_@@_info_clc_tl}
 % 封面所需的一些字段。
 %    \begin{macrocode}
-\tl_new:N    \l__fdu_info_title_tl
-\tl_new:N    \l__fdu_info_date_tl
-\tl_new:N    \l__fdu_info_author_tl
-\tl_new:N    \l__fdu_info_supervisor_tl
-\clist_new:N \l__fdu_info_instructors_clist
-\tl_new:N    \l__fdu_info_department_tl
-\tl_new:N    \l__fdu_info_major_tl
-\tl_new:N    \l__fdu_info_student_id_tl
-\tl_new:N    \l__fdu_info_school_id_tl
-\clist_new:N \l__fdu_info_keywords_clist
-\tl_new:N    \l__fdu_info_clc_tl
+\tl_new:N    \l_@@_info_title_tl
+\tl_new:N    \l_@@_info_date_tl
+\tl_new:N    \l_@@_info_author_tl
+\tl_new:N    \l_@@_info_supervisor_tl
+\clist_new:N \l_@@_info_instructors_clist
+\tl_new:N    \l_@@_info_department_tl
+\tl_new:N    \l_@@_info_major_tl
+\tl_new:N    \l_@@_info_student_id_tl
+\tl_new:N    \l_@@_info_school_id_tl
+\clist_new:N \l_@@_info_keywords_clist
+\tl_new:N    \l_@@_info_clc_tl
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\l__fdu_info_title_en_tl,
-%   \l__fdu_info_author_en_tl,
-%   \l__fdu_info_supervisor_en_tl,
-%   \l__fdu_info_department_en_tl,
-%   \l__fdu_info_major_en_tl,
-%   \l__fdu_info_keywords_en_clist}
+% \begin{macro}{\l_@@_info_title_en_tl,
+%   \l_@@_info_author_en_tl,
+%   \l_@@_info_supervisor_en_tl,
+%   \l_@@_info_department_en_tl,
+%   \l_@@_info_major_en_tl,
+%   \l_@@_info_keywords_en_clist}
 % 对应的英文字段。
 %    \begin{macrocode}
-\tl_new:N    \l__fdu_info_title_en_tl
-\tl_new:N    \l__fdu_info_author_en_tl
-\tl_new:N    \l__fdu_info_supervisor_en_tl
-\tl_new:N    \l__fdu_info_department_en_tl
-\tl_new:N    \l__fdu_info_major_en_tl
-\clist_new:N \l__fdu_info_keywords_en_clist
+\tl_new:N    \l_@@_info_title_en_tl
+\tl_new:N    \l_@@_info_author_en_tl
+\tl_new:N    \l_@@_info_supervisor_en_tl
+\tl_new:N    \l_@@_info_department_en_tl
+\tl_new:N    \l_@@_info_major_en_tl
+\clist_new:N \l_@@_info_keywords_en_clist
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1888,99 +1889,99 @@ version.
 % \begin{macro}{info/title,info/title}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
-    title       .tl_set:N    = \l__fdu_info_title_tl,
-    title*      .tl_set:N    = \l__fdu_info_title_en_tl,
+    title       .tl_set:N    = \l_@@_info_title_tl,
+    title*      .tl_set:N    = \l_@@_info_title_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/date}
 % 论文完成日期。
 %    \begin{macrocode}
-    date        .tl_set:N    = \l__fdu_info_date_tl,
+    date        .tl_set:N    = \l_@@_info_date_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/author,info/author*}
 % 作者姓名。
 %    \begin{macrocode}
-    author      .tl_set:N    = \l__fdu_info_author_tl,
-    author*     .tl_set:N    = \l__fdu_info_author_en_tl,
+    author      .tl_set:N    = \l_@@_info_author_tl,
+    author*     .tl_set:N    = \l_@@_info_author_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/supervisor,info/supervisor*}
 % 导师姓名。
 %    \begin{macrocode}
-    supervisor  .tl_set:N    = \l__fdu_info_supervisor_tl,
-    supervisor* .tl_set:N    = \l__fdu_info_supervisor_en_tl,
+    supervisor  .tl_set:N    = \l_@@_info_supervisor_tl,
+    supervisor* .tl_set:N    = \l_@@_info_supervisor_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/instructors}
 % 指导小组成员。
 %    \begin{macrocode}
-    instructors .clist_set:N = \l__fdu_info_instructors_clist,
+    instructors .clist_set:N = \l_@@_info_instructors_clist,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/department,info/department*}
 % 院系。
 %    \begin{macrocode}
-    department  .tl_set:N    = \l__fdu_info_department_tl,
-    department* .tl_set:N    = \l__fdu_info_department_en_tl,
+    department  .tl_set:N    = \l_@@_info_department_tl,
+    department* .tl_set:N    = \l_@@_info_department_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/major,info/major*}
 % 专业。
 %    \begin{macrocode}
-    major       .tl_set:N    = \l__fdu_info_major_tl,
-    major*      .tl_set:N    = \l__fdu_info_major_en_tl,
+    major       .tl_set:N    = \l_@@_info_major_tl,
+    major*      .tl_set:N    = \l_@@_info_major_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/studentid}
 % 学号。
 %    \begin{macrocode}
-    studentid   .tl_set:N    = \l__fdu_info_student_id_tl,
+    studentid   .tl_set:N    = \l_@@_info_student_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/schoolid}
 % 学校代码。
 %    \begin{macrocode}
-    schoolid    .tl_set:N    = \l__fdu_info_school_id_tl,
+    schoolid    .tl_set:N    = \l_@@_info_school_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/keywords,info/keywords*}
 % 论文关键字。
 %    \begin{macrocode}
-    keywords    .clist_set:N = \l__fdu_info_keywords_clist,
-    keywords*   .clist_set:N = \l__fdu_info_keywords_en_clist,
+    keywords    .clist_set:N = \l_@@_info_keywords_clist,
+    keywords*   .clist_set:N = \l_@@_info_keywords_en_clist,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{info/clc}
 % 中国图书馆分类号。
 %    \begin{macrocode}
-    clc         .tl_set:N    = \l__fdu_info_clc_tl
+    clc         .tl_set:N    = \l_@@_info_clc_tl
   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{密级}
-% \begin{macro}{\l__fdu_secret_bool}
+% \begin{macro}{\l_@@_secret_bool}
 % 是否显示密级。
 %    \begin{macrocode}
-\bool_new:N \l__fdu_secret_bool
+\bool_new:N \l_@@_secret_bool
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\l__fdu_info_secret_level_tl}
+% \begin{macro}{\l_@@_info_secret_level_tl}
 % 保存当前的密级。
 %    \begin{macrocode}
-\tl_new:N \l__fdu_info_secret_level_tl
+\tl_new:N \l_@@_info_secret_level_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2001,15 +2002,15 @@ version.
       \int_compare:nTF
         { \l_keys_choice_int >= 2 }
         {
-          \bool_set_true:N \l__fdu_secret_bool
+          \bool_set_true:N \l_@@_secret_bool
           \setmathfont { XITS~ Math } [ version = secret-XITS ]
-          \tl_set:Nn \l__fdu_info_secret_level_tl
+          \tl_set:Nn \l_@@_info_secret_level_tl
             {
-              \clist_item:Nn \c__fdu_def_secret_clist
+              \clist_item:Nn \c_@@_def_secret_clist
                 { \l_keys_choice_int - 1 }
             }
         }
-        { \bool_set_false:N \l__fdu_secret_bool }
+        { \bool_set_false:N \l_@@_secret_bool }
     },
     secretlevel .value_required:n = true,
 %    \end{macrocode}
@@ -2018,7 +2019,7 @@ version.
 % \begin{macro}{info/secretyear}
 % 保密年限。
 %    \begin{macrocode}
-    secretyear .tl_set:N = \l__fdu_info_secret_year_tl
+    secretyear .tl_set:N = \l_@@_info_secret_year_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2077,9 +2078,9 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_text_width:Nn #1 #2
   {
-    \hbox_set:Nn \l__fdu_tmpa_box { #2 }
+    \hbox_set:Nn \l_@@_tmpa_box { #2 }
     \dim_set:Nn #1
-      { \box_wd:N \l__fdu_tmpa_box }
+      { \box_wd:N \l_@@_tmpa_box }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2088,22 +2089,22 @@ version.
 % 获取多个文本中的最大宽度，并存入 |dim| 型变量。
 % |#1| = |dim| 型变量，|#2| = 文本 |clist|。
 %
-% 当 \cs{l__fdu_tmpa_clist} 非空时，弹出最后一个元素
-% 赋给 \cs{l__fdu_tmpa_tl}，获取其长度后与 |#1| 进行比较，
+% 当 \cs{l_@@_tmpa_clist} 非空时，弹出最后一个元素
+% 赋给 \cs{l_@@_tmpa_tl}，获取其长度后与 |#1| 进行比较，
 % 二者中较大的那一个将成为 |#1| 的新值。
-% 不断循环，直至 \cs{l__fdu_tmpa_clist} 为空。
+% 不断循环，直至 \cs{l_@@_tmpa_clist} 为空。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_max_text_width:NN #1 #2
   {
     \group_begin:
-    \clist_set_eq:NN \l__fdu_tmpa_clist #2
-    \bool_until_do:nn { \clist_if_empty_p:N \l__fdu_tmpa_clist }
+    \clist_set_eq:NN \l_@@_tmpa_clist #2
+    \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
       {
-        \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
-        \fdu_get_text_width:Nn \l__fdu_tmpa_dim
-          { \large \l__fdu_tmpa_tl }
+        \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
+        \fdu_get_text_width:Nn \l_@@_tmpa_dim
+          { \large \l_@@_tmpa_tl }
         \dim_gset:Nn #1
-          { \dim_max:nn { #1 } { \l__fdu_tmpa_dim } }
+          { \dim_max:nn { #1 } { \l_@@_tmpa_dim } }
       }
     \group_end:
   }
@@ -2128,89 +2129,89 @@ version.
 % \end{macro}
 %
 % \subsubsection{封面各部件}
-% \begin{macro}{\__fdu_cover_id:}
+% \begin{macro}{\@@_cover_id:}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
-\cs_new:Nn \__fdu_cover_id:
+\cs_new:Nn \@@_cover_id:
   {
     \begin{flushright}
-      \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
-      \fdu_fixed_width_box:Nn \c__fdu_def_cover_id_width_tl
+      \dim_set:Nn \rightskip { \c_@@_def_cover_id_margin_sep_tl }
+      \fdu_fixed_width_box:Nn \c_@@_def_cover_id_width_tl
         {
-          \__fdu_cover_font_size_small:
-          \bool_if:NT \l__fdu_secret_bool
+          \@@_cover_font_size_small:
+          \bool_if:NT \l_@@_secret_bool
             {
               \group_begin:
                 \sffamily \mathversion { secret-XITS }
-                \c__fdu_def_name_secret_level_tl
-                \c__fdu_colon_fullwidth_tl
-                \l__fdu_info_secret_level_tl
-                \c__fdu_def_name_secret_star_tl
-                \l__fdu_info_secret_year_tl
+                \c_@@_def_name_secret_level_tl
+                \c_@@_colon_fullwidth_tl
+                \l_@@_info_secret_level_tl
+                \c_@@_def_name_secret_star_tl
+                \l_@@_info_secret_year_tl
               \group_end:
               \par
             }
-          \c__fdu_def_name_school_id_tl
-          \c__fdu_colon_fullwidth_tl
-          \l__fdu_info_school_id_tl
+          \c_@@_def_name_school_id_tl
+          \c_@@_colon_fullwidth_tl
+          \l_@@_info_school_id_tl
           \par
-          \c__fdu_def_name_student_id_tl
-          \c__fdu_colon_fullwidth_tl
-          \l__fdu_info_student_id_tl
+          \c_@@_def_name_student_id_tl
+          \c_@@_colon_fullwidth_tl
+          \l_@@_info_student_id_tl
         }
     \end{flushright}
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_cover_logo:}
+% \begin{macro}{\@@_cover_logo:}
 % 插入校名（毛体“復旦大學”）。
 %    \begin{macrocode}
-\cs_new:Nn \__fdu_cover_logo:
+\cs_new:Nn \@@_cover_logo:
   {
     \begin{center}
       \includegraphics [
-        width = \c__fdu_def_cover_logo_width_tl
-      ] { \c__fdu_def_cover_logo_file_name_tl }
+        width = \c_@@_def_cover_logo_width_tl
+      ] { \c_@@_def_cover_logo_file_name_tl }
     \end{center}
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_cover_title:}
+% \begin{macro}{\@@_cover_title:}
 % 标题，共有四行。第一行是论文类型，第二行是学位类型，三、四两行分别
 % 是中英文题目。
 %    \begin{macrocode}
-\cs_new:Nn \__fdu_cover_title:
+\cs_new:Nn \@@_cover_title:
   {
     \begin{center}
       {
-        \__fdu_cover_font_size_huge:
+        \@@_cover_font_size_huge:
         \fdu_spread_box:NV
-          \c__fdu_def_cover_type_width_tl
-          \c__fdu_def_name_thesis_type_tl
+          \c_@@_def_cover_type_width_tl
+          \c_@@_def_name_thesis_type_tl
       }
-      \par \vspace { \c__fdu_def_cover_v_sep_iii_tl }
+      \par \vspace { \c_@@_def_cover_v_sep_iii_tl }
       {
-        \__fdu_cover_font_size_normal:
-        \c__fdu_def_name_degree_type_tl
+        \@@_cover_font_size_normal:
+        \c_@@_def_name_degree_type_tl
       }
-      \par \vspace { \c__fdu_def_cover_v_sep_iv_tl }
+      \par \vspace { \c_@@_def_cover_v_sep_iv_tl }
       {
-        \__fdu_cover_font_size_large:  \sffamily
+        \@@_cover_font_size_large:  \sffamily
         \fdu_fixed_width_center_box:NV
-          \c__fdu_def_cover_title_width_tl
-          \l__fdu_info_title_tl
+          \c_@@_def_cover_title_width_tl
+          \l_@@_info_title_tl
       }
-      \par \vspace { \c__fdu_def_cover_v_sep_v_tl }
+      \par \vspace { \c_@@_def_cover_v_sep_v_tl }
       {
-        \__fdu_cover_font_size_normal: \bfseries
+        \@@_cover_font_size_normal: \bfseries
         \fdu_fixed_width_center_box:Nn
-          \c__fdu_def_cover_title_en_width_tl
+          \c_@@_def_cover_title_en_width_tl
           {
             \fdu_line_spread:N
-              \c__fdu_def_cover_title_en_line_spread_tl
-            \l__fdu_info_title_en_tl
+              \c_@@_def_cover_title_en_line_spread_tl
+            \l_@@_info_title_en_tl
           }
       }
     \end{center}
@@ -2218,56 +2219,56 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_cover_info:}
+% \begin{macro}{\@@_cover_info:}
 % 信息栏。
 %    \begin{macrocode}
-\cs_new:Nn \__fdu_cover_info:
+\cs_new:Nn \@@_cover_info:
   {
     \begin{center}
 %    \end{macrocode}
 %
 % 读取左侧名称字段。
 %    \begin{macrocode}
-      \clist_set:Nn \l__fdu_tmpa_clist
+      \clist_set:Nn \l_@@_tmpa_clist
         {
-          \c__fdu_def_name_department_tl,
-          \c__fdu_def_name_major_tl,
-          \c__fdu_def_name_author_tl,
-          \c__fdu_def_name_supervisor_tl,
-          \c__fdu_def_name_date_tl,
+          \c_@@_def_name_department_tl,
+          \c_@@_def_name_major_tl,
+          \c_@@_def_name_author_tl,
+          \c_@@_def_name_supervisor_tl,
+          \c_@@_def_name_date_tl,
         }
 %    \end{macrocode}
 %
 % 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
-% \cs{l__fdu_tmpb_dim}。
+% \cs{l_@@_tmpb_dim}。
 %    \begin{macrocode}
-      \clist_set:Nn \l__fdu_tmpb_clist
+      \clist_set:Nn \l_@@_tmpb_clist
         {
-          \l__fdu_info_department_tl,
-          \l__fdu_info_major_tl,
-          \l__fdu_info_author_tl,
-          \l__fdu_info_supervisor_tl,
-          \l__fdu_info_date_tl
+          \l_@@_info_department_tl,
+          \l_@@_info_major_tl,
+          \l_@@_info_author_tl,
+          \l_@@_info_supervisor_tl,
+          \l_@@_info_date_tl
         }
       \fdu_get_max_text_width:NN
-        \l__fdu_tmpb_dim \l__fdu_tmpb_clist
+        \l_@@_tmpb_dim \l_@@_tmpb_clist
 %    \end{macrocode}
 %
 % 在 |minipage| 环境中输出各字段。用循环实现。
 %    \begin{macrocode}
       \begin{minipage} [ c ] { \textwidth }
-        \centering \__fdu_cover_font_size_normal:
+        \centering \@@_cover_font_size_normal:
         \bool_until_do:nn
-          { \clist_if_empty_p:N \l__fdu_tmpa_clist }
+          { \clist_if_empty_p:N \l_@@_tmpa_clist }
           {
-            \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
-            \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
+            \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
+            \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
             \fdu_spread_box:Nx
-              \c__fdu_def_cover_info_left_width_tl \l__fdu_tmpa_tl
-            \c__fdu_colon_fullwidth_tl
+              \c_@@_def_cover_info_left_width_tl \l_@@_tmpa_tl
+            \c_@@_colon_fullwidth_tl
             \fdu_center_box:NV
-              \l__fdu_tmpb_dim \l__fdu_tmpb_tl
-            \par \vspace { \c__fdu_def_cover_v_sep_vii_tl }
+              \l_@@_tmpb_dim \l_@@_tmpb_tl
+            \par \vspace { \c_@@_def_cover_v_sep_vii_tl }
           }
       \end{minipage}
     \end{center}
@@ -2275,25 +2276,25 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\__fdu_decl_text:NNn}
+% \begin{macro}{\@@_decl_text:NNn}
 % 构建声明文本。|#1| = 标题，|#2| = 内容，|#3| = 签名行。段前空格
 % 需要用 \tn{qquad} 手动生成。
 %    \begin{macrocode}
-\cs_new:Npn \__fdu_decl_text:NNn #1 #2 #3
+\cs_new:Npn \@@_decl_text:NNn #1 #2 #3
   {
     \begin{center}
-%<class-en>      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
-      \__fdu_cover_font_size_large: \sffamily #1
+%<class-en>      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
+      \@@_cover_font_size_large: \sffamily #1
     \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \vspace { \c_@@_def_decl_v_sep_iv_tl }
     \begin{center}
       \fdu_fixed_width_box:Nn \textwidth
         {
-          \fdu_line_spread:N \c__fdu_def_decl_text_line_spread_tl
+          \fdu_line_spread:N \c_@@_def_decl_text_line_spread_tl
           \qquad #2
         }
     \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \vspace { \c_@@_def_decl_v_sep_iv_tl }
 %    \end{macrocode}
 %
 % \tn{hfill} 用来确保签名行靠右对齐。
@@ -2310,15 +2311,15 @@ version.
 \NewDocumentCommand \makecoveri { }
   {
     \group_begin:
-%<class-en>      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
-      \__fdu_cover_id:
-      \vspace { \c__fdu_def_cover_v_sep_i_tl  }
-      \__fdu_cover_logo:
-      \vspace { \c__fdu_def_cover_v_sep_ii_tl }
-      \__fdu_cover_title:
-      \vspace { \c__fdu_def_cover_v_sep_vi_tl }
-      \__fdu_cover_info:
-      \vspace { \c__fdu_def_cover_v_sep_ix_tl }
+%<class-en>      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
+      \@@_cover_id:
+      \vspace { \c_@@_def_cover_v_sep_i_tl  }
+      \@@_cover_logo:
+      \vspace { \c_@@_def_cover_v_sep_ii_tl }
+      \@@_cover_title:
+      \vspace { \c_@@_def_cover_v_sep_vi_tl }
+      \@@_cover_info:
+      \vspace { \c_@@_def_cover_v_sep_ix_tl }
     \group_end:
   }
 %    \end{macrocode}
@@ -2342,8 +2343,8 @@ version.
 %    \begin{macrocode}
 %<*class-en>
       \keys_set:nn { ctex }
-        { chapter / titleformat = \c__fdu_def_chapter_format_tl }
-      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
+        { chapter / titleformat = \c_@@_def_chapter_format_tl }
+      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
 %</class-en>
 %    \end{macrocode}
 %
@@ -2352,12 +2353,12 @@ version.
       \@schapter
         {
           \fdu_spread_box:NV
-            \c__fdu_def_cover_instructors_width_tl
-            \c__fdu_def_name_instructors_tl
+            \c_@@_def_cover_instructors_width_tl
+            \c_@@_def_name_instructors_tl
         }
       \begin{center}
         \large
-        \clist_use:Nn \l__fdu_info_instructors_clist { \par }
+        \clist_use:Nn \l_@@_info_instructors_clist { \par }
       \end{center}
     \group_end:
   }
@@ -2371,56 +2372,56 @@ version.
   {
     \cleardoublepage
     \thispagestyle { empty }
-    \vspace* { \c__fdu_def_decl_v_sep_i_tl }
+    \vspace* { \c_@@_def_decl_v_sep_i_tl }
 %    \end{macrocode}
 %
 % 独创性声明。
 %    \begin{macrocode}
-    \__fdu_decl_text:NNn
-      \c__fdu_def_name_originality_decl_tl
-      \c__fdu_def_originality_decl_text_tl
+    \@@_decl_text:NNn
+      \c_@@_def_name_originality_decl_tl
+      \c_@@_def_originality_decl_text_tl
       {
-        \c__fdu_def_name_author_sign_tl
-        \c__fdu_colon_fullwidth_tl
-        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \c_@@_def_name_author_sign_tl
+        \c_@@_colon_fullwidth_tl
+        \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
         \quad
-        \c__fdu_def_name_sign_date_tl
-        \c__fdu_colon_fullwidth_tl
-        \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+        \c_@@_def_name_sign_date_tl
+        \c_@@_colon_fullwidth_tl
+        \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
       }
-    \vspace { \c__fdu_def_decl_v_sep_ii_tl }
+    \vspace { \c_@@_def_decl_v_sep_ii_tl }
 %    \end{macrocode}
 %
 % 使用授权声明。
 %    \begin{macrocode}
-    \__fdu_decl_text:NNn
-      \c__fdu_def_name_authorization_decl_tl
-      \c__fdu_def_authorization_decl_text_tl
+    \@@_decl_text:NNn
+      \c_@@_def_name_authorization_decl_tl
+      \c_@@_def_authorization_decl_text_tl
       {
-        \c__fdu_def_name_author_sign_tl
-        \c__fdu_colon_fullwidth_tl
-        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \c_@@_def_name_author_sign_tl
+        \c_@@_colon_fullwidth_tl
+        \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
         \quad
-        \c__fdu_def_name_supervisor_sign_tl
-        \c__fdu_colon_fullwidth_tl
-        \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
+        \c_@@_def_name_supervisor_sign_tl
+        \c_@@_colon_fullwidth_tl
+        \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
         \quad
-        \c__fdu_def_name_sign_date_tl
-        \c__fdu_colon_fullwidth_tl
-        \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
+        \c_@@_def_name_sign_date_tl
+        \c_@@_colon_fullwidth_tl
+        \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
       }
-    \vspace { \c__fdu_def_decl_v_sep_iii_tl }
+    \vspace { \c_@@_def_decl_v_sep_iii_tl }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\l__fdu_auto_make_cover_bool,style/automakecover}
+% \begin{macro}{\l_@@_auto_make_cover_bool,style/automakecover}
 % 是否自动生成封面。
 %    \begin{macrocode}
-\bool_new:N \l__fdu_auto_make_cover_bool
+\bool_new:N \l_@@_auto_make_cover_bool
 \keys_define:nn { fdu / style }
   {
-    automakecover .bool_set:N = \l__fdu_auto_make_cover_bool,
+    automakecover .bool_set:N = \l_@@_auto_make_cover_bool,
     automakecover .default:n  = true
   }
 %    \end{macrocode}
@@ -2430,7 +2431,7 @@ version.
 %    \begin{macrocode}
 \AtBeginDocument
   {
-    \bool_if:NT \l__fdu_auto_make_cover_bool
+    \bool_if:NT \l_@@_auto_make_cover_bool
       {
         \begin{titlepage}
           \makecoveri \newpage \makecoverii
@@ -2442,7 +2443,7 @@ version.
 % 在 |document| 结束位置添加声明页。
 %    \begin{macrocode}
 \AtEndDocument
-  { \bool_if:NT \l__fdu_auto_make_cover_bool { \makecoveriii } }
+  { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
 %    \end{macrocode}
 %
 % \subsection{目录}
@@ -2450,23 +2451,23 @@ version.
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-%<class>    contentsname = { \c__fdu_def_name_toc_tl },
-%<class-en>    contentsname = { \c__fdu_def_name_toc_en_tl },
+%<class>    contentsname = { \c_@@_def_name_toc_tl },
+%<class-en>    contentsname = { \c_@@_def_name_toc_en_tl },
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
     chapter    / tocline = {
-%<class>      \c__fdu_def_chapter_toc_format_tl    \CTEXnumberline { #1 } #2
-%<class-en>      \c__fdu_def_chapter_toc_format_en_tl \CTEXnumberline { #1 } #2
+%<class>      \c_@@_def_chapter_toc_format_tl    \CTEXnumberline { #1 } #2
+%<class-en>      \c_@@_def_chapter_toc_format_en_tl \CTEXnumberline { #1 } #2
     },
     section    / tocline = {
-%<class>      \c__fdu_def_section_toc_format_tl    \CTEXnumberline { #1 } #2
-%<class-en>      \c__fdu_def_section_toc_format_en_tl \CTEXnumberline { #1 } #2
+%<class>      \c_@@_def_section_toc_format_tl    \CTEXnumberline { #1 } #2
+%<class-en>      \c_@@_def_section_toc_format_en_tl \CTEXnumberline { #1 } #2
     },
     subsection / tocline = {
-%<class>      \c__fdu_def_subsection_toc_format_tl \CTEXnumberline { #1 } #2
-%<class-en>      \c__fdu_def_subsection_toc_format_en_tl
+%<class>      \c_@@_def_subsection_toc_format_tl \CTEXnumberline { #1 } #2
+%<class-en>      \c_@@_def_subsection_toc_format_en_tl
 %<class-en>        \CTEXnumberline { #1 } #2
     }
   }
@@ -2485,8 +2486,8 @@ version.
   }
   {
     \chapter* { \contentsname }
-%<class>    \fdu_front_matter_header:n { \c__fdu_def_name_toc_tl }
-%<class-en>    \fdu_front_matter_header:n { \c__fdu_def_name_toc_en_tl }
+%<class>    \fdu_front_matter_header:n { \c_@@_def_name_toc_tl }
+%<class-en>    \fdu_front_matter_header:n { \c_@@_def_name_toc_en_tl }
   }
   { } { \ctex_patch_failure:N \tableofcontents }
 %    \end{macrocode}
@@ -2501,7 +2502,7 @@ version.
   { \begingroup }
   {
     \begingroup
-      \fdu_line_spread:n { \fp_use:N \c__fdu_def_line_spread_fp }
+      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
   }
   { } { \ctex_patch_failure:N \@starttoc }
 %</class-en>
@@ -2520,12 +2521,12 @@ version.
 %
 % 中文摘要标题为“摘 \quad 要”，需要修改页眉，并添加到目录。
 %    \begin{macrocode}
-    \chapter* { \c__fdu_def_name_abstract_tl }
-    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_tl }
+    \chapter* { \c_@@_def_name_abstract_tl }
+    \fdu_front_matter_header:n { \c_@@_def_name_abstract_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c__fdu_def_chapter_toc_format_tl
-        \c__fdu_def_name_abstract_tl
+        \c_@@_def_chapter_toc_format_tl
+        \c_@@_def_name_abstract_tl
       }
   }
   {
@@ -2537,10 +2538,10 @@ version.
     \noindent \hangindent = 4 em  \hangafter = 1
     {
       \normalfont \sffamily
-      \c__fdu_def_name_keywords_tl \c__fdu_colon_fullwidth_tl
+      \c_@@_def_name_keywords_tl \c_@@_colon_fullwidth_tl
     }
-    \clist_use:Nn \l__fdu_info_keywords_clist
-      { \c__fdu_semicolon_fullwidth_tl }
+    \clist_use:Nn \l_@@_info_keywords_clist
+      { \c_@@_semicolon_fullwidth_tl }
     \par
 %    \end{macrocode}
 %
@@ -2549,9 +2550,9 @@ version.
     \noindent
     {
       \normalfont \sffamily
-      \c__fdu_def_name_clc_tl \c__fdu_colon_fullwidth_tl
+      \c_@@_def_name_clc_tl \c_@@_colon_fullwidth_tl
     }
-    \l__fdu_info_clc_tl
+    \l_@@_info_clc_tl
   }
 %</class>
 %    \end{macrocode}
@@ -2569,13 +2570,13 @@ version.
 %
 % 英文摘要标题为“Abstract”，也要修改页眉并添加到目录。
 %    \begin{macrocode}
-    \chapter* { \c__fdu_def_name_abstract_en_tl }
-    \fdu_front_matter_header:n { \c__fdu_def_name_abstract_en_tl }
+    \chapter* { \c_@@_def_name_abstract_en_tl }
+    \fdu_front_matter_header:n { \c_@@_def_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
       {
-%<class>        \c__fdu_def_chapter_toc_format_tl
-%<class-en>        \c__fdu_def_chapter_toc_format_en_tl
-        \c__fdu_def_name_abstract_en_tl
+%<class>        \c_@@_def_chapter_toc_format_tl
+%<class-en>        \c_@@_def_chapter_toc_format_en_tl
+        \c_@@_def_name_abstract_en_tl
       }
   }
   {
@@ -2585,16 +2586,16 @@ version.
 %    \begin{macrocode}
     \par \mbox{} \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf{\c__fdu_def_name_keywords_en_tl} \quad
-    \clist_use:Nn \l__fdu_info_keywords_en_clist { \quad }
+    \textbf{\c_@@_def_name_keywords_en_tl} \quad
+    \clist_use:Nn \l_@@_info_keywords_en_clist { \quad }
     \par
 %    \end{macrocode}
 %
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    \textbf{\c__fdu_def_name_clc_en_tl} \quad
-    \l__fdu_info_clc_tl
+    \textbf{\c_@@_def_name_clc_en_tl} \quad
+    \l_@@_info_clc_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2606,29 +2607,29 @@ version.
 % \cs{LTpre} 和 \cs{LTpost}，以删去 |longtable| 前后的空白。
 %    \begin{macrocode}
 \NewDocumentEnvironment { notation }
-  { O { \c__fdu_def_notation_arg_tl } }
+  { O { \c_@@_def_notation_arg_tl } }
   {
 %<*class>
-    \chapter* { \c__fdu_def_name_notation_tl }
-    \fdu_front_matter_header:n { \c__fdu_def_name_notation_tl }
+    \chapter* { \c_@@_def_name_notation_tl }
+    \fdu_front_matter_header:n { \c_@@_def_name_notation_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c__fdu_def_chapter_toc_format_tl
-        \c__fdu_def_name_notation_tl
+        \c_@@_def_chapter_toc_format_tl
+        \c_@@_def_name_notation_tl
       }
     \group_begin:
 %</class>
 %<*class-en>
-    \chapter* { \c__fdu_def_name_notation_en_tl }
-    \fdu_front_matter_header:n { \c__fdu_def_name_notation_en_tl }
+    \chapter* { \c_@@_def_name_notation_en_tl }
+    \fdu_front_matter_header:n { \c_@@_def_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c__fdu_def_chapter_toc_format_en_tl
-        \c__fdu_def_name_notation_en_tl
+        \c_@@_def_chapter_toc_format_en_tl
+        \c_@@_def_name_notation_en_tl
       }
     \group_begin:
       \cs_set_eq:NN \arraystretch
-        \c__fdu_def_notation_line_stretch_en_tl
+        \c_@@_def_notation_line_stretch_en_tl
 %</class-en>
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
@@ -2647,17 +2648,17 @@ version.
 % \RequirePackage{xgalley}
 %
 %
-% \box_new:N \l__fdu_tmpb_box
+% \box_new:N \l_@@_tmpb_box
 %
-% \dim_new:N \l__fdu_wrap_width_dim
-% \dim_new:N \l__fdu_wrap_height_dim
+% \dim_new:N \l_@@_wrap_width_dim
+% \dim_new:N \l_@@_wrap_height_dim
 %
-% \clist_new:N \l__fdu_wrap_indent_clist
+% \clist_new:N \l_@@_wrap_indent_clist
 %
-% \int_new:N \l__fdu_tmpa_int
-% \int_new:N \l__fdu_wrap_lines_int
+% \int_new:N \l_@@_tmpa_int
+% \int_new:N \l_@@_wrap_lines_int
 %
-% \fp_new:N \l__fdu_tmpa_fp
+% \fp_new:N \l_@@_tmpa_fp
 %
 %
 % \keys_define:nn { xwrapfig }
@@ -2670,13 +2671,13 @@ version.
 % \keys_define:nn { fdu / wrap / cutout }
 % {
 %   % 环境前不改变的行数
-%   top~ lines    .int_set:N = \l__fdu_wrap_top_lines_int,
+%   top~ lines    .int_set:N = \l_@@_wrap_top_lines_int,
 %   % 左右边距
-%   left~  margin .dim_set:N = \l__fdu_wrap_L_margin_dim,
-%   right~ margin .dim_set:N = \l__fdu_wrap_R_margin_dim,
+%   left~  margin .dim_set:N = \l_@@_wrap_L_margin_dim,
+%   right~ margin .dim_set:N = \l_@@_wrap_R_margin_dim,
 %   % 上下行距
-%   before~ lines .int_set:N = \l__fdu_wrap_before_lines_int,
-%   after~  lines .int_set:N = \l__fdu_wrap_after_lines_int,
+%   before~ lines .int_set:N = \l_@@_wrap_before_lines_int,
+%   after~  lines .int_set:N = \l_@@_wrap_after_lines_int,
 %   %
 %   top~ lines    .initial:n = { 2 },
 %   left~  margin .initial:n = { 0.5 em },
@@ -2695,37 +2696,37 @@ version.
 % \cs_new_protected:Nn \fdu_wrap_prewrap:n
 % {
 %   % 清除列表，初始化
-%   \clist_clear:N \l__fdu_wrap_indent_clist
+%   \clist_clear:N \l_@@_wrap_indent_clist
 %
 %   % 装到 hbox
-%   \hbox_set:Nn \l__fdu_tmpa_box { #1 }
+%   \hbox_set:Nn \l_@@_tmpa_box { #1 }
 %   % 总宽度 = 盒子宽 + 调整距离
-%   \dim_set:Nn \l__fdu_wrap_width_dim
-%     { \box_wd:N \l__fdu_tmpa_box }
-%   \dim_add:Nn \l__fdu_wrap_width_dim
-%     { \l__fdu_wrap_L_margin_dim + \l__fdu_wrap_R_margin_dim }
+%   \dim_set:Nn \l_@@_wrap_width_dim
+%     { \box_wd:N \l_@@_tmpa_box }
+%   \dim_add:Nn \l_@@_wrap_width_dim
+%     { \l_@@_wrap_L_margin_dim + \l_@@_wrap_R_margin_dim }
 %
 %   % 内容装到 vbox
-%   \vbox_set:Nn \l__fdu_tmpb_box { #1 }
+%   \vbox_set:Nn \l_@@_tmpb_box { #1 }
 %   % 总高度 = 盒子高 + 盒子深
-%   \dim_set:Nn \l__fdu_wrap_height_dim
-%     { \box_ht:N \l__fdu_tmpb_box + \box_dp:N \l__fdu_tmpb_box }
+%   \dim_set:Nn \l_@@_wrap_height_dim
+%     { \box_ht:N \l_@@_tmpb_box + \box_dp:N \l_@@_tmpb_box }
 %   % 总占据行数 = 总高度 / 行距 + 调整行数
-%   \int_set:Nn \l__fdu_wrap_lines_int
+%   \int_set:Nn \l_@@_wrap_lines_int
 %     {
-%       ( \l__fdu_wrap_height_dim / \baselineskip )
-%       + \l__fdu_wrap_before_lines_int
-%       + \l__fdu_wrap_after_lines_int
+%       ( \l_@@_wrap_height_dim / \baselineskip )
+%       + \l_@@_wrap_before_lines_int
+%       + \l_@@_wrap_after_lines_int
 %     }
 %
 %   % 循环：构建 clist，共 {行数} 个元素，每个元素均为 {总宽度}
-%   \int_zero:N \l__fdu_tmpa_int
+%   \int_zero:N \l_@@_tmpa_int
 %   \int_do_while:nn
-%     { \l__fdu_tmpa_int < \l__fdu_wrap_lines_int }
+%     { \l_@@_tmpa_int < \l_@@_wrap_lines_int }
 %     {
-%       \int_incr:N \l__fdu_tmpa_int
-%       \clist_put_right:Nn \l__fdu_wrap_indent_clist
-%         { \l__fdu_wrap_width_dim }
+%       \int_incr:N \l_@@_tmpa_int
+%       \clist_put_right:Nn \l_@@_wrap_indent_clist
+%         { \l_@@_wrap_width_dim }
 %     }
 % }
 %
@@ -2736,18 +2737,18 @@ version.
 %   \fdu_wrap_prewrap:n { #2 }
 %
 %   % 开窗
-%   \galley_cutout_right:nV { #1 } \l__fdu_wrap_indent_clist
+%   \galley_cutout_right:nV { #1 } \l_@@_wrap_indent_clist
 %
 %   % 内容存入盒子
-%   \vbox_set:Nn \l__fdu_tmpa_box
+%   \vbox_set:Nn \l_@@_tmpa_box
 %     {
 %       % 垂直移动距离 = （不动的行数 + 0.5 * 调整行数） * 行距
-%       \fp_set:Nn \l__fdu_tmpa_fp
+%       \fp_set:Nn \l_@@_tmpa_fp
 %         {
-%           ( #1 + \l__fdu_wrap_before_lines_int )
+%           ( #1 + \l_@@_wrap_before_lines_int )
 %           * \baselineskip
 %         }
-%       \skip_vertical:n  { \fp_to_dim:N \l__fdu_tmpa_fp }
+%       \skip_vertical:n  { \fp_to_dim:N \l_@@_tmpa_fp }
 %
 %       % 插入盒子
 %       % 宽度：行宽
@@ -2759,18 +2760,18 @@ version.
 %           \skip_horizontal:n
 %             {
 %               \linewidth
-%               - \l__fdu_wrap_width_dim
-%               + \l__fdu_wrap_L_margin_dim
+%               - \l_@@_wrap_width_dim
+%               + \l_@@_wrap_L_margin_dim
 %             }
 %           #2
-%           % \skip_horizontal:n { \l__fdu_wrap_R_margin_dim }
+%           % \skip_horizontal:n { \l_@@_wrap_R_margin_dim }
 %         }
 %     }
 %
-%   \box_set_ht:Nn \l__fdu_tmpa_box { 0pt }
-%   \box_set_dp:Nn \l__fdu_tmpa_box { 0pt }
+%   \box_set_ht:Nn \l_@@_tmpa_box { 0pt }
+%   \box_set_dp:Nn \l_@@_tmpa_box { 0pt }
 %   \skip_vertical:n { -\baselineskip }
-%   \box_use:N \l__fdu_tmpa_box
+%   \box_use:N \l_@@_tmpa_box
 % }
 %
 % % 左边插入内容
@@ -2780,15 +2781,15 @@ version.
 %   \fdu_wrap_prewrap:n { #2 }
 %
 %   % 开窗
-%   \galley_cutout_left:nV { #1 } \l__fdu_wrap_indent_clist
+%   \galley_cutout_left:nV { #1 } \l_@@_wrap_indent_clist
 %
 %   % 内容存入盒子
-%   \vbox_set:Nn \l__fdu_tmpa_box
+%   \vbox_set:Nn \l_@@_tmpa_box
 %     {
 %       % 垂直移动距离 = （不动的行数 + 0.5 * 调整行数） * 行距
-%       \fp_set:Nn \l__fdu_tmpa_fp
-%         { ( #1 + \l__fdu_wrap_before_lines_int ) * \baselineskip }
-%       \skip_vertical:n  { \fp_to_dim:N \l__fdu_tmpa_fp }
+%       \fp_set:Nn \l_@@_tmpa_fp
+%         { ( #1 + \l_@@_wrap_before_lines_int ) * \baselineskip }
+%       \skip_vertical:n  { \fp_to_dim:N \l_@@_tmpa_fp }
 %
 %       % 插入盒子
 %       % 宽度：行宽
@@ -2796,15 +2797,15 @@ version.
 %       %      内容
 %       \hbox_to_wd:nn { \linewidth }
 %         {
-%           \skip_horizontal:n {  \l__fdu_wrap_L_margin_dim }
+%           \skip_horizontal:n {  \l_@@_wrap_L_margin_dim }
 %           #2
 %         }
 %     }
 %
-%   \box_set_ht:Nn \l__fdu_tmpa_box { 0pt }
-%   \box_set_dp:Nn \l__fdu_tmpa_box { 0pt }
+%   \box_set_ht:Nn \l_@@_tmpa_box { 0pt }
+%   \box_set_dp:Nn \l_@@_tmpa_box { 0pt }
 %   \skip_vertical:n { -\baselineskip }
-%   \box_use:N \l__fdu_tmpa_box
+%   \box_use:N \l_@@_tmpa_box
 % }
 %
 % \cs_generate_variant:Nn \fdu_wrap_put_right:nn { Vn }
@@ -2815,12 +2816,12 @@ version.
 % \NewDocumentCommand\putright { O { } +m }
 % {
 %   \keys_set:nn { fdu / wrap / cutout } { #1 }
-%   \fdu_wrap_put_right:Vn \l__fdu_wrap_top_lines_int { #2 }
+%   \fdu_wrap_put_right:Vn \l_@@_wrap_top_lines_int { #2 }
 % }
 % \NewDocumentCommand\putleft { O { } +m }
 % {
 %   \keys_set:nn { fdu / wrap / cutout } { #1 }
-%   \fdu_wrap_put_left:Vn \l__fdu_wrap_top_lines_int { #2 }
+%   \fdu_wrap_put_left:Vn \l_@@_wrap_top_lines_int { #2 }
 % }
 %
 %
@@ -2863,7 +2864,7 @@ version.
 %
 % 在 |nofonts=false| 的情况下设置默认字体。
 %    \begin{macrocode}
-\bool_if:NF \g__fdu_no_fonts_bool
+\bool_if:NF \g_@@_no_fonts_bool
 %<*class>
   {
     \keys_set:nn { fdu }
@@ -2890,22 +2891,22 @@ version.
 % 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
 %    \begin{macrocode}
 %<*class>
-\fdunewtheorem* { proof       } { \c__fdu_def_name_proof_tl      }
-\fdunewtheorem  { axiom       } { \c__fdu_def_name_axiom_tl      }
-\fdunewtheorem  { corollary   } { \c__fdu_def_name_corollary_tl  }
-\fdunewtheorem  { definition  } { \c__fdu_def_name_definition_tl }
-\fdunewtheorem  { example     } { \c__fdu_def_name_example_tl    }
-\fdunewtheorem  { lemma       } { \c__fdu_def_name_lemma_tl      }
-\fdunewtheorem  { theorem     } { \c__fdu_def_name_theorem_tl    }
+\fdunewtheorem* { proof       } { \c_@@_def_name_proof_tl      }
+\fdunewtheorem  { axiom       } { \c_@@_def_name_axiom_tl      }
+\fdunewtheorem  { corollary   } { \c_@@_def_name_corollary_tl  }
+\fdunewtheorem  { definition  } { \c_@@_def_name_definition_tl }
+\fdunewtheorem  { example     } { \c_@@_def_name_example_tl    }
+\fdunewtheorem  { lemma       } { \c_@@_def_name_lemma_tl      }
+\fdunewtheorem  { theorem     } { \c_@@_def_name_theorem_tl    }
 %</class>
 %<*class-en>
-\fdunewtheorem* { proof       } { \c__fdu_def_name_proof_en_tl      }
-\fdunewtheorem  { axiom       } { \c__fdu_def_name_axiom_en_tl      }
-\fdunewtheorem  { corollary   } { \c__fdu_def_name_corollary_en_tl  }
-\fdunewtheorem  { definition  } { \c__fdu_def_name_definition_en_tl }
-\fdunewtheorem  { example     } { \c__fdu_def_name_example_en_tl    }
-\fdunewtheorem  { lemma       } { \c__fdu_def_name_lemma_en_tl      }
-\fdunewtheorem  { theorem     } { \c__fdu_def_name_theorem_en_tl    }
+\fdunewtheorem* { proof       } { \c_@@_def_name_proof_en_tl      }
+\fdunewtheorem  { axiom       } { \c_@@_def_name_axiom_en_tl      }
+\fdunewtheorem  { corollary   } { \c_@@_def_name_corollary_en_tl  }
+\fdunewtheorem  { definition  } { \c_@@_def_name_definition_en_tl }
+\fdunewtheorem  { example     } { \c_@@_def_name_example_en_tl    }
+\fdunewtheorem  { lemma       } { \c_@@_def_name_lemma_en_tl      }
+\fdunewtheorem  { theorem     } { \c_@@_def_name_theorem_en_tl    }
 %</class-en>
 %</class|class-en>
 %    \end{macrocode}
@@ -2917,59 +2918,59 @@ version.
 %    \end{macrocode}
 %
 % \subsubsection{通用配置}
-% \begin{macro}{\c__fdu_full_stop_ideographic_tl,
-%   \c__fdu_full_stop_fullwidth_tl,
-%   \c__fdu_colon_fullwidth_tl,
-%   \c__fdu_semicolon_fullwidth_tl}
+% \begin{macro}{\c_@@_full_stop_ideographic_tl,
+%   \c_@@_full_stop_fullwidth_tl,
+%   \c_@@_colon_fullwidth_tl,
+%   \c_@@_semicolon_fullwidth_tl}
 % 一些标点符号：
 % U+3002 是圆圈句号“\symbol{"3002}”（ideographic full stop），
 % U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
 % U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
 % U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
-\tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }
-\tl_const:Nn \c__fdu_colon_fullwidth_tl       { \symbol { "FF1A } }
-\tl_const:Nn \c__fdu_semicolon_fullwidth_tl   { \symbol { "FF1B } }
+\tl_const:Nn \c_@@_full_stop_ideographic_tl { \symbol { "3002 } }
+\tl_const:Nn \c_@@_full_stop_fullwidth_tl   { \symbol { "FF0E } }
+\tl_const:Nn \c_@@_colon_fullwidth_tl       { \symbol { "FF1A } }
+\tl_const:Nn \c_@@_semicolon_fullwidth_tl   { \symbol { "FF1B } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_paper_size_tl}
+% \begin{macro}{\c_@@_def_paper_size_tl}
 % 纸张大小（A4）。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_paper_size_tl { a4paper }
+\tl_const:Nn \c_@@_def_paper_size_tl { a4paper }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_page_margin_top_dim,
-%   \c__fdu_def_page_margin_bottom_dim,
-%   \c__fdu_def_page_margin_left_dim,
-%   \c__fdu_def_page_margin_right_dim}
+% \begin{macro}{\c_@@_def_page_margin_top_dim,
+%   \c_@@_def_page_margin_bottom_dim,
+%   \c_@@_def_page_margin_left_dim,
+%   \c_@@_def_page_margin_right_dim}
 % 页面边距。这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
 % $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
 %    \begin{macrocode}
-\dim_const:Nn \c__fdu_def_page_margin_top_dim    { 2.54 cm }
-\dim_const:Nn \c__fdu_def_page_margin_bottom_dim { 2.54 cm }
-\dim_const:Nn \c__fdu_def_page_margin_left_dim   { 3.18 cm }
-\dim_const:Nn \c__fdu_def_page_margin_right_dim  { 3.18 cm }
+\dim_const:Nn \c_@@_def_page_margin_top_dim    { 2.54 cm }
+\dim_const:Nn \c_@@_def_page_margin_bottom_dim { 2.54 cm }
+\dim_const:Nn \c_@@_def_page_margin_left_dim   { 3.18 cm }
+\dim_const:Nn \c_@@_def_page_margin_right_dim  { 3.18 cm }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_header_height_dim}
+% \begin{macro}{\c_@@_def_header_height_dim}
 % 页眉高度。此高度与五号字大致相配。
 %    \begin{macrocode}
-\dim_const:Nn \c__fdu_def_header_height_dim { 15 pt }
+\dim_const:Nn \c_@@_def_header_height_dim { 15 pt }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_font_size_tl}
+% \begin{macro}{\c_@@_def_font_size_tl}
 % 字号（小四）。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_font_size_tl { -4 }
+\tl_const:Nn \c_@@_def_font_size_tl { -4 }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_line_spread_fp}
+% \begin{macro}{\c_@@_def_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
 %   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}。
@@ -2977,202 +2978,202 @@ version.
 % 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
 % 的大小，\SI{20}{pt} 是行距固定值。
 %    \begin{macrocode}
-\fp_const:Nn \c__fdu_def_line_spread_fp
+\fp_const:Nn \c_@@_def_line_spread_fp
   { ( 20 pt ) / ( 12 bp ) / 1.2 }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{章节标题}
-% \begin{macro}{\c__fdu_def_chapter_format_tl,
-%   \c__fdu_def_section_format_tl,
-%   \c__fdu_def_subsection_format_tl}
+% \begin{macro}{\c_@@_def_chapter_format_tl,
+%   \c_@@_def_section_format_tl,
+%   \c_@@_def_subsection_format_tl}
 % 中文模板章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐
 % （但需要使用 \tn{raggedright}）。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_chapter_format_tl
+\tl_const:Nn \c_@@_def_chapter_format_tl
   { \huge  \normalfont \sffamily \centering   }
-\tl_const:Nn \c__fdu_def_section_format_tl
+\tl_const:Nn \c_@@_def_section_format_tl
   { \Large \normalfont \sffamily \raggedright }
-\tl_const:Nn \c__fdu_def_subsection_format_tl
+\tl_const:Nn \c_@@_def_subsection_format_tl
   { \large \normalfont \sffamily \raggedright }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_chapter_format_en_tl,
-%   \c__fdu_def_chapter_name_format_en_tl,
-%   \c__fdu_def_chapter_title_format_en_tl,
-%   \c__fdu_def_chapter_after_name_en_tl,
-%   \c__fdu_def_section_format_en_tl,
-%   \c__fdu_def_subsection_format_en_tl}
+% \begin{macro}{\c_@@_def_chapter_format_en_tl,
+%   \c_@@_def_chapter_name_format_en_tl,
+%   \c_@@_def_chapter_title_format_en_tl,
+%   \c_@@_def_chapter_after_name_en_tl,
+%   \c_@@_def_section_format_en_tl,
+%   \c_@@_def_subsection_format_en_tl}
 % 英文模板章节标题样式。均使用粗体。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_chapter_format_en_tl { \centering }
-\tl_const:Nn \c__fdu_def_chapter_name_format_en_tl
+\tl_const:Nn \c_@@_def_chapter_format_en_tl { \centering }
+\tl_const:Nn \c_@@_def_chapter_name_format_en_tl
   { \LARGE \bfseries }
-\tl_const:Nn \c__fdu_def_chapter_title_format_en_tl
+\tl_const:Nn \c_@@_def_chapter_title_format_en_tl
   { \huge  \bfseries }
-\tl_const:Nn \c__fdu_def_chapter_after_name_en_tl
+\tl_const:Nn \c_@@_def_chapter_after_name_en_tl
   { \par \nobreak \vskip 10 pt }
-\tl_const:Nn \c__fdu_def_section_format_en_tl
+\tl_const:Nn \c_@@_def_section_format_en_tl
   { \Large \bfseries \raggedright }
-\tl_const:Nn \c__fdu_def_subsection_format_en_tl
+\tl_const:Nn \c_@@_def_subsection_format_en_tl
   { \large \bfseries \raggedright }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_chapter_before_sep_tl,
-%   \c__fdu_def_chapter_after_sep_tl,
-%   \c__fdu_def_section_before_sep_tl,
-%   \c__fdu_def_section_after_sep_tl,
-%   \c__fdu_def_subsection_before_sep_tl,
-%   \c__fdu_def_subsection_after_sep_tl}
+% \begin{macro}{\c_@@_def_chapter_before_sep_tl,
+%   \c_@@_def_chapter_after_sep_tl,
+%   \c_@@_def_section_before_sep_tl,
+%   \c_@@_def_section_after_sep_tl,
+%   \c_@@_def_subsection_before_sep_tl,
+%   \c_@@_def_subsection_after_sep_tl}
 % 章节标题前后间距。使用 |tl| 而非 |skip|，是为了防止在没有上下文的
 % 时候 |ex| 被展开成 0。之后的不少间距也是这样定义的。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_chapter_before_sep_tl { 50 pt }
-\tl_const:Nn \c__fdu_def_chapter_after_sep_tl  { 40 pt }
-\tl_const:Nn \c__fdu_def_section_before_sep_tl
+\tl_const:Nn \c_@@_def_chapter_before_sep_tl { 50 pt }
+\tl_const:Nn \c_@@_def_chapter_after_sep_tl  { 40 pt }
+\tl_const:Nn \c_@@_def_section_before_sep_tl
   { 3.5  ex plus 1   ex minus 0.2 ex }
-\tl_const:Nn \c__fdu_def_section_after_sep_tl
+\tl_const:Nn \c_@@_def_section_after_sep_tl
   { 2.7  ex plus 0.5 ex }
-\tl_const:Nn \c__fdu_def_subsection_before_sep_tl
+\tl_const:Nn \c_@@_def_subsection_before_sep_tl
   { 3.25 ex plus 1   ex minus 0.2 ex }
-\tl_const:Nn \c__fdu_def_subsection_after_sep_tl
+\tl_const:Nn \c_@@_def_subsection_after_sep_tl
   { 2.5  ex plus 0.3 ex }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_chapter_toc_format_tl,
-%   \c__fdu_def_section_toc_format_tl,
-%   \c__fdu_def_subsection_toc_format_tl,
-%   \c__fdu_def_chapter_toc_format_en_tl,
-%   \c__fdu_def_section_toc_format_en_tl,
-%   \c__fdu_def_subsection_toc_format_en_tl}
+% \begin{macro}{\c_@@_def_chapter_toc_format_tl,
+%   \c_@@_def_section_toc_format_tl,
+%   \c_@@_def_subsection_toc_format_tl,
+%   \c_@@_def_chapter_toc_format_en_tl,
+%   \c_@@_def_section_toc_format_en_tl,
+%   \c_@@_def_subsection_toc_format_en_tl}
 % 章节目录在目录中的样式。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_chapter_toc_format_tl
+\tl_const:Nn \c_@@_def_chapter_toc_format_tl
   { \normalfont \sffamily }
-\tl_const:Nn \c__fdu_def_section_toc_format_tl
+\tl_const:Nn \c_@@_def_section_toc_format_tl
   { }
-\tl_const:Nn \c__fdu_def_subsection_toc_format_tl    { \fdu@kai  }
-\tl_const:Nn \c__fdu_def_chapter_toc_format_en_tl    { \bfseries }
-\tl_const:Nn \c__fdu_def_section_toc_format_en_tl    { \bfseries }
-\tl_const:Nn \c__fdu_def_subsection_toc_format_en_tl { }
+\tl_const:Nn \c_@@_def_subsection_toc_format_tl    { \fdu@kai  }
+\tl_const:Nn \c_@@_def_chapter_toc_format_en_tl    { \bfseries }
+\tl_const:Nn \c_@@_def_section_toc_format_en_tl    { \bfseries }
+\tl_const:Nn \c_@@_def_subsection_toc_format_en_tl { }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{封面}
-% \begin{macro}{\__fdu_cover_font_size_small:,
-%   \__fdu_cover_font_size_normal:,
-%   \__fdu_cover_font_size_large:,
-%   \__fdu_cover_font_size_huge:}
+% \begin{macro}{\@@_cover_font_size_small:,
+%   \@@_cover_font_size_normal:,
+%   \@@_cover_font_size_large:,
+%   \@@_cover_font_size_huge:}
 % 字号，使用固定值。这里的定义与正文字号有所不同。
 %    \begin{macrocode}
-\cs_new:Nn \__fdu_cover_font_size_small:  { \zihao { -5 } }
-\cs_new:Nn \__fdu_cover_font_size_normal: { \zihao {  4 } }
-\cs_new:Nn \__fdu_cover_font_size_large:  { \zihao { -2 } }
-\cs_new:Nn \__fdu_cover_font_size_huge:   { \zihao {  2 } }
+\cs_new:Nn \@@_cover_font_size_small:  { \zihao { -5 } }
+\cs_new:Nn \@@_cover_font_size_normal: { \zihao {  4 } }
+\cs_new:Nn \@@_cover_font_size_large:  { \zihao { -2 } }
+\cs_new:Nn \@@_cover_font_size_huge:   { \zihao {  2 } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_cover_id_width_tl,
-%   \c__fdu_def_cover_id_margin_sep_tl,
-%   \c__fdu_def_cover_logo_width_tl,
-%   \c__fdu_def_cover_type_width_tl,
-%   \c__fdu_def_cover_title_width_tl,
-%   \c__fdu_def_cover_title_en_width_tl,
-%   \c__fdu_def_cover_info_left_width_tl,
-%   \c__fdu_def_cover_instructors_width_tl}
+% \begin{macro}{\c_@@_def_cover_id_width_tl,
+%   \c_@@_def_cover_id_margin_sep_tl,
+%   \c_@@_def_cover_logo_width_tl,
+%   \c_@@_def_cover_type_width_tl,
+%   \c_@@_def_cover_title_width_tl,
+%   \c_@@_def_cover_title_en_width_tl,
+%   \c_@@_def_cover_info_left_width_tl,
+%   \c_@@_def_cover_instructors_width_tl}
 % 封面中的一些长度。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_id_width_tl          { 10 em }
-\tl_const:Nn \c__fdu_def_cover_id_margin_sep_tl     { -2 em }
-\tl_const:Nn \c__fdu_def_cover_logo_width_tl
+\tl_const:Nn \c_@@_def_cover_id_width_tl          { 10 em }
+\tl_const:Nn \c_@@_def_cover_id_margin_sep_tl     { -2 em }
+\tl_const:Nn \c_@@_def_cover_logo_width_tl
   { 0.5  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_type_width_tl
+\tl_const:Nn \c_@@_def_cover_type_width_tl
   { 0.45 \textwidth }
-\tl_const:Nn \c__fdu_def_cover_title_width_tl
+\tl_const:Nn \c_@@_def_cover_title_width_tl
   { 0.9  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_title_en_width_tl
+\tl_const:Nn \c_@@_def_cover_title_en_width_tl
   { 0.9  \textwidth }
-\tl_const:Nn \c__fdu_def_cover_info_left_width_tl   { 6 em }
-\tl_const:Nn \c__fdu_def_cover_instructors_width_tl { 7 em }
+\tl_const:Nn \c_@@_def_cover_info_left_width_tl   { 6 em }
+\tl_const:Nn \c_@@_def_cover_instructors_width_tl { 7 em }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_cover_v_sep_i_tl,
-%   \c__fdu_def_cover_v_sep_ii_tl,
-%   \c__fdu_def_cover_v_sep_iii_tl,
-%   \c__fdu_def_cover_v_sep_iv_tl,
-%   \c__fdu_def_cover_v_sep_v_tl,
-%   \c__fdu_def_cover_v_sep_vi_tl,
-%   \c__fdu_def_cover_v_sep_vii_tl,
-%   \c__fdu_def_cover_v_sep_ix_tl}
+% \begin{macro}{\c_@@_def_cover_v_sep_i_tl,
+%   \c_@@_def_cover_v_sep_ii_tl,
+%   \c_@@_def_cover_v_sep_iii_tl,
+%   \c_@@_def_cover_v_sep_iv_tl,
+%   \c_@@_def_cover_v_sep_v_tl,
+%   \c_@@_def_cover_v_sep_vi_tl,
+%   \c_@@_def_cover_v_sep_vii_tl,
+%   \c_@@_def_cover_v_sep_ix_tl}
 % 封面中的一些垂直间距，按自上而下的顺序排列。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
-\tl_const:Nn \c__fdu_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
-\tl_const:Nn \c__fdu_def_cover_v_sep_iii_tl { 0.4 cm }
-\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { \stretch { 2   } }
-\tl_const:Nn \c__fdu_def_cover_v_sep_v_tl   { 0.8 cm }
-\tl_const:Nn \c__fdu_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
-\tl_const:Nn \c__fdu_def_cover_v_sep_vii_tl { 1 ex }
-\tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_iii_tl { 0.4 cm }
+\tl_const:Nn \c_@@_def_cover_v_sep_iv_tl  { \stretch { 2   } }
+\tl_const:Nn \c_@@_def_cover_v_sep_v_tl   { 0.8 cm }
+\tl_const:Nn \c_@@_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_vii_tl { 1 ex }
+\tl_const:Nn \c_@@_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_cover_logo_file_name_tl}
+% \begin{macro}{\c_@@_def_cover_logo_file_name_tl}
 % 校名 logo 文件名。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
+\tl_const:Nn \c_@@_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_cover_title_en_line_spread_tl}
+% \begin{macro}{\c_@@_def_cover_title_en_line_spread_tl}
 % 英文标题的行距倍数。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_cover_title_en_line_spread_tl { 1.2 }
+\tl_const:Nn \c_@@_def_cover_title_en_line_spread_tl { 1.2 }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{声明页}
-% \begin{macro}{\c__fdu_def_decl_v_sep_i_tl,
-%   \c__fdu_def_decl_v_sep_ii_tl,
-%   \c__fdu_def_decl_v_sep_iii_tl,
-%   \c__fdu_def_decl_v_sep_iv_tl}
+% \begin{macro}{\c_@@_def_decl_v_sep_i_tl,
+%   \c_@@_def_decl_v_sep_ii_tl,
+%   \c_@@_def_decl_v_sep_iii_tl,
+%   \c_@@_def_decl_v_sep_iv_tl}
 % 声明页中的一些垂直间距，按自上而下的顺序排列。最后一项是标题与
 % 文本、文本与签名行的间距。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_decl_v_sep_i_tl   { \stretch { 0.2 } }
-\tl_const:Nn \c__fdu_def_decl_v_sep_ii_tl  { \stretch { 2.5 } }
-\tl_const:Nn \c__fdu_def_decl_v_sep_iii_tl { \stretch { 2.5 } }
-\tl_const:Nn \c__fdu_def_decl_v_sep_iv_tl  { 0.8 cm }
+\tl_const:Nn \c_@@_def_decl_v_sep_i_tl   { \stretch { 0.2 } }
+\tl_const:Nn \c_@@_def_decl_v_sep_ii_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c_@@_def_decl_v_sep_iii_tl { \stretch { 2.5 } }
+\tl_const:Nn \c_@@_def_decl_v_sep_iv_tl  { 0.8 cm }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_decl_text_line_spread_tl}
+% \begin{macro}{\c_@@_def_decl_text_line_spread_tl}
 % 声明文本的行距倍数。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_decl_text_line_spread_tl { 1.8 }
+\tl_const:Nn \c_@@_def_decl_text_line_spread_tl { 1.8 }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_decl_sign_width_tl,
-%   \c__fdu_def_decl_date_width_tl}
+% \begin{macro}{\c_@@_def_decl_sign_width_tl,
+%   \c_@@_def_decl_date_width_tl}
 % 签名栏和日期栏的宽度。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_decl_sign_width_tl { 6 em }
-\tl_const:Nn \c__fdu_def_decl_date_width_tl { 5 em }
+\tl_const:Nn \c_@@_def_decl_sign_width_tl { 6 em }
+\tl_const:Nn \c_@@_def_decl_date_width_tl { 5 em }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_originality_decl_text_tl}
+% \begin{macro}{\c_@@_def_originality_decl_text_tl}
 % 论文独创性声明。
 % ^^A 这里切换一下句号的类别码，以使代码中显示为圆圈句号。
 % ^^A 这不会影响最终论文输出（最终将始终输出圆圈句号）。
 % \catcode`\。=12
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_originality_decl_text_tl
+\tl_const:Nn \c_@@_def_originality_decl_text_tl
   {
     本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研
     究工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人
@@ -3185,11 +3186,11 @@ version.
 % \newcommand{。}{．}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_authorization_decl_text_tl}
+% \begin{macro}{\c_@@_def_authorization_decl_text_tl}
 % 论文使用授权声明。
 % \catcode`\。=12
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_authorization_decl_text_tl
+\tl_const:Nn \c_@@_def_authorization_decl_text_tl
   {
     本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：
     学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版
@@ -3203,77 +3204,77 @@ version.
 % \end{macro}
 %
 % \subsubsection{杂项}
-% \begin{macro}{\c__fdu_def_secret_clist}
+% \begin{macro}{\c_@@_def_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
-\clist_const:Nn \c__fdu_def_secret_clist { 秘密, 机密, 绝密 }
+\clist_const:Nn \c_@@_def_secret_clist { 秘密, 机密, 绝密 }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_notation_arg_tl}
+% \begin{macro}{\c_@@_def_notation_arg_tl}
 % 符号表默认参数。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_notation_arg_tl { l p { 7.5 cm } }
+\tl_const:Nn \c_@@_def_notation_arg_tl { l p { 7.5 cm } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\c__fdu_def_notation_line_stretch_en_tl}
+% \begin{macro}{\c_@@_def_notation_line_stretch_en_tl}
 % 英文模板中符号表的行间距。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_notation_line_stretch_en_tl { 1.3 }
+\tl_const:Nn \c_@@_def_notation_line_stretch_en_tl { 1.3 }
 %    \end{macrocode}
 % \end{macro}
 %
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_name_secret_level_tl     { 密 \qquad 级 }
-\tl_const:Nn \c__fdu_def_name_secret_star_tl      { $ \bigstar $ }
-\tl_const:Nn \c__fdu_def_name_school_id_tl        { 学校代码     }
-\tl_const:Nn \c__fdu_def_name_student_id_tl       { 学 \qquad 号 }
-\tl_const:Nn \c__fdu_def_name_thesis_type_tl      { 博士学位论文 }
-\tl_const:Nn \c__fdu_def_name_degree_type_tl      { （学术学位） }
-\tl_const:Nn \c__fdu_def_name_department_tl       { 院系         }
-\tl_const:Nn \c__fdu_def_name_major_tl            { 专业         }
-\tl_const:Nn \c__fdu_def_name_author_tl           { 姓名         }
-\tl_const:Nn \c__fdu_def_name_supervisor_tl       { 指导教师     }
-\tl_const:Nn \c__fdu_def_name_date_tl             { 完成日期     }
-\tl_const:Nn \c__fdu_def_name_instructors_tl      { 指导小组成员 }
-\tl_const:Nn \c__fdu_def_name_toc_tl              { 目 \quad 录  }
-\tl_const:Nn \c__fdu_def_name_abstract_tl         { 摘 \quad 要  }
-\tl_const:Nn \c__fdu_def_name_keywords_tl         { 关键字       }
-\tl_const:Nn \c__fdu_def_name_clc_tl              { 中图分类号   }
-\tl_const:Nn \c__fdu_def_name_notation_tl         { 符号表       }
-\tl_const:Nn \c__fdu_def_name_toc_en_tl           { Contents     }
-\tl_const:Nn \c__fdu_def_name_abstract_en_tl      { Abstract     }
-\tl_const:Nn \c__fdu_def_name_keywords_en_tl      { Keywords:    }
-\tl_const:Nn \c__fdu_def_name_clc_en_tl           { CLC~ number: }
-\tl_const:Nn \c__fdu_def_name_notation_en_tl
+\tl_const:Nn \c_@@_def_name_secret_level_tl     { 密 \qquad 级 }
+\tl_const:Nn \c_@@_def_name_secret_star_tl      { $ \bigstar $ }
+\tl_const:Nn \c_@@_def_name_school_id_tl        { 学校代码     }
+\tl_const:Nn \c_@@_def_name_student_id_tl       { 学 \qquad 号 }
+\tl_const:Nn \c_@@_def_name_thesis_type_tl      { 博士学位论文 }
+\tl_const:Nn \c_@@_def_name_degree_type_tl      { （学术学位） }
+\tl_const:Nn \c_@@_def_name_department_tl       { 院系         }
+\tl_const:Nn \c_@@_def_name_major_tl            { 专业         }
+\tl_const:Nn \c_@@_def_name_author_tl           { 姓名         }
+\tl_const:Nn \c_@@_def_name_supervisor_tl       { 指导教师     }
+\tl_const:Nn \c_@@_def_name_date_tl             { 完成日期     }
+\tl_const:Nn \c_@@_def_name_instructors_tl      { 指导小组成员 }
+\tl_const:Nn \c_@@_def_name_toc_tl              { 目 \quad 录  }
+\tl_const:Nn \c_@@_def_name_abstract_tl         { 摘 \quad 要  }
+\tl_const:Nn \c_@@_def_name_keywords_tl         { 关键字       }
+\tl_const:Nn \c_@@_def_name_clc_tl              { 中图分类号   }
+\tl_const:Nn \c_@@_def_name_notation_tl         { 符号表       }
+\tl_const:Nn \c_@@_def_name_toc_en_tl           { Contents     }
+\tl_const:Nn \c_@@_def_name_abstract_en_tl      { Abstract     }
+\tl_const:Nn \c_@@_def_name_keywords_en_tl      { Keywords:    }
+\tl_const:Nn \c_@@_def_name_clc_en_tl           { CLC~ number: }
+\tl_const:Nn \c_@@_def_name_notation_en_tl
   { List~ of~ Symbols }
-\tl_const:Nn \c__fdu_def_name_originality_decl_tl
+\tl_const:Nn \c_@@_def_name_originality_decl_tl
   { 复旦大学 \\ 学位论文独创性声明   }
-\tl_const:Nn \c__fdu_def_name_authorization_decl_tl
+\tl_const:Nn \c_@@_def_name_authorization_decl_tl
   { 复旦大学 \\ 学位论文使用授权声明 }
-\tl_const:Nn \c__fdu_def_name_author_sign_tl      { 作者签名     }
-\tl_const:Nn \c__fdu_def_name_supervisor_sign_tl  { 导师签名     }
-\tl_const:Nn \c__fdu_def_name_sign_date_tl        { 日期         }
+\tl_const:Nn \c_@@_def_name_author_sign_tl      { 作者签名     }
+\tl_const:Nn \c_@@_def_name_supervisor_sign_tl  { 导师签名     }
+\tl_const:Nn \c_@@_def_name_sign_date_tl        { 日期         }
 %    \end{macrocode}
 %
 % 默认定理头名称。
 %    \begin{macrocode}
-\tl_const:Nn \c__fdu_def_name_proof_tl         { 证明 }
-\tl_const:Nn \c__fdu_def_name_axiom_tl         { 公理 }
-\tl_const:Nn \c__fdu_def_name_corollary_tl     { 推论 }
-\tl_const:Nn \c__fdu_def_name_definition_tl    { 定义 }
-\tl_const:Nn \c__fdu_def_name_example_tl       { 例   }
-\tl_const:Nn \c__fdu_def_name_lemma_tl         { 引理 }
-\tl_const:Nn \c__fdu_def_name_theorem_tl       { 定理 }
-\tl_const:Nn \c__fdu_def_name_proof_en_tl      { Proof      }
-\tl_const:Nn \c__fdu_def_name_axiom_en_tl      { Axiom      }
-\tl_const:Nn \c__fdu_def_name_corollary_en_tl  { Corollary  }
-\tl_const:Nn \c__fdu_def_name_definition_en_tl { Definition }
-\tl_const:Nn \c__fdu_def_name_example_en_tl    { Example    }
-\tl_const:Nn \c__fdu_def_name_lemma_en_tl      { Lemma      }
-\tl_const:Nn \c__fdu_def_name_theorem_en_tl    { Theorem    }
+\tl_const:Nn \c_@@_def_name_proof_tl         { 证明 }
+\tl_const:Nn \c_@@_def_name_axiom_tl         { 公理 }
+\tl_const:Nn \c_@@_def_name_corollary_tl     { 推论 }
+\tl_const:Nn \c_@@_def_name_definition_tl    { 定义 }
+\tl_const:Nn \c_@@_def_name_example_tl       { 例   }
+\tl_const:Nn \c_@@_def_name_lemma_tl         { 引理 }
+\tl_const:Nn \c_@@_def_name_theorem_tl       { 定理 }
+\tl_const:Nn \c_@@_def_name_proof_en_tl      { Proof      }
+\tl_const:Nn \c_@@_def_name_axiom_en_tl      { Axiom      }
+\tl_const:Nn \c_@@_def_name_corollary_en_tl  { Corollary  }
+\tl_const:Nn \c_@@_def_name_definition_en_tl { Definition }
+\tl_const:Nn \c_@@_def_name_example_en_tl    { Example    }
+\tl_const:Nn \c_@@_def_name_lemma_en_tl      { Lemma      }
+\tl_const:Nn \c_@@_def_name_theorem_en_tl    { Theorem    }
 %</definition>
 %    \end{macrocode}
 %
@@ -3282,7 +3283,7 @@ version.
 %    \begin{macrocode}
 %<*user>
 %%
-%% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
+%% \tl_set:Nn \c_@@_def_name_thesis_type_tl { 硕士学位论文 }
 %</user>
 %    \end{macrocode}
 %

@@ -278,8 +278,8 @@
       { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
       { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
   }
-\cs_new:Npn \__fdu_fn_symbol_libertinus_sans:V #1
-  { \__fdu_fn_symbol_libertinus:V { #1 } }
+\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:V
+  \__fdu_fn_symbol_libertinus:V
 \cs_new:Npn \__fdu_fn_symbol_pifont:V #1
   { \ding { \int_eval:n { 171 + #1 } } }
 \cs_new:Npn \__fdu_fn_symbol_pifont_n:V #1
