@@ -1424,11 +1424,11 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_libertinus:V}
+% \begin{macro}{\__fdu_fn_symbol_libertinus:V}
 % |libertinus| 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
 % 为小写英文字母，\numrange{47}{72} 为大写英文字母。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_libertinus:V #1
+\cs_new:Npn \__fdu_fn_symbol_libertinus:V #1
   {
     \int_compare:nTF { #1 >= 21 }
       {
@@ -1441,10 +1441,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_libertinus_n:V}
+% \begin{macro}{\__fdu_fn_symbol_libertinus_n:V}
 % |libertinus| 阴文衬线版。只含 \numrange{1}{20}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_libertinus_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_libertinus_n:V #1
   {
     \int_compare:nTF { #1 >= 11 }
       { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
@@ -1453,51 +1453,51 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_libertinus_sans:V}
+% \begin{macro}{\__fdu_fn_symbol_libertinus_sans:V}
 % |libertinus| 阳文无衬线版。符号排列与普通版相同。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_libertinus_sans:V #1
-  { \fdu_fn_symbol_libertinus:V { #1 } }
+\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:V
+  \__fdu_fn_symbol_libertinus:V
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_pifont:V}
+% \begin{macro}{\__fdu_fn_symbol_pifont:V}
 % |pifont| 普通版。以下四种都只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont:V #1
   { \ding { \int_eval:n { 171 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_pifont_n:V}
+% \begin{macro}{\__fdu_fn_symbol_pifont_n:V}
 % |pifont| 阴文衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont_n:V #1
   { \ding { \int_eval:n { 181 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_pifont_sans:V}
+% \begin{macro}{\__fdu_fn_symbol_pifont_sans:V}
 % |pifont| 阳文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont_sans:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont_sans:V #1
   { \ding { \int_eval:n { 191 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_pifont_sans_n:V}
+% \begin{macro}{\__fdu_fn_symbol_pifont_sans_n:V}
 % |pifont| 阴文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_pifont_sans_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_pifont_sans_n:V #1
   { \ding { \int_eval:n { 201 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_xits:V}
+% \begin{macro}{\__fdu_fn_symbol_xits:V}
 % |xits| 普通版。\numrange{1}{9} 为数字，\numrange{10}{35} 为小写
 % 英文字母，\numrange{36}{61} 为大写英文字母。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_xits:V #1
+\cs_new:Npn \__fdu_fn_symbol_xits:V #1
   {
     \int_compare:nTF { #1 >= 10 }
       {
@@ -1510,18 +1510,18 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_xits_sans:V}
+% \begin{macro}{\__fdu_fn_symbol_xits_sans:V}
 % |xits| 阳文无衬线版。只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_xits_sans:V #1
+\cs_new:Npn \__fdu_fn_symbol_xits_sans:V #1
   { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fn_symbol_xits_sans_n:V}
+% \begin{macro}{\__fdu_fn_symbol_xits_sans_n:V}
 % |xits| 阴文无衬线版。也只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fn_symbol_xits_sans_n:V #1
+\cs_new:Npn \__fdu_fn_symbol_xits_sans_n:V #1
   { \symbol { \int_eval:n { "278A - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
@@ -1548,30 +1548,30 @@ version.
         \c__fdu_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
-            \fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
+            \__fdu_fn_symbol_libertinus:V      \l__fdu_tmpa_int
           }
         \c__fdu_fn_style_libertinus_n_tl
           {
             \fontspec { Libertinus~ Serif }
-            \fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
+            \__fdu_fn_symbol_libertinus_n:V    \l__fdu_tmpa_int
           }
         \c__fdu_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
-            \fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
+            \__fdu_fn_symbol_libertinus_sans:V \l__fdu_tmpa_int
           }
 %    \end{macrocode}
 %
 % |pifont| 类型无需进行额外的操作。
 %    \begin{macrocode}
         \c__fdu_fn_style_pifont_tl
-          { \fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
+          { \__fdu_fn_symbol_pifont:V        \l__fdu_tmpa_int }
         \c__fdu_fn_style_pifont_n_tl
-          { \fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
+          { \__fdu_fn_symbol_pifont_n:V      \l__fdu_tmpa_int }
         \c__fdu_fn_style_pifont_sans_tl
-          { \fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
+          { \__fdu_fn_symbol_pifont_sans:V   \l__fdu_tmpa_int }
         \c__fdu_fn_style_pifont_sans_n_tl
-          { \fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
+          { \__fdu_fn_symbol_pifont_sans_n:V \l__fdu_tmpa_int }
 %    \end{macrocode}
 %
 % |xits| 类型需要临时切换数学字体。
@@ -1579,17 +1579,17 @@ version.
         \c__fdu_fn_style_xits_tl
           {
             \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
+            $ \__fdu_fn_symbol_xits:V        \l__fdu_tmpa_int $
           }
         \c__fdu_fn_style_xits_sans_tl
           {
             \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
+            $ \__fdu_fn_symbol_xits_sans:V   \l__fdu_tmpa_int $
           }
         \c__fdu_fn_style_xits_sans_n_tl
           {
             \mathversion { fn-XITS }
-            $ \fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
+            $ \__fdu_fn_symbol_xits_sans_n:V \l__fdu_tmpa_int $
           }
       }
 %    \end{macrocode}
@@ -1687,17 +1687,17 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_thm_no_number_new:nnn,
-%   \fdu_thm_no_number_new:Vnn}
+% \begin{macro}{\fdu_thm_new_nonum:nnn,
+%   \fdu_thm_new_nonum:Vnn}
 % 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
 % |#3| = 定理头文字。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_thm_no_number_new:nnn #1 #2 #3
+\cs_new:Npn \fdu_thm_new_nonum:nnn #1 #2 #3
   {
     \theoremstyle { #1 }
     \newtheorem { #2 } { #3 }
   }
-\cs_generate_variant:Nn \fdu_thm_no_number_new:nnn { Vnn }
+\cs_generate_variant:Nn \fdu_thm_new_nonum:nnn { Vnn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1786,7 +1786,7 @@ version.
 % 这里我们将其加上。
 %    \begin{macrocode}
         \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_no_number_new:Vnn \l__fdu_thm_style_tl
+        \fdu_thm_new_nonum:Vnn \l__fdu_thm_style_tl
           { #3 } { #4 }
       }
       {

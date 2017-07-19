@@ -898,19 +898,22 @@
   \def\subsubitem{\@idxitem\hspace*{2em}}}
 \def\glossaryname{版本历史}
 \GlossaryPrologue{\section{\glossaryname}}
+%% Added by Xiangdong Zeng, 2017-07-18.
+\def\usage#1{\textsf{#1}}
+
 \IndexPrologue{%
 %% Modified by Xiangdong Zeng, 2017-06-26.
   \section*{\indexname}
   \addcontentsline{toc}{section}{\normalfont\sffamily\indexname}
   \markright{\indexname}
 %%%%\section{\indexname}
-%% Modified by Xiangdong Zeng, 2017-07-05.
+%% Modified by Xiangdong Zeng, 2017-07-19.
 %%%%  \textit{意大利体的数字表示描述对应索引项的页码；
 %%%%  带下划线的数字表示定义对应索引项的代码行号；
 %%%%  罗马字体的数字表示使用对应索引项的代码行号。}}
-  \textit{意大利体的数字表示描述对应索引项的页码；
+  \textit{无衬线字体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
-  罗马字体的数字表示使用对应索引项的代码行号．}}
+  罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
 %% Modified by Xiangdong Zeng, 2017-04-08.
 \def\IndexLayout{%
 %%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
