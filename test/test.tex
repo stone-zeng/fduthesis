@@ -7,7 +7,7 @@
 % Hello, world!
 % \end{document}
 
-\documentclass[twoside]{fduthesis}
+\documentclass[twoside,nofonts]{fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 % \ExplSyntaxOn
@@ -46,10 +46,10 @@
   }
 }
 
-% \setCJKmainfont[ItalicFont=FandolFang]{Source Han Serif SC}
-% \setCJKsansfont{Source Han Sans SC}
-% \setCJKfamilyfont{kai}{FandolKai}
-% \setmathfont{TeX Gyre Pagella Math}
+\setCJKmainfont[ItalicFont=FandolFang]{FandolSong}
+\setCJKsansfont{FandolHei}
+\setCJKfamilyfont{kai}{FandolKai}
+\setmathfont{TeX Gyre Pagella Math}
 
 \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
 \newcommand\fonttest{%
