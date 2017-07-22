@@ -7,7 +7,7 @@ cache:
     - $HOME/.texlive
 
 script:
-  - source ./support/local.sh
+  # - source ./support/local.sh
   # - source ./support/run.sh
   - cd source
   - xetex fduthesis.dtx
