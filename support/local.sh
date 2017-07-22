@@ -12,5 +12,8 @@ cp zhlipsum/zhlipsum-zh-cn.def  \
 mktexlsr
 
 # Install fonts
-cp -r /tmp/texlive/texmf-dist/fonts/opentype /home/travis/.fonts
-fc-cache -rv
+cp -r /tmp/texlive/texmf-dist/fonts/opentype                 \
+  /home/travis/.fonts
+cp /tmp/texlive/texmf-var/fonts/conf/texlive-fontconfig.conf \
+  /home/travis/.fonts.conf
+fc-cache -fv
