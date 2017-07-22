@@ -23,7 +23,6 @@ cp fduthesis-user.def ../test/fduthesis-user.def
 # Make test theses
 cd ../test
 xelatex  -interaction=nonstopmode test
-cat test.log
 # lualatex -interaction=nonstopmode test
 # xelatex  -interaction=nonstopmode test-en
 # lualatex -interaction=nonstopmode test-en
