@@ -1,392 +1,186 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
-\documentclass{article}
-\usepackage{fontspec}
-\setmainfont{FandolSong}
-
-\begin{document}
-Hello, world!
-\end{document}
-
-% \documentclass[twoside]{fduthesis}
-% \usepackage{kantlipsum}
-% \usepackage{zhlipsum}
-% % \ExplSyntaxOn
-% % \bool_show:N\g__fdu_no_font_bool
-% % \ExplSyntaxOff
-
-% \fdusetup{
-%   style = {
-%     % font = libertinus,
-%     % cjkfont = founder,
-%     fullwidthstop,
-%     footnotestyle = plain,
-%     % automakecover = false
-%   },
-%   info = {
-%     title = {自河南经乱关内阻饥兄弟离散各在一处},
-%     title* = {Measurements of the interaction between energetic
-%       photons and hadrons show that the interaction},
-% %    date = {2017年2月10日},
-%     author = {某某某},
-%     author* = {Xiangdong Zeng},
-%     supervisor = {陈丙丁 \quad 教授},
-%     instructors = {
-%       张五六 \quad 工程师,
-%       赵\quad 甲 \quad 工程师,
-%       王三四 \quad 讲\quad 师
-%     },
-%     major = {物理学},
-%     department = {凝聚态物理系},
-%     secretlevel = ii,
-%     secretyear = {三年},
-%     studentid = {14307110000},
-%     keywords = {\LaTeX, hih, vwvs, 物理, 中心法则, vsbd, 为侨服务},
-%     keywords* = {\LaTeX, hih, vwvs, Physics, Central Rule, vsbd},
-%     clc = {O414.1/65}
-%   }
-% }
-
-% % \setCJKmainfont[ItalicFont=FandolFang]{Source Han Serif SC}
-% % \setCJKsansfont{Source Han Sans SC}
-% % \setCJKfamilyfont{kai}{FandolKai}
-% % \setmathfont{TeX Gyre Pagella Math}
-
-% \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
-% \newcommand\fonttest{%
-%   正常：\qquad\fonttesttext \par
-%   粗体：\qquad\textbf{\fonttesttext} \par
-%   倾斜：\qquad\textit{\fonttesttext} \par
-%   小型大写：\qquad\textsc{\fonttesttext}
-% }
+% \documentclass{article}
+% \usepackage{fontspec}
+% \setmainfont{FandolSong}
 
 % \begin{document}
-% \frontmatter
-% \tableofcontents
+% Hello, world!
+% \end{document}
 
-% \begin{abstract}
+\documentclass[twoside]{fduthesis}
+\usepackage{kantlipsum}
+\usepackage{zhlipsum}
 % \ExplSyntaxOn
-% % \cs_show:N \fdu_cjk_font_kai:
+% \bool_show:N\g__fdu_no_font_bool
 % \ExplSyntaxOff
-% \emph{中心法则}形成了分子生物学的生命观：生命世界在信息和规律上是统一的；
-% 生命的物质基础和主宰物质是不同的，生命的物质基础是以核酸蛋白质整合
-% 体系为主宰的原生质各种必要的物质组分及其实在的相互作用；生命运动
-% 的本质在于组成生命的各物质之间以及生命的物质、能量与信息之间和生命
-% 自身与环境之间的不断的相互作用。不少人不少人，如果是到无穷大。
 
-% 上标\TeX；此时的的
+\fdusetup{
+  style = {
+    % font = libertinus,
+    % cjkfont = founder,
+    fullwidthstop,
+    footnotestyle = plain,
+    % automakecover = false
+  },
+  info = {
+    title = {自河南经乱关内阻饥兄弟离散各在一处},
+    title* = {Measurements of the interaction between energetic
+      photons and hadrons show that the interaction},
+%    date = {2017年2月10日},
+    author = {某某某},
+    author* = {Xiangdong Zeng},
+    supervisor = {陈丙丁 \quad 教授},
+    instructors = {
+      张五六 \quad 工程师,
+      赵\quad 甲 \quad 工程师,
+      王三四 \quad 讲\quad 师
+    },
+    major = {物理学},
+    department = {凝聚态物理系},
+    secretlevel = ii,
+    secretyear = {三年},
+    studentid = {14307110000},
+    keywords = {\LaTeX, hih, vwvs, 物理, 中心法则, vsbd, 为侨服务},
+    keywords* = {\LaTeX, hih, vwvs, Physics, Central Rule, vsbd},
+    clc = {O414.1/65}
+  }
+}
 
-% 上标\TeX ；此时的的
+% \setCJKmainfont[ItalicFont=FandolFang]{Source Han Serif SC}
+% \setCJKsansfont{Source Han Sans SC}
+% \setCJKfamilyfont{kai}{FandolKai}
+% \setmathfont{TeX Gyre Pagella Math}
 
-% 上标\LaTeX；此时的的
+\newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
+\newcommand\fonttest{%
+  正常：\qquad\fonttesttext \par
+  粗体：\qquad\textbf{\fonttesttext} \par
+  倾斜：\qquad\textit{\fonttesttext} \par
+  小型大写：\qquad\textsc{\fonttesttext}
+}
 
-% 上标\LaTeX ；此时的的
+\begin{document}
+\frontmatter
+\tableofcontents
 
-% \zhlipsum[1-3]
-% \end{abstract}
+\begin{abstract}
+\ExplSyntaxOn
+% \cs_show:N \fdu_cjk_font_kai:
+\ExplSyntaxOff
+\emph{中心法则}形成了分子生物学的生命观：生命世界在信息和规律上是统一的；
+生命的物质基础和主宰物质是不同的，生命的物质基础是以核酸蛋白质整合
+体系为主宰的原生质各种必要的物质组分及其实在的相互作用；生命运动
+的本质在于组成生命的各物质之间以及生命的物质、能量与信息之间和生命
+自身与环境之间的不断的相互作用。不少人不少人，如果是到无穷大。
+\end{abstract}
 
-% \begin{abstract*}
-% \LaTeX3 does not use @ as a ``letter'' for defining internal
-% macros. Instead, the symbols are used in internal macro names to
-% provide structure. The name of each function is divided into
-% logical units using separates the name of the function from the
-% argument specifier (``arg-spec''). This describes the arguments
-% expected by the function.
+\begin{abstract*}
+\LaTeX3 does not use @ as a ``letter'' for defining internal
+macros. Instead, the symbols are used in internal macro names to
+provide structure. The name of each function is divided into
+logical units using separates the name of the function from the
+argument specifier (``arg-spec''). This describes the arguments
+expected by the function.
+\end{abstract*}
 
-% \kant[1-5]
-% \end{abstract*}
+\mainmatter
+\chapter{文本，字体，脚注 \quad Text, font and footnote}
+\section{文字与段落 Text and paragraph}
+\subsection{中文文本 Chinese}
+\zhlipsum
 
-% \begin{notation}[lp{15em}]
-% $\sin$      &  正弦 \\
-% HPC         &  高性能计算 (High Performance Computing) \\
-% cluster     &  集群 \\
-% Itanium     &  安腾 \\
-% SMP         &  对称多处理 \\
-% API         &  应用程序编程接口 \\
-% PI          &  聚酰亚胺 \\
-% MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-% PBI         &  聚苯并咪唑 \\
-% MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-% PY          &  聚吡咙 \\
-% PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-% $\Delta G$  &  活化自由能 (Activation Free Energy) \\
-% $\chi$      &  传输系数 (Transmission Coefficient) \\
-% $E$         &  能量 \\
-% $m$         &  质量 \\
-% $c$         &  光速 \\
-% $P$         &  概率 \\
-% $T$         &  时间 \\
-% $v$         &  速度 \\
-% 劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
-%   直中绳。\symbol{"2B413}\symbol{"8F2E} d 輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
-%   砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况 \\
-% $\sin$      &  正弦 \\
-% HPC         &  高性能计算 (High Performance Computing) \\
-% cluster     &  集群 \\
-% Itanium     &  安腾 \\
-% SMP         &  对称多处理 \\
-% API         &  应用程序编程接口 \\
-% PI          &  聚酰亚胺 \\
-% MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-% PBI         &  聚苯并咪唑 \\
-% MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-% PY          &  聚吡咙
-% \end{notation}
+\subsection{英文文本 English}
+\kant
 
-% \mainmatter
-% \chapter{文本，字体，脚注 \quad Text, font and footnote}
-% \section{文字与段落 Text and paragraph}
-% \subsection{中文文本 Chinese}
-% \zhlipsum
+\clearpage
 
-% \subsection{英文文本 English}
-% \kant
+\section{字体 Font}
+\subsection{普通字体 Roman}
+\fonttest
 
-% \clearpage
+\subsection{无衬线字体 Sans-serif}
+\textsf{\fonttest}
 
-% \section{字体 Font}
-% \subsection{普通字体 Roman}
-% \fonttest
+\subsection{打字机字体 Typewriter}
+\texttt{\fonttest}
 
-% \subsection{无衬线字体 Sans-serif}
-% \textsf{\fonttest}
+\subsection{句号}
+如果\symbol{"002E}会突然：\textsc{Full Stop} \par
+如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
+如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
+如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
 
-% \subsection{打字机字体 Typewriter}
-% \texttt{\fonttest}
+\clearpage
 
-% \subsection{句号}
-% 如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-% 如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
-% 如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
-% 如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+\section{脚注 Footnote}
+脚注\footnote{脚注1如果会突然}。
 
-% \clearpage
+脚注 \footnote{脚注2。千千万的。}。未取得的
 
-% \section{脚注 Footnote}
-% 脚注\footnote{脚注1如果会突然}。
+脚注。\footnote{脚注3是一个长脚注。\zhlipsum*[2]}未取得的
 
-% 脚注 \footnote{脚注2。千千万的。}。未取得的
+\textit{脚注倾斜。 \footnote{脚注4}未取得的}
 
-% 脚注。\footnote{脚注3是一个长脚注。\zhlipsum*[2]}未取得的
+\textbf{脚注加粗。\footnote{脚注5} 未取得的}
 
-% \textit{脚注倾斜。 \footnote{脚注4}未取得的}
+vs\footnote{脚注6}未取得的
 
-% \textbf{脚注加粗。\footnote{脚注5} 未取得的}
+vs \footnote{脚注7要分段。\par 不舒服不得不运河滩上野跑，头顶着毒热的阳光，身上再裹起兜肚，一不风凉，
+二又窝汗，穿不了一天，就得起大半身痱子。再有，全村跟他一般大的小姑娘，
+谁的兜肚也没有这么花儿草儿的鲜艳，他穿在身上，男不男，女不女，
+小姑娘们要用手指刮破脸蛋儿。}未取得的
 
-% vs\footnote{脚注6}未取得的
+vs\footnote{脚注8}ge
 
-% vs \footnote{脚注7要分段。\par 不舒服不得不运河滩上野跑，头顶着毒热的阳光，身上再裹起兜肚，一不风凉，
-% 二又窝汗，穿不了一天，就得起大半身痱子。再有，全村跟他一般大的小姑娘，
-% 谁的兜肚也没有这么花儿草儿的鲜艳，他穿在身上，男不男，女不女，
-% 小姑娘们要用手指刮破脸蛋儿。}未取得的
+vs\footnote{脚注9} jsty
 
-% vs\footnote{脚注8}ge
+vs\footnote{脚注10分三段。青大娘大高个儿，一双大脚，青铜肤色，
+嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
+一丈青大娘骂人，就像雨打芭蕉，长短句。\par
+青大娘大高个儿，一双大脚，青铜肤色，
+嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
+一丈青大娘骂人，就像雨打芭蕉，长短句。 \par
+青大娘大高个儿，一双大脚，青铜肤色，
+嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
+一丈青大娘骂人，就像雨打芭蕉，长短句。}
 
-% vs\footnote{脚注9} jsty
+\chapter{数学与定理}
+\section{数学 Math}
+\[\pi=\sb{33}\]
 
-% vs\footnote{脚注10分三段。青大娘大高个儿，一双大脚，青铜肤色，
-% 嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-% 一丈青大娘骂人，就像雨打芭蕉，长短句。\par
-% 青大娘大高个儿，一双大脚，青铜肤色，
-% 嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-% 一丈青大娘骂人，就像雨打芭蕉，长短句。 \par
-% 青大娘大高个儿，一双大脚，青铜肤色，
-% 嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-% 一丈青大娘骂人，就像雨打芭蕉，长短句。}
+\[
+  \int\sin x\,\mathrm{d}x=\cos x + C
+\]
 
-% Text%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
-% \footnote{This is a footnote.}%
+\begin{proof}
+道千乘之国，敬事而信，节用而爱人，使民以时。
+\end{proof}
 
-% \chapter{数学与定理}
-% \section{数学 Math}
-% \[\pi=\sb{33}\]
+\begin{definition}
+证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”（这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以在证明的尾段写出，以显示证明所需的结论已经完整了。
+\end{definition}
 
-% \[
-%   \int\sin x\,\mathrm{d}x=\cos x + C
-% \]
+\begin{lemma}
+  这是一条华丽丽的引理。
+\end{lemma}
 
-% \begin{proof}
-% 道千乘之国，敬事而信，节用而爱人，使民以时。
-% \end{proof}
+\begin{proof}
+先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
+\begin{equation}
+  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
+\end{equation}
+\end{proof}
 
-% \begin{definition}
-% 证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”（这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以在证明的尾段写出，以显示证明所需的结论已经完整了。
-% \end{definition}
+\begin{proof}
+先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
+\begin{equation*}
+  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
+\end{equation*}
+\end{proof}
 
-% \begin{lemma}
-%   这是一条华丽丽的引理。
-% \end{lemma}
-
-% \begin{proof}
-% 先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
-% \begin{equation}
-%   \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
-% \end{equation}
-% \end{proof}
-
-% \begin{proof}
-% 先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。
-% \begin{equation*}
-%   \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
-% \end{equation*}
-% \end{proof}
-
-% \begin{lemma}
-%   这又是一条华丽丽的引理。
-% \end{lemma}
-
-% \chapter{定理（续）}
-% \newcounter{thm}
-
-% \fdunewtheorem[style=plain,qed=\ensuremath{\sin}]{p}{平凡}
-% \fdunewtheorem[style=margin]{mm}{打断}
-% \fdunewtheorem[style=change]{fduc}{变革}
-% \fdunewtheorem[style=break]{fdub}{平凡}
-% \fdunewtheorem[style=marginbreak]{mb}{打断}
-% \fdunewtheorem[style=break]{cb}{变革}
-% \fdunewtheorem*[style=plain]{np}{平凡}
-% \fdunewtheorem*[style=margin]{nmm}{打断}
-% \fdunewtheorem*[style=change]{nfduc}{变革}
-% \fdunewtheorem*[style=break,qed=]{nfdub}{平凡}
-% \fdunewtheorem*[style=marginbreak,qed={}]{nmb}{打断}
-% \fdunewtheorem[style=break,counter=thm]{ncb}{变革}
-
-% \newtheorem{prop}[thm]{命题}
-
-% \begin{prop}
-%   直角三角形。
-% \end{prop}
-% \begin{prop}[圆形]
-%   直角三角形。
-% \end{prop}
-% \begin{prop}
-%   直角三角形。
-% \end{prop}
-
-% \begin{p}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{p}
-
-% \begin{mm}[明早]
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{mm}
-
-% \begin{fduc}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{fduc}
-
-% \begin{fdub}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{fdub}
-
-% \begin{mb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{mb}
-
-% \begin{cb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{cb}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{np}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{np}
-
-% \begin{nmm}[明天一早]
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{nmm}
-
-% \begin{nfduc}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{nfduc}
-
-% \begin{nfdub}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{nfdub}
-
-% \begin{nmb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{nmb}
-
-% \begin{ncb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{ncb}
-
-% \begin{ncb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{ncb}
-
-% \begin{ncb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{ncb}
-
-% \begin{ncb}
-% 这是一条定理。
-% \[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-% \end{ncb}
+\begin{lemma}
+  这又是一条华丽丽的引理。
+\end{lemma}
 
 % \chapter{图表 vs 浮动体}
 % \section{title}
@@ -441,18 +235,4 @@ Hello, world!
 % 保留到了今天 Truetype 和 Opentype 的 Single Master 时代。Adobe 软件的
 % 字体下拉菜单，仍然只显示6到72pt 的字号。
 
-% \section{title}
-% \section{title}
-% \section{title}
-% \section{title}
-% \section{title}
-% \chapter{章节}
-% \section{title}
-% \section{title}
-% \section{title}
-% \section{title}
-% \section{title}
-% \section{title}
-% \section{title}
-
-% \end{document}
+\end{document}
