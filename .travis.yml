@@ -9,3 +9,9 @@ cache:
 script:
   - source ./support/local.sh
   - source ./support/run.sh
+  # Make test theses
+  - cd test
+  - xelatex  -interaction=nonstopmode test
+  - lualatex -interaction=nonstopmode test
+  - xelatex  -interaction=nonstopmode test-en
+  - lualatex -interaction=nonstopmode test-en
