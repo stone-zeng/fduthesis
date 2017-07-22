@@ -252,24 +252,40 @@
       \setCJKfamilyfont { kai  } { KaiTi    }
     }
   }
+\prg_new_conditional:Npnn \fdu_family_if_exist:n #1 { TF }
+  {
+    \sys_if_engine_xetex:TF
+      {
+        \xeCJK_family_if_exist:nTF { #1 }
+          { \prg_return_true: } { \prg_return_false: }
+      }
+      {
+        \sys_if_engine_luatex:T
+          {
+            \ctex_ltj_family_if_exist:xNTF { #1 } \l__fdu_tmpa_tl
+              { \prg_return_true: } { \prg_return_false: }
+            \tl_clear:N \l__fdu_tmpa_tl
+          }
+      }
+  }
 \cs_new_protected:Nn \fdu_cjk_font_song:
   {
-    \xeCJK_family_if_exist:nTF { song }
+    \fdu_family_if_exist:nTF { song }
       { \CJKfamily { song } } { \rmfamily }
   }
 \cs_new_protected:Nn \fdu_cjk_font_hei:
   {
-    \xeCJK_family_if_exist:nTF { hei  }
+    \fdu_family_if_exist:nTF { hei  }
       { \CJKfamily { hei  } } { \sffamily }
   }
 \cs_new_protected:Nn \fdu_cjk_font_fang:
   {
-    \xeCJK_family_if_exist:nTF { fang }
+    \fdu_family_if_exist:nTF { fang }
       { \CJKfamily { fang } } { \ttfamily }
   }
 \cs_new_protected:Nn \fdu_cjk_font_kai:
   {
-    \xeCJK_family_if_exist:nTF { kai  }
+    \fdu_family_if_exist:nTF { kai  }
       { \CJKfamily { kai  } } { \rmfamily \itshape }
   }
 \NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
@@ -448,7 +464,7 @@
     \tl_case:NnF \l__fdu_fn_style_tl
       {
         \c__fdu_fn_style_plain_tl
-          { #1 }
+          { \int_use:N #1 }
         \c__fdu_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
@@ -488,7 +504,7 @@
             $ \__fdu_fn_symbol_xits_sans_negative:n { #1 } $
           }
       }
-      { #1 }
+      { \int_use:N #1 }
   }
 \RenewDocumentCommand \@makefntext { +m }
   {

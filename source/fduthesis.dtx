@@ -330,7 +330,7 @@ version.
 % 的默认配置采用 Computer Modern 字体系列。此时，您需要使用
 % \cs{setmainfont}、\cs{setmainCJKfont}、\cs{setmathfont} 等命令来
 % 配置字体。
-% TODO：关于此处 Computer Modern / Latin Modern 的说明。
+% TODO(20170722): 关于此处 Computer Modern / Latin Modern 的说明。
 %
 % \begin{function}{draft}
 %   \begin{syntax}
@@ -794,6 +794,7 @@ version.
 %
 % 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{luatexja} 宏包。
+% TODO(20170722): 英文模板中文字体的处理。 
 %    \begin{macrocode}
 \RequirePackage [
     UTF8,
@@ -1063,6 +1064,35 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[TF]{\fdu_family_if_exist:n}
+% 判断字体族是否存在。
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \fdu_family_if_exist:n #1 { TF }
+  {
+%    \end{macrocode}
+% \XeTeX{} 引擎下直接利用 \pkg{xeCJK} 宏包提供的函数。
+%    \begin{macrocode}
+    \sys_if_engine_xetex:TF
+      {
+        \xeCJK_family_if_exist:nTF { #1 }
+          { \prg_return_true: } { \prg_return_false: }
+      }
+      {
+%    \end{macrocode}
+% \LuaTeX{} 引擎下需要利用 \pkg{ctex} 宏包提供的函数。这两个函数
+% 的参数略有不同。
+%    \begin{macrocode}
+        \sys_if_engine_luatex:T
+          {
+            \ctex_ltj_family_if_exist:xNTF { #1 } \l_@@_tmpa_tl
+              { \prg_return_true: } { \prg_return_false: }
+            \tl_clear:N \l_@@_tmpa_tl
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % 以下为宋、黑、仿、楷四种中文字体各定义了一些内部函数。函数
 % \cs{xeCJK_family_if_exist:nTF} 是不能展开的，因此此处使用了
 % \cs{cs_new_protected:Nn} 禁止展开。
@@ -1074,7 +1104,7 @@ version.
 %    \begin{macrocode}
 \cs_new_protected:Nn \fdu_cjk_font_song:
   {
-    \xeCJK_family_if_exist:nTF { song }
+    \fdu_family_if_exist:nTF { song }
       { \CJKfamily { song } } { \rmfamily }
   }
 %    \end{macrocode}
@@ -1085,7 +1115,7 @@ version.
 %    \begin{macrocode}
 \cs_new_protected:Nn \fdu_cjk_font_hei:
   {
-    \xeCJK_family_if_exist:nTF { hei  }
+    \fdu_family_if_exist:nTF { hei  }
       { \CJKfamily { hei  } } { \sffamily }
   }
 %    \end{macrocode}
@@ -1096,7 +1126,7 @@ version.
 %    \begin{macrocode}
 \cs_new_protected:Nn \fdu_cjk_font_fang:
   {
-    \xeCJK_family_if_exist:nTF { fang }
+    \fdu_family_if_exist:nTF { fang }
       { \CJKfamily { fang } } { \ttfamily }
   }
 %    \end{macrocode}
@@ -1107,7 +1137,7 @@ version.
 %    \begin{macrocode}
 \cs_new_protected:Nn \fdu_cjk_font_kai:
   {
-    \xeCJK_family_if_exist:nTF { kai  }
+    \fdu_family_if_exist:nTF { kai  }
       { \CJKfamily { kai  } } { \rmfamily \itshape }
   }
 %    \end{macrocode}
@@ -1544,7 +1574,7 @@ version.
 % |plain| 类型直接使用计数器 |footnote| 的值。
 %    \begin{macrocode}
         \c_@@_fn_style_plain_tl
-          { #1 }
+          { \int_use:N #1 }
 %    \end{macrocode}
 %
 % |libertinus| 类型需要使用 Libertinus Serif 或
@@ -1602,7 +1632,7 @@ version.
 % 变量 \cs{l_@@_fn_style_tl} 保存的类型未知时，默认使用 |plain|
 % 类型。
 %    \begin{macrocode}
-      { #1 }
+      { \int_use:N #1 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1771,7 +1801,7 @@ version.
 % 带 |*| 的版本原则上只接受 |plain| 和 |break| 两种样式，其余样式
 % 将被转换成这两者其中之一。
 %
-% TODO(20170602)：给出重定义样式的警告。
+% TODO(20170602): 给出重定义样式的警告。
 %    \begin{macrocode}
         \clist_if_in:NVTF
           \c_@@_thm_style_plain_clist

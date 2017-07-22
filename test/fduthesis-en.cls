@@ -311,7 +311,7 @@
     \tl_case:NnF \l__fdu_fn_style_tl
       {
         \c__fdu_fn_style_plain_tl
-          { #1 }
+          { \int_use:N #1 }
         \c__fdu_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
@@ -351,7 +351,7 @@
             $ \__fdu_fn_symbol_xits_sans_negative:n { #1 } $
           }
       }
-      { #1 }
+      { \int_use:N #1 }
   }
 \RenewDocumentCommand \@makefntext { +m }
   {
