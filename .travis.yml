@@ -10,8 +10,7 @@ script:
   - source ./support/local.sh
   - source ./support/run.sh
   # Make test theses
-  - ls
-  - cd ./test
+  - cd ../test
   - xelatex  -interaction=nonstopmode test
   - lualatex -interaction=nonstopmode test
   - xelatex  -interaction=nonstopmode test-en
