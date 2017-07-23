@@ -21,8 +21,10 @@ cp fduthesis-user.def ../test/fduthesis-user.def
 # lualatex -interaction=nonstopmode fudan-name
 
 # Make test theses
-cd ../test
-xelatex  -interaction=nonstopmode test
-# lualatex -interaction=nonstopmode test
-# xelatex  -interaction=nonstopmode test-en
-# lualatex -interaction=nonstopmode test-en
+# The following commands will not give the errors correctly. So I
+# put them into `.travis.yml`.
+## cd ../test
+## xelatex  -interaction=nonstopmode test
+## lualatex -interaction=nonstopmode test
+## xelatex  -interaction=nonstopmode test-en
+## lualatex -interaction=nonstopmode test-en

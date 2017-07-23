@@ -8,15 +8,10 @@ cache:
 
 script:
   - source ./support/local.sh
-  # - source ./support/run.sh
-  - cd source
-  - xetex fduthesis.dtx
-  - cp fduthesis.cls      ../test/fduthesis.cls
-  - cp fduthesis-en.cls   ../test/fduthesis-en.cls
-  - cp fduthesis.def      ../test/fduthesis.def
-  - cp fduthesis-user.def ../test/fduthesis-user.def
-  - cd ../logo
-  - xelatex  -interaction=nonstopmode fudan-name
+  - source ./support/run.sh
+  # Make test theses
   - cd ../test
   - xelatex  -interaction=nonstopmode test
-  - cat test.log
+  - lualatex -interaction=nonstopmode test
+  - xelatex  -interaction=nonstopmode test-en
+  - lualatex -interaction=nonstopmode test-en
