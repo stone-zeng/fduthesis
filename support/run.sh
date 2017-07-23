@@ -9,16 +9,16 @@ cp fduthesis.def      ../test/fduthesis.def
 cp fduthesis-user.def ../test/fduthesis-user.def
 
 # Make logo
-cd ../logo
-pdflatex -interaction=nonstopmode fudan-emblem
-pdflatex -interaction=nonstopmode fudan-motto
-pdflatex -interaction=nonstopmode fudan-name
-xelatex  -interaction=nonstopmode fudan-emblem
-xelatex  -interaction=nonstopmode fudan-motto
-xelatex  -interaction=nonstopmode fudan-name
-lualatex -interaction=nonstopmode fudan-emblem
-lualatex -interaction=nonstopmode fudan-motto
-lualatex -interaction=nonstopmode fudan-name
+# cd ../logo
+# pdflatex -interaction=nonstopmode fudan-emblem
+# pdflatex -interaction=nonstopmode fudan-motto
+# pdflatex -interaction=nonstopmode fudan-name
+# xelatex  -interaction=nonstopmode fudan-emblem
+# xelatex  -interaction=nonstopmode fudan-motto
+# xelatex  -interaction=nonstopmode fudan-name
+# lualatex -interaction=nonstopmode fudan-emblem
+# lualatex -interaction=nonstopmode fudan-motto
+# lualatex -interaction=nonstopmode fudan-name
 
 # Make test theses
 # The following commands will not give the errors correctly. So I
