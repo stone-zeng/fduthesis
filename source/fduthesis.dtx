@@ -211,20 +211,25 @@ version.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install)>
 %<*driver>
-%
-%%%%%%%%%% 版本历史 %%%%%%%%%%
-% v0.1 2017/02/15
-%   开始
-% v0.2 2017/02/19
-%   git 管理，使用 doc 和 DocStrip
-%
-
 \documentclass{ctxdoc-m}
 \begin{document}
   \DocInput{\jobname.dtx}
+  \newgeometry{
+    left   = 3.18 cm,
+    right  = 3.18 cm,
+    top    = 3.18 cm,
+    bottom = 2.54 cm
+  }
+  \input{fduthesis-doc.bbl}
+  \IndexLayout
+  \PrintChanges
+  \PrintIndex
 \end{document}
 %</driver>
 % \fi
+%
+% \changes{v0.1}{2017/02/15}{开始编写模板。}
+% \changes{v0.2}{2017/02/19}{使用 Git 进行版本控制，并发布至 GitHub。}
 %
 % \CheckSum{0}
 %
@@ -247,7 +252,6 @@ version.
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
 %
-%
 % \title{\textcolor{MaterialIndigo800}{%
 %   \textbf{fduthesis：复旦大学论文模板}}}
 % \author{曾祥东}
@@ -259,7 +263,7 @@ version.
 %   left   = 3.18 cm,
 %   right  = 3.18 cm,
 %   top    = 3.18 cm,
-%   bottom = 3.18 cm
+%   bottom = 2.54 cm
 % }
 %
 % \maketitle
@@ -275,6 +279,7 @@ version.
 %
 % \restoregeometry
 %
+% \begin{documentation}
 % \section{介绍}
 % 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板有以下这些：
 % \begin{itemize}
@@ -443,7 +448,8 @@ version.
 % \hspace{2.79cm}xits|xits-sans|xits-sans*>
 %   \end{syntax}
 %   设置脚注样式。西文字体设置会影响其默认取值。因此，要使得该选项
-%   生效，需将其放置在 |font| 选项之后。
+%   生效，需将其放置在 |font| 选项之后。带有 |sans| 的为相应的无衬线
+%   字体版本；带有 |*| 的为阴文样式（即黑底白字）。
 % \end{function}
 %
 % \begin{table}[h]
@@ -632,29 +638,13 @@ version.
 % \subsubsection{豹尾}
 %
 % \section{宏包依赖情况}
+% 本模板依赖……
 %
-% \StopEventually{
-%   \begin{thebibliography}{9}
-%     \bibitem{knuthtex1986}
-%     \textsc{Donald~Ervin Knuth}.
-%     \newblock \textit{The {{\TeX{}book}}}, \textit{Computers \& Typesetting},
-%       volume~A.
-%     \newblock Addison-Wesley, 1986
-%^^A 
-%     \bibitem{mittelbach2004}
-%     \textsc{Frank Mittelbach} and \textsc{Michel Goossens}.
-%     \newblock \textit{The {{\LaTeX}} Companion}.
-%     \newblock Tools and Techniques for Computer Typesetting. Boston:
-%       Addison-Wesley, second edition, 2004
-%   \end{thebibliography}
-%   \newgeometry{
-%     left   = 2.54 cm,
-%     right  = 2.54 cm,
-%     top    = 3.18 cm,
-%     bottom = 3.18 cm
-%   }
-%   \PrintIndex
-% }
+% \end{documentation}
+%
+% \StopEventually{}
+%
+% \begin{implementation}
 %
 % \section{实现细节}
 % 本模板使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境，
@@ -3323,5 +3313,7 @@ version.
 %% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
 %</user>
 %    \end{macrocode}
+%
+% \end{implementation}
 %
 % \Finale

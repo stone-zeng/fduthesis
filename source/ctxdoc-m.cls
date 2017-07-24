@@ -898,15 +898,8 @@
   \def\subsubitem{\@idxitem\hspace*{2em}}}
 \def\glossaryname{版本历史}
 \GlossaryPrologue{\section{\glossaryname}}
-%% Added by Xiangdong Zeng, 2017-07-18.
-\def\usage#1{\textsf{#1}}
-
 \IndexPrologue{%
-%% Modified by Xiangdong Zeng, 2017-06-26.
-  \section*{\indexname}
-  \addcontentsline{toc}{section}{\normalfont\sffamily\indexname}
-  \markright{\indexname}
-%%%%\section{\indexname}
+  \section{\indexname}
 %% Modified by Xiangdong Zeng, 2017-07-19.
 %%%%  \textit{意大利体的数字表示描述对应索引项的页码；
 %%%%  带下划线的数字表示定义对应索引项的代码行号；
@@ -914,12 +907,20 @@
   \textit{无衬线字体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
   罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
-%% Modified by Xiangdong Zeng, 2017-04-08.
+%% Modified by Xiangdong Zeng, 2017-07-24.
 \def\IndexLayout{%
 %%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
+  \newgeometry{
+    left   = 2.54 cm,
+    right  = 2.54 cm,
+    top    = 3.18 cm,
+    bottom = 3.18 cm}%
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
+%% Added by Xiangdong Zeng, 2017-07-18.
+% 修改“描述对应索引项的页码”样式。
+\def\usage#1{\textsf{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1080,6 +1081,20 @@
 %% 句号处理
 \catcode`\。 = \active
 \newcommand{。}{．}
+
+%% 网址断行
+% 见 https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/
+\def\UrlAlphabet{%
+      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+      \do\Y\do\Z}
+\def\UrlDigits{\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\g@addto@macro{\UrlBreaks}{\UrlAlphabet}
+\g@addto@macro{\UrlBreaks}{\UrlDigits}
 
 %% 命令
 \let\DocCs=\cs

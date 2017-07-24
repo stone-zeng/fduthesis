@@ -21,7 +21,7 @@
 - `source/`             源代码
   - `fduthesis.dtx`       模板代码、注释以及文档
   - `ctxdoc-m.cls`        模板文档样式（修改自 `ctxdoc.cls`）
-  - `latexmkrc`           Latexmk 配置文件
+  - `.latexmkrc`          Latexmk 配置文件
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类

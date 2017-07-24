@@ -1,0 +1,100 @@
+\begin{thebibliography}{99}
+\providecommand{\urlprefix}{\newline}
+\let\OldUrl=\url
+\renewcommand\url[1]{{\small\OldUrl{#1}}}
+
+\bibitem{source2e-20170415}
+\textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
+\newblock \textit{The \LaTeXe{} Sources} [CP/OL].
+\newblock (2017-04-15) \newline
+  \url{https://www.ctan.org/tex-archive/macros/latex/base/source2e.pdf}
+
+\bibitem{CTeX-2.4.9}
+\textsc{CTEX.ORG}.
+\newblock \textit{\CTeX{} 宏集手册} [EB/OL].
+\newblock version 2.4.9,
+\newblock (2017-04-01) \newline
+  \url{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.pdf}
+
+\bibitem{xeCJK-3.4.8}
+\textsc{CTEX.ORG}.
+\newblock \textit{xeCJK 宏包} [EB/OL].
+\newblock version 3.4.8,
+\newblock (2017-05-15) \newline
+  \url{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.pdf}
+
+\bibitem{knuth1986texbook}
+\textsc{Knuth D E}.
+\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
+\newblock Boston: Addison--Wesley Publishing Company, 1986
+
+\bibitem{interfaces3-20170719}
+\textsc{The \LaTeX3 Project}.
+\newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
+\newblock (2017-07-19) \newline
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/interface3.pdf}
+
+\bibitem{source3-20170719}
+\textsc{The \LaTeX3 Project}.
+\newblock \textit{The \LaTeX3 Sources} [CP/OL].
+\newblock (2017-07-19) \newline
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/source3.pdf}
+
+\bibitem{mittelbach2004latexcompanion}
+\textsc{Mittelbach F} and \textsc{Goossens M}.
+\newblock \textit{The \LaTeX{} Companion} [M].
+\newblock 2nd ed.
+\newblock Boston: Addison--Wesley Publishing Company, 2004
+
+\bibitem{wright2009dtxfile}
+\textsc{Wright J}.
+\newblock \textit{A model dtx file} [EB/OL].
+\newblock (2009-10-06) \newline
+  \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
+
+\bibitem{复旦大学论文规范}
+复旦大学图书馆, 复旦大学研究生院.
+\newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
+\newblock 2017 年 3 月修订版.
+\newblock (2017-03-27) \newline
+  \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
+
+\bibitem{gb-t-15834-2011}
+国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
+\newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
+\newblock 北京: 中国标准出版社, 2007
+
+\bibitem{胡伟2017latex2e}
+胡伟.
+\newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
+\newblock 北京: 清华大学出版社, 2017
+
+\bibitem{gb-t-15834-2011}
+教育部语言文字信息管理司.
+\newblock \textit{标点符号用法: GB/T 15834--2011} [S].
+\newblock 北京: 中国标准出版社, 2012
+
+\bibitem{cquthesis-1.20}
+李振楠.
+\newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
+\newblock version 1.20,
+\newblock (2017-05-30) \newline
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/cquthesis/cquthesis.pdf}
+
+\bibitem{刘海洋2013latex入门}
+刘海洋.
+\newblock \textit{\LaTeX{} 入门} [M].
+\newblock 北京: 电子工业出版社, 2013
+
+\bibitem{gb-t-7714-2015}
+全国信息与文献标准化技术委员会.
+\newblock \textit{信息与文献 参考文献著录规则: GB/T 7714--2015} [S].
+\newblock 北京: 中国标准出版社, 2015
+
+\bibitem{thuthesis-5.3.2}
+薛瑞尼.
+\newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
+\newblock version 5.3.2,
+\newblock (2017-03-26) \newline
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/thuthesis/thuthesis.pdf}
+\end{thebibliography}
