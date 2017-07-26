@@ -21,13 +21,13 @@
 - `source/`             源代码
   - `fduthesis.dtx`       模板代码、注释以及文档
   - `ctxdoc-m.cls`        模板文档样式（修改自 `ctxdoc.cls`）
-  - `.latexmkrc`          Latexmk 配置文件
+  - `latexmkrc`           Latexmk 配置文件
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
   - `fduthesis-en.cls`    fduthesis 模板类（英文版）
-  - `fduthesis.def`       模板定义文件
-  - `fduthesis-user.def`  用户定义文件
+  - `fduthesis.def`       模板参数配置文件
+  - `fduthesis-user.def`  用户配置文件
   - `test.tex`            测试论文
   - `test-en.tex`         测试论文（英文版）
 

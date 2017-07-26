@@ -60,8 +60,8 @@
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
   - `fduthesis-en.cls`    fduthesis 模板类（英文版）
-  - `fduthesis.def`       模板定义文件
-  - `fduthesis-user.def`  用户定义文件
+  - `fduthesis.def`       模板参数配置文件
+  - `fduthesis-user.def`  用户配置文件
   - `test.tex`            测试论文
   - `test-en.tex`         测试论文（英文版）
 
@@ -213,6 +213,7 @@ version.
 %<*driver>
 \documentclass{ctxdoc-m}
 \begin{document}
+  \DisableImplementation
   \DocInput{\jobname.dtx}
   \newgeometry{
     left   = 3.18 cm,
@@ -220,7 +221,6 @@ version.
     top    = 3.18 cm,
     bottom = 2.54 cm
   }
-  \input{fduthesis-doc.bbl}
   \IndexLayout
   \PrintChanges
   \PrintIndex
@@ -230,6 +230,12 @@ version.
 %
 % \changes{v0.1}{2017/02/15}{开始编写模板。}
 % \changes{v0.2}{2017/02/19}{使用 Git 进行版本控制，并发布至 GitHub。}
+% \changes{v0.3}{2017/02/21}{使用 \pkg{doc} 和 \pkg{DocStrip}。}
+% \changes{v0.3}{2017/03/04}{支持 \LuaLaTeX{}。}
+% \changes{v0.3}{2017/03/20}{添加测试文件。}
+% \changes{v0.3}{2017/05/26}{使用 Travis CI 进行持续集成。}
+% \changes{v0.3}{2017/06/23}{添加复旦大学标识。}
+% \changes{v0.3}{2017/07/10}{添加英文模板。}
 %
 % \CheckSum{0}
 %
@@ -277,70 +283,227 @@ version.
 %
 % \tableofcontents
 %
-% \restoregeometry
+% ^^A\restoregeometry
+% \newgeometry{
+%   left   = 1.75 in,
+%   right  = 1.00 in,
+%   top    = 1.25 in,
+%   bottom = 1.00 in
+% }
 %
 % \begin{documentation}
+%
 % \section{介绍}
-% 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板有以下这些：
+% 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板主要有以下这些：
 % \begin{itemize}
-%   \item 数学科学学院 2001 级的何力同学和李湛同学在 2005 年
-% 根据学校要求所设计的\cls{毕业论文格式 tex04 版}，以及 2008 年
-% 张越同学修改之后的\cls{毕业论文格式 tex08 版}，这是专为数院本科生
-% 撰写毕业论文而设计的；
-%   \item Pandoxie 编写的 \cls{FDU-Thesis-Latex}，基本满足了博士
-% （硕士）毕业论文格式要求，使用人数较多；
-%   \item richarddzh 编写的 \cls{fudan-thesis}；
-%   \item hmshan 编写的 \cls{FDU_PhD_Thesis_Template}。
+%   \item 数学科学学院 2001 级的何力同学和李湛同学在 2005 年根据学校
+%     要求所设计的\cls{毕业论文格式 tex04 版}，以及 2008 年张越同学
+%     修改之后的\cls{毕业论文格式 tex08 版}，这是专为数院本科生撰写
+%     毕业论文而设计的 \scite{数院毕业论文格式,数院毕业论文格式更新}；
+%   \item Pandoxie 编写的 \cls{FDU-Thesis-Latex}
+%     \cite{pandoxie2014fduthesislatex}，基本满足了博士（硕士）毕业
+%     论文格式要求，使用人数较多；
+%   \item richarddzh 编写的硕士论文模板 \cls{fudan-thesis}
+%     \cite{richard2016fudanthesis}；
+%   \item hmshan 编写的博士论文模板 \cls{FDU_PhD_Thesis_Template}
+%     \cite{hmshan2017fduphdthesistemplate}。
 % \end{itemize}
 % 以上这些模板大都没有经过系统的设计，也鲜有后续维护。相比之下，
-% 清华大学、中国科学技术大学以及友校上海交通大学等，都有成熟、稳定的
-% 解决方案，值得参考。
+% 清华大学 \scite{thuthesis}、重庆大学 \scite{cquthesis}、中国科学
+% 技术大学 \scite{zepinglee2017ustcthesis} 以及友校上海交通大学
+% \scite{weijianwen2017sjtuthesis}等，都有成熟、稳定的解决方案，
+% 值得参考。
 %
-% 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3 编写，以适应
-% \TeX{} 技术发展潮流；同时还将构建一套简洁的接口，方便大家使用。
+% 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
+% \scite{interfaces3,source3} 编写，以适应\TeX{} 技术发展潮流；同时
+% 还将构建一套简洁的接口，方便用户使用。
+%
+% \subsection*{入门}
+% 本文档并非是一份 \LaTeX{} 零基础教程。如果您是完完全全的新手，
+% 建议先阅读相关入门文档，如刘海洋编著的《\LaTeX{} 入门》
+% \cite{刘海洋2013latex入门} 第一章，或大名鼎鼎的“\pkg{lshort}”
+% \cite{lshort} 及其中文翻译版 \cite{lshort-zh-cn}。当然，网络上的
+% 入门教程多如牛毛，您可以自行选取。
+%
+% \subsection*{关于本文档}
+% 本文档主要包含用户手册和代码实现两部分。
+%
+% 用户手册中，带有蓝色框线的为 \LaTeX{} 代码，带有粉色框线的为命令行
+% 代码，请注意区分。模板提供的选项、命令、环境等，均用横线框起，同时
+% 给出使用语法和相关说明。
+%
+% 代码实现主要面向对 \LaTeX{} 宏包开发感兴趣的用户。如果您有任何改进
+% 意见或者功能需求，欢迎前往 GitHub 仓库
+% \href{https://github.com/Stone-Zeng/fduthesis/issues}{提交 issue}。
+%
+% 文档的最后还提供了版本历史和代码索引，以供用户查阅。
+%
+% \section{安装}
+% \subsection{获取 \cls{fduthesis}}
+% 本模板目前暂未上传至 CTAN，您需要从 GitHub 上自行下载并安装。
+% 具体方法如下：
+% \begin{itemize}
+%   \item 打开 \href{https://github.com/Stone-Zeng/fduthesis}{项目主页}，
+%     点击“Clone or download”，并选择“Download ZIP”，下载
+%     \file{fduthesis-master.zip}。
+%   \item 解压 \file{fduthesis-master.zip} 后，将 \file{test} 文件夹
+%     下的模板文档类文件 \file{fduthesis.cls}、\file{fduthesis-en.cls}，
+%     配置文件 \file{fduthesis.def}、\file{fduthesis-user.def} 以及
+%     校名图片 \file{Fudan_Logo.pdf} 复制到您的工作文件夹（论文 |tex|
+%     文件所在的文件夹）中，方可完成安装。
+% \end{itemize}
+%
+% 注：这是一条缓兵之计。
+%
+% \subsection{模板组成}
+% 本模板主要包含核心文档类、配置文件、用户文档等几个部分，
+% 其具体组成见表~\ref{tab:fduthesis-components}。
+%
+% \begin{table}[h]
+%   \caption{\cls{fduthesis} 的组成} \label{tab:fduthesis-components}
+%   \centering
+%   \begin{tabular}{lp{20em}}
+%     \toprule
+%     \textbf{文件} & \textbf{功能说明} \\
+%     \midrule
+%     \file{fduthesis.cls}      & 中文模板文档类 \\
+%     \file{fduthesis-en.cls}   & 英文模板文档类 \\
+%     \file{fduthesis.def}      & 参数配置文件，用于设定 fduthesis
+%       的初始参数，不建议您自行改动 \\
+%     \file{fduthesis-user.def} & 用户配置文件，可根据您的需求进行
+%       修改，默认为空 \\
+%     \file{fduthesis.dtx}      & 模板源文件，包含源代码、注释以及
+%       文档，同时集成有安装文件 \file{fduthesis.ins} \\
+%     \file{README.md}          & 简要自述 \\
+%     \file{fduthesis.pdf}      & 用户手册（本文档） \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% 模板中的绝大多数文件，均可由 \file{fduthesis.dtx} 导出。
+% 在命令行中执行
+% \begin{shellexample}
+%   xetex fduthesis.dtx
+% \end{shellexample}
+% 可生成各导出文件；而要生成用户手册 \file{fduthesis.pdf}，则需执行
+% \begin{shellexample}
+%   xelatex fduthesis.dtx
+%   makeindex -s gind.ist -o fduthesis.ind fduthesis.idx
+%   makeindex -s gglo.ist -o fduthesis.gls -t fduthesis.glg fduthesis.glo
+%   xelatex fduthesis.dtx
+%   xelatex fduthesis.dtx
+% \end{shellexample}
+% 也可使用 \pkg{Latexmk}：
+% \begin{shellexample}
+%   latexmk fduthesis.dtx
+% \end{shellexample}
+% 本模板已经为编译用户手册提供了 \pkg{Latexmk} 配置文件
+% \file{.latexmkrc}。
 %
 % \section{使用说明}
-% \subsection{编译方式}
-% 本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或 \LuaLaTeX{} 编译。
-% 推荐使用 \XeLaTeX{}。
+% \subsection{基本用法}
+% 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis} 的最基本用法：
+% \begin{latexexample}
+%   % thesis.tex
+%   \documentclass{fduthesis}
+%   \begin{document}
+%     \chapter{欢迎}
+%     \section{Welcome to fduthesis!}
+%     这是一篇测试文章。
+%   \end{document}
+% \end{latexexample}
+%
+% 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到一篇
+% 5 页的文章。当然，这篇文章的绝大部分都是空白的。
+%
+% 英文模板可以用相同方式使用：
+% \begin{latexexample}
+%   % thesis-en.tex
+%   \documentclass{fduthesis-en}
+%   \begin{document}
+%     \chapter{Hello}
+%     \section{Welcome to fduthesis!}
+%     This is a test article.
+%   \end{document}
+% \end{latexexample}
+% 英文模板只对正文部分进行了改动，封面、指导小组成员以及声明页仍将
+% 显示为中文。
+%
+% \subsection{编译方式} \label{subsec:编译方式}
+% 本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或 \LuaLaTeX{}
+% 编译。推荐使用 \XeLaTeX{}。
+%
+% 为了生成正确的目录、脚注以及交叉引用，您至少需要连续编译两次。
+%
+% 以下代码中，假设您的论文 |tex| 文档名为 |thesis.tex|。
+% 使用 \XeLaTeX{} 编译论文，请在命令行中执行
+% \begin{shellexample}
+%   xelatex thesis
+%   xelatex thesis
+% \end{shellexample}
+% 或使用 \pkg{Latexmk}：
+% \begin{shellexample}
+%   latexmk -xelatex thesis
+% \end{shellexample}
+%
+% 使用 \LuaLaTeX{} 编译论文，请在命令行中执行
+% \begin{shellexample}
+%   lualatex thesis
+%   lualatex thesis
+% \end{shellexample}
+% 或者
+% \begin{shellexample}
+%   latexmk -lualatex thesis
+% \end{shellexample}
+%
+% 需要注意，请不要把模板中的配置文件 \file{.latexmkrc} 放置在工作
+% 文件夹下。该配置文件仅适用于编译模板用户手册。
 %
 % \subsection{模板选项}
-% 所谓“模板选项”，指需要在引入文档类的时候指定的选项。
+% 所谓“模板选项”，指需要在引入文档类的时候指定的选项：
+% \begin{latexexample}
+%   \documentclass(*\oarg{模板选项}*){fduthesis}
+% \end{latexexample}
+
+% 有些模板选项为布尔型，它们只能在 |true| 和 |false| 中取值。
+% 对于这些选项，\meta{选项} |= true| 中的“|= true|”可以省略。
 %
 % \begin{function}{oneside,twoside}
-%   指明论文的单双面模式，默认为 |twoside|。
-%   该选项会影响章（chapter）出现的位置，还会影响页眉样式。
+%   指明论文的单双面模式，默认为 |twoside|。该选项会影响每章开头的
+%   位置，还会影响页眉样式。
 % \end{function}
 %
-% 在双面模式（|twoside|）下，按照通常的排版惯例，\tn{chapter}
-% 只出现在奇数页（在右侧）；而在单页模式（|oneside|）下，
-% 则可以出现在任意页面。本模板中，目录、摘要、符号表等均视作章，
-% 也按相同方式排版。
+% 在双面模式（|twoside|）下，按照通常的排版惯例，每章应只从奇数页
+% （在右）开始；而在单页模式（|oneside|）下，则可以从任意页面开始。
+% 本模板中，目录、摘要、符号表等均视作章，也按相同方式排版。
 %
 % 双面模式下，正文部分偶数页（在左）的左页眉显示章标题，奇数页
-% （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，
-% 但文字均为对应标题（如“\textit{目 \quad 录}”、
-% “\textit{摘 \quad 要}”等）。
-% 而在单面模式下，正文部分页面不分奇偶，均会同时显示左、右页眉，
-% 文字分别为章标题和节标题；前置部分只有中页眉，显示对应标题。
+% （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，但文字
+% 均为对应标题（如“{\CJKfamily{楷}目\textvisiblespace{}录}”、
+% “{\CJKfamily{楷}摘\textvisiblespace{}要}”等）。
+% 而在单面模式下，正文部分则页面不分奇偶，均同时显示左、右页眉，
+% 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
 %
 % \begin{function}{nofonts}
-%   \begin{syntax}
-%     nofonts = <\TFF>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     nofonts = (*<\TFF>*)
+%   \end{fdusyntax}
 %   选择是否禁用默认字体设置，默认关闭。
 % \end{function}
 %
 % 禁用默认字体设置后，中文将无法正常显示，而西文则会按照 \LaTeX{}
-% 的默认配置采用 Computer Modern 字体系列。此时，您需要使用
-% \cs{setmainfont}、\cs{setmainCJKfont}、\cs{setmathfont} 等命令来
-% 配置字体。
-% TODO(20170722): 关于此处 Computer Modern / Latin Modern 的说明。
+% 的默认配置采用 Computer Modern 字体系列 \footnote{^^A
+%   使用 \XeLaTeX{} 或 \LuaLaTeX{} 编译时，实际使用 Latin Modern
+%   作为正文字体，数学字体仍使用 Computer Modern。本模板加载了
+%   \pkg{unicode-math} 宏包，此时默认数学字体为 Latin Modern Math。}。
+% 此时，您需要使用 \pkg{fontspec}、\pkg{xeCJK}、\pkg{unicode-math}
+% 等宏包提供的 \cs{setmainfont}、\cs{setmainCJKfont}、
+% \cs{setmathfont} 等命令来配置字体。
 %
 % \begin{function}{draft}
-%   \begin{syntax}
-%     draft = <\TFF>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     draft = (*<\TFF>*)
+%   \end{fdusyntax}
 %   选择是否开启草稿模式，默认关闭。
 % \end{function}
 %
@@ -349,8 +512,8 @@ version.
 % \begin{itemize}
 %   \item 把行溢出的盒子显示为黑色方块；
 %   \item 不实际插入图片，只输出一个占位方框；
-%   \item 关闭超链接渲染，也不添加 PDF 书签（还未调用
-%     \pkg{hyperref}，目前暂时不受影响）；
+%   \item 关闭超链接渲染，也不添加 PDF 书签（还未调用\pkg{hyperref}，
+%     目前暂时不受影响）；
 %   \item 显示页面边框。
 % \end{itemize}
 %
@@ -359,24 +522,24 @@ version.
 % 统一的命令 \cs{fdusetup} 来设置。
 %
 % \begin{function}{\fdusetup}
-%   \begin{syntax}
-%     \cs{fdusetup}\Arg{键值列表}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     \fdusetup(*\marg{键值列表}*)
+%   \end{fdusyntax}
 %   这是本模板的通用控制命令，用来在载入文档类之后实现各种功能，
 %   如修改论文格式、录入论文信息等。
 % \end{function}
 %
 % \cs{fdusetup} 的参数是一组由（英文）逗号隔开的选项列表，列表中的
-% 选项通常是 \meta{key} |=| \meta{value} 的形式。部分选项的
-% \meta{value} 可以省略。对于同一项，后面的设置将会覆盖前面的设置。
+% 选项通常是 \meta{键} |=| \meta{值} 的形式。部分选项的 \meta{值}
+% 可以省略。对于同一项，后面的设置将会覆盖前面的设置。
 % 在下文的说明中，我们将用\textbf{粗体}表示默认值。
 %
 % \cs{fdusetup} 采用 \LaTeX3 风格的键值设置，支持不同类型以及多种
 % 层次的选项设定。键值列表中，“|=|”左右的空格不影响设置；但需注意，
 % 参数列表中不可以出现空行。
 %
-% 有些选项为布尔型，即只能取 |true| 和 |false| 两个值。对于这些选项，
-% \meta{key} |= true| 中的“|= true|”可以省略。
+% 与模板选项相同，布尔型的参数可以省略 \meta{键} |= true| 中的
+% “|= true|”。
 %
 % 另有一些选项包含子选项，如 |style| 和 |info| 等。它们可以按如下
 % 两种等价方式来设定：
@@ -405,55 +568,60 @@ version.
 %
 % \subsubsection{论文格式}
 % \begin{function}{style}
-%   \begin{syntax}
-%     style = \Arg{键值列表}
-%     style / \meta{key} = \meta{value}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     style = (*\marg{键值列表}*)
+%     style / (*\meta{key}*) = (*\meta{value}*)
+%   \end{fdusyntax}
 %   设置论文格式的通用选项，具体内容见下。
 % \end{function}
 %
 % \begin{function}{style/font}
-%   \begin{syntax}
-%     font = <libertinus|lm|palatino|(times)>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     font = (*<libertinus|lm|palatino|(times)>*)
+%   \end{fdusyntax}
 %   设置西文字体以及相应的数学字体。
 % \end{function}
 %
 % \begin{function}{style/cjkfont}
-%   \begin{syntax}
-%     cjkfont = <adobe|(fandol)|founder|linux|mac|windows>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     cjkfont = (*<adobe|(fandol)|founder|linux|mac|windows>*)
+%   \end{fdusyntax}
 %   设置中文字体。
 % \end{function}
 %
 % \begin{function}{style/fontsize}
-%   \begin{syntax}
-%     fontsize = <(-4)|5>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     fontsize = (*<(-4)|5>*)
+%   \end{fdusyntax}
 %   设置论文的基础字号。
 % \end{function}
 %
 % \begin{function}{style/fullwidthstop}
-%   \begin{syntax}
-%     fullwidthstop = <\TFF>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     fullwidthstop = (*<\TFF>*)
+%   \end{fdusyntax}
 %   选择是否把全角实心句点“\symbol{"FF0E}”作为默认的句号形状。
 %   这种句号一般用于科技类文章，以便与下标 o 或 0 区分。
 % \end{function}
 %
 % \begin{function}{style/footnotestyle}
-%   \begin{syntax}
-%     footnotestyle = <plain|libertinus|libertinus*|libertinus-sans|
-% \hspace{2.79cm}pifont|pifont*|pifont-sans|pifont-sans*|
-% \hspace{2.79cm}xits|xits-sans|xits-sans*>
-%   \end{syntax}
-%   设置脚注样式。西文字体设置会影响其默认取值。因此，要使得该选项
-%   生效，需将其放置在 |font| 选项之后。带有 |sans| 的为相应的无衬线
-%   字体版本；带有 |*| 的为阴文样式（即黑底白字）。
+% ^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
+% ^^A 空格，因此这里用 X 来占位。
+%   \begin{fdusyntax}
+%     footnotestyle = (*<plain|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%   \end{fdusyntax}
+%   设置脚注样式。西文字体设置会影响其默认取值（见
+%   表~\ref{tab:footnote-font}）。因此，要使得该选项生效，需将其放置
+%   在 |font| 选项之后。带有 |sans| 的为相应的无衬线字体版本；带有
+%   |*| 的为阴文样式（即黑底白字）。
 % \end{function}
 %
 % \begin{table}[h]
 % \caption{西文字体与脚注样式默认值的对应关系}
+% \label{tab:footnote-font}
 % \centering
 % \begin{tabular}{ccccc}
 %   \toprule
@@ -465,9 +633,9 @@ version.
 % \end{table}
 %
 % \begin{function}{style/automakecover}
-%   \begin{syntax}
-%     automakecover = <\TTF>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     automakecover = (*<\TTF>*)
+%   \end{fdusyntax}
 %   是否自动生成论文封面（封一）、指导小组成员名单（封二）和声明页
 %   （封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，具体请参阅
 %   \ref{subsubsec:信息录入}~节。
@@ -481,56 +649,56 @@ version.
 %
 % \subsubsection{信息录入} \label{subsubsec:信息录入}
 % \begin{function}{info}
-%   \begin{syntax}
-%     info = \Arg{键值列表}
-%     info / \meta{key} = \meta{value}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     info = (*\marg{键值列表}*)
+%     info / (*\meta{key}*) = (*\meta{value}*)
+%   \end{fdusyntax}
 %   录入论文信息的通用选项，具体内容见下。以下各选项中，带“|*|”的为
 %   对应的英文字段。
 % \end{function}
 %
 % \begin{function}{info/title,info/title*}
-%   \begin{syntax}
-%     title  = \Arg{中文标题}
-%     title* = \Arg{English title}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     title  = (*\marg{中文标题}*)
+%     title* = (*\marg{English title}*)
+%   \end{fdusyntax}
 %   论文标题。默认会在约 20 个汉字字宽处强制断行，但为了语义的连贯
 %   以及排版的美观，如果您的标题长于一行，建议使用“|\\|”手动断行。
 % \end{function}
 %
 % \begin{function}{info/author,info/author*}
-%   \begin{syntax}
-%     author  = \Arg{姓名}
-%     author* = \Arg{English name}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     author  = (*\marg{姓名}*)
+%     author* = (*\marg{English name}*)
+%   \end{fdusyntax}
 %   作者姓名。
 % \end{function}
 %
 % \begin{function}{info/supervisor}
-%   \begin{syntax}
-%     supervisor = \Arg{姓名}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     supervisor = (*\marg{姓名}*)
+%   \end{fdusyntax}
 %   导师姓名。
 % \end{function}
 %
 % \begin{function}{info/department}
-%   \begin{syntax}
-%     department = \Arg{名称}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     department = (*\marg{名称}*)
+%   \end{fdusyntax}
 %   院系名称。
 % \end{function}
 %
 % \begin{function}{info/major}
-%   \begin{syntax}
-%     major = \Arg{名称}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     major = (*\marg{名称}*)
+%   \end{fdusyntax}
 %   专业名称。
 % \end{function}
 %
 % \begin{function}{info/studentid}
-%   \begin{syntax}
-%     studentid = \Arg{数字}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     studentid = (*\marg{数字}*)
+%   \end{fdusyntax}
 %   作者学号。
 % \end{function}
 %
@@ -539,55 +707,55 @@ version.
 % 最后三位为顺序号。
 %
 % \begin{function}{info/schoolid}
-%   \begin{syntax}
-%     schoolid = \Arg{数字}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     schoolid = (*\marg{数字}*)
+%   \end{fdusyntax}
 %   学校代码。默认值为 10246（这是复旦大学的学校代码）。
 % \end{function}
 %
 % \begin{function}{info/date}
-%   \begin{syntax}
-%     date = \Arg{日期}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     date = (*\marg{日期}*)
+%   \end{fdusyntax}
 %   论文完成日期。默认值为文档编译日期（\tn{today}）。
 % \end{function}
 %
 % \begin{function}{info/secretlevel}
-%   \begin{syntax}
-%     secretlevel = <(none)|i|ii|iii>
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     secretlevel = (*<(none)|i|ii|iii>*)
+%   \end{fdusyntax}
 %   密级。|i|、|ii|、|iii| 分别表示秘密、机密、绝密；|none| 表示论文不
 %   涉密，即不显示密级与保密年限。
 % \end{function}
 %
 % \begin{function}{info/secretyear}
-%   \begin{syntax}
-%     secretlevel = \Arg{年限}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     secretlevel = (*\marg{年限}*)
+%   \end{fdusyntax}
 %   保密年限。建议您使用中文，如“五年”。此选项在 |secretlevel = none|
 %   时无效。
 % \end{function}
 %
 % \begin{function}{info/instructors}
-%   \begin{syntax}
-%     instructors = \Arg{成员 1, 成员 2, ...}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     instructors = (*\marg{成员 1, 成员 2, ...}*)
+%   \end{fdusyntax}
 %   指导小组成员。各成员之间需使用英文逗号隔开。为防止歧义，可以用
 %   分组括号“|{...}|”把各成员字段括起来。
 % \end{function}
 %
 % \begin{function}{info/keywords,info/keywords*}
-%   \begin{syntax}
-%     keywords  = \Arg{中文关键字}
-%     keywords* = \Arg{English keywords}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     keywords  = (*\marg{中文关键字}*)
+%     keywords* = (*\marg{English keywords}*)
+%   \end{fdusyntax}
 %   关键字。
 % \end{function}
 %
 % \begin{function}{info/clc}
-%   \begin{syntax}
-%     clc = \Arg{分类号}
-%   \end{syntax}
+%   \begin{fdusyntax}
+%     clc = (*\marg{分类号}*)
+%   \end{fdusyntax}
 %   中国图书馆分类号（CLC）。
 % \end{function}
 %
@@ -605,32 +773,32 @@ version.
 % \end{function}
 %
 % \begin{function}{abstract,abstract*}
-%   \begin{syntax}
-%     \tn{begin}\{abstract\}
-%       \quad{}中文摘要。
-%     \tn{end}\{abstract\}
+%   \begin{fdusyntax}
+%     \begin{abstract}
+%       (*\meta{中文摘要}*)
+%     \end{abstract}
 %
-%     \tn{begin}\{abstract*\}
-%       \quad{}English abstract.
-%     \tn{end}\{abstract*\}
-%   \end{syntax}
+%     \begin{abstract*}
+%       (*\meta{English abstract}*)
+%     \end{abstract*}
+%   \end{fdusyntax}
 %   中英文摘要。在摘要的最后，会显示关键字列表以及
 %   中国图书馆分类号（CLC）。这两项可通过 \cs{fdusetup} 录入，具体
 %   请参阅 \ref{subsubsec:信息录入}~节。
 % \end{function}
 %
 % \begin{function}{notation}
-%   \begin{syntax}
-%     \tn{begin}\{notation\}\oarg{列格式说明}
-%       \quad{}符号 1  \&  说明  \backslash\backslash
-%       \quad{}符号 2  \&  说明  \backslash\backslash
-%       \quad{}符号 3  \&  说明  \backslash\backslash
-%       \quad{}...
-%     \tn{end}\{notation\}
-%   \end{syntax}
-%   符号表。可选参数“列格式说明”与 \LaTeX 中标准表格的列格式相同，
-%   默认值为“|l p{7.5 cm}|”，即第一列宽度自动调整，第二列限宽
-%   \SI{7.5}{cm}，均采用左对齐。
+%   \begin{fdusyntax}
+%     \begin{notation}(*\oarg{列格式说明}*)
+%       (*\meta{符号 1}*)  &  (*\meta{说明}*)  \\
+%       (*\meta{符号 2}*)  &  (*\meta{说明}*)  \\
+%               (*$\vdots$*)
+%       (*\meta{符号 $n$}*)  &  (*\meta{说明}*)
+%     \end{notation}
+%   \end{fdusyntax}
+%   符号表。可选参数“列格式说明”与 \LaTeX 中标准表格的列格式说明
+%   语法一致，默认值为“|l p{7.5 cm}|”，即第一列宽度自动调整，第二列
+%   限宽 \SI{7.5}{cm}，均采用左对齐。
 % \end{function}
 %
 % \subsubsection{猪肚}
@@ -639,6 +807,8 @@ version.
 %
 % \section{宏包依赖情况}
 % 本模板依赖……
+%
+% \input{fduthesis-doc.bbl}
 %
 % \end{documentation}
 %
@@ -654,6 +824,18 @@ version.
 % 而下划线“|_|”和冒号“|:|”则可作为一般字母使用。
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
+%
+% 以下代码中有一些形如
+% \textcolor[HTML]{2E3191}{\textsf{\textlangle *class\textrangle}}
+% 的标记，这是 \pkg{DocStrip} 中的“guard”，用来选择性地提取文件。
+% “\textsf{*}”和“\textsf{/}”分别表示该部分的开始和结束。不含
+% “\textsf{*}”和“\textsf{/}”的 guard 出现在行号右侧，它们用来确定
+% 单独一行代码的归属。这些 guard 的颜色深浅不一，用以明确嵌套关系。
+%
+% 另有若干形如
+% \textcolor{MaterialPink}{\textsf{\textlangle @@=fdu\textrangle}}
+% 的 guard ，它们由 \pkg{l3docstrip} 定义，用来指示命名空间（模块）。
+%
 %    \begin{macrocode}
 %<@@=fdu>
 %<*class|class-en>
@@ -784,7 +966,7 @@ version.
 %
 % 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{luatexja} 宏包。
-% TODO(20170722): 英文模板中文字体的处理。 
+% TODO(20170722): 英文模板中文字体的处理。
 %    \begin{macrocode}
 \RequirePackage [
     UTF8,
@@ -1192,9 +1374,9 @@ version.
 %
 % \pkg{xeCJK} 宏包提供了 |Mapping = fullwidth-stop| 和 |full-stop|
 % 选项，也能实现两种句号的切换。此种方法是基于字体映射实现的，
-% 当需要同时使用两种句号的时候（比如本文档）将会带来不便。
-% 另外通过 \LuaLaTeX{} 编译时，底层使用 \pkg{luatexja} 而非
-% \pkg{xeCJK}，也必须采取 \tn{catcode} 的手段来切换。
+% 当需要同时使用两种句号的时候将会带来不便。另外通过 \LuaLaTeX{}
+% 编译时，底层使用 \pkg{luatexja} 而非\pkg{xeCJK}，也必须采取
+% \tn{catcode} 的手段来切换。
 %    \begin{macrocode}
 %<*class>
     fullwidthstop .choice:,
@@ -1267,8 +1449,8 @@ version.
 % 构建页眉，要在单面或双面下分别设置。
 % \cs{fancyhead} 的选项中，|E| 和 |O| 分别表示偶数（even）和奇数
 % （odd）， 而 |L|、|R| 和 |C| 则分别表示左（left）、右（right）
-% 和中间（center）。按照通常的排版规则，在双面模式下，偶数页中页眉
-% 文字在左，奇数页中则在右。单面模式下，左右页眉都要显示。
+% 和中间（center）。按照通常的排版规则，在双面模式下，偶数页的中间
+% 页眉文字在左，奇数页则在右。单面模式下，左右页眉都要显示。
 %    \begin{macrocode}
 \bool_if:NTF \g_@@_twoside_bool
 %<*class>
@@ -1321,7 +1503,7 @@ version.
   {
     \bool_if:NTF \g_@@_twoside_bool
       { \markboth { #1 } { #1 } }
-      { 
+      {
         \markboth { } { }
         \tl_gset:Nn \l_@@_header_center_mark_tl { #1 }
       }
@@ -1364,6 +1546,7 @@ version.
 % \end{macro}
 %
 % \subsection{脚注}
+% \changes{v0.3}{2017/02/21}{支持脚注。}
 % \subsubsection{编号样式}
 % \begin{macro}{\c_@@_fn_style_plain_tl,
 %   \c_@@_fn_style_libertinus_tl,
@@ -1658,6 +1841,7 @@ version.
 % \end{macro}
 %
 % \subsection{定理环境}
+% \changes{v0.3}{2017/05/07}{新增定理环境。}
 % \begin{macro}{\c_@@_thm_style_plain_clist,
 %   \c_@@_thm_style_break_clist}
 % 保存 |plain|、|break| 两种类型的定理样式名称。
@@ -1837,6 +2021,7 @@ version.
 % \end{macro}
 %
 % \subsection{图表绘制；浮动体}
+% \changes{v0.3}{2017/07/09}{支持浮动体。}
 % 分别设置浮动体 |figure| 和 |table| 的标题样式。
 %    \begin{macrocode}
 \captionsetup [ figure ]
@@ -1998,6 +2183,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{密级}
+% \changes{v0.3}{2017/07/04}{新增 |secretlevel| 选项。}
 % \begin{macro}{\l_@@_secret_bool}
 % 是否显示密级。
 %    \begin{macrocode}
@@ -2392,6 +2578,8 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.3}{2017/07/05}{新增声明页。}
+%
 % \begin{macro}{\makecoveriii}
 % 生成封三，即声明页。该页也需要关闭页眉、页脚显示。
 %    \begin{macrocode}
@@ -2670,6 +2858,7 @@ version.
 % \end{macro}
 %
 % \subsection{文字绕排}
+% \changes{v0.3}{2017/02/26}{尝试利用 \pkg{l3galley} 进行文字绕排。}
 % WARNING：严重冲突，暂时不启用。
 %    \begin{macrocode}
 % \RequirePackage{xgalley}
@@ -2940,6 +3129,7 @@ version.
 % \end{macro}
 %
 % \subsection{模板参数配置文件}
+% \changes{v0.3}{2017/06/27}{分离文档类与参数配置文件。}
 %    \begin{macrocode}
 %<*definition>
 %    \end{macrocode}
