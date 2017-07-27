@@ -860,17 +860,20 @@
     \group_end:
   }
 %% Added by Xiangdong Zeng, 2017-07-26.
-% 将左右尖括号修改为普通的大于小于 < >
-%\ctex_patch_cmd_once:NnnnTF \__codedoc_meta_original:n { }
-%  { \ensuremath \langle } { < }
-%  { } { \ctex_patch_failure:N \__codedoc_meta_original:n }
-%\ctex_patch_cmd_once:NnnnTF \__codedoc_meta_original:n { }
-%  { \ensuremath \rangle } { > }
-%  { } { \ctex_patch_failure:N \__codedoc_meta_original:n }
-%\ctex_patch_cmd_once:NnnnTF \__codedoc_meta_original:n { }
+% 禁用中文、西文之间的空格
 \RenewDocumentCommand \meta { m }
-  {{ \xeCJKsetup{CJKecglue={}} \__codedoc_meta:n {#1} }}
-
+  {
+    \group_begin:
+      \sys_if_engine_xetex:T { \xeCJKsetup{CJKecglue={}} }
+      \__codedoc_meta:n {#1}
+    \group_end:
+  }
+% 调整 function 字体
+\ctex_patch_cmd_once:NnnnTF \__codedoc_typeset_functions: { }
+  { \small \ttfamily }
+  { \footnotesize \CodeFont \CJKCodeFont }
+  { } { \ctex_patch_failure:N \__codedoc_meta_original:n }
+%%%% End patch by Xiangdong Zeng
 \ExplSyntaxOff
 \AtBeginDocument{\addtocontents{toc}{\StopSpecialIndexModule}}
 \pdfstringdefDisableCommands{%
@@ -892,6 +895,7 @@
 \def\LaTeX{\hologo{LaTeX}}
 \def\LaTeXe{\hologo{LaTeX2e}}
 \def\LaTeXiii{\hologo{LaTeX3}}
+\def\AmSLaTeX{\hologo{AmSLaTeX}}
 \def\dvipdfmx{DVIPDFM\textit{x}}
 \def\TeX{\hologo{TeX}}
 \def\ApTeX{Ap\TeX}
@@ -929,14 +933,14 @@
   \textit{无衬线字体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
   罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
-%% Modified by Xiangdong Zeng, 2017-07-24.
+%% Modified by Xiangdong Zeng, 2017-07-26.
 \def\IndexLayout{%
 %%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
   \newgeometry{
-    left   = 2.54 cm,
-    right  = 2.54 cm,
-    top    = 3.18 cm,
-    bottom = 3.18 cm}%
+    left   = 1.00 in,
+    right  = 1.00 in,
+    top    = 1.25 in,
+    bottom = 1.00 in}%
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
@@ -1000,15 +1004,6 @@
   indexname = {代码索引}
 }
 
-%% 代码部分页边距。
-%\geometry{
-%  paper  = a4paper,
-%  left   = 6.35 cm,
-%  right  = 2.54 cm,
-%  top    = 3.18 cm,
-%  bottom = 2.54 cm
-%}
-
 %% 单位设置
 \sisetup{
   number-math-rm       = \ensuremath,
@@ -1028,9 +1023,9 @@
   bookmarksnumbered = true,
   pdfborder         = 0 0 0,
   colorlinks,
-  linkcolor         = {MaterialIndigo},
+  linkcolor         = {MaterialPink},
   citecolor         = {MaterialGreen},
-  urlcolor          = {MaterialPink}
+  urlcolor          = {MaterialIndigo}
 }
 
 %% 浮动体标题
@@ -1116,13 +1111,26 @@
       supervisor,title,title*%info
     },
   emphstyle       = [1]\color{MaterialGreen800},
-  emph            = [2]{abstract,abstract*,notation},
+  emph            = [2]{abstract,abstract*,notation,%
+      axiom,corollary,definition,example,lemma,proof,theorem%
+    },
   emphstyle       = [2]\color{MaterialBlue900},
 }
 
 \lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
 \lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
-\lstnewenvironment{fdusyntax}{\lstset{style=lstStyleSyntax}\vspace{-0.6em}}{}
+\lstnewenvironment{fdusyntax}{\lstset{style=lstStyleSyntax}\vspace{-1.8ex}}{}
+
+%% 引用
+\ExplSyntaxOn
+\NewDocumentEnvironment { fduquote } { o o }
+  { \quote \ttfamily \qquad }
+  {
+    \endquote
+    \IfNoValueF { #1 } 
+      { \hfill —— \IfNoValueF { #2 } { 〔#2〕 } #1 }
+  }
+\ExplSyntaxOff
 
 %% 脚注
 \renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote}}}
@@ -1177,7 +1185,10 @@
 \def\fduoptionsaux#1>{\fduoptions{#1}}
 
 
-\renewcommand\file[1]{\texttt{#1}}
+\renewcommand\file[1]{{%
+  \ttfamily%
+  \textcolor{MaterialGrey900}{#1}%
+}}
 
 \newcommand\scite[1]{\textsuperscript{\cite{#1}}}
 

@@ -33,7 +33,7 @@
 %% 
 \GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
   {Definition file for fduthesis}
-\ProvidesExplFile{\ExplFileName}
+\ProvidesExplFile{\ExplFileName.def}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 \tl_const:Nn \c__fdu_full_stop_ideographic_tl { \symbol { "3002 } }
 \tl_const:Nn \c__fdu_full_stop_fullwidth_tl   { \symbol { "FF0E } }

@@ -33,7 +33,7 @@
 %% 
 \GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
   {User definition file for fduthesis}
-\ProvidesExplFile{\ExplFileName}
+\ProvidesExplFile{\ExplFileName-user.def}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %%
 %% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
