@@ -1,6 +1,6 @@
 %%
 %% This is the modified version of `ctxdoc.cls'.
-%% Modified by Xiangdong Zeng, last update 2017-06-26.
+%% Modified by Xiangdong Zeng, last update 2017-07-28.
 %%
 %%     Copyright (C) 2003--2017
 %%     CTEX.ORG and any individual authors listed in the documentation.

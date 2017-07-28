@@ -41,10 +41,7 @@
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档 `fduthesis.pdf`。
 该文档可通过如下命令生成：
 
-    xelatex fduthesis.dtx
-    makeindex -s gind.ist fduthesis
-    xelatex fduthesis.dtx
-    xelatex fduthesis.dtx
+    latexmk fduthesis.dtx
 
 若需要生成模板各部件，请执行如下命令：
 
@@ -55,7 +52,7 @@
 - `source/`             源代码
   - `fduthesis.dtx`       模板代码、注释以及文档
   - `ctxdoc-m.cls`        模板文档样式（修改自 `ctxdoc.cls`）
-  - `latexmkrc`           Latexmk 配置文件
+  - `.latexmkrc`           latexmk 配置文件
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
@@ -94,10 +91,7 @@
 Before you using `fduthesis`, please read the document `fduthesis.pdf`
 carefully. This file can be generated with the following commands:
 
-    xelatex fduthesis.dtx
-    makeindex -s gind.ist fduthesis
-    xelatex fduthesis.dtx
-    xelatex fduthesis.dtx
+    latexmk fduthesis.dtx
 
 If you want to get all components of `fduthesis`, please excute the
 following commands:
@@ -201,7 +195,7 @@ version.
 %<class|class-en>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en>\RequirePackage{expl3}
 %<*!(driver|install)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.3 2017-07-28 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
 %<class-en>  {Thesis template for Fudan University (English version)}
 %<definition>  {Definition file for fduthesis}
@@ -215,7 +209,7 @@ version.
 \documentclass{ctxdoc-m}
 \usepackage{xpinyin}
 \begin{document}
-  \DisableImplementation
+  % \DisableImplementation
   \DocInput{\jobname.dtx}
   \IndexLayout
   \PrintChanges
@@ -232,6 +226,8 @@ version.
 % \changes{v0.3}{2017/05/26}{使用 Travis CI 进行持续集成。}
 % \changes{v0.3}{2017/06/23}{添加复旦大学标识。}
 % \changes{v0.3}{2017/07/10}{添加英文模板。}
+% \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
+% \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
 %
 % \CheckSum{0}
 %
@@ -258,7 +254,7 @@ version.
 %   \textbf{fduthesis：复旦大学论文^^A
 %     \xpinyin[font=\sffamily]{模}{mu2}板}}}
 % \author{曾祥东}
-% \date{\today \quad v0.2^^A
+% \date{\zhdate{2017/07/28} \quad v0.3^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %
 %^^A 封面与目录的页边距
@@ -408,11 +404,11 @@ version.
 %   xelatex fduthesis.dtx
 %   xelatex fduthesis.dtx
 % \end{shellexample}
-% 也可使用 \pkg{Latexmk}：
+% 也可使用 \pkg{latexmk}：
 % \begin{shellexample}
 %   latexmk fduthesis.dtx
 % \end{shellexample}
-% 本模板已经为编译用户手册提供了 \pkg{Latexmk} 配置文件
+% 本模板已经为编译用户手册提供了 \pkg{latexmk} 配置文件
 % \file{.latexmkrc}。
 %
 % \section{使用说明}
@@ -455,7 +451,7 @@ version.
 %   xelatex thesis
 %   xelatex thesis
 % \end{shellexample}
-% 或使用 \pkg{Latexmk}：
+% 或使用 \pkg{latexmk}：
 % \begin{shellexample}
 %   latexmk -xelatex thesis
 % \end{shellexample}
@@ -634,7 +630,7 @@ version.
 % \end{function}
 %
 % \begin{table}[h]
-% \caption{西文字体与脚注样式默认值的对应关系}
+% \caption{西文字体与脚注编号样式默认值的对应关系}
 % \label{tab:footnote-font}
 % \centering
 % \begin{tabular}{ccccc}
@@ -642,7 +638,7 @@ version.
 %   \textbf{西文字体设置} &
 %     |libertinus| & |lm|     & |palatino| & |times| \\
 %   \midrule
-%   \textbf{脚注样式默认值} &
+%   \textbf{脚注编号样式默认值} &
 %     |libertinus| & |pifont| & |pifont|   & |xits|  \\
 %   \bottomrule
 % \end{tabular}
@@ -968,7 +964,7 @@ version.
 %
 % 另有若干形如
 % \textcolor{MaterialPink}{\textsf{\textlangle @@=fdu\textrangle}}
-% 的 guard ，它们由 \pkg{l3docstrip} 定义，用来指示命名空间（模块）。
+% 的 guard ，它们由 \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
 %
 %    \begin{macrocode}
 %<@@=fdu>

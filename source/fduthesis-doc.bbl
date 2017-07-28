@@ -2,6 +2,7 @@
 \providecommand{\urlprefix}{\newline\hspace*{\fill}}
 \let\OldUrl=\url
 \renewcommand\url[1]{{\small\OldUrl{#1}}}
+\newcommand\sourceurl[1]{{\small{\CJKfamily{楷}源代码：} \OldUrl{#1}}}
 
 \bibitem{source2e}
 \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
@@ -15,13 +16,15 @@
 \newblock version 2.4.9,
 \newblock (2017-04-01) \urlprefix
   \url{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.pdf}
+  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.dtx}
 
 \bibitem{xeCJK}
 \textsc{CTEX.ORG}.
-\newblock \textit{xeCJK 宏包} [EB/OL].
+\newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
 \newblock version 3.4.8,
 \newblock (2017-05-15) \urlprefix
   \url{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.pdf}
+  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.dtx}
 
 \bibitem{hmshan2017fduphdthesistemplate}
 \textsc{hmshan}.
@@ -33,6 +36,9 @@
 \textsc{Knuth D E}.
 \newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
 \newblock Boston: Addison--Wesley Publishing Company, 1986
+  \urlprefix {\small {\CJKfamily{楷}源代码
+    \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译该文档。}：}
+    \OldUrl{https://www.ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex}}
 
 \bibitem{interfaces3}
 \textsc{The \LaTeX3 Project}.
@@ -81,7 +87,7 @@
 
 \bibitem{weijianwen2017sjtuthesis}
 \textsc{weijianwen}.
-\newblock \textit{A XeLaTeX template for Shanghai Jiao Tong University (SJTU) thesis.} [EB/OL].
+\newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis.} [EB/OL].
 \newblock (2017-01-27) \urlprefix
   \url{https://github.com/weijianwen/SJTUThesis}
 
@@ -93,7 +99,7 @@
 
 \bibitem{zepinglee2017ustcthesis}
 \textsc{zepinglee} and \textsc{seisman}.
-\newblock \textit{LaTeX template for USTC thesis} [EB/OL].
+\newblock \textit{\LaTeX{} template for USTC thesis} [EB/OL].
 \newblock version 3.0,
 \newblock (2017-07-02) \urlprefix
   \url{https://github.com/ustctug/ustcthesis}
@@ -105,7 +111,7 @@
 
 \bibitem{数院毕业论文格式更新}
 复旦大学数学科学学院.
-\newblock \textit{毕业论文格式: Word、TeX 模板更新} [EB/OL]. \urlprefix
+\newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL]. \urlprefix
   \url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
 
 \bibitem{复旦大学论文规范}

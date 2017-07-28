@@ -7,10 +7,7 @@
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档 `fduthesis.pdf`。
 该文档可通过如下命令生成：
 
-    xelatex fduthesis.dtx
-    makeindex -s gind.ist fduthesis
-    xelatex fduthesis.dtx
-    xelatex fduthesis.dtx
+    latexmk fduthesis.dtx
 
 若需要生成模板各部件，请执行如下命令：
 
@@ -21,7 +18,7 @@
 - `source/`             源代码
   - `fduthesis.dtx`       模板代码、注释以及文档
   - `ctxdoc-m.cls`        模板文档样式（修改自 `ctxdoc.cls`）
-  - `latexmkrc`           Latexmk 配置文件
+  - `.latexmkrc`           latexmk 配置文件
 
 - `test/`               测试文件
   - `fduthesis.cls`       fduthesis 模板类
@@ -60,10 +57,7 @@
 Before you using `fduthesis`, please read the document `fduthesis.pdf`
 carefully. This file can be generated with the following commands:
 
-    xelatex fduthesis.dtx
-    makeindex -s gind.ist fduthesis
-    xelatex fduthesis.dtx
-    xelatex fduthesis.dtx
+    latexmk fduthesis.dtx
 
 If you want to get all components of `fduthesis`, please excute the
 following commands:
