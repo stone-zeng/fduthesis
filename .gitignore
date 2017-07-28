@@ -32,6 +32,9 @@ files/
 temp/
 
 logo/original-files
+source/*.ins
+test/*.cls
+test/*.def
 
 !source/fduthesis-doc.bbl
 !test/Fudan_*.pdf
