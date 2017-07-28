@@ -12,6 +12,7 @@ script:
   # Make test theses
   - cd ../test
   - xelatex  -interaction=nonstopmode test
-  - lualatex -interaction=nonstopmode test
-  - xelatex  -interaction=nonstopmode test-en
-  - lualatex -interaction=nonstopmode test-en
+  - cat test.log
+  # - lualatex -interaction=nonstopmode test
+  # - xelatex  -interaction=nonstopmode test-en
+  # - lualatex -interaction=nonstopmode test-en
