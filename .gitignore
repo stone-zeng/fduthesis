@@ -1,8 +1,13 @@
 *.aux
 *.bak
+*.bbl
+*.blg
+*.dvi
 *.fdb_latexmk
 *.fls
+*.glg
 *.glo
+*.gls
 *.hd
 *.idx
 *.ilg
@@ -28,4 +33,5 @@ temp/
 
 logo/original-files
 
+!source/fduthesis-doc.bbl
 !test/Fudan_*.pdf

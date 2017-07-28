@@ -1,0 +1,32 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+
+# Declare files that will always have LF line endings on checkout.
+*.bib          text eol=lf
+*.cls          text eol=lf
+*.def          text eol=lf
+*.dtx          text eol=lf
+*.ins          text eol=lf
+*.lua          text eol=lf
+*.tex          text eol=lf
+*.md           text eol=lf
+*.profile      text eol=lf
+*.sh           text eol=lf
+*.yml          text eol=lf
+.gitignore     text eol=lf
+.gitattributes text eol=lf
+.latexmkrc     text eol=lf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.bat text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.ai   binary
+*.caj  binary
+*.doc  binary
+*.docx binary
+*.pdf  binary
+*.fmt  binary

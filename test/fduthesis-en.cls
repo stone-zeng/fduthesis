@@ -33,7 +33,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3}
-\GetIdInfo $Id: fduthesis.dtx 0.2 2017-02-19 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+\GetIdInfo $Id: fduthesis.dtx 0.3 2017-07-28 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
   {Thesis template for Fudan University (English version)}
 \ProvidesExplClass{\ExplFileName}
   {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}

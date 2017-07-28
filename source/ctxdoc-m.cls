@@ -1,6 +1,6 @@
 %%
 %% This is the modified version of `ctxdoc.cls'.
-%% Modified by Xiangdong Zeng, last update 2017-06-26.
+%% Modified by Xiangdong Zeng, last update 2017-07-28.
 %%
 %%     Copyright (C) 2003--2017
 %%     CTEX.ORG and any individual authors listed in the documentation.
@@ -320,13 +320,23 @@
 %%%%        \__codedoc_macroname_suffix:N #2
 %%%%      }
 %%%%  }
-\AtBeginEnvironment { syntax }
+%% Modified by Xiangdong Zeng, 2017-07-26.
+\AtBeginEnvironment { fdusyntax }
   {
     \char_set_catcode_active:N \|
     \char_set_active_eq:NN \| \orbar
     \char_set_catcode_active:N \(
     \char_set_active_eq:NN \( \defaultvalaux
+    \char_set_catcode_active:N \<
+    \char_set_active_eq:NN \< \fduoptionsaux
   }
+%%%%\AtBeginEnvironment { syntax }
+%%%%  {
+%%%%    \char_set_catcode_active:N \|
+%%%%    \char_set_active_eq:NN \| \orbar
+%%%%    \char_set_catcode_active:N \(
+%%%%    \char_set_active_eq:NN \( \defaultvalaux
+%%%%  }
 %% 不对目录中出现的 \cs 和 \tn 等编索引
 \DeclareDocumentCommand \StopSpecialIndexModule { }
   { \cs_set_eq:NN \__codedoc_special_index_module:nnnnN \use_none:nnnnn }
@@ -849,6 +859,21 @@
       \dim_gset_eq:NN \MacroIndent \MacroIndent
     \group_end:
   }
+%% Added by Xiangdong Zeng, 2017-07-26.
+% 禁用中文、西文之间的空格
+\RenewDocumentCommand \meta { m }
+  {
+    \group_begin:
+      \sys_if_engine_xetex:T { \xeCJKsetup{CJKecglue={}} }
+      \__codedoc_meta:n {#1}
+    \group_end:
+  }
+% 调整 function 字体
+\ctex_patch_cmd_once:NnnnTF \__codedoc_typeset_functions: { }
+  { \small \ttfamily }
+  { \footnotesize \CodeFont \CJKCodeFont }
+  { } { \ctex_patch_failure:N \__codedoc_meta_original:n }
+%%%% End patch by Xiangdong Zeng
 \ExplSyntaxOff
 \AtBeginDocument{\addtocontents{toc}{\StopSpecialIndexModule}}
 \pdfstringdefDisableCommands{%
@@ -870,6 +895,7 @@
 \def\LaTeX{\hologo{LaTeX}}
 \def\LaTeXe{\hologo{LaTeX2e}}
 \def\LaTeXiii{\hologo{LaTeX3}}
+\def\AmSLaTeX{\hologo{AmSLaTeX}}
 \def\dvipdfmx{DVIPDFM\textit{x}}
 \def\TeX{\hologo{TeX}}
 \def\ApTeX{Ap\TeX}
@@ -898,15 +924,8 @@
   \def\subsubitem{\@idxitem\hspace*{2em}}}
 \def\glossaryname{版本历史}
 \GlossaryPrologue{\section{\glossaryname}}
-%% Added by Xiangdong Zeng, 2017-07-18.
-\def\usage#1{\textsf{#1}}
-
 \IndexPrologue{%
-%% Modified by Xiangdong Zeng, 2017-06-26.
-  \section*{\indexname}
-  \addcontentsline{toc}{section}{\normalfont\sffamily\indexname}
-  \markright{\indexname}
-%%%%\section{\indexname}
+  \section{\indexname}
 %% Modified by Xiangdong Zeng, 2017-07-19.
 %%%%  \textit{意大利体的数字表示描述对应索引项的页码；
 %%%%  带下划线的数字表示定义对应索引项的代码行号；
@@ -914,12 +933,20 @@
   \textit{无衬线字体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
   罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
-%% Modified by Xiangdong Zeng, 2017-04-08.
+%% Modified by Xiangdong Zeng, 2017-07-26.
 \def\IndexLayout{%
 %%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
+  \newgeometry{
+    left   = 1.00 in,
+    right  = 1.00 in,
+    top    = 1.25 in,
+    bottom = 1.00 in}%
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
+%% Added by Xiangdong Zeng, 2017-07-18.
+% 修改“描述对应索引项的页码”样式。
+\def\usage#1{\textsf{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -959,9 +986,10 @@
 \setCJKfamilyfont{仿}{FZFangSong-Z02}
 \setCJKfamilyfont{楷}{FZKai-Z03}
 
-\newfontfamily\CodeFont{Source Code Pro}
+\newfontfamily\CodeFont{Source Code Pro}%
+  [BoldFont = Source Code Pro Semibold]
 \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
-  [ItalicFont = Source Han Sans SC]
+  [ItalicFont = FZKai-Z03]
 
 %% 中文排版格式。
 \ctexset
@@ -969,21 +997,11 @@
   section = {
     name    = {第,节},
     format += \raggedright
-^^A    break   = \if@openright\cleardoublepage\else\clearpage\fi
   },
   subsubsection = {
-    tocline = {\CJKfamily{楷} \CTEXnumberline{#1}#2}
+    tocline = {\CJKfamily{楷}\CTEXnumberline{#1}#2}
   },
   indexname = {代码索引}
-}
-
-%% 代码部分页边距。
-\geometry{
-  paper  = a4paper,
-  left   = 6.35 cm,
-  right  = 2.54 cm,
-  top    = 3.18 cm,
-  bottom = 2.54 cm
 }
 
 %% 单位设置
@@ -1005,9 +1023,9 @@
   bookmarksnumbered = true,
   pdfborder         = 0 0 0,
   colorlinks,
-  linkcolor         = {MaterialIndigo},
+  linkcolor         = {MaterialPink},
   citecolor         = {MaterialGreen},
-  urlcolor          = {MaterialPink}
+  urlcolor          = {MaterialIndigo}
 }
 
 %% 浮动体标题
@@ -1027,13 +1045,15 @@
 
 \lstdefinestyle{lstStyleBase}{%
   extendedchars   = true,
-  gobble          = 2,
+  gobble          = 3,
   lineskip        = 2 pt,
   frame           = l,
   framerule       = 1 pt,
   framesep        = 0 pt,
+  escapeinside    = {(*}{*)},
+  %basicstyle      = \small\ttfamily\color{MaterialGrey900},
   basicstyle      = \small\CodeFont\CJKCodeFont%
-      \color{MaterialGrey900},
+    \color{MaterialGrey900},
   keywordstyle    = \bfseries\color{MaterialIndigo},
   commentstyle    = \itshape\color{MaterialGrey600},
   stringstyle     = \color{MaterialDeepOrange},
@@ -1044,23 +1064,73 @@
   style           = lstStyleBase,
   rulecolor       = \color{MaterialPink},
   language        = bash,
-  morekeywords    = {mkdir,cp,git,fc}
+  alsoletter      = {-},
+  morekeywords    = {mkdir,cp,git,fc,%
+    tex,pdftex,xetex,luatex,%
+    latex,pdflatex,xelatex,lualatex,%
+    bibtex,makeindex,latexmk},
+  emph            = {-o,-s,-t,-xelatex,-lualatex},
+  emphstyle       = \color{MaterialGreen800}
 }
 
 \lstdefinestyle{lstStyleLaTeX}{%
   style           = lstStyleBase,
   rulecolor       = \color{MaterialIndigo},
   language        = [LaTeX]TeX,
-  texcsstyle      = *\bfseries\color{MaterialPink},
-  morekeywords    = {\fdusetup},
+  texcsstyle      = *\bfseries\color{MaterialDeepOrange},
+  deletetexcs     = {\documentclass},
+  moretexcs       = {\chapter},
+  morekeywords    = {\documentclass,\fdusetup},
   emph            = {style,info,%
-      font,fontsize,%
-      author,department,title},
+    font,fontsize,%
+    author,department,title},
   emphstyle       = \color{MaterialGreen800}
 }
 
-\lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
+\lstdefinestyle{lstStyleSyntax}{
+  extendedchars   = true,
+  gobble          = 6,
+  % lineskip        = 2 pt,
+  escapeinside    = {(*}{*)},
+  language        = [LaTeX]TeX,
+  alsoletter      = {*},
+  basicstyle      = \footnotesize\CodeFont\CJKCodeFont%
+    \color{MaterialGrey900},
+  keywordstyle    = \bfseries\color{MaterialIndigo},
+  commentstyle    = \itshape\color{MaterialGrey600},
+  stringstyle     = \color{MaterialRed},
+  texcsstyle      = *\bfseries\color{MaterialDeepOrange},
+  deletetexcs     = {\documentclass},
+  moretexcs       = {\chapter},
+  morekeywords    = {\documentclass,\fdusetup},
+  emph            = [1]{oneside,twoside,nofonts,draft,%模板选项
+      info,style,%meta 选项
+      automakecover,cjkfont,font,fontsize,footnotestyle,fullwidthstop,%style
+      author,author*,clc,date,department,department*,instructors,%
+      keywords,keywords*,major,schoolid,secretlevel,studentid,%
+      supervisor,title,title*%info
+    },
+  emphstyle       = [1]\color{MaterialGreen800},
+  emph            = [2]{abstract,abstract*,notation,%
+      axiom,corollary,definition,example,lemma,proof,theorem%
+    },
+  emphstyle       = [2]\color{MaterialBlue900},
+}
+
 \lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
+\lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
+\lstnewenvironment{fdusyntax}{\lstset{style=lstStyleSyntax}\vspace{-1.8ex}}{}
+
+%% 引用
+\ExplSyntaxOn
+\NewDocumentEnvironment { fduquote } { o o }
+  { \quote \ttfamily \qquad }
+  {
+    \endquote
+    \IfNoValueF { #1 } 
+      { \hfill —— \IfNoValueF { #2 } { 〔#2〕 } #1 }
+  }
+\ExplSyntaxOff
 
 %% 脚注
 \renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote}}}
@@ -1078,20 +1148,55 @@
 % \makeatother
 
 %% 句号处理
-\catcode`\。 = \active
-\newcommand{。}{．}
+% \catcode`\。 = \active
+% \newcommand{。}{．}
+
+%% 网址断行
+% 见 https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/
+\def\UrlAlphabet{%
+      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+      \do\Y\do\Z}
+\def\UrlDigits{\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\g@addto@macro{\UrlBreaks}{\UrlAlphabet}
+\g@addto@macro{\UrlBreaks}{\UrlDigits}
 
 %% 命令
-\let\DocCs=\cs
-\let\DocTn=\tn
-\renewcommand\cs[2][]{\textcolor{MaterialIndigo}{\DocCs[#1]{#2}}}
-\renewcommand\tn[2][]{\textcolor{MaterialPink}{\DocTn[#1]{#2}}}
+% \let\DocCs=\cs
+% \let\DocTn=\tn
+% \renewcommand\cs[2][]{\textcolor{MaterialIndigo}{\DocCs[#1]{#2}}}
+% \renewcommand\tn[2][]{\textcolor{MaterialPink}{\DocTn[#1]{#2}}}
 
 % \renewcommand{\pkg}[1]{\textsf{#1}}
 % \renewcommand{\cls}[1]{\textsf{#1}}
 
+\let\OldMeta=\meta
+\renewcommand\meta[1]{{\rmfamily\OldMeta{#1}}}
+\renewcommand\marg[1]{\{\meta{#1}\}}
+\renewcommand\oarg[1]{[\meta{#1}]}
+\renewcommand\parg[1]{(\meta{#1})}
+
+% 与之前 \defaultvalaux 定义相同
+\def\fduoptions#1{\textit{#1}}
+\def\fduoptionsaux#1>{\fduoptions{#1}}
+
+
+\renewcommand\file[1]{{%
+  \ttfamily%
+  \textcolor{MaterialGrey900}{#1}%
+}}
+
+\newcommand\scite[1]{\textsuperscript{\cite{#1}}}
+
 \hyphenation{fdu-the-sis}
 \hyphenation{clear-dou-ble-page}
+\hyphenation{set-main-font}
+\hyphenation{set-main-CJK-font}
+\hyphenation{set-math-font}
 
 \DoNotIndex{\begin,\end}
 
