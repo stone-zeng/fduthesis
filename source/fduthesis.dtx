@@ -216,6 +216,11 @@ version.
 %<*driver>
 \documentclass{fduthesis-doc}
 \usepackage{xpinyin}
+\hypersetup
+  {
+    pdftitle  = {fduthesis：复旦大学论文模板},
+    pdfauthor = {曾祥东}
+  }
 \begin{document}
   % \DisableImplementation
   \DocInput{\jobname.dtx}
@@ -262,7 +267,7 @@ version.
 %   \textbf{fduthesis：复旦大学论文^^A
 %     \xpinyin[font=\sffamily]{模}{mu2}板}}}
 % \author{曾祥东}
-% \date{\zhdate{2017/07/28} \quad v0.3^^A
+% \date{\today \quad v0.3^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %
 %^^A 封面与目录的页边距
@@ -3649,103 +3654,86 @@ version.
 %^^A \begin{implementation}
 %^^A
 % \subsection{附：\pkg{fduthesis} 模板文档样式}
-%
 %    \begin{macrocode}
 %<*doc>
 \ExplSyntaxOff
 \let\pdfmdfivesum\mdfivesum
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{l3doc}}
-\PassOptionsToClass{a4paper,full}{l3doc}
-\ProcessOptions
-\@namedef{ver@thumbpdf.sty}{9999/99/99}
-\LoadClass{l3doc}
-%% Modified by Xiangdong Zeng, 2017-04-08.
-\RequirePackage[UTF8, heading, fontset = none]{ctex}
-%%%%\RequirePackage[UTF8, punct = kaiming, heading, fontset = none,
-%%%%  linespread = 1.2, sub3section]{ctex}
-\ifxetex
-  \xeCJKsetup{AutoFakeBold=false}
-\fi
-%% Modified by Xiangdong Zeng, 2017-04-08.
-%%%%\ctexset{
-%%%%  fontset,
-%%%%  abstractname   = 简介,
-%%%%  indexname      = 代码索引,
-%%%%  section        = {
-%%%%    format = \Large\bfseries\raggedright,
-%%%%    name   = {第,节},
-%%%%  },
-%%%%}
+%    \end{macrocode}
+%
+% 载入宏包和文档类。
+%    \begin{macrocode}
+\LoadClass[a4paper, full]{l3doc}
+\RequirePackage[UTF8, heading, fontset=none]{ctex}
+\RequirePackage[stable, perpage, bottom]{footmisc}
 \RequirePackage[toc]{multitoc}
+\RequirePackage{caption}
 \RequirePackage{geometry}
-\RequirePackage{tabularx}
+\RequirePackage{listings}
 \RequirePackage{makecell}
-\RequirePackage{threeparttable}
 \RequirePackage{siunitx}
+\RequirePackage{tabularx}
+\RequirePackage{threeparttable}
 \RequirePackage{unicode-math}
 \RequirePackage{xcolor}
-\RequirePackage{caption}
-%% Modified by Xiangdong Zeng, 2017-07-02.
-%%%%\RequirePackage{fvrb-ex}
-\RequirePackage{zref-base}
-%% Added by Xiangdong Zeng, 2017-06-25.
-\RequirePackage{listings}
 \RequirePackage{xcolor-material}
-%% Added by Xiangdong Zeng, 2017-06-26.
-\RequirePackage[stable,perpage,bottom]{footmisc}
-\RequirePackage{pifont}
-%% Added by Xiangdong Zeng, 2017-07-02.
-\RequirePackage{booktabs}
-%% Modified by Xiangdong Zeng, 2017-04-08.
-%%%%\geometry{includemp,hmargin={0mm,15mm},vmargin={25mm,15mm},footskip=7mm}
-%%%%\hypersetup{pdfstartview=FitH,bookmarksdepth=subparagraph}
-%% Modified by Xiangdong Zeng, 2017-04-14.
-%%%%\setcounter{secnumdepth}{4}
-%%%%\setcounter{tocdepth}{2}
-\newcommand*\email{\nolinkurl}
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
-\setmonofont[
-  HyphenChar = None ,
-  UprightFont=* Light, BoldFont=* Bold,
-  SlantedFont=* Light Oblique]{CMU Typewriter Text}
-\setmathfont{texgyrepagella-math.otf}
-%% Added by Xiangdong Zeng, 2017-07-02.
-%%%%\captionsetup{strut=off, labelsep=quad, labelfont+=bf}
-%% <--- http://tex.stackexchange.com/a/40896
+\RequirePackage{zref-base}
+%    \end{macrocode}
+%
+% 调整浮动体、代码等与文字的间距。
+% 见 \url{http://tex.stackexchange.com/a/40896}。
+% \begin{macro}[int]{\@addtocurcol}
+%    \begin{macrocode}
 \patchcmd{\@addtocurcol}%
-    {\vskip \intextsep}%
-    {\edef\save@first@penalty{\the\lastpenalty}\unpenalty
-     \ifnum \lastpenalty = \@M  % hopefully the OR penalty
-        \unpenalty
-     \else
-        \penalty \save@first@penalty \relax % put it back
-     \fi
-      \ifnum\outputpenalty <-\@Mii
-                         \addvspace\intextsep
-                         \vskip\parskip
-      \else
-                         \addvspace\intextsep
-      \fi}%
-    {\typeout{*** SUCCESS ***}}{\typeout{*** FAIL ***}}
+  {\vskip \intextsep}%
+  {\edef\save@first@penalty{\the\lastpenalty}\unpenalty
+    \ifnum \lastpenalty = \@M  % hopefully the OR penalty
+       \unpenalty
+    \else
+       \penalty \save@first@penalty \relax % put it back
+    \fi
+    \ifnum\outputpenalty <-\@Mii
+                       \addvspace\intextsep
+                       \vskip\parskip
+    \else
+                       \addvspace\intextsep
+    \fi}%
+  {\typeout{Info: Command `@addtocurcol' patched successfully.}}
+  {\typeout{Warning: Command `@addtocurcol' patched failed.}}
 \patchcmd{\@addtocurcol}%
-    {\vskip\intextsep \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi}%
-    {\ifnum\outputpenalty <-\@Mii
-       \aftergroup\vskip\aftergroup\intextsep
-       \aftergroup\nointerlineskip
-     \else
-       \vskip\intextsep
-     \fi}%
-    {\typeout{*** SUCCESS ***}}{\typeout{*** FAIL ***}}
+  {\vskip\intextsep
+    \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi}%
+  {\ifnum\outputpenalty <-\@Mii
+      \aftergroup\vskip\aftergroup\intextsep
+      \aftergroup\nointerlineskip
+    \else
+      \vskip\intextsep
+    \fi}%
+  {\typeout{Info: Command `@addtocurcol' patched successfully.}}
+  {\typeout{Warning: Command `@addtocurcol' patched failed.}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@getpen}
+%    \begin{macrocode}
 \patchcmd{\@getpen}{\@M}{\@Mi}
-  {\typeout{*** SUCCESS ***}}{\typeout{*** FAIL ***}}
-%% --->
-%% 不对代码实现的 \section 以下标题编目录。
-%% Modified by Xiangdong Zeng, 2017-04-14.
-%%%%\AtBeginEnvironment{implementation}{%
-%%%%  \ifnum\value{tocdepth}>\@ne
-%%%%    \addtocontents{toc}{\protect\value{tocdepth}=1\relax}%
-%%%%  \fi}
+  {\typeout{Info: Command `@getpen' patched successfully.}}
+  {\typeout{Warning: Command `@getpen' patched failed.}}
+%    \end{macrocode}
+% \end{macro}
+%
+% 不对代码实现的 \tn{section} 以下标题编目录。
+%    \begin{macrocode}
+% \AtBeginEnvironment{implementation}{%
+%   \ifnum\value{tocdepth}>\@ne
+%     \addtocontents{toc}{\protect\value{tocdepth}=1\relax}%
+%   \fi}
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\ctexdocverbaddon,\ctexdisableecglue,
+%   \ctexplainps}
+% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
+% 空格的宽度。需要按编译情况分别定义。
+%    \begin{macrocode}
 \ifxetex
   \let\ctexdocverbaddon\xeCJKVerbAddon
   \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
@@ -3753,24 +3741,43 @@ version.
   \appto\meta@font@select{\ifinner\ctexdisableecglue\fi}
 \else
   \let\ctexdocverbaddon\relax
-  \let\ctexplainps\relax
   \def\ctexdisableecglue{\ltjsetparameter{autoxspacing=false}}
+  \let\ctexplainps\relax
   \appto\meta@font@select{\ctexdisableecglue}
 \fi
-\setlist{noitemsep,topsep=\smallskipamount}
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置标准列表环境样式。
+%    \begin{macrocode}
+\setlist{noitemsep, topsep=\smallskipamount}
 \setlist[1]{labelindent=\parindent}
 \setlist[enumerate]{leftmargin=*}
 \setlist[itemize]{leftmargin=*}
+%    \end{macrocode}
+%
+% \begin{macro}{optdesc}
+% 用于描述各选项。设置条目间距为 \tn{marginparsep}，与
+% \pkg{l3doc} 一致。
+%    \begin{macrocode}
 \newlist{optdesc}{description}{3}
-%% 设置间距为 \marginparsep，与 l3doc 一致
 \setlist[optdesc]{%
-  font=\mdseries\small\ttfamily,align=right,listparindent=\parindent,
-  labelsep=\marginparsep,labelindent=-\marginparsep,leftmargin=*}
-%% 重新定义 threeparttable 包的 tablenotes 环境
+  font=\mdseries\small\ttfamily, align=right,
+  listparindent=\parindent,
+  labelsep=\marginparsep, labelindent=-\marginparsep,
+  leftmargin=*}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{tablenotes}
+% 重新定义 \pkg{threeparttable} 包的 |tablenotes| 环境，
+% 用于表格的注释。
+%    \begin{macrocode}
 \renewlist{tablenotes}{description}{1}
 \setlist[tablenotes]{%
-  format=\normalfont\tnote@item,align=right,listparindent=\parindent,
-  labelindent=\tabcolsep,leftmargin=*,rightmargin=\tabcolsep,
+  format=\normalfont\tnote@item, align=right,
+  listparindent=\parindent, labelindent=\tabcolsep,
+  leftmargin=*, rightmargin=\tabcolsep,
   after=\@noparlisttrue}
 \AtBeginEnvironment{tablenotes}{%
   \setlength\parindent{2\ccwd}%
@@ -3779,44 +3786,48 @@ version.
   \stepcounter{tpt@id}%
   \edef\curr@tpt@id{tpt@\arabic{tpt@id}}}
 \newcounter{tpt@id}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\tnote@item,\TPTtagStyle}
+%    \begin{macrocode}
 \def\tnote@item#1{%
   \Hy@raisedlink{\hyper@anchor{\curr@tpt@id-#1}}#1}
 \def\TPTtagStyle#1{\hyperlink{\curr@tpt@id-#1}{#1}}
-\fvset{
- fontsize=\small,baselinestretch=1,numbersep=5pt,
- formatcom=\ctexdocverbaddon,
- listparameters=\setlength\topsep{\MacrocodeTopsep}}
-\DefineVerbatimEnvironment{frameverb}{Verbatim}{%
- gobble=4,
- frame=single,framesep=8pt,
- listparameters=
-   \setlength\topsep{\medskipamount}%
-   \appto\FV@EndList{\nointerlineskip}}
-\DefineVerbatimEnvironment{ctexexam}{Verbatim}{%
- gobble=4,
- frame=single,framesep=10pt,
- label=\rule{0pt}{12pt}\textnormal{\bfseries 例 \arabic{ctexexam}},
- listparameters=
-   \setlength\topsep{\bigskipamount}%
-   \refstepcounter{ctexexam}\ctexexamlabelref
-   \appto\FV@EndList{\nointerlineskip}}
-\define@key{FV}{labelref}{\def\ctexexamlabelref{\label{#1}}}
-\let\ctexexamlabelref\empty
-\newcounter{ctexexam}
+%    \end{macrocode}
+% \end{macro}
+%
+% 调整 |function| 环境前后间距。
+%    \begin{macrocode}
 \BeforeBeginEnvironment{function}{\par\nointerlineskip}
 \AtEndEnvironment{function}{%
   \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
 \AfterEndEnvironment{function}{\ctexfixprevdepth}
-%% Modified by Xiangdong Zeng, 2017-04-08.
-\AtBeginEnvironment{syntax}{\linespread{1.2}\ctexplainps\ctexdisableecglue}
-%%%%\AtBeginEnvironment{syntax}{\linespread{1}\ctexplainps\ctexdisableecglue}
-%% Modified by Xiangdong Zeng, 2017-07-02.
-%%%%\BeforeBeginEnvironment{SideBySideExample}{\par\addvspace{\medskipamount}}
+%    \end{macrocode}
+%
+% 调整 |syntax| 环境的样式。
+%    \begin{macrocode}
+\AtBeginEnvironment{syntax}{%
+  \linespread{1.2}\ctexplainps\ctexdisableecglue}
+%    \end{macrocode}
+%
+% \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
+% 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
+% 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
+% 和“restricted-expandable”。
+%    \begin{macrocode}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
 \newcommand*\expstar{\hyperlink{expstar}{$\star$}}
 \newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \ExplSyntaxOn
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 %% l3doc 会设置列表环境中 \listparindent=\z@，我们在这里恢复它。
 \cs_set_eq:NN \list \__codedoc_oldlist:nn
 \cs_new_nopar:Npn \zihaopt #1
@@ -4592,75 +4603,81 @@ version.
      {\def\@noitemerr
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
-
-%% Added by Xiangdong Zeng, 2017-06-24.
-%% 字体设置。
+%    \end{macrocode}
+%
+% 设置字体。
+%    \begin{macrocode}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{CMU Typewriter Text}[%
+  UprightFont = * Light,
+  BoldFont    = * Bold,
+  SlantedFont = * Light Oblique,
+  HyphenChar  = None]
+\setmathfont{TeX Gyre Pagella Math}
 \setCJKmainfont{FZShuSong-Z01}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 \setCJKsansfont{FZHei-B01}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 \setCJKmonofont{FZFangSong-Z02}%
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-
-\setCJKfamilyfont{宋}{FZShuSong-Z01}
-\setCJKfamilyfont{黑}{FZHei-B01}
-\setCJKfamilyfont{仿}{FZFangSong-Z02}
+% \setCJKfamilyfont{宋}{FZShuSong-Z01}
+% \setCJKfamilyfont{黑}{FZHei-B01}
+% \setCJKfamilyfont{仿}{FZFangSong-Z02}
 \setCJKfamilyfont{楷}{FZKai-Z03}
-
 \newfontfamily\CodeFont{Source Code Pro}%
   [BoldFont = Source Code Pro Semibold]
 \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
   [ItalicFont = FZKai-Z03]
-
-%% 中文排版格式。
+%    \end{macrocode}
+%
+% 中文排版格式。
+%    \begin{macrocode}
 \ctexset
-{
-  section = {
-    name    = {第,节},
-    format += \raggedright
-  },
-  subsubsection = {
-    tocline = {\CJKfamily{楷}\CTEXnumberline{#1}#2}
-  },
-  indexname = {代码索引}
-}
-
-%% 单位设置
-\sisetup{
-  number-math-rm       = \ensuremath,
-  inter-unit-product   = \ensuremath{{}\cdot{}},
-  group-digits         = true,
-  group-minimum-digits = 4,
-  group-separator      = \text{~},
-  range-phrase         = \symbol{"FF5E},
-  separate-uncertainty = true
-}
-
-%% 超链接
-\hypersetup{
-  pdftitle          = {fduthesis：复旦大学论文模板},
-  pdfauthor         = {曾祥东},
-  bookmarksopen     = true,
-  bookmarksnumbered = true,
-  pdfborder         = 0 0 0,
-  colorlinks,
-  linkcolor         = {MaterialPink},
-  citecolor         = {MaterialGreen},
-  urlcolor          = {MaterialIndigo}
-}
-
-%% 浮动体标题
-% \captionsetup[figure]{
-% 	labelsep      = quad,
-% 	justification = centering
-% }
-\captionsetup[table]{
-	labelsep      = quad,
-  font          = sf,
-	justification = centering
-}
-
-%% listings 代码样式
+  {
+    section = {name = {第,节}, format += \raggedright },
+    subsubsection / tocline = {\CJKfamily{楷}\CTEXnumberline{#1}#2},
+    indexname = {代码索引}
+  }
+%    \end{macrocode}
+%
+% 单位设置。
+%    \begin{macrocode}
+\sisetup
+  {
+    number-math-rm       = \ensuremath,
+    inter-unit-product   = \ensuremath{{}\cdot{}},
+    group-digits         = true,
+    group-minimum-digits = 4,
+    group-separator      = \text{~},
+    range-phrase         = \symbol{"FF5E},
+    separate-uncertainty = true
+  }
+%    \end{macrocode}
+%
+% 超链接设置。
+%    \begin{macrocode}
+\hypersetup
+  {
+    bookmarksopen     = true,
+    bookmarksnumbered = true,
+    colorlinks        = true,
+    linkcolor         = MaterialPink,
+    citecolor         = MaterialGreen,
+    urlcolor          = MaterialIndigo
+  }
+%    \end{macrocode}
+%
+% 浮动体标题设置。
+%    \begin{macrocode}
+% \captionsetup[figure]%
+%   {labelsep = quad, justification = centering}
+\captionsetup[table]%
+  {labelsep = quad, font = sf, justification = centering}
+%    \end{macrocode}
+%
+% \pkg{listings} 代码样式。
+%    \begin{macrocode}
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
 
@@ -4741,38 +4758,37 @@ version.
 \lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
 \lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
 \lstnewenvironment{fdusyntax}{\lstset{style=lstStyleSyntax}\vspace{-1.8ex}}{}
-
-%% 引用
+%    \end{macrocode}
+%
+% 引用环境。
+%    \begin{macrocode}
 \ExplSyntaxOn
 \NewDocumentEnvironment { fduquote } { o o }
   { \quote \ttfamily \qquad }
   {
     \endquote
-    \IfNoValueF { #1 } 
-      { \hfill —— \IfNoValueF { #2 } { 〔#2〕 } #1 }
+    \IfNoValueF { #1 } { \hfill —— \IfNoValueF { #2 } { 〔#2〕 } #1 }
   }
 \ExplSyntaxOff
-
-%% 脚注
+%    \end{macrocode}
+%
+% 脚注。与 \cls{fduthesis} 中的设置一致。
+%    \begin{macrocode}
 \renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote}}}
-% \makeatletter
 \newlength{\fnBreite}
 \renewcommand{\@makefntext}[1]{%
-	\settowidth{\fnBreite}{\footnotesize\@thefnmark.i}%
-	\protect\footnotesize\upshape%
-	\setlength{\@tempdima}{\columnwidth}%
-	\addtolength{\@tempdima}{-\fnBreite}%
-	\makebox[\fnBreite][l]{\@thefnmark\phantom{  }}%
-	\parbox[t]{\@tempdima}%
-	{\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}%
+  \settowidth{\fnBreite}{\footnotesize\@thefnmark.i}%
+  \protect\footnotesize\upshape%
+  \setlength{\@tempdima}{\columnwidth}%
+  \addtolength{\@tempdima}{-\fnBreite}%
+  \makebox[\fnBreite][l]{\@thefnmark\phantom{  }}%
+  \parbox[t]{\@tempdima}%
+  {\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}%
 }
-% \makeatother
-
-%% 句号处理
-% \catcode`\。 = \active
-% \newcommand{。}{．}
-
-%% 网址断行
+%    \end{macrocode}
+%
+% 网址断行。
+%    \begin{macrocode}
 % 见 https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/
 \def\UrlAlphabet{%
       \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
@@ -4785,8 +4801,10 @@ version.
 \g@addto@macro{\UrlBreaks}{\UrlOrds}
 \g@addto@macro{\UrlBreaks}{\UrlAlphabet}
 \g@addto@macro{\UrlBreaks}{\UrlDigits}
-
-%% 命令
+%    \end{macrocode}
+%
+% 命令。
+%    \begin{macrocode}
 % \let\DocCs=\cs
 % \let\DocTn=\tn
 % \renewcommand\cs[2][]{\textcolor{MaterialIndigo}{\DocCs[#1]{#2}}}
@@ -4805,6 +4823,7 @@ version.
 \def\fduoptions#1{\textit{#1}}
 \def\fduoptionsaux#1>{\fduoptions{#1}}
 
+\newcommand*\email{\nolinkurl}
 
 \renewcommand\file[1]{{%
   \ttfamily%
