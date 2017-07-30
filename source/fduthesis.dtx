@@ -233,7 +233,7 @@ version.
 %
 % \changes{v0.1}{2017/02/15}{开始编写模板。}
 % \changes{v0.2}{2017/02/19}{使用 Git 进行版本控制，并发布至 GitHub。}
-% \changes{v0.3}{2017/02/21}{使用 \pkg{doc} 和 \pkg{DocStrip}。}
+% \changes{v0.3}{2017/02/21}{使用 \cls{doc} 和 \pkg{DocStrip}。}
 % \changes{v0.3}{2017/03/04}{支持 \LuaLaTeX{}。}
 % \changes{v0.3}{2017/03/20}{添加测试文件。}
 % \changes{v0.3}{2017/05/26}{使用 Travis CI 进行持续集成。}
@@ -334,7 +334,7 @@ version.
 %
 % \subsection*{关于本文档}
 % 本文采用不同字体表示不同内容。无衬线字体表示宏包名称，如
-% \pkg{xeCJK} 宏包、\pkg{fduthesis} 文档类等；等宽字体表示文件名，
+% \pkg{xeCJK} 宏包、\cls{fduthesis} 文档类等；等宽字体表示文件名，
 % 如 \TeX{} 文档 \file{thesis.tex}、测试文件夹 \file{test} 等；
 % 另一种等宽字体表示代码，如 |\fdusetup| 命令、|abstract| 环境等；
 % 带有尖括号的楷体（或西文斜体）表示命令参数，如 \meta{模板选项}、
@@ -840,114 +840,116 @@ version.
 %   限宽 \SI{7.5}{cm}，两列均为左对齐。
 % \end{function}
 %
-% \subsubsection{猪肚}
-% \begin{function}{\mainmatter}
-%   声明主体部分开始。
-% \end{function}
-%
-% 主体部分是论文的核心，您可以分章节撰写。如有需求，也可以采用
-% 多文件编译的方式。主体部分的页码采用阿拉伯数字。
-%
-% \begin{function}{\footnote}
-%   \begin{fdusyntax}
-%     \footnote(*\marg{脚注文字}*)
-%   \end{fdusyntax}
-%   插入脚注。脚注编号样式可利用 |style/footnotestyle| 选项控制，
-%   具体见 \ref{subsubsec:论文格式}~小节。
-% \end{function}
-%
-% \begin{function}{axiom,corollary,definition,example,lemma,proof,theorem}
-%   \begin{fdusyntax}
-%     \begin{proof}
-%       (*\meta{证明过程}*)
-%     \end{proof}
-%   \end{fdusyntax}
-%   一系列预定义的数学环境。具体含义见表~\ref{tab:theorem}。
-% \end{function}
-%
-% \begin{table}[h]
-%   \caption{预定义的数学环境} \label{tab:theorem}
-%   \begin{tabular}{cccccccc}
-%     \toprule
-%     \textbf{环境名称} &
-%       |axiom| & |corollary| & |definition| & |example| &
-%       |lemma| & |proof| & |theorem| \\
-%     \midrule
-%     \textbf{含义} &
-%       公理 & 推论 & 定义 & 例 & 引理 & 证明 & 定理 \\
-%     \bottomrule
-%   \end{tabular}
-% \end{table}
-%
-% 证明环境（|proof|）的最后会添加证毕符号“$\QED$”。要确保该符号
-% 正确显示，您需要按照 \ref{subsec:编译方式}~节中的有关说明
-% 编译\emph{两次}。
-%
-% \begin{function}{\caption}
-%   \begin{fdusyntax}
-%     \caption(*\marg{图表标题}*)
-%     \caption(*\oarg{短标题}\marg{长标题}*)
-%   \end{fdusyntax}
-%   插入图表标题。可选参数 \meta{短标题} 用于图表目录。在
-%   \meta{长标题} 中，您可以进行长达多段的叙述；但 \meta{短标题}
-%   和单独的 \meta{图表标题} 中则不允许分段。
-%   \scite{刘海洋2013latex入门}
-% \end{function}
-%
-% 按照排版惯例，建议您将表格的标题放置在绘制表格的命令之前，
-% 而将图片的标题放置在绘图或插图的命令之后。另需注意，
-% \tn{caption} 命令必须放置在浮动体环境（如 |table| 和 |figure|）
-% 中。
-%
-% \subsubsection{豹尾}
-% \begin{function}{\backmatter}
-%   声明后置部分开始。
-% \end{function}
-%
-% 后置部分包含声明页。目前无需开启该部分。
-%
-% \section{宏包依赖情况}
-% 使用不同编译方式、指定不同选项，会导致宏包依赖情况有所不同。
-% 具体如下：
-% \begin{itemize}
-%   \item 在任何情况下，本模板都会\emph{显式}调用以下宏包
-%     （或文档类）：
-%     \begin{itemize}
-%       \item \pkg{expl3}、\pkg{xparse} 和 \pkg{l3keys2e} 宏包，
-%         用于构建 \LaTeX3 编程环境 \scite{interfaces3,source3}。
-%         它们分属 \pkg{l3kernel} 和 \pkg{l3packages} 宏集。
-%       \item \cls{book} 文档类，是 \LaTeXe{} 的标准文档类之一
-%         \scite{source2e}。
-%       \item \pkg{fontspec} 宏包，提供新一代的字体设置界面。
-%       \item \pkg{ctex} 宏包，提供中文排版的通用框架。属于
-%         \CTeX{} 宏集 \scite{CTeX}。
-%       \item \pkg{amsmath} 宏包，对 \LaTeX{} 的数学排版功能进行了
-%         全面扩展。属于 \AmSLaTeX{} 套件。
-%       \item \pkg{unicode-math} 宏包，负责处理 Unicode 编码的
-%         OpenType 数学字体。
-%       \item \pkg{geometry} 宏包，用于调整页面尺寸。
-%       \item \pkg{fancyhdr} 宏包，处理页眉页脚。
-%       \item \pkg{footmisc} 宏包，处理脚注。
-%       \item \pkg{ntheorem} 宏包，提供增强版的定理类环境。
-%       \item \pkg{graphicx} 宏包，提供图形插入的接口。
-%       \item \pkg{longtable} 宏包，长表格（允许跨页）支持。
-%       \item \pkg{caption} 宏包，用于设置题注。
-%       \item \pkg{ulem} 宏包，用于绘制下划线。
-%     \end{itemize}
-%   \item 开启 |style/footnotestyle=pifont| 选项后，会调用
-%     \pkg{pifont}宏包。它属于 \pkg{psnfss} 套件。
-%   \item 文字绕排功能需要启用 \pkg{xgalley} 宏包，它属于
-%     \pkg{l3experimental} 宏集。（目前暂未使用）
-% \end{itemize}
-%
-% 这里只列出了本模板直接调用的宏包。这些宏包自身的调用情况，
-% 此处不再具体展开。如有需要，请参阅相关文档。
-%
-% \input{fduthesis-doc.bbl}
+%^^A \subsubsection{猪肚}
+%^^A \begin{function}{\mainmatter}
+%^^A   声明主体部分开始。
+%^^A \end{function}
+%^^A
+%^^A 主体部分是论文的核心，您可以分章节撰写。如有需求，也可以采用
+%^^A 多文件编译的方式。主体部分的页码采用阿拉伯数字。
+%^^A
+%^^A \begin{function}{\footnote}
+%^^A   \begin{fdusyntax}
+%^^A     \footnote(*\marg{脚注文字}*)
+%^^A   \end{fdusyntax}
+%^^A   插入脚注。脚注编号样式可利用 |style/footnotestyle| 选项控制，
+%^^A   具体见 \ref{subsubsec:论文格式}~小节。
+%^^A \end{function}
+%^^A
+%^^A \begin{function}{axiom,corollary,definition,example,lemma,proof,theorem}
+%^^A   \begin{fdusyntax}
+%^^A     \begin{proof}
+%^^A       (*\meta{证明过程}*)
+%^^A     \end{proof}
+%^^A   \end{fdusyntax}
+%^^A   一系列预定义的数学环境。具体含义见表~\ref{tab:theorem}。
+%^^A \end{function}
+%^^A
+%^^A \begin{table}[h]
+%^^A   \caption{预定义的数学环境} \label{tab:theorem}
+%^^A   \begin{tabular}{cccccccc}
+%^^A     \toprule
+%^^A     \textbf{环境名称} &
+%^^A       |axiom| & |corollary| & |definition| & |example| &
+%^^A       |lemma| & |proof| & |theorem| \\
+%^^A     \midrule
+%^^A     \textbf{含义} &
+%^^A       公理 & 推论 & 定义 & 例 & 引理 & 证明 & 定理 \\
+%^^A     \bottomrule
+%^^A   \end{tabular}
+%^^A \end{table}
+%^^A
+%^^A 证明环境（|proof|）的最后会添加证毕符号“$\QED$”。要确保该符号
+%^^A 正确显示，您需要按照 \ref{subsec:编译方式}~节中的有关说明
+%^^A 编译\emph{两次}。
+%^^A
+%^^A \begin{function}{\caption}
+%^^A   \begin{fdusyntax}
+%^^A     \caption(*\marg{图表标题}*)
+%^^A     \caption(*\oarg{短标题}\marg{长标题}*)
+%^^A   \end{fdusyntax}
+%^^A   插入图表标题。可选参数 \meta{短标题} 用于图表目录。在
+%^^A   \meta{长标题} 中，您可以进行长达多段的叙述；但 \meta{短标题}
+%^^A   和单独的 \meta{图表标题} 中则不允许分段。
+%^^A   \scite{刘海洋2013latex入门}
+%^^A \end{function}
+%^^A
+%^^A 按照排版惯例，建议您将表格的标题放置在绘制表格的命令之前，
+%^^A 而将图片的标题放置在绘图或插图的命令之后。另需注意，
+%^^A \tn{caption} 命令必须放置在浮动体环境（如 |table| 和 |figure|）
+%^^A 中。
+%^^A
+%^^A \subsubsection{豹尾}
+%^^A \begin{function}{\backmatter}
+%^^A   声明后置部分开始。
+%^^A \end{function}
+%^^A
+%^^A 后置部分包含声明页。目前无需开启该部分。
+%^^A
+%^^A \section{宏包依赖情况}
+%^^A 使用不同编译方式、指定不同选项，会导致宏包依赖情况有所不同。
+%^^A 具体如下：
+%^^A \begin{itemize}
+%^^A   \item 在任何情况下，本模板都会\emph{显式}调用以下宏包
+%^^A     （或文档类）：
+%^^A     \begin{itemize}
+%^^A       \item \pkg{expl3}、\pkg{xparse} 和 \pkg{l3keys2e} 宏包，
+%^^A         用于构建 \LaTeX3 编程环境 \scite{interfaces3,source3}。
+%^^A         它们分属 \pkg{l3kernel} 和 \pkg{l3packages} 宏集。
+%^^A       \item \cls{book} 文档类，是 \LaTeXe{} 的标准文档类之一
+%^^A         \scite{source2e}。
+%^^A       \item \pkg{fontspec} 宏包，提供新一代的字体设置界面。
+%^^A       \item \pkg{ctex} 宏包，提供中文排版的通用框架。属于
+%^^A         \CTeX{} 宏集 \scite{CTeX}。
+%^^A       \item \pkg{amsmath} 宏包，对 \LaTeX{} 的数学排版功能进行了
+%^^A         全面扩展。属于 \AmSLaTeX{} 套件。
+%^^A       \item \pkg{unicode-math} 宏包，负责处理 Unicode 编码的
+%^^A         OpenType 数学字体。
+%^^A       \item \pkg{geometry} 宏包，用于调整页面尺寸。
+%^^A       \item \pkg{fancyhdr} 宏包，处理页眉页脚。
+%^^A       \item \pkg{footmisc} 宏包，处理脚注。
+%^^A       \item \pkg{ntheorem} 宏包，提供增强版的定理类环境。
+%^^A       \item \pkg{graphicx} 宏包，提供图形插入的接口。
+%^^A       \item \pkg{longtable} 宏包，长表格（允许跨页）支持。
+%^^A       \item \pkg{caption} 宏包，用于设置题注。
+%^^A       \item \pkg{ulem} 宏包，用于绘制下划线。
+%^^A     \end{itemize}
+%^^A   \item 开启 |style/footnotestyle=pifont| 选项后，会调用
+%^^A     \pkg{pifont}宏包。它属于 \pkg{psnfss} 套件。
+%^^A   \item 文字绕排功能需要启用 \pkg{xgalley} 宏包，它属于
+%^^A     \pkg{l3experimental} 宏集。（目前暂未使用）
+%^^A \end{itemize}
+%^^A
+%^^A 这里只列出了本模板直接调用的宏包。这些宏包自身的调用情况，
+%^^A 此处不再具体展开。如有需要，请参阅相关文档。
+%^^A
+%^^A \input{fduthesis-doc.bbl}
 %
 % \end{documentation}
 %
 % \StopEventually{}
+%
+% \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -2033,7 +2035,7 @@ version.
 % 带编号的定理环境。|#1| = 样式， |#2| = 计数器，|#3| = 定理环境名称，
 % |#4| = 定理头文字。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_thm_new:nnnn #1 #2 #3 #4
+\cs_new:Npn \fdu_thm_new:nnnn #1#2#3#4
   {
     \theoremstyle { #1 }
     \newtheorem { #3 } { #4 } [ #2 ]
@@ -2047,7 +2049,7 @@ version.
 % 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
 % |#3| = 定理头文字。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_thm_new_no_number:nnn #1 #2 #3
+\cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
   {
     \theoremstyle { #1 }
     \newtheorem { #2 } { #3 }
@@ -2391,7 +2393,7 @@ version.
 %
 % |NV| 以及 |Nx| 版本的命令可以避免展开 token list 时出现坏盒子。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_spread_box:Nn #1 #2
+\cs_new:Npn \fdu_spread_box:Nn #1#2
   {
     \makebox [ #1 ] [ s ]
       { \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip }
@@ -2404,7 +2406,7 @@ version.
 % \begin{macro}{\fdu_center_box:Nn,\fdu_center_box:NV}
 % 居中对齐的盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_center_box:Nn #1 #2
+\cs_new:Npn \fdu_center_box:Nn #1#2
   { \makebox [ #1 ] [ c ] { #2 } }
 \cs_generate_variant:Nn \fdu_center_box:Nn { NV }
 %    \end{macrocode}
@@ -2413,7 +2415,7 @@ version.
 % \begin{macro}{\fdu_fixed_width_box:Nn}
 % 限宽盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fixed_width_box:Nn #1 #2
+\cs_new:Npn \fdu_fixed_width_box:Nn #1#2
   { \parbox { #1 } { #2 } }
 %    \end{macrocode}
 % \end{macro}
@@ -2422,7 +2424,7 @@ version.
 %   \fdu_fixed_width_center_box:NV}
 % 居中对齐的限宽盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fixed_width_center_box:Nn #1 #2
+\cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
   { \fdu_fixed_width_box:Nn { #1 } { \centering #2 } }
 \cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
 %    \end{macrocode}
@@ -2432,7 +2434,7 @@ version.
 % 获取文本宽度，并存入 |dim| 型变量。|#1| = |dim| 型变量，
 % |#2| = 内容。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_get_text_width:Nn #1 #2
+\cs_new:Npn \fdu_get_text_width:Nn #1#2
   {
     \hbox_set:Nn \l_@@_tmpa_box { #2 }
     \dim_set:Nn #1
@@ -2450,7 +2452,7 @@ version.
 % 二者中较大的那一个将成为 |#1| 的新值。
 % 不断循环，直至 \cs{l_@@_tmpa_clist} 为空。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_get_max_text_width:NN #1 #2
+\cs_new:Npn \fdu_get_max_text_width:NN #1#2
   {
     \group_begin:
     \clist_set_eq:NN \l_@@_tmpa_clist #2
@@ -2636,7 +2638,7 @@ version.
 % 构建声明文本。|#1| = 标题，|#2| = 内容，|#3| = 签名行。段前空格
 % 需要用 \tn{qquad} 手动生成。
 %    \begin{macrocode}
-\cs_new:Npn \@@_decl_text:NNn #1 #2 #3
+\cs_new:Npn \@@_decl_text:NNn #1#2#3
   {
     \begin{center}
 %<class-en>      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
@@ -3606,8 +3608,10 @@ version.
 \tl_const:Nn \c_@@_def_name_notation_tl         { 符号表       }
 \tl_const:Nn \c_@@_def_name_toc_en_tl           { Contents     }
 \tl_const:Nn \c_@@_def_name_abstract_en_tl      { Abstract     }
-\tl_const:Nn \c_@@_def_name_keywords_en_tl      { Keywords:    }
-\tl_const:Nn \c_@@_def_name_clc_en_tl           { CLC~ number: }
+\tl_const:Nn \c_@@_def_name_keywords_en_tl
+  { Keywords \c_colon_str }
+\tl_const:Nn \c_@@_def_name_clc_en_tl
+  { CLC~ number \c_colon_str }
 \tl_const:Nn \c_@@_def_name_notation_en_tl
   { List~ of~ Symbols }
 \tl_const:Nn \c_@@_def_name_originality_decl_tl
@@ -3636,6 +3640,7 @@ version.
 \tl_const:Nn \c_@@_def_name_lemma_en_tl      { Lemma      }
 \tl_const:Nn \c_@@_def_name_theorem_en_tl    { Theorem    }
 %</definition>
+%<@@=>
 %    \end{macrocode}
 %
 % \subsection{用户配置文件}
@@ -3647,17 +3652,30 @@ version.
 %</user>
 %    \end{macrocode}
 %
-%^^A \end{implementation}
-%^^A
-%^^A \DisableImplementation
-%^^A
-%^^A \begin{implementation}
-%^^A
-% \subsection{附：\pkg{fduthesis} 模板文档样式}
+% \end{implementation}
+%
+% \EnableImplementation
+%
+% \begin{implementation}
+%
+%^^A 代码部分的页边距
+% \newgeometry{
+%   left   = 2.50 in,
+%   right  = 1.00 in,
+%   top    = 1.25 in,
+%   bottom = 1.00 in
+% }
+%
+% \subsection{附：\cls{fduthesis} 模板文档样式}
 %    \begin{macrocode}
 %<*doc>
 \ExplSyntaxOff
 \let\pdfmdfivesum\mdfivesum
+%    \end{macrocode}
+%
+% 无需载入 \pkg{thumbpdf}。
+%    \begin{macrocode}
+\@namedef{ver@thumbpdf.sty}{9999/99/99}
 %    \end{macrocode}
 %
 % 载入宏包和文档类。
@@ -3667,7 +3685,7 @@ version.
 \RequirePackage[stable, perpage, bottom]{footmisc}
 \RequirePackage[toc]{multitoc}
 \RequirePackage{caption}
-\RequirePackage{geometry}
+\RequirePackage[showframe]{geometry}
 \RequirePackage{listings}
 \RequirePackage{makecell}
 \RequirePackage{siunitx}
@@ -3758,7 +3776,7 @@ version.
 %
 % \begin{macro}{optdesc}
 % 用于描述各选项。设置条目间距为 \tn{marginparsep}，与
-% \pkg{l3doc} 一致。
+% \cls{l3doc} 一致。
 %    \begin{macrocode}
 \newlist{optdesc}{description}{3}
 \setlist[optdesc]{%
@@ -3825,73 +3843,104 @@ version.
 %
 %    \begin{macrocode}
 \ExplSyntaxOn
+%<@@=codedoc>
 %    \end{macrocode}
 %
+% \begin{macro}{\list}
+% l3doc 会设置列表环境中 \tn{listparindent} |=| \tn{z@}，
+% 这里将其恢复。
 %    \begin{macrocode}
-%% l3doc 会设置列表环境中 \listparindent=\z@，我们在这里恢复它。
-\cs_set_eq:NN \list \__codedoc_oldlist:nn
-\cs_new_nopar:Npn \zihaopt #1
-  {
-    \exp_last_unbraced:Nf \tl_head:w
-      { \prop_item:Nn \c__ctex_font_size_prop {#1} } { } \q_stop
-  }
-%% 抑制首段的 \parskip
-\ctex_patch_cmd_once:NnnnTF \__codedoc_function_descr_start:w
+\cs_set_eq:NN \list \@@_oldlist:nn
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_function_descr_start:w}
+% 抑制首段的 \tn{parskip}。
+%    \begin{macrocode}
+\ctex_patch_cmd_once:NnnnTF \@@_function_descr_start:w
   { }
   { \noindent }
   { \skip_vertical:n { -\parskip } \noindent }
   { \iow_term:n { *** ~ SUCCESS ~ *** } }
   { \iow_term:n { *** ~ FAIL ~ *** } }
-%% l3doc 会在 function 环境的 syntax 和 descr 盒子中间加上 \medskipamount 的距离。
-%% 但是若 syntax 盒子为空（未使用 syntax 环境），就会显得不好看。
-%% 此时我们通过将 \medskipamount 设置为零来修正。若盒子非空，则将 \parskip 还回去。
-\ctex_preto_cmd:NnnTF \__codedoc_function_assemble:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_function_assemble:}
+%    \begin{macrocode}
+\ctex_preto_cmd:NnnTF \@@_function_assemble:
   { }
-  { \ctex_doc_fix_yoffset: }
+  { \ctxdoc_fix_yoffset: }
   { \iow_term:n { *** ~ SUCCESS ~ *** } }
   { \iow_term:n { *** ~ FAIL ~ *** } }
-\cs_new_protected_nopar:Npn \ctex_doc_fix_yoffset:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\ctxdoc_fix_yoffset:}
+% \cls{l3doc} 会在 |function| 环境的 |syntax| 和 |descr| 盒子
+% 中间加上 \tn{medskipamount} 的距离。但是若 |syntax| 盒子为空
+% （未使用 |syntax| 环境），就会显得不好看。此时通过将
+% \tn{medskipamount} 设置为零来修正。若盒子非空，则把
+% \tn{parskip} 还回去。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \ctxdoc_fix_yoffset:
   {
-    \box_if_empty:NTF \g__codedoc_syntax_box
+    \box_if_empty:NTF \g_@@_syntax_box
       { \skip_zero:N \medskipamount }
       { \skip_add:Nn \medskipamount { \parskip } }
   }
-%% 左侧边注的函数列表采用单倍行距
-\ctex_preto_cmd:NnnTF \__codedoc_typeset_functions:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_typeset_functions:,\@@_macro_init:,
+%   \@@_macro_dump:}
+% 左侧边注的函数列表采用单倍行距。
+%    \begin{macrocode}
+\ctex_preto_cmd:NnnTF \@@_typeset_functions:
   { }
   { \MacroFont }
   { \iow_term:n { *** ~ SUCCESS ~ *** } }
   { \iow_term:n { *** ~ FAIL ~ *** } }
-\ctex_patch_cmd_once:NnnnTF \__codedoc_macro_init:
+\ctex_patch_cmd_once:NnnnTF \@@_macro_init:
   { }
   { \hbox:n }
   { \MacroFont \hbox:n }
   { \iow_term:n { *** ~ SUCCESS ~ *** } }
   { \iow_term:n { *** ~ FAIL ~ *** } }
-\ctex_patch_cmd_once:NnnnTF \__codedoc_macro_dump:
+\ctex_patch_cmd_once:NnnnTF \@@_macro_dump:
   { }
   { \hbox_unpack_clear:N }
   { \MacroFont \hbox_unpack_clear:N }
   { \iow_term:n { *** ~ SUCCESS ~ *** } }
   { \iow_term:n { *** ~ FAIL ~ *** } }
-\cs_set_eq:NN \__codedoc_macro_end_style:n \use_none:n
-\cs_set_protected:Npn \__codedoc_macro_typeset_one:nN #1#2
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_macro_end_style:n}
+% 禁止显示 |macro| 环境最后的“(\emph{End definition for ...})”。
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_macro_end_style:n \use_none:n
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_macro_typeset_one:nN}
+% 在 |macro| 环境的侧边栏中，\cls{l3doc} 根据命令的长短，
+% 分别用普通字体和紧缩字体输出。然而很长的命令还是会超出页边。
+% 这里用缩放盒子的手段使得长命令也可正常显示。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_macro_typeset_one:nN #1#2
   {
-    \vbox_set:Nn \l__codedoc_macro_box
+    \vbox_set:Nn \l_@@_macro_box
       {
         \MacroFont
-        \vbox_unpack_clear:N \l__codedoc_macro_box
+        \vbox_unpack_clear:N \l_@@_macro_box
         \hbox_set:Nn \l_tmpa_box
-          { \__codedoc_print_macroname:nN {#1} #2 }
-%% Modified by Xiangdong Zeng, 2017-04-14.
-%% HACK: I just use the marginsep of my doc.
-        \dim_set:Nn \l_tmpa_dim { 5.72cm }
-%%%%        \dim_set:Nn \l_tmpa_dim { \marginparwidth - \labelsep }
+          { \@@_print_macroname:nN {#1} #2 }
+        \dim_set:Nn \l_tmpa_dim { \marginparwidth - \labelsep }
         \dim_compare:nNnT { \box_wd:N \l_tmpa_box } > \l_tmpa_dim
           {
             \box_resize_to_wd_and_ht:Nnn \l_tmpa_box
-              { \l_tmpa_dim }
-              { \box_ht:N \l_tmpa_box }
+              { \l_tmpa_dim } { \box_ht:N \l_tmpa_box }
           }
         \hbox_overlap_left:n
           {
@@ -3899,194 +3948,328 @@ version.
             \skip_horizontal:n { \marginparsep - \labelsep }
           }
       }
-    \int_incr:N \l__codedoc_macro_int
+    \int_incr:N \l_@@_macro_int
   }
-\cs_set_protected:Npn \__codedoc_print_macroname:nN #1#2
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_print_macro name:nN,\@@_print_macro~ name:nN}
+% \cs{MacroFont} 已经放在了 \cs{@@_macro_typeset_one:nN}
+% 中处理，此处也不再需要使用 \cs{MacroLongFont}。
+% 命令中的空格改用“\textvisiblespace”显示。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_print_macroname:nN #1#2
   {
     \strut
-    \__codedoc_get_hyper_target:xN
+    \@@_get_hyper_target:xN
       {
         \exp_not:n {#1}
         \bool_if:NT #2 { \tl_to_str:n {TF} }
       }
-      \l__codedoc_tmpa_tl
-    \cs_if_exist:cTF { r@ \l__codedoc_tmpa_tl }
-      { \exp_args:NNo \label@hyperref [ \l__codedoc_tmpa_tl ] }
+      \l_@@_tmpa_tl
+    \cs_if_exist:cTF { r@ \l_@@_tmpa_tl }
+      { \exp_args:NNo \label@hyperref [ \l_@@_tmpa_tl ] }
       { \use:n }
       {
-        \tl_set:Nn \l__codedoc_tmpa_tl {#1}
-        \tl_replace_all:Non \l__codedoc_tmpa_tl
+        \tl_set:Nn \l_@@_tmpa_tl { #1 }
+        \tl_replace_all:Non \l_@@_tmpa_tl
           { \c_catcode_other_space_tl }
           { \fontspec_visible_space: }
-        \__codedoc_macroname_prefix:o \l__codedoc_tmpa_tl
-        \__codedoc_macroname_suffix:N #2
+        \@@_macroname_prefix:o \l_@@_tmpa_tl
+        \@@_macroname_suffix:N #2
       }
   }
-%% Modified by Xiangdong Zeng, 2017-04-14.
-%% This function is from `l3doc.sty'. Deprecated.
-%%%%\cs_gset_protected:Npn \__codedoc_print_macroname:nN #1#2
-%%%%  {
-%%%%    \strut
-%%%%    \__codedoc_get_hyper_target:xN
-%%%%      {
-%%%%        \exp_not:n {#1}
-%%%%        \bool_if:NT #2 { \tl_to_str:n {TF} }
-%%%%      }
-%%%%      \l__codedoc_tmpa_tl
-%%%%    \cs_if_exist:cTF { r@ \l__codedoc_tmpa_tl }
-%%%%      {
-%%%%        \exp_last_unbraced:NNo \hyperref
-%%%%          [ \l__codedoc_tmpa_tl ]
-%%%%      }
-%%%%      { \use:n }
-%%%%      {
-%%%%        \int_compare:nTF
-%%%%          % 修改不使用紧缩字体的最大命令长度为 99
-%%%%          { \str_count:n {#1} <= 99 }
-%%%%          { \MacroFont }
-%%%%          { \MacroLongFont }
-%%%%        \tl_set:Nn \l__codedoc_tmpa_tl {#1}
-%%%%        \tl_replace_all:Nno \l__codedoc_tmpa_tl
-%%%%          { ~ } { \c_catcode_other_space_tl }
-%%%%        \__codedoc_macroname_prefix:o \l__codedoc_tmpa_tl
-%%%%        \__codedoc_macroname_suffix:N #2
-%%%%      }
-%%%%  }
-%% Modified by Xiangdong Zeng, 2017-07-26.
+%    \end{macrocode}
+% \end{macro}
+%
+% 在 |fdusyntax| 环境前设置若干活动字符。
+% \texttt{\textbar} 分隔多个选项，无需倾斜；
+% |<xxx>| 表示选项，|(xxx)| 表示默认选项。
+%    \begin{macrocode}
 \AtBeginEnvironment { fdusyntax }
   {
     \char_set_catcode_active:N \|
     \char_set_active_eq:NN \| \orbar
-    \char_set_catcode_active:N \(
-    \char_set_active_eq:NN \( \defaultvalaux
     \char_set_catcode_active:N \<
     \char_set_active_eq:NN \< \fduoptionsaux
+    \char_set_catcode_active:N \(
+    \char_set_active_eq:NN \( \defaultvalaux
   }
-%%%%\AtBeginEnvironment { syntax }
-%%%%  {
-%%%%    \char_set_catcode_active:N \|
-%%%%    \char_set_active_eq:NN \| \orbar
-%%%%    \char_set_catcode_active:N \(
-%%%%    \char_set_active_eq:NN \( \defaultvalaux
-%%%%  }
-%% 不对目录中出现的 \cs 和 \tn 等编索引
+% \AtBeginEnvironment { syntax }
+%   {
+%     \char_set_catcode_active:N \|
+%     \char_set_active_eq:NN \| \orbar
+%     \char_set_catcode_active:N \(
+%     \char_set_active_eq:NN \( \defaultvalaux
+%   }
+%    \end{macrocode}
+%
+% \begin{macro}{\StopSpecialIndexModule}
+% \begin{macro}[aux]{\@@_special_index_module:nnnnN}
+% 不对 \cs{cs} 和 \cs{tn} 等编索引。用于目录、索引等。
+%    \begin{macrocode}
 \DeclareDocumentCommand \StopSpecialIndexModule { }
-  { \cs_set_eq:NN \__codedoc_special_index_module:nnnnN \use_none:nnnnn }
+  {
+    \cs_set_eq:NN
+      \@@_special_index_module:nnnnN \use_none:nnnnn
+  }
 \tl_map_inline:nn { \actualchar \encapchar \levelchar }
   { \exp_args:Nx \DoNotIndex { \bslash \tl_to_str:N #1 } }
-\DeclareDocumentCommand \package { o m }
-  {
-    \exp_args:Nx \href
-      {
-        http \c_colon_str //www.ctan.org/pkg/
-        \IfNoValueTF {#1} { \str_fold_case:n {#2} } {#1}
-      }
-      { \pkg {#2} }
-  }
-\DeclareDocumentCommand \GetFileId { m }
-  {
-    \GetFileInfo {#1}
-    \ior_open:NnTF \g__ctxdoc_id_ior { \c_sys_jobname_str .id }
-      {
-        \ior_get:NN \g__ctxdoc_id_ior \l__ctxdoc_tmp_tl
-        \ior_close:N \g__ctxdoc_id_ior
-        \exp_after:wN \GetIdInfo \l__ctxdoc_tmp_tl
-      }
-      { \GetIdInfo $Id$ }
-      { \fileinfo }
-  }
-\ior_new:N \g__ctxdoc_id_ior
-\cs_new_eq:NN \__ctxdoc_ltx_changes:nnn \changes@
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \subsubsection{\cls{ctxdoc} 开始}
+%    \begin{macrocode}
+%<@@=ctxdoc>
+%    \end{macrocode}
+%
+% \begin{macro}{\package}
+% 带 CTAN 链接的 \cs{pkg} 命令。
+%    \begin{macrocode}
+% \DeclareDocumentCommand \package { o m }
+%   {
+%     \exp_args:Nx \href
+%       {
+%         http \c_colon_str //www.ctan.org/pkg/
+%         \IfNoValueTF { #1 } { \str_fold_case:n {#2} } { #1 }
+%       }
+%       { \pkg {#2} }
+%   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\GetFileId}
+% \begin{variable}[aux]{\g_@@_id_ior}
+% 获取文件 ID。
+%    \begin{macrocode}
+% \DeclareDocumentCommand \GetFileId { m }
+%   {
+%     \GetFileInfo { #1 }
+%     \ior_open:NnTF \g_@@_id_ior { \c_sys_jobname_str .id }
+%       {
+%         \ior_get:NN \g_@@_id_ior \l_@@_tmp_tl
+%         \ior_close:N \g_@@_id_ior
+%         \exp_after:wN \GetIdInfo \l_@@_tmp_tl
+%       }
+%       { \GetIdInfo $Id$ }
+%       { \fileinfo }
+%   }
+% \ior_new:N \g_@@_id_ior
+%    \end{macrocode}
+% \end{variable}
+% \end{macro}
+%
+% \subsubsection{版本历史}
+% \begin{macro}[aux]{\@@_ltx_changes:nnn}
+% 保存 \pkg{doc} 中 \tn{changes@} 的定义。
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_ltx_changes:nnn \changes@
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\changes@}
+% 重定义 \tn{changes@}，在版本号一行显示修改日期。
+% 注释掉的部分是 \cls{ctxdoc} 为改变版本号排序方式而引入的。
+%    \begin{macrocode}
 \cs_set_protected:Npn \changes@ #1#2
   {
-    \__ctxdoc_save_version_date:nn {#1} {#2}
-    \tl_if_empty:nTF {#1}
-      { \__ctxdoc_ltx_changes:nnn }
-      { \__ctxdoc_version_zfill:wnnn #1 \q_stop }
-      {#1} {#2}
+    \@@_save_version_date:nn { #1 } { #2 }
+    \@@_ltx_changes:nnn { #1 } { #2 }
+%     \tl_if_empty:nTF { #1 }
+%       { \@@_ltx_changes:nnn }
+%       { \@@_version_zfill:wnnn #1 \q_stop }
+%       { #1 } { #2 }
   }
-\cs_new_protected:Npn \__ctxdoc_version_zfill:wnnn #1#2 \q_stop
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}[int]{\l_@@_tmp_tl}
+% 临时变量。
+%    \begin{macrocode}
+\tl_new:N \l_@@_tmp_tl
+%    \end{macrocode}
+% \end{variable}
+
+% \begin{macro}[aux]{\@@_version_zfill:wnnn,
+%   \@@_version_zfill:nnnn,\@@_version_zfill:n}
+% \cls{ctxdoc} 中对版本号排序方式进行了调整，但会使得诸如“v1.0a”
+% 这样的版本出现在最前。因此这里全部注释掉。
+%    \begin{macrocode}
+% \cs_new_protected:Npn \@@_version_zfill:wnnn #1#2 \q_stop
+%   {
+%     \str_if_eq:nnTF { #1 } { v }
+%       { \@@_version_zfill:nnnn { #2 } }
+%       { \@@_ltx_changes:nnn }
+%   }
+% \cs_new_protected:Npn \@@_version_zfill:nnnn #1#2
+%   {
+%     \tl_clear:N \l_@@_tmp_tl
+%     \int_zero:N \l_tmpa_int
+%     \seq_set_split:Nnn \l_tmpa_seq { . } { #1 }
+%     \seq_map_function:NN \l_tmpa_seq \@@_version_zfill:n
+%     \int_compare:nNnF \l_tmpa_int > \c_two
+%       {
+%         \tl_put_right:Nx \l_@@_tmp_tl
+%           {
+%             \prg_replicate:nn
+%               { \c_three - \l_tmpa_int } { 00000 }
+%           }
+%       }
+%     \@@_ltx_changes:nnn { \l_@@_tmp_tl \actualchar #2 }
+%   }
+% \cs_new_protected:Npn \@@_version_zfill:n #1
+%   {
+%     \int_incr:N \l_tmpa_int
+%     \tl_put_right:Nx \l_@@_tmp_tl
+%       {
+%         \prg_replicate:nn
+%           { \int_max:nn { 0 } { 5 - \tl_count:n { #1 } } } { 0 }
+%         \exp_not:n { #1 }
+%       }
+%   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}[int]{\g_@@_version_date_prop}
+% 存放版本号与对应的修改日期。
+% key = 版本号，value = \{ 开始日期，结束日期 \}。
+% 开始日期与结束日期可以相同。
+%    \begin{macrocode}
+\prop_new:N \g_@@_version_date_prop
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}[int]{\@@_save_version_date:nn}
+% 两个 |n| 的版本最终将被 \tn{changes@} 调用。
+% |#1| = 版本号，|#2| = 日期。
+% 它们分别对应 \tn{change} 的前两个参数（第三个是说明文字）。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_save_version_date:nn #1#2
   {
-    \str_if_eq:nnTF {#1} { v }
-      { \__ctxdoc_version_zfill:nnnn {#2} }
-      { \__ctxdoc_ltx_changes:nnn }
-  }
-\cs_new_protected:Npn \__ctxdoc_version_zfill:nnnn #1#2
-  {
-    \tl_clear:N \l__ctxdoc_tmp_tl
-    \int_zero:N \l_tmpa_int
-    \seq_set_split:Nnn \l_tmpa_seq { . } {#1}
-    \seq_map_function:NN \l_tmpa_seq \__ctxdoc_version_zfill:n
-    \int_compare:nNnF \l_tmpa_int > \c_two
+    \prop_get:NnNTF \g_@@_version_date_prop
+      { #1 } \l_@@_tmp_tl
       {
-        \tl_put_right:Nx \l__ctxdoc_tmp_tl
-          { \prg_replicate:nn { \c_three - \l_tmpa_int } { 00000 } }
+%    \end{macrocode}
+% \cs{l_@@_tmp_tl} 相当于两个参数（开始日期、结束日期），
+% 因此需要提前展开。
+%    \begin{macrocode}
+        \exp_after:wN
+          \@@_save_version_date_aux:nnnn \l_@@_tmp_tl
+        { #2 } { #1 }
       }
-    \__ctxdoc_ltx_changes:nnn { \l__ctxdoc_tmp_tl \actualchar #2 }
+      { \@@_save_version_date:nnn { #1 } { #2 } { #2 } }
   }
-\tl_new:N \l__ctxdoc_tmp_tl
-\cs_new_protected:Npn \__ctxdoc_version_zfill:n #1
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_save_version_date_aux:nnnn}
+% |#1| = 原开始日期，|#2| = 原结束日期，|#3| = 新读入的日期，
+% |#4| = 版本号。显然应有 |#1| < |#2|。\\
+% 如果 |#3| < |#1|，则读入日期 |#3|、|#2|；
+% 如果 |#3| > |#2|，则读入日期 |#1|、|#3|。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_save_version_date_aux:nnnn #1#2#3#4
   {
-    \int_incr:N \l_tmpa_int
-    \tl_put_right:Nx \l__ctxdoc_tmp_tl
+    \@@_if_date_later:nnTF { #1 } { #3 }
+      { \@@_save_version_date:nnn { #4 } { #3 } { #2 } }
       {
-        \prg_replicate:nn
-          { \int_max:nn { 0 } { 5 - \tl_count:n {#1} } } { 0 }
-        \exp_not:n {#1}
+        \@@_if_date_later:nnT { #3 } { #2 }
+          { \@@_save_version_date:nnn { #4 } { #1 } { #3 } }
       }
   }
-\cs_new_protected:Npn \__ctxdoc_save_version_date:nn #1#2
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_save_version_date:nnn}
+% 将版本号和日期存入 \cs{g_@@_version_date_prop}。
+% |#1| = 版本号，|#2| = 开始日期，|#3| = 结束日期。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_save_version_date:nnn #1#2#3
   {
-    \prop_get:NnNTF \g__ctxdoc_version_date_prop {#1} \l__ctxdoc_tmp_tl
-      { \exp_after:wN \__ctxdoc_save_version_date:nnnn \l__ctxdoc_tmp_tl {#2} {#1} }
-      { \__ctxdoc_save_version_date:nnn {#1} {#2} {#2} }
+    \prop_gput:Nnn \g_@@_version_date_prop
+      { #1 } { { #2 } { #3 } }
   }
-\cs_new_protected:Npn \__ctxdoc_save_version_date:nnnn #1#2#3#4
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int,TF]{\@@_if_date_later:nn}
+% \begin{macro}[aux]{\@@_parse_date:w}
+% 比较两个日期。如果 |#1| 在 |#2| 之后，则为 true；反之为 false。
+% 日期的格式为 YYYY/MM/DD。比较方法是直接将日期化成 8 位数字，
+% 所以月、日前的 0 不可以省略。
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_if_date_later:nn #1#2 { TF , T }
   {
-    \__ctxdoc_if_date_later:nnTF {#1} {#3}
-      { \__ctxdoc_save_version_date:nnn {#4} {#3} {#2} }
-      {
-        \__ctxdoc_if_date_later:nnT {#3} {#2}
-          { \__ctxdoc_save_version_date:nnn {#4} {#1} {#3} }
-      }
+    \if_int_compare:w
+        \@@_parse_date:w #1 / / / 0 \q_stop >
+        \@@_parse_date:w #2 / / / 0 \q_stop \exp_stop_f:
+      \prg_return_true:
+    \else:
+      \prg_return_false:
+    \fi:
   }
-\prg_new_conditional:Npnn \__ctxdoc_if_date_later:nn #1#2 { TF , T }
-  {
-    \if_int_compare:w \__ctxdoc_parse_date:w #1 / / / 0 \q_stop >
-                      \__ctxdoc_parse_date:w #2 / / / 0 \q_stop \exp_stop_f:
-      \prg_return_true: \else: \prg_return_false: \fi:
-  }
-\cs_new:Npn \__ctxdoc_parse_date:w #1/#2/#3/ #4 \q_stop
+\cs_new:Npn \@@_parse_date:w #1/#2/#3/ #4 \q_stop
   { #1#2#3 }
-\cs_new_protected:Npn \__ctxdoc_save_version_date:nnn #1#2#3
-  { \prop_gput:Nnn \g__ctxdoc_version_date_prop {#1} { {#2} {#3} } }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int]{\CTEX@versionitem}
+% 版本条目标签。如果版本号不在 \cs{g_@@_version_date_prop} 的
+% key 里面，则利用未定义的 \cs{BOOM} 报错。
+%    \begin{macrocode}
 \cs_new_protected:Npn \CTEX@versionitem #1 \efill
   {
     \@idxitem
-    \prop_get:NnNTF \g__ctxdoc_version_date_prop {#1} \l__ctxdoc_tmp_tl
-      { \exp_after:wN \__ctxdoc_version_item:nnn \l__ctxdoc_tmp_tl {#1} }
+    \prop_get:NnNTF \g_@@_version_date_prop
+      { #1 } \l_@@_tmp_tl
+      {
+        \exp_after:wN
+          \@@_print_version_date:nnn \l_@@_tmp_tl
+        { #1 }
+      }
       { \BOOM }
   }
-\cs_new_protected:Npn \__ctxdoc_version_item:nnn #1#2#3
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_print_version_date:nnn}
+% 输出版本号和日期。如果开始日期和结束日期相同，则只输出一项。
+% |#1| = 开始日期，|#2| = 结束日期，|#3| = 版本号。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_print_version_date:nnn #1#2#3
   {
     \noindent
-    \Hy@raisedlink { \belowpdfbookmark {#3} { HD.#3 } }
-    \textbf {#3} \hfill
+    \Hy@raisedlink { \belowpdfbookmark { #3 } { HD.#3 } }
+    \textbf { #3 } \hfill
     \hbox:n
       {
         \footnotesize
-        \str_if_eq:nnTF {#1} {#2}
+        \str_if_eq:nnTF { #1 } { #2 }
           { ( #1 ) }
           { ( #1 ~ -- ~ #2 ) }
       }
     \par \nopagebreak
   }
-\prop_new:N \g__ctxdoc_version_date_prop
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\HDorg@theglossary}
+% 该命令由 \pkg{hypdoc} 宏包定义，用于存放标准文档类 \cls{book}
+% 中定义的 \tn{theindex} 命令。
+% 此处的补丁将在版本号一行最后加上修改日期。
+%    \begin{macrocode}
 \ctex_patch_cmd:Nnn \HDorg@theglossary
   { \let \item \@idxitem }
   { \let \item \CTEX@versionitem }
-\ctex_patch_cmd:Nnn \l@section    { 2.5em } { 1.5em }
-\ctex_patch_cmd:Nnn \l@subsection { 2.5em } { 1.5em }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@wrglossary}
+% 该命令由 \LaTeXe{} 内核定义，又由 \pkg{hypdoc} 宏包作了修改。
+% 此处的补丁使得版本历史条目的页码能够指向对应行。
+%    \begin{macrocode}
 \ctex_patch_cmd:Nnn \@wrglossary
   { hdpindex }
   {
@@ -4096,29 +4279,43 @@ version.
       hdclindex { \the \c@HD@hypercount }
     \fi
   }
-%% 重定义 macrocode 环境的实现，逐行处理
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{目录条目缩进}
+% \begin{macro}[int]{\l@section,\l@subsection}
+% 修正目录条目的缩进。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \l@section    { 2.5em } { 1.5em }
+\ctex_patch_cmd:Nnn \l@subsection { 2.5em } { 1.5em }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{\texttt{macrocode} 环境}
+% 重定义 |macrocode| 环境的实现，逐行处理。
+%    \begin{macrocode}
 \cs_set_protected_nopar:Npn \xmacro@code
-  { \__ctxdoc_marco_code:w }
+  { \@@_marco_code:w }
 \cs_set_protected_nopar:Npn \sxmacro@code
   {
     \fontspec_print_visible_spaces:
     \xmacro@code
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_marco_code:w
+\cs_new_protected_nopar:Npn \@@_marco_code:w
   {
     \ifcodeline@index
-      \__ctxdoc_marco_every_par:n { \__ctxdoc_code_line_no: }
+      \@@_marco_every_par:n { \@@_code_line_no: }
     \else:
-      \__ctxdoc_marco_every_par:n { }
+      \@@_marco_every_par:n { }
     \fi:
-    \exp_args:Nx \__ctxdoc_make_finish_tag:n { \@currenvir }
-    \__ctxdoc_verbatim_start:w
+    \exp_args:Nx \@@_make_finish_tag:n { \@currenvir }
+    \@@_verbatim_start:w
   }
-\cs_new_protected:Npn \__ctxdoc_marco_every_par:n #1
+\cs_new_protected:Npn \@@_marco_every_par:n #1
   {
     \everypar
       {
-        \everypar {#1}
+        \everypar { #1 }
         \if@inlabel
           \global \@inlabelfalse
           \@noparlistfalse
@@ -4135,173 +4332,173 @@ version.
   \use:n
     {
       \char_set_catcode_active:n { 32 }
-      \tl_const:Nn \c__ctxdoc_active_space_tl
+      \tl_const:Nn \c_@@_active_space_tl
     }
     { }
 \group_end:
 \group_begin:
   \char_set_catcode_active:n { 13 }
-  \cs_new_protected:Npx \__ctxdoc_make_finish_tag:n #1
+  \cs_new_protected:Npx \@@_make_finish_tag:n #1
     {
-      \tl_set:Nn \exp_not:N \l__ctxdoc_verbatim_finish_tl
+      \tl_set:Nn \exp_not:N \l_@@_verbatim_finish_tl
         {
           \c_percent_str
           \prg_replicate:nn { 4 }
-            { \exp_not:o { \c__ctxdoc_active_space_tl } }
+            { \exp_not:o { \c_@@_active_space_tl } }
           \exp_not:o { \active@escape@char } end
           \c_left_brace_str #1 \c_right_brace_str
           \exp_not:N ^^M
         }
     }
-  \cs_new_protected:Npn \__ctxdoc_verbatim_start:w #1
+  \cs_new_protected:Npn \@@_verbatim_start:w #1
     {
-      \str_if_eq:nnTF {#1} { ^^M }
-        { \__ctxdoc_verbatim_read_line:w }
-        { \__ctxdoc_verbatim_read_line:w #1 }
+      \str_if_eq:nnTF { #1 } { ^^M }
+        { \@@_verbatim_read_line:w }
+        { \@@_verbatim_read_line:w #1 }
     }
-  \cs_new_protected:Npn \__ctxdoc_verbatim_read_line:w #1 ^^M
+  \cs_new_protected:Npn \@@_verbatim_read_line:w #1 ^^M
     {
-      \tl_set:Nn \l__ctxdoc_verbatim_line_tl { #1 ^^M }
-      \tl_if_eq:NNTF \l__ctxdoc_verbatim_line_tl \l__ctxdoc_verbatim_finish_tl
+      \tl_set:Nn \l_@@_verbatim_line_tl { #1 ^^M }
+      \tl_if_eq:NNTF \l_@@_verbatim_line_tl \l_@@_verbatim_finish_tl
         { \exp_args:Nx \end { \@currenvir } }
         {
-          \__ctxdoc_verbatim_process_line:
-          \__ctxdoc_verbatim_read_line:w
+          \@@_verbatim_process_line:
+          \@@_verbatim_read_line:w
         }
     }
-  \tl_const:Nn \c__ctxdoc_active_cr_tl { ^^M }
+  \tl_const:Nn \c_@@_active_cr_tl { ^^M }
 \group_end:
-\tl_new:N \l__ctxdoc_verbatim_line_tl
-\tl_new:N \l__ctxdoc_verbatim_finish_tl
-\tl_new:N \g__ctxdoc_verbatim_verb_stop_tl
-\cs_new_protected_nopar:Npn \__ctxdoc_process_normal_line:
+\tl_new:N \l_@@_verbatim_line_tl
+\tl_new:N \l_@@_verbatim_finish_tl
+\tl_new:N \g_@@_verbatim_verb_stop_tl
+\cs_new_protected_nopar:Npn \@@_process_normal_line:
   {
     \str_if_eq_x:nnTF
-      { \str_head:N \l__ctxdoc_verbatim_line_tl } { \c_percent_str }
-      { \__ctxdoc_check_angle:x { \tl_tail:N \l__ctxdoc_verbatim_line_tl } }
-      { \__ctxdoc_output_line: }
+      { \str_head:N \l_@@_verbatim_line_tl } { \c_percent_str }
+      { \@@_check_angle:x { \tl_tail:N \l_@@_verbatim_line_tl } }
+      { \@@_output_line: }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_process_verb_line:
+\cs_new_protected_nopar:Npn \@@_process_verb_line:
   {
-    \tl_if_eq:NNTF \l__ctxdoc_verbatim_line_tl \g__ctxdoc_verbatim_verb_stop_tl
+    \tl_if_eq:NNTF \l_@@_verbatim_line_tl \g_@@_verbatim_verb_stop_tl
       {
-        \tl_gclear:N \g__ctxdoc_verbatim_verb_stop_tl
-        \cs_gset_eq:NN \__ctxdoc_verbatim_process_line: \__ctxdoc_process_normal_line:
-        \__ctxdoc_output_module:nn
+        \tl_gclear:N \g_@@_verbatim_verb_stop_tl
+        \cs_gset_eq:NN \@@_verbatim_process_line: \@@_process_normal_line:
+        \@@_output_module:nn
           { \color { verb@guard } }
-          { \__ctxdoc_module_pop:n { \l__ctxdoc_verbatim_line_tl } }
+          { \@@_module_pop:n { \l_@@_verbatim_line_tl } }
       }
-      { \tl_use:N \l__ctxdoc_verbatim_line_tl }
+      { \tl_use:N \l_@@_verbatim_line_tl }
   }
-\cs_new_eq:NN \__ctxdoc_verbatim_process_line: \__ctxdoc_process_normal_line:
+\cs_new_eq:NN \@@_verbatim_process_line: \@@_process_normal_line:
 \DeclareDocumentCommand \CheckModules { }
-  { \cs_set_eq:NN \__ctxdoc_verbatim_process_line: \__ctxdoc_process_normal_line: }
+  { \cs_set_eq:NN \@@_verbatim_process_line: \@@_process_normal_line: }
 \DeclareDocumentCommand \DontCheckModules { }
-  { \cs_set_eq:NN \__ctxdoc_verbatim_process_line: \__ctxdoc_output_line: }
-\cs_new_protected:Npn \__ctxdoc_check_angle:n #1
+  { \cs_set_eq:NN \@@_verbatim_process_line: \@@_output_line: }
+\cs_new_protected:Npn \@@_check_angle:n #1
   {
-     \str_if_eq_x:nnTF { \str_head:n {#1} } { < }
-      { \__ctxdoc_check_module:x { \tl_tail:n {#1} } }
-      { \__ctxdoc_output_percent_line: }
+     \str_if_eq_x:nnTF { \str_head:n { #1 } } { < }
+      { \@@_check_module:x { \tl_tail:n { #1 } } }
+      { \@@_output_percent_line: }
   }
-\cs_generate_variant:Nn \__ctxdoc_check_angle:n { x }
-\cs_new_protected:Npn \__ctxdoc_check_module:n #1
+\cs_generate_variant:Nn \@@_check_angle:n { x }
+\cs_new_protected:Npn \@@_check_module:n #1
   {
-    \exp_args:Nx \str_case:nnF { \str_head:n {#1} }
+    \exp_args:Nx \str_case:nnF { \str_head:n { #1 } }
       {
-        { * } { \__ctxdoc_module_star:w }
-        { / } { \__ctxdoc_module_slash:w }
-        { @ } { \__ctxdoc_module_at:w }
-        { < } { \__ctxdoc_module_verb:w }
+        { * } { \@@_module_star:w }
+        { / } { \@@_module_slash:w }
+        { @ } { \@@_module_at:w }
+        { < } { \@@_module_verb:w }
       }
-      { \__ctxdoc_module_pm:w }
+      { \@@_module_pm:w }
     #1 \q_stop
   }
-\cs_generate_variant:Nn \__ctxdoc_check_module:n { x }
+\cs_generate_variant:Nn \@@_check_module:n { x }
 \group_begin:
   \char_set_catcode_active:N \>
-  \cs_new_protected:Npn \__ctxdoc_module_star:w #1 > #2 \q_stop
+  \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
     {
-      \__ctxdoc_output_module:nn
-        { \__ctxdoc_star_color: }
-        { \__ctxdoc_module_push:n { \__ctxdoc_module_angle:n {#1} } }
-      \__ctxdoc_output_line:n {#2}
-      \__ctxdoc_star_format:
+      \@@_output_module:nn
+        { \@@_star_color: }
+        { \@@_module_push:n { \@@_module_angle:n { #1 } } }
+      \@@_output_line:n {#2}
+      \@@_star_format:
     }
-  \cs_new_protected:Npn \__ctxdoc_module_slash:w #1 > #2 \q_stop
+  \cs_new_protected:Npn \@@_module_slash:w #1 > #2 \q_stop
     {
-      \__ctxdoc_output_module:nn
-        { \__ctxdoc_slash_color: }
-        { \__ctxdoc_module_pop:n { \__ctxdoc_module_angle:n {#1} } }
-      \__ctxdoc_output_line:n {#2}
-      \__ctxdoc_slash_format:
+      \@@_output_module:nn
+        { \@@_slash_color: }
+        { \@@_module_pop:n { \@@_module_angle:n { #1 } } }
+      \@@_output_line:n {#2}
+      \@@_slash_format:
     }
-  \cs_new_protected:Npn \__ctxdoc_module_at:w @ @ = #1 > #2 \q_stop
+  \cs_new_protected:Npn \@@_module_at:w @ @ = #1 > #2 \q_stop
     {
-      \__ctxdoc_output_module:nn
+      \@@_output_module:nn
         { \color { at@guard } }
-        { \__ctxdoc_module_angle:n { @ @ = #1 } }
-      \tl_gset:Nn \g__codedoc_module_name_tl {#1}
-      \__ctxdoc_output_line:n {#2}
+        { \@@_module_angle:n { @ @ = #1 } }
+      \tl_gset:Nn \g__codedoc_module_name_tl { #1 }
+      \@@_output_line:n {#2}
     }
-  \cs_new_protected:Npn \__ctxdoc_module_pm:w #1 > #2 \q_stop
+  \cs_new_protected:Npn \@@_module_pm:w #1 > #2 \q_stop
     {
       \tex_noindent:D
       \hbox_overlap_left:n
         {
-          \__ctxdoc_output_module:nn
-            { \__ctxdoc_pm_color: }
-            { \__ctxdoc_module_angle:n {#1} }
+          \@@_output_module:nn
+            { \@@_pm_color: }
+            { \@@_module_angle:n { #1 } }
           \skip_horizontal:n { \leftskip + \smallskipamount }
         }
       \group_begin:
-        \__ctxdoc_pm_format:
-        \__ctxdoc_output_line:n {#2}
+        \@@_pm_format:
+        \@@_output_line:n {#2}
       \group_end:
     }
-  \cs_new_protected:Npn \__ctxdoc_module_verb:w #1 \q_stop
+  \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
     {
-      \cs_gset_eq:NN \__ctxdoc_verbatim_process_line: \__ctxdoc_process_verb_line:
-      \tl_gset:Nx \g__ctxdoc_verbatim_verb_stop_tl
-        { \c_percent_str \tl_tail:n {#1} }
-      \__ctxdoc_output_module:nn
+      \cs_gset_eq:NN \@@_verbatim_process_line: \@@_process_verb_line:
+      \tl_gset:Nx \g_@@_verbatim_verb_stop_tl
+        { \c_percent_str \tl_tail:n { #1 } }
+      \@@_output_module:nn
         { \color { verb@guard } }
-        { \__ctxdoc_module_push:n { \l__ctxdoc_verbatim_line_tl } }
+        { \@@_module_push:n { \l_@@_verbatim_line_tl } }
     }
 \group_end:
-\cs_new_protected_nopar:Npn \__ctxdoc_output_line:
+\cs_new_protected_nopar:Npn \@@_output_line:
   {
     \tex_noindent:D
-    \__ctxdoc_replace_at_at:N \l__ctxdoc_verbatim_line_tl
-    \tl_use:N \l__ctxdoc_verbatim_line_tl
+    \@@_replace_at_at:N \l_@@_verbatim_line_tl
+    \tl_use:N \l_@@_verbatim_line_tl
   }
-\cs_new_protected:Npn \__ctxdoc_replace_at_at:N #1
+\cs_new_protected:Npn \@@_replace_at_at:N #1
   {
     \tl_if_empty:NF \g__codedoc_module_name_tl
       {
-        \exp_args:NNo \__ctxdoc_replace_at_at_aux:Nn
+        \exp_args:NNo \@@_replace_at_at_aux:Nn
           #1 \g__codedoc_module_name_tl
       }
   }
-\cs_new_protected:Npn \__ctxdoc_replace_at_at_aux:Nn #1#2
+\cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
   {
     \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
     \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
   }
-\cs_new_protected:Npn \__ctxdoc_output_line:n #1
+\cs_new_protected:Npn \@@_output_line:n #1
   {
-    \tl_set:Nn \l__ctxdoc_verbatim_line_tl {#1}
-    \tl_if_eq:NNTF \l__ctxdoc_verbatim_line_tl \c__ctxdoc_active_cr_tl
-      { \tl_use:N \l__ctxdoc_verbatim_line_tl }
+    \tl_set:Nn \l_@@_verbatim_line_tl { #1 }
+    \tl_if_eq:NNTF \l_@@_verbatim_line_tl \c_@@_active_cr_tl
+      { \tl_use:N \l_@@_verbatim_line_tl }
       {
         \str_if_eq_x:nnTF
-          { \str_head:N \l__ctxdoc_verbatim_line_tl }
+          { \str_head:N \l_@@_verbatim_line_tl }
           { \c_percent_str }
-          { \__ctxdoc_output_percent_line: }
-          { \__ctxdoc_output_line: }
+          { \@@_output_percent_line: }
+          { \@@_output_line: }
       }
   }
-\cs_new_protected:Npn \__ctxdoc_output_percent_line:
+\cs_new_protected:Npn \@@_output_percent_line:
   {
     \tex_noindent:D
     \group_begin:
@@ -4309,80 +4506,80 @@ version.
       \str_if_eq_x:nnTF { \f@shape } { \updefault }
         { \slshape }
         { \upshape }
-      \__ctxdoc_output_line:
+      \@@_output_line:
     \group_end:
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_module_push:n
-  { \exp_args:No \__ctxdoc_module_push_aux:nn { \int_use:N \c@HD@hypercount } }
-\cs_new_protected:Npn \__ctxdoc_module_push_aux:nn #1
+\cs_new_protected_nopar:Npn \@@_module_push:n
+  { \exp_args:No \@@_module_push_aux:nn { \int_use:N \c@HD@hypercount } }
+\cs_new_protected:Npn \@@_module_push_aux:nn #1
   {
-    \seq_gpush:Nn \g__ctxdoc_module_dest_seq {#1}
+    \seq_gpush:Nn \g_@@_module_dest_seq { #1 }
     \hypersetup { hidelinks }
     \exp_args:Nx \hdclindex
       { \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_module_pop:n
+\cs_new_protected_nopar:Npn \@@_module_pop:n
   {
-    \seq_gpop:NNTF \g__ctxdoc_module_dest_seq \l__ctxdoc_tmp_tl
-      { \exp_args:No \__ctxdoc_module_pop_aux:nn { \l__ctxdoc_tmp_tl } }
+    \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmp_tl
+      { \exp_args:No \@@_module_pop_aux:nn { \l_@@_tmp_tl } }
       { \BOOM \use:n }
   }
-\cs_new_protected:Npn \__ctxdoc_module_pop_aux:nn #1
+\cs_new_protected:Npn \@@_module_pop_aux:nn #1
   {
     \zref@labelbylist { HD.#1 } { ctxdoc }
     \hypersetup { hidelinks }
-    \hdclindex {#1} { }
+    \hdclindex { #1 } { }
   }
-\seq_new:N \g__ctxdoc_module_dest_seq
+\seq_new:N \g_@@_module_dest_seq
 \zref@newlist { ctxdoc }
 \zref@newprop { guard@end } [ 1 ]
   { \int_eval:n { \c@HD@hypercount - 1 } }
 \zref@addprop { ctxdoc } { guard@end }
-\cs_new_protected_nopar:Npn \__ctxdoc_star_format:
+\cs_new_protected_nopar:Npn \@@_star_format:
   {
-    \seq_gpush:No \g__ctxdoc_slash_format_seq { \macro@font }
-    \seq_gpop:NNF \g__ctxdoc_star_format_seq \l__ctxdoc_format_tl
-      { \__ctxdoc_pop_format: }
-    \__ctxdoc_select_format:
+    \seq_gpush:No \g_@@_slash_format_seq { \macro@font }
+    \seq_gpop:NNF \g_@@_star_format_seq \l_@@_format_tl
+      { \@@_pop_format: }
+    \@@_select_format:
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_slash_format:
+\cs_new_protected_nopar:Npn \@@_slash_format:
   {
-    \seq_gpop:NNTF \g__ctxdoc_slash_format_seq \l__ctxdoc_format_tl
+    \seq_gpop:NNTF \g_@@_slash_format_seq \l_@@_format_tl
       {
-        \seq_gpush:No \g__ctxdoc_star_format_seq { \macro@font }
-        \__ctxdoc_select_format:
+        \seq_gpush:No \g_@@_star_format_seq { \macro@font }
+        \@@_select_format:
       }
       { \BOOM }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_pm_format:
+\cs_new_protected_nopar:Npn \@@_pm_format:
   {
-    \seq_get:NNF \g__ctxdoc_star_format_seq \l__ctxdoc_format_tl
+    \seq_get:NNF \g_@@_star_format_seq \l_@@_format_tl
       {
-        \__ctxdoc_pop_format:
-        \seq_gpush:No \g__ctxdoc_star_format_seq { \l__ctxdoc_format_tl }
+        \@@_pop_format:
+        \seq_gpush:No \g_@@_star_format_seq { \l_@@_format_tl }
       }
-    \cs_if_eq:NNF \macro@font \l__ctxdoc_format_tl
-      { \l__ctxdoc_format_tl }
+    \cs_if_eq:NNF \macro@font \l_@@_format_tl
+      { \l_@@_format_tl }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_pop_format:
+\cs_new_protected_nopar:Npn \@@_pop_format:
   {
-    \seq_gpop_left:NN \g__ctxdoc_format_seq \l__ctxdoc_format_tl
-    \seq_gput_right:No \g__ctxdoc_format_seq { \l__ctxdoc_format_tl }
+    \seq_gpop_left:NN \g_@@_format_seq \l_@@_format_tl
+    \seq_gput_right:No \g_@@_format_seq { \l_@@_format_tl }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_select_format:
+\cs_new_protected_nopar:Npn \@@_select_format:
   {
-    \cs_if_eq:NNF \macro@font \l__ctxdoc_format_tl
+    \cs_if_eq:NNF \macro@font \l_@@_format_tl
       {
-        \cs_gset_eq:NN \macro@font \l__ctxdoc_format_tl
+        \cs_gset_eq:NN \macro@font \l_@@_format_tl
         \macro@font
       }
   }
-\tl_new:N \l__ctxdoc_format_tl
-\seq_new:N \g__ctxdoc_format_seq
-\seq_new:N \g__ctxdoc_star_format_seq
-\seq_new:N \g__ctxdoc_slash_format_seq
-\seq_gput_right:Nn \g__ctxdoc_format_seq { \MacroFont }
-\seq_gput_right:Nn \g__ctxdoc_format_seq { \AltMacroFont }
+\tl_new:N \l_@@_format_tl
+\seq_new:N \g_@@_format_seq
+\seq_new:N \g_@@_star_format_seq
+\seq_new:N \g_@@_slash_format_seq
+\seq_gput_right:Nn \g_@@_format_seq { \MacroFont }
+\seq_gput_right:Nn \g_@@_format_seq { \AltMacroFont }
 \cs_set_protected:Npn \MacroFont
   {
 %% Modified by Xiangdong Zeng, 2017-06-25.
@@ -4408,9 +4605,9 @@ version.
 \AtBeginDocument
   {
     \tl_gset:Nx \macro@font
-      { \seq_item:Nn \g__ctxdoc_format_seq { 1 } }
+      { \seq_item:Nn \g_@@_format_seq { 1 } }
   }
-\cs_new_protected:Npn \__ctxdoc_output_module:nn #1#2
+\cs_new_protected:Npn \@@_output_module:nn #1#2
   {
     \tex_noindent:D
     \group_begin:
@@ -4418,34 +4615,34 @@ version.
       \footnotesize \normalfont \sffamily #2
     \group_end:
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_star_color:
+\cs_new_protected_nopar:Npn \@@_star_color:
   {
-    \seq_gpop:NNTF \g__ctxdoc_star_color_seq \current@color
+    \seq_gpop:NNTF \g_@@_star_color_seq \current@color
       { \set@color }
-      { \__ctxdoc_select_color: }
-    \seq_gpush:No \g__ctxdoc_slash_color_seq { \current@color }
+      { \@@_select_color: }
+    \seq_gpush:No \g_@@_slash_color_seq { \current@color }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_slash_color:
+\cs_new_protected_nopar:Npn \@@_slash_color:
   {
-    \seq_gpop:NNTF \g__ctxdoc_slash_color_seq \current@color
+    \seq_gpop:NNTF \g_@@_slash_color_seq \current@color
       {
         \set@color
-        \seq_gpush:No \g__ctxdoc_star_color_seq { \current@color }
+        \seq_gpush:No \g_@@_star_color_seq { \current@color }
       }
       { \BOOM }
   }
-\cs_new_protected_nopar:Npn \__ctxdoc_pm_color:
+\cs_new_protected_nopar:Npn \@@_pm_color:
   {
-    \seq_get:NNTF \g__ctxdoc_star_color_seq \current@color
+    \seq_get:NNTF \g_@@_star_color_seq \current@color
       { \set@color }
       {
-        \__ctxdoc_select_color:
-        \seq_gpush:No \g__ctxdoc_star_color_seq { \current@color }
+        \@@_select_color:
+        \seq_gpush:No \g_@@_star_color_seq { \current@color }
       }
   }
-\seq_new:N \g__ctxdoc_star_color_seq
-\seq_new:N \g__ctxdoc_slash_color_seq
-\cs_new_protected_nopar:Npn \__ctxdoc_select_color:
+\seq_new:N \g_@@_star_color_seq
+\seq_new:N \g_@@_slash_color_seq
+\cs_new_protected_nopar:Npn \@@_select_color:
   { \color { guard@series!!+ } }
 \definecolorseries { guard@series }
   { cmyk } { last } { blue } { purple }
@@ -4457,9 +4654,9 @@ version.
 %%%%\definecolor { verb@guard } { rgb }  { 0.5  , 0.5 , 0 }
 %%%%\definecolor { at@guard }   { rgb }  { 0.5  , 0   , 0.5 }
 %%%%\definecolor { code@gray }  { gray } { 0.5 }
-\cs_new_protected:Npn \__ctxdoc_module_angle:n #1
+\cs_new_protected:Npn \@@_module_angle:n #1
   { \textlangle #1 \textrangle }
-\cs_new_protected_nopar:Npn \__ctxdoc_code_line_no:
+\cs_new_protected_nopar:Npn \@@_code_line_no:
   {
     \int_gincr:N \c@CodelineNo
     \hbox_overlap_left:n
@@ -4469,7 +4666,7 @@ version.
           {
             \HD@target
             \tex_hss:D
-            \__ctxdoc_code_line_no_style:
+            \@@_code_line_no_style:
             \theCodelineNo \enspace
           }
         \tex_kern:D \@totalleftmargin
@@ -4477,15 +4674,15 @@ version.
   }
 \tl_set:Nn \theCodelineNo
   { \arabic { CodelineNo } }
-\cs_new_protected_nopar:Npn \__ctxdoc_code_line_no_style:
+\cs_new_protected_nopar:Npn \@@_code_line_no_style:
   { \color { code@gray } \normalfont \sffamily \tiny }
 \cs_set_protected:Npn \HD@SetMacroIndent #1
   {
     \group_begin:
       \settowidth \MacroIndent
         {
-          \__ctxdoc_code_line_no_style:
-          \prg_replicate:nn { \tl_count:n {#1} } { 0 }
+          \@@_code_line_no_style:
+          \prg_replicate:nn { \tl_count:n { #1 } } { 0 }
           \enspace
         }
       \dim_gset_eq:NN \MacroIndent \MacroIndent
@@ -4497,7 +4694,7 @@ version.
   {
     \group_begin:
       \sys_if_engine_xetex:T { \xeCJKsetup{CJKecglue={}} }
-      \__codedoc_meta:n {#1}
+      \__codedoc_meta:n { #1 }
     \group_end:
   }
 % 调整 function 字体
