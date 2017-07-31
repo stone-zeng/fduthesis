@@ -949,7 +949,7 @@ version.
 %
 % \StopEventually{}
 %
-% \DisableImplementation
+%^^A \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -965,7 +965,7 @@ version.
 % 本模板使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境，
 % 并需调用 \pkg{l3packages} 中的相关宏包。
 %
-% 按照 \LaTeX3 语法，代码中的空格、换行符与制表符完全忽略，
+% 按照 \LaTeX3 语法，代码中的空格、换行、回车与制表符完全忽略，
 % 而下划线“|_|”和冒号“|:|”则可作为一般字母使用。
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
@@ -4292,7 +4292,79 @@ version.
 % \end{macro}
 %
 % \subsubsection{\texttt{macrocode} 环境}
-% 重定义 |macrocode| 环境的实现，逐行处理。
+% \begin{macro}[int]{\macro@code}
+% 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由
+% \tn{macro@code} 负责实现，而 \tn{xmacro@code} 只用来结束
+% \env{macrocode} 环境。但在 \cls{l3doc} 以及 \cls{ctxdoc} 中，
+% \tn{xmacro@code} 则基本接管了 \tn{macro@code} 的功能。
+% 后者此时只起辅助作用。
+%    \begin{macrocode}
+\ExplSyntaxOff
+\def\macro@code{%
+%    \end{macrocode}
+% 调整前后间距，禁止 \env{macrocode} 环境前的分页。
+%    \begin{macrocode}
+   \topsep \MacrocodeTopsep
+   \@beginparpenalty \predisplaypenalty
+%    \end{macrocode}
+% 将列表前后的附加垂直空白设为 0。根据 \cls{ctxdoc} 修改。
+%    \begin{macrocode}
+   \partopsep \z@skip
+%    \if@inlabel\leavevmode\fi
+%    \end{macrocode}
+% 构建 \env{trivlist} 环境，设置段间距为 0。
+% 之后修改字体，并调节左右间距。\tn{MacroIndent} 会根据代码行数
+% 更新，具体细节见后文。
+%    \begin{macrocode}
+   \trivlist \parskip \z@ \item[]%
+   \macro@font
+   \leftskip\@totalleftmargin \advance\leftskip\MacroIndent
+   \rightskip\z@ \parindent\z@ \parfillskip\@flushglue
+%    \end{macrocode}
+% 按照 \LaTeXe{} 中 \tn{verbatim} 环境中定义 \tn{par}，使得空行
+% 可以原样输出。
+% TODO(20170731): 不很确定，但似乎已经没有用了。注释掉。
+%    \begin{macrocode}
+%    \blank@linefalse \def\par{\ifblank@line
+%                              \leavevmode\fi
+%                              \blank@linetrue\@@@@par
+%                              \penalty\interlinepenalty}
+%    \end{macrocode}
+% \tn{obeylines} 将把回车符 |^^M| 变成 \tn{par}。
+% 接下来将所有特殊符号的类别码设为 12，即“其他”类。
+%    \begin{macrocode}
+   \obeylines
+   \let\do\do@noligs \verbatim@nolig@list
+   \let\do\@makeother \dospecials
+%    \end{macrocode}
+% 相当于退出 |\begin{list}| 和 |\begin{minipage}|。
+%    \begin{macrocode}
+   \global\@newlistfalse
+   \global\@minipagefalse
+%    \end{macrocode}
+% 检查 \pkg{DocStrip} 模块，输出行号。
+% 此功能已被 \cls{ctxdoc} 接管，具体细节见后文。
+%    \begin{macrocode}
+%    \ifcodeline@index
+%      \everypar{\global\advance\c@CodelineNo\@ne
+%                \llap{\theCodelineNo\ \hskip\@totalleftmargin}%
+%                \check@module}%
+%    \else \everypar{\check@module}%
+%    \fi
+%    \end{macrocode}
+% 初始化交叉引用功能。
+%    \begin{macrocode}
+   \init@crossref}
+\ExplSyntaxOn
+% \ctex_patch_cmd:Nnn \macro@code
+%   { \if@inlabel \leavevmode \fi }
+%   { \partopsep \z@skip }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\xmacro@code,\sxmacro@code}
+% 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，
+% 将对代码逐行处理。后者会将空格显示为“\textvisiblespace”。
 %    \begin{macrocode}
 \cs_set_protected_nopar:Npn \xmacro@code
   { \@@_marco_code:w }
@@ -4301,6 +4373,12 @@ version.
     \fontspec_print_visible_spaces:
     \xmacro@code
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_marco_code:w}
+% 处理代码。
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_marco_code:w
   {
     \ifcodeline@index
@@ -4308,9 +4386,18 @@ version.
     \else:
       \@@_marco_every_par:n { }
     \fi:
+%    \end{macrocode}
+% 设置代码段结束标记为“\verb*|%    \end{macrocode}^^M|”。
+%    \begin{macrocode}
     \exp_args:Nx \@@_make_finish_tag:n { \@currenvir }
     \@@_verbatim_start:w
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_marco_every_par:n}
+% 在每段之前插入内容。这里每段即相当于每行。
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_marco_every_par:n #1
   {
     \everypar
@@ -4324,20 +4411,42 @@ version.
         #1
       }
   }
-\ctex_patch_cmd:Nnn \macro@code
-  { \if@inlabel \leavevmode \fi }
-  { \partopsep \z@skip }
 \group_begin:
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置 \tn{endlinechar} 为 -1，表示行末不插入任何字符
+% （实际上相当于在行尾插入注释符 |%|）。
+%    \begin{macrocode}
   \int_set_eq:NN \tex_endlinechar:D \c_minus_one
+%    \end{macrocode}
+%
+% \begin{variable}[aux]{\c_@@_active_space_tl}
+% 活动字符类的空格（ASCII 码为 32）。
+%    \begin{macrocode}
   \use:n
     {
       \char_set_catcode_active:n { 32 }
       \tl_const:Nn \c_@@_active_space_tl
     }
     { }
+%    \end{macrocode}
+% \end{variable}
+%
+%    \begin{macrocode}
 \group_end:
+%    \end{macrocode}
+%
+% ASCII 码 13 是回车符 |^^M|。将其设置为活动字符。
+%    \begin{macrocode}
 \group_begin:
   \char_set_catcode_active:n { 13 }
+%    \end{macrocode}
+%
+% \begin{macro}[aux]{\@@_make_finish_tag:n}
+% \env{macrocode} 结尾标记。展开后变成
+% “\verb*|%    \end{#1}^^M|”。
+%    \begin{macrocode}
   \cs_new_protected:Npx \@@_make_finish_tag:n #1
     {
       \tl_set:Nn \exp_not:N \l_@@_verbatim_finish_tl
@@ -4350,58 +4459,144 @@ version.
           \exp_not:N ^^M
         }
     }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_verbatim_start:w}
+% 开始代码抄录环境。此命令主要是为了防止 |\begin{macrocode}|
+% 后出现多余的空行。
+%    \begin{macrocode}
   \cs_new_protected:Npn \@@_verbatim_start:w #1
     {
       \str_if_eq:nnTF { #1 } { ^^M }
         { \@@_verbatim_read_line:w }
         { \@@_verbatim_read_line:w #1 }
     }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_verbatim_read_line:w}
+% 逐行读取代码，并连同行尾回车符一并存入
+% \cs{\l_@@_verbatim_line_tl}。如果该行与结束标记
+% “\verb*|%    \end{macrocode}^^M|”相同，则结束此
+% \env{macrocode}；否则继续处理该行代码。
+%    \begin{macrocode}
   \cs_new_protected:Npn \@@_verbatim_read_line:w #1 ^^M
     {
       \tl_set:Nn \l_@@_verbatim_line_tl { #1 ^^M }
-      \tl_if_eq:NNTF \l_@@_verbatim_line_tl \l_@@_verbatim_finish_tl
+      \tl_if_eq:NNTF
+        \l_@@_verbatim_line_tl \l_@@_verbatim_finish_tl
         { \exp_args:Nx \end { \@currenvir } }
         {
           \@@_verbatim_process_line:
           \@@_verbatim_read_line:w
         }
     }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}[aux]{\c_@@_active_cr_tl}
+% 活动字符类的回车符。
+%    \begin{macrocode}
   \tl_const:Nn \c_@@_active_cr_tl { ^^M }
 \group_end:
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}[aux]{\l_@@_verbatim_line_tl,
+%   \l_@@_verbatim_finish_tl,
+%   \g_@@_verbatim_verb_stop_tl}
+% 分别用来存储代码行、结束标记、
+%    \begin{macrocode}
 \tl_new:N \l_@@_verbatim_line_tl
 \tl_new:N \l_@@_verbatim_finish_tl
 \tl_new:N \g_@@_verbatim_verb_stop_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}[aux]{\@@_process_normal_line:}
+% 如果代码行开头是 |%|，则检查 guard 后输出；否则正常输出。
+%    \begin{macrocode}
+% \tl_new:N \l__mytest_tl
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
   {
     \str_if_eq_x:nnTF
       { \str_head:N \l_@@_verbatim_line_tl } { \c_percent_str }
-      { \@@_check_angle:x { \tl_tail:N \l_@@_verbatim_line_tl } }
+      {
+% \tl_set_eq:NN \l__mytest_tl \l_@@_verbatim_line_tl
+% \tl_show:N \l__mytest_tl
+% \tl_set:Nx \l__mytest_tl { \tl_tail:N \l_@@_verbatim_line_tl }
+% \tl_show:N \l__mytest_tl
+        % \@@_check_angle:x 会去掉 <xxx>，
+        % 但 <xxx> some code 这种则不会去掉
+        \@@_check_angle:x
+          { \tl_tail:N \l_@@_verbatim_line_tl }
+% \tl_set_eq:NN \l__mytest_tl \l_@@_verbatim_line_tl
+% \tl_show:N \l__mytest_tl
+% \tl_set:Nx \l__mytest_tl { \tl_tail:N \l_@@_verbatim_line_tl }
+% \tl_show:N \l__mytest_tl
+      }
       { \@@_output_line: }
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_process_verb_line:}
+% 
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_verb_line:
   {
-    \tl_if_eq:NNTF \l_@@_verbatim_line_tl \g_@@_verbatim_verb_stop_tl
+    \tl_if_eq:NNTF \l_@@_verbatim_line_tl
+        \g_@@_verbatim_verb_stop_tl
       {
         \tl_gclear:N \g_@@_verbatim_verb_stop_tl
-        \cs_gset_eq:NN \@@_verbatim_process_line: \@@_process_normal_line:
+        \cs_gset_eq:NN \@@_verbatim_process_line:
+          \@@_process_normal_line:
         \@@_output_module:nn
           { \color { verb@guard } }
           { \@@_module_pop:n { \l_@@_verbatim_line_tl } }
       }
       { \tl_use:N \l_@@_verbatim_line_tl }
   }
-\cs_new_eq:NN \@@_verbatim_process_line: \@@_process_normal_line:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_verbatim_process_line:}
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_verbatim_process_line:
+  \@@_process_normal_line:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\CheckModules,\DontCheckModules}
+%    \begin{macrocode}
 \DeclareDocumentCommand \CheckModules { }
-  { \cs_set_eq:NN \@@_verbatim_process_line: \@@_process_normal_line: }
+  {
+    \cs_set_eq:NN \@@_verbatim_process_line:
+      \@@_process_normal_line:
+  }
 \DeclareDocumentCommand \DontCheckModules { }
-  { \cs_set_eq:NN \@@_verbatim_process_line: \@@_output_line: }
+  {
+    \cs_set_eq:NN \@@_verbatim_process_line:
+      \@@_output_line:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_check_angle:n,\@@_check_angle:x}
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_angle:n #1
   {
-     \str_if_eq_x:nnTF { \str_head:n { #1 } } { < }
+    \str_if_eq_x:nnTF { \str_head:n { #1 } } { < }
       { \@@_check_module:x { \tl_tail:n { #1 } } }
       { \@@_output_percent_line: }
   }
 \cs_generate_variant:Nn \@@_check_angle:n { x }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_check_module:n,\@@_check_module:x}
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
     \exp_args:Nx \str_case:nnF { \str_head:n { #1 } }
@@ -4415,6 +4610,10 @@ version.
     #1 \q_stop
   }
 \cs_generate_variant:Nn \@@_check_module:n { x }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \group_begin:
   \char_set_catcode_active:N \>
   \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
@@ -4672,10 +4871,24 @@ version.
         \tex_kern:D \@totalleftmargin
       }
   }
-\tl_set:Nn \theCodelineNo
-  { \arabic { CodelineNo } }
+%    \end{macrocode}
+%
+% \begin{macro}{\theCodelineNo}
+% 行号设置为阿拉伯数字。
+%    \begin{macrocode}
+\tl_set:Nn \theCodelineNo { \arabic { CodelineNo } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_code_line_no_style:}
+% 行号格式。
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_code_line_no_style:
   { \color { code@gray } \normalfont \sffamily \tiny }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \cs_set_protected:Npn \HD@SetMacroIndent #1
   {
     \group_begin:
