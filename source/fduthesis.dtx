@@ -289,6 +289,8 @@ version.
 %
 % \tableofcontents
 %
+% \DisableDocumentation
+%
 % \begin{documentation}
 %
 %^^A 用户手册的页边距
@@ -949,7 +951,7 @@ version.
 %
 % \StopEventually{}
 %
-%^^A \DisableImplementation
+% \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -3668,6 +3670,73 @@ version.
 %
 % \subsection{附：\cls{fduthesis} 模板文档样式}
 %    \begin{macrocode}
+%<*测试文本>% some code
+% some code
+% some code
+% some code
+% some code
+% some code
+%<doc1> %vadsvsdvda
+%<*doc2>
+% some code
+% some code
+% some code
+%</doc2>%cadvs
+% some code
+% some code
+% some code
+% some code
+% some code
+%<*doc2> % some code
+% some code
+% some code
+% some code
+%<doc1>vadsvsdvda
+% some code
+%<doc1|doc3> %vadsvsdvda
+% some code
+% some code
+% some code
+%<*doc3>
+  % some code
+  % some code
+  % some code
+%</doc3>
+% some code
+% some code
+%</doc2>%cadvs
+% some code
+% some code
+% some code
+% some code
+%<<COMMENT
+1
+2
+3
+4
+% some code
+% some code
+ % some code
+ % some code
+
+%</doc2>%cadvs
+
+%<doc1> %vadsvsdvda
+3
+2
+1
+%COMMENT
+% 1
+% 2
+% 3
+% some code
+% some code
+% some code
+% some code
+% some code
+% some code
+% some code
+%</测试文本> % some code
 %<*doc>
 \ExplSyntaxOff
 \let\pdfmdfivesum\mdfivesum
@@ -4048,9 +4117,9 @@ version.
 %     \GetFileInfo { #1 }
 %     \ior_open:NnTF \g_@@_id_ior { \c_sys_jobname_str .id }
 %       {
-%         \ior_get:NN \g_@@_id_ior \l_@@_tmp_tl
+%         \ior_get:NN \g_@@_id_ior \l_@@_tmpa_tl
 %         \ior_close:N \g_@@_id_ior
-%         \exp_after:wN \GetIdInfo \l_@@_tmp_tl
+%         \exp_after:wN \GetIdInfo \l_@@_tmpa_tl
 %       }
 %       { \GetIdInfo $Id$ }
 %       { \fileinfo }
@@ -4084,10 +4153,11 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}[int]{\l_@@_tmp_tl}
+% \begin{variable}[int]{\l_@@_tmpa_tl}
 % 临时变量。
 %    \begin{macrocode}
-\tl_new:N \l_@@_tmp_tl
+\tl_new:N \l_@@_tmpa_tl
+\tl_new:N \l_@@_tmpb_tl
 %    \end{macrocode}
 % \end{variable}
 
@@ -4104,24 +4174,24 @@ version.
 %   }
 % \cs_new_protected:Npn \@@_version_zfill:nnnn #1#2
 %   {
-%     \tl_clear:N \l_@@_tmp_tl
+%     \tl_clear:N \l_@@_tmpa_tl
 %     \int_zero:N \l_tmpa_int
 %     \seq_set_split:Nnn \l_tmpa_seq { . } { #1 }
 %     \seq_map_function:NN \l_tmpa_seq \@@_version_zfill:n
 %     \int_compare:nNnF \l_tmpa_int > \c_two
 %       {
-%         \tl_put_right:Nx \l_@@_tmp_tl
+%         \tl_put_right:Nx \l_@@_tmpa_tl
 %           {
 %             \prg_replicate:nn
 %               { \c_three - \l_tmpa_int } { 00000 }
 %           }
 %       }
-%     \@@_ltx_changes:nnn { \l_@@_tmp_tl \actualchar #2 }
+%     \@@_ltx_changes:nnn { \l_@@_tmpa_tl \actualchar #2 }
 %   }
 % \cs_new_protected:Npn \@@_version_zfill:n #1
 %   {
 %     \int_incr:N \l_tmpa_int
-%     \tl_put_right:Nx \l_@@_tmp_tl
+%     \tl_put_right:Nx \l_@@_tmpa_tl
 %       {
 %         \prg_replicate:nn
 %           { \int_max:nn { 0 } { 5 - \tl_count:n { #1 } } } { 0 }
@@ -4148,14 +4218,14 @@ version.
 \cs_new_protected:Npn \@@_save_version_date:nn #1#2
   {
     \prop_get:NnNTF \g_@@_version_date_prop
-      { #1 } \l_@@_tmp_tl
+      { #1 } \l_@@_tmpa_tl
       {
 %    \end{macrocode}
 % \cs{l_@@_tmp_tl} 相当于两个参数（开始日期、结束日期），
 % 因此需要提前展开。
 %    \begin{macrocode}
         \exp_after:wN
-          \@@_save_version_date_aux:nnnn \l_@@_tmp_tl
+          \@@_save_version_date_aux:nnnn \l_@@_tmpa_tl
         { #2 } { #1 }
       }
       { \@@_save_version_date:nnn { #1 } { #2 } { #2 } }
@@ -4223,10 +4293,10 @@ version.
   {
     \@idxitem
     \prop_get:NnNTF \g_@@_version_date_prop
-      { #1 } \l_@@_tmp_tl
+      { #1 } \l_@@_tmpa_tl
       {
         \exp_after:wN
-          \@@_print_version_date:nnn \l_@@_tmp_tl
+          \@@_print_version_date:nnn \l_@@_tmpa_tl
         { #1 }
       }
       { \BOOM }
@@ -4322,13 +4392,12 @@ version.
    \rightskip\z@ \parindent\z@ \parfillskip\@flushglue
 %    \end{macrocode}
 % 按照 \LaTeXe{} 中 \tn{verbatim} 环境中定义 \tn{par}，使得空行
-% 可以原样输出。
-% TODO(20170731): 不很确定，但似乎已经没有用了。注释掉。
+% 可以原样输出，否则空行会被吃掉。
 %    \begin{macrocode}
-%    \blank@linefalse \def\par{\ifblank@line
-%                              \leavevmode\fi
-%                              \blank@linetrue\@@@@par
-%                              \penalty\interlinepenalty}
+   \blank@linefalse \def\par{\ifblank@line
+                             \leavevmode\fi
+                             \blank@linetrue\@@@@par
+                             \penalty\interlinepenalty}
 %    \end{macrocode}
 % \tn{obeylines} 将把回车符 |^^M| 变成 \tn{par}。
 % 接下来将所有特殊符号的类别码设为 12，即“其他”类。
@@ -4382,23 +4451,23 @@ version.
 \cs_new_protected_nopar:Npn \@@_marco_code:w
   {
     \ifcodeline@index
-      \@@_marco_every_par:n { \@@_code_line_no: }
+      \@@_marco_code_every_par:n { \@@_code_line_no: }
     \else:
-      \@@_marco_every_par:n { }
+      \@@_marco_code_every_par:n { }
     \fi:
 %    \end{macrocode}
 % 设置代码段结束标记为“\verb*|%    \end{macrocode}^^M|”。
 %    \begin{macrocode}
     \exp_args:Nx \@@_make_finish_tag:n { \@currenvir }
-    \@@_verbatim_start:w
+    \@@_macro_code_start:w
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_marco_every_par:n}
+% \begin{macro}[int]{\@@_marco_code_every_par:n}
 % 在每段之前插入内容。这里每段即相当于每行。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_marco_every_par:n #1
+\cs_new_protected:Npn \@@_marco_code_every_par:n #1
   {
     \everypar
       {
@@ -4415,13 +4484,13 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% 设置 \tn{endlinechar} 为 -1，表示行末不插入任何字符
+% 设置 \tn{endlinechar} 为 $-1$，表示行末不插入任何字符
 % （实际上相当于在行尾插入注释符 |%|）。
 %    \begin{macrocode}
   \int_set_eq:NN \tex_endlinechar:D \c_minus_one
 %    \end{macrocode}
 %
-% \begin{variable}[aux]{\c_@@_active_space_tl}
+% \begin{variable}[int]{\c_@@_active_space_tl}
 % 活动字符类的空格（ASCII 码为 32）。
 %    \begin{macrocode}
   \use:n
@@ -4449,7 +4518,7 @@ version.
 %    \begin{macrocode}
   \cs_new_protected:Npx \@@_make_finish_tag:n #1
     {
-      \tl_set:Nn \exp_not:N \l_@@_verbatim_finish_tl
+      \tl_set:Nn \exp_not:N \l_@@_macro_code_finish_tl
         {
           \c_percent_str
           \prg_replicate:nn { 4 }
@@ -4462,34 +4531,34 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_verbatim_start:w}
+% \begin{macro}[aux]{\@@_macro_code_start:w}
 % 开始代码抄录环境。此命令主要是为了防止 |\begin{macrocode}|
 % 后出现多余的空行。
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_verbatim_start:w #1
+  \cs_new_protected:Npn \@@_macro_code_start:w #1
     {
       \str_if_eq:nnTF { #1 } { ^^M }
-        { \@@_verbatim_read_line:w }
-        { \@@_verbatim_read_line:w #1 }
+        { \@@_macro_code_read_line:w }
+        { \@@_macro_code_read_line:w #1 }
     }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_verbatim_read_line:w}
+% \begin{macro}[aux]{\@@_macro_code_read_line:w}
 % 逐行读取代码，并连同行尾回车符一并存入
-% \cs{\l_@@_verbatim_line_tl}。如果该行与结束标记
+% \cs{\l_@@_macro_code_line_tl}。如果该行与结束标记
 % “\verb*|%    \end{macrocode}^^M|”相同，则结束此
 % \env{macrocode}；否则继续处理该行代码。
 %    \begin{macrocode}
-  \cs_new_protected:Npn \@@_verbatim_read_line:w #1 ^^M
+  \cs_new_protected:Npn \@@_macro_code_read_line:w #1 ^^M
     {
-      \tl_set:Nn \l_@@_verbatim_line_tl { #1 ^^M }
+      \tl_set:Nn \l_@@_macro_code_line_tl { #1 ^^M }
       \tl_if_eq:NNTF
-        \l_@@_verbatim_line_tl \l_@@_verbatim_finish_tl
+        \l_@@_macro_code_line_tl \l_@@_macro_code_finish_tl
         { \exp_args:Nx \end { \@currenvir } }
         {
-          \@@_verbatim_process_line:
-          \@@_verbatim_read_line:w
+          \@@_macro_code_process_line:
+          \@@_macro_code_read_line:w
         }
     }
 %    \end{macrocode}
@@ -4503,38 +4572,34 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[aux]{\l_@@_verbatim_line_tl,
-%   \l_@@_verbatim_finish_tl,
-%   \g_@@_verbatim_verb_stop_tl}
-% 分别用来存储代码行、结束标记、
+% \begin{variable}[int]{\l_@@_macro_code_line_tl,
+%   \l_@@_macro_code_finish_tl,
+%   \g_@@_macro_code_verb_stop_tl}
+% 分别用来存储代码行、\env{macrocode} 结束标记以及抄录停止标记。
 %    \begin{macrocode}
-\tl_new:N \l_@@_verbatim_line_tl
-\tl_new:N \l_@@_verbatim_finish_tl
-\tl_new:N \g_@@_verbatim_verb_stop_tl
+\tl_new:N \l_@@_macro_code_line_tl
+\tl_new:N \l_@@_macro_code_finish_tl
+\tl_new:N \g_@@_macro_code_verb_stop_tl
 %    \end{macrocode}
 % \end{variable}
 %
 % \begin{macro}[aux]{\@@_process_normal_line:}
-% 如果代码行开头是 |%|，则检查 guard 后输出；否则正常输出。
+% 处理普通代码行。
+% 如果代码行开头是 |%|，则检查 |<| 后输出；否则正常输出。
 %    \begin{macrocode}
-% \tl_new:N \l__mytest_tl
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
   {
     \str_if_eq_x:nnTF
-      { \str_head:N \l_@@_verbatim_line_tl } { \c_percent_str }
+      { \str_head:N \l_@@_macro_code_line_tl }
+      { \c_percent_str }
       {
-% \tl_set_eq:NN \l__mytest_tl \l_@@_verbatim_line_tl
-% \tl_show:N \l__mytest_tl
-% \tl_set:Nx \l__mytest_tl { \tl_tail:N \l_@@_verbatim_line_tl }
-% \tl_show:N \l__mytest_tl
+%    \end{macrocode}
+% 命令 \cs{tl_tail:N} 将去掉代码行开头的 |%|。之后检查 |<|。
+%    \begin{macrocode}
         % \@@_check_angle:x 会去掉 <xxx>，
         % 但 <xxx> some code 这种则不会去掉
         \@@_check_angle:x
-          { \tl_tail:N \l_@@_verbatim_line_tl }
-% \tl_set_eq:NN \l__mytest_tl \l_@@_verbatim_line_tl
-% \tl_show:N \l__mytest_tl
-% \tl_set:Nx \l__mytest_tl { \tl_tail:N \l_@@_verbatim_line_tl }
-% \tl_show:N \l__mytest_tl
+          { \tl_tail:N \l_@@_macro_code_line_tl }
       }
       { \@@_output_line: }
   }
@@ -4542,48 +4607,67 @@ version.
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_process_verb_line:}
-% 
+% 处理抄录代码行（不检查 |%| 与 |<|）。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_verb_line:
   {
-    \tl_if_eq:NNTF \l_@@_verbatim_line_tl
-        \g_@@_verbatim_verb_stop_tl
+%    \end{macrocode}
+% 将该行与抄录停止标记进行比较。
+%    \begin{macrocode}
+    \tl_if_eq:NNTF \l_@@_macro_code_line_tl
+        \g_@@_macro_code_verb_stop_tl
+%    \end{macrocode}
+% 若相同，则结束抄录环境，清空停止标记，并输出该标记；
+%    \begin{macrocode}
       {
-        \tl_gclear:N \g_@@_verbatim_verb_stop_tl
-        \cs_gset_eq:NN \@@_verbatim_process_line:
+        \tl_gclear:N \g_@@_macro_code_verb_stop_tl
+        \cs_gset_eq:NN \@@_macro_code_process_line:
           \@@_process_normal_line:
-        \@@_output_module:nn
-          { \color { verb@guard } }
-          { \@@_module_pop:n { \l_@@_verbatim_line_tl } }
+        \@@_output_verbatim_tag:nn
+          { \color { verb@guard } } { end }
       }
-      { \tl_use:N \l_@@_verbatim_line_tl }
+%    \end{macrocode}
+% 否则直接输出抄录代码。
+%    \begin{macrocode}
+      { \tl_use:N \l_@@_macro_code_line_tl }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_verbatim_process_line:}
+% \begin{macro}[aux]{\@@_macro_code_process_line:}
+% 处理代码行。
+% 正常情况下，该命令等同于 \cs{@@_process_normal_line:}；
+% 在 \cs{DontCheckModules} 之后，等价于 \cs{@@_output_line:}，
+% 即不处理模块标记，直接输出；
+% 在抄录环境中，等价于 \cs{@@_process_verb_line:}，
+% 此时将不再特殊处理 |%| 开头的代码行。
 %    \begin{macrocode}
-\cs_new_eq:NN \@@_verbatim_process_line:
+\cs_new_eq:NN \@@_macro_code_process_line:
   \@@_process_normal_line:
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\CheckModules,\DontCheckModules}
+% 选择是否检查模块标记。这两个命令原来在 \pkg{doc} 宏包中定义。
 %    \begin{macrocode}
 \DeclareDocumentCommand \CheckModules { }
   {
-    \cs_set_eq:NN \@@_verbatim_process_line:
+    \cs_set_eq:NN \@@_macro_code_process_line:
       \@@_process_normal_line:
   }
 \DeclareDocumentCommand \DontCheckModules { }
   {
-    \cs_set_eq:NN \@@_verbatim_process_line:
+    \cs_set_eq:NN \@@_macro_code_process_line:
       \@@_output_line:
   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_check_angle:n,\@@_check_angle:x}
+% 该函数的参数不带 |%|。检查第一个字符是否是 |<|。
+% 若是，则检查模块；否则立刻输出改行。
+% 注意不带参数的函数 \cs{@@_output_percent_line:} 将会输出
+% \cs{l_@@_macro_code_line_tl}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_angle:n #1
   {
@@ -4596,6 +4680,15 @@ version.
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_check_module:n,\@@_check_module:x}
+% 检查紧跟 |<| 之后的字符。共有四种情况：
+% \begin{itemize}
+%   \item |*|：模块开始（|%<*|\meta{module}|>|）；
+%   \item |/|：模块结束（|%</|\meta{module}|>|）；
+%   \item |@|：名字空间（|%<@@=|\meta{namespace}|>|）；
+%   \item |<|：抄录环境开始（|%<<|\meta{end-tag}）。
+% \end{itemize}
+% 若不是这几种情况，则为单独一行的独立模块
+% （|%<|\meta{module}|>|）。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
@@ -4607,95 +4700,184 @@ version.
         { < } { \@@_module_verb:w }
       }
       { \@@_module_pm:w }
+%    \end{macrocode}
+% 参数 |#1| 将被上面几个 |:w| 型函数吃掉。
+%    \begin{macrocode}
     #1 \q_stop
   }
 \cs_generate_variant:Nn \@@_check_module:n { x }
 %    \end{macrocode}
 % \end{macro}
 %
+% 设置 |>| 为活动字符。
 %    \begin{macrocode}
 \group_begin:
   \char_set_catcode_active:N \>
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\@@_module_star:w}
+% 处理模块开始。
+% |#1| = |<*|\meta{module}|>|，|#2| 为之后的代码。
+%    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
     {
-      \@@_output_module:nn
-        { \@@_star_color: }
-        { \@@_module_push:n { \@@_module_angle:n { #1 } } }
+%    \end{macrocode}
+% 临时变量 \cs{l_@@_tmp_tl} 保存 |<*|\meta{module}|>|
+% 之后的部分，即真实代码。
+%    \begin{macrocode}
+      \tl_set:Nn \l_@@_tmpa_tl {#2}
+%    \end{macrocode}
+% 判断该行是否为空（只含一个回车符 |^^M|）。
+% 若是，则将 |<|\meta{module}|>| 放在行号的右侧；
+% 否则放在左侧，并输出代码。
+%    \begin{macrocode}
+      \tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
+        {
+          \@@_output_module:nn
+            { \@@_star_color: }
+            {
+              \@@_module_push:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
+        {
+          \@@_output_module_left:nn
+            { \@@_star_color: }
+            {
+              \@@_module_push:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
       \@@_output_line:n {#2}
       \@@_star_format:
     }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_slash:w}
+% 处理模块结束。结构与 \cs{@@_module_star:w} 相同。
+% |#1| = |/<|\meta{module}|>|，|#2| 为之后的代码。
+%    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_slash:w #1 > #2 \q_stop
     {
-      \@@_output_module:nn
-        { \@@_slash_color: }
-        { \@@_module_pop:n { \@@_module_angle:n { #1 } } }
+      \tl_set:Nn \l_@@_tmpa_tl {#2}
+      \tl_if_eq:NNTF \l_@@_tmpa_tl \c_@@_active_cr_tl
+        {
+          \@@_output_module:nn
+            { \@@_slash_color: }
+            {
+              \@@_module_pop:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
+        {
+          \@@_output_module_left:nn
+            { \@@_slash_color: }
+            {
+              \@@_module_pop:n
+                { \@@_module_angle:n {#1} }
+            }
+        }
       \@@_output_line:n {#2}
       \@@_slash_format:
     }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_at:w}
+% 名字空间。|#1| 为名字空间的名称（不含 |@@=|），
+% |#2| 为之后的代码。
+%    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_at:w @ @ = #1 > #2 \q_stop
     {
       \@@_output_module:nn
         { \color { at@guard } }
         { \@@_module_angle:n { @ @ = #1 } }
-      \tl_gset:Nn \g__codedoc_module_name_tl { #1 }
+%    \end{macrocode}
+% 设置名字空间为 |#1|。\cls{l3doc} 中将名字空间称为
+% “模块”（module），注意不要混淆。
+%    \begin{macrocode}
+      \tl_gset:Nn \g__codedoc_module_name_tl {#1}
       \@@_output_line:n {#2}
     }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_verb:w}
+% 抄录开始。|#1| = |<|\meta{end-tag}，只有一个 |<|。
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
+    {
+%    \end{macrocode}
+% 重定义 \cs{@@_macro_code_process_line:}，用以输出抄录行。
+%    \begin{macrocode}
+      \cs_gset_eq:NN \@@_macro_code_process_line:
+        \@@_process_verb_line:
+%    \end{macrocode}
+% 设置抄录停止标记。用 \cs{tl_tail:n} 去掉开头的 |<|。
+%    \begin{macrocode}
+      \tl_gset:Nx \g_@@_macro_code_verb_stop_tl
+        { \c_percent_str \tl_tail:n {#1} }
+%    \end{macrocode}
+% 输出 |%<<|\meta{end-tag}。
+%    \begin{macrocode}
+      \@@_output_verbatim_tag:nn
+        { \color { verb@guard } } { begin }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_pm:w}
+% 处理单独一行的模块。|<|\meta{module}|>| 放在行号的左侧。
+% |#1| = 模块名，|#2| 为之后的代码。
+%    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_pm:w #1 > #2 \q_stop
     {
-      \tex_noindent:D
-      \hbox_overlap_left:n
-        {
-          \@@_output_module:nn
-            { \@@_pm_color: }
-            { \@@_module_angle:n { #1 } }
-          \skip_horizontal:n { \leftskip + \smallskipamount }
-        }
+      \@@_output_module_left:nn
+        { \@@_pm_color: }
+        { \@@_module_angle:n { #1 } }
       \group_begin:
         \@@_pm_format:
         \@@_output_line:n {#2}
       \group_end:
     }
-  \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
-    {
-      \cs_gset_eq:NN \@@_verbatim_process_line: \@@_process_verb_line:
-      \tl_gset:Nx \g_@@_verbatim_verb_stop_tl
-        { \c_percent_str \tl_tail:n { #1 } }
-      \@@_output_module:nn
-        { \color { verb@guard } }
-        { \@@_module_push:n { \l_@@_verbatim_line_tl } }
-    }
 \group_end:
-\cs_new_protected_nopar:Npn \@@_output_line:
-  {
-    \tex_noindent:D
-    \@@_replace_at_at:N \l_@@_verbatim_line_tl
-    \tl_use:N \l_@@_verbatim_line_tl
-  }
-\cs_new_protected:Npn \@@_replace_at_at:N #1
-  {
-    \tl_if_empty:NF \g__codedoc_module_name_tl
-      {
-        \exp_args:NNo \@@_replace_at_at_aux:Nn
-          #1 \g__codedoc_module_name_tl
-      }
-  }
-\cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
-  {
-    \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
-    \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
-  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_output_line:n}
+% \begin{macro}[aux]{\@@_output_line:,\@@_output_percent_line:}
+% 输出代码行。参数将被存入 \cs{l_@@_macro_code_line_tl}，
+% 再由不带参数的版本调用。
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_line:n #1
   {
-    \tl_set:Nn \l_@@_verbatim_line_tl { #1 }
-    \tl_if_eq:NNTF \l_@@_verbatim_line_tl \c_@@_active_cr_tl
-      { \tl_use:N \l_@@_verbatim_line_tl }
+    \tl_set:Nn \l_@@_macro_code_line_tl { #1 }
+%    \end{macrocode}
+% 若为空行（只含一个 |^^M|），则直接输出（换行）。
+%    \begin{macrocode}
+    \tl_if_eq:NNTF
+      \l_@@_macro_code_line_tl \c_@@_active_cr_tl
+      { \tl_use:N \l_@@_macro_code_line_tl }
       {
+%    \end{macrocode}
+% 检查开头是否为 |%|，据此分别处理。
+%    \begin{macrocode}
         \str_if_eq_x:nnTF
-          { \str_head:N \l_@@_verbatim_line_tl }
+          { \str_head:N \l_@@_macro_code_line_tl }
           { \c_percent_str }
           { \@@_output_percent_line: }
           { \@@_output_line: }
       }
+  }
+\cs_new_protected_nopar:Npn \@@_output_line:
+  {
+    \tex_noindent:D
+%    \end{macrocode}
+% 此处将把 |@@| 替换为相应的名字空间。
+%    \begin{macrocode}
+    \@@_replace_at_at:N \l_@@_macro_code_line_tl
+    \tl_use:N \l_@@_macro_code_line_tl
   }
 \cs_new_protected:Npn \@@_output_percent_line:
   {
@@ -4708,8 +4890,48 @@ version.
       \@@_output_line:
     \group_end:
   }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_replace_at_at:N}
+% \begin{macro}[aux]{\@@_replace_at_at_aux:Nn}
+% 把 |@@| 替换为相应的名字空间。其名称存放在全局变量
+% \cs{g__codedoc_module_name_tl} 中。
+% 它为空时（|%<@@=>|），不做替换。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_replace_at_at:N #1
+  {
+    \tl_if_empty:NF \g__codedoc_module_name_tl
+      {
+        \exp_args:NNo \@@_replace_at_at_aux:Nn
+          #1 \g__codedoc_module_name_tl
+      }
+  }
+\cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
+  {
+%    \end{macrocode}
+% 两项分别对应内部变量（“|\|\meta{type}|_@@_|\meta{name}” $\to$
+% “|\|\meta{type}|__|\meta{namespace}|_|\meta{name}”）
+% 和函数（“|\@@_|\meta{name}” $\to$
+% “|\__|\meta{namespace}|_|\meta{name}”）。
+%    \begin{macrocode}
+    \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
+    \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_push:n}
+% \begin{macro}[aux]{\@@_module_push_aux:nn}
+% 
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_push:n
-  { \exp_args:No \@@_module_push_aux:nn { \int_use:N \c@HD@hypercount } }
+  {
+    \exp_args:No \@@_module_push_aux:nn
+      { \int_use:N \c@HD@hypercount }
+  }
 \cs_new_protected:Npn \@@_module_push_aux:nn #1
   {
     \seq_gpush:Nn \g_@@_module_dest_seq { #1 }
@@ -4717,10 +4939,18 @@ version.
     \exp_args:Nx \hdclindex
       { \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
   }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_pop:n}
+% \begin{macro}[aux]{\@@_module_pop_aux:nn}
+% 
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_pop:n
   {
-    \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmp_tl
-      { \exp_args:No \@@_module_pop_aux:nn { \l_@@_tmp_tl } }
+    \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
+      { \exp_args:No \@@_module_pop_aux:nn { \l_@@_tmpa_tl } }
       { \BOOM \use:n }
   }
 \cs_new_protected:Npn \@@_module_pop_aux:nn #1
@@ -4729,6 +4959,11 @@ version.
     \hypersetup { hidelinks }
     \hdclindex { #1 } { }
   }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%    \begin{macrocode}
 \seq_new:N \g_@@_module_dest_seq
 \zref@newlist { ctxdoc }
 \zref@newprop { guard@end } [ 1 ]
@@ -4814,6 +5049,46 @@ version.
       \footnotesize \normalfont \sffamily #2
     \group_end:
   }
+%%%%%%%%% 新加的，左侧输出 module
+\cs_new_protected:Npn \@@_output_module_left:nn #1#2
+  {
+    \tex_noindent:D
+    \hbox_overlap_left:n
+      {
+        \@@_output_module:nn {#1} {#2}
+        \skip_horizontal:n { \leftskip + \smallskipamount }
+      }
+  }
+%%%%%%%%% 也是新加的 #2=“begin/end”的 lable
+% 首先去掉 \l_@@_macro_code_line_tl 最后的 ^^M
+% 接着正常输出（做一个判断）
+% 最后补上 \par
+\cs_new_protected:Npn \@@_output_verbatim_tag:nn #1#2
+  {
+    \tl_reverse:N \l_@@_macro_code_line_tl
+    % tmpa 被 \@@_module_pop:n 用了
+    \tl_set:Nx \l_@@_tmpb_tl
+      { \tl_tail:N \l_@@_macro_code_line_tl }
+    \tl_reverse:N \l_@@_tmpb_tl
+    % 用最简单的方式判断该 push 还是 pop
+    \tl_if_eq:nnTF {#2} { begin }
+      {
+        \@@_output_module:nn {#1}
+          { \@@_module_push:n { \l_@@_tmpb_tl } }
+      }
+      {
+        \tl_if_eq:nnTF {#2} { end }
+          {
+            \@@_output_module:nn {#1}
+              { \@@_module_pop:n { \l_@@_tmpb_tl } }
+          }
+          { \BOOM }
+      }
+    \par
+  }
+
+
+
 \cs_new_protected_nopar:Npn \@@_star_color:
   {
     \seq_gpop:NNTF \g_@@_star_color_seq \current@color
