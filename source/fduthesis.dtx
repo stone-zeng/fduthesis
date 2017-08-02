@@ -3671,32 +3671,32 @@ version.
 % \subsection{附：\cls{fduthesis} 模板文档样式}
 %    \begin{macrocode}
 %<*测试文本>% some code
-% some code
-% some code
-% some code
-% some code
-% some code
+ % some code
+ % some code
+ % some code
+ % some code
+ % some code
 %<doc1> %vadsvsdvda
 %<*doc2>
-% some code
-% some code
-% some code
+ % some code
+ % some code
+ % some code
 %</doc2>%cadvs
-% some code
-% some code
-% some code
-% some code
-% some code
+ % some code
+ % some code
+ % some code
+ % some code
+ % some code
 %<*doc2> % some code
-% some code
-% some code
+ % some code
+ % some code
 % some code
 %<doc1>vadsvsdvda
 % some code
 %<doc1|doc3> %vadsvsdvda
-% some code
-% some code
-% some code
+ % some code
+ % some code
+ % some code
 %<*doc3>
   % some code
   % some code
@@ -4362,6 +4362,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{\texttt{macrocode} 环境}
+% \paragraph{继承的代码}
 % \begin{macro}[int]{\macro@code}
 % 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由
 % \tn{macro@code} 负责实现，而 \tn{xmacro@code} 只用来结束
@@ -4385,9 +4386,12 @@ version.
 % 构建 \env{trivlist} 环境，设置段间距为 0。
 % 之后修改字体，并调节左右间距。\tn{MacroIndent} 会根据代码行数
 % 更新，具体细节见后文。
+% \tn{macro@font} 用来在不同模块见切换字体。本文档类不使用
+% \tn{AltMacroFont}，因此这里改用 \tn{MacroFont} 代替。
 %    \begin{macrocode}
    \trivlist \parskip \z@ \item[]%
-   \macro@font
+%    \macro@font
+   \MacroFont
    \leftskip\@totalleftmargin \advance\leftskip\MacroIndent
    \rightskip\z@ \parindent\z@ \parfillskip\@flushglue
 %    \end{macrocode}
@@ -4431,6 +4435,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \paragraph{处理代码行}
 % \begin{macro}[int]{\xmacro@code,\sxmacro@code}
 % 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，
 % 将对代码逐行处理。后者会将空格显示为“\textvisiblespace”。
@@ -4532,7 +4537,7 @@ version.
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_macro_code_start:w}
-% 开始代码抄录环境。此命令主要是为了防止 |\begin{macrocode}|
+% 开始代码环境。此命令主要是为了防止 |\begin{macrocode}|
 % 后出现多余的空行。
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_macro_code_start:w #1
@@ -4546,7 +4551,7 @@ version.
 %
 % \begin{macro}[aux]{\@@_macro_code_read_line:w}
 % 逐行读取代码，并连同行尾回车符一并存入
-% \cs{\l_@@_macro_code_line_tl}。如果该行与结束标记
+% \cs{l_@@_macro_code_line_tl}。如果该行与结束标记
 % “\verb*|%    \end{macrocode}^^M|”相同，则结束此
 % \env{macrocode}；否则继续处理该行代码。
 %    \begin{macrocode}
@@ -4574,12 +4579,12 @@ version.
 %
 % \begin{variable}[int]{\l_@@_macro_code_line_tl,
 %   \l_@@_macro_code_finish_tl,
-%   \g_@@_macro_code_verb_stop_tl}
+%   \g_@@_macro_code_verbatim_stop_tl}
 % 分别用来存储代码行、\env{macrocode} 结束标记以及抄录停止标记。
 %    \begin{macrocode}
 \tl_new:N \l_@@_macro_code_line_tl
 \tl_new:N \l_@@_macro_code_finish_tl
-\tl_new:N \g_@@_macro_code_verb_stop_tl
+\tl_new:N \g_@@_macro_code_verbatim_stop_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -4606,21 +4611,21 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_process_verb_line:}
+% \begin{macro}[aux]{\@@_process_verbatim_line:}
 % 处理抄录代码行（不检查 |%| 与 |<|）。
 %    \begin{macrocode}
-\cs_new_protected_nopar:Npn \@@_process_verb_line:
+\cs_new_protected_nopar:Npn \@@_process_verbatim_line:
   {
 %    \end{macrocode}
 % 将该行与抄录停止标记进行比较。
 %    \begin{macrocode}
     \tl_if_eq:NNTF \l_@@_macro_code_line_tl
-        \g_@@_macro_code_verb_stop_tl
+        \g_@@_macro_code_verbatim_stop_tl
 %    \end{macrocode}
 % 若相同，则结束抄录环境，清空停止标记，并输出该标记；
 %    \begin{macrocode}
       {
-        \tl_gclear:N \g_@@_macro_code_verb_stop_tl
+        \tl_gclear:N \g_@@_macro_code_verbatim_stop_tl
         \cs_gset_eq:NN \@@_macro_code_process_line:
           \@@_process_normal_line:
         \@@_output_verbatim_tag:nn
@@ -4638,8 +4643,8 @@ version.
 % 处理代码行。
 % 正常情况下，该命令等同于 \cs{@@_process_normal_line:}；
 % 在 \cs{DontCheckModules} 之后，等价于 \cs{@@_output_line:}，
-% 即不处理模块标记，直接输出；
-% 在抄录环境中，等价于 \cs{@@_process_verb_line:}，
+% 即不检查模块标记，直接输出；
+% 在抄录环境中，等价于 \cs{@@_process_verbatim_line:}，
 % 此时将不再特殊处理 |%| 开头的代码行。
 %    \begin{macrocode}
 \cs_new_eq:NN \@@_macro_code_process_line:
@@ -4647,8 +4652,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \paragraph{处理模块标记}
 % \begin{macro}{\CheckModules,\DontCheckModules}
-% 选择是否检查模块标记。这两个命令原来在 \pkg{doc} 宏包中定义。
+% 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，
+% 此处重新声明。
 %    \begin{macrocode}
 \DeclareDocumentCommand \CheckModules { }
   {
@@ -4749,7 +4756,7 @@ version.
             }
         }
       \@@_output_line:n {#2}
-      \@@_star_format:
+      %\@@_star_format:
     }
 %    \end{macrocode}
 % \end{macro}
@@ -4779,7 +4786,7 @@ version.
             }
         }
       \@@_output_line:n {#2}
-      \@@_slash_format:
+      %\@@_slash_format:
     }
 %    \end{macrocode}
 % \end{macro}
@@ -4812,11 +4819,11 @@ version.
 % 重定义 \cs{@@_macro_code_process_line:}，用以输出抄录行。
 %    \begin{macrocode}
       \cs_gset_eq:NN \@@_macro_code_process_line:
-        \@@_process_verb_line:
+        \@@_process_verbatim_line:
 %    \end{macrocode}
 % 设置抄录停止标记。用 \cs{tl_tail:n} 去掉开头的 |<|。
 %    \begin{macrocode}
-      \tl_gset:Nx \g_@@_macro_code_verb_stop_tl
+      \tl_gset:Nx \g_@@_macro_code_verbatim_stop_tl
         { \c_percent_str \tl_tail:n {#1} }
 %    \end{macrocode}
 % 输出 |%<<|\meta{end-tag}。
@@ -4837,7 +4844,7 @@ version.
         { \@@_pm_color: }
         { \@@_module_angle:n { #1 } }
       \group_begin:
-        \@@_pm_format:
+        %\@@_pm_format:
         \@@_output_line:n {#2}
       \group_end:
     }
@@ -4925,7 +4932,7 @@ version.
 %
 % \begin{macro}[int]{\@@_module_push:n}
 % \begin{macro}[aux]{\@@_module_push_aux:nn}
-% 
+% 将模块名压入栈中。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_push:n
   {
@@ -4945,7 +4952,7 @@ version.
 %
 % \begin{macro}[int]{\@@_module_pop:n}
 % \begin{macro}[aux]{\@@_module_pop_aux:nn}
-% 
+% 将模块名释放出栈。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_pop:n
   {
@@ -4963,84 +4970,108 @@ version.
 % \end{macro}
 % \end{macro}
 %
+% \begin{variable}{\g_@@_module_dest_seq}
+% 存放模块名的序列（栈）。
 %    \begin{macrocode}
 \seq_new:N \g_@@_module_dest_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% 处理行号超链接。使用 \pkg{zref} 宏包。
+%    \begin{macrocode}
 \zref@newlist { ctxdoc }
 \zref@newprop { guard@end } [ 1 ]
   { \int_eval:n { \c@HD@hypercount - 1 } }
 \zref@addprop { ctxdoc } { guard@end }
-\cs_new_protected_nopar:Npn \@@_star_format:
-  {
-    \seq_gpush:No \g_@@_slash_format_seq { \macro@font }
-    \seq_gpop:NNF \g_@@_star_format_seq \l_@@_format_tl
-      { \@@_pop_format: }
-    \@@_select_format:
-  }
-\cs_new_protected_nopar:Npn \@@_slash_format:
-  {
-    \seq_gpop:NNTF \g_@@_slash_format_seq \l_@@_format_tl
-      {
-        \seq_gpush:No \g_@@_star_format_seq { \macro@font }
-        \@@_select_format:
-      }
-      { \BOOM }
-  }
-\cs_new_protected_nopar:Npn \@@_pm_format:
-  {
-    \seq_get:NNF \g_@@_star_format_seq \l_@@_format_tl
-      {
-        \@@_pop_format:
-        \seq_gpush:No \g_@@_star_format_seq { \l_@@_format_tl }
-      }
-    \cs_if_eq:NNF \macro@font \l_@@_format_tl
-      { \l_@@_format_tl }
-  }
-\cs_new_protected_nopar:Npn \@@_pop_format:
-  {
-    \seq_gpop_left:NN \g_@@_format_seq \l_@@_format_tl
-    \seq_gput_right:No \g_@@_format_seq { \l_@@_format_tl }
-  }
-\cs_new_protected_nopar:Npn \@@_select_format:
-  {
-    \cs_if_eq:NNF \macro@font \l_@@_format_tl
-      {
-        \cs_gset_eq:NN \macro@font \l_@@_format_tl
-        \macro@font
-      }
-  }
-\tl_new:N \l_@@_format_tl
-\seq_new:N \g_@@_format_seq
-\seq_new:N \g_@@_star_format_seq
-\seq_new:N \g_@@_slash_format_seq
-\seq_gput_right:Nn \g_@@_format_seq { \MacroFont }
-\seq_gput_right:Nn \g_@@_format_seq { \AltMacroFont }
+%    \end{macrocode}
+%
+% \paragraph{格式处理}
+% 以下内容用来根据模块的嵌套层次切换字体。已弃用。
+%    \begin{macrocode}
+% \cs_new_protected_nopar:Npn \@@_star_format:
+%   {
+%     \seq_gpush:No \g_@@_slash_format_seq { \macro@font }
+%     \seq_gpop:NNF \g_@@_star_format_seq \l_@@_format_tl
+%       { \@@_pop_format: }
+%     \@@_select_format:
+%   }
+% \cs_new_protected_nopar:Npn \@@_slash_format:
+%   {
+%     \seq_gpop:NNTF \g_@@_slash_format_seq \l_@@_format_tl
+%       {
+%         \seq_gpush:No \g_@@_star_format_seq { \macro@font }
+%         \@@_select_format:
+%       }
+%       { \BOOM }
+%   }
+% \cs_new_protected_nopar:Npn \@@_pm_format:
+%   {
+%     \seq_get:NNF \g_@@_star_format_seq \l_@@_format_tl
+%       {
+%         \@@_pop_format:
+%         \seq_gpush:No \g_@@_star_format_seq
+%           { \l_@@_format_tl }
+%       }
+%     \cs_if_eq:NNF \macro@font \l_@@_format_tl
+%       { \l_@@_format_tl }
+%   }
+% \cs_new_protected_nopar:Npn \@@_pop_format:
+%   {
+%     \seq_gpop_left:NN \g_@@_format_seq \l_@@_format_tl
+%     \seq_gput_right:No \g_@@_format_seq
+%       { \l_@@_format_tl }
+%   }
+% \cs_new_protected_nopar:Npn \@@_select_format:
+%   {
+%     \cs_if_eq:NNF \macro@font \l_@@_format_tl
+%       {
+%         \cs_gset_eq:NN \macro@font \l_@@_format_tl
+%         \macro@font
+%       }
+%   }
+% \tl_new:N \l_@@_format_tl
+% \seq_new:N \g_@@_format_seq
+% \seq_new:N \g_@@_star_format_seq
+% \seq_new:N \g_@@_slash_format_seq
+% \seq_gput_right:Nn \g_@@_format_seq { \MacroFont }
+% \seq_gput_right:Nn \g_@@_format_seq { \AltMacroFont }
+%    \end{macrocode}
+%
+% \begin{macro}{\MacroFont}
+% 代码部分的字体。
+%    \begin{macrocode}
 \cs_set_protected:Npn \MacroFont
   {
-%% Modified by Xiangdong Zeng, 2017-06-25.
     \linespread { 1.05 }
-%%%%    \linespread { 1 }
-    \small
-    \fontseries { \mddefault }
-    \fontshape  { \updefault }
-    \ttfamily
+    \small \ttfamily \mdseries \upshape
     \ctexdocverbaddon
   }
-%% Modified by Xiangdong Zeng, 2017-07-11.
-\cs_set_eq:NN \AltMacroFont \MacroFont
-%%%%\cs_set_protected:Npn \AltMacroFont
-%%%%  {
-%%%%    \linespread { 1 }
-%%%%    \small
-%%%%    \fontseries { \mddefault }
-%%%%    \fontshape  { \sldefault }
-%%%%    \ttfamily
-%%%%    \ctexdocverbaddon
-%%%%  }
-\AtBeginDocument
-  {
-    \tl_gset:Nx \macro@font
-      { \seq_item:Nn \g_@@_format_seq { 1 } }
-  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 代码部分字体（变体）。已弃用。
+%    \begin{macrocode}
+% \cs_set_protected:Npn \AltMacroFont
+%   {
+%     \linespread { 1 }
+%     \small
+%     \fontseries { \mddefault }
+%     \fontshape  { \sldefault }
+%     \ttfamily
+%     \ctexdocverbaddon
+%   }
+% \AtBeginDocument
+%   {
+%     \tl_gset:Nx \macro@font
+%       { \seq_item:Nn \g_@@_format_seq { 1 } }
+%   }
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\@@_output_module:nn,
+%   \@@_output_module_left:nn}
+% 输出模块名（分行内和行号左侧两种）。
+% |#1| = 颜色等样式，|#2| = 模块名。
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_module:nn #1#2
   {
     \tex_noindent:D
@@ -5049,7 +5080,6 @@ version.
       \footnotesize \normalfont \sffamily #2
     \group_end:
   }
-%%%%%%%%% 新加的，左侧输出 module
 \cs_new_protected:Npn \@@_output_module_left:nn #1#2
   {
     \tex_noindent:D
@@ -5059,18 +5089,32 @@ version.
         \skip_horizontal:n { \leftskip + \smallskipamount }
       }
   }
-%%%%%%%%% 也是新加的 #2=“begin/end”的 lable
-% 首先去掉 \l_@@_macro_code_line_tl 最后的 ^^M
-% 接着正常输出（做一个判断）
-% 最后补上 \par
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_output_verbatim_tag:nn}
+% 输出抄录标记。
+% |#1| = 颜色等样式，|#2| = |begin| 或 |end|。
+% 在 \cls{ctxdoc} 中，抄录标记使用 |footnotesize|，
+% 使得该行行距偏小
+% （见 \url{https://github.com/CTeX-org/ctex-kit/issues/303}）。
+% 这里的解决方案是先去掉 \cs{l_@@_macro_code_line_tl} 最后的
+% 回车符 |^^M|，接着正常输出（做一个判断），最后补上 \tn{par}
+% 并换行。
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_verbatim_tag:nn #1#2
   {
     \tl_reverse:N \l_@@_macro_code_line_tl
-    % tmpa 被 \@@_module_pop:n 用了
+%    \end{macrocode}
+% \cs{l_@@_tmpb_tl} 被 \cs{@@_module_pop:n} 使用了。
+%    \begin{macrocode}
     \tl_set:Nx \l_@@_tmpb_tl
       { \tl_tail:N \l_@@_macro_code_line_tl }
     \tl_reverse:N \l_@@_tmpb_tl
-    % 用最简单的方式判断该 push 还是 pop
+%    \end{macrocode}
+% 根据 |#2| 是 |begin| 还是 |end| 来判断应该进栈（push）
+% 还是出栈（pop）。
+%    \begin{macrocode}
     \tl_if_eq:nnTF {#2} { begin }
       {
         \@@_output_module:nn {#1}
@@ -5086,9 +5130,14 @@ version.
       }
     \par
   }
-
-
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_star_color:,
+%   \@@_slash_color:,
+%   \@@_pm_color:}
+% 选择模块标记的颜色。模块标记的颜色会根据嵌套层次而改变。
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_star_color:
   {
     \seq_gpop:NNTF \g_@@_star_color_seq \current@color
@@ -5103,6 +5152,7 @@ version.
         \set@color
         \seq_gpush:No \g_@@_star_color_seq { \current@color }
       }
+      %TODO: 报错：star 与 slash 没有匹配
       { \BOOM }
   }
 \cs_new_protected_nopar:Npn \@@_pm_color:
@@ -5114,22 +5164,50 @@ version.
         \seq_gpush:No \g_@@_star_color_seq { \current@color }
       }
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}[int]{\g_@@_star_color_seq,
+%   \g_@@_slash_color_seq}
+%    \begin{macrocode}
 \seq_new:N \g_@@_star_color_seq
 \seq_new:N \g_@@_slash_color_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}[int]{\@@_select_color:,guard@series}
+% 设置模块标记的颜色序列。\tn{resetcolorseries} 的参数 |3| 表示
+% $\text{嵌套最大深度} - 1$。
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_select_color:
   { \color { guard@series!!+ } }
 \definecolorseries { guard@series }
   { cmyk } { last } { blue } { purple }
 \resetcolorseries [ 3 ] { guard@series }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{verb@guard,at@guard,code@gray}
+% 设置颜色。
+%    \begin{macrocode}
 %% Modified by Xiangdong Zeng, 2017-06-26.
 \definecolor { verb@guard } { named } { MaterialLime600 }
 \definecolor { at@guard }   { named } { MaterialPink    }
 \definecolor { code@gray }  { named } { MaterialGrey    }
-%%%%\definecolor { verb@guard } { rgb }  { 0.5  , 0.5 , 0 }
-%%%%\definecolor { at@guard }   { rgb }  { 0.5  , 0   , 0.5 }
-%%%%\definecolor { code@gray }  { gray } { 0.5 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_module_angle:n}
+% 输出“\textlangle\ldots\textrangle”。
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_module_angle:n #1
   { \textlangle #1 \textrangle }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_code_line_no:}
+% 行号。设置为阿拉伯数字。
+%    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_code_line_no:
   {
     \int_gincr:N \c@CodelineNo
@@ -5146,11 +5224,6 @@ version.
         \tex_kern:D \@totalleftmargin
       }
   }
-%    \end{macrocode}
-%
-% \begin{macro}{\theCodelineNo}
-% 行号设置为阿拉伯数字。
-%    \begin{macrocode}
 \tl_set:Nn \theCodelineNo { \arabic { CodelineNo } }
 %    \end{macrocode}
 % \end{macro}
@@ -5163,6 +5236,9 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[int]{\HD@SetMacroIndent}
+% 设置代码缩进（行号一栏的宽度）。该命令会写进 |.aux| 辅助文件，
+% 以便在二次编译时确定最大行号宽度。
 %    \begin{macrocode}
 \cs_set_protected:Npn \HD@SetMacroIndent #1
   {
@@ -5176,21 +5252,35 @@ version.
       \dim_gset_eq:NN \MacroIndent \MacroIndent
     \group_end:
   }
-%% Added by Xiangdong Zeng, 2017-07-26.
-% 禁用中文、西文之间的空格
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\meta}
+%    \begin{macrocode}
 \RenewDocumentCommand \meta { m }
   {
     \group_begin:
+%    \end{macrocode}
+% 禁用中文、西文之间的空格。
+%    \begin{macrocode}
       \sys_if_engine_xetex:T { \xeCJKsetup{CJKecglue={}} }
       \__codedoc_meta:n { #1 }
     \group_end:
   }
-% 调整 function 字体
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\__codedoc_typeset_functions:}
+% 调整 \env{function} 环境的字体。
+%    \begin{macrocode}
 \ctex_patch_cmd_once:NnnnTF \__codedoc_typeset_functions: { }
   { \small \ttfamily }
   { \footnotesize \CodeFont \CJKCodeFont }
   { } { \ctex_patch_failure:N \__codedoc_meta_original:n }
-%%%% End patch by Xiangdong Zeng
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \ExplSyntaxOff
 \AtBeginDocument{\addtocontents{toc}{\StopSpecialIndexModule}}
 \pdfstringdefDisableCommands{%
@@ -5322,6 +5412,7 @@ version.
   {
     section = {name = {第,节}, format += \raggedright },
     subsubsection / tocline = {\CJKfamily{楷}\CTEXnumberline{#1}#2},
+    paragraph / runin = false,
     indexname = {代码索引}
   }
 %    \end{macrocode}
@@ -5344,12 +5435,13 @@ version.
 %    \begin{macrocode}
 \hypersetup
   {
-    bookmarksopen     = true,
-    bookmarksnumbered = true,
-    colorlinks        = true,
-    linkcolor         = MaterialPink,
-    citecolor         = MaterialGreen,
-    urlcolor          = MaterialIndigo
+    bookmarksopen      = true,
+    bookmarksopenlevel = 4,
+    bookmarksnumbered  = true,
+    colorlinks         = true,
+    linkcolor          = MaterialPink,
+    citecolor          = MaterialGreen,
+    urlcolor           = MaterialIndigo
   }
 %    \end{macrocode}
 %
