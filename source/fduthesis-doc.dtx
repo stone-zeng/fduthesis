@@ -1,4 +1,5 @@
 % \EnableImplementation
+%^^A \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -12,73 +13,6 @@
 %
 % \subsection{附：\cls{fduthesis} 模板文档样式}
 %    \begin{macrocode}
-%<*测试文本>% some code
- % some code
- % some code
- % some code
- % some code
- % some code
-%<doc1> %vadsvsdvda
-%<*doc2>
- % some code
- % some code
- % some code
-%</doc2>%cadvs
- % some code
- % some code
- % some code
- % some code
- % some code
-%<*doc2> % some code
- % some code
- % some code
-% some code
-%<doc1>vadsvsdvda
-% some code
-%<doc1|doc3> %vadsvsdvda
- % some code
- % some code
- % some code
-%<*doc3>
-  % some code
-  % some code
-  % some code
-%</doc3>
-% some code
-% some code
-%</doc2>%cadvs
-% some code
-% some code
-% some code
-% some code
-%<<COMMENT
-1
-2
-3
-4
-% some code
-% some code
- % some code
- % some code
-
-%</doc2>%cadvs
-
-%<doc1> %vadsvsdvda
-3
-2
-1
-%COMMENT
-% 1
-% 2
-% 3
-% some code
-% some code
-% some code
-% some code
-% some code
-% some code
-% some code
-%</测试文本> % some code
 %<*doc>
 \ExplSyntaxOff
 \let\pdfmdfivesum\mdfivesum
@@ -100,7 +34,7 @@
 % \RequirePackage[stable, bottom]{footmisc}
 \RequirePackage[toc]{multitoc}
 \RequirePackage{caption}
-\RequirePackage[showframe]{geometry}
+\RequirePackage{geometry}
 \RequirePackage{listings}
 \RequirePackage{makecell}
 \RequirePackage{siunitx}
@@ -111,150 +45,6 @@
 \RequirePackage{xcolor-material}
 \RequirePackage{zref-base}
 %    \end{macrocode}
-%
-% 调整浮动体、代码等与文字的间距。
-% 见 \url{http://tex.stackexchange.com/a/40896}。
-% \begin{macro}[int]{\@addtocurcol}
-%    \begin{macrocode}
-\patchcmd{\@addtocurcol}%
-  {\vskip \intextsep}%
-  {\edef\save@first@penalty{\the\lastpenalty}\unpenalty
-    \ifnum \lastpenalty = \@M  % hopefully the OR penalty
-       \unpenalty
-    \else
-       \penalty \save@first@penalty \relax % put it back
-    \fi
-    \ifnum\outputpenalty <-\@Mii
-                       \addvspace\intextsep
-                       \vskip\parskip
-    \else
-                       \addvspace\intextsep
-    \fi}%
-  {\typeout{Info: Command `@addtocurcol' patched successfully.}}
-  {\typeout{Warning: Command `@addtocurcol' patched failed.}}
-\patchcmd{\@addtocurcol}%
-  {\vskip\intextsep
-    \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi}%
-  {\ifnum\outputpenalty <-\@Mii
-      \aftergroup\vskip\aftergroup\intextsep
-      \aftergroup\nointerlineskip
-    \else
-      \vskip\intextsep
-    \fi}%
-  {\typeout{Info: Command `@addtocurcol' patched successfully.}}
-  {\typeout{Warning: Command `@addtocurcol' patched failed.}}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}[int]{\@getpen}
-%    \begin{macrocode}
-\patchcmd{\@getpen}{\@M}{\@Mi}
-  {\typeout{Info: Command `@getpen' patched successfully.}}
-  {\typeout{Warning: Command `@getpen' patched failed.}}
-%    \end{macrocode}
-% \end{macro}
-%
-% 不对代码实现的 \tn{section} 以下标题编目录。
-%    \begin{macrocode}
-% \AtBeginEnvironment{implementation}{%
-%   \ifnum\value{tocdepth}>\@ne
-%     \addtocontents{toc}{\protect\value{tocdepth}=1\relax}%
-%   \fi}
-%    \end{macrocode}
-%
-% \begin{macro}[int]{\ctexdocverbaddon,\ctexdisableecglue,
-%   \ctexplainps}
-% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
-% 空格的宽度。需要按编译情况分别定义。
-%    \begin{macrocode}
-\ifxetex
-  \let\ctexdocverbaddon\xeCJKVerbAddon
-  \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
-  \def\ctexplainps{\xeCJKsetup{PunctStyle=plain}}
-  \appto\meta@font@select{\ifinner\ctexdisableecglue\fi}
-\else
-  \let\ctexdocverbaddon\relax
-  \def\ctexdisableecglue{\ltjsetparameter{autoxspacing=false}}
-  \let\ctexplainps\relax
-  \appto\meta@font@select{\ctexdisableecglue}
-\fi
-%    \end{macrocode}
-% \end{macro}
-%
-% 设置标准列表环境样式。
-%    \begin{macrocode}
-\setlist{noitemsep, topsep=\smallskipamount}
-\setlist[1]{labelindent=\parindent}
-\setlist[enumerate]{leftmargin=*}
-\setlist[itemize]{leftmargin=*}
-%    \end{macrocode}
-%
-% \begin{macro}{optdesc}
-% 用于描述各选项。设置条目间距为 \tn{marginparsep}，与
-% \cls{l3doc} 一致。
-%    \begin{macrocode}
-\newlist{optdesc}{description}{3}
-\setlist[optdesc]{%
-  font=\mdseries\small\ttfamily, align=right,
-  listparindent=\parindent,
-  labelsep=\marginparsep, labelindent=-\marginparsep,
-  leftmargin=*}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{tablenotes}
-% 重新定义 \pkg{threeparttable} 包的 |tablenotes| 环境，
-% 用于表格的注释。
-%    \begin{macrocode}
-\renewlist{tablenotes}{description}{1}
-\setlist[tablenotes]{%
-  format=\normalfont\tnote@item, align=right,
-  listparindent=\parindent, labelindent=\tabcolsep,
-  leftmargin=*, rightmargin=\tabcolsep,
-  after=\@noparlisttrue}
-\AtBeginEnvironment{tablenotes}{%
-  \setlength\parindent{2\ccwd}%
-  \normalfont\footnotesize}
-\AtBeginEnvironment{threeparttable}{%
-  \stepcounter{tpt@id}%
-  \edef\curr@tpt@id{tpt@\arabic{tpt@id}}}
-\newcounter{tpt@id}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}[aux]{\tnote@item,\TPTtagStyle}
-%    \begin{macrocode}
-\def\tnote@item#1{%
-  \Hy@raisedlink{\hyper@anchor{\curr@tpt@id-#1}}#1}
-\def\TPTtagStyle#1{\hyperlink{\curr@tpt@id-#1}{#1}}
-%    \end{macrocode}
-% \end{macro}
-%
-% 调整 |function| 环境前后间距。
-%    \begin{macrocode}
-\BeforeBeginEnvironment{function}{\par\nointerlineskip}
-\AtEndEnvironment{function}{%
-  \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
-\AfterEndEnvironment{function}{\ctexfixprevdepth}
-%    \end{macrocode}
-%
-% 调整 |syntax| 环境的样式。
-%    \begin{macrocode}
-\AtBeginEnvironment{syntax}{%
-  \linespread{1.2}\ctexplainps\ctexdisableecglue}
-%    \end{macrocode}
-%
-% \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
-% 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
-% 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
-% 和“restricted-expandable”。
-%    \begin{macrocode}
-\newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
-\newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
-\newcommand*\expstar{\hyperlink{expstar}{$\star$}}
-\newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
-%    \end{macrocode}
-% \end{macro}
 %
 %    \begin{macrocode}
 \ExplSyntaxOn
@@ -449,16 +239,11 @@
 % \begin{macro}[int]{\changes@}
 % \changes{v0.4}{2017/07/30}{修改索引排序方式。}
 % 重定义 \tn{changes@}，在版本号一行显示修改日期。
-% 注释掉的部分是 \cls{ctxdoc} 为改变版本号排序方式而引入的。
 %    \begin{macrocode}
 \cs_set_protected:Npn \changes@ #1#2
   {
     \@@_save_version_date:nn { #1 } { #2 }
     \@@_ltx_changes:nnn { #1 } { #2 }
-%     \tl_if_empty:nTF { #1 }
-%       { \@@_ltx_changes:nnn }
-%       { \@@_version_zfill:wnnn #1 \q_stop }
-%       { #1 } { #2 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -858,8 +643,6 @@
 %    \end{macrocode}
 % 命令 \cs{tl_tail:N} 将去掉代码行开头的 |%|。之后检查 |<|。
 %    \begin{macrocode}
-        % \@@_check_angle:x 会去掉 <xxx>，
-        % 但 <xxx> some code 这种则不会去掉
         \@@_check_angle:x
           { \tl_tail:N \l_@@_macro_code_line_tl }
       }
@@ -1473,8 +1256,148 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{\LaTeXe{} 风格的命令与补丁}
 %    \begin{macrocode}
 \ExplSyntaxOff
+%    \end{macrocode}
+%
+% 调整浮动体、代码等与文字的间距。
+% 见 \url{http://tex.stackexchange.com/a/40896}。
+% \begin{macro}[int]{\@addtocurcol}
+%    \begin{macrocode}
+\patchcmd{\@addtocurcol}%
+  {\vskip \intextsep}%
+  {\edef\save@first@penalty{\the\lastpenalty}\unpenalty
+    \ifnum \lastpenalty = \@M  % hopefully the OR penalty
+       \unpenalty
+    \else
+       \penalty \save@first@penalty \relax % put it back
+    \fi
+    \ifnum\outputpenalty <-\@Mii
+                       \addvspace\intextsep
+                       \vskip\parskip
+    \else
+                       \addvspace\intextsep
+    \fi}%
+  {\typeout{Info: Command `@addtocurcol' patched successfully.}}
+  {\typeout{Warning: Command `@addtocurcol' patched failed.}}
+\patchcmd{\@addtocurcol}%
+  {\vskip\intextsep
+    \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi}%
+  {\ifnum\outputpenalty <-\@Mii
+      \aftergroup\vskip\aftergroup\intextsep
+      \aftergroup\nointerlineskip
+    \else
+      \vskip\intextsep
+    \fi}%
+  {\typeout{Info: Command `@addtocurcol' patched successfully.}}
+  {\typeout{Warning: Command `@addtocurcol' patched failed.}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@getpen}
+%    \begin{macrocode}
+\patchcmd{\@getpen}{\@M}{\@Mi}
+  {\typeout{Info: Command `@getpen' patched successfully.}}
+  {\typeout{Warning: Command `@getpen' patched failed.}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\ctexdocverbaddon,\ctexdisableecglue,
+%   \ctexplainps}
+% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
+% 空格的宽度。需要按编译情况分别定义。
+%    \begin{macrocode}
+\ifxetex
+  \let\ctexdocverbaddon\xeCJKVerbAddon
+  \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
+  \def\ctexplainps{\xeCJKsetup{PunctStyle=plain}}
+  \appto\meta@font@select{\ifinner\ctexdisableecglue\fi}
+\else
+  \let\ctexdocverbaddon\relax
+  \def\ctexdisableecglue{\ltjsetparameter{autoxspacing=false}}
+  \let\ctexplainps\relax
+  \appto\meta@font@select{\ctexdisableecglue}
+\fi
+%    \end{macrocode}
+% \end{macro}
+%
+% 设置标准列表环境样式。
+%    \begin{macrocode}
+\setlist{noitemsep, topsep=\smallskipamount}
+\setlist[1]{labelindent=\parindent}
+\setlist[enumerate]{leftmargin=*}
+\setlist[itemize]{leftmargin=*}
+%    \end{macrocode}
+%
+% \begin{macro}{optdesc}
+% 用于描述各选项。设置条目间距为 \tn{marginparsep}，与
+% \cls{l3doc} 一致。
+%    \begin{macrocode}
+\newlist{optdesc}{description}{3}
+\setlist[optdesc]{%
+  font=\mdseries\small\ttfamily, align=right,
+  listparindent=\parindent,
+  labelsep=\marginparsep, labelindent=-\marginparsep,
+  leftmargin=*}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{tablenotes}
+% 重新定义 \pkg{threeparttable} 包的 |tablenotes| 环境，
+% 用于表格的注释。
+%    \begin{macrocode}
+\renewlist{tablenotes}{description}{1}
+\setlist[tablenotes]{%
+  format=\normalfont\tnote@item, align=right,
+  listparindent=\parindent, labelindent=\tabcolsep,
+  leftmargin=*, rightmargin=\tabcolsep,
+  after=\@noparlisttrue}
+\AtBeginEnvironment{tablenotes}{%
+  \setlength\parindent{2\ccwd}%
+  \normalfont\footnotesize}
+\AtBeginEnvironment{threeparttable}{%
+  \stepcounter{tpt@id}%
+  \edef\curr@tpt@id{tpt@\arabic{tpt@id}}}
+\newcounter{tpt@id}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\tnote@item,\TPTtagStyle}
+%    \begin{macrocode}
+\def\tnote@item#1{%
+  \Hy@raisedlink{\hyper@anchor{\curr@tpt@id-#1}}#1}
+\def\TPTtagStyle#1{\hyperlink{\curr@tpt@id-#1}{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% 调整 |function| 环境前后间距。
+%    \begin{macrocode}
+\BeforeBeginEnvironment{function}{\par\nointerlineskip}
+\AtEndEnvironment{function}{%
+  \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
+\AfterEndEnvironment{function}{\ctexfixprevdepth}
+%    \end{macrocode}
+%
+% 调整 |syntax| 环境的样式。
+%    \begin{macrocode}
+\AtBeginEnvironment{syntax}{%
+  \linespread{1.2}\ctexplainps\ctexdisableecglue}
+%    \end{macrocode}
+%
+% \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
+% 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
+% 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
+% 和“restricted-expandable”。
+%    \begin{macrocode}
+\newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
+\newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
+\newcommand*\expstar{\hyperlink{expstar}{$\star$}}
+\newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \AtBeginDocument{%
   \addtocontents{toc}{\StopSpecialIndexModule}}
 \pdfstringdefDisableCommands{%
@@ -1540,7 +1463,7 @@
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
-\def\usage#1{\textsf{#1}}
+\def\usage#1{\textbf{\textsf{#1}}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1575,28 +1498,47 @@
 %
 % 设置字体。
 %    \begin{macrocode}
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
+% \setmainfont{TeX Gyre Pagella}
+% \setsansfont{TeX Gyre Heros}
+% \setmonofont{CMU Typewriter Text}[%
+%   UprightFont = * Light,
+%   BoldFont    = * Bold,
+%   SlantedFont = * Light Oblique,
+%   HyphenChar  = None]
+% \setmathfont{TeX Gyre Pagella Math}
+% \setCJKmainfont{FZShuSong-Z01}%
+%   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+% \setCJKsansfont{FZHei-B01}%
+%   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+% \setCJKmonofont{FZFangSong-Z02}%
+%   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+% % \setCJKfamilyfont{宋}{FZShuSong-Z01}
+% % \setCJKfamilyfont{黑}{FZHei-B01}
+% % \setCJKfamilyfont{仿}{FZFangSong-Z02}
+% \setCJKfamilyfont{楷}{FZKai-Z03}
+% \newfontfamily\CodeFont{Source Code Pro}%
+%   [BoldFont = Source Code Pro Semibold]
+% \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
+%   [ItalicFont = FZKai-Z03]
+\setmainfont{Linux Libertine O}
+\setsansfont{Linux Biolinum O}
 \setmonofont{CMU Typewriter Text}[%
   UprightFont = * Light,
   BoldFont    = * Bold,
   SlantedFont = * Light Oblique,
   HyphenChar  = None]
-\setmathfont{TeX Gyre Pagella Math}
-\setCJKmainfont{FZShuSong-Z01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-\setCJKsansfont{FZHei-B01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-\setCJKmonofont{FZFangSong-Z02}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-% \setCJKfamilyfont{宋}{FZShuSong-Z01}
-% \setCJKfamilyfont{黑}{FZHei-B01}
-% \setCJKfamilyfont{仿}{FZFangSong-Z02}
-\setCJKfamilyfont{楷}{FZKai-Z03}
+\setmathfont{Libertinus Math}
+\setCJKmainfont{Source Han Serif SC}%
+  [BoldFont = Source Han Sans SC Medium, ItalicFont = FandolKai]
+\setCJKsansfont{Source Han Sans SC Medium}%
+  [BoldFont = Source Han Sans SC Bold, ItalicFont = FandolKai]
+\setCJKmonofont{FandolFang}%
+  [BoldFont = Source Han Sans SC Medium, ItalicFont = FandolKai]
+\setCJKfamilyfont{楷}{FandolKai}
 \newfontfamily\CodeFont{Source Code Pro}%
   [BoldFont = Source Code Pro Semibold]
 \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
-  [ItalicFont = FZKai-Z03]
+  [BoldFont = Source Han Sans SC Bold, ItalicFont = FandolKai]
 %    \end{macrocode}
 %
 % 中文排版格式。
@@ -1802,8 +1744,12 @@
 \hyphenation{set-main-CJK-font}
 \hyphenation{set-math-font}
 
-\DoNotIndex{\begin,\end}
-
+\DoNotIndex{\begin,\end,
+  \a,\b,\c,\d,\e,\f,\g,\h,\i,\j,\k,\l,\m,
+  \n,\o,\p,\q,\r,\s,\t,\u,\v,\w,\x,\y,\z,
+  \A,\B,\C,\D,\E,\F,\G,\H,\I,\J,\K,\L,\M,
+  \N,\O,\P,\Q,\R,\S,\T,\U,\V,\W,\X,\Y,\Z,
+  \0,\1,\2,\3,\4,\5,\6,\7,\8,\9}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
