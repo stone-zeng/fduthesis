@@ -289,7 +289,7 @@ version.
 %
 % \tableofcontents
 %
-% \DisableDocumentation
+%^^A \DisableDocumentation
 %
 % \begin{documentation}
 %
@@ -945,13 +945,13 @@ version.
 %^^A 这里只列出了本模板直接调用的宏包。这些宏包自身的调用情况，
 %^^A 此处不再具体展开。如有需要，请参阅相关文档。
 %^^A
-%^^A \input{fduthesis-doc.bbl}
+% \input{fduthesis-doc.bbl}
 %
 % \end{documentation}
 %
 % \StopEventually{}
 %
-% \DisableImplementation
+%^^A \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -2330,7 +2330,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{密级}
-% \changes{v0.3}{2017/07/04}{新增 |secretlevel| 选项。}
+% \changes{v0.3}{2017/07/04}{新增 \opt{secretlevel} 选项。}
 % \begin{macro}{\l_@@_secret_bool}
 % 是否显示密级。
 %    \begin{macrocode}
@@ -3654,20 +3654,20 @@ version.
 %</user>
 %    \end{macrocode}
 %
-% \end{implementation}
-%
-% \EnableImplementation
-%
-% \begin{implementation}
-%
-%^^A 代码部分的页边距
-% \newgeometry{
-%   left   = 2.50 in,
-%   right  = 1.00 in,
-%   top    = 1.25 in,
-%   bottom = 1.00 in
-% }
-%
+%^^A \end{implementation}
+%^^A
+%^^A \EnableImplementation
+%^^A
+%^^A \begin{implementation}
+%^^A
+%^^A^^A 代码部分的页边距
+%^^A \newgeometry{
+%^^A   left   = 2.50 in,
+%^^A   right  = 1.00 in,
+%^^A   top    = 1.25 in,
+%^^A   bottom = 1.00 in
+%^^A }
+%^^A
 % \subsection{附：\cls{fduthesis} 模板文档样式}
 %    \begin{macrocode}
 %<*测试文本>% some code
@@ -3751,7 +3751,7 @@ version.
 %    \begin{macrocode}
 \LoadClass[a4paper, full]{l3doc}
 \RequirePackage[UTF8, heading, fontset=none]{ctex}
-\RequirePackage[stable, perpage, bottom]{footmisc}
+\RequirePackage[stable, bottom]{footmisc}
 \RequirePackage[toc]{multitoc}
 \RequirePackage{caption}
 \RequirePackage[showframe]{geometry}
@@ -4088,48 +4088,11 @@ version.
 % \end{macro}
 % \end{macro}
 %
-% \subsubsection{\cls{ctxdoc} 开始}
+% \subsubsection{版本历史}
 %    \begin{macrocode}
 %<@@=ctxdoc>
 %    \end{macrocode}
 %
-% \begin{macro}{\package}
-% 带 CTAN 链接的 \cs{pkg} 命令。
-%    \begin{macrocode}
-% \DeclareDocumentCommand \package { o m }
-%   {
-%     \exp_args:Nx \href
-%       {
-%         http \c_colon_str //www.ctan.org/pkg/
-%         \IfNoValueTF { #1 } { \str_fold_case:n {#2} } { #1 }
-%       }
-%       { \pkg {#2} }
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\GetFileId}
-% \begin{variable}[aux]{\g_@@_id_ior}
-% 获取文件 ID。
-%    \begin{macrocode}
-% \DeclareDocumentCommand \GetFileId { m }
-%   {
-%     \GetFileInfo { #1 }
-%     \ior_open:NnTF \g_@@_id_ior { \c_sys_jobname_str .id }
-%       {
-%         \ior_get:NN \g_@@_id_ior \l_@@_tmpa_tl
-%         \ior_close:N \g_@@_id_ior
-%         \exp_after:wN \GetIdInfo \l_@@_tmpa_tl
-%       }
-%       { \GetIdInfo $Id$ }
-%       { \fileinfo }
-%   }
-% \ior_new:N \g_@@_id_ior
-%    \end{macrocode}
-% \end{variable}
-% \end{macro}
-%
-% \subsubsection{版本历史}
 % \begin{macro}[aux]{\@@_ltx_changes:nnn}
 % 保存 \pkg{doc} 中 \tn{changes@} 的定义。
 %    \begin{macrocode}
@@ -4160,46 +4123,6 @@ version.
 \tl_new:N \l_@@_tmpb_tl
 %    \end{macrocode}
 % \end{variable}
-
-% \begin{macro}[aux]{\@@_version_zfill:wnnn,
-%   \@@_version_zfill:nnnn,\@@_version_zfill:n}
-% \cls{ctxdoc} 中对版本号排序方式进行了调整，但会使得诸如“v1.0a”
-% 这样的版本出现在最前。因此这里全部注释掉。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_version_zfill:wnnn #1#2 \q_stop
-%   {
-%     \str_if_eq:nnTF { #1 } { v }
-%       { \@@_version_zfill:nnnn { #2 } }
-%       { \@@_ltx_changes:nnn }
-%   }
-% \cs_new_protected:Npn \@@_version_zfill:nnnn #1#2
-%   {
-%     \tl_clear:N \l_@@_tmpa_tl
-%     \int_zero:N \l_tmpa_int
-%     \seq_set_split:Nnn \l_tmpa_seq { . } { #1 }
-%     \seq_map_function:NN \l_tmpa_seq \@@_version_zfill:n
-%     \int_compare:nNnF \l_tmpa_int > \c_two
-%       {
-%         \tl_put_right:Nx \l_@@_tmpa_tl
-%           {
-%             \prg_replicate:nn
-%               { \c_three - \l_tmpa_int } { 00000 }
-%           }
-%       }
-%     \@@_ltx_changes:nnn { \l_@@_tmpa_tl \actualchar #2 }
-%   }
-% \cs_new_protected:Npn \@@_version_zfill:n #1
-%   {
-%     \int_incr:N \l_tmpa_int
-%     \tl_put_right:Nx \l_@@_tmpa_tl
-%       {
-%         \prg_replicate:nn
-%           { \int_max:nn { 0 } { 5 - \tl_count:n { #1 } } } { 0 }
-%         \exp_not:n { #1 }
-%       }
-%   }
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{variable}[int]{\g_@@_version_date_prop}
 % 存放版本号与对应的修改日期。
@@ -4415,23 +4338,10 @@ version.
    \global\@newlistfalse
    \global\@minipagefalse
 %    \end{macrocode}
-% 检查 \pkg{DocStrip} 模块，输出行号。
-% 此功能已被 \cls{ctxdoc} 接管，具体细节见后文。
-%    \begin{macrocode}
-%    \ifcodeline@index
-%      \everypar{\global\advance\c@CodelineNo\@ne
-%                \llap{\theCodelineNo\ \hskip\@totalleftmargin}%
-%                \check@module}%
-%    \else \everypar{\check@module}%
-%    \fi
-%    \end{macrocode}
 % 初始化交叉引用功能。
 %    \begin{macrocode}
    \init@crossref}
 \ExplSyntaxOn
-% \ctex_patch_cmd:Nnn \macro@code
-%   { \if@inlabel \leavevmode \fi }
-%   { \partopsep \z@skip }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4957,7 +4867,10 @@ version.
 \cs_new_protected_nopar:Npn \@@_module_pop:n
   {
     \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
-      { \exp_args:No \@@_module_pop_aux:nn { \l_@@_tmpa_tl } }
+      {
+        \exp_args:No \@@_module_pop_aux:nn
+          { \l_@@_tmpa_tl }
+      }
       { \BOOM \use:n }
   }
 \cs_new_protected:Npn \@@_module_pop_aux:nn #1
@@ -4986,57 +4899,6 @@ version.
 %    \end{macrocode}
 %
 % \paragraph{格式处理}
-% 以下内容用来根据模块的嵌套层次切换字体。已弃用。
-%    \begin{macrocode}
-% \cs_new_protected_nopar:Npn \@@_star_format:
-%   {
-%     \seq_gpush:No \g_@@_slash_format_seq { \macro@font }
-%     \seq_gpop:NNF \g_@@_star_format_seq \l_@@_format_tl
-%       { \@@_pop_format: }
-%     \@@_select_format:
-%   }
-% \cs_new_protected_nopar:Npn \@@_slash_format:
-%   {
-%     \seq_gpop:NNTF \g_@@_slash_format_seq \l_@@_format_tl
-%       {
-%         \seq_gpush:No \g_@@_star_format_seq { \macro@font }
-%         \@@_select_format:
-%       }
-%       { \BOOM }
-%   }
-% \cs_new_protected_nopar:Npn \@@_pm_format:
-%   {
-%     \seq_get:NNF \g_@@_star_format_seq \l_@@_format_tl
-%       {
-%         \@@_pop_format:
-%         \seq_gpush:No \g_@@_star_format_seq
-%           { \l_@@_format_tl }
-%       }
-%     \cs_if_eq:NNF \macro@font \l_@@_format_tl
-%       { \l_@@_format_tl }
-%   }
-% \cs_new_protected_nopar:Npn \@@_pop_format:
-%   {
-%     \seq_gpop_left:NN \g_@@_format_seq \l_@@_format_tl
-%     \seq_gput_right:No \g_@@_format_seq
-%       { \l_@@_format_tl }
-%   }
-% \cs_new_protected_nopar:Npn \@@_select_format:
-%   {
-%     \cs_if_eq:NNF \macro@font \l_@@_format_tl
-%       {
-%         \cs_gset_eq:NN \macro@font \l_@@_format_tl
-%         \macro@font
-%       }
-%   }
-% \tl_new:N \l_@@_format_tl
-% \seq_new:N \g_@@_format_seq
-% \seq_new:N \g_@@_star_format_seq
-% \seq_new:N \g_@@_slash_format_seq
-% \seq_gput_right:Nn \g_@@_format_seq { \MacroFont }
-% \seq_gput_right:Nn \g_@@_format_seq { \AltMacroFont }
-%    \end{macrocode}
-%
 % \begin{macro}{\MacroFont}
 % 代码部分的字体。
 %    \begin{macrocode}
@@ -5048,24 +4910,6 @@ version.
   }
 %    \end{macrocode}
 % \end{macro}
-%
-% 代码部分字体（变体）。已弃用。
-%    \begin{macrocode}
-% \cs_set_protected:Npn \AltMacroFont
-%   {
-%     \linespread { 1 }
-%     \small
-%     \fontseries { \mddefault }
-%     \fontshape  { \sldefault }
-%     \ttfamily
-%     \ctexdocverbaddon
-%   }
-% \AtBeginDocument
-%   {
-%     \tl_gset:Nx \macro@font
-%       { \seq_item:Nn \g_@@_format_seq { 1 } }
-%   }
-%    \end{macrocode}
 %
 % \begin{macro}[int]{\@@_output_module:nn,
 %   \@@_output_module_left:nn}
@@ -5176,8 +5020,8 @@ version.
 % \end{variable}
 %
 % \begin{macro}[int]{\@@_select_color:,guard@series}
-% 设置模块标记的颜色序列。\tn{resetcolorseries} 的参数 |3| 表示
-% $\text{嵌套最大深度} - 1$。
+% 设置模块标记的颜色序列。\tn{resetcolorseries} 的参数 |3|
+% 比嵌套最大深度少 1。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_select_color:
   { \color { guard@series!!+ } }
@@ -5190,7 +5034,6 @@ version.
 % \begin{macro}[int]{verb@guard,at@guard,code@gray}
 % 设置颜色。
 %    \begin{macrocode}
-%% Modified by Xiangdong Zeng, 2017-06-26.
 \definecolor { verb@guard } { named } { MaterialLime600 }
 \definecolor { at@guard }   { named } { MaterialPink    }
 \definecolor { code@gray }  { named } { MaterialGrey    }
@@ -5282,68 +5125,64 @@ version.
 %
 %    \begin{macrocode}
 \ExplSyntaxOff
-\AtBeginDocument{\addtocontents{toc}{\StopSpecialIndexModule}}
+\AtBeginDocument{%
+  \addtocontents{toc}{\StopSpecialIndexModule}}
 \pdfstringdefDisableCommands{%
   \let\path\meta
   \let\opt\@firstofone}
 \preto\@thehead{\cslet{MakeUppercase\space}{\@iden}}
+%    \end{macrocode}
+%
+% \begin{macro}{\orbar,\defaultval,\TF,\TTF,\TFF,
+%   \opt,\bashcmd}
+% \begin{macro}[aux]{\defaultvalaux}
+% |syntax| 中需要的命令。
+%    \begin{macrocode}
 \def\orbar{\textup{\textbar}}
 \def\defaultval#1{\textbf{\textup{#1}}}
 \def\defaultvalaux#1){\defaultval{#1}}
 \def\TF{true\orbar false}
 \def\TTF{\defaultval{true}\orbar false}
 \def\TFF{true\orbar\defaultval{false}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \protected\def\opt{\texttt}
-\def\pdfTeX{\hologo{pdfTeX}}
-\def\XeTeX{\hologo{XeTeX}}
-\def\XeLaTeX{\hologo{XeLaTeX}}
-\def\LuaLaTeX{\hologo{LuaLaTeX}}
-\def\pdfLaTeX{\hologo{pdfLaTeX}}
+\def\bashcmd{\texttt}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\TeX,\LaTeX,\LaTeXe,\LaTeXiii,
+%   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
+%   \AmSLaTeX,\TeXLive,\MiKTeX}
+% \TeX{} 相关标志。
+%    \begin{macrocode}
+\def\TeX{\hologo{TeX}}
 \def\LaTeX{\hologo{LaTeX}}
 \def\LaTeXe{\hologo{LaTeX2e}}
 \def\LaTeXiii{\hologo{LaTeX3}}
+\def\pdfTeX{\hologo{pdfTeX}}
+\def\pdfLaTeX{\hologo{pdfLaTeX}}
+\def\XeTeX{\hologo{XeTeX}}
+\def\XeLaTeX{\hologo{XeLaTeX}}
+\def\LuaTeX{\hologo{LuaTeX}}
+\def\LuaLaTeX{\hologo{LuaLaTeX}}
 \def\AmSLaTeX{\hologo{AmSLaTeX}}
-\def\dvipdfmx{DVIPDFM\textit{x}}
-\def\TeX{\hologo{TeX}}
-\def\ApTeX{Ap\TeX}
-\def\ApLaTeX{Ap\LaTeX}
-\def\upTeX{up\TeX}
-\def\upLaTeX{up\LaTeX}
-\def\bashcmd{\texttt}
 \def\TeXLive{\TeX\ Live}
 \def\MiKTeX{\hologo{MiKTeX}}
-\def\BSTACK{\begin{tabular}[t]{@{}l@{}}}
-\def\ESTACK{\end{tabular}}
-\newenvironment{defaultcapconfig}{%
-  \MakePercentComment
-  \input{ctex-name-utf8.cfg}%
-  \ExplSyntaxOff
-  \MakePercentIgnore}{}
-%% Modified by Xiangdong Zeng, 2017-04-08.
-%%%%\def\ctexkit{\href{https://github.com/CTeX-org/ctex-kit/}{\texttt{ctex-kit}}}
-%%%%\def\ctexkitrev#1{%
-%%%%  \href{https://github.com/CTeX-org/ctex-kit/commit/#1}{\texttt{ctex-kit} rev. #1}}
-\appto\GlossaryParms{%
-  \raggedcolumns
-  \let\Hy@writebookmark\HDorg@writebookmark
-  \def\@idxitem{\par\hangindent 2em }%
-  \def\subitem{\@idxitem\hspace*{1em}}%
-  \def\subsubitem{\@idxitem\hspace*{2em}}}
-\def\glossaryname{版本历史}
-\GlossaryPrologue{\section{\glossaryname}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\IndexLayout,\usage}
+% 修改索引外观。\tn{usage} 用来控制“描述对应索引项的页码”样式，
+% 在 \pkg{doc} 宏包中原来定义为 \tn{textit}。
+%    \begin{macrocode}
 \IndexPrologue{%
-  \section{\indexname}
-%% Modified by Xiangdong Zeng, 2017-07-19.
-%%%%  \textit{意大利体的数字表示描述对应索引项的页码；
-%%%%  带下划线的数字表示定义对应索引项的代码行号；
-%%%%  罗马字体的数字表示使用对应索引项的代码行号。}}
+  \section{\indexname}%
   \textit{无衬线字体的数字表示描述对应索引项的页码；
   带下划线的数字表示定义对应索引项的代码行号；
   罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
-%% Modified by Xiangdong Zeng, 2017-07-26.
 \def\IndexLayout{%
-%%%%  \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
-  \newgeometry{
+  \newgeometry{%
     left   = 1.00 in,
     right  = 1.00 in,
     top    = 1.25 in,
@@ -5351,34 +5190,38 @@ version.
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
-%% Added by Xiangdong Zeng, 2017-07-18.
-% 修改“描述对应索引项的页码”样式。
 \def\usage#1{\textsf{#1}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Added by Xiangdong Zeng, 2017-06-24.
-\renewenvironment{thebibliography}[1]
-     {\section{\refname}%
-      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
-      \list{\@biblabel{\@arabic\c@enumiv}}%
-           {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\glossaryname}
+% 修改版本历史外观。
+%    \begin{macrocode}
+\appto\GlossaryParms{%
+  \raggedcolumns
+  \let\Hy@writebookmark\HDorg@writebookmark
+  \def\@idxitem{\par\hangindent 2em }%
+  \def\subitem{\@idxitem\hspace*{1em}}%
+  \def\subsubitem{\@idxitem\hspace*{2em}}}
+\GlossaryPrologue{\section{\glossaryname}}
+\def\glossaryname{版本历史}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\thebibliography}
+% \begin{macro}[aux]{\HDorg@thebibliography}
+% 参考文献一节需要编号。
+%    \begin{macrocode}
+\patchcmd{\HDorg@thebibliography}
+  {\section*}{\section}
+  {\typeout{Info: Command `HDorg@thebibliography'
+    patched successfully.}}
+  {\typeout{Warning: Command `HDorg@thebibliography'
+    patched failed.}}
+\let\thebibliography\HDorg@thebibliography
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 %
 % 设置字体。
 %    \begin{macrocode}
@@ -5520,7 +5363,8 @@ version.
   morekeywords    = {\documentclass,\fdusetup},
   emph            = [1]{oneside,twoside,nofonts,draft,%模板选项
       info,style,%meta 选项
-      automakecover,cjkfont,font,fontsize,footnotestyle,fullwidthstop,%style
+      automakecover,cjkfont,font,fontsize,footnotestyle,%
+      fullwidthstop,%style
       author,author*,clc,date,department,department*,instructors,%
       keywords,keywords*,major,schoolid,secretlevel,studentid,%
       supervisor,title,title*%info
@@ -5534,7 +5378,8 @@ version.
 
 \lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
 \lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
-\lstnewenvironment{fdusyntax}{\lstset{style=lstStyleSyntax}\vspace{-1.8ex}}{}
+\lstnewenvironment{fdusyntax}{%
+  \lstset{style=lstStyleSyntax}\vspace{-1.8ex}}{}
 %    \end{macrocode}
 %
 % 引用环境。
@@ -5544,29 +5389,21 @@ version.
   { \quote \ttfamily \qquad }
   {
     \endquote
-    \IfNoValueF { #1 } { \hfill —— \IfNoValueF { #2 } { 〔#2〕 } #1 }
+    \IfNoValueF {#1} { \hfill —— \IfNoValueF {#2} {〔#2〕} #1 }
   }
 \ExplSyntaxOff
 %    \end{macrocode}
 %
-% 脚注。与 \cls{fduthesis} 中的设置一致。
+% \begin{macro}[int]{\@makefntext}
+% 脚注文本。
 %    \begin{macrocode}
-\renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote}}}
-\newlength{\fnBreite}
-\renewcommand{\@makefntext}[1]{%
-  \settowidth{\fnBreite}{\footnotesize\@thefnmark.i}%
-  \protect\footnotesize\upshape%
-  \setlength{\@tempdima}{\columnwidth}%
-  \addtolength{\@tempdima}{-\fnBreite}%
-  \makebox[\fnBreite][l]{\@thefnmark\phantom{  }}%
-  \parbox[t]{\@tempdima}%
-  {\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}%
-}
+\renewcommand\@makefntext[1]{%
+  \parindent 0em \noindent\@makefnmark~#1}
 %    \end{macrocode}
+% \end{macro}
 %
-% 网址断行。
+% 网址断行。代码来自于 \url{https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/}。
 %    \begin{macrocode}
-% 见 https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/
 \def\UrlAlphabet{%
       \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
       \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
