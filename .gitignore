@@ -32,6 +32,7 @@ files/
 temp/
 
 logo/original-files
+source/*.cls
 source/*.ins
 test/*.cls
 test/*.def
