@@ -27,7 +27,7 @@
 *.bat
 *.txt
 
-.latexmkrc
+latexmkrc
 
 .vscode/
 files/

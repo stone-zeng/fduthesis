@@ -3,10 +3,15 @@
 # Install `zhlipsum`
 git clone https://github.com/Stone-Zeng/zhlipsum.git
 
+cd zhlipsum/source
+xetex zhlipsum.ins
+
+cd ../..
+
 mkdir -p /home/travis/texmf/tex/latex/zhlipsum
-cp zhlipsum/zhlipsum.sty        \
+cp zhlipsum/source/zhlipsum.sty        \
   /home/travis/texmf/tex/latex/zhlipsum
-cp zhlipsum/zhlipsum-zh-cn.def  \
+cp zhlipsum/source/zhlipsum-zh-cn.def  \
   /home/travis/texmf/tex/latex/zhlipsum
 
 mktexlsr
