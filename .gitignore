@@ -27,6 +27,8 @@
 *.bat
 *.txt
 
+.latexmkrc
+
 .vscode/
 files/
 temp/
@@ -37,5 +39,4 @@ source/*.ins
 test/*.cls
 test/*.def
 
-!source/fduthesis-doc.bbl
 !test/Fudan_*.pdf
