@@ -222,6 +222,7 @@ version.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install)>
 %<*driver>
+\XeTeXgenerateactualtext=1
 \documentclass{fduthesis-doc}
 \usepackage{xpinyin}
 \hypersetup
@@ -229,6 +230,12 @@ version.
     pdftitle  = {fduthesis：复旦大学论文模板},
     pdfauthor = {曾祥东}
   }
+%\usepackage{bookmark}
+%\bookmarksetup{
+%  open,
+%  numbered,
+%  depth = 5,
+%}
 \begin{document}
   \DocInput{\jobname.dtx,\jobname-doc.dtx}
   \IndexLayout
@@ -960,8 +967,8 @@ version.
 %
 % \end{documentation}
 %
-% \EnableImplementation
-%^^A \DisableImplementation
+%^^A \EnableImplementation
+% \DisableImplementation
 %
 % \begin{implementation}
 %
