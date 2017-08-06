@@ -1,16 +1,15 @@
-% \EnableImplementation
-%^^A \DisableImplementation
-%
-% \begin{implementation}
-%
-%^^A 代码部分的页边距
-% \newgeometry{
-%   left   = 2.50 in,
-%   right  = 1.00 in,
-%   top    = 1.25 in,
-%   bottom = 1.00 in
-% }
-%
+%^^A \EnableImplementation
+%^^A^^A \DisableImplementation
+%^^A
+%^^A \begin{implementation}
+%^^A
+%^^A^^A 代码部分的页边距
+%^^A \newgeometry{
+%^^A   left   = 2.50 in,
+%^^A   right  = 1.00 in,
+%^^A   top    = 1.25 in,
+%^^A   bottom = 1.00 in
+%^^A }
 % \subsection{附：模板文档样式 \cls{fdudoc}}
 % 编写 \LaTeX{} 宏包文档，传统上会采用 \pkg{doc} 宏包或
 % \cls{ltxdoc} 文档类。而对于使用 \LaTeX3 开发的宏包，\cls{l3doc}
@@ -24,7 +23,7 @@
 %   \item 模块、名字空间等使用彩色标注，并添加超链接；
 %   \item 自动更新行号宽度；
 %   \item 边注中的长命令使用盒子进行缩放，防止溢出；
-%   \item 版本历史中将显示修改日期；
+%   \item 修订记录中将显示修改日期；
 %   \item 添加中文支持。
 % \end{itemize}
 %
@@ -37,7 +36,7 @@
 %     |</|\meta{module}|>| 出现在行号左侧；
 %   \item 修复了抄录代码开始、结束标记⾏距偏小的问题；
 %   \item 不再以直立、倾斜字体区分不同嵌套层次的模块；
-%   \item 修改索引中版本号的排序方式；
+%   \item 调整索引中版本号的排序方式；
 %   \item 新增一系列实用命令；
 %   \item 修改文档字体、配色等。
 % \end{itemize}
@@ -51,73 +50,6 @@
 %
 % \subsubsection{载入宏包、文档类}
 %    \begin{macrocode}
-%<*测试文本>% some code
- % some code
- % some code
- % some code
- % some code
- % some code
-%<doc1> %vadsvsdvda
-%<*doc2>
- % some code
- % some code
- % some code
-%</doc2>%cadvs
- % some code
- % some code
- % some code
- % some code
- % some code
-%<*doc2> % some code
- % some code
- % some code
-% some code
-%<doc1>vadsvsdvda
-% some code
-%<doc1|doc3> %vadsvsdvda
- % some code
- % some code
- % some code
-%<*doc3>
-  % some code
-  % some code
-  % some code
-%</doc3>
-% some code
-% some code
-%</doc2>%cadvs
-% some code
-% some code
-% some code
-% some code
-%<<COMMENT
-1
-2
-3
-4
-% some code
-% some code
- % some code
- % some code
-
-%</doc2>%cadvs
-
-%<doc1> %vadsvsdvda
-3
-2
-1
-%COMMENT
-% 1
-% 2
-% 3
-% some code
-% some code
-% some code
-% some code
-% some code
-% some code
-% some code
-%</测试文本> % some code
 %<*doc>
 \ExplSyntaxOff
 %    \end{macrocode}
@@ -150,7 +82,7 @@
 \RequirePackage{zref-base}
 %    \end{macrocode}
 %
-% \subsubsection{\texttt{macrocode} 环境}
+% \subsubsection{\env{macrocode} 环境}
 % \paragraph{继承的代码}
 % \begin{macro}[int]{\macro@code}
 % 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由
@@ -799,7 +731,7 @@
   {
     \linespread { 1.05 }
     \small \ttfamily \mdseries \upshape
-    \ctexdocverbaddon
+    \@@_verb_addon:
   }
 %    \end{macrocode}
 % \end{macro}
@@ -943,12 +875,12 @@
 %
 % \begin{macro}[int]{\@@_module_angle:n}
 % 输出“$\langle\cdots\rangle$”。\\
-% 注：原来的 \tn{textlangle} 和 \tn{textrangle} 在
+% 注：原来所使用的 \tn{textlangle} 和 \tn{textrangle} 在
 % Source Sans Pro 字体下不可用。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_module_angle:n #1
+\cs_new_protected:Npn \@@_module_angle:n #1 { < #1 > }
 %   { \textlangle #1 \textrangle }
-  { \ensuremath \langle #1 \ensuremath \rangle }
+%   { \ensuremath \langle #1 \ensuremath \rangle }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -964,8 +896,7 @@
           { \MacroIndent }
           {
             \HD@target
-            \tex_hss:D
-            \@@_code_line_no_style:
+            \tex_hss:D \@@_code_line_no_style:
             \theCodelineNo \enspace
           }
         \tex_kern:D \@totalleftmargin
@@ -1002,7 +933,102 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{历史记录索引项}
+% \subsubsection{\env{function} 环境}
+% \begin{macro}[int]{\meta@font@select}
+% \begin{macro}[aux]{\@@_verb_addon:,
+%   \@@_disable_ecglue:,
+%   \@@_plain_punct_style:}
+% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
+% 空格的宽度。需要按编译情况分别定义。
+%    \begin{macrocode}
+\sys_if_engine_xetex:TF
+  {
+    \cs_set_eq:NN \@@_verb_addon: \xeCJKVerbAddon
+    \cs_set:Nn \@@_plain_punct_style:
+      { \xeCJKsetup { PunctStyle = plain } }
+    \cs_set:Nn \@@_disable_ecglue:
+      { \xeCJKsetup { CJKecglue } }
+    \ctex_appto_cmd:NnnTF \meta@font@select
+      { }
+      { \mode_if_inner:T { \@@_disable_ecglue: } }
+      { } { \ctex_patch_failure:N \meta@font@select }
+  }
+  {
+    \cs_set_eq:NN \@@_verb_addon:        \prg_do_nothing:
+    \cs_set_eq:NN \@@_plain_punct_style: \prg_do_nothing:
+    \cs_set:Nn \@@_disable_ecglue:
+      { \ltjsetparameter { autoxspacing = false } }
+    \ctex_appto_cmd:NnnTF \meta@font@select
+      { }
+      { \@@_disable_ecglue: }
+      { } { \ctex_patch_failure:N \meta@font@select }
+  }
+% \ifxetex
+%   \let\ctexdocverbaddon\xeCJKVerbAddon
+%   \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
+%   \def\ctexplainps{\xeCJKsetup{PunctStyle=plain}}
+%   \appto\meta@font@select{\ifinner\ctexdisableecglue\fi}
+% \else
+%   \let\ctexdocverbaddon\relax
+%   \def\ctexdisableecglue{\ltjsetparameter{autoxspacing=false}}
+%   \let\ctexplainps\relax
+%   \appto\meta@font@select{\ctexdisableecglue}
+% \fi
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{function}
+% \begin{macro}[aux]{\@@_fix_previous_depth:}
+% 调整 \env{function} 环境前后间距。
+%    \begin{macrocode}
+\BeforeBeginEnvironment { function }
+  { \par \nointerlineskip }
+\AtEndEnvironment { function }
+  {
+    \par
+    \cs_gset:Nx \@@_fix_previous_depth:
+      { \prevdepth = \the \prevdepth \space }
+  }
+\AfterEndEnvironment { function }
+  { \@@_fix_previous_depth: }
+% \BeforeBeginEnvironment{function}{\par\nointerlineskip}
+% \AtEndEnvironment{function}{%
+%   \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
+% \AfterEndEnvironment{function}{\ctexfixprevdepth}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{syntax,fdusyntax}
+% 在 \env{syntax} 和 \env{fdusyntax} 环境前设置若干活动字符。
+% \texttt{\textbar} 用于分隔多个选项，无需倾斜；
+% |<xxx>| 表示选项，|(xxx)| 表示默认选项。
+% \env{syntax} 环境另需要额外调整行距、标点样式及字符间距。
+%    \begin{macrocode}
+\AtBeginEnvironment { syntax }
+  {
+    \linespread { 1.2 }
+    \@@_plain_punct_style:
+    \@@_disable_ecglue:
+%     \char_set_catcode_active:N \|
+%     \char_set_active_eq:NN \| \orbar
+%     \char_set_catcode_active:N \(
+%     \char_set_active_eq:NN \( \defaultval@aux
+  }
+\AtBeginEnvironment { fdusyntax }
+  {
+    \char_set_catcode_active:N \|
+    \char_set_active_eq:NN \| \orbar
+    \char_set_catcode_active:N \<
+    \char_set_active_eq:NN \< \syntaxopt@aux
+    \char_set_catcode_active:N \(
+    \char_set_active_eq:NN \( \defaultval@aux
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{修订记录索引项}
 % \begin{macro}[int]{\@@_ltx_changes:nnn}
 % 保存 \pkg{doc} 中 \tn{changes@} 的定义。
 %    \begin{macrocode}
@@ -1159,7 +1185,7 @@
 %
 % \begin{macro}[int]{\@wrglossary}
 % 该命令由 \LaTeXe{} 内核定义，又由 \pkg{hypdoc} 宏包作了修改。
-% 此处的补丁使得版本历史条目的页码能够指向对应行。
+% 此处的补丁使得修订记录条目的页码能够指向对应行。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \@wrglossary
   { hdpindex }
@@ -1174,11 +1200,12 @@
 % \end{macro}
 %
 % \subsubsection{命令补丁}
+% \paragraph{\LaTeXe{} 补丁}
 % \begin{macro}[int]{\@addtocurcol}
 % 调整浮动体、代码等与文字的间距。
 % 见 \url{http://tex.stackexchange.com/a/40896}。
 %    \begin{macrocode}
-\ctex_patch_cmd:Nnn { \@addtocurcol }
+\ctex_patch_cmd:Nnn \@addtocurcol
   { \vskip \intextsep }
   {
     \edef \save@first@penalty { \the \lastpenalty } \unpenalty
@@ -1194,7 +1221,7 @@
       \addvspace\intextsep
     \fi
   }
-\ctex_patch_cmd:Nnn { \@addtocurcol }
+\ctex_patch_cmd:Nnn \@addtocurcol
   {
     \vskip \intextsep
     \ifnum \outputpenalty < -\@Mii
@@ -1215,11 +1242,70 @@
 % \begin{macro}[int]{\@getpen}
 % 将换行或换页的最大罚值由 \num{10000} 改为 \num{10001}。
 %    \begin{macrocode}
-\ctex_patch_cmd:Nnn { \@getpen } { \@M } { \@Mi }
+\ctex_patch_cmd:Nnn \@getpen { \@M } { \@Mi }
 %    \end{macrocode}
 % \end{macro}
 %
-% 切换到 \cls{l3doc} 的名字空间。
+% \begin{macro}[int]{\l@section,\l@subsection}
+% 修改目录条目的缩进。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \l@section    { 2.5em } { 1.5em }
+\ctex_patch_cmd:Nnn \l@subsection { 2.5em } { 1.5em }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@thehead}
+% 修改页眉，禁用 \tn{MakeUppercase}。
+%    \begin{macrocode}
+\ctex_preto_cmd:NnnTF \@thehead
+  { }
+  { \cs_set_eq:cN { MakeUppercase \space } \@iden }
+  { } { \ctex_patch_failure:N \@thehead }
+% \preto\@thehead{\cslet{MakeUppercase\space}{\@iden}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\thebibliography}
+% \begin{macro}[int]{\HDorg@thebibliography}
+% 参考文献一节需要编号。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \HDorg@thebibliography
+  { \section* } { \section }
+\cs_set_eq:NN \thebibliography \HDorg@thebibliography
+% \patchcmd{\HDorg@thebibliography}
+%   {\section*}{\section}
+%   {\typeout{Info: Command `HDorg@thebibliography'
+%     patched successfully.}}
+%   {\typeout{Warning: Command `HDorg@thebibliography'
+%     patched failed.}}
+% \let\thebibliography\HDorg@thebibliography
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\GlossaryParms}
+% 修改修订记录中的一些缩进。
+%    \begin{macrocode}
+\ctex_appto_cmd:NnnTF \GlossaryParms
+  { }
+  {
+    \raggedcolumns
+    \cs_set_eq:NN \Hy@writebookmark \HDorg@writebookmark
+    \def \@idxitem   { \par \hangindent 2em }
+    \def \subitem    { \@idxitem \hspace* { 1em } }
+    \def \subsubitem { \@idxitem \hspace* { 2em } }
+  }
+  { } { \ctex_patch_failure:N \GlossaryParms }
+% \appto\GlossaryParms{%
+%   \raggedcolumns
+%   \let\Hy@writebookmark\HDorg@writebookmark
+%   \def\@idxitem{\par\hangindent 2em }%
+%   \def\subitem{\@idxitem\hspace*{1em}}%
+%   \def\subsubitem{\@idxitem\hspace*{2em}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \paragraph{\cls{l3doc} 补丁}
 %    \begin{macrocode}
 %<@@=codedoc>
 %    \end{macrocode}
@@ -1244,11 +1330,11 @@
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_function_assemble:}
-% \cls{l3doc} 会在 |function| 环境的 |syntax| 和 |descr| 盒子
-% 中间加上 \tn{medskipamount} 的距离。但是若 |syntax| 盒子为空
-% （未使用 |syntax| 环境），就会显得不好看。此时通过将
-% \tn{medskipamount} 设置为零来修正。若盒子非空，则把
-% \tn{parskip} 还回去。
+% 在 \cls{l3doc} 中，\env{function} 环境里的 \env{syntax} 和
+% \env{descr} 盒子中间存在一段 \tn{medskipamount} 的距离。
+% 但是如果 \env{syntax} 盒子为空（未使用 \env{syntax} 环境），
+% 就会显得不好看。此时通过把 \tn{medskipamount} 设置为零来修正。
+% 若盒子非空，则把 \tn{parskip} 还回去。
 %    \begin{macrocode}
 \ctex_preto_cmd:NnnTF \@@_function_assemble:
   { }
@@ -1258,6 +1344,16 @@
       { \skip_add:Nn \medskipamount { \parskip } }
   }
   { } { \ctex_patch_failure:N \@@_function_assemble: }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_typeset_functions:}
+% 调整 \env{function} 环境的字体。
+%    \begin{macrocode}
+\ctex_patch_cmd_once:NnnnTF \@@_typeset_functions:
+  { }
+  { \small \ttfamily } { \footnotesize \CodeFont }
+  { } { \ctex_patch_failure:N \@@_meta_original:n }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1281,14 +1377,15 @@
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_macro_end_style:n}
-% 禁止显示 |macro| 环境最后的“(\emph{End definition for ...})”。
+% 禁止显示 \env{macro} 环境最后的
+% “(\emph{End definition for ...})”。
 %    \begin{macrocode}
 \cs_set_eq:NN \@@_macro_end_style:n \use_none:n
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_macro_typeset_one:nN}
-% 在 |macro| 环境的侧边栏中，\cls{l3doc} 根据命令的长短，
+% 在 \env{macro} 环境的侧边栏中，\cls{l3doc} 根据命令的长短，
 % 分别用普通字体和紧缩字体输出。然而很长的命令还是会超出页边。
 % 这里用缩放盒子的手段使得长命令也可正常显示。
 %    \begin{macrocode}
@@ -1351,28 +1448,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 在 |fdusyntax| 环境前设置若干活动字符。
-% \texttt{\textbar} 分隔多个选项，无需倾斜；
-% |<xxx>| 表示选项，|(xxx)| 表示默认选项。
-%    \begin{macrocode}
-\AtBeginEnvironment { fdusyntax }
-  {
-    \char_set_catcode_active:N \|
-    \char_set_active_eq:NN \| \orbar
-    \char_set_catcode_active:N \<
-    \char_set_active_eq:NN \< \fduoptionsaux
-    \char_set_catcode_active:N \(
-    \char_set_active_eq:NN \( \defaultvalaux
-  }
-% \AtBeginEnvironment { syntax }
-%   {
-%     \char_set_catcode_active:N \|
-%     \char_set_active_eq:NN \| \orbar
-%     \char_set_catcode_active:N \(
-%     \char_set_active_eq:NN \( \defaultvalaux
-%   }
-%    \end{macrocode}
-%
 % \subsubsection{杂项}
 % \begin{macro}{\StopSpecialIndexModule}
 % \begin{macro}[aux]{\@@_special_index_module:nnnnN}
@@ -1389,67 +1464,199 @@
 % \end{macro}
 % \end{macro}
 %
-% 关闭 \cls{l3doc} 名字空间。
-%    \begin{macrocode}
-%<@@=>
-%    \end{macrocode}
-%
-% \begin{macro}[int]{\l@section,\l@subsection}
-% 修正目录条目的缩进。
-%    \begin{macrocode}
-\ctex_patch_cmd:Nnn \l@section    { 2.5em } { 1.5em }
-\ctex_patch_cmd:Nnn \l@subsection { 2.5em } { 1.5em }
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\meta}
+% 重定义 \cs{meta} 命令，需要禁用中文、西文之间的空格，
+% 并确保为罗马字体族。
 %    \begin{macrocode}
 \RenewDocumentCommand \meta { m }
   {
     \group_begin:
-%    \end{macrocode}
-% 禁用中文、西文之间的空格。
-%    \begin{macrocode}
-      \sys_if_engine_xetex:T { \xeCJKsetup{CJKecglue={}} }
-      \__codedoc_meta:n {#1}
+      \sys_if_engine_xetex:T { \xeCJKsetup { CJKecglue = { } } }
+      \rmfamily \@@_meta:n {#1}
     \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\__codedoc_typeset_functions:}
-% 调整 \env{function} 环境的字体。
 %    \begin{macrocode}
-\ctex_patch_cmd_once:NnnnTF \__codedoc_typeset_functions: { }
-  { \small \ttfamily }
-  { \footnotesize \CodeFont \CJKCodeFont }
-  { } { \ctex_patch_failure:N \__codedoc_meta_original:n }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsubsection{\LaTeXe{} 风格的命令与补丁}
-%    \begin{macrocode}
+%<@@=>
 \ExplSyntaxOff
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\ctexdocverbaddon,\ctexdisableecglue,
-%   \ctexplainps}
-% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
-% 空格的宽度。需要按编译情况分别定义。
+% \subsubsection{排版样式设置}
+% 目录中关闭对 \cs{cs} 和 \cs{tn} 等的索引。
 %    \begin{macrocode}
-\ifxetex
-  \let\ctexdocverbaddon\xeCJKVerbAddon
-  \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
-  \def\ctexplainps{\xeCJKsetup{PunctStyle=plain}}
-  \appto\meta@font@select{\ifinner\ctexdisableecglue\fi}
-\else
-  \let\ctexdocverbaddon\relax
-  \def\ctexdisableecglue{\ltjsetparameter{autoxspacing=false}}
-  \let\ctexplainps\relax
-  \appto\meta@font@select{\ctexdisableecglue}
-\fi
+\AtBeginDocument{%
+  \addtocontents{toc}{\StopSpecialIndexModule}}
+%    \end{macrocode}
+%
+% \begin{macro}{\path,\opt,\kaishu}
+% 设置 PDF 字符串中的命令替换。
+%    \begin{macrocode}
+\pdfstringdefDisableCommands{%
+  \let\path\meta
+  \let\opt\@firstofone
+  \let\kaishu\relax}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}[int]{\@makefntext}
+% 调整脚注文本缩进。
+%    \begin{macrocode}
+\renewcommand\@makefntext[1]{%
+  \parindent 0em \noindent\@makefnmark~#1}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\IndexLayout,\indexname}
+% 调整索引外观。
+%    \begin{macrocode}
+\IndexPrologue{%
+  \section{\indexname}%
+  \textit{无衬线字体的数字表示描述对应索引项的页码；
+  带下划线的数字表示定义对应索引项的代码行号；
+  罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
+\def\IndexLayout{%
+  \newgeometry{%
+    left   = 1.00 in,
+    right  = 1.00 in,
+    top    = 1.25 in,
+    bottom = 1.00 in}%
+  \setlength\IndexMin{.5\textheight}%
+  \ctexset{section/numbering=false}%
+  \StopSpecialIndexModule}
+\def\indexname{代码索引}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\usage}
+% 控制“描述对应索引项的页码”样式。在 \pkg{doc} 宏包中的定义为
+% \tn{textit}。
+%    \begin{macrocode}
+\def\usage#1{\textbf{\textsf{#1}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\glossaryname}
+% 调整修订记录外观。
+%    \begin{macrocode}
+\GlossaryPrologue{\section{\glossaryname}}
+\def\glossaryname{修订记录}
+%    \end{macrocode}
+% \end{macro}
+%
+% 西文字体。
+%    \begin{macrocode}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{Source Sans Pro}[
+  BoldFont = Source Sans Pro Semibold]
+\setmathfont{TeX Gyre Pagella Math}
+%    \end{macrocode}
+%
+% \begin{macro}{\kaishu}
+% 中文字体。
+%    \begin{macrocode}
+\setCJKmainfont{Source Han Serif SC}[
+  BoldFont   = Source Han Sans SC Medium,
+  ItalicFont = FandolKai]
+\setCJKsansfont{Source Han Sans SC Medium}[
+  BoldFont   = Source Han Sans SC Bold,
+  ItalicFont = FandolKai]
+\setCJKmonofont{FandolFang}[
+  BoldFont   = Source Han Sans SC Medium,
+  ItalicFont = FandolKai]
+\newCJKfontfamily\kaishu{FandolKai}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\CodeFont}
+% 代码部分的字体，这里用了两种系列。
+%    \begin{macrocode}
+\setmonofont{CMU Typewriter Text}[
+  UprightFont = * Light,
+  BoldFont    = * Bold,
+  SlantedFont = * Light Oblique,
+  HyphenChar  = None]
+\setCJKfamilyfont{codefont}{Source Code Pro}[
+  BoldFont    = Source Code Pro Semibold]
+\setCJKfamilyfont{cjkcodefont}{Source Han Sans SC}[
+  BoldFont    = Source Han Sans SC Bold,
+  ItalicFont  = FandolKai]
+\newcommand*\CodeFont{%
+  \CJKfamily-{codefont}\CJKfamily{cjkcodefont}}
+%    \end{macrocode}
+% \end{macro}
+%
+%^^A \setmainfont{TeX Gyre Pagella}
+%^^A \setsansfont{TeX Gyre Heros}
+%^^A \setmonofont{CMU Typewriter Text}[%
+%^^A   UprightFont = * Light,
+%^^A   BoldFont    = * Bold,
+%^^A   SlantedFont = * Light Oblique,
+%^^A   HyphenChar  = None]
+%^^A \setmathfont{TeX Gyre Pagella Math}
+%^^A \setCJKmainfont{FZShuSong-Z01}%
+%^^A   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+%^^A \setCJKsansfont{FZHei-B01}%
+%^^A   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+%^^A \setCJKmonofont{FZFangSong-Z02}%
+%^^A   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+%^^A % \setCJKfamilyfont{宋}{FZShuSong-Z01}
+%^^A % \setCJKfamilyfont{黑}{FZHei-B01}
+%^^A % \setCJKfamilyfont{仿}{FZFangSong-Z02}
+%^^A \setCJKfamilyfont{楷}{FZKai-Z03}
+%^^A \newfontfamily\CodeFont{Source Code Pro}%
+%^^A   [BoldFont = Source Code Pro Semibold]
+%^^A \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
+%^^A   [ItalicFont = FZKai-Z03]
+%
+% 中文排版格式（\pkg{ctex} 宏包）。
+%    \begin{macrocode}
+\ctexset
+  {
+    section = {name = {第,节}, format += \raggedright},
+    subsubsection / tocline = {\kaishu\CTEXnumberline{#1}#2},
+    paragraph = {runin = false, numbering = false}
+  }
+%    \end{macrocode}
+%
+% 设定章节标题、目录深度。
+%    \begin{macrocode}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+%    \end{macrocode}
+%
+% 单位设置（\pkg{siunitx} 宏包）。
+%    \begin{macrocode}
+\sisetup
+  {
+    number-math-rm       = \ensuremath,
+    inter-unit-product   = \ensuremath{{}\cdot{}},
+    group-digits         = true,
+    group-minimum-digits = 4,
+    group-separator      = \text{~},
+    range-phrase         = \symbol{"FF5E},
+    separate-uncertainty = true
+  }
+%    \end{macrocode}
+%
+% 超链接设置（\pkg{hyperref} 宏包）。
+%    \begin{macrocode}
+\hypersetup
+  {
+    bookmarksdepth     = 4,
+    bookmarksnumbered  = true,
+    colorlinks         = true,
+    citecolor          = MaterialGreen,
+    linkcolor          = MaterialPink,
+    urlcolor           = MaterialIndigo
+  }
+%    \end{macrocode}
+%
+% 浮动体标题设置（\pkg{caption} 宏包）。
+%    \begin{macrocode}
+\captionsetup{labelsep = quad, labelfont+ = bf}
+%    \end{macrocode}
 %
 % 设置标准列表环境样式。
 %    \begin{macrocode}
@@ -1473,7 +1680,8 @@
 % \end{macro}
 %
 % \begin{macro}{tablenotes}
-% 重新定义 \pkg{threeparttable} 包的 |tablenotes| 环境，
+% \begin{variable}{tpt@id}
+% 重新定义 \pkg{threeparttable} 包的 \env{tablenotes} 环境，
 % 用于表格的注释。
 %    \begin{macrocode}
 \renewlist{tablenotes}{description}{1}
@@ -1490,9 +1698,11 @@
   \edef\curr@tpt@id{tpt@\arabic{tpt@id}}}
 \newcounter{tpt@id}
 %    \end{macrocode}
+% \end{variable}
 % \end{macro}
 %
-% \begin{macro}[aux]{\tnote@item,\TPTtagStyle}
+% \begin{macro}[int]{\tnote@item,\TPTtagStyle}
+% 为 \tn{tnote} 增加超链接。
 %    \begin{macrocode}
 \def\tnote@item#1{%
   \Hy@raisedlink{\hyper@anchor{\curr@tpt@id-#1}}#1}
@@ -1500,20 +1710,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 调整 |function| 环境前后间距。
-%    \begin{macrocode}
-\BeforeBeginEnvironment{function}{\par\nointerlineskip}
-\AtEndEnvironment{function}{%
-  \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
-\AfterEndEnvironment{function}{\ctexfixprevdepth}
-%    \end{macrocode}
-%
-% 调整 |syntax| 环境的样式。
-%    \begin{macrocode}
-\AtBeginEnvironment{syntax}{%
-  \linespread{1.2}\ctexplainps\ctexdisableecglue}
-%    \end{macrocode}
-%
+% \subsubsection{文档层命令}
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
 % 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
 % 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
@@ -1526,34 +1723,52 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\marg,\oarg,\parg}
+% 几种命令参数：
+% \begin{itemize}
+%   \item 必选参数：|{|\meta{arg}|}|；
+%   \item 可选参数：|[|\meta{arg}|]|；
+%   \item 图形参数：|(|\meta{arg}|)|。
+% \end{itemize}
 %    \begin{macrocode}
-\AtBeginDocument{%
-  \addtocontents{toc}{\StopSpecialIndexModule}}
-\pdfstringdefDisableCommands{%
-  \let\path\meta
-  \let\opt\@firstofone}
-\preto\@thehead{\cslet{MakeUppercase\space}{\@iden}}
+\renewcommand*\marg[1]{\{\meta{#1}\}}
+\renewcommand*\oarg[1]{[\meta{#1}]}
+\renewcommand*\parg[1]{(\meta{#1})}
 %    \end{macrocode}
+% \end{macro}
 %
-% \begin{macro}{\orbar,\defaultval,\TF,\TTF,\TFF,
-%   \opt,\bashcmd}
-% \begin{macro}[aux]{\defaultvalaux}
-% |syntax| 中需要的命令。
+% \begin{macro}{\opt}
+% 选项名。
+%    \begin{macrocode}
+\newcommand*\opt[1]{\texttt{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\syntaxopt,\defaultval}
+% \begin{macro}[aux]{\syntaxopt@aux,\defaultval@aux}
+% \env{syntax} 中的选项及命令选项。
+% |aux| 结尾的两个命令用于定义利用 |<>| 和 |()| 的简写形式。
+%    \begin{macrocode}
+\def\syntaxopt#1{\textit{#1}}
+\def\defaultval#1{\textbf{\textup{#1}}}
+\def\syntaxopt@aux#1>{\syntaxopt{#1}}
+\def\defaultval@aux#1){\defaultval{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\orbar,\TF,\TTF,\TFF}
+% \env{syntax} 中的选项分隔符，以及 \opt{true} 或 \opt{false}
+% 选项的几种快捷方式。
 %    \begin{macrocode}
 \def\orbar{\textup{\textbar}}
-\def\defaultval#1{\textbf{\textup{#1}}}
-\def\defaultvalaux#1){\defaultval{#1}}
 \def\TF{true\orbar false}
 \def\TTF{\defaultval{true}\orbar false}
 \def\TFF{true\orbar\defaultval{false}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\protected\def\opt{\texttt}
-\def\bashcmd{\texttt}
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{macro}{\TeX,\LaTeX,\LaTeXe,\LaTeXiii,
+% \begin{macro}{\TeX,\LaTeX,\LaTeXe,
 %   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
 %   \AmSLaTeX,\TeXLive,\MiKTeX}
 % \TeX{} 相关标志。
@@ -1561,7 +1776,10 @@
 \def\TeX{\hologo{TeX}}
 \def\LaTeX{\hologo{LaTeX}}
 \def\LaTeXe{\hologo{LaTeX2e}}
-\def\LaTeXiii{\hologo{LaTeX3}}
+%    \end{macrocode}
+% \LaTeX3 使用 |\LaTeX3| 输入。
+%    \begin{macrocode}
+% \def\LaTeXiii{\hologo{LaTeX3}}
 \def\pdfTeX{\hologo{pdfTeX}}
 \def\pdfLaTeX{\hologo{pdfLaTeX}}
 \def\XeTeX{\hologo{XeTeX}}
@@ -1574,309 +1792,209 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\IndexLayout,\usage}
-% 修改索引外观。\tn{usage} 用来控制“描述对应索引项的页码”样式，
-% 在 \pkg{doc} 宏包中原来定义为 \tn{textit}。
+% \begin{macro}{\cs,\tn}
+% \begin{macro}[aux]{\codedoc@cs,\codedoc@tn}
+% 控制序列。
 %    \begin{macrocode}
-\IndexPrologue{%
-  \section{\indexname}%
-  \textit{无衬线字体的数字表示描述对应索引项的页码；
-  带下划线的数字表示定义对应索引项的代码行号；
-  罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
-\def\IndexLayout{%
-  \newgeometry{%
-    left   = 1.00 in,
-    right  = 1.00 in,
-    top    = 1.25 in,
-    bottom = 1.00 in}%
-  \setlength\IndexMin{.5\textheight}%
-  \ctexset{section/numbering=false}%
-  \StopSpecialIndexModule}
-\def\usage#1{\textbf{\textsf{#1}}}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\glossaryname}
-% 修改版本历史外观。
-%    \begin{macrocode}
-\appto\GlossaryParms{%
-  \raggedcolumns
-  \let\Hy@writebookmark\HDorg@writebookmark
-  \def\@idxitem{\par\hangindent 2em }%
-  \def\subitem{\@idxitem\hspace*{1em}}%
-  \def\subsubitem{\@idxitem\hspace*{2em}}}
-\GlossaryPrologue{\section{\glossaryname}}
-\def\glossaryname{版本历史}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\thebibliography}
-% \begin{macro}[aux]{\HDorg@thebibliography}
-% 参考文献一节需要编号。
-%    \begin{macrocode}
-\patchcmd{\HDorg@thebibliography}
-  {\section*}{\section}
-  {\typeout{Info: Command `HDorg@thebibliography'
-    patched successfully.}}
-  {\typeout{Warning: Command `HDorg@thebibliography'
-    patched failed.}}
-\let\thebibliography\HDorg@thebibliography
+\let\codedoc@cs=\cs
+\let\codedoc@tn=\tn
+\renewcommand*\cs[2][]{%
+  \textcolor{MaterialIndigo}{\codedoc@cs[#1]{#2}}}
+\renewcommand*\tn[2][]{%
+  \textcolor{MaterialPink}{\codedoc@tn[#1]{#2}}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
-% 设置字体。
+% \begin{macro}{\file,\env,\pkg,\cls}
+% 文件、环境、宏包、文档类。
 %    \begin{macrocode}
-% \setmainfont{TeX Gyre Pagella}
-% \setsansfont{TeX Gyre Heros}
-% \setmonofont{CMU Typewriter Text}[%
-%   UprightFont = * Light,
-%   BoldFont    = * Bold,
-%   SlantedFont = * Light Oblique,
-%   HyphenChar  = None]
-% \setmathfont{TeX Gyre Pagella Math}
-% \setCJKmainfont{FZShuSong-Z01}%
-%   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-% \setCJKsansfont{FZHei-B01}%
-%   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-% \setCJKmonofont{FZFangSong-Z02}%
-%   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-% % \setCJKfamilyfont{宋}{FZShuSong-Z01}
-% % \setCJKfamilyfont{黑}{FZHei-B01}
-% % \setCJKfamilyfont{仿}{FZFangSong-Z02}
-% \setCJKfamilyfont{楷}{FZKai-Z03}
-% \newfontfamily\CodeFont{Source Code Pro}%
-%   [BoldFont = Source Code Pro Semibold]
-% \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
-%   [ItalicFont = FZKai-Z03]
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{Source Sans Pro}[BoldFont = Source Sans Pro Semibold]
-\setmonofont{CMU Typewriter Text}[%
-  UprightFont = * Light,
-  BoldFont    = * Bold,
-  SlantedFont = * Light Oblique,
-  HyphenChar  = None]
-\setmathfont{TeX Gyre Pagella Math}
-\setCJKmainfont{Source Han Serif SC}%
-  [BoldFont = Source Han Sans SC Medium, ItalicFont = FandolKai]
-\setCJKsansfont{Source Han Sans SC Medium}%
-  [BoldFont = Source Han Sans SC Bold, ItalicFont = FandolKai]
-\setCJKmonofont{FandolFang}%
-  [BoldFont = Source Han Sans SC Medium, ItalicFont = FandolKai]
-\setCJKfamilyfont{楷}{FandolKai}
-\newfontfamily\CodeFont{Source Code Pro}%
-  [BoldFont = Source Code Pro Semibold]
-\newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
-  [BoldFont = Source Han Sans SC Bold, ItalicFont = FandolKai]
+\renewcommand*\file[1]{%
+  \textcolor{MaterialGrey900}{\texttt{#1}}}
+\renewcommand*\env[1]{\textbf{\texttt{#1}}}
+% \renewcommand*\pkg[1]{\textsf{#1}}
+% \renewcommand*\cls[1]{\textit{\textsf{#1}}}
 %    \end{macrocode}
+% \end{macro}
 %
-% 中文排版格式。
+% \begin{macro}{\bashcmd}
+% Bash 中的命令。
 %    \begin{macrocode}
-\ctexset
-  {
-    section = {name = {第,节}, format += \raggedright},
-    subsubsection / tocline = {\CJKfamily{楷}\CTEXnumberline{#1}#2},
-    paragraph = {runin = false, numbering = false},
-    indexname = {代码索引}
-  }
+\newcommand*\bashcmd[1]{\texttt{#1}}
 %    \end{macrocode}
+% \end{macro}
 %
-% 单位设置。
+% \begin{macro}{\scite}
+% 位于上标的引用。
 %    \begin{macrocode}
-\sisetup
-  {
-    number-math-rm       = \ensuremath,
-    inter-unit-product   = \ensuremath{{}\cdot{}},
-    group-digits         = true,
-    group-minimum-digits = 4,
-    group-separator      = \text{~},
-    range-phrase         = \symbol{"FF5E},
-    separate-uncertainty = true
-  }
+\newcommand*\scite[1]{\textsuperscript{\cite{#1}}}
 %    \end{macrocode}
+% \end{macro}
 %
-% 超链接设置。
+% \begin{macro}{quote*}
+% 引用环境。|#1| = 作者，|#2| = 朝代。
 %    \begin{macrocode}
-\hypersetup
-  {
-    bookmarksdepth     = 4,
-    bookmarksnumbered  = true,
-    bookmarksopen      = true,
-    bookmarksopenlevel = 4,
-    colorlinks         = true,
-    citecolor          = MaterialGreen,
-    linkcolor          = MaterialPink,
-    urlcolor           = MaterialIndigo
-  }
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{3}
+\NewDocumentEnvironment{quote*}{oo}
+  {\quote\qquad}%
+  {\endquote\IfNoValueF{#1}{%
+    \hfill —— \IfNoValueF{#2}{〔#2〕}#1}}
+% \ExplSyntaxOn
+% \NewDocumentEnvironment { quote* } { o o }
+%   { \quote \qquad }
+%   {
+%     \endquote
+%     \IfNoValueF {#1} { \hfill —— \IfNoValueF {#2} {〔#2〕} #1 }
+%   }
+% \ExplSyntaxOff
 %    \end{macrocode}
+% \end{macro}
 %
-% 浮动体标题设置。
-%    \begin{macrocode}
-% \captionsetup[figure]%
-%   {labelsep = quad, justification = centering}
-\captionsetup[table]%
-  {labelsep = quad, font = sf, justification = centering}
-%    \end{macrocode}
-%
-% \pkg{listings} 代码样式。
+% \paragraph{示例代码环境}
+% \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，
+% 此处改为普通文本。
 % 见 \url{https://tex.stackexchange.com/a/33188/136923}。
 %    \begin{macrocode}
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
-
-\lstdefinestyle{lstStyleBase}{%
-  extendedchars   = true,
-  gobble          = 3,
-  lineskip        = 2 pt,
-  frame           = l,
-  framerule       = 1 pt,
-  framesep        = 0 pt,
-  escapeinside    = {(*}{*)},
-  %basicstyle      = \small\ttfamily\color{MaterialGrey900},
-  basicstyle      = \small\CodeFont\CJKCodeFont%
-    \color{MaterialGrey900},
-  keywordstyle    = \bfseries\color{MaterialIndigo},
-  commentstyle    = \itshape\color{MaterialGrey600},
-  stringstyle     = \color{MaterialDeepOrange},
-  backgroundcolor = \color{MaterialGrey50}
-}
-
-\lstdefinestyle{lstStyleShell}{%
-  style           = lstStyleBase,
-  rulecolor       = \color{MaterialPink},
-  language        = bash,
-  alsoletter      = {-},
-  morekeywords    = {mkdir,cp,git,fc,%
-    tex,pdftex,xetex,luatex,%
-    latex,pdflatex,xelatex,lualatex,%
-    bibtex,makeindex,latexmk},
-  emph            = {-o,-s,-t,-xelatex,-lualatex},
-  emphstyle       = \color{MaterialGreen800}
-}
-
-\lstdefinestyle{lstStyleLaTeX}{%
-  style           = lstStyleBase,
-  rulecolor       = \color{MaterialIndigo},
-  language        = [LaTeX]TeX,
-  texcsstyle      = *\bfseries\color{MaterialDeepOrange},
-  deletetexcs     = {\documentclass},
-  moretexcs       = {\chapter},
-  morekeywords    = {\documentclass,\fdusetup},
-  emph            = {style,info,%
-    font,fontsize,%
-    author,department,title},
-  emphstyle       = \color{MaterialGreen800}
-}
-
-\lstdefinestyle{lstStyleSyntax}{
-  extendedchars   = true,
-  gobble          = 6,
-  % lineskip        = 2 pt,
-  escapeinside    = {(*}{*)},
-  language        = [LaTeX]TeX,
-  alsoletter      = {*},
-  basicstyle      = \footnotesize\CodeFont\CJKCodeFont%
-    \color{MaterialGrey900},
-  keywordstyle    = \bfseries\color{MaterialIndigo},
-  commentstyle    = \itshape\color{MaterialGrey600},
-  stringstyle     = \color{MaterialRed},
-  texcsstyle      = *\bfseries\color{MaterialDeepOrange},
-  deletetexcs     = {\documentclass},
-  moretexcs       = {\chapter},
-  morekeywords    = {\documentclass,\fdusetup},
-  emph            = [1]{oneside,twoside,nofonts,draft,%模板选项
-      info,style,%meta 选项
-      automakecover,cjkfont,font,fontsize,footnotestyle,%
-      fullwidthstop,%style
-      author,author*,clc,date,department,department*,instructors,%
-      keywords,keywords*,major,schoolid,secretlevel,studentid,%
-      supervisor,title,title*%info
-    },
-  emphstyle       = [1]\color{MaterialGreen800},
-  emph            = [2]{abstract,abstract*,notation,%
-      axiom,corollary,definition,example,lemma,proof,theorem%
-    },
-  emphstyle       = [2]\color{MaterialBlue900},
-}
-
-\lstnewenvironment{shellexample}{\lstset{style=lstStyleShell}}{}
-\lstnewenvironment{latexexample}{\lstset{style=lstStyleLaTeX}}{}
-\lstnewenvironment{fdusyntax}{%
-  \lstset{style=lstStyleSyntax}\vspace{-1.8ex}}{}
 %    \end{macrocode}
 %
-% 引用环境。
+% 定义几种代码样式。
+% \begin{macro}[int]{style@base}
 %    \begin{macrocode}
-\ExplSyntaxOn
-\NewDocumentEnvironment { fduquote } { o o }
-  { \quote \qquad }
+\lstdefinestyle{style@base}
   {
-    \endquote
-    \IfNoValueF {#1} { \hfill —— \IfNoValueF {#2} {〔#2〕} #1 }
+    extendedchars   = true,
+    gobble          = 3,
+    lineskip        = 2 pt,
+    frame           = l,
+    framerule       = 1 pt,
+    framesep        = 0 pt,
+    escapeinside    = {(*}{*)},
+    basicstyle      = \small\CodeFont\color{MaterialGrey900},
+    keywordstyle    = \bfseries\color{MaterialIndigo},
+    commentstyle    = \itshape\color{MaterialGrey600},
+    stringstyle     = \color{MaterialDeepOrange},
+    backgroundcolor = \color{MaterialGrey50}
   }
-\ExplSyntaxOff
-%    \end{macrocode}
-%
-% \begin{macro}[int]{\@makefntext}
-% 脚注文本。
-%    \begin{macrocode}
-\renewcommand\@makefntext[1]{%
-  \parindent 0em \noindent\@makefnmark~#1}
 %    \end{macrocode}
 % \end{macro}
 %
-% 网址断行。代码来自于 \url{https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/}。
+% \begin{macro}[int]{style@shell}
+%    \begin{macrocode}
+\lstdefinestyle{style@shell}
+  {
+    style        = style@base,
+    rulecolor    = \color{MaterialPink},
+    language     = bash,
+    alsoletter   = {-},
+    morekeywords = {mkdir,cp,git,fc,%
+      tex,pdftex,xetex,luatex,%
+      latex,pdflatex,xelatex,lualatex,%
+      bibtex,makeindex,zhmakeindex,latexmk},
+    emph         = {-o,-s,-t,-xelatex,-lualatex},
+    emphstyle    = \color{MaterialGreen800}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{style@latex}
+%    \begin{macrocode}
+\lstdefinestyle{style@latex}
+  {
+    style        = style@base,
+    rulecolor    = \color{MaterialIndigo},
+    language     = [LaTeX]TeX,
+    texcsstyle   = *\bfseries\color{MaterialDeepOrange},
+    deletetexcs  = {\documentclass},
+    moretexcs    = {\chapter},
+    morekeywords = {\documentclass,\fdusetup},
+    emph         = {style,info,%
+      font,fontsize,%
+      author,department,title},
+    emphstyle    = \color{MaterialGreen800}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{style@syntax}
+%    \begin{macrocode}
+\lstdefinestyle{style@syntax}
+  {
+    extendedchars= true,
+    gobble       = 6,
+    escapeinside = {(*}{*)},
+    language     = [LaTeX]TeX,
+    alsoletter   = {*},
+    basicstyle   = \footnotesize\CodeFont\color{MaterialGrey900},
+    keywordstyle = \bfseries\color{MaterialIndigo},
+    commentstyle = \itshape\color{MaterialGrey600},
+    stringstyle  = \color{MaterialRed},
+    texcsstyle   = *\bfseries\color{MaterialDeepOrange},
+    deletetexcs  = {\documentclass},
+    moretexcs    = {\chapter},
+    morekeywords = {\documentclass,\fdusetup},
+    emph         = [1]{oneside,twoside,nofonts,draft,%
+      info,style,%
+      automakecover,cjkfont,font,fontsize,footnotestyle,%
+      fullwidthstop,%
+      author,author*,clc,date,department,department*,instructors,%
+      keywords,keywords*,major,schoolid,secretlevel,studentid,%
+      supervisor,title,title*},
+    emphstyle    = [1]\color{MaterialGreen800},
+    emph         = [2]{abstract,abstract*,notation,%
+      axiom,corollary,definition,example,lemma,proof,theorem},
+    emphstyle    = [2]\color{MaterialBlue900},
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{shellexample,latexexample}
+% shell 和 \LaTeX{} 示例代码。
+%    \begin{macrocode}
+\lstnewenvironment{shellexample}{\lstset{style=style@shell}}{}
+\lstnewenvironment{latexexample}{\lstset{style=style@latex}}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{fdusyntax}
+% 语法说明。用于代替 \cls{l3doc} 中的 \env{syntax} 环境。
+%    \begin{macrocode}
+\lstnewenvironment{fdusyntax}{%
+  \lstset{style=style@syntax}\vspace{-1.8ex}}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\UrlAlphabet,\UrlDigits}
+% 网址断行。\tn{UrlOrds}、\tn{UrlAlphabet} 和 \tn{UrlDigits}
+% 分别记录了特殊符号、字母和数字，把它们依次附加在 \pkg{url} 宏包
+% 提供的命令 \tn{UrlBreaks} 之后，即可允许在这些位置处断行。见
+% \url{https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/}。
 %    \begin{macrocode}
 \def\UrlAlphabet{%
-      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
-      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
-      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
-      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
-      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
-      \do\Y\do\Z}
-\def\UrlDigits{\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
-\g@addto@macro{\UrlBreaks}{\UrlOrds}
-\g@addto@macro{\UrlBreaks}{\UrlAlphabet}
-\g@addto@macro{\UrlBreaks}{\UrlDigits}
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+  \do\Y\do\Z}
+\def\UrlDigits{%
+  \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro\UrlBreaks{\UrlOrds}
+\g@addto@macro\UrlBreaks{\UrlAlphabet}
+\g@addto@macro\UrlBreaks{\UrlDigits}
+%    \end{macrocode}
+% \end{macro}
+%
+% 断词。
+%    \begin{macrocode}
+% \hyphenation{fdu-the-sis}
+% \hyphenation{clear-dou-ble-page}
+% \hyphenation{set-main-font}
+% \hyphenation{set-main-CJK-font}
+% \hyphenation{set-math-font}
 %    \end{macrocode}
 %
-% 命令。
 %    \begin{macrocode}
-% \let\DocCs=\cs
-% \let\DocTn=\tn
-% \renewcommand\cs[2][]{\textcolor{MaterialIndigo}{\DocCs[#1]{#2}}}
-% \renewcommand\tn[2][]{\textcolor{MaterialPink}{\DocTn[#1]{#2}}}
-
-% \renewcommand{\pkg}[1]{\textsf{#1}}
-% \renewcommand{\cls}[1]{\textsf{#1}}
-
-\let\OldMeta=\meta
-\renewcommand\meta[1]{{\rmfamily\OldMeta{#1}}}
-\renewcommand\marg[1]{\{\meta{#1}\}}
-\renewcommand\oarg[1]{[\meta{#1}]}
-\renewcommand\parg[1]{(\meta{#1})}
-
-% 与之前 \defaultvalaux 定义相同
-\def\fduoptions#1{\textit{#1}}
-\def\fduoptionsaux#1>{\fduoptions{#1}}
-
-\newcommand*\email{\nolinkurl}
-
-\renewcommand\file[1]{{%
-  \ttfamily%
-  \textcolor{MaterialGrey900}{#1}%
-}}
-
-\newcommand\scite[1]{\textsuperscript{\cite{#1}}}
-
-\hyphenation{fdu-the-sis}
-\hyphenation{clear-dou-ble-page}
-\hyphenation{set-main-font}
-\hyphenation{set-main-CJK-font}
-\hyphenation{set-math-font}
-
 \DoNotIndex{\begin,\end,
   \a,\b,\c,\d,\e,\f,\g,\h,\i,\j,\k,\l,\m,
   \n,\o,\p,\q,\r,\s,\t,\u,\v,\w,\x,\y,\z,
@@ -1900,7 +2018,7 @@ $pdf_mode = 5;
 # Process index.
 $makeindex = 'zhmakeindex -s gind.ist %O -o %D %S';
 
-# Process glossary (change log).
+# Process glossary (change history).
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
 sub makeglo2gls {
     system("zhmakeindex -s gglo.ist -o \"$_[0].gls\"
@@ -1922,7 +2040,7 @@ sub makeglo2gls {
 \providecommand{\urlprefix}{\newline\hspace*{\fill}}
 \let\OldUrl=\url
 \renewcommand\url[1]{{\small\OldUrl{#1}}}
-\newcommand\sourceurl[1]{{\small{\CJKfamily{楷}源代码：} \OldUrl{#1}}}
+\newcommand\sourceurl[1]{{\small{\kaishu 源代码：} \OldUrl{#1}}}
 
 \bibitem{source2e}
 \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
@@ -1956,7 +2074,7 @@ sub makeglo2gls {
 \textsc{Knuth D E}.
 \newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
 \newblock Boston: Addison--Wesley Publishing Company, 1986
-  \urlprefix {\small {\CJKfamily{楷}源代码
+  \urlprefix {\small {\kaishu 源代码
     \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译该文档。}：}
     \OldUrl{https://www.ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex}}
 
@@ -2041,7 +2159,7 @@ sub makeglo2gls {
 \newblock (2017-03-27) \urlprefix
   \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
 
-\bibitem{gb-t-15834-2011}
+\bibitem{gb-t-7713.1-2006}
 国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
 \newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
 \newblock 北京: 中国标准出版社, 2007
