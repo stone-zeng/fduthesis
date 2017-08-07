@@ -1,15 +1,15 @@
-%^^A \EnableImplementation
-%^^A^^A \DisableImplementation
-%^^A
-%^^A \begin{implementation}
-%^^A
-%^^A^^A 代码部分的页边距
-%^^A \newgeometry{
-%^^A   left   = 2.50 in,
-%^^A   right  = 1.00 in,
-%^^A   top    = 1.25 in,
-%^^A   bottom = 1.00 in
-%^^A }
+% \EnableImplementation
+%^^A \DisableImplementation
+%
+% \begin{implementation}
+%
+%^^A 代码部分的页边距
+% \newgeometry{
+%   left   = 2.50 in,
+%   right  = 1.00 in,
+%   top    = 1.25 in,
+%   bottom = 1.00 in
+% }
 % \subsection{附：模板文档样式 \cls{fdudoc}}
 % 编写 \LaTeX{} 宏包文档，传统上会采用 \pkg{doc} 宏包或
 % \cls{ltxdoc} 文档类。而对于使用 \LaTeX3 开发的宏包，\cls{l3doc}
@@ -50,7 +50,7 @@
 %
 % \subsubsection{载入宏包、文档类}
 %    \begin{macrocode}
-%<*doc>
+%<*fdudoc>
 \ExplSyntaxOff
 %    \end{macrocode}
 %
@@ -142,7 +142,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-%<@@=ctxdoc>
+%<@@=fdudoc>
 \ExplSyntaxOn
 %    \end{macrocode}
 %
@@ -700,7 +700,7 @@
   }
 \cs_new_protected:Npn \@@_module_pop_aux:nn #1
   {
-    \zref@labelbylist { HD.#1 } { ctxdoc }
+    \zref@labelbylist { HD.#1 } { fdudoc }
     \hypersetup { hidelinks }
     \hdclindex {#1} { }
   }
@@ -717,10 +717,10 @@
 %
 % 处理行号超链接。使用 \pkg{zref} 宏包。
 %    \begin{macrocode}
-\zref@newlist { ctxdoc }
+\zref@newlist { fdudoc }
 \zref@newprop { guard@end } [ 1 ]
   { \int_eval:n { \c@HD@hypercount - 1 } }
-\zref@addprop { ctxdoc } { guard@end }
+\zref@addprop { fdudoc } { guard@end }
 %    \end{macrocode}
 %
 % \paragraph{格式处理}
@@ -963,17 +963,6 @@
       { \@@_disable_ecglue: }
       { } { \ctex_patch_failure:N \meta@font@select }
   }
-% \ifxetex
-%   \let\ctexdocverbaddon\xeCJKVerbAddon
-%   \def\ctexdisableecglue{\xeCJKsetup{CJKecglue}}
-%   \def\ctexplainps{\xeCJKsetup{PunctStyle=plain}}
-%   \appto\meta@font@select{\ifinner\ctexdisableecglue\fi}
-% \else
-%   \let\ctexdocverbaddon\relax
-%   \def\ctexdisableecglue{\ltjsetparameter{autoxspacing=false}}
-%   \let\ctexplainps\relax
-%   \appto\meta@font@select{\ctexdisableecglue}
-% \fi
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -992,10 +981,6 @@
   }
 \AfterEndEnvironment { function }
   { \@@_fix_previous_depth: }
-% \BeforeBeginEnvironment{function}{\par\nointerlineskip}
-% \AtEndEnvironment{function}{%
-%   \par\xdef\ctexfixprevdepth{\prevdepth=\the\prevdepth\space}}
-% \AfterEndEnvironment{function}{\ctexfixprevdepth}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1037,7 +1022,7 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\changes@}
-% \changes{v0.4}{2017/07/30}{修改索引排序方式。}
+% \changes{v0.4}{2017/07/30}{调整索引排序方式。}
 % 重定义 \tn{changes@}，在版本号一行显示修改日期。
 %    \begin{macrocode}
 \cs_set_protected:Npn \changes@ #1#2
@@ -1261,7 +1246,6 @@
   { }
   { \cs_set_eq:cN { MakeUppercase \space } \@iden }
   { } { \ctex_patch_failure:N \@thehead }
-% \preto\@thehead{\cslet{MakeUppercase\space}{\@iden}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1272,13 +1256,6 @@
 \ctex_patch_cmd:Nnn \HDorg@thebibliography
   { \section* } { \section }
 \cs_set_eq:NN \thebibliography \HDorg@thebibliography
-% \patchcmd{\HDorg@thebibliography}
-%   {\section*}{\section}
-%   {\typeout{Info: Command `HDorg@thebibliography'
-%     patched successfully.}}
-%   {\typeout{Warning: Command `HDorg@thebibliography'
-%     patched failed.}}
-% \let\thebibliography\HDorg@thebibliography
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1296,12 +1273,6 @@
     \def \subsubitem { \@idxitem \hspace* { 2em } }
   }
   { } { \ctex_patch_failure:N \GlossaryParms }
-% \appto\GlossaryParms{%
-%   \raggedcolumns
-%   \let\Hy@writebookmark\HDorg@writebookmark
-%   \def\@idxitem{\par\hangindent 2em }%
-%   \def\subitem{\@idxitem\hspace*{1em}}%
-%   \def\subsubitem{\@idxitem\hspace*{2em}}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1587,29 +1558,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%^^A \setmainfont{TeX Gyre Pagella}
-%^^A \setsansfont{TeX Gyre Heros}
-%^^A \setmonofont{CMU Typewriter Text}[%
-%^^A   UprightFont = * Light,
-%^^A   BoldFont    = * Bold,
-%^^A   SlantedFont = * Light Oblique,
-%^^A   HyphenChar  = None]
-%^^A \setmathfont{TeX Gyre Pagella Math}
-%^^A \setCJKmainfont{FZShuSong-Z01}%
-%^^A   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-%^^A \setCJKsansfont{FZHei-B01}%
-%^^A   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-%^^A \setCJKmonofont{FZFangSong-Z02}%
-%^^A   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-%^^A % \setCJKfamilyfont{宋}{FZShuSong-Z01}
-%^^A % \setCJKfamilyfont{黑}{FZHei-B01}
-%^^A % \setCJKfamilyfont{仿}{FZFangSong-Z02}
-%^^A \setCJKfamilyfont{楷}{FZKai-Z03}
-%^^A \newfontfamily\CodeFont{Source Code Pro}%
-%^^A   [BoldFont = Source Code Pro Semibold]
-%^^A \newCJKfontfamily\CJKCodeFont{Source Han Sans SC}%
-%^^A   [ItalicFont = FZKai-Z03]
-%
 % 中文排版格式（\pkg{ctex} 宏包）。
 %    \begin{macrocode}
 \ctexset
@@ -1795,6 +1743,7 @@
 % \begin{macro}{\cs,\tn}
 % \begin{macro}[aux]{\codedoc@cs,\codedoc@tn}
 % 控制序列。
+% ^^A Colors are used for debug.
 %    \begin{macrocode}
 \let\codedoc@cs=\cs
 \let\codedoc@tn=\tn
@@ -1985,15 +1934,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 断词。
-%    \begin{macrocode}
-% \hyphenation{fdu-the-sis}
-% \hyphenation{clear-dou-ble-page}
-% \hyphenation{set-main-font}
-% \hyphenation{set-main-CJK-font}
-% \hyphenation{set-math-font}
-%    \end{macrocode}
-%
 %    \begin{macrocode}
 \DoNotIndex{\begin,\end,
   \a,\b,\c,\d,\e,\f,\g,\h,\i,\j,\k,\l,\m,
@@ -2004,7 +1944,7 @@
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
-%</doc>
+%</fdudoc>
 %    \end{macrocode}
 %
 % \subsubsection{\pkg{latexmk} 配置文件}
@@ -2027,178 +1967,7 @@ sub makeglo2gls {
 %</latexmk>
 %    \end{macrocode}
 %
-% \end{implementation}
-%
-% \DisableImplementation
-%
-% \begin{implementation}
-%
-% \subsubsection{参考文献列表}
-%    \begin{macrocode}
-%<*bbl>
-\begin{thebibliography}{99}
-\providecommand{\urlprefix}{\newline\hspace*{\fill}}
-\let\OldUrl=\url
-\renewcommand\url[1]{{\small\OldUrl{#1}}}
-\newcommand\sourceurl[1]{{\small{\kaishu 源代码：} \OldUrl{#1}}}
-
-\bibitem{source2e}
-\textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
-\newblock \textit{The \LaTeXe{} Sources} [CP/OL].
-\newblock (2017-04-15) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/base/source2e.pdf}
-
-\bibitem{CTeX}
-\textsc{CTEX.ORG}.
-\newblock \textit{\CTeX{} 宏集手册} [EB/OL].
-\newblock version 2.4.9,
-\newblock (2017-04-01) \urlprefix
-  \url{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.pdf}
-  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.dtx}
-
-\bibitem{xeCJK}
-\textsc{CTEX.ORG}.
-\newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
-\newblock version 3.4.8,
-\newblock (2017-05-15) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.pdf}
-  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.dtx}
-
-\bibitem{hmshan2017fduphdthesistemplate}
-\textsc{hmshan}.
-\newblock \textit{复旦博士论文模板} [EB/OL].
-\newblock (2017-04-04) \urlprefix
-  \url{https://github.com/hmshan/FDU_PhD_Thesis_Template}
-
-\bibitem{knuth1986texbook}
-\textsc{Knuth D E}.
-\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
-\newblock Boston: Addison--Wesley Publishing Company, 1986
-  \urlprefix {\small {\kaishu 源代码
-    \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译该文档。}：}
-    \OldUrl{https://www.ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex}}
-
-\bibitem{interfaces3}
-\textsc{The \LaTeX3 Project}.
-\newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
-\newblock (2017-07-19) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/interface3.pdf}
-
-\bibitem{source3}
-\textsc{The \LaTeX3 Project}.
-\newblock \textit{The \LaTeX3 Sources} [CP/OL].
-\newblock (2017-07-19) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/source3.pdf}
-
-\bibitem{mittelbach2004latexcompanion}
-\textsc{Mittelbach F} and \textsc{Goossens M}.
-\newblock \textit{The \LaTeX{} Companion} [M].
-\newblock 2nd ed.
-\newblock Boston: Addison--Wesley Publishing Company, 2004
-
-\bibitem{lshort}
-\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-\newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 157 minutes} [EB/OL].
-\newblock version 5.05,
-\newblock (2015-07-18) \urlprefix
-  \url{https://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}
-
-\bibitem{lshort-zh-cn}
-\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-\newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 102 分钟了解 \LaTeXe{}} [EB/OL].
-\newblock China\TeX{} 论坛, 译.
-\newblock 原版版本 version 5.05, 中文版本 version 5.10,
-\newblock (2017-03-26) \urlprefix
-  \url{https://www.ctan.org/tex-archive/info/lshort/chinese/lshort-zh-cn.pdf}
-
-\bibitem{pandoxie2014fduthesislatex}
-\textsc{Pandoxie}.
-\newblock \textit{Fudan University-Latex Template} [EB/OL].
-\newblock (2014-06-07) \urlprefix
-  \url{https://github.com/Pandoxie/FDU-Thesis-Latex}
-
-\bibitem{richard2016fudanthesis}
-\textsc{richard}.
-\newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
-\newblock (2016-01-31) \urlprefix
-  \url{https://github.com/richarddzh/fudan-thesis}
-
-\bibitem{weijianwen2017sjtuthesis}
-\textsc{weijianwen}.
-\newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis.} [EB/OL].
-\newblock (2017-01-27) \urlprefix
-  \url{https://github.com/weijianwen/SJTUThesis}
-
-\bibitem{wright2009dtxfile}
-\textsc{Wright J}.
-\newblock \textit{A model dtx file} [EB/OL].
-\newblock (2009-10-06) \urlprefix
-  \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
-
-\bibitem{zepinglee2017ustcthesis}
-\textsc{zepinglee} and \textsc{seisman}.
-\newblock \textit{\LaTeX{} template for USTC thesis} [EB/OL].
-\newblock version 3.0,
-\newblock (2017-07-02) \urlprefix
-  \url{https://github.com/ustctug/ustcthesis}
-
-\bibitem{数院毕业论文格式}
-复旦大学数学科学学院.
-\newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL]. \urlprefix
-  \url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
-
-\bibitem{数院毕业论文格式更新}
-复旦大学数学科学学院.
-\newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL]. \urlprefix
-  \url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
-
-\bibitem{复旦大学论文规范}
-复旦大学图书馆, 复旦大学研究生院.
-\newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
-\newblock 2017 年 3 月修订版.
-\newblock (2017-03-27) \urlprefix
-  \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
-
-\bibitem{gb-t-7713.1-2006}
-国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
-\newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
-\newblock 北京: 中国标准出版社, 2007
-
-\bibitem{胡伟2017latex2e}
-胡伟.
-\newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
-\newblock 北京: 清华大学出版社, 2017
-
-\bibitem{gb-t-15834-2011}
-教育部语言文字信息管理司.
-\newblock \textit{标点符号用法: GB/T 15834--2011} [S].
-\newblock 北京: 中国标准出版社, 2012
-
-\bibitem{cquthesis}
-李振楠.
-\newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
-\newblock version 1.20,
-\newblock (2017-05-30) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/cquthesis/cquthesis.pdf}
-
-\bibitem{刘海洋2013latex入门}
-刘海洋.
-\newblock \textit{\LaTeX{} 入门} [M].
-\newblock 北京: 电子工业出版社, 2013
-
-\bibitem{gb-t-7714-2015}
-全国信息与文献标准化技术委员会.
-\newblock \textit{信息与文献 参考文献著录规则: GB/T 7714--2015} [S].
-\newblock 北京: 中国标准出版社, 2015
-
-\bibitem{thuthesis}
-薛瑞尼.
-\newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
-\newblock version 5.3.2,
-\newblock (2017-03-26) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/thuthesis/thuthesis.pdf}
-\end{thebibliography}
-%</bbl>
-%    \end{macrocode}
+% \clearpage
 %
 % \end{implementation}
+%
