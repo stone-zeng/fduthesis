@@ -13,10 +13,11 @@
 % \subsection{附：模板文档样式 \cls{fdudoc}}
 % 编写 \LaTeX{} 宏包文档，传统上会采用 \pkg{doc} 宏包或
 % \cls{ltxdoc} 文档类。而对于使用 \LaTeX3 开发的宏包，\cls{l3doc}
-% 文档类将是一个更好的选择。\CTeX{} 宏集所附带的 \cls{ctxdoc}
-% 文档类，则在 \cls{l3doc} 的基础上进行了一些修正，特别是
-% 重新实现了 \env{macrocode} 环境，使之能更好地应用于中文文档。
-% \cls{ctxdoc} 的主要功能如下：
+% 文档类将是一个更好的选择。\CTeX{} 宏集所附带的
+% \href{https://github.com/CTeX-org/ctex-kit/blob/master/tool/ctxdoc.cls}^^A
+% {\cls{ctxdoc}} 文档类，则在 \cls{l3doc} 的基础上进行了一些修正，
+% 特别是重新实现了 \env{macrocode} 环境，使之能更好地应用于中文
+% 文档。\cls{ctxdoc} 的主要功能如下：
 %
 % \begin{itemize}
 %   \item 注释使用灰色、倾斜字体，以便与一般代码区分；
@@ -34,17 +35,16 @@
 % \begin{itemize}
 %   \item 允许模块标记 |<*|\meta{module}|>| 和
 %     |</|\meta{module}|>| 出现在行号左侧；
-%   \item 修复了抄录代码开始、结束标记⾏距偏小的问题；
 %   \item 不再以直立、倾斜字体区分不同嵌套层次的模块；
 %   \item 调整索引中版本号的排序方式；
 %   \item 新增一系列实用命令；
 %   \item 修改文档字体、配色等。
 % \end{itemize}
 %
-% 本文档样式的核心代码主要来自 \cls{ctxdoc} 文档类。在此，
-% 本人要向 \cls{ctxdoc} 文档类的原开发者
-% \href{https://github.com/CTeX-org/}{CTEX.ORG} 团队表示
-% 由衷的感谢。
+% 本文档样式的核心代码主要来自 \cls{ctxdoc} 文档类 v2.4.10。
+% 在此，本人要向原开发者
+% \href{https://github.com/CTeX-org/}{CTEX.ORG}
+% 团队表示由衷的感谢。
 %
 % 以下为 \cls{fdudoc} 的具体实现。
 %
@@ -289,6 +289,28 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.4}{2017/08/09}{修复 \cls{ctxdoc} 文档类 v2.4.10
+%   之前版本中行距偏小的问题，见 ctex-kit
+%   \href{https://github.com/CTeX-org/ctex-kit/issues/303}{\#~303}。}
+%
+% \begin{macro}[int]{\@@_swap_cr:}
+% \begin{macro}[aux]{\@@_swap_cr_aux:w}
+% 把 \cs{l_@@_macro_code_line_tl} 中的回车符 |^^M| 挪到外面。
+%    \begin{macrocode}
+  \cs_new_protected:Npn \@@_swap_cr:
+    {
+      \exp_after:wN
+        \@@_swap_cr_aux:w \l_@@_macro_code_line_tl
+    }
+  \cs_new_protected:Npn \@@_swap_cr_aux:w #1 ^^M
+    {
+      \group_insert_after:N ^^M
+      \tl_set:Nn \l_@@_macro_code_line_tl {#1}
+    }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \begin{variable}[int]{\c_@@_active_cr_tl}
 % 活动字符类的回车符。
 %    \begin{macrocode}
@@ -309,7 +331,7 @@
 % \end{variable}
 %
 % \begin{macro}[int]{\@@_process_normal_line:}
-% \changes{v0.4}{2017/08/04}{\texttt{\#} 开头的行也作为注释处理。}
+% \changes{v0.4}{2017/08/04}{注释行允许以 \texttt{\#} 开头。}
 % 普通代码行根据开头字符分别处理。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
@@ -356,8 +378,12 @@
         \tl_gclear:N \g_@@_macro_code_verbatim_stop_tl
         \cs_gset_eq:NN \@@_macro_code_process_line:
           \@@_process_normal_line:
-        \@@_output_verbatim_tag:nn
-          { \color { verb@guard } } { end }
+        \@@_output_module:nn
+          { \color { verb@guard } }
+          {
+            \@@_swap_cr:
+            \@@_module_pop:n { \l_@@_macro_code_line_tl }
+          }
       }
 %    \end{macrocode}
 % 否则直接输出抄录代码。
@@ -559,8 +585,12 @@
 %    \end{macrocode}
 % 输出 |%<<|\meta{end-tag}。
 %    \begin{macrocode}
-      \@@_output_verbatim_tag:nn
-        { \color { verb@guard } } { begin }
+      \@@_output_module:nn
+        { \color { verb@guard } }
+        {
+          \@@_swap_cr:
+          \@@_module_push:n { \l_@@_macro_code_line_tl }
+        }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -623,10 +653,9 @@
   {
     \tex_noindent:D
     \group_begin:
+      %% According to ctex 0f21e62:
+      % \__fdudoc_swap_cr:
       \color { code@gray } \slshape \@@_output_line:
-      %\str_if_eq_x:nnTF { \f@shape } { \updefault }
-      %  { \slshape }
-      %  { \upshape }
     \group_end:
   }
 %    \end{macrocode}
@@ -758,49 +787,6 @@
         \@@_output_module:nn {#1} {#2}
         \skip_horizontal:n { \leftskip + \smallskipamount }
       }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}[int]{\@@_output_verbatim_tag:nn}
-% \changes{v0.4}{2017/08/01}{修复原 \cls{ctxdoc} 文档类中行距
-%   偏小的问题。}
-% 输出抄录标记。
-% |#1| = 颜色等样式，|#2| = |begin| 或 |end|。
-% 在 \cls{ctxdoc} 中，抄录标记使用 |footnotesize|，
-% 使得该行行距偏小
-% （见 \url{https://github.com/CTeX-org/ctex-kit/issues/303}）。
-% 这里的解决方案是先去掉 \cs{l_@@_macro_code_line_tl} 最后的
-% 回车符 |^^M|，接着正常输出（做一个判断），最后补上 \tn{par}
-% 并换行。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_output_verbatim_tag:nn #1#2
-  {
-    \tl_reverse:N \l_@@_macro_code_line_tl
-%    \end{macrocode}
-% 注：\cs{l_@@_tmpa_tl} 被 \cs{@@_module_pop:n} 使用了。
-%    \begin{macrocode}
-    \tl_set:Nx \l_@@_tmpb_tl
-      { \tl_tail:N \l_@@_macro_code_line_tl }
-    \tl_reverse:N \l_@@_tmpb_tl
-%    \end{macrocode}
-% 根据 |#2| 是 |begin| 还是 |end| 来判断应该进栈（push）
-% 还是出栈（pop）。
-%    \begin{macrocode}
-    \tl_if_eq:nnTF {#2} { begin }
-      {
-        \@@_output_module:nn {#1}
-          { \@@_module_push:n { \l_@@_tmpb_tl } }
-      }
-      {
-        \tl_if_eq:nnTF {#2} { end }
-          {
-            \@@_output_module:nn {#1}
-              { \@@_module_pop:n { \l_@@_tmpb_tl } }
-          }
-          { \BOOM }
-      }
-    \par
   }
 %    \end{macrocode}
 % \end{macro}
