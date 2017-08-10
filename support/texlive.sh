@@ -12,7 +12,7 @@
 export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 if ! command -v texlua > /dev/null; then
   # Obtain TeX Live
-  wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+  wget https://ctan.org/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz
   cd install-tl-20*
 
@@ -22,7 +22,10 @@ if ! command -v texlua > /dev/null; then
   cd ..
 fi
 
-# TeX Base
+# Change default package repository
+tlmgr option repository https://ctan.org/tex-archive/systems/texlive/tlnet/
+
+# TeX base
 tlmgr install         \
   tex                 \
   etex                \
@@ -30,36 +33,6 @@ tlmgr install         \
   latex-bin           \
   tex-ini-files       \
   cm
-
-# LaTeX3 packages
-tlmgr install         \
-  l3kernel            \
-  l3experimental      \
-  l3packages          \
-  l3build
-
-# pdfTeX
-tlmgr install         \
-  ifpdf
-
-# XeTeX
-tlmgr install         \
-  xetex               \
-  ifxetex             \
-  unicode-data        \
-  xecjk
-
-# LuaTeX
-tlmgr install         \
-  luatex              \
-  ctablestack         \
-  ifluatex            \
-  lualatex-math       \
-  lualibs             \
-  luaotfload          \
-  luatex85            \
-  luatexbase          \
-  luatexja
 
 # Fonts
 tlmgr install         \
@@ -79,14 +52,11 @@ tlmgr install         \
   xits                \
   zapfding
 
-# Math
-tlmgr install         \
-  amsmath             \
-  unicode-math
-
 # Other
 tlmgr install         \
+  amsmath             \
   caption             \
+  ctablestack         \
   ctex                \
   currfile            \
   environ             \
@@ -99,7 +69,21 @@ tlmgr install         \
   graphics-cfg        \
   graphics-def        \
   hyperref            \
+  ifluatex            \
+  ifpdf               \
+  ifxetex             \
   kantlipsum          \
+  l3kernel            \
+  l3experimental      \
+  l3packages          \
+  l3build             \
+  lualatex-math       \
+  lualibs             \
+  luaotfload          \
+  luatex              \
+  luatex85            \
+  luatexbase          \
+  luatexja            \
   ntheorem            \
   ms                  \
   oberdiek            \
@@ -111,8 +95,12 @@ tlmgr install         \
   trimspaces          \
   ucharcat            \
   ulem                \
+  unicode-data        \
+  unicode-math        \
   varwidth            \
   xcolor              \
+  xecjk               \
+  xetex               \
   xkeyval             \
   xunicode            \
   zhnumber
