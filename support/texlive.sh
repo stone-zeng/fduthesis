@@ -12,7 +12,7 @@
 export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 if ! command -v texlua > /dev/null; then
   # Obtain TeX Live
-  wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+  wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz
   cd install-tl-20*
 
@@ -23,7 +23,7 @@ if ! command -v texlua > /dev/null; then
 fi
 
 # Change default package repository
-tlmgr option repository https://ctan.org/tex-archive/systems/texlive/tlnet/
+tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
 
 # TeX base
 tlmgr install         \
