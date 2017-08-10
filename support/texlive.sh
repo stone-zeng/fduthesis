@@ -17,8 +17,9 @@ if ! command -v texlua > /dev/null; then
   cd install-tl-20*
 
   # Install a minimal system
-  ./install-tl --profile=../support/texlive.profile
-
+  ./install-tl                                \
+    --profile     ../support/texlive.profile  \
+    --repository  https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
   cd ..
 fi
 
