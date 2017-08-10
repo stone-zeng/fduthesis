@@ -537,7 +537,7 @@ version.
 %   作为正文字体，数学字体仍使用 Computer Modern。本模板加载了
 %   \pkg{unicode-math} 宏包，此时默认数学字体为 Latin Modern Math。}。
 % 此时，您需要使用 \pkg{fontspec}、\pkg{xeCJK}、\pkg{unicode-math}
-% 等宏包提供的 \cs{setmainfont}、\cs{setmainCJKfont}、
+% 等宏包提供的 \cs{setmainfont}、\cs{setCJKmainfont}、
 % \cs{setmathfont} 等命令来配置字体。
 %
 % \begin{function}{draft}
@@ -934,29 +934,29 @@ version.
 %   \item 在任何情况下，本模板都会\emph{显式}调用以下宏包
 %     （或文档类）：
 %     \begin{itemize}
-%       \item \pkg{expl3}、\pkg{xparse} 和 \pkg{l3keys2e} 宏包，
-%         用于构建 \LaTeX3 编程环境 \scite{interfaces3,source3}。
+%       \item \pkg{expl3}、\pkg{xparse} 和 \pkg{l3keys2e}，用于
+%         构建 \LaTeX3 编程环境 \scite{interfaces3,source3}。
 %         它们分属 \pkg{l3kernel} 和 \pkg{l3packages} 宏集。
 %       \item \cls{book} 文档类，是 \LaTeXe{} 的标准文档类之一
 %         \scite{source2e}。
-%       \item \pkg{fontspec} 宏包，提供新一代的字体设置界面。
-%       \item \pkg{ctex} 宏包，提供中文排版的通用框架。属于
-%         \CTeX{} 宏集 \scite{CTeX}。
-%       \item \pkg{amsmath} 宏包，对 \LaTeX{} 的数学排版功能
-%         进行了全面扩展。属于 \AmSLaTeX{} 套件。
-%       \item \pkg{unicode-math} 宏包，负责处理 Unicode 编码的
+%       \item \pkg{fontspec}，提供新一代的字体设置界面。
+%       \item \pkg{ctex}，提供中文排版的通用框架。属于 \CTeX{}
+%         宏集 \scite{CTeX}。
+%       \item \pkg{amsmath}，对 \LaTeX{} 的数学排版功能进行了
+%         全面扩展。属于 \AmSLaTeX{} 套件。
+%       \item \pkg{unicode-math}，负责处理 Unicode 编码的
 %         OpenType 数学字体。
-%       \item \pkg{geometry} 宏包，用于调整页面尺寸。
-%       \item \pkg{fancyhdr} 宏包，处理页眉页脚。
-%       \item \pkg{footmisc} 宏包，处理脚注。
-%       \item \pkg{ntheorem} 宏包，提供增强版的定理类环境。
-%       \item \pkg{graphicx} 宏包，提供图形插入的接口。
-%       \item \pkg{longtable} 宏包，长表格（允许跨页）支持。
-%       \item \pkg{caption} 宏包，用于设置题注。
-%       \item \pkg{ulem} 宏包，用于绘制下划线。
+%       \item \pkg{geometry}，用于调整页面尺寸。
+%       \item \pkg{fancyhdr}，处理页眉页脚。
+%       \item \pkg{footmisc}，处理脚注。
+%       \item \pkg{ntheorem}，提供增强版的定理类环境。
+%       \item \pkg{graphicx}，提供图形插入的接口。
+%       \item \pkg{longtable}，长表格（允许跨页）支持。
+%       \item \pkg{caption}，用于设置题注。
+%       \item \pkg{ulem}，用于绘制下划线。
 %     \end{itemize}
 %   \item 开启 |style/footnotestyle=pifont| 选项后，会调用
-%     \pkg{pifont}宏包。它属于 \pkg{psnfss} 套件。
+%     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
 %   \item 文字绕排功能需要启用 \pkg{xgalley} 宏包，它属于
 %     \pkg{l3experimental} 宏集。（目前暂未使用）
 % \end{itemize}
@@ -1339,9 +1339,9 @@ version.
 \RequirePackage { caption }
 %    \end{macrocode}
 %
-% 下划线。
+% 下划线。|normalem| 选项用以避免 \tn{emph} 命令被修改。
 %    \begin{macrocode}
-\RequirePackage { ulem }
+\RequirePackage [ normalem ] { ulem }
 %    \end{macrocode}
 %
 % \subsection{页面布局}
@@ -1567,6 +1567,7 @@ version.
 % \end{macro}
 %
 % \begin{macro}[TF]{\fdu_family_if_exist:n}
+% \changes{v0.4}{2017/08/10}{修复 \LuaTeX{} 下的展开错误。}
 % 判断字体族是否存在。
 %    \begin{macrocode}
 \prg_new_conditional:Npnn \fdu_family_if_exist:n #1 { TF }
@@ -1576,22 +1577,18 @@ version.
 %    \begin{macrocode}
     \sys_if_engine_xetex:TF
       {
-        \xeCJK_family_if_exist:nTF { #1 }
+        \xeCJK_family_if_exist:nTF {#1}
           { \prg_return_true: } { \prg_return_false: }
       }
       {
 %    \end{macrocode}
 % \LuaTeX{} 引擎下需要利用 \pkg{ctex} 宏包提供的函数。这两个函数
 % 的参数略有不同。
-%
-% TODO(2017/07/22): \cs{ctex_ltj_family_if_exist:xNTF} 将在下一个版本
-% 中被改为 |nNTF| 型。需要有最低版本限制。
 %    \begin{macrocode}
         \sys_if_engine_luatex:T
           {
-            \ctex_ltj_family_if_exist:xNTF { #1 } \l_@@_tmpa_tl
+            \ctex_ltj_family_if_exist:nNTF {#1} \l_@@_tmpa_tl
               { \prg_return_true: } { \prg_return_false: }
-            \tl_clear:N \l_@@_tmpa_tl
           }
       }
   }
@@ -1832,10 +1829,10 @@ version.
 \cs_new:Npn \fdu_front_matter_header:n #1
   {
     \bool_if:NTF \g_@@_twoside_bool
-      { \markboth { #1 } { #1 } }
+      { \markboth {#1} {#1} }
       {
         \markboth { } { }
-        \tl_gset:Nn \l_@@_header_center_mark_tl { #1 }
+        \tl_gset:Nn \l_@@_header_center_mark_tl {#1}
       }
   }
 %    \end{macrocode}
@@ -2090,30 +2087,30 @@ version.
         \c_@@_fn_style_libertinus_tl
           {
             \fontspec { Libertinus~ Serif }
-            \@@_fn_symbol_libertinus:n { #1 }
+            \@@_fn_symbol_libertinus:n {#1}
           }
         \c_@@_fn_style_libertinus_negative_tl
           {
             \fontspec { Libertinus~ Serif }
-            \@@_fn_symbol_libertinus_negative:n { #1 }
+            \@@_fn_symbol_libertinus_negative:n {#1}
           }
         \c_@@_fn_style_libertinus_sans_tl
           {
             \fontspec { Libertinus~ Sans }
-            \@@_fn_symbol_libertinus_sans:n { #1 }
+            \@@_fn_symbol_libertinus_sans:n {#1}
           }
 %    \end{macrocode}
 %
 % |pifont| 类型无需进行额外的操作。
 %    \begin{macrocode}
         \c_@@_fn_style_pifont_tl
-          { \@@_fn_symbol_pifont:n { #1 } }
+          { \@@_fn_symbol_pifont:n {#1} }
         \c_@@_fn_style_pifont_negative_tl
-          { \@@_fn_symbol_pifont_negative:n { #1 } }
+          { \@@_fn_symbol_pifont_negative:n {#1} }
         \c_@@_fn_style_pifont_sans_tl
-          { \@@_fn_symbol_pifont_sans:n { #1 } }
+          { \@@_fn_symbol_pifont_sans:n {#1} }
         \c_@@_fn_style_pifont_sans_negative_tl
-          { \@@_fn_symbol_pifont_sans_negative:n { #1 } }
+          { \@@_fn_symbol_pifont_sans_negative:n {#1} }
 %    \end{macrocode}
 %
 % |xits| 类型需要临时切换数学字体。
@@ -2121,17 +2118,17 @@ version.
         \c_@@_fn_style_xits_tl
           {
             \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits:n { #1 } $
+            $ \@@_fn_symbol_xits:n {#1} $
           }
         \c_@@_fn_style_xits_sans_tl
           {
             \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits_sans:n { #1 } $
+            $ \@@_fn_symbol_xits_sans:n {#1} $
           }
         \c_@@_fn_style_xits_sans_negative_tl
           {
             \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits_sans_negative:n { #1 } $
+            $ \@@_fn_symbol_xits_sans_negative:n {#1} $
           }
       }
 %    \end{macrocode}
@@ -2224,8 +2221,8 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new:nnnn #1#2#3#4
   {
-    \theoremstyle { #1 }
-    \newtheorem { #3 } { #4 } [ #2 ]
+    \theoremstyle {#1}
+    \newtheorem {#3} {#4} [#2]
   }
 \cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
 %    \end{macrocode}
@@ -2238,8 +2235,8 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
   {
-    \theoremstyle { #1 }
-    \newtheorem { #2 } { #3 }
+    \theoremstyle {#1}
+    \newtheorem {#2} {#3}
   }
 \cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vnn }
 %    \end{macrocode}
@@ -2251,11 +2248,11 @@ version.
 % 定理头字体和定理正文字体。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_set_qed:n         #1
-  { \theoremsymbol     { #1 } }
+  { \theoremsymbol     {#1} }
 \cs_new:Npn \fdu_thm_set_header_font:n #1
-  { \theoremheaderfont { #1 } }
+  { \theoremheaderfont {#1} }
 \cs_new:Npn \fdu_thm_set_body_font:n   #1
-  { \theorembodyfont   { #1 } }
+  { \theorembodyfont   {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2293,8 +2290,8 @@ version.
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
 % 定理头字体和定理正文字体。
 %    \begin{macrocode}
-    \IfValueT { #2 }
-      { \keys_set:nn { fdu / theorem } { #2 } }
+    \IfValueT {#2}
+      { \keys_set:nn { fdu / theorem } {#2} }
     \fdu_thm_set_header_font:V \l_@@_thm_header_font_tl
     \fdu_thm_set_body_font:V   \l_@@_thm_body_font_tl
     \fdu_thm_set_qed:V         \l_@@_thm_qed_tl
@@ -2330,8 +2327,7 @@ version.
 % 这里将其加上。
 %    \begin{macrocode}
         \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
-        \fdu_thm_new_no_number:Vnn \l_@@_thm_style_tl
-          { #3 } { #4 }
+        \fdu_thm_new_no_number:Vnn \l_@@_thm_style_tl {#3} {#4}
       }
       {
 %    \end{macrocode}
@@ -2346,7 +2342,7 @@ version.
 % TODO(20170602): 给出样式未定义错误。
           { }
         \fdu_thm_new:Vnnn \l_@@_thm_style_tl
-          { \l_@@_thm_counter_tl } { #3 } { #4 }
+          { \l_@@_thm_counter_tl } {#3} {#4}
       }
   }
 %    \end{macrocode}
@@ -2584,8 +2580,8 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_spread_box:Nn #1#2
   {
-    \makebox [ #1 ] [ s ]
-      { \tl_map_inline:nn { #2 } { ##1 \hfil } \unskip }
+    \makebox [#1] [ s ]
+      { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
   }
 \cs_generate_variant:Nn \fdu_spread_box:Nn { NV }
 \cs_generate_variant:Nn \fdu_spread_box:Nn { Nx }
@@ -2596,7 +2592,7 @@ version.
 % 居中对齐的盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_center_box:Nn #1#2
-  { \makebox [ #1 ] [ c ] { #2 } }
+  { \makebox [#1] [ c ] {#2} }
 \cs_generate_variant:Nn \fdu_center_box:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
@@ -2605,7 +2601,7 @@ version.
 % 限宽盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_fixed_width_box:Nn #1#2
-  { \parbox { #1 } { #2 } }
+  { \parbox {#1} {#2} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2614,7 +2610,7 @@ version.
 % 居中对齐的限宽盒子。|#1| = 长度， |#2| = 内容。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
-  { \fdu_fixed_width_box:Nn { #1 } { \centering #2 } }
+  { \fdu_fixed_width_box:Nn {#1} { \centering #2 } }
 \cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
@@ -2625,7 +2621,7 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_text_width:Nn #1#2
   {
-    \hbox_set:Nn \l_@@_tmpa_box { #2 }
+    \hbox_set:Nn \l_@@_tmpa_box {#2}
     \dim_set:Nn #1
       { \box_wd:N \l_@@_tmpa_box }
   }
@@ -2651,7 +2647,7 @@ version.
         \fdu_get_text_width:Nn \l_@@_tmpa_dim
           { \large \l_@@_tmpa_tl }
         \dim_gset:Nn #1
-          { \dim_max:nn { #1 } { \l_@@_tmpa_dim } }
+          { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
       }
     \group_end:
   }
@@ -2662,7 +2658,7 @@ version.
 % 下划线占位符。|#1| = 长度。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_blank_underline:N #1
-  { \uline { \hbox_to_wd:nn { #1 } { } } }
+  { \uline { \hbox_to_wd:nn {#1} { } } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2670,7 +2666,7 @@ version.
 % 设置行距。|#1| = 行距倍数。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_line_spread:N #1
-  { \linespread { #1 } \selectfont }
+  { \linespread {#1} \selectfont }
 \cs_generate_variant:Nn \fdu_line_spread:N { n }
 %    \end{macrocode}
 % \end{macro}
@@ -3007,17 +3003,17 @@ version.
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
     chapter    / tocline = {
-%<class>      \c_@@_def_chapter_toc_format_tl    \CTEXnumberline { #1 } #2
-%<class-en>      \c_@@_def_chapter_toc_format_en_tl \CTEXnumberline { #1 } #2
+%<class>      \c_@@_def_chapter_toc_format_tl    \CTEXnumberline {#1} #2
+%<class-en>      \c_@@_def_chapter_toc_format_en_tl \CTEXnumberline {#1} #2
     },
     section    / tocline = {
-%<class>      \c_@@_def_section_toc_format_tl    \CTEXnumberline { #1 } #2
-%<class-en>      \c_@@_def_section_toc_format_en_tl \CTEXnumberline { #1 } #2
+%<class>      \c_@@_def_section_toc_format_tl    \CTEXnumberline {#1} #2
+%<class-en>      \c_@@_def_section_toc_format_en_tl \CTEXnumberline {#1} #2
     },
     subsection / tocline = {
-%<class>      \c_@@_def_subsection_toc_format_tl \CTEXnumberline { #1 } #2
+%<class>      \c_@@_def_subsection_toc_format_tl \CTEXnumberline {#1} #2
 %<class-en>      \c_@@_def_subsection_toc_format_en_tl
-%<class-en>        \CTEXnumberline { #1 } #2
+%<class-en>        \CTEXnumberline {#1} #2
     }
   }
 %    \end{macrocode}
@@ -3182,7 +3178,7 @@ version.
 %</class-en>
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
-      \begin{longtable} { #1 }
+      \begin{longtable} {#1}
   }
   {
       \end{longtable}
@@ -3215,7 +3211,7 @@ version.
 % \keys_define:nn { xwrapfig }
 % {
 %   cutout .code:n = {
-%     \keys_set:nn { xwrapfig / cutout } { #1 }
+%     \keys_set:nn { xwrapfig / cutout } {#1}
 %   }
 % }
 %
@@ -3250,7 +3246,7 @@ version.
 %   \clist_clear:N \l_@@_wrap_indent_clist
 %
 %   % 装到 hbox
-%   \hbox_set:Nn \l_@@_tmpa_box { #1 }
+%   \hbox_set:Nn \l_@@_tmpa_box {#1}
 %   % 总宽度 = 盒子宽 + 调整距离
 %   \dim_set:Nn \l_@@_wrap_width_dim
 %     { \box_wd:N \l_@@_tmpa_box }
@@ -3258,7 +3254,7 @@ version.
 %     { \l_@@_wrap_L_margin_dim + \l_@@_wrap_R_margin_dim }
 %
 %   % 内容装到 vbox
-%   \vbox_set:Nn \l_@@_tmpb_box { #1 }
+%   \vbox_set:Nn \l_@@_tmpb_box {#1}
 %   % 总高度 = 盒子高 + 盒子深
 %   \dim_set:Nn \l_@@_wrap_height_dim
 %     { \box_ht:N \l_@@_tmpb_box + \box_dp:N \l_@@_tmpb_box }
@@ -3285,10 +3281,10 @@ version.
 % % 参数1：不动的行数，参数2：内容
 % \cs_new_protected:Nn \fdu_wrap_put_right:nn
 % {
-%   \fdu_wrap_prewrap:n { #2 }
+%   \fdu_wrap_prewrap:n {#2}
 %
 %   % 开窗
-%   \galley_cutout_right:nV { #1 } \l_@@_wrap_indent_clist
+%   \galley_cutout_right:nV {#1} \l_@@_wrap_indent_clist
 %
 %   % 内容存入盒子
 %   \vbox_set:Nn \l_@@_tmpa_box
@@ -3329,10 +3325,10 @@ version.
 % % 参数1：不动的行数，参数2：内容
 % \cs_new_protected:Nn \fdu_wrap_put_left:nn
 % {
-%   \fdu_wrap_prewrap:n { #2 }
+%   \fdu_wrap_prewrap:n {#2}
 %
 %   % 开窗
-%   \galley_cutout_left:nV { #1 } \l_@@_wrap_indent_clist
+%   \galley_cutout_left:nV {#1} \l_@@_wrap_indent_clist
 %
 %   % 内容存入盒子
 %   \vbox_set:Nn \l_@@_tmpa_box
@@ -3366,13 +3362,13 @@ version.
 % % 参数1：选项，参数2：内容
 % \NewDocumentCommand\putright { O { } +m }
 % {
-%   \keys_set:nn { fdu / wrap / cutout } { #1 }
-%   \fdu_wrap_put_right:Vn \l_@@_wrap_top_lines_int { #2 }
+%   \keys_set:nn { fdu / wrap / cutout } {#1}
+%   \fdu_wrap_put_right:Vn \l_@@_wrap_top_lines_int {#2}
 % }
 % \NewDocumentCommand\putleft { O { } +m }
 % {
-%   \keys_set:nn { fdu / wrap / cutout } { #1 }
-%   \fdu_wrap_put_left:Vn \l_@@_wrap_top_lines_int { #2 }
+%   \keys_set:nn { fdu / wrap / cutout } {#1}
+%   \fdu_wrap_put_left:Vn \l_@@_wrap_top_lines_int {#2}
 % }
 %
 %
@@ -3389,8 +3385,8 @@ version.
 %    \begin{macrocode}
 \keys_define:nn { fdu }
   {
-    info  .meta:nn = { fdu / info  } { #1 },
-    style .meta:nn = { fdu / style } { #1 }
+    info  .meta:nn = { fdu / info  } {#1},
+    style .meta:nn = { fdu / style } {#1}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3432,7 +3428,7 @@ version.
 % 用户设置接口。
 %    \begin{macrocode}
 \NewDocumentCommand \fdusetup { m }
-  { \keys_set:nn { fdu } { #1 } }
+  { \keys_set:nn { fdu } {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
