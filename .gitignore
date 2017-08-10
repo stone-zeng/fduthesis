@@ -38,5 +38,3 @@ source/*.cls
 source/*.ins
 test/*.cls
 test/*.def
-
-!test/Fudan_*.pdf

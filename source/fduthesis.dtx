@@ -219,7 +219,6 @@ version.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install)>
 %<*driver>
-\XeTeXgenerateactualtext=1
 \documentclass{fdudoc}
 \usepackage{xpinyin}
 \hypersetup
@@ -227,12 +226,8 @@ version.
     pdftitle  = {fduthesis: 复旦大学论文模板},
     pdfauthor = {曾祥东}
   }
-%\usepackage{bookmark}
-%\bookmarksetup{
-%  open,
-%  numbered,
-%  depth = 5,
-%}
+\renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
+\renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \begin{document}
   \DocInput{\jobname.dtx,\jobname-doc.dtx}
   \IndexLayout
@@ -253,7 +248,7 @@ version.
 % \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
 % \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
 % \changes{v0.4}{2017/07/29}{在 \cls{ctxdoc} 的基础上完成
-%   \cls{fdudoc} 文档类，用于用户手册编写。}
+%   \cls{fdudoc} 文档类，用于模板手册的编写。}
 % \changes{v0.4}{2017/08/03}{拆分 dtx 文件。}
 %
 % \CheckSum{0}
@@ -376,7 +371,7 @@ version.
 % 意见或者功能需求，欢迎前往 GitHub 仓库
 % \href{https://github.com/Stone-Zeng/fduthesis/issues}{提交 issue}。
 %
-% 文档的最后还提供了版本历史和代码索引，以供用户查阅。
+% 文档的最后还提供了版本历史和代码索引，以供查阅。
 %
 % \section{安装}
 % \subsection{获取 \cls{fduthesis}}
@@ -386,12 +381,11 @@ version.
 %   \item 打开 \href{https://github.com/Stone-Zeng/fduthesis}{项目主页}，
 %     点击“Clone or download”，并选择“Download ZIP”，下载
 %     \file{fduthesis-master.zip}。
-%   \item 解压 \file{fduthesis-master.zip} 后，将 \file{test}
-%     文件夹下的模板文档类文件 \file{fduthesis.cls}、
-%     \file{fduthesis-en.cls}，参数配置文件 \file{fduthesis.def}、
-%     \file{fduthesis-user.def} 以及校名图片 \file{Fudan_Logo.pdf}
-%     复制到您的工作文件夹（\TeX{}论文文件所在的文件夹）中，
-%     方可完成安装。
+%   \item 解压安装包 \file{fduthesis-master.zip} 以后，将
+%     \file{test} 文件夹下的模板文档类文件 \file{fduthesis.cls}、
+%     \file{fduthesis-en.cls} 以及参数配置文件
+%     \file{fduthesis.def}、\file{fduthesis-user.def} 复制到您的
+%     工作文件夹（\TeX{} 论文文件所在的文件夹）中，方可完成安装。
 % \end{itemize}
 %
 % 注：这是一条缓兵之计。
@@ -401,7 +395,8 @@ version.
 % 其具体组成见表~\ref{tab:fduthesis-components}。
 %
 % \begin{table}[h]
-%   \caption{\cls{fduthesis} 的组成} \label{tab:fduthesis-components}
+%   \caption{\cls{fduthesis} 的组成}
+%   \label{tab:fduthesis-components}
 %   \centering
 %   \begin{tabular}{lp{24em}}
 %     \toprule
@@ -558,7 +553,7 @@ version.
 % \end{itemize}
 %
 % \subsection{参数设置}
-% 本模板提供了一系列选项，可由用户自行配置。以下所有选项均可通过
+% 本模板提供了一系列选项，可由您自行配置。以下所有选项均可通过
 % 统一的命令 \cs{fdusetup} 来设置。
 %
 % \begin{function}{\fdusetup}
@@ -660,18 +655,18 @@ version.
 % \end{function}
 %
 % \begin{table}[h]
-% \caption{西文字体与脚注编号样式默认值的对应关系}
-% \label{tab:footnote-font}
-% \centering
-% \begin{tabular}{ccccc}
-%   \toprule
-%   \textbf{西文字体设置} &
-%     |libertinus| & |lm|     & |palatino| & |times| \\
-%   \midrule
-%   \textbf{脚注编号样式默认值} &
-%     |libertinus| & |pifont| & |pifont|   & |xits|  \\
-%   \bottomrule
-% \end{tabular}
+%   \caption{西文字体与脚注编号样式默认值的对应关系}
+%   \label{tab:footnote-font}
+%   \centering
+%   \begin{tabular}{ccccc}
+%     \toprule
+%     \textbf{西文字体设置} &
+%       |libertinus| & |lm|     & |palatino| & |times| \\
+%     \midrule
+%     \textbf{脚注编号样式默认值} &
+%       |libertinus| & |pifont| & |pifont|   & |xits|  \\
+%     \bottomrule
+%   \end{tabular}
 % \end{table}
 %
 % \begin{function}{style/automakecover}
@@ -682,6 +677,26 @@ version.
 %   声明页（封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，
 %   具体请参阅 \ref{subsubsec:信息录入}~节。
 % \end{function}
+%
+% \begin{function}{style/logo}
+%   \begin{fdusyntax}
+%     logo = (*\marg{中文标题}*)
+%   \end{fdusyntax}
+%   封面中校名图片的文件名。默认值为 \file{fudan-name.pdf}。
+% \end{function}
+%
+% \begin{function}{style/logosize}
+%   \begin{fdusyntax}
+%     logosize = (*\marg{宽度}*)
+%     logosize = {(*\meta{宽度}*), (*\meta{高度}*)}
+%   \end{fdusyntax}
+%   校名图片的大小。默认值为 |0.5\textwidth|\/。
+%   如果仅需指定高度，可在 \meta{宽度} 处填入一个空的分组 |{}|。
+% \end{function}
+%
+%^^A \begin{fdusyntax}
+%^^A   logosize = {{}, (*\meta{高度}*)}
+%^^A \end{fdusyntax}
 %
 % \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
 %   用于\emph{手动}生成论文封面、指导小组成员名单和声明页。
@@ -1133,8 +1148,8 @@ version.
 %
 % \end{documentation}
 %
-% \EnableImplementation
-%^^A \DisableImplementation
+%^^A \EnableImplementation
+% \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -1935,28 +1950,29 @@ version.
 % 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，带“|*|”的
 % 为阴文版本。
 %    \begin{macrocode}
-    footnotestyle .choices:nn = {
-      plain,
-      libertinus, libertinus*, libertinus-sans,
-      pifont,     pifont*,     pifont-sans,     pifont-sans*,
-      xits,                    xits-sans,       xits-sans*
-    }
+    footnotestyle .choices:nn =
+      {
+        plain,
+        libertinus, libertinus*, libertinus-sans,
+        pifont,     pifont*,     pifont-sans,     pifont-sans*,
+        xits,                    xits-sans,       xits-sans*
+      }
 %    \end{macrocode}
 %
 % 若使用 |pifont| 类型，则需引入 \pkg{pifont} 宏包；
 % 若使用 |xits| 类型，则需调用 XITS Math 字体。
 %    \begin{macrocode}
-    {
-      \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
-      \int_compare:nTF
-        { 5 <= \l_keys_choice_int <= 8 }
-        { \RequirePackage { pifont } }
-        {
-          \int_compare:nT
-            { 9 <= \l_keys_choice_int <= 11 }
-            { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
-        }
-    },
+      {
+        \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
+        \int_compare:nTF
+          { 5 <= \l_keys_choice_int <= 8 }
+          { \RequirePackage { pifont } }
+          {
+            \int_compare:nT
+              { 9 <= \l_keys_choice_int <= 11 }
+              { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
+          }
+      },
     footnotestyle .value_required:n = true
   }
 %    \end{macrocode}
@@ -2511,8 +2527,31 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.4}{2017/08/10}{新增 \opt{logo} 与 \opt{logosize}
+%   选项。}
+%
+% \begin{variable}[int]{\l_@@_cover_logo_tl,
+%   \l_@@_cover_logo_size_clist}
+%    \begin{macrocode}
+\tl_new:N    \l_@@_cover_logo_tl
+\clist_new:N \l_@@_cover_logo_size_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{style/logo,style/logosize}
+% 校名图片的文件名和尺寸。
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+    logo     .tl_set:N    = \l_@@_cover_logo_tl,
+    logosize .clist_set:N = \l_@@_cover_logo_size_clist
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{密级}
-% \changes{v0.3}{2017/07/04}{新增 \opt{secretlevel} 选项。}
+% \changes{v0.3}{2017/07/04}{新增 \opt{secretlevel} 与
+%   \opt{secretyear} 选项。}
 %
 % \begin{macro}{\l_@@_secret_bool}
 % 是否显示密级。
@@ -2528,7 +2567,6 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% 密级也放在 |fdu/info| 键值类中。
 %    \begin{macrocode}
 \keys_define:nn { fdu / info }
   {
@@ -2538,23 +2576,22 @@ version.
 % 密级。|none| 表示不涉密，|i|、|ii|、|iii| 分别为秘密、机密、绝密。
 % 密级与保密年限中间的五角星符号需要利用 XITS-Math 字体。
 %    \begin{macrocode}
-    secretlevel .choices:nn  = {
-      none, i, ii, iii
-    }
-    {
-      \int_compare:nTF
-        { \l_keys_choice_int >= 2 }
-        {
-          \bool_set_true:N \l_@@_secret_bool
-          \setmathfont { XITS~ Math } [ version = secret-XITS ]
-          \tl_set:Nn \l_@@_info_secret_level_tl
-            {
-              \clist_item:Nn \c_@@_def_secret_clist
-                { \l_keys_choice_int - 1 }
-            }
-        }
-        { \bool_set_false:N \l_@@_secret_bool }
-    },
+    secretlevel .choices:nn  =
+      { none, i, ii, iii }
+      {
+        \int_compare:nTF
+          { \l_keys_choice_int >= 2 }
+          {
+            \bool_set_true:N \l_@@_secret_bool
+            \setmathfont { XITS~ Math } [ version = secret-XITS ]
+            \tl_set:Nn \l_@@_info_secret_level_tl
+              {
+                \clist_item:Nn \c_@@_def_secret_clist
+                  { \l_keys_choice_int - 1 }
+              }
+          }
+          { \bool_set_false:N \l_@@_secret_bool }
+      },
     secretlevel .value_required:n = true,
 %    \end{macrocode}
 % \end{macro}
@@ -2636,6 +2673,8 @@ version.
 % 赋给 \cs{l_@@_tmpa_tl}，获取其长度后与 |#1| 进行比较，
 % 二者中较大的那一个将成为 |#1| 的新值。
 % 不断循环，直至 \cs{l_@@_tmpa_clist} 为空。
+%
+% 这里用 |group| 确保局部变量不会被污染。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_max_text_width:NN #1#2
   {
@@ -2675,7 +2714,7 @@ version.
 % \begin{macro}{\@@_cover_id:}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
-\cs_new:Nn \@@_cover_id:
+\cs_new:Npn \@@_cover_id:
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c_@@_def_cover_id_margin_sep_tl }
@@ -2708,14 +2747,27 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_logo:}
-% 插入校名（毛体“復旦大學”）。
+% 插入校名图片。根据参数 |width| 和 |height| 是否为空依次判断。
+% \cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
 %    \begin{macrocode}
-\cs_new:Nn \@@_cover_logo:
+\cs_new:Npn \@@_cover_logo:
   {
     \begin{center}
-      \includegraphics [
-        width = \c_@@_def_cover_logo_width_tl
-      ] { \c_@@_def_cover_logo_file_name_tl }
+      \clist_pop:NN   \l_@@_cover_logo_size_clist \l_@@_tmpa_tl
+      \clist_pop:NNTF \l_@@_cover_logo_size_clist \l_@@_tmpb_tl
+        {
+          \tl_if_empty:NTF \l_@@_tmpa_tl
+            { \includegraphics [ height = \l_@@_tmpb_tl ] }
+            {
+              \includegraphics
+                [
+                  width  = \l_@@_tmpa_tl,
+                  height = \l_@@_tmpb_tl
+                ]
+            }
+        }
+        { \includegraphics [ width = \l_@@_tmpa_tl ] }
+      { \l_@@_cover_logo_tl }
     \end{center}
   }
 %    \end{macrocode}
@@ -2725,7 +2777,7 @@ version.
 % 标题，共有四行。第一行是论文类型，第二行是学位类型，三、四两行分别
 % 是中英文题目。
 %    \begin{macrocode}
-\cs_new:Nn \@@_cover_title:
+\cs_new:Npn \@@_cover_title:
   {
     \begin{center}
       {
@@ -2765,7 +2817,7 @@ version.
 % \begin{macro}{\@@_cover_info:}
 % 信息栏。
 %    \begin{macrocode}
-\cs_new:Nn \@@_cover_info:
+\cs_new:Npn \@@_cover_info:
   {
     \begin{center}
 %    \end{macrocode}
@@ -3398,9 +3450,11 @@ version.
     style   / fontsize      =  -4,
 %<class>    style   / fullwidthstop =  false,
     style   / automakecover =  true,
+    style   / logo          =  { fudan-name.pdf },
+    style   / logosize      =  { 0.5 \textwidth },
     info    / secretlevel   =  none,
     info    / date          =  \zhtoday,
-    info    / schoolid      =  10246,
+    info    / schoolid      =  { 10246 },
 %<class>    theorem / headerfont    = { \sffamily },
 %<class-en>    theorem / headerfont    = { \bfseries \upshape },
 %<class>    theorem / bodyfont      = { \fdu@kai },
@@ -3618,16 +3672,15 @@ version.
 %   \@@_cover_font_size_huge:}
 % 字号，使用固定值。这里的定义与正文字号有所不同。
 %    \begin{macrocode}
-\cs_new:Nn \@@_cover_font_size_small:  { \zihao { -5 } }
-\cs_new:Nn \@@_cover_font_size_normal: { \zihao {  4 } }
-\cs_new:Nn \@@_cover_font_size_large:  { \zihao { -2 } }
-\cs_new:Nn \@@_cover_font_size_huge:   { \zihao {  2 } }
+\cs_new:Npn \@@_cover_font_size_small:  { \zihao { -5 } }
+\cs_new:Npn \@@_cover_font_size_normal: { \zihao {  4 } }
+\cs_new:Npn \@@_cover_font_size_large:  { \zihao { -2 } }
+\cs_new:Npn \@@_cover_font_size_huge:   { \zihao {  2 } }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\c_@@_def_cover_id_width_tl,
 %   \c_@@_def_cover_id_margin_sep_tl,
-%   \c_@@_def_cover_logo_width_tl,
 %   \c_@@_def_cover_type_width_tl,
 %   \c_@@_def_cover_title_width_tl,
 %   \c_@@_def_cover_title_en_width_tl,
@@ -3637,8 +3690,6 @@ version.
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_cover_id_width_tl          { 10 em }
 \tl_const:Nn \c_@@_def_cover_id_margin_sep_tl     { -2 em }
-\tl_const:Nn \c_@@_def_cover_logo_width_tl
-  { 0.5  \textwidth }
 \tl_const:Nn \c_@@_def_cover_type_width_tl
   { 0.45 \textwidth }
 \tl_const:Nn \c_@@_def_cover_title_width_tl
@@ -3668,13 +3719,6 @@ version.
 \tl_const:Nn \c_@@_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
 \tl_const:Nn \c_@@_def_cover_v_sep_vii_tl { 1 ex }
 \tl_const:Nn \c_@@_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\c_@@_def_cover_logo_file_name_tl}
-% 校名 logo 文件名。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_logo_file_name_tl { Fudan_Logo.pdf }
 %    \end{macrocode}
 % \end{macro}
 %

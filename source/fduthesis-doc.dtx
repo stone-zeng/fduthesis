@@ -1,5 +1,5 @@
-% \EnableImplementation
-%^^A \DisableImplementation
+%^^A \EnableImplementation
+% \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -860,12 +860,13 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_module_angle:n}
-% 输出“$\langle\cdots\rangle$”。\\
-% 注：原来所使用的 \tn{textlangle} 和 \tn{textrangle} 在
-% Source Sans Pro 字体下不可用。
+% 输出“$\langle\cdots\rangle$”。^^A\\
+%^^A 注：原来所使用的 \tn{textlangle} 和 \tn{textrangle} 在
+%^^A Source Sans Pro 字体下不可用。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_module_angle:n #1 { < #1 > }
-%   { \textlangle #1 \textrangle }
+\cs_new_protected:Npn \@@_module_angle:n #1
+  { \textlangle #1 \textrangle }
+%   { < #1 > }
 %   { \ensuremath \langle #1 \ensuremath \rangle }
 %    \end{macrocode}
 % \end{macro}
@@ -1490,7 +1491,7 @@
 % 控制“描述对应索引项的页码”样式。在 \pkg{doc} 宏包中的定义为
 % \tn{textit}。
 %    \begin{macrocode}
-\def\usage#1{\textbf{\textsf{#1}}}
+\def\usage#1{\textsf{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1505,24 +1506,31 @@
 % 西文字体。
 %    \begin{macrocode}
 \setmainfont{TeX Gyre Pagella}
-\setsansfont{Source Sans Pro}[
-  BoldFont = Source Sans Pro Semibold]
+\setsansfont{TeX Gyre Heros}
 \setmathfont{TeX Gyre Pagella Math}
 %    \end{macrocode}
 %
 % \begin{macro}{\kaishu}
 % 中文字体。
 %    \begin{macrocode}
-\setCJKmainfont{Source Han Serif SC}[
-  BoldFont   = Source Han Sans SC Medium,
-  ItalicFont = FandolKai]
-\setCJKsansfont{Source Han Sans SC Medium}[
-  BoldFont   = Source Han Sans SC Bold,
-  ItalicFont = FandolKai]
-\setCJKmonofont{FandolFang}[
-  BoldFont   = Source Han Sans SC Medium,
-  ItalicFont = FandolKai]
-\newCJKfontfamily\kaishu{FandolKai}
+\setCJKmainfont{FZShuSong-Z01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\setCJKsansfont{FZHei-B01}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\setCJKmonofont{FZFangSong-Z02}%
+  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+\newCJKfontfamily\kaishu{FZKai-Z03}
+\newCJKfontfamily\fangsong{FZFangSong-Z02}
+% \setCJKmainfont{Source Han Serif SC}[
+%   BoldFont   = Source Han Sans SC Medium,
+%   ItalicFont = FandolKai]
+% \setCJKsansfont{Source Han Sans SC Medium}[
+%   BoldFont   = Source Han Sans SC Bold,
+%   ItalicFont = FandolKai]
+% \setCJKmonofont{FandolFang}[
+%   BoldFont   = Source Han Sans SC Medium,
+%   ItalicFont = FandolKai]
+% \newCJKfontfamily\kaishu{FandolKai}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1654,6 +1662,12 @@
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
 \newcommand*\expstar{\hyperlink{expstar}{$\star$}}
 \newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
+\renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
+\renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+\ExplSyntaxOn
+\cs_set_eq:NN \__codedoc_typeset_exp:  \expstar
+\cs_set_eq:NN \__codedoc_typeset_rexp: \rexpstar
+\ExplSyntaxOff
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1770,17 +1784,9 @@
 % 引用环境。|#1| = 作者，|#2| = 朝代。
 %    \begin{macrocode}
 \NewDocumentEnvironment{quote*}{oo}
-  {\quote\qquad}%
+  {\quote\fangsong\qquad}%
   {\endquote\IfNoValueF{#1}{%
     \hfill —— \IfNoValueF{#2}{〔#2〕}#1}}
-% \ExplSyntaxOn
-% \NewDocumentEnvironment { quote* } { o o }
-%   { \quote \qquad }
-%   {
-%     \endquote
-%     \IfNoValueF {#1} { \hfill —— \IfNoValueF {#2} {〔#2〕} #1 }
-%   }
-% \ExplSyntaxOff
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1840,13 +1846,21 @@
     rulecolor    = \color{MaterialIndigo},
     language     = [LaTeX]TeX,
     texcsstyle   = *\bfseries\color{MaterialDeepOrange},
-    deletetexcs  = {\documentclass},
+    deletetexcs  = {\caption,\documentclass,\footnote},
     moretexcs    = {\chapter},
-    morekeywords = {\documentclass,\fdusetup},
-    emph         = {style,info,%
-      font,fontsize,%
-      author,department,title},
-    emphstyle    = \color{MaterialGreen800}
+    morekeywords = {\caption,\documentclass,\fdusetup,\footnote},
+    emph         = [1]{oneside,twoside,nofonts,draft,%
+      info,style,%
+      automakecover,cjkfont,font,fontsize,footnotestyle,%
+      fullwidthstop,logo,logosize,%
+      author,author*,clc,date,department,department*,instructors,%
+      keywords,keywords*,major,schoolid,secretlevel,studentid,%
+      supervisor,title,title*},
+    emphstyle    = [1]\color{MaterialGreen800},
+    emph         = [2]{document,%
+      abstract,abstract*,notation,%
+      axiom,corollary,definition,example,lemma,proof,theorem},
+    emphstyle    = [2]\color{MaterialBlue900},
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1865,18 +1879,19 @@
     commentstyle = \itshape\color{MaterialGrey600},
     stringstyle  = \color{MaterialRed},
     texcsstyle   = *\bfseries\color{MaterialDeepOrange},
-    deletetexcs  = {\documentclass},
+    deletetexcs  = {\caption,\documentclass,\footnote},
     moretexcs    = {\chapter},
-    morekeywords = {\documentclass,\fdusetup},
+    morekeywords = {\caption,\documentclass,\fdusetup,\footnote},
     emph         = [1]{oneside,twoside,nofonts,draft,%
       info,style,%
       automakecover,cjkfont,font,fontsize,footnotestyle,%
-      fullwidthstop,%
+      fullwidthstop,logo,logosize,%
       author,author*,clc,date,department,department*,instructors,%
       keywords,keywords*,major,schoolid,secretlevel,studentid,%
       supervisor,title,title*},
     emphstyle    = [1]\color{MaterialGreen800},
-    emph         = [2]{abstract,abstract*,notation,%
+    emph         = [2]{document,%
+      abstract,abstract*,notation,%
       axiom,corollary,definition,example,lemma,proof,theorem},
     emphstyle    = [2]\color{MaterialBlue900},
   }
