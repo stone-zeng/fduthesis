@@ -30,6 +30,7 @@
 latexmkrc
 
 .vscode/
+build/
 files/
 temp/
 
