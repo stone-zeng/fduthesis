@@ -1148,8 +1148,8 @@ version.
 %
 % \end{documentation}
 %
-%^^A \EnableImplementation
-% \DisableImplementation
+% \EnableImplementation
+%^^A \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -1253,14 +1253,16 @@ version.
 %    \begin{macrocode}
     oneside .value_forbidden:n = true,
     twoside .value_forbidden:n = true,
-    oneside .code:n = {
-      \clist_gput_right:Nn \g_@@_to_book_clist { oneside }
-      \bool_set_false:N    \g_@@_twoside_bool
-    },
-    twoside .code:n = {
-      \clist_gput_right:Nn \g_@@_to_book_clist { twoside }
-      \bool_set_true:N     \g_@@_twoside_bool
-    },
+    oneside .code:n =
+      {
+        \clist_gput_right:Nn \g_@@_to_book_clist { oneside }
+        \bool_set_false:N    \g_@@_twoside_bool
+      },
+    twoside .code:n =
+      {
+        \clist_gput_right:Nn \g_@@_to_book_clist { twoside }
+        \bool_set_true:N     \g_@@_twoside_bool
+      },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1278,13 +1280,13 @@ version.
 % 是否开启草稿模式（默认关闭）。
 %    \begin{macrocode}
     draft .choice:,
-    draft / true  .code:n = {
-      \bool_set_true:N     \g_@@_draft_bool
-      \clist_gput_right:Nn \g_@@_to_book_clist { draft }
-    },
-    draft / false .code:n = {
-      \bool_set_false:N    \g_@@_draft_bool
-    },
+    draft / true  .code:n =
+      {
+        \bool_set_true:N     \g_@@_draft_bool
+        \clist_gput_right:Nn \g_@@_to_book_clist { draft }
+      },
+    draft / false .code:n =
+      { \bool_set_false:N    \g_@@_draft_bool },
     draft .default:n = true,
     draft .initial:n = false
   }
@@ -1401,46 +1403,50 @@ version.
 %    \end{macrocode}
 % Libertinus 系列。
 %    \begin{macrocode}
-    font / libertinus .code:n = {
-      \setmainfont { Libertinus~ Serif }
-      \setsansfont { Libertinus~ Sans  }
-      \setmonofont { TeX~ Gyre~ Cursor }
-        [ Ligatures = NoCommon ]
-      \setmathfont { Libertinus~ Math  }
-      \keys_set:nn { fdu / style } { footnotestyle = libertinus }
-    },
+    font / libertinus .code:n =
+      {
+        \setmainfont { Libertinus~ Serif }
+        \setsansfont { Libertinus~ Sans  }
+        \setmonofont { TeX~ Gyre~ Cursor }
+          [ Ligatures = NoCommon ]
+        \setmathfont { Libertinus~ Math  }
+        \keys_set:nn { fdu / style } { footnotestyle = libertinus }
+      },
 %    \end{macrocode}
 % Latin Modern 系列。
 %    \begin{macrocode}
-    font / lm .code:n = {
-      \setmainfont { Latin~ Modern~ Roman }
-      \setsansfont { Latin~ Modern~ Sans  }
-      \setmonofont { Latin~ Modern~ Mono  }
-      \setmathfont { Latin~ Modern~ Math  }
-      \keys_set:nn { fdu / style } { footnotestyle = pifont }
-    },
+    font / lm .code:n =
+      {
+        \setmainfont { Latin~ Modern~ Roman }
+        \setsansfont { Latin~ Modern~ Sans  }
+        \setmonofont { Latin~ Modern~ Mono  }
+        \setmathfont { Latin~ Modern~ Math  }
+        \keys_set:nn { fdu / style } { footnotestyle = pifont }
+      },
 %    \end{macrocode}
 % Palatino 系列。
 %    \begin{macrocode}
-    font / palatino .code:n = {
-      \setmainfont { TeX~ Gyre~ Pagella       }
-      \setsansfont { TeX~ Gyre~ Heros         }
-      \setmonofont { TeX~ Gyre~ Cursor        }
-        [ Ligatures = NoCommon ]
-      \setmathfont { TeX~ Gyre~ Pagella~ Math }
-      \keys_set:nn { fdu / style } { footnotestyle = pifont }
-    },
+    font / palatino .code:n =
+      {
+        \setmainfont { TeX~ Gyre~ Pagella       }
+        \setsansfont { TeX~ Gyre~ Heros         }
+        \setmonofont { TeX~ Gyre~ Cursor        }
+          [ Ligatures = NoCommon ]
+        \setmathfont { TeX~ Gyre~ Pagella~ Math }
+        \keys_set:nn { fdu / style } { footnotestyle = pifont }
+      },
 %    \end{macrocode}
 % Times Roman 系列。
 %    \begin{macrocode}
-    font / times .code:n = {
-      \setmainfont { XITS              }
-      \setsansfont { TeX~ Gyre~ Heros  }
-      \setmonofont { TeX~ Gyre~ Cursor }
-        [ Ligatures = NoCommon ]
-      \setmathfont { XITS~ Math        }
-      \keys_set:nn { fdu / style } { footnotestyle = xits }
-    },
+    font / times .code:n =
+      {
+        \setmainfont { XITS              }
+        \setsansfont { TeX~ Gyre~ Heros  }
+        \setmonofont { TeX~ Gyre~ Cursor }
+          [ Ligatures = NoCommon ]
+        \setmathfont { XITS~ Math        }
+        \keys_set:nn { fdu / style } { footnotestyle = xits }
+      },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1455,128 +1461,124 @@ version.
 %    \end{macrocode}
 % Adobe 系列。
 %    \begin{macrocode}
-    cjkfont / adobe .code:n = {
-      \setCJKmainfont { Adobe~ Song~ Std~ L     }
-        [
-          ItalicFont   = Adobe~ Kaiti~ Std~ R,
-          AutoFakeBold = true
-        ]
-      \setCJKsansfont { Adobe~ Heiti~ Std~ R    }
-        [
-          ItalicFont   = Adobe~ Heiti~ Std~ R,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { Adobe~ Fangsong~ Std~ R }
-        [
-          ItalicFont   = Adobe~ Fangsong~ Std~ R,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { Adobe~ Song~     Std~ L }
-      \setCJKfamilyfont { hei  } { Adobe~ Heiti~    Std~ R }
-      \setCJKfamilyfont { fang } { Adobe~ Fangsong~ Std~ R }
-      \setCJKfamilyfont { kai  } { Adobe~ Kaiti~    Std~ R }
-    },
+    cjkfont / adobe .code:n =
+      {
+        \setCJKmainfont { Adobe~ Song~ Std~ L     }
+          [
+            ItalicFont   = Adobe~ Kaiti~ Std~ R,
+            AutoFakeBold = true
+          ]
+        \setCJKsansfont { Adobe~ Heiti~ Std~ R    }
+          [
+            ItalicFont   = Adobe~ Heiti~ Std~ R,
+            AutoFakeBold = true
+          ]
+        \setCJKmonofont { Adobe~ Fangsong~ Std~ R }
+          [
+            ItalicFont   = Adobe~ Fangsong~ Std~ R,
+            AutoFakeBold = true
+          ]
+        \setCJKfamilyfont { song } { Adobe~ Song~     Std~ L }
+        \setCJKfamilyfont { hei  } { Adobe~ Heiti~    Std~ R }
+        \setCJKfamilyfont { fang } { Adobe~ Fangsong~ Std~ R }
+        \setCJKfamilyfont { kai  } { Adobe~ Kaiti~    Std~ R }
+      },
 %    \end{macrocode}
 % Fandol 系列。
 %    \begin{macrocode}
-    cjkfont / fandol .code:n = {
-      \setCJKmainfont { FandolSong }
-        [
-          ItalicFont   = FandolKai
-        ]
-      \setCJKsansfont { FandolHei  }
-        [
-          ItalicFont   = FandolHei
-        ]
-      \setCJKmonofont { FandolFang }
-        [
-          ItalicFont   = FandolFang,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { FandolSong }
-      \setCJKfamilyfont { hei  } { FandolHei  }
-      \setCJKfamilyfont { fang } { FandolFang }
-      \setCJKfamilyfont { kai  } { FandolKai  }
-    },
+    cjkfont / fandol .code:n =
+      {
+        \setCJKmainfont { FandolSong } [ ItalicFont = FandolKai ]
+        \setCJKsansfont { FandolHei  } [ ItalicFont = FandolHei ]
+        \setCJKmonofont { FandolFang }
+          [
+            ItalicFont   = FandolFang,
+            AutoFakeBold = true
+          ]
+        \setCJKfamilyfont { song } { FandolSong }
+        \setCJKfamilyfont { hei  } { FandolHei  }
+        \setCJKfamilyfont { fang } { FandolFang }
+        \setCJKfamilyfont { kai  } { FandolKai  }
+      },
 %    \end{macrocode}
 % 方正系列。
 %    \begin{macrocode}
-    cjkfont / founder .code:n = {
-      \setCJKmainfont { FZShuSong-Z01  }
-        [
-          BoldFont     = FZXiaoBiaoSong-B05,
-          ItalicFont   = FZKai-Z03
-        ]
-      \setCJKsansfont { FZHei-B01      }
-        [
-          ItalicFont   = FZHei-B01,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { FZFangSong-Z02 }
-        [
-          ItalicFont   = FZFangSong-Z02,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { FZShuSong -Z01 }
-      \setCJKfamilyfont { hei  } { FZHei     -B01 }
-      \setCJKfamilyfont { fang } { FZFangSong-Z02 }
-      \setCJKfamilyfont { kai  } { FZKai     -Z03 }
-    },
+    cjkfont / founder .code:n =
+      {
+        \setCJKmainfont { FZShuSong-Z01  }
+          [
+            BoldFont     = FZXiaoBiaoSong-B05,
+            ItalicFont   = FZKai-Z03
+          ]
+        \setCJKsansfont { FZHei-B01      }
+          [
+            ItalicFont   = FZHei-B01,
+            AutoFakeBold = true
+          ]
+        \setCJKmonofont { FZFangSong-Z02 }
+          [
+            ItalicFont   = FZFangSong-Z02,
+            AutoFakeBold = true
+          ]
+        \setCJKfamilyfont { song } { FZShuSong -Z01 }
+        \setCJKfamilyfont { hei  } { FZHei     -B01 }
+        \setCJKfamilyfont { fang } { FZFangSong-Z02 }
+        \setCJKfamilyfont { kai  } { FZKai     -Z03 }
+      },
 %    \end{macrocode}
 % Linux 系列。（没做）
 %    \begin{macrocode}
-%    cjkfont / linux .code:n = {
-%      \setCJKmainfont{ SimSun }
-%        [ BoldFont = SimHei, ItalicFont   = KaiTi ]
-%    },
+%     cjkfont / linux .code:n = { },
 %    \end{macrocode}
-% Mac （华文）系列。
+% 华文系列。
 %    \begin{macrocode}
-    cjkfont / mac .code:n = {
-      \setCJKmainfont { STSong     }
-        [
-          BoldFont     = STZhongsong,
-          ItalicFont   = STKaiti
-        ]
-      \setCJKsansfont { STHeiti    }
-        [
-          ItalicFont   = STHeiti,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { STFangsong }
-        [
-          ItalicFont   = STFangsong,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { STSong     }
-      \setCJKfamilyfont { hei  } { STHeiti    }
-      \setCJKfamilyfont { fang } { STFangsong }
-      \setCJKfamilyfont { kai  } { STKaiti    }
-    },
+    cjkfont / mac .code:n =
+      {
+        \setCJKmainfont { STSong     }
+          [
+            BoldFont     = STZhongsong,
+            ItalicFont   = STKaiti
+          ]
+        \setCJKsansfont { STHeiti    }
+          [
+            ItalicFont   = STHeiti,
+            AutoFakeBold = true
+          ]
+        \setCJKmonofont { STFangsong }
+          [
+            ItalicFont   = STFangsong,
+            AutoFakeBold = true
+          ]
+        \setCJKfamilyfont { song } { STSong     }
+        \setCJKfamilyfont { hei  } { STHeiti    }
+        \setCJKfamilyfont { fang } { STFangsong }
+        \setCJKfamilyfont { kai  } { STKaiti    }
+      },
 %    \end{macrocode}
 % Windows （中易）系列。
 %    \begin{macrocode}
-    cjkfont / windows .code:n = {
-      \setCJKmainfont { SimSun   }
-        [
-          ItalicFont   = KaiTi,
-          AutoFakeBold = true
-        ]
-      \setCJKsansfont { SimHei   }
-        [
-          ItalicFont   = SimHei,
-          AutoFakeBold = true
-        ]
-      \setCJKmonofont { FangSong }
-        [
-          ItalicFont   = FangSong,
-          AutoFakeBold = true
-        ]
-      \setCJKfamilyfont { song } { SimSun   }
-      \setCJKfamilyfont { hei  } { SimHei   }
-      \setCJKfamilyfont { fang } { FangSong }
-      \setCJKfamilyfont { kai  } { KaiTi    }
-    }
+    cjkfont / windows .code:n =
+      {
+        \setCJKmainfont { SimSun   }
+          [
+            ItalicFont   = KaiTi,
+            AutoFakeBold = true
+          ]
+        \setCJKsansfont { SimHei   }
+          [
+            ItalicFont   = SimHei,
+            AutoFakeBold = true
+          ]
+        \setCJKmonofont { FangSong }
+          [
+            ItalicFont   = FangSong,
+            AutoFakeBold = true
+          ]
+        \setCJKfamilyfont { song } { SimSun   }
+        \setCJKfamilyfont { hei  } { SimHei   }
+        \setCJKfamilyfont { fang } { FangSong }
+        \setCJKfamilyfont { kai  } { KaiTi    }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1692,19 +1694,20 @@ version.
 %   \normalsize,\large,\Large,\LARGE,\huge,\Huge}
 % 默认使用小四号字，所以只有五号字需要重新设置。
 %    \begin{macrocode}
-    fontsize /  5 .code:n = {
-      \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
-      \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
-      \RenewDocumentCommand \footnotesize { } { \zihao {  6 } }
-      \RenewDocumentCommand \small        { } { \zihao { -5 } }
-      \RenewDocumentCommand \normalsize   { } { \zihao {  5 } }
-      \RenewDocumentCommand \large        { } { \zihao { -4 } }
-      \RenewDocumentCommand \Large        { } { \zihao { -3 } }
-      \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
-      \RenewDocumentCommand \huge         { } { \zihao {  2 } }
-      \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
-%<class>    },
-%<class-en>    }
+    fontsize /  5 .code:n =
+      {
+        \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
+        \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
+        \RenewDocumentCommand \footnotesize { } { \zihao {  6 } }
+        \RenewDocumentCommand \small        { } { \zihao { -5 } }
+        \RenewDocumentCommand \normalsize   { } { \zihao {  5 } }
+        \RenewDocumentCommand \large        { } { \zihao { -4 } }
+        \RenewDocumentCommand \Large        { } { \zihao { -3 } }
+        \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
+        \RenewDocumentCommand \huge         { } { \zihao {  2 } }
+        \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
+%<class>      },
+%<class-en>      }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1722,11 +1725,12 @@ version.
 %    \begin{macrocode}
 %<*class>
     fullwidthstop .choice:,
-    fullwidthstop / true  .code:n = {
-      \char_set_active_eq:nN { "3002 }
-        \c_@@_full_stop_fullwidth_tl
-      \char_set_catcode_active:n { "3002 }
-    },
+    fullwidthstop / true  .code:n =
+      {
+        \char_set_active_eq:nN { "3002 }
+          \c_@@_full_stop_fullwidth_tl
+        \char_set_catcode_active:n { "3002 }
+      },
     fullwidthstop / false .code:n = { },
     fullwidthstop .default:n  = true
 %</class>
@@ -1744,33 +1748,36 @@ version.
 % 设置章（chapter）、节（section）与小节（sub-section）标题样式。
 % 此处使用 |fixskip = true| 选项来抑制前后的多余间距。
 %    \begin{macrocode}
-    chapter = {
-%<class>      format      = \c_@@_def_chapter_format_tl,
+    chapter =
+      {
+%<class>        format      = \c_@@_def_chapter_format_tl,
 %<*class-en>
-      format      = \c_@@_def_chapter_format_en_tl,
-      nameformat  = \c_@@_def_chapter_name_format_en_tl,
-      titleformat = \c_@@_def_chapter_title_format_en_tl,
-      aftername   = \c_@@_def_chapter_after_name_en_tl,
+        format      = \c_@@_def_chapter_format_en_tl,
+        nameformat  = \c_@@_def_chapter_name_format_en_tl,
+        titleformat = \c_@@_def_chapter_title_format_en_tl,
+        aftername   = \c_@@_def_chapter_after_name_en_tl,
 %</class-en>
-      beforeskip  = \c_@@_def_chapter_before_sep_tl,
-      afterskip   = \c_@@_def_chapter_after_sep_tl,
-      number      = { \arabic { chapter } },
-      fixskip     = true
-    },
-    section = {
-%<class>      format      = \c_@@_def_section_format_tl,
-%<class-en>      format      = \c_@@_def_section_format_en_tl,
-      beforeskip  = \c_@@_def_section_before_sep_tl,
-      afterskip   = \c_@@_def_section_after_sep_tl,
-      fixskip     = true
-    },
-    subsection = {
-%<class>      format      = \c_@@_def_subsection_format_tl,
-%<class-en>      format      = \c_@@_def_subsection_format_en_tl,
-      beforeskip  = \c_@@_def_subsection_before_sep_tl,
-      afterskip   = \c_@@_def_subsection_after_sep_tl,
-      fixskip     = true
-    }
+        beforeskip  = \c_@@_def_chapter_before_sep_tl,
+        afterskip   = \c_@@_def_chapter_after_sep_tl,
+        number      = { \arabic { chapter } },
+        fixskip     = true
+      },
+    section =
+      {
+%<class>        format      = \c_@@_def_section_format_tl,
+%<class-en>        format      = \c_@@_def_section_format_en_tl,
+        beforeskip  = \c_@@_def_section_before_sep_tl,
+        afterskip   = \c_@@_def_section_after_sep_tl,
+        fixskip     = true
+      },
+    subsection =
+      {
+%<class>        format      = \c_@@_def_subsection_format_tl,
+%<class-en>        format      = \c_@@_def_subsection_format_en_tl,
+        beforeskip  = \c_@@_def_subsection_before_sep_tl,
+        afterskip   = \c_@@_def_subsection_after_sep_tl,
+        fixskip     = true
+      }
   }
 %    \end{macrocode}
 %
@@ -3048,25 +3055,28 @@ version.
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-%<class>    contentsname = { \c_@@_def_name_toc_tl },
-%<class-en>    contentsname = { \c_@@_def_name_toc_en_tl },
+%<class>    contentsname = \c_@@_def_name_toc_tl,
+%<class-en>    contentsname = \c_@@_def_name_toc_en_tl,
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
-    chapter    / tocline = {
-%<class>      \c_@@_def_chapter_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>      \c_@@_def_chapter_toc_format_en_tl \CTEXnumberline {#1} #2
-    },
-    section    / tocline = {
-%<class>      \c_@@_def_section_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>      \c_@@_def_section_toc_format_en_tl \CTEXnumberline {#1} #2
-    },
-    subsection / tocline = {
-%<class>      \c_@@_def_subsection_toc_format_tl \CTEXnumberline {#1} #2
-%<class-en>      \c_@@_def_subsection_toc_format_en_tl
+    chapter / tocline =
+      {
+%<class>        \c_@@_def_chapter_toc_format_tl    \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_def_chapter_toc_format_en_tl \CTEXnumberline {#1} #2
+      },
+    section / tocline =
+      {
+%<class>        \c_@@_def_section_toc_format_tl    \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_def_section_toc_format_en_tl \CTEXnumberline {#1} #2
+      },
+    subsection / tocline =
+      {
+%<class>        \c_@@_def_subsection_toc_format_tl \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_def_subsection_toc_format_en_tl
 %<class-en>        \CTEXnumberline {#1} #2
-    }
+      }
   }
 %    \end{macrocode}
 %
@@ -3261,29 +3271,25 @@ version.
 %
 %
 % \keys_define:nn { xwrapfig }
-% {
-%   cutout .code:n = {
-%     \keys_set:nn { xwrapfig / cutout } {#1}
-%   }
-% }
+%   { cutout .code:n = { \keys_set:nn { xwrapfig / cutout } {#1} } }
 %
 % \keys_define:nn { fdu / wrap / cutout }
-% {
-%   % 环境前不改变的行数
-%   top~ lines    .int_set:N = \l_@@_wrap_top_lines_int,
-%   % 左右边距
-%   left~  margin .dim_set:N = \l_@@_wrap_L_margin_dim,
-%   right~ margin .dim_set:N = \l_@@_wrap_R_margin_dim,
-%   % 上下行距
-%   before~ lines .int_set:N = \l_@@_wrap_before_lines_int,
-%   after~  lines .int_set:N = \l_@@_wrap_after_lines_int,
-%   %
-%   top~ lines    .initial:n = { 2 },
-%   left~  margin .initial:n = { 0.5 em },
-%   right~ margin .initial:n = { 0.5 em },
-%   before~ lines .initial:n = { 1 },
-%   after~  lines .initial:n = { 1 }
-% }
+%   {
+%     % 环境前不改变的行数
+%     top~ lines    .int_set:N = \l_@@_wrap_top_lines_int,
+%     % 左右边距
+%     left~  margin .dim_set:N = \l_@@_wrap_L_margin_dim,
+%     right~ margin .dim_set:N = \l_@@_wrap_R_margin_dim,
+%     % 上下行距
+%     before~ lines .int_set:N = \l_@@_wrap_before_lines_int,
+%     after~  lines .int_set:N = \l_@@_wrap_after_lines_int,
+%     %
+%     top~ lines    .initial:n = { 2 },
+%     left~  margin .initial:n = { 0.5 em },
+%     right~ margin .initial:n = { 0.5 em },
+%     before~ lines .initial:n = { 1 },
+%     after~  lines .initial:n = { 1 }
+%   }
 %
 %
 % \cs_generate_variant:Nn \galley_cutout_right:nn { nV }
