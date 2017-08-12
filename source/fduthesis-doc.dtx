@@ -1,4 +1,4 @@
-% \EnableImplementation
+%^^A \EnableImplementation
 %^^A \DisableImplementation
 %
 % \begin{implementation}
@@ -1521,35 +1521,27 @@
   [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
 \newCJKfontfamily\kaishu{FZKai-Z03}
 \newCJKfontfamily\fangsong{FZFangSong-Z02}
-% \setCJKmainfont{Source Han Serif SC}[
-%   BoldFont   = Source Han Sans SC Medium,
-%   ItalicFont = FandolKai]
-% \setCJKsansfont{Source Han Sans SC Medium}[
-%   BoldFont   = Source Han Sans SC Bold,
-%   ItalicFont = FandolKai]
-% \setCJKmonofont{FandolFang}[
-%   BoldFont   = Source Han Sans SC Medium,
-%   ItalicFont = FandolKai]
-% \newCJKfontfamily\kaishu{FandolKai}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\CodeFont}
+% \begin{macro}[int]{\fdudoc@code@font,\fdudoc@cjk@code@font}
 % 代码部分的字体，这里用了两种系列。
 %    \begin{macrocode}
-\setmonofont{CMU Typewriter Text}[
-  UprightFont = * Light,
-  BoldFont    = * Bold,
-  SlantedFont = * Light Oblique,
-  HyphenChar  = None]
-\setCJKfamilyfont{codefont}{Source Code Pro}[
-  BoldFont    = Source Code Pro Semibold]
-\setCJKfamilyfont{cjkcodefont}{Source Han Sans SC}[
-  BoldFont    = Source Han Sans SC Bold,
-  ItalicFont  = FandolKai]
-\newcommand*\CodeFont{%
-  \CJKfamily-{codefont}\CJKfamily{cjkcodefont}}
+\setmonofont{CMU Typewriter Text}%
+  [
+    UprightFont = * Light,
+    BoldFont    = * Bold,
+    SlantedFont = * Light Oblique,
+    HyphenChar  = None
+  ]
+\newfontfamily\fdudoc@code@font{Source Code Pro}%
+  [BoldFont = Source Code Pro Semibold]
+\newCJKfontfamily\fdudoc@cjk@code@font{Source Han Sans SC}%
+  [BoldFont = Source Han Sans SC Bold, ItalicFont = FandolKai]
+\newcommand*\CodeFont{\fdudoc@code@font\fdudoc@cjk@code@font}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % 中文排版格式（\pkg{ctex} 宏包）。
@@ -1799,6 +1791,13 @@
 \@empty\z@\@empty
 %    \end{macrocode}
 %
+% 导入 \pkg{listings} 关键字定义文件。
+%    \begin{macrocode}
+\InputIfFileExists{fdudoc-listings.def}{}
+  {\lstdefinelanguage[fdudoc@latex]{TeX}[LaTeX]{TeX}{}
+   \lstdefinelanguage[fdudoc@bash]{bash}[]{bash}{}}
+%    \end{macrocode}
+%
 % 定义几种代码样式。
 % \begin{macro}[int]{style@base}
 %    \begin{macrocode}
@@ -1814,7 +1813,7 @@
     basicstyle      = \small\CodeFont\color{MaterialGrey900},
     keywordstyle    = \bfseries\color{MaterialIndigo},
     commentstyle    = \itshape\color{MaterialGrey600},
-    stringstyle     = \color{MaterialDeepOrange},
+    stringstyle     = \color{MaterialRed},
     backgroundcolor = \color{MaterialGrey50}
   }
 %    \end{macrocode}
@@ -1824,16 +1823,11 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@shell}
   {
-    style        = style@base,
-    rulecolor    = \color{MaterialPink},
-    language     = bash,
-    alsoletter   = {-},
-    morekeywords = {mkdir,cp,git,fc,%
-      tex,pdftex,xetex,luatex,%
-      latex,pdflatex,xelatex,lualatex,%
-      bibtex,makeindex,zhmakeindex,latexmk},
-    emph         = {-o,-s,-t,-xelatex,-lualatex},
-    emphstyle    = \color{MaterialGreen800}
+    style      = style@base,
+    rulecolor  = \color{MaterialPink},
+    language   = [fdudoc@bash]bash,
+    alsoletter = {-},
+    emphstyle  = \color{MaterialGreen800}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1842,25 +1836,13 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@latex}
   {
-    style        = style@base,
-    rulecolor    = \color{MaterialIndigo},
-    language     = [LaTeX]TeX,
-    texcsstyle   = *\bfseries\color{MaterialDeepOrange},
-    deletetexcs  = {\caption,\documentclass,\footnote},
-    moretexcs    = {\chapter},
-    morekeywords = {\caption,\documentclass,\fdusetup,\footnote},
-    emph         = [1]{oneside,twoside,nofonts,draft,%
-      info,style,%
-      automakecover,cjkfont,font,fontsize,footnotestyle,%
-      fullwidthstop,logo,logosize,%
-      author,author*,clc,date,department,department*,instructors,%
-      keywords,keywords*,major,schoolid,secretlevel,studentid,%
-      supervisor,title,title*},
-    emphstyle    = [1]\color{MaterialGreen800},
-    emph         = [2]{document,%
-      abstract,abstract*,notation,%
-      axiom,corollary,definition,example,lemma,proof,theorem},
-    emphstyle    = [2]\color{MaterialBlue900},
+    style      = style@base,
+    rulecolor  = \color{MaterialIndigo},
+    language   = [fdudoc@latex]TeX,
+    alsoletter = {*},
+    texcsstyle = *\bfseries\color{MaterialDeepOrange},
+    emphstyle  = [1]\color{MaterialGreen800},
+    emphstyle  = [2]\color{MaterialTeal}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1869,31 +1851,17 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@syntax}
   {
-    extendedchars= true,
-    gobble       = 6,
-    escapeinside = {(*}{*)},
-    language     = [LaTeX]TeX,
-    alsoletter   = {*},
-    basicstyle   = \footnotesize\CodeFont\color{MaterialGrey900},
-    keywordstyle = \bfseries\color{MaterialIndigo},
-    commentstyle = \itshape\color{MaterialGrey600},
-    stringstyle  = \color{MaterialRed},
-    texcsstyle   = *\bfseries\color{MaterialDeepOrange},
-    deletetexcs  = {\caption,\documentclass,\footnote},
-    moretexcs    = {\chapter},
-    morekeywords = {\caption,\documentclass,\fdusetup,\footnote},
-    emph         = [1]{oneside,twoside,nofonts,draft,%
-      info,style,%
-      automakecover,cjkfont,font,fontsize,footnotestyle,%
-      fullwidthstop,logo,logosize,%
-      author,author*,clc,date,department,department*,instructors,%
-      keywords,keywords*,major,schoolid,secretlevel,studentid,%
-      supervisor,title,title*},
-    emphstyle    = [1]\color{MaterialGreen800},
-    emph         = [2]{document,%
-      abstract,abstract*,notation,%
-      axiom,corollary,definition,example,lemma,proof,theorem},
-    emphstyle    = [2]\color{MaterialBlue900},
+    extendedchars = true,
+    gobble        = 6,
+    escapeinside  = {(*}{*)},
+    language      = [fdudoc@latex]TeX,
+    alsoletter    = {*},
+    basicstyle    = \footnotesize\CodeFont\color{MaterialGrey900},
+    keywordstyle  = \bfseries\color{MaterialIndigo},
+    commentstyle  = \itshape\color{MaterialGrey600},
+    texcsstyle    = *\bfseries\color{MaterialDeepOrange},
+    emphstyle     = [1]\color{MaterialGreen800},
+    emphstyle     = [2]\color{MaterialTeal}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1969,6 +1937,42 @@ sub makeglo2gls {
 %    \end{macrocode}
 %
 % \clearpage
+%
+% \end{implementation}
+%
+% \DisableImplementation
+%
+% \begin{implementation}
+%
+% \pkg{listings} 关键字定义文件。
+%    \begin{macrocode}
+%<*listings>
+\lstdefinelanguage[fdudoc@latex]{TeX}[LaTeX]{TeX}%
+  {
+    deletetexcs={\caption,\documentclass,\footnote},
+    moretexcs={\chapter},
+    morekeywords={\caption,\documentclass,\fdusetup,\footnote},
+    emph=[1]{oneside,twoside,nofonts,draft,%
+      info,style,%
+      automakecover,cjkfont,font,fontsize,footnotestyle,%
+      fullwidthstop,logo,logosize,%
+      author,author*,clc,date,department,department*,instructors,%
+      keywords,keywords*,major,schoolid,secretlevel,studentid,%
+      supervisor,title,title*},
+    emph=[2]{document,%
+      abstract,abstract*,notation,%
+      axiom,corollary,definition,example,lemma,proof,theorem}
+  }
+\lstdefinelanguage[fdudoc@bash]{bash}[]{bash}%
+  {
+    morekeywords={mkdir,cp,git,fc,%
+      tex,pdftex,xetex,luatex,%
+      latex,pdflatex,xelatex,lualatex,%
+      bibtex,makeindex,zhmakeindex,latexmk},
+    emph={-o,-s,-t,-xelatex,-lualatex},
+  }
+%</listings>
+%    \end{macrocode}
 %
 % \end{implementation}
 %

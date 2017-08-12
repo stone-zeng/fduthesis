@@ -26,6 +26,7 @@
 %                                 fduthesis.def,
 %                                 fduthesis-user.def,
 %                                 fdudoc.cls,
+%                                 fdudoc-listings.def,
 %                                 latexmkrc,
 %                                 fduthesis.pdf
 %                             and README.md.
@@ -149,6 +150,7 @@ version.
                                     fduthesis.def,
                                     fduthesis-user.def,
                                     fdudoc.cls,
+                                    fdudoc-listings.def,
                                     latexmkrc,
                                     fduthesis.pdf
                                 and README.md.
@@ -157,22 +159,24 @@ version.
 
 \generate{
   \usedir{tex/latex/fduthesis}
-    \file{\jobname.cls}      {\from{\jobname.dtx}{class}}
-    \file{\jobname-en.cls}   {\from{\jobname.dtx}{class-en}}
-    \file{\jobname.def}      {\from{\jobname.dtx}{definition}}
-    \file{\jobname-user.def} {\from{\jobname.dtx}{user}}
-    \file{fdudoc.cls}        {\from{\jobname.dtx}{fdudoc}
-                              \from{\jobname-doc.dtx}{fdudoc}}
+    \file{\jobname.cls}        {\from{\jobname.dtx}{class}}
+    \file{\jobname-en.cls}     {\from{\jobname.dtx}{class-en}}
+    \file{\jobname.def}        {\from{\jobname.dtx}{definition}}
+    \file{\jobname-user.def}   {\from{\jobname.dtx}{user}}
+    \file{fdudoc.cls}          {\from{\jobname.dtx}{fdudoc}
+                                \from{\jobname-doc.dtx}{fdudoc}}
+    \file{fdudoc-listings.def} {\from{\jobname.dtx}{listings}
+                                \from{\jobname-doc.dtx}{listings}}
 %</install>
 %<*internal>
   \usedir{source/latex/fduthesis}
-    \file{\jobname.ins}      {\from{\jobname.dtx}{install}}
+    \file{\jobname.ins}        {\from{\jobname.dtx}{install}}
 %</internal>
 %<*install>
   \usedir{doc/latex/fduthesis}
   \nopreamble\nopostamble
-    \file{README.md}         {\from{\jobname.dtx}{readme}}
-    \file{latexmkrc.}        {\from{\jobname-doc.dtx}{latexmk}}
+    \file{README.md}           {\from{\jobname.dtx}{readme}}
+    \file{latexmkrc.}          {\from{\jobname-doc.dtx}{latexmk}}
 }
 
 \obeyspaces
@@ -205,7 +209,7 @@ version.
 %<class|class-en|fdudoc>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|fdudoc>\RequirePackage{expl3}
 %<*!(driver|install)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.3 2017-07-28 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<!(listings|readme)>\GetIdInfo $Id: fduthesis.dtx 0.3 2017-07-28 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -216,7 +220,9 @@ version.
 %<user>\ProvidesExplFile{\ExplFileName-user.def}
 %<fdudoc>  {Documentation class for fduthesis}
 %<fdudoc>\ProvidesExplClass{fdudoc}
-%<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%<listings>\ProvidesFile{fdudoc-listings.def}%
+%<listings>  [2017/07/28 v0.3 Listings definition file for fdudoc]
+%<!(listings|readme)>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install)>
 %<*driver>
 \documentclass{fdudoc}
@@ -474,7 +480,7 @@ version.
 % 以下代码中，假设您的 \TeX{} 论文文档名为 |thesis.tex|。
 % 使用 \XeLaTeX{} 编译论文，请在命令行中执行
 % \begin{shellexample}
-%   xelatex thesis
+%   xelatex "thesis"
 %   xelatex thesis
 % \end{shellexample}
 % 或使用 \pkg{latexmk}：
@@ -1149,7 +1155,7 @@ version.
 %
 % \end{documentation}
 %
-% \EnableImplementation
+%^^A \EnableImplementation
 %^^A \DisableImplementation
 %
 % \begin{implementation}
