@@ -1644,6 +1644,44 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\UrlAlphabet,\UrlDigits}
+% 网址断行。\tn{UrlOrds}、\tn{UrlAlphabet} 和 \tn{UrlDigits}
+% 分别记录了特殊符号、字母和数字，把它们依次附加在 \pkg{url} 宏包
+% 提供的命令 \tn{UrlBreaks} 之后，即可允许在这些位置处断行。见
+% \url{https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/}。
+%    \begin{macrocode}
+\def\UrlAlphabet{%
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+  \do\Y\do\Z}
+\def\UrlDigits{%
+  \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro\UrlBreaks{\UrlOrds}
+\g@addto@macro\UrlBreaks{\UrlAlphabet}
+\g@addto@macro\UrlBreaks{\UrlDigits}
+%    \end{macrocode}
+% \end{macro}
+%
+% 不对下列各项添加索引。
+%    \begin{macrocode}
+\DoNotIndex{\begin,\end,
+  \a,\b,\c,\d,\e,\f,\g,\h,\i,\j,\k,\l,\m,
+  \n,\o,\p,\q,\r,\s,\t,\u,\v,\w,\x,\y,\z,
+  \A,\B,\C,\D,\E,\F,\G,\H,\I,\J,\K,\L,\M,
+  \N,\O,\P,\Q,\R,\S,\T,\U,\V,\W,\X,\Y,\Z,
+  \0,\1,\2,\3,\4,\5,\6,\7,\8,\9}
+%    \end{macrocode}
+%
+% 启用索引、交叉引用、历史记录。
+%    \begin{macrocode}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%    \end{macrocode}
+%
 % \subsubsection{文档层命令}
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
 % 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
@@ -1654,6 +1692,7 @@
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
 \newcommand*\expstar{\hyperlink{expstar}{$\star$}}
 \newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
+% TODO(20170812): 允许修改 exptstar 和 rexpstar
 \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \ExplSyntaxOn
@@ -1840,7 +1879,7 @@
     rulecolor  = \color{MaterialIndigo},
     language   = [fdudoc@latex]TeX,
     alsoletter = {*},
-    texcsstyle = *\bfseries\color{MaterialDeepOrange},
+    texcsstyle = *\color{MaterialDeepOrange},
     emphstyle  = [1]\color{MaterialGreen800},
     emphstyle  = [2]\color{MaterialTeal}
   }
@@ -1859,7 +1898,7 @@
     basicstyle    = \footnotesize\CodeFont\color{MaterialGrey900},
     keywordstyle  = \bfseries\color{MaterialIndigo},
     commentstyle  = \itshape\color{MaterialGrey600},
-    texcsstyle    = *\bfseries\color{MaterialDeepOrange},
+    texcsstyle    = *\color{MaterialDeepOrange},
     emphstyle     = [1]\color{MaterialGreen800},
     emphstyle     = [2]\color{MaterialTeal}
   }
@@ -1879,42 +1918,9 @@
 %    \begin{macrocode}
 \lstnewenvironment{fdusyntax}{%
   \lstset{style=style@syntax}\vspace{-1.8ex}}{}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\UrlAlphabet,\UrlDigits}
-% 网址断行。\tn{UrlOrds}、\tn{UrlAlphabet} 和 \tn{UrlDigits}
-% 分别记录了特殊符号、字母和数字，把它们依次附加在 \pkg{url} 宏包
-% 提供的命令 \tn{UrlBreaks} 之后，即可允许在这些位置处断行。见
-% \url{https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/}。
-%    \begin{macrocode}
-\def\UrlAlphabet{%
-  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
-  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
-  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
-  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
-  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
-  \do\Y\do\Z}
-\def\UrlDigits{%
-  \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
-\g@addto@macro\UrlBreaks{\UrlOrds}
-\g@addto@macro\UrlBreaks{\UrlAlphabet}
-\g@addto@macro\UrlBreaks{\UrlDigits}
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
-\DoNotIndex{\begin,\end,
-  \a,\b,\c,\d,\e,\f,\g,\h,\i,\j,\k,\l,\m,
-  \n,\o,\p,\q,\r,\s,\t,\u,\v,\w,\x,\y,\z,
-  \A,\B,\C,\D,\E,\F,\G,\H,\I,\J,\K,\L,\M,
-  \N,\O,\P,\Q,\R,\S,\T,\U,\V,\W,\X,\Y,\Z,
-  \0,\1,\2,\3,\4,\5,\6,\7,\8,\9}
-\EnableCrossrefs
-\CodelineIndex
-\RecordChanges
 %</fdudoc>
 %    \end{macrocode}
+% \end{macro}
 %
 % \subsubsection{\pkg{latexmk} 配置文件}
 %    \begin{macrocode}
@@ -1944,7 +1950,7 @@ sub makeglo2gls {
 %
 % \begin{implementation}
 %
-% \pkg{listings} 关键字定义文件。
+% \subsubsection{\pkg{listings} 关键字定义文件}
 %    \begin{macrocode}
 %<*listings>
 \lstdefinelanguage[fdudoc@latex]{TeX}[LaTeX]{TeX}%
