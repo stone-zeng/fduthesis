@@ -44,7 +44,7 @@
 ## 欢迎使用 fduthesis - 复旦大学论文模板！
 
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.3/fduthesis.pdf)。
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.4/fduthesis.pdf)。
 该文档也可通过如下命令生成：
 
     latexmk fduthesis.dtx
@@ -92,7 +92,7 @@
 ## Welcome to fduthesis - LaTeX thesis template for Fudan University!
 
 Before you using `fduthesis`, please read the document
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.3/fduthesis.pdf)
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.4/fduthesis.pdf)
 carefully. This file can be generated with the following commands
 as well:
 
@@ -209,7 +209,7 @@ version.
 %<class|class-en|fdudoc>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|fdudoc>\RequirePackage{expl3}
 %<*!(driver|install)>
-%<!(listings|readme)>\GetIdInfo $Id: fduthesis.dtx 0.3 2017-07-28 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<!(listings|readme)>\GetIdInfo $Id: fduthesis.dtx 0.4 2017-08-14 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -221,7 +221,7 @@ version.
 %<fdudoc>  {Documentation class for fduthesis}
 %<fdudoc>\ProvidesExplClass{fdudoc}
 %<listings>\ProvidesFile{fdudoc-listings.def}%
-%<listings>  [2017/07/28 v0.3 Listings definition file for fdudoc]
+%<listings>  [2017/08/14 v0.4 Listings definition file for fdudoc]
 %<!(listings|readme)>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install)>
 %<*driver>
@@ -235,7 +235,7 @@ version.
 \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \begin{document}
-  \DisableImplementation
+  % \DisableImplementation
   \DocInput{\jobname.dtx,\jobname-doc.dtx}
   \IndexLayout
   \PrintChanges
@@ -284,7 +284,7 @@ version.
 %   \textbf{fduthesis: 复旦大学论文^^A
 %     \xpinyin[font=\sffamily]{模}{mu2}板}}}
 % \author{曾祥东}
-% \date{\today \quad v0.3^^A
+% \date{\today \quad v0.4^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %
 %^^A 封面与目录的页边距
@@ -680,8 +680,9 @@ version.
 %   \begin{fdusyntax}
 %     hyperlink = (*<border|(color)|none>*)
 %   \end{fdusyntax}
-% 设置超链接样式。\opt{border} 表示在超链接四周绘制方框，
-% \opt{color} 表示用彩色显示超链接，\opt{none} 表示没有特殊装饰。
+% 设置超链接样式。\opt{border} 表示在超链接四周绘制方框；
+% \opt{color} 表示用彩色显示超链接；\opt{none} 表示没有特殊装饰，
+% 可用于生成最终的打印版文稿。
 % \end{function}
 %
 % \begin{function}{style/hyperlinkcolor}
@@ -1495,12 +1496,8 @@ version.
 \RequirePackage { caption }
 %    \end{macrocode}
 %
-% 下划线。|normalem| 选项用以避免 \tn{emph} 命令被修改。
-%    \begin{macrocode}
-% \RequirePackage [ normalem ] { ulem }
-%    \end{macrocode}
-%
 % \changes{v0.4}{2017/08/13}{提供彩色支持。}
+%
 % 提供彩色支持。
 %    \begin{macrocode}
 \RequirePackage { xcolor }
@@ -2098,10 +2095,7 @@ version.
     hyperlink / color  .code:n =
       { \fdu_hyperref_setup:n { colorlinks = true } },
     hyperlink / none   .code:n =
-      {
-        \fdu_hyperref_setup:n
-          { colorlinks = false, pdfborder = 0 0 0 }
-      },
+      { \fdu_hyperref_setup:n { hidelinks  = true } },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2189,6 +2183,7 @@ version.
       { link, #1; url, #2; cite, #3}
   }
 %    \end{macrocode}
+% \end{macro}
 %
 % 在导言区末尾引入 \pkg{hyperref} 宏包。
 %    \begin{macrocode}
@@ -3017,7 +3012,6 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_blank_underline:N #1
   { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
-%   { \uline { \hbox_to_wd:nn {#1} { } } }
 %    \end{macrocode}
 % \end{macro}
 %
