@@ -3,6 +3,8 @@
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 
+% \hypersetup{linktoc = page}
+
 \fdusetup{
   style = {
     % font = libertinus,
@@ -12,6 +14,8 @@
     % automakecover = false
     logo = {../logo/fudan-name.pdf},
     % logosize = {2cm,2cm,2cm}
+    hyperlink = color,
+    hyperlinkcolor = default
   },
   info = {
     title = {自河南经乱关内阻饥兄弟离散各在一处},
@@ -434,8 +438,12 @@ Myriad MM。
 \section{title}
 \section{title}
 \section{title}
+
 \chapter{章节}
 \section{title}
+\TeX{} StackExchange: \url{https://tex.stackexchange.com/}
+
+The \TeX book: \cite{knuth1986texbook}
 \section{title}
 \section{title}
 \section{title}
@@ -443,4 +451,10 @@ Myriad MM。
 \section{title}
 \section{title}
 
+\begin{thebibliography}{9}
+\bibitem{knuth1986texbook}
+Knuth D E.
+\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
+\newblock Boston: Addison--Wesley Publishing Company, 1986
+\end{thebibliography}
 \end{document}

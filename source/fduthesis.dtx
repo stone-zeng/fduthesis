@@ -235,6 +235,7 @@ version.
 \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \begin{document}
+  \DisableImplementation
   \DocInput{\jobname.dtx,\jobname-doc.dtx}
   \IndexLayout
   \PrintChanges
@@ -480,7 +481,7 @@ version.
 % 以下代码中，假设您的 \TeX{} 论文文档名为 |thesis.tex|。
 % 使用 \XeLaTeX{} 编译论文，请在命令行中执行
 % \begin{shellexample}
-%   xelatex "thesis"
+%   xelatex thesis
 %   xelatex thesis
 % \end{shellexample}
 % 或使用 \pkg{latexmk}：
@@ -554,8 +555,7 @@ version.
 % \begin{itemize}
 %   \item 把行溢出的盒子显示为黑色方块；
 %   \item 不实际插入图片，只输出一个占位方框；
-%   \item 关闭超链接渲染，也不添加 PDF 书签（还未调用
-%     \pkg{hyperref}，目前暂时不受影响）；
+%   \item 关闭超链接渲染，也不再生成 PDF 书签；
 %   \item 显示页面边框。
 % \end{itemize}
 %
@@ -676,14 +676,65 @@ version.
 %   \end{tabular}
 % \end{table}
 %
-% \begin{function}{style/automakecover}
+% \begin{function}{style/hyperlink}
 %   \begin{fdusyntax}
-%     automakecover = (*<\TTF>*)
+%     hyperlink = (*<border|(color)|none>*)
 %   \end{fdusyntax}
-%   是否自动生成论文封面（封一）、指导小组成员名单（封二）和
-%   声明页（封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，
-%   具体请参阅 \ref{subsubsec:信息录入}~节。
+% 设置超链接样式。\opt{border} 表示在超链接四周绘制方框，
+% \opt{color} 表示用彩色显示超链接，\opt{none} 表示没有特殊装饰。
 % \end{function}
+%
+% \begin{function}{style/hyperlinkcolor}
+%   \begin{fdusyntax}
+%     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%   \end{fdusyntax}
+% 设置超链接颜色。该选项在 |hyperlink = none| 时无效。
+% 各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
+% \end{function}
+%
+% \begin{table}[h]
+% \centering
+% \newcommand\linkcolorexam[3]{%
+%   {\small 图~\textcolor[HTML]{#1}{1-2}，
+%     (\textcolor[HTML]{#1}{3.4})~式} &
+%   {\small \textcolor[HTML]{#2}{\texttt{http://g.cn}}} &
+%   {\small 文献~[\textcolor[HTML]{#3}{1}]，
+%     (\textcolor[HTML]{#3}{Knuth~1986})}}
+% \begin{threeparttable}
+% \caption{预定义的超链接颜色方案}
+% \label{tab:hyperlink-color}
+% \begin{tabular}{c*{3}{>{\hspace{0.2cm}}c<{\hspace{0.2cm}}}}
+%   \toprule
+%   \textsf{选项} & \textsf{链接} & \textsf{URL} & \textsf{引用} \\
+%   \midrule
+%   \opt{default}            & \linkcolorexam{990000}{0000B2}{007F00} \\
+%   \opt{classic}            & \linkcolorexam{FF0000}{0000FF}{00FF00} \\
+%   \opt{elegant}\tnote{a}   & \linkcolorexam{961212}{C31818}{9B764F} \\
+%   \opt{fantasy}\tnote{b}   & \linkcolorexam{FF4A19}{FF3F94}{934BA1} \\
+%   \opt{material}\tnote{c}  & \linkcolorexam{E91E63}{009688}{4CAF50} \\
+%   \opt{business}\tnote{d}  & \linkcolorexam{D14542}{295497}{1F6E43} \\
+%   \opt{science}\tnote{e}   & \linkcolorexam{CA0619}{389F9D}{FF8920} \\
+%   \opt{summer}\tnote{f}    & \linkcolorexam{00AFAF}{5F5FAF}{5F8700} \\
+%   \opt{autumn}\tnote{f}    & \linkcolorexam{D70000}{D75F00}{AF8700} \\
+%   \opt{graylevel}\tnote{c} & \linkcolorexam{616161}{616161}{616161} \\
+%   \opt{prl}\tnote{g}       & \linkcolorexam{0000FF}{0000FF}{0000FF} \\
+%   \bottomrule
+% \end{tabular}
+% \begin{tablenotes}
+%   \item[a] 来自 \href{https://tex.stackexchange.com/}%
+%     {\TeX{} - \LaTeX{} Stack Exchange 网站}。
+%   \item[b] Adobe CC 产品配色。
+%   \item[c] 取自 Material 色彩方案
+%     （见 \url{https://material.io/guidelines/style/color.html}）。
+%   \item[d] Microsoft Office 2016 产品配色。
+%   \item[e] 来自 \href{https://www.wolfram.com/}{Wolfram Research 网站}。
+%   \item[f] 均取自 Solarized 色彩方案
+%     （见 \url{http://ethanschoonover.com/solarized}）。
+%   \item[g] \textit{Physical Review Letter} 杂志配色。
+% \end{tablenotes}
+% \end{threeparttable}
+% \end{table}
 %
 % \begin{function}{style/logo}
 %   \begin{fdusyntax}
@@ -697,13 +748,18 @@ version.
 %     logosize = (*\marg{宽度}*)
 %     logosize = {(*\meta{宽度}*), (*\meta{高度}*)}
 %   \end{fdusyntax}
-%   校名图片的大小。默认值为 |0.5\textwidth|\/。
+%   校名图片的大小。默认仅指定了宽度，为 |0.5\textwidth|\/。
 %   如果仅需指定高度，可在 \meta{宽度} 处填入一个空的分组 |{}|。
 % \end{function}
 %
-%^^A \begin{fdusyntax}
-%^^A   logosize = {{}, (*\meta{高度}*)}
-%^^A \end{fdusyntax}
+% \begin{function}{style/automakecover}
+%   \begin{fdusyntax}
+%     automakecover = (*<\TTF>*)
+%   \end{fdusyntax}
+%   是否自动生成论文封面（封一）、指导小组成员名单（封二）和
+%   声明页（封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，
+%   具体请参阅 \ref{subsubsec:信息录入}~节。
+% \end{function}
 %
 % \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
 %   用于\emph{手动}生成论文封面、指导小组成员名单和声明页。
@@ -797,7 +853,7 @@ version.
 %   \begin{fdusyntax}
 %     secretyear = (*\marg{年限}*)
 %   \end{fdusyntax}
-%   保密年限。建议您使用中文，如“五年”。此选项在
+%   保密年限。建议您使用中文，如“五年”。该选项在
 %   |secretlevel = none| 时无效。
 % \end{function}
 %
@@ -975,9 +1031,10 @@ version.
 %       \item \pkg{graphicx}，提供图形插入的接口。
 %       \item \pkg{longtable}，长表格（允许跨页）支持。
 %       \item \pkg{caption}，用于设置题注。
-%       \item \pkg{ulem}，用于绘制下划线。
+%       \item \pkg{xcolor}，提供彩色支持。
+%       \item \pkg{hyperref}，提供 PDF 超链接等电子文档功能。
 %     \end{itemize}
-%   \item 开启 |style/footnotestyle=pifont| 选项后，会调用
+%   \item 开启 |style/footnotestyle = pifont| 选项后，会调用
 %     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
 %   \item 文字绕排功能需要启用 \pkg{xgalley} 宏包，它属于
 %     \pkg{l3experimental} 宏集。（目前暂未使用）
@@ -1254,10 +1311,13 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\g_@@_to_book_clist}
-% 保存由 \cls{fduthesis} 传入 \cls{book} 文档类的选项列表。
+% \begin{variable}[int]{\g_@@_to_book_clist,
+%   \g_@@_to_hyperref_clist}
+% 分别保存由 \cls{fduthesis} 传入 \cls{book} 文档类和
+% \pkg{hyperref} 宏包的选项列表。
 %    \begin{macrocode}
 \clist_new:N \g_@@_to_book_clist
+\clist_new:N \g_@@_to_hyperref_clist
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1437,7 +1497,13 @@ version.
 %
 % 下划线。|normalem| 选项用以避免 \tn{emph} 命令被修改。
 %    \begin{macrocode}
-\RequirePackage [ normalem ] { ulem }
+% \RequirePackage [ normalem ] { ulem }
+%    \end{macrocode}
+%
+% \changes{v0.4}{2017/08/13}{提供彩色支持。}
+% 提供彩色支持。
+%    \begin{macrocode}
+\RequirePackage { xcolor }
 %    \end{macrocode}
 %
 % \begin{macro}[int]{\@@_check_package:nnn}
@@ -2002,6 +2068,160 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{\pkg{hyperref} 相关配置}
+% \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，
+%   包括超链接样式（\opt{hyperlink} 与 \opt{hyperlinkcolor}
+%   选项）及 PDF 元信息等。}
+%
+% \begin{macro}{\hypersetup,\fdu_hyperref_setup:n}
+% \pkg{hyperref} 宏包是在导言区之后才引入的。若要在导言区中使用
+% \tn{hypersetup} 命令，必须另行定义。
+%    \begin{macrocode}
+\NewDocumentCommand \hypersetup { m }
+  { \fdu_hyperref_setup:n {#1} }
+\cs_new:Npn \fdu_hyperref_setup:n #1
+  { \clist_gput_right:Nn \g_@@_to_hyperref_clist {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{style/hyperlink}
+% 超链接样式。
+%    \begin{macrocode}
+    hyperlink .choice:,
+    hyperlink .value_required:n = true,
+    hyperlink / border .code:n = { },
+    hyperlink / color  .code:n =
+      { \fdu_hyperref_setup:n { colorlinks = true } },
+    hyperlink / none   .code:n =
+      {
+        \fdu_hyperref_setup:n
+          { colorlinks = false, pdfborder = 0 0 0 }
+      },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{style/hyperlinkcolor}
+% 超链接颜色。
+%    \begin{macrocode}
+    hyperlinkcolor .choice:,
+    hyperlinkcolor .value_required:n = true,
+    hyperlinkcolor / autumn    .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { D70000 } { D75F00 } { AF8700 }
+      },
+    hyperlinkcolor / business  .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { D14542 } { 295497 } { 1F6E43 }
+      },
+    hyperlinkcolor / classic   .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { FF0000 } { 0000FF } { 00FF00 }
+      },
+    hyperlinkcolor / default   .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { 990000 } { 0000B2 } { 007F00 }
+      },
+    hyperlinkcolor / elegant   .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { 961212 } { C31818 } { 9B764F }
+      },
+    hyperlinkcolor / fantasy   .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { FF4A19 } { FF3F94 } { 934BA1 }
+      },
+    hyperlinkcolor / material  .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { E91E63 } { 009688 } { 4CAF50 }
+      },
+    hyperlinkcolor / science   .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { CA0619 } { 389F9D } { FF8920 }
+      },
+    hyperlinkcolor / summer    .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { 00AFAF } { 5F5FAF } { 5F8700 }
+      },
+    hyperlinkcolor / graylevel .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { 616161 } { 616161 } { 616161 }
+      },
+    hyperlinkcolor / prl       .code:n =
+      {
+        \@@_set_hyperlink_color:nnn
+          { 0000FF } { 0000FF } { 0000FF }
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_set_hyperlink_color:nnn,
+%   \@@_define_hyperlink_color:nnn}
+% 定义并设置超链接颜色。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_hyperlink_color:nnn #1#2#3
+  {
+    \@@_define_hyperlink_color:nnn {#1} {#2} {#3}
+    \fdu_hyperref_setup:n
+      {
+        linkcolor = fdu@link, linkbordercolor = fdu@link,
+        urlcolor  = fdu@url,  urlbordercolor  = fdu@url,
+        citecolor = fdu@cite, citebordercolor = fdu@cite
+      }
+  }
+\cs_new:Npn \@@_define_hyperlink_color:nnn #1#2#3
+  {
+    \definecolorset { HTML } { fdu@ } { }
+      { link, #1; url, #2; cite, #3}
+  }
+%    \end{macrocode}
+%
+% 在导言区末尾引入 \pkg{hyperref} 宏包。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \RequirePackage { hyperref }
+    \hypersetup
+      {
+        bookmarksnumbered = true,
+%    \end{macrocode}
+% 填写 PDF 元信息。
+%    \begin{macrocode}
+%<*class>
+        pdftitle    = \l_@@_info_title_tl,
+        pdfauthor   = \l_@@_info_author_tl,
+        pdfkeywords = \l_@@_info_keywords_clist,
+%</class>
+%<*class-en>
+        pdftitle    = \l_@@_info_title_en_tl,
+        pdfauthor   = \l_@@_info_author_en_tl,
+        pdfkeywords = \l_@@_info_keywords_en_clist,
+%</class-en>
+%         pdfsubject  = ,
+        pdfcreator  = \c_@@_def_name_pdf_creator_tl
+      }
+%    \end{macrocode}
+% 将导言区中通过 \cs{fdu_hyperref_setup:n} 进行的设置传入
+% \tn{hypersetup}。
+%    \begin{macrocode}
+    \exp_args:NV \hypersetup \g_@@_to_hyperref_clist
+  }
+%    \end{macrocode}
+%
 % \subsection{脚注}
 % \changes{v0.3}{2017/02/21}{支持脚注。}
 %
@@ -2049,7 +2269,6 @@ version.
   { \tl_set_eq:NN \l_@@_fn_style_tl \c_@@_fn_style_plain_tl }
 %    \end{macrocode}
 %
-% 脚注样式也归入 |fdu/style| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
@@ -2792,10 +3011,13 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_blank_underline:N}
+% \changes{v0.4}{2017/08/14}{改用 \tn{rule} 绘制下划线，不再依赖
+%   \pkg{ulem} 宏包。}
 % 下划线占位符。|#1| = 长度。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_blank_underline:N #1
-  { \uline { \hbox_to_wd:nn {#1} { } } }
+  { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
+%   { \uline { \hbox_to_wd:nn {#1} { } } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3531,19 +3753,21 @@ version.
 %    \begin{macrocode}
 \keys_set:nn { fdu }
   {
-    style   / fontsize      =  -4,
-%<class>    style   / fullwidthstop =  false,
-    style   / automakecover =  true,
-    style   / logo          =  { fudan-name.pdf },
-    style   / logosize      =  { 0.5 \textwidth },
-    info    / secretlevel   =  none,
-    info    / date          =  \zhtoday,
-    info    / schoolid      =  { 10246 },
-%<class>    theorem / headerfont    = { \sffamily },
-%<class-en>    theorem / headerfont    = { \bfseries \upshape },
-%<class>    theorem / bodyfont      = { \fdu@kai },
-%<class-en>    theorem / bodyfont      = { \itshape },
-    theorem / counter       = { chapter }
+    style   / fontsize       =  -4,
+%<class>    style   / fullwidthstop  =  false,
+    style   / automakecover  =  true,
+    style   / logo           =  { fudan-name.pdf },
+    style   / logosize       =  { 0.5 \textwidth },
+    style   / hyperlink      =  color,
+    style   / hyperlinkcolor =  default,
+    info    / secretlevel    =  none,
+    info    / date           =  \zhtoday,
+    info    / schoolid       =  { 10246 },
+%<class>    theorem / headerfont     = { \sffamily },
+%<class-en>    theorem / headerfont     = { \bfseries \upshape },
+%<class>    theorem / bodyfont       = { \fdu@kai },
+%<class-en>    theorem / bodyfont       = { \itshape },
+    theorem / counter        = { chapter }
   }
 %    \end{macrocode}
 %
@@ -3605,6 +3829,16 @@ version.
 %    \end{macrocode}
 %
 % \subsubsection{通用配置}
+% \begin{variable}[int]{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
+%   \c_@@_name_en_tl}
+% 学校名称。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_name_simp_tl { 复旦大学          }
+\tl_const:Nn \c_@@_name_trad_tl { 復旦大學          }
+\tl_const:Nn \c_@@_name_en_tl   { Fudan~ University }
+%    \end{macrocode}
+% \end{variable}
+%
 % \begin{variable}[int]{\c_@@_full_stop_ideographic_tl,
 %   \c_@@_full_stop_fullwidth_tl,
 %   \c_@@_colon_fullwidth_tl,
@@ -3922,12 +4156,14 @@ version.
 \tl_const:Nn \c_@@_def_name_notation_en_tl
   { List~ of~ Symbols }
 \tl_const:Nn \c_@@_def_name_originality_decl_tl
-  { 复旦大学 \\ 学位论文独创性声明   }
+  { \c_@@_name_simp_tl \\ 学位论文独创性声明   }
 \tl_const:Nn \c_@@_def_name_authorization_decl_tl
-  { 复旦大学 \\ 学位论文使用授权声明 }
+  { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
 \tl_const:Nn \c_@@_def_name_author_sign_tl      { 作者签名     }
 \tl_const:Nn \c_@@_def_name_supervisor_sign_tl  { 导师签名     }
 \tl_const:Nn \c_@@_def_name_sign_date_tl        { 日期         }
+\tl_const:Nn \c_@@_def_name_pdf_creator_tl
+  { LaTeX~ with~ fduthesis~ class }
 %    \end{macrocode}
 %
 % 默认定理头名称。
