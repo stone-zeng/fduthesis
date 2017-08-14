@@ -98,6 +98,7 @@ tlmgr install         \
   ulem                \
   unicode-data        \
   unicode-math        \
+  url                 \
   varwidth            \
   xcolor              \
   xecjk               \
