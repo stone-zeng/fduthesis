@@ -19,7 +19,8 @@
 % The Current Maintainer of this work is Xiangdong Zeng.
 %
 % This work consists of the files fduthesis.dtx
-%                                 fduthesis-doc.dtx,
+%                                 fduthesis-doc.dtx
+%                                 fduthesis-logo.dtx,
 %           and the derived files fduthesis.ins,
 %                                 fduthesis.cls,
 %                                 fduthesis-en.cls,
@@ -27,6 +28,7 @@
 %                                 fduthesis-user.def,
 %                                 fdudoc.cls,
 %                                 fdudoc-listings.def,
+%                                 fdulogo.sty,
 %                                 latexmkrc,
 %                                 fduthesis.pdf
 %                             and README.md.
@@ -143,7 +145,8 @@ version.
     The Current Maintainer of this work is Xiangdong Zeng.
 
     This work consists of the files fduthesis.dtx
-                                    fduthesis-doc.dtx,
+                                    fduthesis-doc.dtx
+                                    fduthesis-logo.dtx,
               and the derived files fduthesis.ins,
                                     fduthesis.cls,
                                     fduthesis-en.cls,
@@ -151,6 +154,7 @@ version.
                                     fduthesis-user.def,
                                     fdudoc.cls,
                                     fdudoc-listings.def,
+                                    fdulogo.sty,
                                     latexmkrc,
                                     fduthesis.pdf
                                 and README.md.
@@ -167,6 +171,8 @@ version.
                                 \from{\jobname-doc.dtx}{fdudoc}}
     \file{fdudoc-listings.def} {\from{\jobname.dtx}{listings}
                                 \from{\jobname-doc.dtx}{listings}}
+    \file{fdulogo.sty}         {\from{\jobname.dtx}{logo}
+                                \from{\jobname-logo.dtx}{logo}}
 %</install>
 %<*internal>
   \usedir{source/latex/fduthesis}
@@ -191,6 +197,7 @@ version.
 \Msg{*     fduthesis-en.cls                                      *}
 \Msg{*     fduthesis.def                                         *}
 \Msg{*     fduthesis-user.def                                    *}
+\Msg{*     fdulogo.sty                                           *}
 \Msg{*                                                           *}
 \Msg{* To produce the documentation run the file fduthesis.dtx   *}
 \Msg{* through XeLaTeX.                                          *}
@@ -206,8 +213,8 @@ version.
 \fi
 %</internal>
 %
-%<class|class-en|fdudoc>\NeedsTeXFormat{LaTeX2e}
-%<class|class-en|fdudoc>\RequirePackage{expl3}
+%<class|class-en|fdudoc|logo>\NeedsTeXFormat{LaTeX2e}
+%<class|class-en|fdudoc|logo>\RequirePackage{expl3}
 %<*!(driver|install)>
 %<!(listings|readme)>\GetIdInfo $Id: fduthesis.dtx 0.4 2017-08-14 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
@@ -222,6 +229,8 @@ version.
 %<fdudoc>\ProvidesExplClass{fdudoc}
 %<listings>\ProvidesFile{fdudoc-listings.def}%
 %<listings>  [2017/08/14 v0.4 Listings definition file for fdudoc]
+%<logo>  {Fudan University's Visual Identity}
+%<logo>\ProvidesExplPackage{fdulogo}
 %<!(listings|readme)>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install)>
 %<*driver>
@@ -236,7 +245,7 @@ version.
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \begin{document}
   % \DisableImplementation
-  \DocInput{\jobname.dtx,\jobname-doc.dtx}
+  \DocInput{\jobname.dtx,\jobname-doc.dtx,\jobname-logo.dtx}
   \IndexLayout
   \PrintChanges
   \PrintIndex
@@ -250,7 +259,7 @@ version.
 % \changes{v0.3}{2017/03/04}{支持 \LuaLaTeX{}。}
 % \changes{v0.3}{2017/03/20}{添加测试文件。}
 % \changes{v0.3}{2017/05/26}{使用 Travis CI 进行持续集成。}
-% \changes{v0.3}{2017/06/23}{添加复旦大学标识。}
+% \changes{v0.3}{2017/06/23}{添加复旦大学视觉识别系统。}
 % \changes{v0.3}{2017/07/10}{添加英文模板。}
 % \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
 % \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
@@ -258,6 +267,8 @@ version.
 %   \cls{fdudoc} 文档类，用于模板手册的编写。}
 % \changes{v0.4}{2017/08/03}{拆分 dtx 文件。}
 % \changes{v0.4}{2017/08/11}{添加错误信息提示。}
+% \changes{v0.5}{2017/08/30}{将复旦大学视觉识别系统移入
+%   \pkg{fdulogo} 宏包，并添加重修版校徽。}
 %
 % \CheckSum{0}
 %

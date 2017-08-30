@@ -10,7 +10,8 @@
 %   top    = 1.25 in,
 %   bottom = 1.00 in
 % }
-% \subsection{附：模板文档样式 \cls{fdudoc}}
+%
+% \subsection{附录 A：模板文档样式 \cls{fdudoc}}
 % 编写 \LaTeX{} 宏包文档，传统上会采用 \pkg{doc} 宏包或
 % \cls{ltxdoc} 文档类。而对于使用 \LaTeX3 开发的宏包，\cls{l3doc}
 % 文档类将是一个更好的选择。\CTeX{} 宏集所附带的
@@ -1749,7 +1750,8 @@
 %
 % \begin{macro}{\TeX,\LaTeX,\LaTeXe,
 %   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
-%   \AmSLaTeX,\TeXLive,\MiKTeX}
+%   \AmSLaTeX,\TeXLive,\MiKTeX,
+%   \TikZ}
 % \TeX{} 相关标志。
 %    \begin{macrocode}
 \def\TeX{\hologo{TeX}}
@@ -1768,6 +1770,10 @@
 \def\AmSLaTeX{\hologo{AmSLaTeX}}
 \def\TeXLive{\TeX\ Live}
 \def\MiKTeX{\hologo{MiKTeX}}
+%    \end{macrocode}
+% 该定义来自 \file{pgfmanual-en-macros.tex}。
+%    \begin{macrocode}
+\def\TikZ{Ti\emph{k}Z}
 %    \end{macrocode}
 % \end{macro}
 %
