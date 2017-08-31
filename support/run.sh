@@ -8,7 +8,7 @@ cp fduthesis-en.cls    ../test/fduthesis-en.cls
 cp fduthesis.def       ../test/fduthesis.def
 cp fduthesis-user.def  ../test/fduthesis-user.def
 
-mkdir logo
+mkdir ../logo
 cp fdulogo.sty         ../logo/fdulogo.sty
 cp fdulogo-example.tex ../logo/fdulogo-example.tex
 cp fduthesis-cover.tex ../logo/fduthesis-cover.tex
