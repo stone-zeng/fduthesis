@@ -18,8 +18,9 @@
 ### 模板组成
 
 - `source/`             源代码
-  - `fduthesis.dtx`       模板代码、注释（Part 1）及文档
-  - `fduthesis-doc.dtx`   模板代码、注释（Part 2）
+  - `fduthesis.dtx`       模板代码、注释及文档
+  - `fduthesis-doc.dtx`   `fdudoc` 文档类代码
+  - `fduthesis-logo.dtx`  `fdulogo` 宏包代码
 
 - `test/`               测试文件
   - `test.tex`            测试论文
@@ -30,11 +31,6 @@
   - `texlive.profile`     TeX Live 环境变量配置
   - `local.sh`            安装本地宏包及相关字体
   - `run.sh`              执行测试命令
-
-- `logo/`               复旦大学标识
-  - `fudan-name.tex`      校名
-  - `fudan-emblem.tex`    校徽
-  - `fudan-motto.tex`     校训
 
 - `.gitattributes`      Git 属性文件
 
