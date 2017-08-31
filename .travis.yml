@@ -9,6 +9,11 @@ cache:
 script:
   - source ./support/local.sh
   - source ./support/run.sh
+  - cd ../logo
+  - pdflatex -interaction=nonstopmode -shell-escape fdulogo-example
+  - pdflatex -interaction=nonstopmode               fduthesis-cover
+  - mkdir pdf
+  - mv fudan-*.pdf pdf
   - cd ../test
   - xelatex  -interaction=nonstopmode test
   - xelatex  -interaction=nonstopmode test

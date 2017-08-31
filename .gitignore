@@ -1,7 +1,9 @@
 *.aux
+*.auxlock
 *.bak
 *.bbl
 *.blg
+*.dpth
 *.dvi
 *.fdb_latexmk
 *.fls
@@ -13,6 +15,7 @@
 *.ilg
 *.ind
 *.log
+*.md5
 *.out
 *.sav
 *.synctex.gz
@@ -35,12 +38,13 @@ latexmkrc
 .vscode/
 build/
 files/
+logo/
 temp/
 tools/
 
-logo/original-files
 source/*.cls
 source/*.def
 source/*.ins
+source/*.sty
 test/*.cls
 test/*.def

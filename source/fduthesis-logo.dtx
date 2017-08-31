@@ -23,6 +23,7 @@
 %    \end{macrocode}
 %
 % \subsubsection{用户接口}
+%
 % \begin{variable}[int]{\l_@@_default_arg_tl}
 % 默认参数。
 %    \begin{macrocode}
@@ -111,6 +112,7 @@
 % \end{macro}
 %
 % \subsubsection{内部命令}
+%
 %    \begin{macrocode}
 %<@@=>
 \ExplSyntaxOff
@@ -230,19 +232,19 @@
   \fdulogo@motto@xue
   \fdulogo@motto@er@i
   \fdulogo@motto@du
-  \fdulogo@motto@zhi;}
+  \fdulogo@motto@zhi}
 \def\fdulogo@motto@ii{%
   \fdulogo@motto@qie
   \fdulogo@motto@wen
   \fdulogo@motto@er@ii
   \fdulogo@motto@jin
-  \fdulogo@motto@si;}
+  \fdulogo@motto@si}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}[int]{\@fduthesis@cover}
-% \cls{fduthesis} 的封面图案。内部使用。
+% \cls{fduthesis} 用户手册的封面图案。内部使用。
 %    \begin{macrocode}
 \def\@fduthesis@cover{%
   \hspace{1.5cm}
@@ -252,15 +254,95 @@
   \end{tikzpicture}
   \begin{tikzpicture}[x=1pt, y=1pt]
     \useasboundingbox ( 750, -150) rectangle (1350,  850);
-    \fdulogo@motto@i
+    \fill \fdulogo@motto@i;
   \end{tikzpicture}
   \begin{tikzpicture}[x=1pt, y=1pt]
     \useasboundingbox (1280,   10) rectangle (1880, 1210);
-    \fdulogo@motto@ii
+    \fill \fdulogo@motto@ii;
   \end{tikzpicture}
   \hspace*{-42.5cm}}
+%</logo>
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsubsection{生成文件}
+%
+% 以下两个文件用于生成各图案。
+% \DoNotIndex{\FIG,\BG}
+%    \begin{macrocode}
+%<*(ex-logo|cover)>
+%<ex-logo>\documentclass{article}
+%<cover>\documentclass{standalone}
+\usepackage{fdulogo}
+%<*ex-logo>
+\usetikzlibrary{backgrounds,external}
+\tikzexternalize[prefix=fudan-]
+\let\FIG=\tikzsetnextfilename
+\def\BG#1{color=white, show background rectangle,
+  background rectangle/.style={#1}}
+%</ex-logo>
+\begin{document}
+%    \end{macrocode}
+%
+% 校名。
+%    \begin{macrocode}
+%<*ex-logo>
+\FIG{name-black}                  \fduname
+\FIG{name-blue}                   \fduname[color=FudanBlue]
+\FIG{name-red}                    \fduname[color=FudanRed]
+%    \end{macrocode}
+%
+% 校徽。
+%    \begin{macrocode}
+\FIG{emblem-a-black}              \fduemblem
+\FIG{emblem-a-blue}               \fduemblem[color=FudanBlue]
+\FIG{emblem-a-red}                \fduemblem[color=FudanRed]
+\FIG{emblem-b-black}              \fduemblem*
+\FIG{emblem-b-blue}               \fduemblem*[color=FudanBlue]
+\FIG{emblem-b-red}                \fduemblem*[color=FudanRed]
+%    \end{macrocode}
+%
+% 校徽（重修版）。
+%    \begin{macrocode}
+\FIG{emblem-new-a-black}          \fduemblem+
+\FIG{emblem-new-a-blue}           \fduemblem+[color=FudanBlue]
+\FIG{emblem-new-a-red}            \fduemblem+[color=FudanRed]
+\FIG{emblem-new-b-black}          \fduemblem+*
+\FIG{emblem-new-b-blue}           \fduemblem+*[color=FudanBlue]
+\FIG{emblem-new-b-red}            \fduemblem+*[color=FudanRed]
+\FIG{emblem-new-a-reversed-black} \fduemblem+[\BG{fill}]
+\FIG{emblem-new-a-reversed-blue}  \fduemblem+[\BG{fill=FudanBlue}]
+\FIG{emblem-new-a-reversed-red}   \fduemblem+[\BG{fill=FudanRed}]
+\FIG{emblem-new-b-reversed-black} \fduemblem+*[\BG{fill}]
+\FIG{emblem-new-b-reversed-blue}  \fduemblem+*[\BG{fill=FudanBlue}]
+\FIG{emblem-new-b-reversed-red}   \fduemblem+*[\BG{fill=FudanRed}]
+%    \end{macrocode}
+%
+% 校训。
+%    \begin{macrocode}
+\FIG{motto}                       \fdumotto
+\FIG{motto-reversed}              \fdumotto[\BG{fill}]
+%</ex-logo>
+%    \end{macrocode}
+%
+% \cls{fduthesis} 封面。
+%    \begin{macrocode}
+%<*cover>
+\makeatletter
+\@fduthesis@cover
+\makeatother
+%</cover>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\end{document}
+%</(ex-logo|cover)>
+%    \end{macrocode}
+%
+% \subsubsection{路径}
+%
+% 各图案的路径均使用 Bézier 曲线生成。曲线的具体数据参见源代码，
+% 此处从略。
 %
 % \clearpage
 %
@@ -270,10 +352,11 @@
 %
 % \begin{implementation}
 %
-% \subsubsection{路径}
 % \paragraph{校名}
+%
 % 复。
 %    \begin{macrocode}
+%<*logo>
 \def\fdulogo@name@fu{%
   ( 86.79426450, 309.23000203)
     .. controls ( 90.52759774, 306.43000210) and ( 95.27426428, 304.13666883) .. ( 96.80759758, 299.37666895)
@@ -607,6 +690,7 @@
 %    \end{macrocode}
 %
 % \paragraph{校徽}
+%
 % 核心图案。
 %    \begin{macrocode}
 \def\fdulogo@emblem@kernel{%
@@ -1183,6 +1267,7 @@
 %    \end{macrocode}
 %
 % \paragraph{校徽（重修版）}
+%
 % 核心图案。
 %    \begin{macrocode}
 \def\fdulogo@emblem@new@kernel{%
@@ -1681,6 +1766,7 @@
 %    \end{macrocode}
 %
 % \paragraph{校训}
+%
 % 博。
 %    \begin{macrocode}
 \def\fdulogo@motto@bo{%

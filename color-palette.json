@@ -1,0 +1,14 @@
+{
+  "colors": [
+    {
+      "color": "FudanBlue",
+      "hex": "#0E419C",
+      "rgb": [14, 65, 156]
+    },
+    {
+      "color": "FudanRed",
+      "hex": "#C80000",
+      "rgb": [200, 0, 0]
+    }
+  ]
+}

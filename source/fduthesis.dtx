@@ -18,10 +18,11 @@
 %
 % The Current Maintainer of this work is Xiangdong Zeng.
 %
-% This work consists of the files fduthesis.dtx
-%                                 fduthesis-doc.dtx
+% This work consists of the files fduthesis.dtx,
+%                                 fduthesis-doc.dtx,
 %                                 fduthesis-logo.dtx,
-%           and the derived files fduthesis.ins,
+%           and the derived files fduthesis.pdf,
+%                                 fduthesis.ins,
 %                                 fduthesis.cls,
 %                                 fduthesis-en.cls,
 %                                 fduthesis.def,
@@ -29,8 +30,12 @@
 %                                 fdudoc.cls,
 %                                 fdudoc-listings.def,
 %                                 fdulogo.sty,
+%                                 fdulogo-example.tex,
+%                                 fduthesis-cover.tex,
+%                                 fudan-*.pdf,
+%                                 fudan-*.png,
+%                                 fduthesis-cover.pdf,
 %                                 latexmkrc,
-%                                 fduthesis.pdf
 %                             and README.md.
 %
 %<*internal>
@@ -58,8 +63,9 @@
 ### 模板组成
 
 - `source/`             源代码
-  - `fduthesis.dtx`       模板代码、注释（Part 1）及文档
-  - `fduthesis-doc.dtx`   模板代码、注释（Part 2）
+  - `fduthesis.dtx`       模板代码、注释及文档
+  - `fduthesis-doc.dtx`   `fdudoc` 文档类代码
+  - `fduthesis-logo.dtx`  `fdulogo` 宏包代码
 
 - `test/`               测试文件
   - `test.tex`            测试论文
@@ -70,11 +76,6 @@
   - `texlive.profile`     TeX Live 环境变量配置
   - `local.sh`            安装本地宏包及相关字体
   - `run.sh`              执行测试命令
-
-- `logo/`               复旦大学标识
-  - `fudan-name.tex`      校名
-  - `fudan-emblem.tex`    校徽
-  - `fudan-motto.tex`     校训
 
 - `.gitattributes`      Git 属性文件
 
@@ -144,10 +145,11 @@ version.
 
     The Current Maintainer of this work is Xiangdong Zeng.
 
-    This work consists of the files fduthesis.dtx
-                                    fduthesis-doc.dtx
+    This work consists of the files fduthesis.dtx,
+                                    fduthesis-doc.dtx,
                                     fduthesis-logo.dtx,
-              and the derived files fduthesis.ins,
+              and the derived files fduthesis.pdf,
+                                    fduthesis.ins,
                                     fduthesis.cls,
                                     fduthesis-en.cls,
                                     fduthesis.def,
@@ -155,8 +157,12 @@ version.
                                     fdudoc.cls,
                                     fdudoc-listings.def,
                                     fdulogo.sty,
+                                    fdulogo-example.tex,
+                                    fduthesis-cover.tex,
+                                    fudan-*.pdf,
+                                    fudan-*.png,
+                                    fduthesis-cover.pdf,
                                     latexmkrc,
-                                    fduthesis.pdf
                                 and README.md.
 
 \endpreamble
@@ -167,12 +173,16 @@ version.
     \file{\jobname-en.cls}     {\from{\jobname.dtx}{class-en}}
     \file{\jobname.def}        {\from{\jobname.dtx}{definition}}
     \file{\jobname-user.def}   {\from{\jobname.dtx}{user}}
-    \file{fdudoc.cls}          {\from{\jobname.dtx}{fdudoc}
-                                \from{\jobname-doc.dtx}{fdudoc}}
+    \file{fdudoc.cls}          {\from{\jobname.dtx}{doc}
+                                \from{\jobname-doc.dtx}{doc}}
     \file{fdudoc-listings.def} {\from{\jobname.dtx}{listings}
                                 \from{\jobname-doc.dtx}{listings}}
     \file{fdulogo.sty}         {\from{\jobname.dtx}{logo}
                                 \from{\jobname-logo.dtx}{logo}}
+    \file{fdulogo-example.tex} {\from{\jobname.dtx}{ex-logo}
+                                \from{\jobname-logo.dtx}{ex-logo}}
+    \file{\jobname-cover.tex}  {\from{\jobname.dtx}{cover}
+                                \from{\jobname-logo.dtx}{cover}}
 %</install>
 %<*internal>
   \usedir{source/latex/fduthesis}
@@ -213,10 +223,10 @@ version.
 \fi
 %</internal>
 %
-%<class|class-en|fdudoc|logo>\NeedsTeXFormat{LaTeX2e}
-%<class|class-en|fdudoc|logo>\RequirePackage{expl3}
-%<*!(driver|install)>
-%<!(listings|readme)>\GetIdInfo $Id: fduthesis.dtx 0.4 2017-08-14 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
+%<class|class-en|doc|logo>\RequirePackage{expl3}
+%<*!(driver|install|readme|ex-logo|cover)>
+%<!listings>\GetIdInfo $Id: fduthesis.dtx 0.4 2017-08-14 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -225,14 +235,14 @@ version.
 %<definition>\ProvidesExplFile{\ExplFileName.def}
 %<user>  {User definition file for fduthesis}
 %<user>\ProvidesExplFile{\ExplFileName-user.def}
-%<fdudoc>  {Documentation class for fduthesis}
-%<fdudoc>\ProvidesExplClass{fdudoc}
+%<doc>  {Documentation class for fduthesis}
+%<doc>\ProvidesExplClass{fdudoc}
 %<listings>\ProvidesFile{fdudoc-listings.def}%
 %<listings>  [2017/08/14 v0.4 Listings definition file for fdudoc]
 %<logo>  {Fudan University's Visual Identity}
 %<logo>\ProvidesExplPackage{fdulogo}
-%<!(listings|readme)>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
-%</!(driver|install)>
+%<!listings>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%</!(driver|install|readme|ex-logo|cover)>
 %<*driver>
 \documentclass{fdudoc}
 \usepackage{xpinyin}
@@ -267,8 +277,8 @@ version.
 %   \cls{fdudoc} 文档类，用于模板手册的编写。}
 % \changes{v0.4}{2017/08/03}{拆分 dtx 文件。}
 % \changes{v0.4}{2017/08/11}{添加错误信息提示。}
-% \changes{v0.5}{2017/08/30}{将复旦大学视觉识别系统移入
-%   \pkg{fdulogo} 宏包，并添加重修版校徽。}
+% \changes{v0.5}{2017/08/30}{将视觉识别系统移入 \pkg{fdulogo}宏包，
+%   并添加重修版校徽。}
 %
 % \CheckSum{0}
 %
@@ -331,6 +341,7 @@ version.
 % }
 %
 % \section{介绍}
+%
 % 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板主要有以下这些：
 % \begin{itemize}
 %   \item 数学科学学院 2001 级的何力同学和李湛同学在 2005 年根据
@@ -357,6 +368,7 @@ version.
 % 同时还将构建一套简洁的接口，方便用户使用。
 %
 % \subsection*{\LaTeX{} 入门}
+%
 % 本文档并非是一份 \LaTeX{} 零基础教程。如果您是完完全全的新手，
 % 建议先阅读相关入门文档，如刘海洋编著的《\LaTeX{} 入门》
 % \scite{刘海洋2013latex入门} 第一章，或大名鼎鼎的“\pkg{lshort}”
@@ -364,6 +376,7 @@ version.
 % 网络上的入门教程多如牛毛，您可以自行选取。
 %
 % \subsection*{关于本文档}
+%
 % 本文采用不同字体表示不同内容。无衬线字体表示宏包名称，如
 % \pkg{xeCJK} 宏包、\cls{fduthesis} 文档类等；等宽字体表示文件名，
 % 如 \TeX{} 文档 \file{thesis.tex}、测试文件夹 \file{test} 等；
@@ -393,7 +406,9 @@ version.
 % 文档的最后还提供了版本历史和代码索引，以供查阅。
 %
 % \section{安装}
+%
 % \subsection{获取 \cls{fduthesis}}
+%
 % 本模板目前暂未上传至 CTAN，您需要从 GitHub 上自行下载并安装。
 % 具体方法如下：
 % \begin{itemize}
@@ -410,6 +425,7 @@ version.
 % 注：这是一条缓兵之计。
 %
 % \subsection{模板组成}
+%
 % 本模板主要包含核心文档类、配置文件、用户文档等几个部分，
 % 其具体组成见表~\ref{tab:fduthesis-components}。
 %
@@ -456,7 +472,9 @@ version.
 % \file{latexmkrc}。
 %
 % \section{使用说明}
+%
 % \subsection{基本用法}
+%
 % 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis} 的最基本用法：
 % \begin{latexexample}
 %   % thesis.tex
@@ -485,6 +503,7 @@ version.
 % 显示为中文。
 %
 % \subsection{编译方式} \label{subsec:编译方式}
+%
 % 本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或 \LuaLaTeX{}
 % 编译。推荐使用 \XeLaTeX{}。
 % 为了生成正确的目录、脚注以及交叉引用，您至少需要连续编译两次。
@@ -514,6 +533,7 @@ version.
 % 文件夹下。该配置文件仅适用于编译模板用户手册。
 %
 % \subsection{模板选项}
+%
 % 所谓“模板选项”，指需要在引入文档类的时候指定的选项：
 % \begin{latexexample}
 %   \documentclass(*\oarg{模板选项}*){fduthesis}
@@ -571,6 +591,7 @@ version.
 % \end{itemize}
 %
 % \subsection{参数设置}
+%
 % 本模板提供了一系列选项，可由您自行配置。以下所有选项均可通过
 % 统一的命令 \cs{fdusetup} 来设置。
 %
@@ -620,6 +641,7 @@ version.
 % 在第二种方式中，“|/|” 与 “|=|” 类似，前后的空白对设置没有影响。
 %
 % \subsubsection{论文格式} \label{subsubsec:论文格式}
+%
 % \begin{function}{style}
 %   \begin{fdusyntax}
 %     style = (*\marg{键值列表}*)
@@ -780,6 +802,7 @@ version.
 % \end{function}
 %
 % \subsubsection{信息录入} \label{subsubsec:信息录入}
+%
 % \begin{function}{info}
 %   \begin{fdusyntax}
 %     info = (*\marg{键值列表}*)
@@ -893,6 +916,7 @@ version.
 % \end{function}
 %
 % \subsection{正文编写}
+%
 % \begin{quote*}[喬孟符][宋]
 %   作樂府亦有法，曰鳳頭豬肚豹尾六字是也。大概起要美麗，
 %   中要浩蕩，結要響亮。尤貴在首尾貫穿，意思清新。茍能若是，
@@ -900,6 +924,7 @@ version.
 % \end{quote*}
 %
 % \subsubsection{凤头}
+%
 % \begin{function}{\frontmatter}
 %   声明前置部分开始。
 % \end{function}
@@ -949,6 +974,7 @@ version.
 % \end{function}
 %
 % \subsubsection{猪肚}
+%
 % \begin{function}{\mainmatter}
 %   声明主体部分开始。
 % \end{function}
@@ -1011,6 +1037,7 @@ version.
 % \env{figure}）中。
 %
 % \subsubsection{豹尾}
+%
 % \begin{function}{\backmatter}
 %   声明后置部分开始。
 % \end{function}
@@ -1018,6 +1045,7 @@ version.
 % 后置部分包含声明页。目前无需开启该部分。
 %
 % \section{宏包依赖情况}
+%
 % 使用不同编译方式、指定不同选项，会导致宏包依赖情况有所不同。
 % 具体如下：
 % \begin{itemize}
@@ -1238,6 +1266,7 @@ version.
 % }
 %
 % \section{实现细节}
+%
 % 本模板使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境，
 % 并需调用 \pkg{l3packages} 中的相关宏包。
 %
@@ -1258,6 +1287,7 @@ version.
 % \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
 %
 % \subsection{准备}
+%
 %    \begin{macrocode}
 %<@@=fdu>
 %<*class|class-en>
@@ -1305,6 +1335,7 @@ version.
 %    \end{macrocode}
 %
 % \subsubsection{内部变量声明}
+%
 % \begin{variable}[int]{\l_@@_tmpa_box,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
@@ -1356,6 +1387,7 @@ version.
 % \end{variable}
 %
 % \subsubsection{提示信息}
+%
 % \begin{macro}[int]{\@@_msg_new:nn,
 %   \@@_error:n,\@@_error:nn,\@@_error:nnn}
 % 各种信息函数的缩略形式。
@@ -1384,6 +1416,7 @@ version.
 % \end{macro}
 %
 % \subsection{选项处理}
+%
 % 定义 |fdu/option| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / option }
@@ -1448,6 +1481,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{载入宏包、文档类}
+%
 % 载入 \cls{book} 标准文档类，并传入相应的选项。
 %    \begin{macrocode}
 \PassOptionsToClass { \g_@@_to_book_clist } { book }
@@ -1544,6 +1578,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{页面布局}
+%
 % 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
 %    \begin{macrocode}
 \geometry
@@ -1564,6 +1599,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{字体}
+%
 % 根据相关规定，数学表达式中，表示变量的拉丁字母和希腊字母均应当
 % 使用斜体。
 %    \begin{macrocode}
@@ -1571,6 +1607,7 @@ version.
 %    \end{macrocode}
 %
 % \subsubsection{西文字体、数学字体配置}
+%
 % 定义 |fdu/style| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -1633,6 +1670,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{中文字体配置}
+%
 % \begin{macro}{style/cjkfont}
 % 预定义中文（CJK）字体。对于没有粗体的字体，利用
 % |AutoFakeBold = true| 获得伪粗体。
@@ -1856,6 +1894,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{字号}
+%
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
@@ -1894,6 +1933,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{句号}
+%
 % \begin{macro}{style/fullwidthstop}
 % 设置句号形状（圆圈或是圆点）。
 % 本模板采用的实现方法是将“\symbol{"3002}”设置为活动符，
@@ -1921,6 +1961,7 @@ version.
 % \end{macro}
 %
 % \subsection{章节标题结构}
+%
 % |\keys_set:nn {ctex}| 实际相当于 \cs{ctexset}。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
@@ -1964,6 +2005,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{页眉页脚}
+%
 % 清除默认页眉页脚格式。
 %    \begin{macrocode}
 \fancyhf { }
@@ -2077,6 +2119,7 @@ version.
 % \end{macro}
 %
 % \subsection{\pkg{hyperref} 相关配置}
+%
 % \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，
 %   包括超链接样式（\opt{hyperlink} 与 \opt{hyperlinkcolor}
 %   选项）及 PDF 元信息等。}
@@ -2229,9 +2272,11 @@ version.
 %    \end{macrocode}
 %
 % \subsection{脚注}
+%
 % \changes{v0.3}{2017/02/21}{支持脚注。}
 %
 % \subsubsection{编号样式}
+%
 % \begin{variable}[int]{\c_@@_fn_style_plain_tl,
 %   \c_@@_fn_style_libertinus_tl,
 %   \c_@@_fn_style_libertinus_negative_tl,
@@ -2494,6 +2539,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{整体样式}
+%
 % \begin{macro}[int]{\@makefntext}
 % 重定义内部脚注文字命令。
 %    \begin{macrocode}
@@ -2518,6 +2564,7 @@ version.
 % \end{macro}
 %
 % \subsection{定理环境}
+%
 % \changes{v0.3}{2017/05/07}{新增定理环境。}
 %
 % \begin{variable}[int]{\c_@@_thm_style_plain_clist,
@@ -2690,6 +2737,7 @@ version.
 % \end{macro}
 %
 % \subsection{图表绘制；浮动体}
+%
 % \changes{v0.3}{2017/07/09}{支持浮动体。}
 %
 % 分别设置浮动体 |figure| 和 |table| 的标题样式。
@@ -2717,7 +2765,9 @@ version.
 % \end{macro}
 %
 % \subsection{封面}
+%
 % \subsubsection{信息录入}
+%
 % \begin{variable}[int]{\l_@@_info_title_tl,
 %   \l_@@_info_date_tl,
 %   \l_@@_info_author_tl,
@@ -2875,6 +2925,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{密级}
+%
 % \changes{v0.3}{2017/07/04}{新增 \opt{secretlevel} 与
 %   \opt{secretyear} 选项。}
 %
@@ -2930,6 +2981,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{定义内部函数}
+%
 % \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV,
 %   \fdu_spread_box:Nx}
 % 分散对齐的盒子。|#1| = 长度， |#2| = 内容。\\
@@ -3036,6 +3088,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{封面各部件}
+%
 % \begin{macro}[int]{\@@_cover_id:}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
@@ -3221,6 +3274,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{绘制封面}
+%
 % \begin{macro}{\makecoveri}
 % 生成封一，即真正的封面。各部件之间用橡皮长度隔开。
 %    \begin{macrocode}
@@ -3362,6 +3416,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{目录}
+%
 % 设置目录标题。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
@@ -3428,7 +3483,9 @@ version.
 % \end{macro}
 %
 % \subsection{摘要}
+%
 % \subsubsection{中文摘要}
+%
 % \begin{macro}{abstract}
 % 中文摘要及关键字。
 %    \begin{macrocode}
@@ -3474,6 +3531,7 @@ version.
 % \end{macro}
 %
 % \subsubsection{英文摘要}
+%
 % \begin{macro}{abstract*,abstract}
 % 英文摘要及关键字。注意英文模板中的 |abstract| 环境与中文模板中的
 % |abstract*| 环境是相同的，后者在英文模板中没有定义。
@@ -3513,6 +3571,7 @@ version.
 % \end{macro}
 %
 % \subsection{符号表}
+%
 % \begin{macro}{notation}
 % 符号表环境，利用 |longtable| 封装。可选参数为表格列格式说明符。
 % 与摘要类似，符号表页需要修改页眉，并添加到目录。另外需要调整
@@ -3555,6 +3614,7 @@ version.
 % \end{macro}
 %
 % \subsection{文字绕排}
+%
 % \changes{v0.3}{2017/02/26}{尝试利用 \pkg{l3galley} 进行文字绕排。}
 %
 % WARNING：严重冲突，暂时不启用。
@@ -3743,6 +3803,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{用户接口}
+%
 % \begin{macro}{info,style}
 % 定义元（meta）键值对。
 %    \begin{macrocode}
@@ -3827,6 +3888,7 @@ version.
 % \end{macro}
 %
 % \subsection{模板参数配置文件}
+%
 % \changes{v0.3}{2017/06/27}{分离文档类与参数配置文件。}
 %
 %    \begin{macrocode}
@@ -3834,6 +3896,7 @@ version.
 %    \end{macrocode}
 %
 % \subsubsection{通用配置}
+%
 % \begin{variable}[int]{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
 %   \c_@@_name_en_tl}
 % 学校名称。
@@ -3910,6 +3973,7 @@ version.
 % \end{variable}
 %
 % \subsubsection{章节标题}
+%
 % \begin{variable}[int]{\c_@@_def_chapter_format_tl,
 %   \c_@@_def_section_format_tl,
 %   \c_@@_def_subsection_format_tl}
@@ -3989,6 +4053,7 @@ version.
 % \end{variable}
 %
 % \subsubsection{封面}
+%
 % \begin{macro}[int]{\@@_cover_font_size_small:,
 %   \@@_cover_font_size_normal:,
 %   \@@_cover_font_size_large:,
@@ -4053,6 +4118,7 @@ version.
 % \end{variable}
 %
 % \subsubsection{声明页}
+%
 % \begin{variable}[int]{\c_@@_def_decl_v_sep_i_tl,
 %   \c_@@_def_decl_v_sep_ii_tl,
 %   \c_@@_def_decl_v_sep_iii_tl,
@@ -4112,6 +4178,7 @@ version.
 % \end{variable}
 %
 % \subsubsection{杂项}
+%
 % \begin{variable}[int]{\c_@@_def_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
@@ -4192,6 +4259,7 @@ version.
 %    \end{macrocode}
 %
 % \subsection{用户配置文件}
+%
 % 以下是一个示例：修改论文类型为“硕士学位论文”。
 %    \begin{macrocode}
 %<*user>

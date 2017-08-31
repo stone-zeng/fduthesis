@@ -12,6 +12,7 @@
 % }
 %
 % \subsection{附录 A：模板文档样式 \cls{fdudoc}}
+%
 % 编写 \LaTeX{} 宏包文档，传统上会采用 \pkg{doc} 宏包或
 % \cls{ltxdoc} 文档类。而对于使用 \LaTeX3 开发的宏包，\cls{l3doc}
 % 文档类将是一个更好的选择。\CTeX{} 宏集所附带的
@@ -50,8 +51,9 @@
 % 以下为 \cls{fdudoc} 的具体实现。
 %
 % \subsubsection{载入宏包、文档类}
+%
 %    \begin{macrocode}
-%<*fdudoc>
+%<*doc>
 \ExplSyntaxOff
 %    \end{macrocode}
 %
@@ -84,7 +86,9 @@
 %    \end{macrocode}
 %
 % \subsubsection{\env{macrocode} 环境}
+%
 % \paragraph{继承的代码}
+%
 % \begin{macro}[int]{\macro@code}
 % 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由
 % \tn{macro@code} 负责实现，而 \tn{xmacro@code} 只用来结束
@@ -156,6 +160,7 @@
 % \end{variable}
 %
 % \paragraph{代码行处理}
+%
 % \begin{macro}[int]{\xmacro@code,\sxmacro@code}
 % 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，
 % 将对代码逐行处理。后者会将空格显示为“\textvisiblespace”。
@@ -410,6 +415,7 @@
 % \end{macro}
 %
 % \paragraph{模块标记处理}
+%
 % \begin{macro}{\CheckModules,\DontCheckModules}
 % 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，
 % 此处重新声明。
@@ -754,6 +760,7 @@
 %    \end{macrocode}
 %
 % \paragraph{格式处理}
+%
 % \begin{macro}{\MacroFont}
 % 代码部分的字体。
 %    \begin{macrocode}
@@ -922,6 +929,7 @@
 % \end{macro}
 %
 % \subsubsection{\env{function} 环境}
+%
 % \begin{macro}[int]{\meta@font@select}
 % \begin{macro}[aux]{\@@_verb_addon:,
 %   \@@_disable_ecglue:,
@@ -1002,6 +1010,7 @@
 % \end{macro}
 %
 % \subsubsection{修订记录索引项}
+%
 % \begin{macro}[int]{\@@_ltx_changes:nnn}
 % 保存 \pkg{doc} 中 \tn{changes@} 的定义。
 %    \begin{macrocode}
@@ -1173,7 +1182,9 @@
 % \end{macro}
 %
 % \subsubsection{命令补丁}
+%
 % \paragraph{\LaTeXe{} 补丁}
+%
 % \begin{macro}[int]{\@addtocurcol}
 % 调整浮动体、代码等与文字的间距。
 % 见 \url{http://tex.stackexchange.com/a/40896}。
@@ -1265,6 +1276,7 @@
 % \end{macro}
 %
 % \paragraph{\cls{l3doc} 补丁}
+%
 %    \begin{macrocode}
 %<@@=codedoc>
 %    \end{macrocode}
@@ -1408,6 +1420,7 @@
 % \end{macro}
 %
 % \subsubsection{杂项}
+%
 % \begin{macro}{\StopSpecialIndexModule}
 % \begin{macro}[aux]{\@@_special_index_module:nnnnN}
 % 不对 \cs{cs} 和 \cs{tn} 等编索引。用于目录、索引等。
@@ -1443,6 +1456,7 @@
 %    \end{macrocode}
 %
 % \subsubsection{排版样式设置}
+%
 % 目录中关闭对 \cs{cs} 和 \cs{tn} 等的索引。
 %    \begin{macrocode}
 \AtBeginDocument{%
@@ -1684,6 +1698,7 @@
 %    \end{macrocode}
 %
 % \subsubsection{文档层命令}
+%
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
 % 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
 % 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
@@ -1828,6 +1843,7 @@
 % \end{macro}
 %
 % \paragraph{示例代码环境}
+%
 % \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，
 % 此处改为普通文本。
 % 见 \url{https://tex.stackexchange.com/a/33188/136923}。
@@ -1924,11 +1940,12 @@
 %    \begin{macrocode}
 \lstnewenvironment{fdusyntax}{%
   \lstset{style=style@syntax}\vspace{-1.8ex}}{}
-%</fdudoc>
+%</doc>
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{\pkg{latexmk} 配置文件}
+%
 %    \begin{macrocode}
 %<*latexmk>
 # Latexmk configuration file.
@@ -1957,6 +1974,7 @@ sub makeglo2gls {
 % \begin{implementation}
 %
 % \subsubsection{\pkg{listings} 关键字定义文件}
+%
 %    \begin{macrocode}
 %<*listings>
 \lstdefinelanguage[fdudoc@latex]{TeX}[LaTeX]{TeX}%
