@@ -28,7 +28,6 @@
 %                                 fduthesis.def,
 %                                 fduthesis-user.def,
 %                                 fdudoc.cls,
-%                                 fdudoc-listings.def,
 %                                 fdulogo.sty,
 %                                 fdulogo-example.tex,
 %                                 fduthesis-cover.tex,
@@ -155,7 +154,6 @@ version.
                                     fduthesis.def,
                                     fduthesis-user.def,
                                     fdudoc.cls,
-                                    fdudoc-listings.def,
                                     fdulogo.sty,
                                     fdulogo-example.tex,
                                     fduthesis-cover.tex,
@@ -175,8 +173,6 @@ version.
     \file{\jobname-user.def}   {\from{\jobname.dtx}{user}}
     \file{fdudoc.cls}          {\from{\jobname.dtx}{doc}
                                 \from{\jobname-doc.dtx}{doc}}
-    \file{fdudoc-listings.def} {\from{\jobname.dtx}{listings}
-                                \from{\jobname-doc.dtx}{listings}}
     \file{fdulogo.sty}         {\from{\jobname.dtx}{logo}
                                 \from{\jobname-logo.dtx}{logo}}
     \file{fdulogo-example.tex} {\from{\jobname.dtx}{ex-logo}
@@ -225,8 +221,8 @@ version.
 %
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|doc|logo>\RequirePackage{expl3}
-%<*!(driver|install|readme|ex-logo|cover)>
-%<!listings>\GetIdInfo $Id: fduthesis.dtx 0.4 2017-08-14 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<*!(driver|install|ex-logo|cover)>
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.4 2017-08-14 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -237,12 +233,10 @@ version.
 %<user>\ProvidesExplFile{\ExplFileName-user.def}
 %<doc>  {Documentation class for fduthesis}
 %<doc>\ProvidesExplClass{fdudoc}
-%<listings>\ProvidesFile{fdudoc-listings.def}%
-%<listings>  [2017/08/14 v0.4 Listings definition file for fdudoc]
 %<logo>  {Fudan University's Visual Identity}
 %<logo>\ProvidesExplPackage{fdulogo}
-%<!listings>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
-%</!(driver|install|readme|ex-logo|cover)>
+%<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%</!(driver|install|ex-logo|cover)>
 %<*driver>
 \documentclass{fdudoc}
 \usepackage{xpinyin}
@@ -273,12 +267,8 @@ version.
 % \changes{v0.3}{2017/07/10}{添加英文模板。}
 % \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
 % \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
-% \changes{v0.4}{2017/07/29}{在 \cls{ctxdoc} 的基础上完成
-%   \cls{fdudoc} 文档类，用于模板手册的编写。}
 % \changes{v0.4}{2017/08/03}{拆分 dtx 文件。}
 % \changes{v0.4}{2017/08/11}{添加错误信息提示。}
-% \changes{v0.5}{2017/08/30}{将视觉识别系统移入 \pkg{fdulogo}宏包，
-%   并添加重修版校徽。}
 %
 % \CheckSum{0}
 %
@@ -453,11 +443,12 @@ version.
 %
 % 模板中的绝大多数文件，均可由 \file{fduthesis.dtx} 导出。
 % 在命令行中执行
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={xetex}]
 %   xetex fduthesis.dtx
 % \end{shellexample}
 % 可生成各导出文件；而要生成用户手册 \file{fduthesis.pdf}，则需执行
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={xelatex,makeindex},%
+%     emph={-o,-s,-t}]
 %   xelatex fduthesis.dtx
 %   makeindex -s gind.ist -o fduthesis.ind fduthesis.idx
 %   makeindex -s gglo.ist -o fduthesis.gls -t fduthesis.glg fduthesis.glo
@@ -465,7 +456,7 @@ version.
 %   xelatex fduthesis.dtx
 % \end{shellexample}
 % 也可使用 \pkg{latexmk}：
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={latexmk}]
 %   latexmk fduthesis.dtx
 % \end{shellexample}
 % 本模板已经为编译用户手册提供了 \pkg{latexmk} 配置文件
@@ -475,8 +466,11 @@ version.
 %
 % \subsection{基本用法}
 %
-% 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis} 的最基本用法：
-% \begin{latexexample}
+% 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis}
+% 的最基本用法：
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     moretexcs={\chapter},morekeywords={\documentclass},%
+%     emph={[2]document}]
 %   % thesis.tex
 %   \documentclass{fduthesis}
 %   \begin{document}
@@ -486,11 +480,13 @@ version.
 %   \end{document}
 % \end{latexexample}
 %
-% 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到一篇
-% 5 页的文章。当然，这篇文章的绝大部分都是空白的。
+% 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
+% 一篇 5 页的文章。当然，这篇文章的绝大部分都是空白的。
 %
 % 英文模板可以用类似的方式使用：
-% \begin{latexexample}
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     moretexcs={\chapter},morekeywords={\documentclass},%
+%     emph={[2]document}]
 %   % thesis-en.tex
 %   \documentclass{fduthesis-en}
 %   \begin{document}
@@ -510,22 +506,22 @@ version.
 %
 % 以下代码中，假设您的 \TeX{} 论文文档名为 |thesis.tex|。
 % 使用 \XeLaTeX{} 编译论文，请在命令行中执行
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={xelatex}]
 %   xelatex thesis
 %   xelatex thesis
 % \end{shellexample}
 % 或使用 \pkg{latexmk}：
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={latexmk},emph={-xelatex}]
 %   latexmk -xelatex thesis
 % \end{shellexample}
 %
 % 使用 \LuaLaTeX{} 编译论文，请在命令行中执行
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={lualatex}]
 %   lualatex thesis
 %   lualatex thesis
 % \end{shellexample}
 % 或者
-% \begin{shellexample}
+% \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
 %   latexmk -lualatex thesis
 % \end{shellexample}
 %
@@ -535,7 +531,8 @@ version.
 % \subsection{模板选项}
 %
 % 所谓“模板选项”，指需要在引入文档类的时候指定的选项：
-% \begin{latexexample}
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     morekeywords={\documentclass}]
 %   \documentclass(*\oarg{模板选项}*){fduthesis}
 % \end{latexexample}
 %
@@ -559,7 +556,7 @@ version.
 % 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
 %
 % \begin{function}{nofonts}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]nofonts}]
 %     nofonts = (*<\TFF>*)
 %   \end{fdusyntax}
 %   选择是否禁用默认字体设置，默认关闭。
@@ -575,7 +572,7 @@ version.
 % \cs{setmathfont} 等命令来配置字体。
 %
 % \begin{function}{draft}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]draft}]
 %     draft = (*<\TFF>*)
 %   \end{fdusyntax}
 %   选择是否开启草稿模式，默认关闭。
@@ -596,7 +593,7 @@ version.
 % 统一的命令 \cs{fdusetup} 来设置。
 %
 % \begin{function}{\fdusetup}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[morekeywords={\fdusetup}]
 %     \fdusetup(*\marg{键值列表}*)
 %   \end{fdusyntax}
 %   这是本模板的通用控制命令，用来在载入文档类之后实现各种功能，
@@ -617,24 +614,26 @@ version.
 %
 % 另有一些选项包含子选项，如 |style| 和 |info| 等。它们可以按如下
 % 两种等价方式来设定：
-% \begin{latexexample}
+% \begin{latexexample}[morekeywords={\fdusetup},%
+%     emph={[1]style,font,fontsize,info,author,department,title}]
 %   \fdusetup{
 %     style = {font = adobe, fontsize = -4},
 %     info  = {
-%       author     = {张三},
-%       department = {物理系},
-%       title      = {论如何使用 fduthesis 写好论文}
+%       author     = {阿尔伯特·爱因斯坦},
+%       department = {物理学系},
+%       title      = {关于光的产生和转变的一个启发性观点}
 %     }
 %   }
 % \end{latexexample}
 % 或者
-% \begin{latexexample}
+% \begin{latexexample}[morekeywords={\fdusetup},%
+%     emph={[1]style,font,fontsize,info,author,department,title}]
 %   \fdusetup{
 %     style / font       = adobe,
 %     style / fontsize   = -4,
-%     info  / author     = {张三},
-%     info  / department = {物理系},
-%     info  / title      = {论如何使用 fduthesis 写好论文}
+%     info  / author     = {阿尔伯特·爱因斯坦},
+%     info  / department = {物理学系},
+%     info  / title      = {关于光的产生和转变的一个启发性观点}
 %   }
 % \end{latexexample}
 %
@@ -643,7 +642,7 @@ version.
 % \subsubsection{论文格式} \label{subsubsec:论文格式}
 %
 % \begin{function}{style}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]style}]
 %     style = (*\marg{键值列表}*)
 %     style / (*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
@@ -651,28 +650,28 @@ version.
 % \end{function}
 %
 % \begin{function}{style/font}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]font}]
 %     font = (*<libertinus|lm|palatino|(times)>*)
 %   \end{fdusyntax}
 %   设置西文字体（包括数学字体）。
 % \end{function}
 %
 % \begin{function}[rEXP]{style/cjkfont}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]cjkfont}]
 %     cjkfont = (*<adobe|(fandol)|founder|linux|mac|windows>*)
 %   \end{fdusyntax}
 %   设置中文字体。
 % \end{function}
 %
 % \begin{function}{style/fontsize}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]fontsize}]
 %     fontsize = (*<(-4)|5>*)
 %   \end{fdusyntax}
 %   设置论文的基础字号。
 % \end{function}
 %
 % \begin{function}[rEXP]{style/fullwidthstop}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]fullwidthstop}]
 %     fullwidthstop = (*<\TFF>*)
 %   \end{fdusyntax}
 %   选择是否把全角实心句点“\symbol{"FF0E}”作为默认的句号形状。
@@ -682,7 +681,7 @@ version.
 % \begin{function}{style/footnotestyle}
 % ^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
 % ^^A 空格，因此这里用 X 来占位。
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]footnotestyle}]
 %     footnotestyle = (*<plain|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
@@ -710,7 +709,7 @@ version.
 % \end{table}
 %
 % \begin{function}{style/hyperlink}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]hyperlink}]
 %     hyperlink = (*<border|(color)|none>*)
 %   \end{fdusyntax}
 % 设置超链接样式。\opt{border} 表示在超链接四周绘制方框；
@@ -719,7 +718,7 @@ version.
 % \end{function}
 %
 % \begin{function}{style/hyperlinkcolor}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
 %     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
 %   \end{fdusyntax}
@@ -771,14 +770,14 @@ version.
 % \end{table}
 %
 % \begin{function}{style/logo}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]logo}]
 %     logo = (*\marg{中文标题}*)
 %   \end{fdusyntax}
 %   封面中校名图片的文件名。默认值为 \file{fudan-name.pdf}。
 % \end{function}
 %
 % \begin{function}{style/logosize}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]logosize}]
 %     logosize = (*\marg{宽度}*)
 %     logosize = {(*\meta{宽度}*), (*\meta{高度}*)}
 %   \end{fdusyntax}
@@ -787,7 +786,7 @@ version.
 % \end{function}
 %
 % \begin{function}{style/automakecover}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]automakecover}]
 %     automakecover = (*<\TTF>*)
 %   \end{fdusyntax}
 %   是否自动生成论文封面（封一）、指导小组成员名单（封二）和
@@ -804,7 +803,7 @@ version.
 % \subsubsection{信息录入} \label{subsubsec:信息录入}
 %
 % \begin{function}{info}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]info}]
 %     info = (*\marg{键值列表}*)
 %     info / (*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
@@ -813,7 +812,7 @@ version.
 % \end{function}
 %
 % \begin{function}{info/title,info/title*}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]title,title*}]
 %     title  = (*\marg{中文标题}*)
 %     title* = (*\marg{English title}*)
 %   \end{fdusyntax}
@@ -823,7 +822,7 @@ version.
 % \end{function}
 %
 % \begin{function}{info/author,info/author*}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]author,author*}]
 %     author  = (*\marg{姓名}*)
 %     author* = (*\marg{English name}*)
 %   \end{fdusyntax}
@@ -831,28 +830,28 @@ version.
 % \end{function}
 %
 % \begin{function}{info/supervisor}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]supervisor}]
 %     supervisor = (*\marg{姓名}*)
 %   \end{fdusyntax}
 %   导师姓名。
 % \end{function}
 %
 % \begin{function}{info/department}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]department}]
 %     department = (*\marg{名称}*)
 %   \end{fdusyntax}
 %   院系名称。
 % \end{function}
 %
 % \begin{function}{info/major}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]major}]
 %     major = (*\marg{名称}*)
 %   \end{fdusyntax}
 %   专业名称。
 % \end{function}
 %
 % \begin{function}{info/studentid}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]studentid}]
 %     studentid = (*\marg{数字}*)
 %   \end{fdusyntax}
 %   作者学号。
@@ -863,21 +862,21 @@ version.
 % 专业代码，最后三位为顺序号。
 %
 % \begin{function}{info/schoolid}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]schoolid}]
 %     schoolid = (*\marg{数字}*)
 %   \end{fdusyntax}
 %   学校代码。默认值为 10246（这是复旦大学的学校代码）。
 % \end{function}
 %
 % \begin{function}{info/date}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]date}]
 %     date = (*\marg{日期}*)
 %   \end{fdusyntax}
 %   论文完成日期。默认值为文档编译日期（\tn{today}）。
 % \end{function}
 %
 % \begin{function}{info/secretlevel}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]secretlevel}]
 %     secretlevel = (*<(none)|i|ii|iii>*)
 %   \end{fdusyntax}
 %   密级。|i|、|ii|、|iii| 分别表示秘密、机密、绝密；|none|
@@ -885,7 +884,7 @@ version.
 % \end{function}
 %
 % \begin{function}{info/secretyear}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]secretyear}]
 %     secretyear = (*\marg{年限}*)
 %   \end{fdusyntax}
 %   保密年限。建议您使用中文，如“五年”。该选项在
@@ -893,7 +892,7 @@ version.
 % \end{function}
 %
 % \begin{function}{info/instructors}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]instructors}]
 %     instructors = (*\marg{成员 1, 成员 2, ...}*)
 %   \end{fdusyntax}
 %   指导小组成员。各成员之间需使用英文逗号隔开。为防止歧义，
@@ -901,7 +900,7 @@ version.
 % \end{function}
 %
 % \begin{function}{info/keywords,info/keywords*}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]keywords,keywords*}]
 %     keywords  = (*\marg{中文关键字}*)
 %     keywords* = (*\marg{English keywords}*)
 %   \end{fdusyntax}
@@ -909,7 +908,7 @@ version.
 % \end{function}
 %
 % \begin{function}{info/clc}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[1]clc}]
 %     clc = (*\marg{分类号}*)
 %   \end{fdusyntax}
 %   中国图书馆分类号（CLC）。
@@ -918,9 +917,9 @@ version.
 % \subsection{正文编写}
 %
 % \begin{quote*}[喬孟符][宋]
-%   作樂府亦有法，曰鳳頭豬肚豹尾六字是也。大概起要美麗，
-%   中要浩蕩，結要響亮。尤貴在首尾貫穿，意思清新。茍能若是，
-%   斯可以言樂府矣。
+%   作樂府亦有法，曰\CJKunderdot{鳳頭豬肚豹尾}六字是也。
+%   大概起要美麗，中要浩蕩，結要響亮。尤貴在首尾貫穿，意思清新。
+%   茍能若是，斯可以言樂府矣。
 % \end{quote*}
 %
 % \subsubsection{凤头}
@@ -937,16 +936,16 @@ version.
 % \end{function}
 %
 % \begin{function}{abstract}
-%   \begin{fdusyntax}
-%     % 中文论文                  % 英文论文
-%     \begin{abstract}            \begin{abstract}
-%       (*\meta{中文摘要} \hspace{2.86cm} \meta{Abstract}*)
-%     \end{abstract}              \end{abstract}
+%   \begin{fdusyntax}[emph={[2]abstract}]
+%     % 中文论文模板 (fduthesis)      % 英文论文模板 (fduthesis-en)
+%     \begin{abstract}                \begin{abstract}
+%       (*\meta{中文摘要} \hspace{3.52cm} \meta{Abstract}*)
+%     \end{abstract}                  \end{abstract}
 %   \end{fdusyntax}
 % \end{function}
 % \begin{function}[rEXP]{abstract*}
-%   \begin{fdusyntax}
-%     % 中文论文
+%   \begin{fdusyntax}[emph={[2]abstract*}]
+%     % 中文论文模板 (fduthesis)
 %     \begin{abstract*}
 %       (*\meta{English abstract}*)
 %     \end{abstract*}
@@ -960,7 +959,7 @@ version.
 % 请参阅 \ref{subsubsec:信息录入}~节。
 %
 % \begin{function}{notation}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[2]notation}]
 %     \begin{notation}(*\oarg{列格式说明}*)
 %       (*\meta{符号 1}*)  &  (*\meta{说明}*)  \\
 %       (*\meta{符号 2}*)  &  (*\meta{说明}*)  \\
@@ -983,7 +982,8 @@ version.
 % 多文件编译的方式。主体部分的页码采用阿拉伯数字。
 %
 % \begin{function}{\footnote}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[deletetexcs={\footnote},%
+%       morekeywords={\footnote}]
 %     \footnote(*\marg{脚注文字}*)
 %   \end{fdusyntax}
 %   插入脚注。脚注编号样式可利用 |style/footnotestyle| 选项控制，
@@ -992,7 +992,7 @@ version.
 %
 % \begin{function}{axiom,corollary,definition,example,lemma,
 %   proof,theorem}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[emph={[2]proof}]
 %     \begin{proof}
 %       (*\meta{证明过程}*)
 %     \end{proof}
@@ -1021,7 +1021,7 @@ version.
 % 中的有关说明编译\emph{两次}。
 %
 % \begin{function}{\caption}
-%   \begin{fdusyntax}
+%   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
 %     \caption(*\marg{图表标题}*)
 %     \caption(*\oarg{短标题}\marg{长标题}*)
 %   \end{fdusyntax}

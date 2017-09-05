@@ -41,7 +41,7 @@
 
 ```markdown
 More detailed explanatory text, if necessary. Wrap it to
-about 72 characters or so. 
+about 72 characters or so.
 
 Further paragraphs come after blank lines.
 
