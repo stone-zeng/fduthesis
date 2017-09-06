@@ -46,5 +46,5 @@ source/*.cls
 source/*.def
 source/*.ins
 source/*.sty
-test/*.cls
-test/*.def
+# test/*.cls
+# test/*.def
