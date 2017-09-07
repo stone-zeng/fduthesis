@@ -125,7 +125,7 @@
       { \bool_set_false:N    \g__fdu_draft_bool },
     draft .default:n = true,
     draft .initial:n = false,
-    unknown .code:n = { \__fdu_error:n { unknown-option } }
+    %unknown .code:n = { \__fdu_error:n { unknown-option } }
   }
 \__fdu_msg_new:nn { unknown-option }
   { Class~ option~ "\l_keys_key_tl"~ is~ unknown. }
@@ -181,189 +181,383 @@
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
 \unimathsetup { math-style = ISO, bold-style = ISO }
+
+
+\tl_new:N    \g__fdu_main_font_tl
+\tl_new:N    \g__fdu_sans_font_tl
+\tl_new:N    \g__fdu_mono_font_tl
+\tl_new:N    \g__fdu_math_font_tl
+\clist_new:N \g__fdu_main_font_option_clist
+\clist_new:N \g__fdu_sans_font_option_clist
+\clist_new:N \g__fdu_mono_font_option_clist
+\clist_new:N \g__fdu_math_font_option_clist
+
+
+\tl_new:N    \g__fdu_cjk_song_font_tl
+\tl_new:N    \g__fdu_cjk_hei_font_tl
+\tl_new:N    \g__fdu_cjk_fang_font_tl
+\tl_new:N    \g__fdu_cjk_kai_font_tl
+\tl_new:N    \g__fdu_cjk_songbf_font_tl
+\clist_new:N \g__fdu_cjk_song_font_option_clist
+\clist_new:N \g__fdu_cjk_hei_font_option_clist
+\clist_new:N \g__fdu_cjk_fang_font_option_clist
+\clist_new:N \g__fdu_cjk_kai_font_option_clist
+\clist_new:N \g__fdu_cjk_songbf_font_option_clist
+
+
+
+% #1 = main/sans/mono/math
+% #2 = font name
+% #3 = options
+\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
+  {
+    \tl_set:cn    { g__fdu_ #1 _font_tl           } {#2}
+    \clist_set:cn { g__fdu_ #1 _font_option_clist } {#3}
+  }
+\cs_new_protected:Npn \fdu_choose_font:nn #1#2
+  { \tl_set:cn { g__fdu_ #1 _font_tl } {#2} }
+
+% #1 = song/hei/fang/kai/songbf
+% #2 = font name
+% #3 = options
+\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
+  {
+    \tl_set:cn    { g__fdu_cjk_ #1 _font_tl           } {#2}
+    \clist_set:cn { g__fdu_cjk_ #1 _font_option_clist } {#3}
+  }
+\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
+  { \tl_set:cn { g__fdu_cjk_ #1 _font_tl } {#2} }
+
+%\clist_show:N \g__fdu_main_font_option_clist
+%
+%\fdu_choose_font_with_option:nnn {main} {TeX~Gyre~Termes}{Ligatures=NoCommon,ItalicFont=XITS}
+%
+%\tl_show:N \g__fdu_main_font_tl
+%\clist_show:N \g__fdu_main_font_option_clist
+%
+%\tl_set:NV \g__fdu_main_font_tl \g__fdu_main_font_option_clist
+%\tl_show:N \g__fdu_main_font_tl
+
+
+
+\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
+
+\cs_new:Npn \__fdu_set_font:
+  {
+    %\__fdu_set_font_aux:n { main }
+    %\__fdu_set_font_aux:n { sans }
+    %\__fdu_set_font_aux:n { mono }
+    \clist_map_inline:nn { main, sans, mono }
+      { \__fdu_set_font_aux:n {##1} }
+    % unicode-math 没有给出内部命令
+    \exp_args:NVV \setmathfont
+      \g__fdu_math_font_tl \g__fdu_math_font_option_clist
+  }
+
+\cs_new:Npn \__fdu_set_font_aux:n #1
+  {
+    % `\__fontspec_main_set...font:n` 的参数 1、3 均为 options
+    % 我们这里只用了参数 2、3
+    \use:c { __fontspec_main_set #1 font:nvv } { }
+      { g__fdu_ #1 _font_tl } { g__fdu_ #1 _font_option_clist }
+  }
+
+% 不能展开，各 tl 变量应当在最后调用字体时放进来
+\cs_new:Npx \__fdu_set_cjk_font:
+  {
+    \exp_not:n
+      {
+        \__fdu_set_cjk_main_font:Vx \g__fdu_cjk_song_font_tl
+          {
+            BoldFont       = \g__fdu_cjk_hei_font_tl,  % 加上 黑体/粗宋 选项
+            ItalicFont     = \g__fdu_cjk_kai_font_tl,
+            BoldItalicFont = \g__fdu_cjk_kai_font_tl   % 讲道理应该用粗楷
+          }
+        \__fdu_set_cjk_sans_font:Vx \g__fdu_cjk_hei_font_tl
+          {
+            BoldFont       = \g__fdu_cjk_hei_font_tl,  % 加上 粗黑 选项？
+            ItalicFont     = \g__fdu_cjk_hei_font_tl,
+            BoldItalicFont = \g__fdu_cjk_hei_font_tl
+          }
+        \__fdu_set_cjk_mono_font:Vx \g__fdu_cjk_fang_font_tl
+          {
+            BoldFont       = \g__fdu_cjk_fang_font_tl,
+            ItalicFont     = \g__fdu_cjk_kai_font_tl,
+            BoldItalicFont = \g__fdu_cjk_kai_font_tl   % 讲道理应该用粗楷
+          }
+      }
+    % 原则上楷体就够了
+    \sys_if_engine_xetex:TF
+      {
+        \exp_not:n
+          {
+            \xeCJK_set_family:nnV { kai } { }
+              \g__fdu_cjk_kai_font_tl
+          }
+      }
+      {
+        \sys_if_engine_luatex:T
+          {
+            \exp_not:n
+              {
+                \ctex_ltj_set_family:nnV { kai } { }
+                  \g__fdu_cjk_kai_font_tl
+              }
+          }
+      }
+  }
+\cs_show:N \__fdu_set_cjk_font:
+
+\cs_generate_variant:Nn \xeCJK_set_family:nnn {nnV}
+
+
+% #1 = font name
+% #2 = options
+\cs_new:Npx \__fdu_set_cjk_main_font:nn #1#2
+  {
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \ctex_ltj_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+      }
+  }
+\cs_new:Npx \__fdu_set_cjk_sans_font:nn #1#2
+  {
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \ctex_ltj_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+      }
+  }
+\cs_new:Npx \__fdu_set_cjk_mono_font:nn #1#2
+  {
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nnn { \CJKttdefault } {#2} {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \ctex_ltj_set_family:nnn { \CJKttdefault } {#2} {#1} }
+      }
+  }
+
+\cs_generate_variant:Nn \__fdu_set_cjk_main_font:nn { Vx }
+\cs_generate_variant:Nn \__fdu_set_cjk_sans_font:nn { Vx }
+\cs_generate_variant:Nn \__fdu_set_cjk_mono_font:nn { Vx }
+
+
+
+% xeCJK:
+%\prop_show:N \g__xeCJK_family_font_name_prop
+\prop_put:Nnn \g__xeCJK_family_font_name_prop {rm} {000}
+\prop_put:Nnn \g__xeCJK_family_name_prop      {rm} {000}
+% \prop_show:N \g__xeCJK_family_font_name_prop
+% \setCJKmainfont{SimSun}
+% \prop_show:N \g__xeCJK_family_font_name_prop
+
+
+
+
 \keys_define:nn { fdu / style }
   {
     font .choice:,
     font .value_required:n = true,
     font / libertinus .code:n =
       {
-        \setmainfont { Libertinus~ Serif }
-        \setsansfont { Libertinus~ Sans  }
-        \setmonofont { TeX~ Gyre~ Cursor }
-          [ Ligatures = NoCommon ]
-        \setmathfont { Libertinus~ Math  }
+        \fdu_choose_font:nn { main } { Libertinus~ Serif }
+        \fdu_choose_font:nn { sans } { Libertinus~ Sans  }
+        \fdu_choose_font_with_option:nnn { mono }
+          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
+        \fdu_choose_font:nn { math } { Libertinus~ Math  }
         \keys_set:nn { fdu / style } { footnotestyle = libertinus }
       },
     font / lm .code:n =
       {
-        \setmainfont { Latin~ Modern~ Roman }
-        \setsansfont { Latin~ Modern~ Sans  }
-        \setmonofont { Latin~ Modern~ Mono  }
-        \setmathfont { Latin~ Modern~ Math  }
+        \fdu_choose_font:nn { main } { Latin~ Modern~ Roman }
+        \fdu_choose_font:nn { sans } { Latin~ Modern~ Sans  }
+        \fdu_choose_font:nn { mono } { Latin~ Modern~ Mono  }
+        \fdu_choose_font:nn { math } { Latin~ Modern~ Math  }
         \keys_set:nn { fdu / style } { footnotestyle = pifont }
       },
     font / palatino .code:n =
       {
-        \setmainfont { TeX~ Gyre~ Pagella       }
-        \setsansfont { TeX~ Gyre~ Heros         }
-        \setmonofont { TeX~ Gyre~ Cursor        }
-          [ Ligatures = NoCommon ]
-        \setmathfont { TeX~ Gyre~ Pagella~ Math }
+        \fdu_choose_font:nn { main } { TeX~ Gyre~ Pagella }
+        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros   }
+        \fdu_choose_font_with_option:nnn { mono }
+          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
+        \fdu_choose_font:nn { math }
+          { TeX~ Gyre~ Pagella~ Math }
         \keys_set:nn { fdu / style } { footnotestyle = pifont }
       },
     font / times .code:n =
       {
-        \setmainfont { XITS              }
-        \setsansfont { TeX~ Gyre~ Heros  }
-        \setmonofont { TeX~ Gyre~ Cursor }
-          [ Ligatures = NoCommon ]
-        \setmathfont { XITS~ Math        }
+        \fdu_choose_font:nn { main } { XITS              }
+        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros  }
+        \fdu_choose_font_with_option:nnn { mono }
+          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
+        \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
       },
     cjkfont .choice:,
     cjkfont .value_required:n = true,
     cjkfont / adobe .code:n =
       {
-        \setCJKmainfont { Adobe~ Song~ Std~ L     }
-          [
-            ItalicFont   = Adobe~ Kaiti~ Std~ R,
-            AutoFakeBold = true
-          ]
-        \setCJKsansfont { Adobe~ Heiti~ Std~ R    }
-          [
-            ItalicFont   = Adobe~ Heiti~ Std~ R,
-            AutoFakeBold = true
-          ]
-        \setCJKmonofont { Adobe~ Fangsong~ Std~ R }
-          [
-            ItalicFont   = Adobe~ Fangsong~ Std~ R,
-            AutoFakeBold = true
-          ]
-        \setCJKfamilyfont { song } { Adobe~ Song~     Std~ L }
-        \setCJKfamilyfont { hei  } { Adobe~ Heiti~    Std~ R }
-        \setCJKfamilyfont { fang } { Adobe~ Fangsong~ Std~ R }
-        \setCJKfamilyfont { kai  } { Adobe~ Kaiti~    Std~ R }
+        \fdu_choose_cjk_font:nn { song   } { Adobe~ Song~     Std }
+        \fdu_choose_cjk_font:nn { hei    } { Adobe~ Heiti~    Std }
+        \fdu_choose_cjk_font:nn { fang   } { Adobe~ Fangsong~ Std }
+        \fdu_choose_cjk_font:nn { kai    } { Adobe~ Kaiti~    Std }
+        \fdu_choose_cjk_font:nn { songbf } { }
       },
     cjkfont / fandol .code:n =
       {
-        \setCJKmainfont { FandolSong } [ ItalicFont = FandolKai ]
-        \setCJKsansfont { FandolHei  } [ ItalicFont = FandolHei ]
-        \setCJKmonofont { FandolFang }
-          [
-            ItalicFont   = FandolFang,
-            AutoFakeBold = true
-          ]
-        \setCJKfamilyfont { song } { FandolSong }
-        \setCJKfamilyfont { hei  } { FandolHei  }
-        \setCJKfamilyfont { fang } { FandolFang }
-        \setCJKfamilyfont { kai  } { FandolKai  }
+        \fdu_choose_cjk_font:nn { song   } { FandolSong       }
+        \fdu_choose_cjk_font:nn { hei    } { FandolHei        }
+        \fdu_choose_cjk_font:nn { fang   } { FandolFang       }
+        \fdu_choose_cjk_font:nn { kai    } { FandolKai        }
+        \fdu_choose_cjk_font:nn { songbf } { FandolSong~ Bold }
       },
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     cjkfont / founder .code:n =
       {
-        \setCJKmainfont { FZShuSong-Z01  }
-          [
-            BoldFont     = FZXiaoBiaoSong-B05,
-            ItalicFont   = FZKai-Z03
-          ]
-        \setCJKsansfont { FZHei-B01      }
-          [
-            ItalicFont   = FZHei-B01,
-            AutoFakeBold = true
-          ]
-        \setCJKmonofont { FZFangSong-Z02 }
-          [
-            ItalicFont   = FZFangSong-Z02,
-            AutoFakeBold = true
-          ]
-        \setCJKfamilyfont { song } { FZShuSong -Z01 }
-        \setCJKfamilyfont { hei  } { FZHei     -B01 }
-        \setCJKfamilyfont { fang } { FZFangSong-Z02 }
-        \setCJKfamilyfont { kai  } { FZKai     -Z03 }
+        \fdu_choose_cjk_font:nn { song   } { FZShuSong-Z01      }
+%\tl_show:N \g__fdu_cjk_song_font_tl
+        \fdu_choose_cjk_font:nn { hei    } { FZHei-B01          }
+        \fdu_choose_cjk_font:nn { fang   } { FZFangSong-Z02     }
+        \fdu_choose_cjk_font:nn { kai    } { FZKai-Z03          }
+        \fdu_choose_cjk_font:nn { songbf } { FZXiaoBiaoSong-B05 }
       },
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     cjkfont / mac .code:n =
       {
-        \setCJKmainfont { STSong     }
-          [
-            BoldFont     = STZhongsong,
-            ItalicFont   = STKaiti
-          ]
-        \setCJKsansfont { STHeiti    }
-          [
-            ItalicFont   = STHeiti,
-            AutoFakeBold = true
-          ]
-        \setCJKmonofont { STFangsong }
-          [
-            ItalicFont   = STFangsong,
-            AutoFakeBold = true
-          ]
-        \setCJKfamilyfont { song } { STSong     }
-        \setCJKfamilyfont { hei  } { STHeiti    }
-        \setCJKfamilyfont { fang } { STFangsong }
-        \setCJKfamilyfont { kai  } { STKaiti    }
+        \fdu_choose_cjk_font:nn { song   } { STSong      }
+        \fdu_choose_cjk_font:nn { hei    } { STHeiti     }
+        \fdu_choose_cjk_font:nn { fang   } { STFangsong  }
+        \fdu_choose_cjk_font:nn { kai    } { STKaiti     }
+        \fdu_choose_cjk_font:nn { songbf } { STZhongsong }
       },
     cjkfont / windows .code:n =
       {
-        \setCJKmainfont { SimSun   }
-          [
-            ItalicFont   = KaiTi,
-            AutoFakeBold = true
-          ]
-        \setCJKsansfont { SimHei   }
-          [
-            ItalicFont   = SimHei,
-            AutoFakeBold = true
-          ]
-        \setCJKmonofont { FangSong }
-          [
-            ItalicFont   = FangSong,
-            AutoFakeBold = true
-          ]
-        \setCJKfamilyfont { song } { SimSun   }
-        \setCJKfamilyfont { hei  } { SimHei   }
-        \setCJKfamilyfont { fang } { FangSong }
-        \setCJKfamilyfont { kai  } { KaiTi    }
+        \fdu_choose_cjk_font:nn { song   } { SimSun   }
+        \fdu_choose_cjk_font:nn { hei    } { SimHei   }
+        \fdu_choose_cjk_font:nn { fang   } { FangSong }
+        \fdu_choose_cjk_font:nn { kai    } { KaiTi    }
+        \fdu_choose_cjk_font:nn { songbf } { }
       }
   }
-\prg_new_conditional:Npnn \fdu_family_if_exist:n #1 { TF }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\sys_if_engine_xetex:TF
   {
-    \sys_if_engine_xetex:TF
+    \prg_new_protected_conditional:Npnn
+      \fdu_family_if_exist:n #1 { TF }
       {
         \xeCJK_family_if_exist:nTF {#1}
           { \prg_return_true: } { \prg_return_false: }
       }
+  }
+  {
+    \sys_if_engine_luatex:T
       {
-        \sys_if_engine_luatex:T
+        \prg_new_protected_conditional:Npnn
+          \fdu_family_if_exist:n #1 { TF }
           {
             \ctex_ltj_family_if_exist:nNTF {#1} \l__fdu_tmpa_tl
               { \prg_return_true: } { \prg_return_false: }
           }
       }
   }
-\cs_new_protected:Nn \fdu_cjk_font_song:
+%%\prg_new_conditional:Npnn \fdu_family_if_exist:n #1 { TF }
+%%  {
+%%    \sys_if_engine_xetex:TF
+%%      {
+%%        \xeCJK_family_if_exist:nTF {#1}
+%%          { \prg_return_true: } { \prg_return_false: }
+%%      }
+%%      {
+%%        \sys_if_engine_luatex:T
+%%          {
+%%            \ctex_ltj_family_if_exist:nNTF {#1} \l__fdu_tmpa_tl
+%%              { \prg_return_true: } { \prg_return_false: }
+%%          }
+%%      }
+%%  }
+
+
+
+%\cs_new_protected:Npn \fdu_cjk_font_song:
+%  {
+%    \fdu_family_if_exist:nTF { song }
+%      { \CJKfamily { song } } { \rmfamily }
+%  }
+%\cs_new_protected:Npn \fdu_cjk_font_hei:
+%  {
+%    \fdu_family_if_exist:nTF { hei  }
+%      { \CJKfamily { hei  } } { \sffamily }
+%  }
+%\cs_new_protected:Npn \fdu_cjk_font_fang:
+%  {
+%    \fdu_family_if_exist:nTF { fang }
+%      { \CJKfamily { fang } } { \ttfamily }
+%  }
+
+\cs_new_protected:Npx \fdu_cjk_font_kai:
   {
-    \fdu_family_if_exist:nTF { song }
-      { \CJKfamily { song } } { \rmfamily }
+    \fdu_family_if_exist:nTF { kai }
+      {
+        \sys_if_engine_xetex:TF
+          { \xeCJK_switch_family:n { kai } }
+          {
+            \sys_if_engine_luatex:T
+              { \ctex_ltj_switch_family:n { kai } }
+          }
+      }
+      { \exp_not:n { \rmfamily \itshape } }
   }
-\cs_new_protected:Nn \fdu_cjk_font_hei:
+
+\cs_set_eq:NN \fdu@kai \fdu_cjk_font_kai:
+%\NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
+%\NewDocumentCommand \fdu@hei  { } { \fdu_cjk_font_hei:  }
+%\NewDocumentCommand \fdu@fang { } { \fdu_cjk_font_fang: }
+%\NewDocumentCommand \fdu@kai  { } { \fdu_cjk_font_kai:  }
+
+% 导言区末尾载入字体
+\ctex_at_end_preamble:n
   {
-    \fdu_family_if_exist:nTF { hei  }
-      { \CJKfamily { hei  } } { \sffamily }
+%\exp_args:Nx \tl_show:n {\CJKfamilydefault}
+%\prop_show:N  \g__xeCJK_family_name_prop
+%\xeCJK_family_if_exist:xTF { \CJKfamilydefault }
+%  {\tl_show:n{true}}{\tl_show:n{false}}
+%\xeCJK_family_if_exist:xTF { rm }
+%  {\tl_show:n{true}}{\tl_show:n{false}}
+%
+%\tl_show:N \l__xeCJK_family_default_init_tl
+%\tl_show:N \l__xeCJK_fontspec_family_tl
+%\cs_show:N \CJKfamilydefault
+%\cs_show:N \CJKrmdefault
+\prop_show:N \g__xeCJK_family_name_prop
+\prop_show:N \g__xeCJK_family_font_name_prop
+
+    \__fdu_set_font: \__fdu_set_cjk_font:
+
+\prop_show:N \g__xeCJK_family_name_prop
+\prop_show:N \g__xeCJK_family_font_name_prop
   }
-\cs_new_protected:Nn \fdu_cjk_font_fang:
-  {
-    \fdu_family_if_exist:nTF { fang }
-      { \CJKfamily { fang } } { \ttfamily }
-  }
-\cs_new_protected:Nn \fdu_cjk_font_kai:
-  {
-    \fdu_family_if_exist:nTF { kai  }
-      { \CJKfamily { kai  } } { \rmfamily \itshape }
-  }
-\NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
-\NewDocumentCommand \fdu@hei  { } { \fdu_cjk_font_hei:  }
-\NewDocumentCommand \fdu@fang { } { \fdu_cjk_font_fang: }
-\NewDocumentCommand \fdu@kai  { } { \fdu_cjk_font_kai:  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \keys_define:nn { fdu / style }
   {
     fontsize .choice:,
@@ -1225,14 +1419,21 @@
     theorem / bodyfont       = { \fdu@kai },
     theorem / counter        = { chapter }
   }
-\bool_if:NF \g__fdu_no_fonts_bool
-  {
-    \keys_set:nn { fdu }
-      {
-        style / font    = times,
-        style / cjkfont = fandol
-      }
-  }
+
+
+
+%\bool_if:NF \g__fdu_no_fonts_bool
+%  {
+%    \keys_set:nn { fdu }
+%      {
+%        style / font    = times,
+%        style / cjkfont = fandol
+%      }
+%  }
+
+
+
+
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } {#1} }
 \fdunewtheorem* { proof       } { \c__fdu_def_name_proof_tl      }

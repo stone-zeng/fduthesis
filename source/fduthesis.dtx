@@ -1841,7 +1841,7 @@ version.
 % \begin{macro}{\fdu_cjk_font_song:}
 % 宋体，相当于普通罗马字体。
 %    \begin{macrocode}
-\cs_new_protected:Nn \fdu_cjk_font_song:
+\cs_new_protected:Npn \fdu_cjk_font_song:
   {
     \fdu_family_if_exist:nTF { song }
       { \CJKfamily { song } } { \rmfamily }
@@ -1852,7 +1852,7 @@ version.
 % \begin{macro}{\fdu_cjk_font_hei:}
 % 黑体，相当于无衬线体。
 %    \begin{macrocode}
-\cs_new_protected:Nn \fdu_cjk_font_hei:
+\cs_new_protected:Npn \fdu_cjk_font_hei:
   {
     \fdu_family_if_exist:nTF { hei  }
       { \CJKfamily { hei  } } { \sffamily }
@@ -1863,7 +1863,7 @@ version.
 % \begin{macro}{\fdu_cjk_font_fang:}
 % 仿宋，相当于打字机字体（或等宽字体）。
 %    \begin{macrocode}
-\cs_new_protected:Nn \fdu_cjk_font_fang:
+\cs_new_protected:Npn \fdu_cjk_font_fang:
   {
     \fdu_family_if_exist:nTF { fang }
       { \CJKfamily { fang } } { \ttfamily }
@@ -1874,7 +1874,7 @@ version.
 % \begin{macro}{\fdu_cjk_font_kai:}
 % 楷体，相当于罗马字体的意大利形状（斜体）。
 %    \begin{macrocode}
-\cs_new_protected:Nn \fdu_cjk_font_kai:
+\cs_new_protected:Npn \fdu_cjk_font_kai:
   {
     \fdu_family_if_exist:nTF { kai  }
       { \CJKfamily { kai  } } { \rmfamily \itshape }
@@ -3663,7 +3663,7 @@ version.
 %
 % % 预先准备
 % % 参数：内容
-% \cs_new_protected:Nn \fdu_wrap_prewrap:n
+% \cs_new_protected:Npn \fdu_wrap_prewrap:n
 % {
 %   % 清除列表，初始化
 %   \clist_clear:N \l_@@_wrap_indent_clist
@@ -3702,7 +3702,7 @@ version.
 %
 % % 右边插入内容
 % % 参数1：不动的行数，参数2：内容
-% \cs_new_protected:Nn \fdu_wrap_put_right:nn
+% \cs_new_protected:Npn \fdu_wrap_put_right:nn
 % {
 %   \fdu_wrap_prewrap:n {#2}
 %
@@ -3746,7 +3746,7 @@ version.
 %
 % % 左边插入内容
 % % 参数1：不动的行数，参数2：内容
-% \cs_new_protected:Nn \fdu_wrap_put_left:nn
+% \cs_new_protected:Npn \fdu_wrap_put_left:nn
 % {
 %   \fdu_wrap_prewrap:n {#2}
 %
