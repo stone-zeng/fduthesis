@@ -192,17 +192,24 @@
 \clist_new:N \g__fdu_mono_font_option_clist
 \clist_new:N \g__fdu_math_font_option_clist
 
+\tl_new:N    \g__fdu_cjk_main_font_tl
+\tl_new:N    \g__fdu_cjk_sans_font_tl
+\tl_new:N    \g__fdu_cjk_mono_font_tl
+\clist_new:N \g__fdu_cjk_main_font_option_clist
+\clist_new:N \g__fdu_cjk_sans_font_option_clist
+\clist_new:N \g__fdu_cjk_mono_font_option_clist
 
 \tl_new:N    \g__fdu_cjk_song_font_tl
 \tl_new:N    \g__fdu_cjk_hei_font_tl
 \tl_new:N    \g__fdu_cjk_fang_font_tl
 \tl_new:N    \g__fdu_cjk_kai_font_tl
 \tl_new:N    \g__fdu_cjk_songbf_font_tl
-\clist_new:N \g__fdu_cjk_song_font_option_clist
-\clist_new:N \g__fdu_cjk_hei_font_option_clist
-\clist_new:N \g__fdu_cjk_fang_font_option_clist
-\clist_new:N \g__fdu_cjk_kai_font_option_clist
-\clist_new:N \g__fdu_cjk_songbf_font_option_clist
+% 暂时不需要
+%\clist_new:N \g__fdu_cjk_song_font_option_clist
+%\clist_new:N \g__fdu_cjk_hei_font_option_clist
+%\clist_new:N \g__fdu_cjk_fang_font_option_clist
+%\clist_new:N \g__fdu_cjk_kai_font_option_clist
+%\clist_new:N \g__fdu_cjk_songbf_font_option_clist
 
 
 
@@ -228,138 +235,12 @@
 \cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
   { \tl_set:cn { g__fdu_cjk_ #1 _font_tl } {#2} }
 
-%\clist_show:N \g__fdu_main_font_option_clist
-%
-%\fdu_choose_font_with_option:nnn {main} {TeX~Gyre~Termes}{Ligatures=NoCommon,ItalicFont=XITS}
-%
-%\tl_show:N \g__fdu_main_font_tl
-%\clist_show:N \g__fdu_main_font_option_clist
-%
-%\tl_set:NV \g__fdu_main_font_tl \g__fdu_main_font_option_clist
-%\tl_show:N \g__fdu_main_font_tl
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
-
-\cs_new:Npn \__fdu_set_font:
-  {
-    %\__fdu_set_font_aux:n { main }
-    %\__fdu_set_font_aux:n { sans }
-    %\__fdu_set_font_aux:n { mono }
-    \clist_map_inline:nn { main, sans, mono }
-      { \__fdu_set_font_aux:n {##1} }
-    % unicode-math 没有给出内部命令
-    \exp_args:NVV \setmathfont
-      \g__fdu_math_font_tl \g__fdu_math_font_option_clist
-  }
-
-\cs_new:Npn \__fdu_set_font_aux:n #1
-  {
-    % `\__fontspec_main_set...font:n` 的参数 1、3 均为 options
-    % 我们这里只用了参数 2、3
-    \use:c { __fontspec_main_set #1 font:nvv } { }
-      { g__fdu_ #1 _font_tl } { g__fdu_ #1 _font_option_clist }
-  }
-
-% 不能展开，各 tl 变量应当在最后调用字体时放进来
-\cs_new:Npx \__fdu_set_cjk_font:
-  {
-    \exp_not:n
-      {
-        \__fdu_set_cjk_main_font:Vx \g__fdu_cjk_song_font_tl
-          {
-            BoldFont       = \g__fdu_cjk_hei_font_tl,  % 加上 黑体/粗宋 选项
-            ItalicFont     = \g__fdu_cjk_kai_font_tl,
-            BoldItalicFont = \g__fdu_cjk_kai_font_tl   % 讲道理应该用粗楷
-          }
-        \__fdu_set_cjk_sans_font:Vx \g__fdu_cjk_hei_font_tl
-          {
-            BoldFont       = \g__fdu_cjk_hei_font_tl,  % 加上 粗黑 选项？
-            ItalicFont     = \g__fdu_cjk_hei_font_tl,
-            BoldItalicFont = \g__fdu_cjk_hei_font_tl
-          }
-        \__fdu_set_cjk_mono_font:Vx \g__fdu_cjk_fang_font_tl
-          {
-            BoldFont       = \g__fdu_cjk_fang_font_tl,
-            ItalicFont     = \g__fdu_cjk_kai_font_tl,
-            BoldItalicFont = \g__fdu_cjk_kai_font_tl   % 讲道理应该用粗楷
-          }
-      }
-    % 原则上楷体就够了
-    \sys_if_engine_xetex:TF
-      {
-        \exp_not:n
-          {
-            \xeCJK_set_family:nnV { kai } { }
-              \g__fdu_cjk_kai_font_tl
-          }
-      }
-      {
-        \sys_if_engine_luatex:T
-          {
-            \exp_not:n
-              {
-                \ctex_ltj_set_family:nnV { kai } { }
-                  \g__fdu_cjk_kai_font_tl
-              }
-          }
-      }
-  }
-\cs_show:N \__fdu_set_cjk_font:
-
-\cs_generate_variant:Nn \xeCJK_set_family:nnn {nnV}
-
-
-% #1 = font name
-% #2 = options
-\cs_new:Npx \__fdu_set_cjk_main_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKrmdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKrmdefault } {#2} {#1} }
-      }
-  }
-\cs_new:Npx \__fdu_set_cjk_sans_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKsfdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKsfdefault } {#2} {#1} }
-      }
-  }
-\cs_new:Npx \__fdu_set_cjk_mono_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKttdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKttdefault } {#2} {#1} }
-      }
-  }
-
-\cs_generate_variant:Nn \__fdu_set_cjk_main_font:nn { Vx }
-\cs_generate_variant:Nn \__fdu_set_cjk_sans_font:nn { Vx }
-\cs_generate_variant:Nn \__fdu_set_cjk_mono_font:nn { Vx }
-
-
-
-% xeCJK:
-%\prop_show:N \g__xeCJK_family_font_name_prop
-\prop_put:Nnn \g__xeCJK_family_font_name_prop {rm} {000}
-\prop_put:Nnn \g__xeCJK_family_name_prop      {rm} {000}
-% \prop_show:N \g__xeCJK_family_font_name_prop
-% \setCJKmainfont{SimSun}
-% \prop_show:N \g__xeCJK_family_font_name_prop
-
-
-
-
+% 字体选项
 \keys_define:nn { fdu / style }
   {
     font .choice:,
@@ -387,8 +268,11 @@
         \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros   }
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math }
-          { TeX~ Gyre~ Pagella~ Math }
+%%%%%%%%%%% DEBUG
+        \fdu_choose_font:nn { math } { TeX~ Gyre~ Pagella~ Math }
+        %\fdu_choose_font_with_option:nnn { math }
+        %  { TeX~ Gyre~ Pagella~ Math } { math-style=upright }
+%%%%%%%%%%% DEBUG
         \keys_set:nn { fdu / style } { footnotestyle = pifont }
       },
     font / times .code:n =
@@ -400,6 +284,9 @@
         \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
       },
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     cjkfont .choice:,
     cjkfont .value_required:n = true,
     cjkfont / adobe .code:n =
@@ -418,21 +305,14 @@
         \fdu_choose_cjk_font:nn { kai    } { FandolKai        }
         \fdu_choose_cjk_font:nn { songbf } { FandolSong~ Bold }
       },
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     cjkfont / founder .code:n =
       {
         \fdu_choose_cjk_font:nn { song   } { FZShuSong-Z01      }
-%\tl_show:N \g__fdu_cjk_song_font_tl
         \fdu_choose_cjk_font:nn { hei    } { FZHei-B01          }
         \fdu_choose_cjk_font:nn { fang   } { FZFangSong-Z02     }
         \fdu_choose_cjk_font:nn { kai    } { FZKai-Z03          }
         \fdu_choose_cjk_font:nn { songbf } { FZXiaoBiaoSong-B05 }
       },
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     cjkfont / mac .code:n =
       {
         \fdu_choose_cjk_font:nn { song   } { STSong      }
@@ -451,10 +331,242 @@
       }
   }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 设定西文字体
+
+\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
+
+\cs_new:Npn \__fdu_set_font:
+  {
+    \clist_map_inline:nn { main, sans, mono }
+      { \__fdu_set_font_aux:n {##1} }
+    % 数学字体另外处理
+    \__fdu_set_math_font:VV
+      \g__fdu_math_font_tl \g__fdu_math_font_option_clist
+  }
+
+\cs_new:Npn \__fdu_set_font_aux:n #1
+  {
+    % `\__fontspec_main_set...font:n` 的参数 1、3 均为 options
+    % 我们这里只用了参数 2、3
+    \use:c { __fontspec_main_set #1 font:nvv } { }
+      { g__fdu_ #1 _font_tl } { g__fdu_ #1 _font_option_clist }
+  }
+
+% unicode-math 中 \setmathfont 的拷贝
+% 没有办法，只好把代码复制一遍了
+% #1 = font name
+% #2 = options
+\cs_new:Npn \__fdu_set_math_font:nn #1#2
+  {
+    \tl_set:Nn \l__um_fontname_tl {#1}
+    \__um_init:
+    \cs_if_exist:cF { S@ \f@size } { \calculate@math@sizes }
+    \csname S@\f@size\endcsname
+    \keys_set_known:nnN {unicode-math} {#2} \l__um_unknown_keys_clist
+    \bool_if:NT \l__um_init_bool { \__um_log:n {default-math-font} }
+    \__um_fontspec_select_font:
+    \bool_if:nT { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+      {
+        \__um_declare_math_sizes:
+        \__um_fontspec_select_font:
+      }
+    \cs_if_exist:cF { sym \__um_symfont_tl }
+      {
+        \DeclareSymbolFont{\__um_symfont_tl}
+          {\encodingdefault}{\l__um_family_tl}{\mddefault}{\updefault}
+      }
+    \SetSymbolFont{\__um_symfont_tl}{\l__um_mversion_tl}
+      {\encodingdefault}{\l__um_family_tl}{\mddefault}{\updefault}
+    \tl_set:Nn \l__um_tmpa_tl {normal}
+    \tl_if_eq:NNT \l__um_mversion_tl \l__um_tmpa_tl
+      {
+        \SetSymbolFont{\__um_symfont_tl}{bold}
+          {\encodingdefault}{\l__um_family_tl}{\bfdefault}{\updefault}
+      }
+    \bool_if:nT { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+      {
+        \bool_set_true:N \g__um_mainfont_already_set_bool
+        \__um_setup_legacy_fam_two:
+        \__um_setup_legacy_fam_three:
+      }
+    \__um_input_math_symbol_table:
+    \__um_remap_symbols:
+    \__um_setup_mathactives:
+    \__um_setup_delcodes:
+    \__um_setup_alphabets:
+    \__um_setup_negations:
+    \ignorespaces
+  }
+\cs_generate_variant:Nn \__fdu_set_math_font:nn { VV }
+
+
+% 设定中文字体
+
+% 不能展开，各 tl 变量应当在最后调用字体时放进来
+\cs_new:Npn \__fdu_set_cjk_font:
+  {
+    \__fdu_set_cjk_font_aux:nn { main }
+      {
+        \__fdu_set_cjk_main_font:Vx \g__fdu_cjk_song_font_tl
+          {
+            BoldFont       = \g__fdu_cjk_hei_font_tl,  % 加上 黑体/粗宋 选项
+            ItalicFont     = \g__fdu_cjk_kai_font_tl,
+            BoldItalicFont = \g__fdu_cjk_kai_font_tl   % 讲道理应该用粗楷
+          }
+      }
+    \__fdu_set_cjk_font_aux:nn { sans }
+      {
+        \__fdu_set_cjk_sans_font:Vx \g__fdu_cjk_hei_font_tl
+          {
+            BoldFont       = \g__fdu_cjk_hei_font_tl,  % 加上 粗黑 选项？
+            ItalicFont     = \g__fdu_cjk_hei_font_tl,
+            BoldItalicFont = \g__fdu_cjk_hei_font_tl
+          }
+      }
+    \__fdu_set_cjk_font_aux:nn { mono }
+      {
+        \__fdu_set_cjk_mono_font:Vx \g__fdu_cjk_fang_font_tl
+          {
+            BoldFont       = \g__fdu_cjk_fang_font_tl,
+            ItalicFont     = \g__fdu_cjk_kai_font_tl,
+            BoldItalicFont = \g__fdu_cjk_kai_font_tl   % 应该用粗楷
+          }
+      }
+    % 原则上楷体就够了
+    \__fdu_set_cjk_kai_font:V \g__fdu_cjk_kai_font_tl
+  }
+
+\cs_new:Npn \__fdu_set_cjk_font_aux:nn #1#2
+  {
+    \bool_if:cTF { l__fdu_set_cjk_ #1 _font_bool }
+      {
+        \__fdu_set_cjk_main_font:vv
+          { g__fdu_cjk_ #1 _font_tl           }
+          { g__fdu_cjk_ #1 _font_option_clist }
+      }
+      {#2}
+  }
+
+
+% #1 = font name
+% #2 = options
+\cs_new_protected:Npx \__fdu_set_cjk_main_font:nn #1#2
+  {
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \ctex_ltj_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+      }
+  }
+\cs_new_protected:Npx \__fdu_set_cjk_sans_font:nn #1#2
+  {
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \ctex_ltj_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+      }
+  }
+\cs_new_protected:Npx \__fdu_set_cjk_mono_font:nn #1#2
+  {
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nnn { \CJKttdefault } {#2} {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \ctex_ltj_set_family:nnn { \CJKttdefault } {#2} {#1} }
+      }
+  }
+\cs_generate_variant:Nn \__fdu_set_cjk_main_font:nn { Vx, vv }
+\cs_generate_variant:Nn \__fdu_set_cjk_sans_font:nn { Vx, vv }
+\cs_generate_variant:Nn \__fdu_set_cjk_mono_font:nn { Vx, vv }
+
+
+\cs_new:Npx \__fdu_set_cjk_kai_font:n #1
+  {
+    \sys_if_engine_xetex:TF
+      { \exp_not:N \xeCJK_set_family:nnn { kai } { } {#1} }
+      {
+        \sys_if_engine_luatex:T
+          { \exp_not:N \ctex_ltj_set_family:nnn { kai } { } {#1} }
+      }
+  }
+\cs_generate_variant:Nn \__fdu_set_cjk_kai_font:n { V }
+
+
+% xeCJK: 这里给这两个 prop 赋一个值，使得 xeCJK 认为已定义 rm family
+% LuaTeX 引擎下 ctex-ltj 不会报 warning，暂且不管
+\sys_if_engine_xetex:T
+  {
+    \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
+    \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
+  }
+
+% 重定义文档命令
+% 使得只选择字体，而不实际调用字体
+\RenewDocumentCommand \setmainfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
+\RenewDocumentCommand \setsansfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
+\RenewDocumentCommand \setmonofont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
+\RenewDocumentCommand \setmathfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
+
+
+
+\bool_new:N \l__fdu_set_cjk_main_font_bool
+\bool_new:N \l__fdu_set_cjk_sans_font_bool
+\bool_new:N \l__fdu_set_cjk_mono_font_bool
+
+
+\RenewDocumentCommand \setCJKmainfont { O { } m O { } }
+  {
+    \bool_set_true:N \l__fdu_set_cjk_main_font_bool
+    \fdu_choose_cjk_font_with_option:nnn { main } {#2} {#1, #3}
+  }
+\RenewDocumentCommand \setCJKsansfont { O { } m O { } }
+  {
+    \bool_set_true:N \l__fdu_set_cjk_sans_font_bool
+    \fdu_choose_cjk_font_with_option:nnn { sans } {#2} {#1, #3}
+  }
+\RenewDocumentCommand \setCJKmonofont { O { } m O { } }
+  {
+    \bool_set_true:N \l__fdu_set_cjk_mono_font_bool
+    \fdu_choose_cjk_font_with_option:nnn { mono } {#2} {#1, #3}
+  }
+
+
+% 导言区末尾载入字体
+\ctex_at_end_preamble:n
+  {
+%\tl_show:N \g__fdu_main_font_tl
+%\tl_show:N \g__fdu_sans_font_tl
+%\tl_show:N \g__fdu_mono_font_tl
+%\tl_show:N \g__fdu_math_font_tl
+
+    \__fdu_set_font:
+    \__fdu_set_cjk_font:
+%\clist_show:N \g__fdu_main_font_option_clist
+%\prop_show:N \g__xeCJK_family_name_prop
+%\prop_show:N \g__xeCJK_family_font_name_prop
+  }
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% 字型切换（主要用于楷体）
+
+% 分引擎定义 \fdu_family_if_exist:nTF
 \sys_if_engine_xetex:TF
   {
     \prg_new_protected_conditional:Npnn
@@ -475,39 +587,8 @@
           }
       }
   }
-%%\prg_new_conditional:Npnn \fdu_family_if_exist:n #1 { TF }
-%%  {
-%%    \sys_if_engine_xetex:TF
-%%      {
-%%        \xeCJK_family_if_exist:nTF {#1}
-%%          { \prg_return_true: } { \prg_return_false: }
-%%      }
-%%      {
-%%        \sys_if_engine_luatex:T
-%%          {
-%%            \ctex_ltj_family_if_exist:nNTF {#1} \l__fdu_tmpa_tl
-%%              { \prg_return_true: } { \prg_return_false: }
-%%          }
-%%      }
-%%  }
 
-
-
-%\cs_new_protected:Npn \fdu_cjk_font_song:
-%  {
-%    \fdu_family_if_exist:nTF { song }
-%      { \CJKfamily { song } } { \rmfamily }
-%  }
-%\cs_new_protected:Npn \fdu_cjk_font_hei:
-%  {
-%    \fdu_family_if_exist:nTF { hei  }
-%      { \CJKfamily { hei  } } { \sffamily }
-%  }
-%\cs_new_protected:Npn \fdu_cjk_font_fang:
-%  {
-%    \fdu_family_if_exist:nTF { fang }
-%      { \CJKfamily { fang } } { \ttfamily }
-%  }
+% 以下定义 \fdu_cjk_font_...:，目前也只有楷体需要
 
 \cs_new_protected:Npx \fdu_cjk_font_kai:
   {
@@ -523,39 +604,13 @@
       { \exp_not:n { \rmfamily \itshape } }
   }
 
-\cs_set_eq:NN \fdu@kai \fdu_cjk_font_kai:
-%\NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
-%\NewDocumentCommand \fdu@hei  { } { \fdu_cjk_font_hei:  }
-%\NewDocumentCommand \fdu@fang { } { \fdu_cjk_font_fang: }
-%\NewDocumentCommand \fdu@kai  { } { \fdu_cjk_font_kai:  }
+\cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
 
-% 导言区末尾载入字体
-\ctex_at_end_preamble:n
-  {
-%\exp_args:Nx \tl_show:n {\CJKfamilydefault}
-%\prop_show:N  \g__xeCJK_family_name_prop
-%\xeCJK_family_if_exist:xTF { \CJKfamilydefault }
-%  {\tl_show:n{true}}{\tl_show:n{false}}
-%\xeCJK_family_if_exist:xTF { rm }
-%  {\tl_show:n{true}}{\tl_show:n{false}}
-%
-%\tl_show:N \l__xeCJK_family_default_init_tl
-%\tl_show:N \l__xeCJK_fontspec_family_tl
-%\cs_show:N \CJKfamilydefault
-%\cs_show:N \CJKrmdefault
-\prop_show:N \g__xeCJK_family_name_prop
-\prop_show:N \g__xeCJK_family_font_name_prop
-
-    \__fdu_set_font: \__fdu_set_cjk_font:
-
-\prop_show:N \g__xeCJK_family_name_prop
-\prop_show:N \g__xeCJK_family_font_name_prop
-  }
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%              %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% 字体设置结束 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%              %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \keys_define:nn { fdu / style }
@@ -783,7 +838,10 @@
           {
             \int_compare:nT
               { 9 <= \l_keys_choice_int <= 11 }
-              { \setmathfont { XITS~ Math } [ version = fn-XITS ] }
+              {
+                \__fdu_set_math_font:nn
+                  { XITS~ Math } { version = fn-XITS }
+              }
           }
       },
     footnotestyle .value_required:n = true
@@ -1032,7 +1090,8 @@
           { \l_keys_choice_int >= 2 }
           {
             \bool_set_true:N \l__fdu_secret_bool
-            \setmathfont { XITS~ Math } [ version = secret-XITS ]
+            \__fdu_set_math_font:nn
+              { XITS~ Math } { version = secret-XITS }
             \tl_set:Nn \l__fdu_info_secret_level_tl
               {
                 \clist_item:Nn \c__fdu_def_secret_clist
@@ -1421,15 +1480,15 @@
   }
 
 
-
-%\bool_if:NF \g__fdu_no_fonts_bool
-%  {
-%    \keys_set:nn { fdu }
-%      {
-%        style / font    = times,
-%        style / cjkfont = fandol
-%      }
-%  }
+%\bool_show:N \g__fdu_no_fonts_bool
+\bool_if:NF \g__fdu_no_fonts_bool
+  {
+    \keys_set:nn { fdu }
+      {
+        style / font    = times,
+        style / cjkfont = fandol
+      }
+  }
 
 
 
