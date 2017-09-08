@@ -125,7 +125,7 @@
       { \bool_set_false:N    \g__fdu_draft_bool },
     draft .default:n = true,
     draft .initial:n = false,
-    %unknown .code:n = { \__fdu_error:n { unknown-option } }
+    unknown .code:n = { \__fdu_error:n { unknown-option } }
   }
 \__fdu_msg_new:nn { unknown-option }
   { Class~ option~ "\l_keys_key_tl"~ is~ unknown. }
@@ -181,8 +181,6 @@
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
 \unimathsetup { math-style = ISO, bold-style = ISO }
-
-
 \tl_new:N    \g__fdu_main_font_tl
 \tl_new:N    \g__fdu_sans_font_tl
 \tl_new:N    \g__fdu_mono_font_tl
@@ -191,31 +189,17 @@
 \clist_new:N \g__fdu_sans_font_option_clist
 \clist_new:N \g__fdu_mono_font_option_clist
 \clist_new:N \g__fdu_math_font_option_clist
-
 \tl_new:N    \g__fdu_cjk_main_font_tl
 \tl_new:N    \g__fdu_cjk_sans_font_tl
 \tl_new:N    \g__fdu_cjk_mono_font_tl
 \clist_new:N \g__fdu_cjk_main_font_option_clist
 \clist_new:N \g__fdu_cjk_sans_font_option_clist
 \clist_new:N \g__fdu_cjk_mono_font_option_clist
-
 \tl_new:N    \g__fdu_cjk_song_font_tl
 \tl_new:N    \g__fdu_cjk_hei_font_tl
 \tl_new:N    \g__fdu_cjk_fang_font_tl
 \tl_new:N    \g__fdu_cjk_kai_font_tl
 \tl_new:N    \g__fdu_cjk_songbf_font_tl
-% 暂时不需要
-%\clist_new:N \g__fdu_cjk_song_font_option_clist
-%\clist_new:N \g__fdu_cjk_hei_font_option_clist
-%\clist_new:N \g__fdu_cjk_fang_font_option_clist
-%\clist_new:N \g__fdu_cjk_kai_font_option_clist
-%\clist_new:N \g__fdu_cjk_songbf_font_option_clist
-
-
-
-% #1 = main/sans/mono/math
-% #2 = font name
-% #3 = options
 \cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
   {
     \tl_set:cn    { g__fdu_ #1 _font_tl           } {#2}
@@ -224,9 +208,6 @@
 \cs_new_protected:Npn \fdu_choose_font:nn #1#2
   { \tl_set:cn { g__fdu_ #1 _font_tl } {#2} }
 
-% #1 = song/hei/fang/kai/songbf
-% #2 = font name
-% #3 = options
 \cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
   {
     \tl_set:cn    { g__fdu_cjk_ #1 _font_tl           } {#2}
@@ -234,13 +215,6 @@
   }
 \cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
   { \tl_set:cn { g__fdu_cjk_ #1 _font_tl } {#2} }
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% 字体选项
 \keys_define:nn { fdu / style }
   {
     font .choice:,
@@ -268,11 +242,7 @@
         \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros   }
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-%%%%%%%%%%% DEBUG
         \fdu_choose_font:nn { math } { TeX~ Gyre~ Pagella~ Math }
-        %\fdu_choose_font_with_option:nnn { math }
-        %  { TeX~ Gyre~ Pagella~ Math } { math-style=upright }
-%%%%%%%%%%% DEBUG
         \keys_set:nn { fdu / style } { footnotestyle = pifont }
       },
     font / times .code:n =
@@ -284,9 +254,6 @@
         \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
       },
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     cjkfont .choice:,
     cjkfont .value_required:n = true,
     cjkfont / adobe .code:n =
@@ -330,18 +297,11 @@
         \fdu_choose_cjk_font:nn { songbf } { }
       }
   }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% 设定西文字体
-
 \cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
 \cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
 \cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
 
-\cs_new:Npn \__fdu_set_font:
+\cs_new:Npn \fdu_set_font:
   {
     \clist_map_inline:nn { main, sans, mono }
       { \__fdu_set_font_aux:n {##1} }
@@ -358,10 +318,6 @@
       { g__fdu_ #1 _font_tl } { g__fdu_ #1 _font_option_clist }
   }
 
-% unicode-math 中 \setmathfont 的拷贝
-% 没有办法，只好把代码复制一遍了
-% #1 = font name
-% #2 = options
 \cs_new:Npn \__fdu_set_math_font:nn #1#2
   {
     \tl_set:Nn \l__um_fontname_tl {#1}
@@ -404,12 +360,7 @@
     \ignorespaces
   }
 \cs_generate_variant:Nn \__fdu_set_math_font:nn { VV }
-
-
-% 设定中文字体
-
-% 不能展开，各 tl 变量应当在最后调用字体时放进来
-\cs_new:Npn \__fdu_set_cjk_font:
+\cs_new:Npn \fdu_set_cjk_font:
   {
     \__fdu_set_cjk_font_aux:nn { main }
       {
@@ -453,9 +404,6 @@
       {#2}
   }
 
-
-% #1 = font name
-% #2 = options
 \cs_new_protected:Npx \__fdu_set_cjk_main_font:nn #1#2
   {
     \sys_if_engine_xetex:TF
@@ -487,7 +435,6 @@
 \cs_generate_variant:Nn \__fdu_set_cjk_sans_font:nn { Vx, vv }
 \cs_generate_variant:Nn \__fdu_set_cjk_mono_font:nn { Vx, vv }
 
-
 \cs_new:Npx \__fdu_set_cjk_kai_font:n #1
   {
     \sys_if_engine_xetex:TF
@@ -499,17 +446,11 @@
   }
 \cs_generate_variant:Nn \__fdu_set_cjk_kai_font:n { V }
 
-
-% xeCJK: 这里给这两个 prop 赋一个值，使得 xeCJK 认为已定义 rm family
-% LuaTeX 引擎下 ctex-ltj 不会报 warning，暂且不管
 \sys_if_engine_xetex:T
   {
     \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
     \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
   }
-
-% 重定义文档命令
-% 使得只选择字体，而不实际调用字体
 \RenewDocumentCommand \setmainfont { O { } m O { } }
   { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
 \RenewDocumentCommand \setsansfont { O { } m O { } }
@@ -519,12 +460,9 @@
 \RenewDocumentCommand \setmathfont { O { } m O { } }
   { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
 
-
-
 \bool_new:N \l__fdu_set_cjk_main_font_bool
 \bool_new:N \l__fdu_set_cjk_sans_font_bool
 \bool_new:N \l__fdu_set_cjk_mono_font_bool
-
 
 \RenewDocumentCommand \setCJKmainfont { O { } m O { } }
   {
@@ -542,31 +480,11 @@
     \fdu_choose_cjk_font_with_option:nnn { mono } {#2} {#1, #3}
   }
 
-
-% 导言区末尾载入字体
 \ctex_at_end_preamble:n
   {
-%\tl_show:N \g__fdu_main_font_tl
-%\tl_show:N \g__fdu_sans_font_tl
-%\tl_show:N \g__fdu_mono_font_tl
-%\tl_show:N \g__fdu_math_font_tl
-
-    \__fdu_set_font:
-    \__fdu_set_cjk_font:
-%\clist_show:N \g__fdu_main_font_option_clist
-%\prop_show:N \g__xeCJK_family_name_prop
-%\prop_show:N \g__xeCJK_family_font_name_prop
+    \fdu_set_font:
+    \fdu_set_cjk_font:
   }
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% 字型切换（主要用于楷体）
-
-% 分引擎定义 \fdu_family_if_exist:nTF
 \sys_if_engine_xetex:TF
   {
     \prg_new_protected_conditional:Npnn
@@ -588,7 +506,6 @@
       }
   }
 
-% 以下定义 \fdu_cjk_font_...:，目前也只有楷体需要
 
 \cs_new_protected:Npx \fdu_cjk_font_kai:
   {
@@ -605,14 +522,6 @@
   }
 
 \cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%              %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%% 字体设置结束 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%              %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \keys_define:nn { fdu / style }
   {
     fontsize .choice:,
@@ -967,13 +876,13 @@
     \theoremstyle {#1}
     \newtheorem {#3} {#4} [#2]
   }
-\cs_generate_variant:Nn \fdu_thm_new:nnnn { VVxx }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
 \cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
   {
     \theoremstyle {#1}
     \newtheorem {#2} {#3}
   }
-\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vxx }
+\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vnn }
 \cs_new:Npn \fdu_thm_set_qed:n         #1
   { \theoremsymbol     {#1} }
 \cs_new:Npn \fdu_thm_set_header_font:n #1
@@ -1008,8 +917,7 @@
               { }
           }
         \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        %TODO (20170908): 这里是否需要用 x 展开？比如定义一个定理头为 \TeX 的定理？
-        \fdu_thm_new_no_number:Vxx \l__fdu_thm_style_tl {#3} {#4}
+        \fdu_thm_new_no_number:Vnn \l__fdu_thm_style_tl {#3} {#4}
       }
       {
         \clist_clear:N \l__fdu_tmpa_clist
@@ -1018,8 +926,8 @@
         \clist_if_in:NVF
           \l__fdu_tmpa_clist \l__fdu_thm_style_tl
           { }
-        \fdu_thm_new:VVxx \l__fdu_thm_style_tl
-          \l__fdu_thm_counter_tl {#3} {#4}
+        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
+          { \l__fdu_thm_counter_tl } {#3} {#4}
       }
   }
 \captionsetup [ figure ]
@@ -1479,9 +1387,6 @@
     theorem / bodyfont       = { \fdu@kai },
     theorem / counter        = { chapter }
   }
-
-
-%\bool_show:N \g__fdu_no_fonts_bool
 \bool_if:NF \g__fdu_no_fonts_bool
   {
     \keys_set:nn { fdu }
@@ -1490,10 +1395,6 @@
         style / cjkfont = fandol
       }
   }
-
-
-
-
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } {#1} }
 \fdunewtheorem* { proof       } { \c__fdu_def_name_proof_tl      }

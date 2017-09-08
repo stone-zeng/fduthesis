@@ -5,7 +5,10 @@
 
 \hypersetup{linktoc = page}
 
-\ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}
+\makeatletter
+\@ifpackageloaded{luatexja}{%
+  \ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}}{}
+\makeatother
 
 \def\WORLDa{你好，世界。}
 
