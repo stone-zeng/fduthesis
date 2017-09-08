@@ -967,13 +967,13 @@
     \theoremstyle {#1}
     \newtheorem {#3} {#4} [#2]
   }
-\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { VVxx }
 \cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
   {
     \theoremstyle {#1}
     \newtheorem {#2} {#3}
   }
-\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vnn }
+\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vxx }
 \cs_new:Npn \fdu_thm_set_qed:n         #1
   { \theoremsymbol     {#1} }
 \cs_new:Npn \fdu_thm_set_header_font:n #1
@@ -1008,7 +1008,8 @@
               { }
           }
         \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_new_no_number:Vnn \l__fdu_thm_style_tl {#3} {#4}
+        %TODO (20170908): 这里是否需要用 x 展开？比如定义一个定理头为 \TeX 的定理？
+        \fdu_thm_new_no_number:Vxx \l__fdu_thm_style_tl {#3} {#4}
       }
       {
         \clist_clear:N \l__fdu_tmpa_clist
@@ -1017,8 +1018,8 @@
         \clist_if_in:NVF
           \l__fdu_tmpa_clist \l__fdu_thm_style_tl
           { }
-        \fdu_thm_new:Vnnn \l__fdu_thm_style_tl
-          { \l__fdu_thm_counter_tl } {#3} {#4}
+        \fdu_thm_new:VVxx \l__fdu_thm_style_tl
+          \l__fdu_thm_counter_tl {#3} {#4}
       }
   }
 \captionsetup [ figure ]
