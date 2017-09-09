@@ -200,21 +200,6 @@
 \tl_new:N    \g__fdu_cjk_fang_font_tl
 \tl_new:N    \g__fdu_cjk_kai_font_tl
 \tl_new:N    \g__fdu_cjk_songbf_font_tl
-\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
-  {
-    \tl_set:cn    { g__fdu_ #1 _font_tl           } {#2}
-    \clist_set:cn { g__fdu_ #1 _font_option_clist } {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_font:nn #1#2
-  { \tl_set:cn { g__fdu_ #1 _font_tl } {#2} }
-
-\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
-  {
-    \tl_set:cn    { g__fdu_cjk_ #1 _font_tl           } {#2}
-    \clist_set:cn { g__fdu_cjk_ #1 _font_option_clist } {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
-  { \tl_set:cn { g__fdu_cjk_ #1 _font_tl } {#2} }
 \keys_define:nn { fdu / style }
   {
     font .choice:,
@@ -255,55 +240,79 @@
         \keys_set:nn { fdu / style } { footnotestyle = xits }
       }
   }
-\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
-
+\RenewDocumentCommand \setmainfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
+\RenewDocumentCommand \setsansfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
+\RenewDocumentCommand \setmonofont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
+\RenewDocumentCommand \setmathfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
+\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
+  {
+    \tl_set:cn    { g__fdu_ #1 _font_tl           } {#2}
+    \clist_set:cn { g__fdu_ #1 _font_option_clist } {#3}
+  }
+\cs_new_protected:Npn \fdu_choose_font:nn #1#2
+  { \tl_set:cn { g__fdu_ #1 _font_tl } {#2} }
+\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
+  {
+    \tl_set:cn    { g__fdu_cjk_ #1 _font_tl           } {#2}
+    \clist_set:cn { g__fdu_cjk_ #1 _font_option_clist } {#3}
+  }
+\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
+  { \tl_set:cn { g__fdu_cjk_ #1 _font_tl } {#2} }
 \cs_new:Npn \fdu_set_font:
   {
     \clist_map_inline:nn { main, sans, mono }
       { \__fdu_set_font_aux:n {##1} }
-    % 数学字体另外处理
     \__fdu_set_math_font:VV
       \g__fdu_math_font_tl \g__fdu_math_font_option_clist
   }
-
 \cs_new:Npn \__fdu_set_font_aux:n #1
   {
-    % `\__fontspec_main_set...font:n` 的参数 1、3 均为 options
-    % 我们这里只用了参数 2、3
     \use:c { __fontspec_main_set #1 font:nvv } { }
       { g__fdu_ #1 _font_tl } { g__fdu_ #1 _font_option_clist }
   }
-
+\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
 \cs_new:Npn \__fdu_set_math_font:nn #1#2
   {
     \tl_set:Nn \l__um_fontname_tl {#1}
     \__um_init:
     \cs_if_exist:cF { S@ \f@size } { \calculate@math@sizes }
     \csname S@\f@size\endcsname
-    \keys_set_known:nnN {unicode-math} {#2} \l__um_unknown_keys_clist
-    \bool_if:NT \l__um_init_bool { \__um_log:n {default-math-font} }
+    \keys_set_known:nnN { unicode-math } {#2}
+      \l__um_unknown_keys_clist
+    \bool_if:NT \l__um_init_bool
+      { \__um_log:n { default-math-font } }
     \__um_fontspec_select_font:
-    \bool_if:nT { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+    \bool_if:nT
+      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
       {
         \__um_declare_math_sizes:
         \__um_fontspec_select_font:
       }
     \cs_if_exist:cF { sym \__um_symfont_tl }
       {
-        \DeclareSymbolFont{\__um_symfont_tl}
-          {\encodingdefault}{\l__um_family_tl}{\mddefault}{\updefault}
+        \DeclareSymbolFont
+          { \__um_symfont_tl } { \encodingdefault }
+          { \l__um_family_tl } { \mddefault} { \updefault}
       }
-    \SetSymbolFont{\__um_symfont_tl}{\l__um_mversion_tl}
-      {\encodingdefault}{\l__um_family_tl}{\mddefault}{\updefault}
-    \tl_set:Nn \l__um_tmpa_tl {normal}
+    \SetSymbolFont
+      { \__um_symfont_tl } { \l__um_mversion_tl }
+      { \encodingdefault } { \l__um_family_tl   }
+      { \mddefault       } { \updefault         }
+    \tl_set:Nn \l__um_tmpa_tl { normal }
     \tl_if_eq:NNT \l__um_mversion_tl \l__um_tmpa_tl
       {
-        \SetSymbolFont{\__um_symfont_tl}{bold}
-          {\encodingdefault}{\l__um_family_tl}{\bfdefault}{\updefault}
+        \SetSymbolFont
+          { \__um_symfont_tl } { bold       } { \encodingdefault }
+          { \l__um_family_tl } { \bfdefault } { \updefault       }
       }
-    \bool_if:nT { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+    \bool_if:nT
+      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
       {
         \bool_set_true:N \g__um_mainfont_already_set_bool
         \__um_setup_legacy_fam_two:
@@ -318,16 +327,6 @@
     \ignorespaces
   }
 \cs_generate_variant:Nn \__fdu_set_math_font:nn { VV }
-\RenewDocumentCommand \setmainfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
-\RenewDocumentCommand \setsansfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
-\RenewDocumentCommand \setmonofont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
-\RenewDocumentCommand \setmathfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
-
-
 \ctex_at_end_preamble:n
   {
     \fdu_set_font:

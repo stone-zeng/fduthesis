@@ -1606,8 +1606,29 @@ version.
 \unimathsetup { math-style = ISO, bold-style = ISO }
 %    \end{macrocode}
 %
-% \subsubsection{西文字体、数学字体配置}
+% \changes{v0.5}{2017/09/09}{重新实现字体调用。核心内容是分离
+%   字体的选择与设定。}
 %
+% 为了避免不必要的字体调用，本模板把字体的\emph{选择}与^^A
+% \emph{设定}分离了开来。使用 \cs{fdusetup} 设置的字体选项，以及
+% 导言区中通过\cs{setmainfont}、\cs{setCJKmainfont} 等命令设置的
+% 字体，均按照字体\emph{选择}处理。此时，字体名及其选项被存入相关
+% 变量中，但不进行实际调用。导言区末尾再进行统一调用。本模板中的
+% \cs{setmainfont}、\cs{setCJKmainfont} 等命令会被重新定义。
+%
+% 对于中文字体，\pkg{xeCJK} 宏包和 \pkg{ctex} 宏包均按照 \LaTeX{}
+% 传统以 |main|、|sans|、|mono| 三类进行划分，而本模板则按照
+% 宋、黑、仿、楷等进行划分。为此，需要额外建立二者之间的对应关系。
+%
+% \begin{variable}[int]{\g_@@_main_font_tl,
+%   \g_@@_sans_font_tl,
+%   \g_@@_mono_font_tl,
+%   \g_@@_math_font_tl,
+%   \g_@@_main_font_option_clist,
+%   \g_@@_sans_font_option_clist,
+%   \g_@@_mono_font_option_clist,
+%   \g_@@_math_font_option_clist}
+% 存放各西文字体名称及选项。
 %    \begin{macrocode}
 \tl_new:N    \g_@@_main_font_tl
 \tl_new:N    \g_@@_sans_font_tl
@@ -1618,7 +1639,15 @@ version.
 \clist_new:N \g_@@_mono_font_option_clist
 \clist_new:N \g_@@_math_font_option_clist
 %    \end{macrocode}
+% \end{variable}
 %
+% \begin{variable}[int]{\g_@@_cjk_main_font_tl,
+%   \g_@@_cjk_sans_font_tl,
+%   \g_@@_cjk_mono_font_tl,
+%   \g_@@_cjk_main_font_option_clist,
+%   \g_@@_cjk_sans_font_option_clist,
+%   \g_@@_cjk_mono_font_option_clist}
+% 存放各中文字体及选项。
 %    \begin{macrocode}
 \tl_new:N    \g_@@_cjk_main_font_tl
 \tl_new:N    \g_@@_cjk_sans_font_tl
@@ -1627,56 +1656,29 @@ version.
 \clist_new:N \g_@@_cjk_sans_font_option_clist
 \clist_new:N \g_@@_cjk_mono_font_option_clist
 %    \end{macrocode}
+% \end{variable}
 %
+% \begin{variable}[int]{\g_@@_cjk_song_font_tl,
+%   \g_@@_cjk_hei_font_tl,
+%   \g_@@_cjk_fang_font_tl,
+%   \g_@@_cjk_kai_font_tl,
+%   \g_@@_cjk_songbf_font_tl}
+% 存放宋、黑、仿、楷、粗宋几种中文字体名称及选项（暂时没有使用）。
 %    \begin{macrocode}
 \tl_new:N    \g_@@_cjk_song_font_tl
 \tl_new:N    \g_@@_cjk_hei_font_tl
 \tl_new:N    \g_@@_cjk_fang_font_tl
 \tl_new:N    \g_@@_cjk_kai_font_tl
 \tl_new:N    \g_@@_cjk_songbf_font_tl
-%    \end{macrocode}
-%
-%    \begin{macrocode}
 % \clist_new:N \g_@@_cjk_song_font_option_clist
 % \clist_new:N \g_@@_cjk_hei_font_option_clist
 % \clist_new:N \g_@@_cjk_fang_font_option_clist
 % \clist_new:N \g_@@_cjk_kai_font_option_clist
 % \clist_new:N \g_@@_cjk_songbf_font_option_clist
 %    \end{macrocode}
+% \end{variable}
 %
-%    \begin{macrocode}
-% #1 = main/sans/mono/math
-% #2 = font name
-% #3 = options
-\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
-  {
-    \tl_set:cn    { g_@@_ #1 _font_tl           } {#2}
-    \clist_set:cn { g_@@_ #1 _font_option_clist } {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_font:nn #1#2
-  { \tl_set:cn { g_@@_ #1 _font_tl } {#2} }
-
-% #1 = song/hei/fang/kai/songbf
-% #2 = font name
-% #3 = options
-\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
-  {
-    \tl_set:cn    { g_@@_cjk_ #1 _font_tl           } {#2}
-    \clist_set:cn { g_@@_cjk_ #1 _font_option_clist } {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
-  { \tl_set:cn { g_@@_cjk_ #1 _font_tl } {#2} }
-%    \end{macrocode}
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
+% \subsubsection{选项处理}
 %
 % 定义 |fdu/style| 键值类。
 %    \begin{macrocode}
@@ -1685,8 +1687,8 @@ version.
 %    \end{macrocode}
 %
 % \begin{macro}{style/font}
-% 预定义西文字体。部分等宽字体使用 |Ligatures = CommonOff| 选项
-% 以禁用连字。
+% 预定义西文字体。部分等宽字体（TeX Gyre Cursor）使用
+% |Ligatures = CommonOff| 选项以禁用连字。
 %    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
@@ -1736,15 +1738,14 @@ version.
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
         \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
-%<class>      },
-%<class-en>      }
+%<*class>
+      },
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{style/cjkfont}
-% 预定义中文（CJK）字体。
+% 预定义中文（CJK）字体。Adobe 和中易系列没有粗宋体。
 %    \begin{macrocode}
-%<*class>
     cjkfont .choice:,
     cjkfont .value_required:n = true,
 %    \end{macrocode}
@@ -1801,73 +1802,184 @@ version.
         \fdu_choose_cjk_font:nn { fang   } { FangSong }
         \fdu_choose_cjk_font:nn { kai    } { KaiTi    }
         \fdu_choose_cjk_font:nn { songbf } { }
-      }
 %</class>
+      }
   }
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{字体选择}
 %
+% 重定义文档命令，使其只选择字体，而不实际调用字体。
 %
-%
-%
-%
-%
+% \begin{macro}{\setmainfont,\setsansfont,\setmonofont,\setmathfont}
+% 西文字体设置。参数按照 \pkg{fontspec} 的风格，字体选项
+% 在前在后均可。
 %    \begin{macrocode}
-% 设定西文字体
-\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
-
+\RenewDocumentCommand \setmainfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
+\RenewDocumentCommand \setsansfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
+\RenewDocumentCommand \setmonofont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
+\RenewDocumentCommand \setmathfont { O { } m O { } }
+  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\setCJKmainfont,\setCJKsansfont,\setCJKmonofont}
+% 中文字体设置。参数同样按照 \pkg{fontspec} 的风格。但与
+% \pkg{xeCJK} 和 \pkg{ctex} 其实稍有区别，它们要求字体选项只能
+% 出现在前\emph{或}后，而不可同时出现。
+%    \begin{macrocode}
+%<*class>
+\RenewDocumentCommand \setCJKmainfont { O { } m O { } }
+  {
+    \bool_set_true:N \l_@@_set_cjk_main_font_bool
+    \fdu_choose_cjk_font_with_option:nnn { main } {#2} {#1, #3}
+  }
+\RenewDocumentCommand \setCJKsansfont { O { } m O { } }
+  {
+    \bool_set_true:N \l_@@_set_cjk_sans_font_bool
+    \fdu_choose_cjk_font_with_option:nnn { sans } {#2} {#1, #3}
+  }
+\RenewDocumentCommand \setCJKmonofont { O { } m O { } }
+  {
+    \bool_set_true:N \l_@@_set_cjk_mono_font_bool
+    \fdu_choose_cjk_font_with_option:nnn { mono } {#2} {#1, #3}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}[int]{\l_@@_set_cjk_main_font_bool,
+%   \l_@@_set_cjk_sans_font_bool,\l_@@_set_cjk_mono_font_bool}
+% 判断是否执行过 \cs{setCJKmainfont} 等命令。
+%    \begin{macrocode}
+\bool_new:N \l_@@_set_cjk_main_font_bool
+\bool_new:N \l_@@_set_cjk_sans_font_bool
+\bool_new:N \l_@@_set_cjk_mono_font_bool
+%</class>
+%    \end{macrocode}
+% \end{variable}
+%
+% 字体选择只需将字体名及选项存入相应变量即可。
+%
+% \begin{macro}[int]{\fdu_choose_font_with_option:nnn,
+%   \fdu_choose_font:nn}
+% 选择西文字体。|#1| = |main| / |sans| / |mono| / |math|，
+% |#2| = 字体名，|#3| = 选项。
+%    \begin{macrocode}
+\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
+  {
+    \tl_set:cn    { g_@@_ #1 _font_tl           } {#2}
+    \clist_set:cn { g_@@_ #1 _font_option_clist } {#3}
+  }
+\cs_new_protected:Npn \fdu_choose_font:nn #1#2
+  { \tl_set:cn { g_@@_ #1 _font_tl } {#2} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_choose_cjk_font_with_option:nnn,
+%   \fdu_choose_cjk_font:nn}
+% 选择中文字体。|#1| = |main| / |sans| / |mono| / |math| 或
+% |song| / |hei| / |fang| / |kai| / |songbf|，
+% |#2| = 字体名，|#3| = 选项。
+%    \begin{macrocode}
+\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
+  {
+    \tl_set:cn    { g_@@_cjk_ #1 _font_tl           } {#2}
+    \clist_set:cn { g_@@_cjk_ #1 _font_option_clist } {#3}
+  }
+\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
+  { \tl_set:cn { g_@@_cjk_ #1 _font_tl } {#2} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{字体设定}
+%
+% 此时需要利用 \pkg{fontspec}、\pkg{unicode-math}、\pkg{xeCJK}、
+% \pkg{ctex} 等宏包完成实际的字体调用。会在导言区末尾统一进行。
+%
+% \begin{macro}[int]{\fdu_set_font:}
+% \begin{macro}[aux]{\@@_set_font_aux:n}
+% 设定西文字体。
+%    \begin{macrocode}
 \cs_new:Npn \fdu_set_font:
   {
     \clist_map_inline:nn { main, sans, mono }
       { \@@_set_font_aux:n {##1} }
-    % 数学字体另外处理
+%    \end{macrocode}
+% 数学字体单独设置。
+%    \begin{macrocode}
     \@@_set_math_font:VV
       \g_@@_math_font_tl \g_@@_math_font_option_clist
   }
-
 \cs_new:Npn \@@_set_font_aux:n #1
   {
-    % `\__fontspec_main_set...font:n` 的参数 1、3 均为 options
-    % 我们这里只用了参数 2、3
+%    \end{macrocode}
+% |\__fontspec_main_set....font:nnn| 的参数 |#1|、|#3| 均为选项，
+% |#2| 为字体名。我们这里只用参数 |#2| 和 |#3|。
+%    \begin{macrocode}
     \use:c { __fontspec_main_set #1 font:nvv } { }
       { g_@@_ #1 _font_tl } { g_@@_ #1 _font_option_clist }
   }
-
-% unicode-math 中 \setmathfont 的拷贝
-% 没有办法，只好把代码复制一遍了
-% #1 = font name
-% #2 = options
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int]{\__fontspec_main_setmainfont:nvv,
+%   \__fontspec_main_setsansfont:nvv,
+%   \__fontspec_main_setmonofont:nvv}
+% 生成 \pkg{fontspec} 中字体设定函数的变体。
+%    \begin{macrocode}
+\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
+\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_set_math_font:nn,\@@_set_math_font:VV}
+% 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。
+% 但该命令没有提供内部版本，只好复制一遍代码。已经提交了
+% \href{https://github.com/wspr/unicode-math/issues/403}{issue}。
+% |#1| = 字体名，|#2| = 选项。
+%    \begin{macrocode}
 \cs_new:Npn \@@_set_math_font:nn #1#2
   {
     \tl_set:Nn \l__um_fontname_tl {#1}
     \__um_init:
     \cs_if_exist:cF { S@ \f@size } { \calculate@math@sizes }
     \csname S@\f@size\endcsname
-    \keys_set_known:nnN {unicode-math} {#2} \l__um_unknown_keys_clist
-    \bool_if:NT \l__um_init_bool { \__um_log:n {default-math-font} }
+    \keys_set_known:nnN { unicode-math } {#2}
+      \l__um_unknown_keys_clist
+    \bool_if:NT \l__um_init_bool
+      { \__um_log:n { default-math-font } }
     \__um_fontspec_select_font:
-    \bool_if:nT { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+    \bool_if:nT
+      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
       {
         \__um_declare_math_sizes:
         \__um_fontspec_select_font:
       }
     \cs_if_exist:cF { sym \__um_symfont_tl }
       {
-        \DeclareSymbolFont{\__um_symfont_tl}
-          {\encodingdefault}{\l__um_family_tl}{\mddefault}{\updefault}
+        \DeclareSymbolFont
+          { \__um_symfont_tl } { \encodingdefault }
+          { \l__um_family_tl } { \mddefault} { \updefault}
       }
-    \SetSymbolFont{\__um_symfont_tl}{\l__um_mversion_tl}
-      {\encodingdefault}{\l__um_family_tl}{\mddefault}{\updefault}
-    \tl_set:Nn \l__um_tmpa_tl {normal}
+    \SetSymbolFont
+      { \__um_symfont_tl } { \l__um_mversion_tl }
+      { \encodingdefault } { \l__um_family_tl   }
+      { \mddefault       } { \updefault         }
+    \tl_set:Nn \l__um_tmpa_tl { normal }
     \tl_if_eq:NNT \l__um_mversion_tl \l__um_tmpa_tl
       {
-        \SetSymbolFont{\__um_symfont_tl}{bold}
-          {\encodingdefault}{\l__um_family_tl}{\bfdefault}{\updefault}
+        \SetSymbolFont
+          { \__um_symfont_tl } { bold       } { \encodingdefault }
+          { \l__um_family_tl } { \bfdefault } { \updefault       }
       }
-    \bool_if:nT { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+    \bool_if:nT
+      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
       {
         \bool_set_true:N \g__um_mainfont_already_set_bool
         \__um_setup_legacy_fam_two:
@@ -1883,43 +1995,37 @@ version.
   }
 \cs_generate_variant:Nn \@@_set_math_font:nn { VV }
 %    \end{macrocode}
+% \end{macro}
 %
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-% 设定中文字体
+% \begin{macro}[int]{\fdu_set_cjk_font:}
+% 设定中文字体。最后调用时需要获得各变量的值。
 %    \begin{macrocode}
 %<*class>
-% 不能展开，各 tl 变量应当在最后调用字体时放进来
 \cs_new:Npn \fdu_set_cjk_font:
   {
     \@@_set_cjk_font_aux:nn { main }
       {
         \@@_set_cjk_main_font:Vx \g_@@_cjk_song_font_tl
           {
-            BoldFont       = \g_@@_cjk_hei_font_tl,  % 加上 黑体/粗宋 选项
+%    \end{macrocode}
+% TODO(20170909): 考虑加上黑体 / 粗宋选项。
+%    \begin{macrocode}
+            BoldFont       = \g_@@_cjk_hei_font_tl,
             ItalicFont     = \g_@@_cjk_kai_font_tl,
-            BoldItalicFont = \g_@@_cjk_kai_font_tl   % 讲道理应该用粗楷
+%    \end{macrocode}
+% TODO(20170909): 讲道理应该用粗楷，但是大多数字体都没有。
+%    \begin{macrocode}
+            BoldItalicFont = \g_@@_cjk_kai_font_tl
           }
       }
     \@@_set_cjk_font_aux:nn { sans }
       {
         \@@_set_cjk_sans_font:Vx \g_@@_cjk_hei_font_tl
           {
-            BoldFont       = \g_@@_cjk_hei_font_tl,  % 加上 粗黑 选项？
+%    \end{macrocode}
+% TODO(20170909): 考虑加上粗黑选项。
+%    \begin{macrocode}
+            BoldFont       = \g_@@_cjk_hei_font_tl,
             ItalicFont     = \g_@@_cjk_hei_font_tl,
             BoldItalicFont = \g_@@_cjk_hei_font_tl
           }
@@ -1930,27 +2036,46 @@ version.
           {
             BoldFont       = \g_@@_cjk_fang_font_tl,
             ItalicFont     = \g_@@_cjk_kai_font_tl,
-            BoldItalicFont = \g_@@_cjk_kai_font_tl   % 应该用粗楷
+            BoldItalicFont = \g_@@_cjk_kai_font_tl
           }
       }
-    % 原则上楷体就够了
+%    \end{macrocode}
+% 最后额外定义楷体字体族。
+%    \begin{macrocode}
     \@@_set_cjk_kai_font:V \g_@@_cjk_kai_font_tl
   }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_set_cjk_font_aux:n}
+% 判断是否已通过 \cs{setCJKmainfont} 等命令来设置字体。若是，
+% 则将字体名和选项传入对应变量；否则按预定义方式设定字体。
+%    \begin{macrocode}
 \cs_new:Npn \@@_set_cjk_font_aux:nn #1#2
   {
     \bool_if:cTF { l_@@_set_cjk_ #1 _font_bool }
       {
-        \@@_set_cjk_main_font:vv
+        \use:c { @@_set_cjk_ #1 _font:vv }
           { g_@@_cjk_ #1 _font_tl           }
           { g_@@_cjk_ #1 _font_option_clist }
       }
       {#2}
   }
-
-
-% #1 = font name
-% #2 = options
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_set_cjk_main_font:nn,
+%   \@@_set_cjk_sans_font:nn,
+%   \@@_set_cjk_mono_font:nn,
+%   \@@_set_cjk_main_font:Vx,
+%   \@@_set_cjk_sans_font:Vx,
+%   \@@_set_cjk_mono_font:Vx,
+%   \@@_set_cjk_main_font:vv,
+%   \@@_set_cjk_sans_font:vv,
+%   \@@_set_cjk_mono_font:vv}
+% 设定 CJK |main|、|sans|、|mono| 字体，需要分引擎处理。
+% |#1| = 字体名，|#2| = 选项。
+%    \begin{macrocode}
 \cs_new_protected:Npx \@@_set_cjk_main_font:nn #1#2
   {
     \sys_if_engine_xetex:TF
@@ -1981,8 +2106,12 @@ version.
 \cs_generate_variant:Nn \@@_set_cjk_main_font:nn { Vx, vv }
 \cs_generate_variant:Nn \@@_set_cjk_sans_font:nn { Vx, vv }
 \cs_generate_variant:Nn \@@_set_cjk_mono_font:nn { Vx, vv }
-
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_set_cjk_kai_font:n,\@@_set_cjk_kai_font:V}
+% 设置楷体字体族。
+%    \begin{macrocode}
 \cs_new:Npx \@@_set_cjk_kai_font:n #1
   {
     \sys_if_engine_xetex:TF
@@ -1993,10 +2122,13 @@ version.
       }
   }
 \cs_generate_variant:Nn \@@_set_cjk_kai_font:n { V }
-
-
-% xeCJK: 这里给这两个 prop 赋一个值，使得 xeCJK 认为已定义 rm family
-% LuaTeX 引擎下 ctex-ltj 不会报 warning，暂且不管
+%    \end{macrocode}
+% \end{macro}
+%
+% 这里给这两个 |prop| 变量赋一个空值，使得 \pkg{xeCJK} 认为
+% |rm| 字体族已定义，从而避免警告。\LuaTeX{} 引擎下，
+% \pkg{ctex-ltj} 不会给出警告，暂且不管。
+%    \begin{macrocode}
 \sys_if_engine_xetex:T
   {
     \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
@@ -2005,47 +2137,8 @@ version.
 %</class>
 %    \end{macrocode}
 %
-%
-%
-%
-%
+% 在导言区末尾载入字体。
 %    \begin{macrocode}
-% 重定义文档命令
-% 使得只选择字体，而不实际调用字体
-\RenewDocumentCommand \setmainfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
-\RenewDocumentCommand \setsansfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
-\RenewDocumentCommand \setmonofont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
-\RenewDocumentCommand \setmathfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
-
-%<*class>
-\bool_new:N \l_@@_set_cjk_main_font_bool
-\bool_new:N \l_@@_set_cjk_sans_font_bool
-\bool_new:N \l_@@_set_cjk_mono_font_bool
-
-\RenewDocumentCommand \setCJKmainfont { O { } m O { } }
-  {
-    \bool_set_true:N \l_@@_set_cjk_main_font_bool
-    \fdu_choose_cjk_font_with_option:nnn { main } {#2} {#1, #3}
-  }
-\RenewDocumentCommand \setCJKsansfont { O { } m O { } }
-  {
-    \bool_set_true:N \l_@@_set_cjk_sans_font_bool
-    \fdu_choose_cjk_font_with_option:nnn { sans } {#2} {#1, #3}
-  }
-\RenewDocumentCommand \setCJKmonofont { O { } m O { } }
-  {
-    \bool_set_true:N \l_@@_set_cjk_mono_font_bool
-    \fdu_choose_cjk_font_with_option:nnn { mono } {#2} {#1, #3}
-  }
-%</class>
-
-
-
-% 导言区末尾载入字体
 \ctex_at_end_preamble:n
   {
     \fdu_set_font:
@@ -2053,11 +2146,12 @@ version.
   }
 %    \end{macrocode}
 %
+% \subsubsection{字体切换（楷体）}
 %
+% 一般情况下，楷体被用作中文斜体。但有时需要保持西文部分不被倾斜，
+% 因此需要额外定义楷体切换命令。
 %
-%
-%
-% \begin{macro}[TF]{\fdu_family_if_exist:n}
+% \begin{macro}[int,TF]{\fdu_family_if_exist:n}
 % \changes{v0.4}{2017/08/10}{修复 \LuaTeX{} 下的展开错误。}
 % 判断字体族是否存在。
 % \XeTeX{} 引擎下直接利用 \pkg{xeCJK} 宏包提供的函数。
@@ -2087,10 +2181,12 @@ version.
           }
       }
   }
-
-
-% 以下定义 \fdu_cjk_font_...:，目前也只有楷体需要
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\fdu_cjk_font_kai:}
+% 楷体切换命令。
+%    \begin{macrocode}
 \cs_new_protected:Npx \fdu_cjk_font_kai:
   {
     \fdu_family_if_exist:nTF { kai }
@@ -2104,35 +2200,15 @@ version.
       }
       { \exp_not:n { \rmfamily \itshape } }
   }
-
-\cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
-%</class>
 %    \end{macrocode}
 % \end{macro}
 %
-% 以下为宋、黑、仿、楷四种中文字体各定义了一些内部函数。函数
-% \cs{xeCJK_family_if_exist:nTF} 是不能展开的，因此此处使用了
-% \cs{cs_new_protected:Nn} 禁止展开。
-% 见 \url{https://tex.stackexchange.com/q/380612} 和
-% \url{https://tex.stackexchange.com/q/380556}。
-%
-% 楷体，相当于罗马字体的意大利形状（斜体）。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \fdu_cjk_font_kai:
-%   {
-%     \fdu_family_if_exist:nTF { kai }
-%       { \CJKfamily { kai } } { \rmfamily \itshape }
-%   }
-%    \end{macrocode}
-%
-% \begin{macro}{\fdu@song,\fdu@hei,\fdu@fang,\fdu@kai}
-% \cs{fdu_cjk_font_kai:} 等一些 \LaTeX3 风格的命令在 |toc| 文件里面
+% \begin{macro}[int]{\fdu@kai}
+% 命令 \cs{fdu_cjk_font_kai:} 采用 \LaTeX3 风格，在 |toc| 文件里
 % 无法正常使用，因此重新定义为 \LaTeXe{} 风格的命令。
 %    \begin{macrocode}
-% \NewDocumentCommand \fdu@song { } { \fdu_cjk_font_song: }
-% \NewDocumentCommand \fdu@hei  { } { \fdu_cjk_font_hei:  }
-% \NewDocumentCommand \fdu@fang { } { \fdu_cjk_font_fang: }
-% \NewDocumentCommand \fdu@kai  { } { \fdu_cjk_font_kai:  }
+\cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2883,8 +2959,9 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_thm_set_qed:n,
-%   \fdu_thm_set_header_font:n,\fdu_thm_set_body_font:n}
+% \begin{macro}{\fdu_thm_set_qed:n,\fdu_thm_set_qed:V,
+%   \fdu_thm_set_header_font:n,\fdu_thm_set_header_font:V,
+%   \fdu_thm_set_body_font:n,\fdu_thm_set_body_font:V}
 % 封装 \pkg{ntheorem} 宏包提供的若干命令，分别用以设置证毕符号、
 % 定理头字体和定理正文字体。
 %    \begin{macrocode}
@@ -2894,13 +2971,6 @@ version.
   { \theoremheaderfont {#1} }
 \cs_new:Npn \fdu_thm_set_body_font:n   #1
   { \theorembodyfont   {#1} }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_thm_set_qed:V,
-%   \fdu_thm_set_header_font:V,\fdu_thm_set_body_font:V}
-% 生成以上三个函数的变体。
-%    \begin{macrocode}
 \cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
 \cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
 \cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
