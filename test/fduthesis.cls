@@ -389,75 +389,47 @@
 \cs_generate_variant:Nn \__fdu_set_math_font:nn { VV }
 \cs_new:Npn \fdu_set_cjk_font:
   {
-    \__fdu_set_cjk_font_aux:nn { main }
+    \__fdu_set_cjk_font_aux:nnnx { main } { rm } { song }
       {
-        \__fdu_set_cjk_main_font:Vx \g__fdu_cjk_song_font_tl
-          {
-            BoldFont       = \g__fdu_cjk_hei_font_tl,
-            ItalicFont     = \g__fdu_cjk_kai_font_tl,
-            BoldItalicFont = \g__fdu_cjk_kai_font_tl
-          }
+        BoldFont       = \g__fdu_cjk_hei_font_tl,
+        ItalicFont     = \g__fdu_cjk_kai_font_tl,
+        BoldItalicFont = \g__fdu_cjk_kai_font_tl
       }
-    \__fdu_set_cjk_font_aux:nn { sans }
+    \__fdu_set_cjk_font_aux:nnnx { sans } { sf } { hei  }
       {
-        \__fdu_set_cjk_sans_font:Vx \g__fdu_cjk_hei_font_tl
-          {
-            BoldFont       = \g__fdu_cjk_hei_font_tl,
-            ItalicFont     = \g__fdu_cjk_hei_font_tl,
-            BoldItalicFont = \g__fdu_cjk_hei_font_tl
-          }
+        BoldFont       = \g__fdu_cjk_hei_font_tl,
+        ItalicFont     = \g__fdu_cjk_hei_font_tl,
+        BoldItalicFont = \g__fdu_cjk_hei_font_tl
       }
-    \__fdu_set_cjk_font_aux:nn { mono }
+    \__fdu_set_cjk_font_aux:nnnx { mono } { tt } { fang }
       {
-        \__fdu_set_cjk_mono_font:Vx \g__fdu_cjk_fang_font_tl
-          {
-            BoldFont       = \g__fdu_cjk_fang_font_tl,
-            ItalicFont     = \g__fdu_cjk_kai_font_tl,
-            BoldItalicFont = \g__fdu_cjk_kai_font_tl
-          }
+        BoldFont       = \g__fdu_cjk_fang_font_tl,
+        ItalicFont     = \g__fdu_cjk_kai_font_tl,
+        BoldItalicFont = \g__fdu_cjk_kai_font_tl
       }
     \__fdu_set_cjk_kai_font:V \g__fdu_cjk_kai_font_tl
   }
-\cs_new:Npn \__fdu_set_cjk_font_aux:nn #1#2
+\cs_generate_variant:Nn \xeCJK_set_family:nnn    { vnv, vvv }
+\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { vnv, vvv }
+\cs_new:Npx \__fdu_set_cjk_font_aux:nnnn #1#2#3#4
   {
-    \bool_if:cTF { l__fdu_set_cjk_ #1 _font_bool }
+    \exp_not:N \bool_if:cTF { l__fdu_set_cjk_ #1 _font_bool }
       {
-        \use:c { __fdu_set_cjk_ #1 _font:vv }
-          { g__fdu_cjk_ #1 _font_tl           }
-          { g__fdu_cjk_ #1 _font_option_clist }
+        \sys_if_engine_xetex:TF
+          { \xeCJK_set_family:vvv }
+          { \sys_if_engine_luatex:T { \ctex_ltj_set_family:vvv } }
+        { CJK #2 default }
+        { g__fdu_cjk_ #1 _font_option_clist }
+        { g__fdu_cjk_ #1 _font_tl }
       }
-      {#2}
-  }
-\cs_new_protected:Npx \__fdu_set_cjk_main_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKrmdefault } {#2} {#1} }
       {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKrmdefault } {#2} {#1} }
-      }
-  }
-\cs_new_protected:Npx \__fdu_set_cjk_sans_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKsfdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+        \sys_if_engine_xetex:TF
+          { \xeCJK_set_family:vnv }
+          { \sys_if_engine_luatex:T { \ctex_ltj_set_family:vnv } }
+        { CJK #2 default } {#4} { g__fdu_cjk_ #3 _font_tl }
       }
   }
-\cs_new_protected:Npx \__fdu_set_cjk_mono_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKttdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKttdefault } {#2} {#1} }
-      }
-  }
-\cs_generate_variant:Nn \__fdu_set_cjk_main_font:nn { Vx, vv }
-\cs_generate_variant:Nn \__fdu_set_cjk_sans_font:nn { Vx, vv }
-\cs_generate_variant:Nn \__fdu_set_cjk_mono_font:nn { Vx, vv }
+\cs_generate_variant:Nn \__fdu_set_cjk_font_aux:nnnn { nnnx }
 \cs_new:Npx \__fdu_set_cjk_kai_font:n #1
   {
     \sys_if_engine_xetex:TF

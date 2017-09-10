@@ -288,15 +288,15 @@ version.
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-%^^A 禁止使用 " 符号作为抄录文本缩略符
-% \DeleteShortVerb\"
-%
 % \title{\textcolor{MaterialIndigo800}{^^A
 %   \textbf{fduthesis: 复旦大学论文^^A
 %     \xpinyin[font=\sffamily]{模}{mu2}板}}}
 % \author{曾祥东}
 % \date{\today \quad v0.4^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
+%
+%^^A 禁止使用 " 符号作为抄录文本缩略符
+% \DeleteShortVerb\"
 %
 %^^A 封面与目录的页边距
 % \newgeometry{
@@ -2003,41 +2003,32 @@ version.
 %<*class>
 \cs_new:Npn \fdu_set_cjk_font:
   {
-    \@@_set_cjk_font_aux:nn { main }
+    \@@_set_cjk_font_aux:nnnx { main } { rm } { song }
       {
-        \@@_set_cjk_main_font:Vx \g_@@_cjk_song_font_tl
-          {
 %    \end{macrocode}
 % TODO(20170909): 考虑加上黑体 / 粗宋选项。
 %    \begin{macrocode}
-            BoldFont       = \g_@@_cjk_hei_font_tl,
-            ItalicFont     = \g_@@_cjk_kai_font_tl,
+        BoldFont       = \g_@@_cjk_hei_font_tl,
+        ItalicFont     = \g_@@_cjk_kai_font_tl,
 %    \end{macrocode}
 % TODO(20170909): 讲道理应该用粗楷，但是大多数字体都没有。
 %    \begin{macrocode}
-            BoldItalicFont = \g_@@_cjk_kai_font_tl
-          }
+        BoldItalicFont = \g_@@_cjk_kai_font_tl
       }
-    \@@_set_cjk_font_aux:nn { sans }
+    \@@_set_cjk_font_aux:nnnx { sans } { sf } { hei  }
       {
-        \@@_set_cjk_sans_font:Vx \g_@@_cjk_hei_font_tl
-          {
 %    \end{macrocode}
 % TODO(20170909): 考虑加上粗黑选项。
 %    \begin{macrocode}
-            BoldFont       = \g_@@_cjk_hei_font_tl,
-            ItalicFont     = \g_@@_cjk_hei_font_tl,
-            BoldItalicFont = \g_@@_cjk_hei_font_tl
-          }
+        BoldFont       = \g_@@_cjk_hei_font_tl,
+        ItalicFont     = \g_@@_cjk_hei_font_tl,
+        BoldItalicFont = \g_@@_cjk_hei_font_tl
       }
-    \@@_set_cjk_font_aux:nn { mono }
+    \@@_set_cjk_font_aux:nnnx { mono } { tt } { fang }
       {
-        \@@_set_cjk_mono_font:Vx \g_@@_cjk_fang_font_tl
-          {
-            BoldFont       = \g_@@_cjk_fang_font_tl,
-            ItalicFont     = \g_@@_cjk_kai_font_tl,
-            BoldItalicFont = \g_@@_cjk_kai_font_tl
-          }
+        BoldFont       = \g_@@_cjk_fang_font_tl,
+        ItalicFont     = \g_@@_cjk_kai_font_tl,
+        BoldItalicFont = \g_@@_cjk_kai_font_tl
       }
 %    \end{macrocode}
 % 最后额外定义楷体字体族。
@@ -2047,65 +2038,47 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_set_cjk_font_aux:n}
-% 判断是否已通过 \cs{setCJKmainfont} 等命令来设置字体。若是，
-% 则将字体名和选项传入对应变量；否则按预定义方式设定字体。
+% \begin{macro}[int]{\xeCJK_set_family:vnv,
+%   \xeCJK_set_family:vvv,
+%   \ctex_ltj_set_family:vnv,
+%   \ctex_ltj_set_family:vvv}
+% 生成 \pkg{xeCJK} 和 \pkg{ctex} 中字体族设定函数的变体。
+% 由于 \cs{@@_set_cjk_font_aux:nnnn} 使用了 \cs{cs_new:Npx} 定义，
+% 因此必须放在它之前给出这两个函数的变体。
 %    \begin{macrocode}
-\cs_new:Npn \@@_set_cjk_font_aux:nn #1#2
-  {
-    \bool_if:cTF { l_@@_set_cjk_ #1 _font_bool }
-      {
-        \use:c { @@_set_cjk_ #1 _font:vv }
-          { g_@@_cjk_ #1 _font_tl           }
-          { g_@@_cjk_ #1 _font_option_clist }
-      }
-      {#2}
-  }
+\cs_generate_variant:Nn \xeCJK_set_family:nnn    { vnv, vvv }
+\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { vnv, vvv }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_set_cjk_main_font:nn,
-%   \@@_set_cjk_sans_font:nn,
-%   \@@_set_cjk_mono_font:nn,
-%   \@@_set_cjk_main_font:Vx,
-%   \@@_set_cjk_sans_font:Vx,
-%   \@@_set_cjk_mono_font:Vx,
-%   \@@_set_cjk_main_font:vv,
-%   \@@_set_cjk_sans_font:vv,
-%   \@@_set_cjk_mono_font:vv}
-% 设定 CJK |main|、|sans|、|mono| 字体，需要分引擎处理。
-% |#1| = 字体名，|#2| = 选项。
+% \begin{macro}[aux]{\@@_set_cjk_font_aux:nnnn,
+%   \@@_set_cjk_font_aux:nnnx}
+% 判断是否已通过 \cs{setCJKmainfont} 等命令来设置字体。若是，
+% 则将字体名和选项传入对应变量；否则按预定义方式设定字体。
+% 之后的字体设定还需按照引擎的不同分别处理。为了缩短代码，
+% 这里的函数、变量等大都采用 \tn{csname} 的方式调用。
+% |#1| = |main| / |sans| / |mono|，|#2| = |rm| / |sf| / |tt|，
+% |#3| = |song| / |hei| / |fang|，|#4| = 预定义字体选项。
 %    \begin{macrocode}
-\cs_new_protected:Npx \@@_set_cjk_main_font:nn #1#2
+\cs_new:Npx \@@_set_cjk_font_aux:nnnn #1#2#3#4
   {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+    \exp_not:N \bool_if:cTF { l_@@_set_cjk_ #1 _font_bool }
       {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+        \sys_if_engine_xetex:TF
+          { \xeCJK_set_family:vvv }
+          { \sys_if_engine_luatex:T { \ctex_ltj_set_family:vvv } }
+        { CJK #2 default }
+        { g_@@_cjk_ #1 _font_option_clist }
+        { g_@@_cjk_ #1 _font_tl }
+      }
+      {
+        \sys_if_engine_xetex:TF
+          { \xeCJK_set_family:vnv }
+          { \sys_if_engine_luatex:T { \ctex_ltj_set_family:vnv } }
+        { CJK #2 default } {#4} { g_@@_cjk_ #3 _font_tl }
       }
   }
-\cs_new_protected:Npx \@@_set_cjk_sans_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKsfdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKsfdefault } {#2} {#1} }
-      }
-  }
-\cs_new_protected:Npx \@@_set_cjk_mono_font:nn #1#2
-  {
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nnn { \CJKttdefault } {#2} {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \ctex_ltj_set_family:nnn { \CJKttdefault } {#2} {#1} }
-      }
-  }
-\cs_generate_variant:Nn \@@_set_cjk_main_font:nn { Vx, vv }
-\cs_generate_variant:Nn \@@_set_cjk_sans_font:nn { Vx, vv }
-\cs_generate_variant:Nn \@@_set_cjk_mono_font:nn { Vx, vv }
+\cs_generate_variant:Nn \@@_set_cjk_font_aux:nnnn { nnnx }
 %    \end{macrocode}
 % \end{macro}
 %
