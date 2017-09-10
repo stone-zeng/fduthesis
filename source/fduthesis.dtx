@@ -377,6 +377,7 @@ version.
 %
 % \section{介绍}
 %^^A! \section{Introduction}
+%^^A!
 %
 % 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板主要有以下这些：
 % \begin{itemize}
@@ -403,6 +404,11 @@ version.
 % \scite{interfaces3,source3} 编写，以适应\TeX{} 技术发展潮流；
 % 同时还将构建一套简洁的接口，方便用户使用。
 %
+%^^A! \cls{fduthesis} is a thesis template for Fudan University.
+%^^A! This template is mostly written in \LaTeX3 syntax, and
+%^^A! provides a simple interface for users.
+%^^A!
+%
 % \subsection*{\LaTeX{} 入门}
 %^^A! \subsection*{Getting started with \LaTeX{}}
 %^^A!
@@ -413,21 +419,48 @@ version.
 % \scite{lshort} 及其中文翻译版 \scite{lshort-zh-cn}。当然，
 % 网络上的入门教程多如牛毛，您可以自行选取。
 %
+%^^A! This documentation is \emph{not} a \LaTeX{} tutorial at
+%^^A! starter's level. If you are totally a newbie, please read some
+%^^A! introductions like the famous \pkg{lshort}. Of course, there
+%^^A! are countless \LaTeX{} tutorials on the Internet. You can
+%^^A! choose whatever you like.
+%^^A!
+%
 % \subsection*{关于本文档}
 %^^A! \subsection*{About this documentation}
 %^^A!
 %
 % 本文采用不同字体表示不同内容。无衬线字体表示宏包名称，如
-% \pkg{xeCJK} 宏包、\cls{fduthesis} 文档类等；等宽字体表示文件名，
-% 如 \TeX{} 文档 \file{thesis.tex}、测试文件夹 \file{test} 等；
-% 另一种等宽字体表示代码，如 |\fdusetup| 命令、|abstract| 环境等；
-% 带有尖括号的楷体（或西文斜体）表示命令参数，如 \meta{模板选项}、
+% \pkg{xeCJK} 宏包、\cls{fduthesis} 文档类等；等宽字体表示文件名
+% 或命令，如 \TeX{} 文档 \file{thesis.tex}、测试文件夹 \file{test}、
+% |\fdusetup| 命令、\env{abstract} 环境等；带有尖括号的楷体
+% （或西文斜体）表示命令参数，如 \meta{模板选项}、
 % \meta{English title} 等。在使用时，参数两侧的尖括号不必输入。
 % 示例代码进行了语法高亮处理，以方便阅读。
+%
+%^^A! In this documentation, different typefaces are used to
+%^^A! represent different contents. Packages and classes are printed
+%^^A! in sans-serif font, e.g.\ \pkg{xeCJK} package and
+%^^A! \cls{fduthesis} class. File names and commands are printed in
+%^^A! monospaced font, e.g.\  \TeX{} document \file{thesis.tex}, test
+%^^A! directory \file{test}, command |\fdusetup| and environment
+%^^A! \env{abstract}. Italic-shaped font with angle brackets outside
+%^^A! means arguments, e.g.\ \meta{English title}. However, you do
+%^^A! not need to write the brackets when using these commands. The
+%^^A! example code is printed with syntax highlighting so they will
+%^^A! be much easier to read.
+%^^A!
 %
 % 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线
 % 的则为命令行代码，请注意区分。模板提供的选项、命令、环境等，
 % 均用横线框起，同时给出使用语法和相关说明。
+%
+%^^A! \LaTeX{} code will have a blue line on their left, while for
+%^^A! command lines there will be a pink line. The options, commands
+%^^A! and environments in \cls{fduthesis} will be surrounded by two
+%^^A! horizontal lines. Their usages and desciptions are provided at
+%^^A! the sametime.
+%^^A!
 %
 % 本模板中的选项、命令或环境可以分为以下三类：
 % \begin{itemize}
@@ -439,11 +472,29 @@ version.
 %     也可以在英文模板中使用。
 % \end{itemize}
 %
+%^^A! The options, commands and environments in \cls{fduthesis} can be
+%^^A! divided into the following three types:
+%^^A! \begin{itemize}
+%^^A!   \item Those can be only used in \emph{Chinese templates} are
+%^^A!     indicated by \rexptarget\rexpstar{}.
+%^^A!   \item Those can be only used in \emph{English templates} are
+%^^A!     indicated by \rexptarget\expstar{}.
+%^^A!   \item If they do not have special characters afterwards, then
+%^^A!     you can use them in both Chinese and English templates
+%^^A! \end{itemize}
+%^^A!
+%
 % 代码实现主要面向对 \LaTeX{} 宏包开发感兴趣的用户。如果您有任何改进
 % 意见或者功能需求，欢迎前往 GitHub 仓库
 % \href{https://github.com/Stone-Zeng/fduthesis/issues}{提交 issue}。
 %
 % 文档的最后还提供了版本历史和代码索引，以供查阅。
+%
+%^^A! If you want to read the implementation part, please turn to the
+%^^A! Chinese version. Any issues or feature requests can be submitted
+%^^A! in the \href{https://github.com/Stone-Zeng/fduthesis/issues}%
+%^^A! {GitHub repository}.
+%^^A!
 %
 % \section{安装}
 %^^A! \section{Installation}
@@ -475,6 +526,11 @@ version.
 % 本模板主要包含核心文档类、配置文件、用户文档等几个部分，
 % 其具体组成见表~\ref{tab:fduthesis-components}。
 %
+%^^A! There are several parts in \cls{fduthesis}, including kernel
+%^^A! template classes, configuration files and user's guides. More
+%^^A! details are put in \autoref{tab:fduthesis-components}.
+%^^A!
+%
 % \begin{table}[h]
 %   \caption{\cls{fduthesis} 的组成}
 %   \label{tab:fduthesis-components}
@@ -485,8 +541,8 @@ version.
 %     \midrule
 %     \file{fduthesis.cls}      & 中文模板文档类 \\
 %     \file{fduthesis-en.cls}   & 英文模板文档类 \\
-%     \file{fduthesis.def}      & 参数配置文件，用于设定 fduthesis
-%       的初始参数，不建议您自行改动 \\
+%     \file{fduthesis.def}      & 参数配置文件，用于设定
+%       \cls{fduthesis} 的初始参数，不建议您自行改动 \\
 %     \file{fduthesis-user.def} & 用户配置文件，可根据您的需求进行
 %       修改，默认为空 \\
 %     \file{fduthesis.dtx}      & 模板源文件，包含源代码、注释以及
@@ -496,6 +552,29 @@ version.
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
+%
+%^^A! \begin{table}[h]
+%^^A!   \caption{The components of \cls{fduthesis}}
+%^^A!   \label{tab:fduthesis-components}
+%^^A!   \centering
+%^^A!   \begin{tabular}{lp{24em}}
+%^^A!     \toprule
+%^^A!     \textbf{Files} & \textbf{Desciptions} \\
+%^^A!     \midrule
+%^^A!     \file{fduthesis.cls}      & Document class for Chinese thesis. \\
+%^^A!     \file{fduthesis-en.cls}   & Document class for English thesis.\\
+%^^A!     \file{fduthesis.def}      & Configuration parameters file
+%^^A!       for \cls{fduthesis}. Please do \emph{not} modify it. \\
+%^^A!     \file{fduthesis-user.def} & User profile and you may modify
+%^^A!       it if necessary. This is an empty file by default. \\
+%^^A!     \file{fduthesis.dtx}      & Source file of \cls{fduthesis},
+%^^A!       including source code, comments and documentation. \\
+%^^A!     \file{README.md}          & The brief introduction. \\
+%^^A!     \file{fduthesis.pdf}      & User's guide (this documentation). \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A! \end{table}
+%^^A!
 %
 % 模板中的绝大多数文件，均可由 \file{fduthesis.dtx} 导出。
 % 在命令行中执行
@@ -557,9 +636,9 @@ version.
 % 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
 % 一篇 5 页的文章。当然，这篇文章的绝大部分都是空白的。
 %
-%^^A! Compile this file under the directions in
+%^^A! Compile this file under the instructions in
 %^^A! \autoref{subsec:Compilation}, you will get a 5-page article.
-%^^A! However, most of it will be blank, as you may predicte.
+%^^A! However, most of it will be blank, as you may predicate.
 %^^A!
 %
 % 英文模板可以用类似的方式使用：
@@ -577,7 +656,7 @@ version.
 % 英文模板只对正文部分进行了改动，封面、指导小组成员以及声明页仍将
 % 显示为中文。
 %
-%^^A! You can use the English-version in the same way:
+%^^A! The English-version can be used in the same way:
 %^^A! \begin{latexexample}[deletetexcs={\documentclass},%
 %^^A!     moretexcs={\chapter},morekeywords={\documentclass},%
 %^^A!     emph={[2]document}]
@@ -602,6 +681,12 @@ version.
 % 编译。推荐使用 \XeLaTeX{}。
 % 为了生成正确的目录、脚注以及交叉引用，您至少需要连续编译两次。
 %
+%^A! \cls{fduthesis} does not support \pdfTeX{}. Please use
+%^A! \XeLaTeX{} or \LuaLaTeX{} to compile. \XeLaTeX{} is recommended.
+%^A! To get the correct table of contents, footnotes and cross-
+%^A! references, you need to compile at least twice.
+%^A!
+%
 % 以下代码中，假设您的 \TeX{} 论文文档名为 |thesis.tex|。
 % 使用 \XeLaTeX{} 编译论文，请在命令行中执行
 % \begin{shellexample}[morekeywords={xelatex}]
@@ -613,6 +698,19 @@ version.
 %   latexmk -xelatex thesis
 % \end{shellexample}
 %
+%^^A! In the following example, supoose your \TeX{} file is
+%^^A! |thesis.tex|. Use \XeLaTeX{} to compile, please execute the
+%^^A! following commands:
+%^^A! \begin{shellexample}[morekeywords={xelatex}]
+%^^A!   xelatex thesis
+%^^A!   xelatex thesis
+%^^A! \end{shellexample}
+%^^A! You can use \pkg{latexmk} as well:
+%^^A! \begin{shellexample}[morekeywords={latexmk},emph={-xelatex}]
+%^^A!   latexmk -xelatex thesis
+%^^A! \end{shellexample}
+%^^A!
+%
 % 使用 \LuaLaTeX{} 编译论文，请在命令行中执行
 % \begin{shellexample}[morekeywords={lualatex}]
 %   lualatex thesis
@@ -623,10 +721,28 @@ version.
 %   latexmk -lualatex thesis
 % \end{shellexample}
 %
+%^^A! Use \LuaLaTeX{} to compile, please execute:
+%^^A! \begin{shellexample}[morekeywords={lualatex}]
+%^^A!   lualatex thesis
+%^^A!   lualatex thesis
+%^^A! \end{shellexample}
+%^^A! or
+%^^A! \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
+%^^A!   latexmk -lualatex thesis
+%^^A! \end{shellexample}
+%^^A!
+%
 % 需要注意，请不要把模板中的配置文件 \file{latexmkrc} 放置在工作
 % 文件夹下。该配置文件仅适用于编译模板用户手册。
 %
+%^^A! Note that you should not put the profile \file{latexmkrc} in
+%^^A! your working directories. This file is meant to compile the
+%^^A! user's guide.
+%^^A!
+%
 % \subsection{模板选项}
+%^^A! \subsection{Options of the template}
+%^^A!
 %
 % 所谓“模板选项”，指需要在引入文档类的时候指定的选项：
 % \begin{latexexample}[deletetexcs={\documentclass},%
