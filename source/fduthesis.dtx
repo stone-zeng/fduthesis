@@ -2535,6 +2535,9 @@ version.
 \ctex_at_end_preamble:n
   {
     \RequirePackage { hyperref }
+%    \end{macrocode}
+% 此后 \tn{hypersetup} 命令由 \pkg{hyperref} 宏包接管。
+%    \begin{macrocode}
     \hypersetup
       {
         bookmarksnumbered = true,
@@ -2906,8 +2909,13 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
-% 带编号的定理环境。|#1| = 样式， |#2| = 计数器，|#3| = 定理环境名称，
-% |#4| = 定理头文字。
+% 带编号的定理环境。
+% \begin{arguments}
+%   \item 样式
+%   \item 计数器
+%   \item 定理环境名称
+%   \item 定理头文字
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new:nnnn #1#2#3#4
   {
@@ -2920,8 +2928,12 @@ version.
 %
 % \begin{macro}{\fdu_thm_new_no_number:nnn,
 %   \fdu_thm_new_no_number:Vnn}
-% 不带编号的定理环境。|#1| = 样式， |#2| = 定理环境名称，
-% |#3| = 定理头文字。
+% 不带编号的定理环境。
+% \begin{arguments}
+%   \item 样式
+%   \item 定理环境名称
+%   \item 定理头文字
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
   {
@@ -3273,10 +3285,14 @@ version.
 %
 % \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV,
 %   \fdu_spread_box:Nx}
-% 分散对齐的盒子。|#1| = 长度， |#2| = 内容。\\
+% 分散对齐的盒子。
+% \begin{arguments}
+%   \item 长度
+%   \item 内容
+% \end{arguments}
 % 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
 % 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。
-% 见 \url{http://tex.stackexchange.com/q/169689}。\\
+% 见 \url{http://tex.stackexchange.com/q/169689}。
 % |NV| 以及 |Nx| 版本的命令可以避免展开 token list 时出现坏盒子。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_spread_box:Nn #1#2
@@ -3284,13 +3300,16 @@ version.
     \makebox [#1] [ s ]
       { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
   }
-\cs_generate_variant:Nn \fdu_spread_box:Nn { NV }
-\cs_generate_variant:Nn \fdu_spread_box:Nn { Nx }
+\cs_generate_variant:Nn \fdu_spread_box:Nn { NV, Nx }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\fdu_center_box:Nn,\fdu_center_box:NV}
-% 居中对齐的盒子。|#1| = 长度， |#2| = 内容。
+% 居中对齐的盒子。
+% \begin{arguments}
+%   \item 长度
+%   \item 内容
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \fdu_center_box:Nn #1#2
   { \makebox [#1] [ c ] {#2} }
@@ -3299,7 +3318,11 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_fixed_width_box:Nn}
-% 限宽盒子。|#1| = 长度， |#2| = 内容。
+% 限宽盒子。
+% \begin{arguments}
+%   \item 长度
+%   \item 内容
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \fdu_fixed_width_box:Nn #1#2
   { \parbox {#1} {#2} }
@@ -3308,7 +3331,11 @@ version.
 %
 % \begin{macro}{\fdu_fixed_width_center_box:Nn,
 %   \fdu_fixed_width_center_box:NV}
-% 居中对齐的限宽盒子。|#1| = 长度， |#2| = 内容。
+% 居中对齐的限宽盒子。
+% \begin{arguments}
+%   \item 长度
+%   \item 内容
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
   { \fdu_fixed_width_box:Nn {#1} { \centering #2 } }
@@ -3317,8 +3344,11 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_get_text_width:Nn}
-% 获取文本宽度，并存入 |dim| 型变量。|#1| = |dim| 型变量，
-% |#2| = 内容。
+% 获取文本宽度，并存入 |dim| 型变量。
+% \begin{arguments}
+%   \item |dim| 型变量
+%   \item 内容
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_text_width:Nn #1#2
   {
@@ -3331,17 +3361,20 @@ version.
 %
 % \begin{macro}{\fdu_get_max_text_width:NN}
 % 获取多个文本中的最大宽度，并存入 |dim| 型变量。
-% |#1| = |dim| 型变量，|#2| = 文本 |clist|。
-%
+% \begin{arguments}
+%   \item |dim| 型变量
+%   \item 文本 |clist|
+% \end{arguments}
 % 当 \cs{l_@@_tmpa_clist} 非空时，弹出最后一个元素
 % 赋给 \cs{l_@@_tmpa_tl}，获取其长度后与 |#1| 进行比较，
 % 二者中较大的那一个将成为 |#1| 的新值。
 % 不断循环，直至 \cs{l_@@_tmpa_clist} 为空。
-%
-% 这里用 |group| 确保局部变量不会被污染。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_get_max_text_width:NN #1#2
   {
+%    \end{macrocode}
+% 这里用 |group| 确保局部变量不会被污染。
+%    \begin{macrocode}
     \group_begin:
     \clist_set_eq:NN \l_@@_tmpa_clist #2
     \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
@@ -3360,7 +3393,7 @@ version.
 % \begin{macro}{\fdu_blank_underline:N}
 % \changes{v0.4}{2017/08/14}{改用 \tn{rule} 绘制下划线，不再依赖
 %   \pkg{ulem} 宏包。}
-% 下划线占位符。|#1| = 长度。
+% 下划线占位符。|#1|: 长度。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_blank_underline:N #1
   { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
@@ -3368,7 +3401,7 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_line_spread:N,\fdu_line_spread:n}
-% 设置行距。|#1| = 行距倍数。
+% 设置行距。|#1|: 行距倍数。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_line_spread:N #1
   { \linespread {#1} \selectfont }
@@ -3536,8 +3569,13 @@ version.
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_decl_text:NNn}
-% 构建声明文本。|#1| = 标题，|#2| = 内容，|#3| = 签名行。段前空格
-% 需要用 \tn{qquad} 手动生成。
+% 构建声明文本。
+% \begin{arguments}
+%   \item 标题
+%   \item 内容
+%   \item 签名行
+% \end{arguments}
+% 段前空格需要用 \tn{qquad} 手动生成。
 %    \begin{macrocode}
 \cs_new:Npn \@@_decl_text:NNn #1#2#3
   {
