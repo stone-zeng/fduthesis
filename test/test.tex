@@ -4,6 +4,19 @@
 % \NewDocumentCommand \TIMING {m} {\benchmark:n{#1}}
 % \ExplSyntaxOff
 
+\RequirePackage{etoolbox}
+\makeatletter
+\patchcmd{\alloc@}%
+  {\wlog{\string#5=\string#2\the\allocationnumber}}{}%
+  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+\patchcmd{\newinsert}%
+  {\wlog{\string#1=\string\insert\the\allocationnumber}}{}%
+  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+\patchcmd{\e@alloc}%
+  {\wlog{\string#6=\string#1\the\allocationnumber}}{}%
+  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+\makeatother
+
 \documentclass[oneside]{fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
@@ -147,7 +160,7 @@
 %\end{notation}
 %
 \mainmatter
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
+\chapter{文本，字体，脚注 Text, font and footnote}
 %\section{文字与段落 Text and paragraph}
 %\subsection{中文文本 Chinese}
 %\zhlipsum

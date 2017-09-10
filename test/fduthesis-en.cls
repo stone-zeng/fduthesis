@@ -516,6 +516,11 @@
       }
     \exp_args:NV \hypersetup \g__fdu_to_hyperref_clist
   }
+\ctex_at_end_package:nn { hyperref }
+  {
+    \pdfstringdefDisableCommands
+      { \cs_set_eq:NN \fdu@kai \prg_do_nothing: }
+  }
 \tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
 \tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
 \tl_const:Nn \c__fdu_fn_style_libertinus_negative_tl
@@ -820,8 +825,7 @@
     \makebox [#1] [ s ]
       { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
   }
-\cs_generate_variant:Nn \fdu_spread_box:Nn { NV }
-\cs_generate_variant:Nn \fdu_spread_box:Nn { Nx }
+\cs_generate_variant:Nn \fdu_spread_box:Nn { NV, Nx }
 \cs_new:Npn \fdu_center_box:Nn #1#2
   { \makebox [#1] [ c ] {#2} }
 \cs_generate_variant:Nn \fdu_center_box:Nn { NV }
@@ -829,7 +833,6 @@
   { \parbox {#1} {#2} }
 \cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
   { \fdu_fixed_width_box:Nn {#1} { \centering #2 } }
-\cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
 \cs_new:Npn \fdu_get_text_width:Nn #1#2
   {
     \hbox_set:Nn \l__fdu_tmpa_box {#2}
@@ -908,10 +911,12 @@
   {
     \begin{center}
       {
-        \__fdu_cover_font_size_huge:
-        \fdu_spread_box:NV
+        \fdu_spread_box:Nn
           \c__fdu_def_cover_type_width_tl
-          \c__fdu_def_name_thesis_type_tl
+          {
+            \__fdu_cover_font_size_huge:
+            \c__fdu_def_name_thesis_type_tl
+          }
       }
       \par \vspace { \c__fdu_def_cover_v_sep_iii_tl }
       {
@@ -920,17 +925,19 @@
       }
       \par \vspace { \c__fdu_def_cover_v_sep_iv_tl }
       {
-        \__fdu_cover_font_size_large:  \sffamily
-        \fdu_fixed_width_center_box:NV
+        \fdu_fixed_width_center_box:Nn
           \c__fdu_def_cover_title_width_tl
-          \l__fdu_info_title_tl
+          {
+            \__fdu_cover_font_size_large: \sffamily
+            \l__fdu_info_title_tl
+          }
       }
       \par \vspace { \c__fdu_def_cover_v_sep_v_tl }
       {
-        \__fdu_cover_font_size_normal: \bfseries
         \fdu_fixed_width_center_box:Nn
           \c__fdu_def_cover_title_en_width_tl
           {
+            \__fdu_cover_font_size_normal: \bfseries
             \fdu_line_spread:N
               \c__fdu_def_cover_title_en_line_spread_tl
             \l__fdu_info_title_en_tl

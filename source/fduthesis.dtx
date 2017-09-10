@@ -2565,6 +2565,16 @@ version.
   }
 %    \end{macrocode}
 %
+% 在 PDF 字符串中设置 \tn{fdu@kai} 命令为空，以关闭 \pkg{hyperref}
+% 的警告信息。
+%    \begin{macrocode}
+\ctex_at_end_package:nn { hyperref }
+  {
+    \pdfstringdefDisableCommands
+      { \cs_set_eq:NN \fdu@kai \prg_do_nothing: }
+  }
+%    \end{macrocode}
+%
 % \subsection{脚注}
 %
 % \changes{v0.3}{2017/02/21}{支持脚注。}
@@ -3329,8 +3339,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fixed_width_center_box:Nn,
-%   \fdu_fixed_width_center_box:NV}
+% \begin{macro}{\fdu_fixed_width_center_box:Nn}
 % 居中对齐的限宽盒子。
 % \begin{arguments}
 %   \item 长度
@@ -3339,7 +3348,6 @@ version.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
   { \fdu_fixed_width_box:Nn {#1} { \centering #2 } }
-\cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3474,6 +3482,8 @@ version.
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_cover_title:}
+% \changes{v0.5}{2017/09/10}{把字号切换命令放在盒子里，防止出现
+%   字号未定义的警告。}
 % 标题，共有四行。第一行是论文类型，第二行是学位类型，三、四两行分别
 % 是中英文题目。
 %    \begin{macrocode}
@@ -3481,10 +3491,12 @@ version.
   {
     \begin{center}
       {
-        \@@_cover_font_size_huge:
-        \fdu_spread_box:NV
+        \fdu_spread_box:Nn
           \c_@@_def_cover_type_width_tl
-          \c_@@_def_name_thesis_type_tl
+          {
+            \@@_cover_font_size_huge:
+            \c_@@_def_name_thesis_type_tl
+          }
       }
       \par \vspace { \c_@@_def_cover_v_sep_iii_tl }
       {
@@ -3493,17 +3505,19 @@ version.
       }
       \par \vspace { \c_@@_def_cover_v_sep_iv_tl }
       {
-        \@@_cover_font_size_large:  \sffamily
-        \fdu_fixed_width_center_box:NV
+        \fdu_fixed_width_center_box:Nn
           \c_@@_def_cover_title_width_tl
-          \l_@@_info_title_tl
+          {
+            \@@_cover_font_size_large: \sffamily
+            \l_@@_info_title_tl
+          }
       }
       \par \vspace { \c_@@_def_cover_v_sep_v_tl }
       {
-        \@@_cover_font_size_normal: \bfseries
         \fdu_fixed_width_center_box:Nn
           \c_@@_def_cover_title_en_width_tl
           {
+            \@@_cover_font_size_normal: \bfseries
             \fdu_line_spread:N
               \c_@@_def_cover_title_en_line_spread_tl
             \l_@@_info_title_en_tl
