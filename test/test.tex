@@ -17,11 +17,14 @@
   {\typeout{****** success ******}}{\typeout{****** fail ******}}
 \makeatother
 
-\documentclass[oneside]{fduthesis}
-\usepackage{kantlipsum}
-\usepackage{zhlipsum}
+%\def\ONLYFONTTEST{1}
 
-\hypersetup{linktoc = page}
+\documentclass[oneside]{fduthesis}
+
+\ifdefined\ONLYFONTTEST
+  \usepackage{kantlipsum}
+  \usepackage{zhlipsum}
+\fi
 
 \makeatletter
 \@ifpackageloaded{luatexja}{%
@@ -71,7 +74,7 @@
 
 \def\WORLDb{你好，世界。}
 
-% \setCJKmainfont[ItalicFont=YouYuan]{Source Han Serif SC}
+\setCJKmainfont{Source Han Serif SC}[ItalicFont=YouYuan]
 % % \setCJKsansfont{Source Han Sans SC}
 % \setCJKsansfont{SimHei}
 % \setCJKmonofont{FangSong}
@@ -183,26 +186,27 @@
 \subsection{数学}
 \[ \int \sin \symbf{x} \symrm{d} \symbf{x} = \pi \Sigma ABC\]
 
-\subsection{句号}
-A: [before \verb+\fdusetup}+] \WORLDa \par
-B: [after \verb+\fdusetup}+] \WORLDb  \par
-C: [normal text] 你好，世界。 \par
-C: [use \verb+\symbol+] 你好，世界\symbol{"3002}
+%\subsection{句号}
+%A: [before \verb+\fdusetup}+] \WORLDa \par
+%B: [after \verb+\fdusetup}+] \WORLDb  \par
+%C: [normal text] 你好，世界。 \par
+%C: [use \verb+\symbol+] 你好，世界\symbol{"3002}
+%
+%\textit{\WORLDa\WORLDb 。\symbol{"3002}}
+%
+%\textsf{\WORLDa\WORLDb 。\symbol{"3002}}
+%
+%\textbf{\addCJKfontfeatures{Mapping = fullwidth-stop}\WORLDa\WORLDb 。\symbol{"3002}}
+%
+%\texttt{\WORLDa\WORLDb 。\symbol{"3002}}
+%
+%如果\symbol{"002E}会突然：\textsc{Full Stop} \par
+%如果\symbol{"3002}会突然：\textsc{Ideographic Full Stop} \par
+%如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
+%如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
 
-\textit{\WORLDa\WORLDb 。\symbol{"3002}}
 
-\textsf{\WORLDa\WORLDb 。\symbol{"3002}}
-
-\textbf{\addCJKfontfeatures{Mapping = fullwidth-stop}\WORLDa\WORLDb 。\symbol{"3002}}
-
-\texttt{\WORLDa\WORLDb 。\symbol{"3002}}
-
-{\fontspec{Latin Modern Mono}[]``fi fl ff sh ch ck st tz !` ?` ''}
-
-如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-如果\symbol{"3002}会突然：\textsc{Ideographic Full Stop} \par
-如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
-如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+\ifdefined\ONLYFONTTEST
 
 \clearpage
 
@@ -513,4 +517,7 @@ Knuth D E.
 \newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
 \newblock Boston: Addison--Wesley Publishing Company, 1986
 \end{thebibliography}
+
+\fi
+
 \end{document}
