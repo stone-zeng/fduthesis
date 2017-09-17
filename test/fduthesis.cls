@@ -314,23 +314,11 @@
 \RenewDocumentCommand \setmathfont { O { } m O { } }
   { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
 \RenewDocumentCommand \setCJKmainfont { O { } m O { } }
-  {
-    \bool_set_true:N \l__fdu_set_cjk_main_font_bool
-    \fdu_choose_cjk_font_with_option:nnn { main } {#2} {#1, #3}
-  }
+  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} {#1, #3} }
 \RenewDocumentCommand \setCJKsansfont { O { } m O { } }
-  {
-    \bool_set_true:N \l__fdu_set_cjk_sans_font_bool
-    \fdu_choose_cjk_font_with_option:nnn { sans } {#2} {#1, #3}
-  }
+  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} {#1, #3} }
 \RenewDocumentCommand \setCJKmonofont { O { } m O { } }
-  {
-    \bool_set_true:N \l__fdu_set_cjk_mono_font_bool
-    \fdu_choose_cjk_font_with_option:nnn { mono } {#2} {#1, #3}
-  }
-\bool_new:N \l__fdu_set_cjk_main_font_bool
-\bool_new:N \l__fdu_set_cjk_sans_font_bool
-\bool_new:N \l__fdu_set_cjk_mono_font_bool
+  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} {#1, #3} }
 
 % 暂时不用
 %\DeclareDocumentCommand \setCJKsongfont { O { } m O { } }
@@ -463,11 +451,11 @@
 
 \cs_new:Npn \fdu_set_cjk_font:
   {
-    % song / hei / fang / kai 需要被映照到 main / sans / mono
+    % song / hei / fang / kai 需要被映照到 rm / sf / tt
 
-    \__fdu_parse_cjk_main_font:
-    \__fdu_parse_cjk_sans_font:
-    \__fdu_parse_cjk_mono_font:
+    \__fdu_parse_cjk_rm_font:
+    \__fdu_parse_cjk_sf_font:
+    \__fdu_parse_cjk_tt_font:
 
     \__fdu_parse_cjk_kai_font:
 
@@ -477,21 +465,28 @@
         \prop_remove:Nn \g__fdu_cjk_font_name_prop    {##1}
         \prop_remove:Nn \g__fdu_cjk_font_options_prop {##1}
       }
+
+%\xeCJK_set_family:nnn {rm} {} {Source~ Han~ Serif}
+%\prop_show:N \g__xeCJK_family_font_name_prop
+
+    \clist_map_inline:nn { rm, sf, tt, kai }
+      { \__fdu_set_cjk_font_aux:n {##1} }
+%\prop_show:N \g__xeCJK_family_font_name_prop
   }
 
 \tl_new:N    \l__fdu_font_name_tl
 \clist_new:N \l__fdu_font_options_clist
 
-\cs_new:Npn \__fdu_parse_cjk_main_font:
+\cs_new:Npn \__fdu_parse_cjk_rm_font:
   {
     % 处理名称
-    % main 未定义（为空）时，传入 song
-    \prop_get:NnNF \g__fdu_cjk_font_name_prop {main} \l__fdu_font_name_tl
+    % rm 未定义（为空）时，传入 song
+    \prop_get:NnNF \g__fdu_cjk_font_name_prop { rm } \l__fdu_font_name_tl
       {
-        %----- main 为空 -----%
+        %----- rm 为空 -----%
 
         % 处理字体名称和选项
-        \__fdu_get_cjk_font_name_options:nn { main } { song }
+        \__fdu_get_cjk_font_name_options:nn { rm } { song }
 
         % 粗宋 / 黑
         % 这里先 fake 一个条件分支（使用 黑），以后再加
@@ -511,7 +506,7 @@
             %----- 黑体 -----%
             % 读取黑体名称
             % TODO: 使用 hei/sans ?
-            \prop_get:NnN \g__fdu_cjk_font_name_prop {hei} \l__fdu_tmpa_tl
+            \prop_get:NnN \g__fdu_cjk_font_name_prop { hei } \l__fdu_tmpa_tl
             % 右侧选项会覆盖左侧选项
             \clist_put_right:Nx \l__fdu_font_options_clist
               { BoldFont = \l__fdu_tmpa_tl }
@@ -519,20 +514,20 @@
 
         % 补齐楷体
         \__fdu_get_cjk_kai_font:
-        % 设置 main 选项
-        \__fdu_set_cjk_font_options:n { main }
+        % 设置 rm 选项
+        \__fdu_set_cjk_font_options:n { rm }
       }
   }
 
-\cs_new:Npn \__fdu_parse_cjk_sans_font:
+\cs_new:Npn \__fdu_parse_cjk_sf_font:
   {
     % 处理名称
-    % sans 未定义（为空）时，传入 hei
-    \prop_get:NnNF \g__fdu_cjk_font_name_prop {sans} \l__fdu_font_name_tl
+    % sf 未定义（为空）时，传入 hei
+    \prop_get:NnNF \g__fdu_cjk_font_name_prop { sf } \l__fdu_font_name_tl
       {
-        %----- sans 为空 -----%
+        %----- sf 为空 -----%
         % 处理字体名称和选项
-        \__fdu_get_cjk_font_name_options:nn { sans } { hei }
+        \__fdu_get_cjk_font_name_options:nn { sf } { hei }
         % 补齐黑体（设置 BoldFont/ItalicFont/BoldItalicFont 均为黑体）
         \clist_put_right:Nx \l__fdu_font_options_clist
           {
@@ -540,27 +535,27 @@
             ItalicFont     = \l__fdu_font_name_tl,
             BoldItalicFont = \l__fdu_font_name_tl
           }
-        % 设置 sans 选项
-        \__fdu_set_cjk_font_options:n { sans }
+        % 设置 sf 选项
+        \__fdu_set_cjk_font_options:n { sf }
       }
   }
 
-\cs_new:Npn \__fdu_parse_cjk_mono_font:
+\cs_new:Npn \__fdu_parse_cjk_tt_font:
   {
     % 处理名称
-    % mono 未定义（为空）时，传入 fang
-    \prop_get:NnNF \g__fdu_cjk_font_name_prop { mono } \l__fdu_font_name_tl
+    % tt 未定义（为空）时，传入 fang
+    \prop_get:NnNF \g__fdu_cjk_font_name_prop { tt } \l__fdu_font_name_tl
       {
-        %----- mono 为空 -----%
+        %----- tt 为空 -----%
         % 处理字体名称和选项
-        \__fdu_get_cjk_font_name_options:nn { mono } { fang }
+        \__fdu_get_cjk_font_name_options:nn { tt } { fang }
         % 补齐仿宋（设置 BoldFont = 仿宋）
         \clist_put_right:Nx \l__fdu_font_options_clist
           { BoldFont = \l__fdu_font_name_tl }
         % 补齐楷体
         \__fdu_get_cjk_kai_font:
-        % 设置 mono 选项
-        \__fdu_set_cjk_font_options:n { mono }
+        % 设置 tt 选项
+        \__fdu_set_cjk_font_options:n { tt }
       }
   }
 
@@ -578,7 +573,7 @@
   }
 
 % 处理字体名称和选项
-% #1 = main / sans / mono
+% #1 = rm / sf /tt
 % #2 = song / hei  / fang
 \cs_new:Npn \__fdu_get_cjk_font_name_options:nn #1#2
   {
@@ -604,41 +599,32 @@
   }
 
 % 设置选项
-% #1 = main / sans / mono
+% #1 = rm / sf /tt
 \cs_new:Npn \__fdu_set_cjk_font_options:n #1
   {
     \prop_put:NnV \g__fdu_cjk_font_options_prop {#1}
       \l__fdu_font_options_clist
   }
 
-
-
-
 % #1 = family, #2 = options, #3 = font name
-\cs_generate_variant:Nn \xeCJK_set_family:nnn    { vnv, vvv }
-\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { vnv, vvv }
+\cs_generate_variant:Nn \xeCJK_set_family:nnn    { vnv, nVV }
+\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { vnv, nVV }
 
 
-
-\cs_new:Npx \__fdu_set_cjk_font_aux:nnnn #1#2#3#4
+% #1 = rm / sf / tt / kai
+\cs_new:Npx \__fdu_set_cjk_font_aux:n #1
   {
-    \exp_not:N \bool_if:cTF { l__fdu_set_cjk_ #1 _font_bool }
-      {
-        \sys_if_engine_xetex:TF
-          { \xeCJK_set_family:vvv }
-          { \sys_if_engine_luatex:T { \ctex_ltj_set_family:vvv } }
-        { CJK #2 default }
-        { g__fdu_cjk_ #1 _font_option_clist }
-        { g__fdu_cjk_ #1 _font_tl }
-      }
-      {
-        \sys_if_engine_xetex:TF
-          { \xeCJK_set_family:vnv }
-          { \sys_if_engine_luatex:T { \ctex_ltj_set_family:vnv } }
-        { CJK #2 default } {#4} { g__fdu_cjk_ #3 _font_tl }
-      }
+    \prop_get:NnN \exp_not:N \g__fdu_cjk_font_name_prop    {#1} \exp_not:N \l__fdu_tmpa_tl
+    \prop_get:NnN \exp_not:N \g__fdu_cjk_font_options_prop {#1} \exp_not:N \l__fdu_tmpb_tl
+
+    % \xeCJK_set_family:nnn 的参数：
+    % #1 = family, #2 = options, #3 = font name
+    \sys_if_engine_xetex:TF
+      { \xeCJK_set_family:nVV }
+      { \sys_if_engine_luatex:T { \ctex_ltj_set_family:nVV } }
+    {#1} \exp_not:n { \l__fdu_tmpb_tl \l__fdu_tmpa_tl }
   }
-\cs_generate_variant:Nn \__fdu_set_cjk_font_aux:nnnn { nnnx }
+
 \cs_new:Npx \__fdu_set_cjk_kai_font:n #1
   {
     \sys_if_engine_xetex:TF
@@ -663,12 +649,12 @@
 
 \ctex_at_end_preamble:n
   {
-\prop_show:N \g__fdu_cjk_font_name_prop
-\prop_show:N \g__fdu_cjk_font_options_prop
-    %\fdu_set_font:
+%\prop_show:N \g__fdu_cjk_font_name_prop
+%\prop_show:N \g__fdu_cjk_font_options_prop
+    \fdu_set_font:
     \fdu_set_cjk_font:
-\prop_show:N \g__fdu_cjk_font_name_prop
-\prop_show:N \g__fdu_cjk_font_options_prop
+%\prop_show:N \g__fdu_cjk_font_name_prop
+%\prop_show:N \g__fdu_cjk_font_options_prop
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
