@@ -181,25 +181,10 @@
 \bool_if:NT \g__fdu_draft_bool
   { \geometry { showframe } }
 \unimathsetup { math-style = ISO, bold-style = ISO }
-\tl_new:N    \g__fdu_main_font_tl
-\tl_new:N    \g__fdu_sans_font_tl
-\tl_new:N    \g__fdu_mono_font_tl
-\tl_new:N    \g__fdu_math_font_tl
-\clist_new:N \g__fdu_main_font_option_clist
-\clist_new:N \g__fdu_sans_font_option_clist
-\clist_new:N \g__fdu_mono_font_option_clist
-\clist_new:N \g__fdu_math_font_option_clist
-\tl_new:N    \g__fdu_cjk_main_font_tl
-\tl_new:N    \g__fdu_cjk_sans_font_tl
-\tl_new:N    \g__fdu_cjk_mono_font_tl
-\clist_new:N \g__fdu_cjk_main_font_option_clist
-\clist_new:N \g__fdu_cjk_sans_font_option_clist
-\clist_new:N \g__fdu_cjk_mono_font_option_clist
-\tl_new:N    \g__fdu_cjk_song_font_tl
-\tl_new:N    \g__fdu_cjk_hei_font_tl
-\tl_new:N    \g__fdu_cjk_fang_font_tl
-\tl_new:N    \g__fdu_cjk_kai_font_tl
-\tl_new:N    \g__fdu_cjk_songbf_font_tl
+\prop_new:N \g__fdu_font_name_prop
+\prop_new:N \g__fdu_font_options_prop
+\prop_new:N \g__fdu_cjk_font_name_prop
+\prop_new:N \g__fdu_cjk_font_options_prop
 \keys_define:nn { fdu / style }
   {
     font .choice:,
@@ -250,33 +235,44 @@
   { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
 \cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
   {
-    \tl_set:cn    { g__fdu_ #1 _font_tl           } {#2}
-    \clist_set:cn { g__fdu_ #1 _font_option_clist } {#3}
+    \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
+    \prop_put:Nnn \g__fdu_font_options_prop {#1} {#3}
   }
 \cs_new_protected:Npn \fdu_choose_font:nn #1#2
-  { \tl_set:cn { g__fdu_ #1 _font_tl } {#2} }
+  {
+    \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
+    \prop_put:Nnn \g__fdu_font_options_prop {#1} {  }
+  }
 \cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
   {
-    \tl_set:cn    { g__fdu_cjk_ #1 _font_tl           } {#2}
-    \clist_set:cn { g__fdu_cjk_ #1 _font_option_clist } {#3}
+    \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
+    \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {#3}
   }
 \cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
-  { \tl_set:cn { g__fdu_cjk_ #1 _font_tl } {#2} }
-\cs_new:Npn \fdu_set_font:
   {
-    \clist_map_inline:nn { main, sans, mono }
-      { \__fdu_set_font_aux:n {##1} }
-    \__fdu_set_math_font:VV
-      \g__fdu_math_font_tl \g__fdu_math_font_option_clist
+    \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
+    \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {  }
   }
-\cs_new:Npn \__fdu_set_font_aux:n #1
+\cs_new_protected:Npn \__fdu_set_font:
   {
-    \use:c { __fontspec_main_set #1 font:nvv } { }
-      { g__fdu_ #1 _font_tl } { g__fdu_ #1 _font_option_clist }
+    \clist_map_inline:nn { main, sans, mono, math }
+      {
+        \prop_get:NnN \g__fdu_font_name_prop    {##1}
+          \l__fdu_tmpa_tl
+        \prop_get:NnN \g__fdu_font_options_prop {##1}
+          \l__fdu_tmpb_tl
+        \use:c { __fdu_set_ ##1 _font:VV }
+          \l__fdu_tmpa_tl \l__fdu_tmpb_tl
+      }
   }
-\cs_generate_variant:Nn \__fontspec_main_setmainfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setsansfont:nnn { nvv }
-\cs_generate_variant:Nn \__fontspec_main_setmonofont:nnn { nvv }
+\clist_map_inline:nn { main, sans, mono }
+  {
+    \cs_new:cpx { __fdu_set_ #1 _font:nn } ##1 ##2
+      {
+        \exp_not:c { __fontspec_main_set #1 font:nnn }
+          { } {##1} {##2}
+      }
+  }
 \cs_new:Npn \__fdu_set_math_font:nn #1#2
   {
     \tl_set:Nn \l__um_fontname_tl {#1}
@@ -326,10 +322,14 @@
     \__um_setup_negations:
     \ignorespaces
   }
-\cs_generate_variant:Nn \__fdu_set_math_font:nn { VV }
+\clist_map_inline:nn { main, sans, mono, math }
+  {
+    \exp_args:Nc \cs_generate_variant:Nn
+      { __fdu_set_ #1 _font:nn } { VV }
+  }
 \ctex_at_end_preamble:n
   {
-    \fdu_set_font:
+    \__fdu_set_font:
   }
 \keys_define:nn { fdu / style }
   {

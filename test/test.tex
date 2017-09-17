@@ -1,8 +1,8 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
-% \RequirePackage{l3benchmark,xparse}
-% \ExplSyntaxOn
-% \NewDocumentCommand \TIMING {m} {\benchmark:n{#1}}
-% \ExplSyntaxOff
+%\RequirePackage{l3benchmark,xparse}
+%\ExplSyntaxOn
+%\NewDocumentCommand \TIMING {m} {\benchmark:n{#1}}
+%\ExplSyntaxOff
 
 \RequirePackage{etoolbox}
 \makeatletter
@@ -17,7 +17,7 @@
   {\typeout{****** success ******}}{\typeout{****** fail ******}}
 \makeatother
 
-%\def\ONLYFONTTEST{1}
+\def\ONLYFONTTEST{1}
 
 \documentclass[oneside]{fduthesis}
 
@@ -35,11 +35,11 @@
 
 \fdusetup{
   style = {
-    %font = times,
-    %cjkfont = windows,
+    % font = times,
+    % cjkfont = mac,
     % fullwidthstop = all,
-    %footnotestyle = libertinus*,
-    % automakecover = false
+    % footnotestyle = libertinus*,
+    % automakecover = false,
     logo = {../logo/pdf/fudan-name-black.pdf},
     % logosize = {2cm,2cm,2cm}
     hyperlink = color,
@@ -49,7 +49,7 @@
     title = {自河南经乱关内阻饥兄弟离散各在一处。},
     title* = {Measurements of the interaction between energetic
       photons and hadrons show that the interaction},
-%    date = {2017年2月10日},
+    % date = {2017年2月10日},
     author = {某某某},
     author* = {Xiangdong Zeng},
     supervisor = {陈丙丁 \quad 教授},
@@ -75,10 +75,12 @@
 \def\WORLDb{你好，世界。}
 
 %\setCJKmainfont{Source Han Serif SC}[ItalicFont=YouYuan,,BoldItalicFont=LiSu]
-% % \setCJKsansfont{Source Han Sans SC}
-% \setCJKsansfont{SimHei}
-% \setCJKmonofont{FangSong}
-% \setCJKfamilyfont{kai}{FandolKai}
+%\setmainfont{Cambria}
+%\setsansfont{Calibri}
+%\setCJKsansfont{Source Han Sans SC}
+%\setCJKsansfont{SimHei}
+%\setCJKmonofont{FangSong}
+%\setCJKfamilyfont{kai}{FandolKai}
 % % \setmathfont{TeX Gyre Pagella Math}
 
 
@@ -95,83 +97,83 @@
 \begin{document}
 \frontmatter
 \tableofcontents
-%
-%\begin{abstract}
-%\emph{中心法则}形成了分子生物学的生命观：生命世界在信息和规律上是统一的；
-%生命的物质基础和主宰物质是不同的，生命的物质基础是以核酸蛋白质整合
-%体系为主宰的原生质各种必要的物质组分及其实在的相互作用；生命运动
-%的本质在于组成生命的各物质之间以及生命的物质、能量与信息之间和生命
-%自身与环境之间的不断的相互作用。不少人不少人，如果是到无穷大。
-%
-%上标\TeX；此时的的
-%
-%上标\TeX ；此时的的
-%
-%上标\LaTeX；此时的的
-%
-%上标\LaTeX ；此时的的
-%
-%\zhlipsum[1-3]
-%\end{abstract}
-%
-%\begin{abstract*}
-%\LaTeX3 does not use @ as a ``letter'' for defining internal
-%macros. Instead, the symbols are used in internal macro names to
-%provide structure. The name of each function is divided into
-%logical units using separates the name of the function from the
-%argument specifier (``arg-spec''). This describes the arguments
-%expected by the function.
-%
-%\kant[1-5]
-%\end{abstract*}
-%
-%\begin{notation}[lp{15em}]
-%$\sin$      &  正弦 \\
-%HPC         &  高性能计算 (High Performance Computing) \\
-%cluster     &  集群 \\
-%Itanium     &  安腾 \\
-%SMP         &  对称多处理 \\
-%API         &  应用程序编程接口 \\
-%PI          &  聚酰亚胺 \\
-%MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-%PBI         &  聚苯并咪唑 \\
-%MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-%PY          &  聚吡咙 \\
-%PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-%$\Delta G$  &  活化自由能 (Activation Free Energy) \\
-%$\chi$      &  传输系数 (Transmission Coefficient) \\
-%$E$         &  能量 \\
-%$m$         &  质量 \\
-%$c$         &  光速 \\
-%$P$         &  概率 \\
-%$T$         &  时间 \\
-%$v$         &  速度 \\
-%劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
-%  直中绳。\symbol{"2B413}\symbol{"8F2E} d 輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
-%  砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况 \\
-%$\sin$      &  正弦 \\
-%HPC         &  高性能计算 (High Performance Computing) \\
-%cluster     &  集群 \\
-%Itanium     &  安腾 \\
-%SMP         &  对称多处理 \\
-%API         &  应用程序编程接口 \\
-%PI          &  聚酰亚胺 \\
-%MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-%PBI         &  聚苯并咪唑 \\
-%MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-%PY          &  聚吡咙
-%\end{notation}
-%
+
+\begin{abstract}
+\emph{中心法则}形成了分子生物学的生命观：生命世界在信息和规律上是统一的；
+生命的物质基础和主宰物质是不同的，生命的物质基础是以核酸蛋白质整合
+体系为主宰的原生质各种必要的物质组分及其实在的相互作用；生命运动
+的本质在于组成生命的各物质之间以及生命的物质、能量与信息之间和生命
+自身与环境之间的不断的相互作用。不少人不少人，如果是到无穷大。
+
+上标\TeX；此时的的
+
+上标\TeX ；此时的的
+
+上标\LaTeX；此时的的
+
+上标\LaTeX ；此时的的
+
+\zhlipsum[1-3]
+\end{abstract}
+
+\begin{abstract*}
+\LaTeX3 does not use @ as a ``letter'' for defining internal
+macros. Instead, the symbols are used in internal macro names to
+provide structure. The name of each function is divided into
+logical units using separates the name of the function from the
+argument specifier (``arg-spec''). This describes the arguments
+expected by the function.
+
+\kant[1-5]
+\end{abstract*}
+
+\begin{notation}[lp{15em}]
+$\sin$      &  正弦 \\
+HPC         &  高性能计算 (High Performance Computing) \\
+cluster     &  集群 \\
+Itanium     &  安腾 \\
+SMP         &  对称多处理 \\
+API         &  应用程序编程接口 \\
+PI          &  聚酰亚胺 \\
+MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
+PBI         &  聚苯并咪唑 \\
+MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
+PY          &  聚吡咙 \\
+PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
+$\Delta G$  &  活化自由能 (Activation Free Energy) \\
+$\chi$      &  传输系数 (Transmission Coefficient) \\
+$E$         &  能量 \\
+$m$         &  质量 \\
+$c$         &  光速 \\
+$P$         &  概率 \\
+$T$         &  时间 \\
+$v$         &  速度 \\
+劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
+  直中绳。\symbol{"2B413}\symbol{"8F2E} d 輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
+  砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况 \\
+$\sin$      &  正弦 \\
+HPC         &  高性能计算 (High Performance Computing) \\
+cluster     &  集群 \\
+Itanium     &  安腾 \\
+SMP         &  对称多处理 \\
+API         &  应用程序编程接口 \\
+PI          &  聚酰亚胺 \\
+MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
+PBI         &  聚苯并咪唑 \\
+MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
+PY          &  聚吡咙
+\end{notation}
+
 \mainmatter
 \chapter{文本，字体，脚注 Text, font and footnote}
-%\section{文字与段落 Text and paragraph}
-%\subsection{中文文本 Chinese}
-%\zhlipsum
-%
-%\subsection{英文文本 English}
-%\kant
-%
-%\clearpage
+\section{文字与段落 Text and paragraph}
+\subsection{中文文本 Chinese}
+\zhlipsum
+
+\subsection{英文文本 English}
+\kant
+
+\clearpage
 
 \section{字体 Font}
 \subsection{普通字体 Roman}
@@ -186,24 +188,24 @@
 \subsection{数学}
 \[ \int \sin \symbf{x} \symrm{d} \symbf{x} = \pi \Sigma ABC\]
 
-%\subsection{句号}
-%A: [before \verb+\fdusetup}+] \WORLDa \par
-%B: [after \verb+\fdusetup}+] \WORLDb  \par
-%C: [normal text] 你好，世界。 \par
-%C: [use \verb+\symbol+] 你好，世界\symbol{"3002}
-%
-%\textit{\WORLDa\WORLDb 。\symbol{"3002}}
-%
-%\textsf{\WORLDa\WORLDb 。\symbol{"3002}}
-%
-%\textbf{\addCJKfontfeatures{Mapping = fullwidth-stop}\WORLDa\WORLDb 。\symbol{"3002}}
-%
-%\texttt{\WORLDa\WORLDb 。\symbol{"3002}}
-%
-%如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-%如果\symbol{"3002}会突然：\textsc{Ideographic Full Stop} \par
-%如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
-%如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+\subsection{句号}
+A: [before \verb+\fdusetup}+] \WORLDa \par
+B: [after \verb+\fdusetup}+] \WORLDb  \par
+C: [normal text] 你好，世界。 \par
+C: [use \verb+\symbol+] 你好，世界\symbol{"3002}
+
+\textit{\WORLDa\WORLDb 。\symbol{"3002}}
+
+\textsf{\WORLDa\WORLDb 。\symbol{"3002}}
+
+\textbf{\addCJKfontfeatures{Mapping = fullwidth-stop}\WORLDa\WORLDb 。\symbol{"3002}}
+
+\texttt{\WORLDa\WORLDb 。\symbol{"3002}}
+
+如果\symbol{"002E}会突然：\textsc{Full Stop} \par
+如果\symbol{"3002}会突然：\textsc{Ideographic Full Stop} \par
+如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
+如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
 
 
 \ifdefined\ONLYFONTTEST
