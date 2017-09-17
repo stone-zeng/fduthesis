@@ -332,14 +332,15 @@
 \bool_new:N \l__fdu_set_cjk_sans_font_bool
 \bool_new:N \l__fdu_set_cjk_mono_font_bool
 
-\DeclareDocumentCommand \setCJKsongfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { song } {#2} {#1, #3} }
-\DeclareDocumentCommand \setCJKheifont  { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { hei  } {#2} {#1, #3} }
-\DeclareDocumentCommand \setCJKfangfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { fang } {#2} {#1, #3} }
-\DeclareDocumentCommand \setCJKkaifont  { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { kai  } {#2} {#1, #3} }
+% 暂时不用
+%\DeclareDocumentCommand \setCJKsongfont { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { song } {#2} {#1, #3} }
+%\DeclareDocumentCommand \setCJKheifont  { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { hei  } {#2} {#1, #3} }
+%\DeclareDocumentCommand \setCJKfangfont { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { fang } {#2} {#1, #3} }
+%\DeclareDocumentCommand \setCJKkaifont  { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { kai  } {#2} {#1, #3} }
 
 % 字体选择
 
@@ -462,69 +463,174 @@
 
 \cs_new:Npn \fdu_set_cjk_font:
   {
-    \clist_map_inline:nn { main, sans, mono }
-      {
-        \prop_put_if_new:Nnn \g__fdu_cjk_font_name_prop    {##1} { }
-        \prop_put_if_new:Nnn \g__fdu_cjk_font_options_prop {##1} { }
-      }
+    %\clist_map_inline:nn { main, sans, mono }
+    %  {
+    %    \prop_put_if_new:Nnn \g__fdu_cjk_font_name_prop    {##1} { }
+    %    \prop_put_if_new:Nnn \g__fdu_cjk_font_options_prop {##1} { }
+    %  }
 
     \__fdu_parse_cjk_main_font:
     %\__fdu_parse_cjk_sans_font:
     %\__fdu_parse_cjk_mono_font:
-
-
-    %\__fdu_parse_cjk_font:nn { main } { song }
-    %\__fdu_parse_cjk_font:nn { sans } { hei  }
-    %\__fdu_parse_cjk_font:nn { mono } { fang }
+    %
+    %% 清除冗余键值对
+    %\clist_map_inline:nn { song, hei, fang }
+    %  {
+    %    \prop_remove:Nn \g__fdu_cjk_font_name_prop    {##1}
+    %    \prop_remove:Nn \g__fdu_cjk_font_options_prop {##1}
+    %  }
   }
+
+\tl_new:N    \l__fdu_font_name_tl
+\clist_new:N \l__fdu_font_options_clist
 
 \cs_new:Npn \__fdu_parse_cjk_main_font:
   {
     % song / hei / fang / kai 需要被映照到 main / sans / mono
 
-    % main 未定义时，传入 song
-    \__fdu_parse_cjk_font_name:nn { main } { song }
+    % 处理名称
+    % main 未定义（为空）时，传入 song
+    \prop_get:NnNTF \g__fdu_cjk_font_name_prop {main} \l__fdu_font_name_tl
+      {
+        %----- main 非空 -----%
+        % 什么也不用做
+      }
+      {
+        %----- main 为空 -----%
 
-    % 把 \setCJKmainfont 和 \setCJKsongfont 的选项连起来
-    %\__fdu_parse_cjk_font_options:nn { main } { song }
+        % 处理名称
+        % main 名称 == song 名称
+        \prop_get:NnN \g__fdu_cjk_font_name_prop {song} \l__fdu_font_name_tl
+        \prop_put:NnV \g__fdu_cjk_font_name_prop {main} \l__fdu_font_name_tl
 
-    % 注意右侧的选项覆盖掉左侧的
-    % 这里将默认选项放在左侧，因此用户设置可以覆盖原有设置
+        % 处理选项
+        \prop_get:NnN \g__fdu_cjk_font_options_prop {song} \l__fdu_tmpa_tl
+        \clist_set:NV \l__fdu_font_options_clist \l__fdu_tmpa_tl
 
-    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpa_clist
-    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {song} \l__fdu_tmpb_clist
+        % 粗宋 / 黑
+        % 这里先 fake 一个条件分支（使用 黑），以后再加
+        \use_ii:nn
+          {
+            %----- 粗宋 -----%
 
-    % 获取楷体名称
-    \prop_get:NnN \g__fdu_cjk_font_name_prop {kai} \l__fdu_cjk_font_kai_tl
-    \tl_set_eq:NN \l__fdu_cjk_font_kai_bf_tl \l__fdu_cjk_font_kai_tl
+            % 判断是否定义 songbf
+            \tl_if_in:NnF \l__fdu_font_options_clist { BoldFont = }
+              {
+                % 未定义，则设置 BoldFont = <song>
+                \clist_put_right:Nx \l__fdu_font_options_clist
+                  { BoldFont = \l__fdu_font_name_tl }
+              }
+          }
+          {
+            %----- 黑体 -----%
 
-    \tl_put_left:Nn \l__fdu_cjk_font_kai_tl    { ItalicFont = }
-    \tl_put_left:Nn \l__fdu_cjk_font_kai_bf_tl { BoldItalicFont = }
+            % 读取黑体名称
+            % TODO: 使用 hei/sans ?
+            \prop_get:NnN \g__fdu_cjk_font_name_prop {hei} \l__fdu_tmpa_tl
+            % 右侧选项会覆盖左侧选项
+            \clist_put_right:Nx \l__fdu_font_options_clist
+              { BoldFont = \l__fdu_tmpa_tl }
+          }
 
-    % 这里放到右边主要是为了好看
-    % 都是 main 的选项，顺序不很要紧
-    \clist_put_right:NV \l__fdu_tmpb_clist \l__fdu_cjk_font_kai_tl
-    \clist_put_right:NV \l__fdu_tmpb_clist \l__fdu_cjk_font_kai_bf_tl
+        % 补齐楷体
+        \prop_get:NnN \g__fdu_cjk_font_name_prop {kai} \l__fdu_tmpa_tl
+        \clist_put_right:Nx \l__fdu_font_options_clist
+          { ItalicFont = \l__fdu_tmpa_tl, BoldItalicFont = \l__fdu_tmpa_tl }
 
-    \clist_concat:NNN \l__fdu_tmpa_clist \l__fdu_tmpb_clist \l__fdu_tmpa_clist
+        % 设置 main 选项
+        \prop_put:NnV \g__fdu_cjk_font_options_prop {main} \l__fdu_font_options_clist
+      }
 
-    \prop_put:NnV \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpa_clist
+
+%%%    \prop_get:NnN \g__fdu_cjk_font_name_prop {song} \l__fdu_tmpb_tl
+%%%
+%%%    \tl_if_empty:NTF \l__fdu_tmpa_tl
+%%%      { \prop_put:NnV \g__fdu_cjk_font_name_prop {#1} \l__fdu_tmpb_tl }
+%%%
+%%%
+%%%
+%%%    \__fdu_parse_cjk_font_name:nn { main } { song }
+%%%
+%%%    % 处理选项
+%%%    \prop_get:NnN \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpa_tl
+%%%    \prop_get:NnN \g__fdu_cjk_font_options_prop {song} \l__fdu_tmpb_tl
+%%%
+%%%    % tl -> clist
+%%%    % 可以清楚多余的逗号
+%%%    \clist_set:NV \l__fdu_tmpa_clist \l__fdu_tmpa_tl
+%%%    \clist_set:NV \l__fdu_tmpb_clist \l__fdu_tmpb_tl
+%%%
+%%%    \clist_if_empty:NTF \l__fdu_tmpa_clist
+%%%      {
+%%%        % 未设置 mainfont 时，需要补齐 song 的 Bold/Italic/BoldItalic
+%%%
+%%%        \tl_if_in:NnF \l__fdu_tmpb_clist { BoldFont = }
+%%%          {
+%%%
+%%%            \clist_put_right:Nx \l__fdu_tmpb_clist { BoldFont = }
+%%%          }
+%%%
+%%%
+%%%
+%%%        \prop_put:NnV \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpb_clist
+%%%      }
+%%%      { \prop_put:NnV \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpa_clist }
+%%%
+%%%
+%%%\prop_show:N \g__fdu_cjk_font_name_prop
+%%%\prop_show:N \g__fdu_cjk_font_options_prop
+%%%
+%%%
+%%%
+%%%    % 注意右侧的选项覆盖掉左侧的
+%%%    % 这里将默认选项放在左侧，因此用户设置可以覆盖原有设置
+%%%
+%%%    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpa_clist
+%%%    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {song} \l__fdu_tmpb_clist
+%%%
+%%%    % 把楷体设置（Italic/BoldItalic）放在右侧
+%%%    \__fdu_font_put_kai_right:N \l__fdu_tmpb_clist
+%%%
+%%%    % tmpb 放在 tmpa 左侧，连起来之后存入 tmpa
+%%%    \clist_concat:NNN \l__fdu_tmpa_clist \l__fdu_tmpb_clist \l__fdu_tmpa_clist
+%%%
+%%%    \prop_put:NnV \g__fdu_cjk_font_options_prop {main} \l__fdu_tmpa_clist
   }
-
-\tl_new:N \l__fdu_cjk_font_kai_tl
-\tl_new:N \l__fdu_cjk_font_kai_bf_tl
 
 
 \cs_new:Npn \__fdu_parse_cjk_sans_font:
   {
     \__fdu_parse_cjk_font_name:nn    { sans } { hei }
-    \__fdu_parse_cjk_font_options:nn { sans } { hei }
+
+    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {sans} \l__fdu_tmpa_clist
+    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {hei } \l__fdu_tmpb_clist
+
+    \prop_get:NnN \g__fdu_cjk_font_name_prop {sans} \l__fdu_tmpa_tl
+    \clist_put_left:Nx \l__fdu_tmpb_clist
+      { BoldFont = \l__fdu_tmpa_tl, ItalicFont = \l__fdu_tmpa_tl, BoldItalicFont = \l__fdu_tmpa_tl }
+
+    \clist_concat:NNN \l__fdu_tmpa_clist \l__fdu_tmpb_clist \l__fdu_tmpa_clist
+
+    \prop_put:NnV \g__fdu_cjk_font_options_prop {sans} \l__fdu_tmpa_clist
   }
 
 \cs_new:Npn \__fdu_parse_cjk_mono_font:
   {
     \__fdu_parse_cjk_font_name:nn    { mono } { fang }
-    \__fdu_parse_cjk_font_options:nn { mono } { fang }
+
+    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {mono} \l__fdu_tmpa_clist
+    \__fdu_get_font_options:NnN \g__fdu_cjk_font_options_prop {fang} \l__fdu_tmpb_clist
+
+    \prop_get:NnN \g__fdu_cjk_font_name_prop {mono} \l__fdu_tmpa_tl
+    \clist_put_left:Nx \l__fdu_tmpb_clist { BoldFont = \l__fdu_tmpa_tl }
+
+    % 把楷体设置（Italic/BoldItalic）放在右侧
+    \__fdu_font_put_kai_right:N \l__fdu_tmpb_clist
+
+    % tmpb 放在 tmpa 左侧，连起来之后存入 tmpa
+    \clist_concat:NNN \l__fdu_tmpa_clist \l__fdu_tmpb_clist \l__fdu_tmpa_clist
+
+    \prop_put:NnV \g__fdu_cjk_font_options_prop {mono} \l__fdu_tmpa_clist
   }
 
 % #1 = main / sans / mono
@@ -536,27 +642,9 @@
     % 临时变量是局部的
     \prop_get:NnN \g__fdu_cjk_font_name_prop {#1} \l__fdu_tmpa_tl
     \prop_get:NnN \g__fdu_cjk_font_name_prop {#2} \l__fdu_tmpb_tl
+
     \tl_if_empty:NT \l__fdu_tmpa_tl
       { \prop_put:NnV \g__fdu_cjk_font_name_prop {#1} \l__fdu_tmpb_tl }
-  }
-
-% #1 = main / sans / mono
-% #2 = song / hei  / fang
-\cs_new:Npn \__fdu_parse_cjk_font_options:nn #1#2
-  {
-    % 考虑用 clist 存放 options
-
-    %\prop_get:NnN \g__fdu_cjk_font_options_prop {#1} \l__fdu_tmpa_tl
-    %\prop_get:NnN \g__fdu_cjk_font_options_prop {#2} \l__fdu_tmpb_tl
-    %\__fdu_concat_font_options:NN \l__fdu_tmpa_tl \l__fdu_tmpb_tl
-    %\prop_put:NnV \g__fdu_cjk_font_options_prop {#1} \l__fdu_tmpa_tl
-  }
-
-% 把 #2 放在 #1 左边，并用 |,| 连接
-\cs_new:Npn \__fdu_concat_font_options:NN #1#2
-  {
-    \tl_put_left:Nn #1 { , }
-    \tl_put_left:NV #1 #2
   }
 
 % #1 = prop, #2 = <key>, #3 = clist
@@ -568,29 +656,22 @@
     \group_end:
   }
 
-%\cs_new:Npn \fdu_set_cjk_font:
-%  {
-%    \__fdu_set_cjk_font_aux:nnnx { main } { rm } { song }
-%      {
-%        BoldFont       = \g__fdu_cjk_hei_font_tl,
-%        ItalicFont     = \g__fdu_cjk_kai_font_tl,
-%        BoldItalicFont = \g__fdu_cjk_kai_font_tl
-%      }
-%    \__fdu_set_cjk_font_aux:nnnx { sans } { sf } { hei  }
-%      {
-%        BoldFont       = \g__fdu_cjk_hei_font_tl,
-%        ItalicFont     = \g__fdu_cjk_hei_font_tl,
-%        BoldItalicFont = \g__fdu_cjk_hei_font_tl
-%      }
-%    \__fdu_set_cjk_font_aux:nnnx { mono } { tt } { fang }
-%      {
-%        BoldFont       = \g__fdu_cjk_fang_font_tl,
-%        ItalicFont     = \g__fdu_cjk_kai_font_tl,
-%        BoldItalicFont = \g__fdu_cjk_kai_font_tl
-%      }
-%    \__fdu_set_cjk_kai_font:V \g__fdu_cjk_kai_font_tl
-%  }
+\tl_new:N \l__fdu_cjk_font_kai_tl
+\tl_new:N \l__fdu_cjk_font_kai_bf_tl
 
+% #1 = clist
+\cs_new:Npn \__fdu_font_put_kai_right:N #1
+  {
+    % 获取楷体名称
+    \prop_get:NnN \g__fdu_cjk_font_name_prop {kai} \l__fdu_cjk_font_kai_tl
+    \tl_set_eq:NN \l__fdu_cjk_font_kai_bf_tl \l__fdu_cjk_font_kai_tl
+
+    \tl_put_left:Nn \l__fdu_cjk_font_kai_tl    { ItalicFont = }
+    \tl_put_left:Nn \l__fdu_cjk_font_kai_bf_tl { BoldItalicFont = }
+
+    \clist_put_right:NV #1 \l__fdu_cjk_font_kai_tl
+    \clist_put_right:NV #1 \l__fdu_cjk_font_kai_bf_tl
+  }
 
 
 
