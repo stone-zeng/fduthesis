@@ -105,6 +105,7 @@ tlmgr install         \
   xetex               \
   xkeyval             \
   xunicode            \
+  zhlipsum            \
   zhnumber
 
 # Keep no backups (not required, simply makes cache bigger)
