@@ -1386,6 +1386,19 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
+% \subsubsection{通用函数}
+%
+% \changes{v0.5}{2017/09/19}{新增函数 \cs{@@_quad:} 和
+%   \cs{@@_qquad:}。}
+%
+% \begin{macro}[int]{\@@_quad:,\@@_qquad:}
+% 等价于 \LaTeXe{} 中的 \tn{quad} 和 \tn{qquad}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_quad:  { \skip_horizontal:n { 1 em } }
+\cs_new:Npn \@@_qquad: { \skip_horizontal:n { 2 em } }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{提示信息}
 %
 % \begin{macro}[int]{\@@_msg_new:nn,
@@ -2994,63 +3007,70 @@ version.
 %
 % \subsubsection{定义内部函数}
 %
-% \begin{macro}{\fdu_spread_box:Nn,\fdu_spread_box:NV,
-%   \fdu_spread_box:Nx}
-% 分散对齐的盒子。
+% \begin{macro}{\@@_spread_box:nnn,\@@_spread_box:VVn,
+%   \@@_spread_box:nn,\@@_spread_box:VV}
+% \changes{v0.5}{2017/09/19}{改为内部函数，并重新实现。}
+% 分散对齐的水平盒子。
 % \begin{arguments}
-%   \item 长度
+%   \item 宽度
 %   \item 内容
+%   \item 字体、字号等设置
 % \end{arguments}
 % 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
 % 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。
 % 见 \url{http://tex.stackexchange.com/q/169689}。
-% |NV| 以及 |Nx| 版本的命令可以避免展开 token list 时出现坏盒子。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_spread_box:Nn #1#2
+\cs_new:Npn \@@_spread_box:nnn #1#2#3
   {
-    \makebox [#1] [ s ]
-      { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1}
+      {
+        #3
+        \tl_map_inline:nn {#2} { \exp_not:n {##1} \hfil } \unskip
+      }
   }
-\cs_generate_variant:Nn \fdu_spread_box:Nn { NV, Nx }
+\cs_new:Npx \@@_spread_box:nn #1#2
+  { \@@_spread_box:nnn {#1} {#2} { } }
+\cs_generate_variant:Nn \@@_spread_box:nnn { VVn }
+\cs_generate_variant:Nn \@@_spread_box:nn  { VV  }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_center_box:Nn,\fdu_center_box:NV}
-% 居中对齐的盒子。
-% \begin{arguments}
-%   \item 长度
-%   \item 内容
-% \end{arguments}
+% \begin{macro}{\@@_center_box:nnn,\@@_center_box:VVn,
+%   \@@_center_box:nn,\@@_center_box:VV}
+% \changes{v0.5}{2017/09/19}{改为内部函数，并重新实现。}
+% 居中对齐的水平盒子。参数同 \cs{@@_spread_box:nnn}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_center_box:Nn #1#2
-  { \makebox [#1] [ c ] {#2} }
-\cs_generate_variant:Nn \fdu_center_box:Nn { NV }
+\cs_new:Npn \@@_center_box:nnn #1#2#3
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1} { #3 \hfil #2 \hfil }
+  }
+\cs_new:Npx \@@_center_box:nn #1#2
+  { \@@_center_box:nnn {#1} {#2} { } }
+\cs_generate_variant:Nn \@@_center_box:nnn { VVn }
+\cs_generate_variant:Nn \@@_center_box:nn  { VV  }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fixed_width_box:Nn}
-% 限宽盒子。
-% \begin{arguments}
-%   \item 长度
-%   \item 内容
-% \end{arguments}
+% \begin{macro}{\@@_fixed_width_box:nnn,\@@_fixed_width_box:Vnn}
+% \changes{v0.5}{2017/09/19}{改为内部函数。}
+% 限宽盒子（允许换行）。参数同 \cs{@@_spread_box:nnn}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fixed_width_box:Nn #1#2
-  { \parbox {#1} {#2} }
+\cs_new:Npn \@@_fixed_width_box:nnn #1#2#3
+  { \parbox {#1} { #3 #2 } }
+\cs_generate_variant:Nn \@@_fixed_width_box:nnn { Vnn }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_fixed_width_center_box:Nn,
-%   \fdu_fixed_width_center_box:NV}
-% 居中对齐的限宽盒子。
-% \begin{arguments}
-%   \item 长度
-%   \item 内容
-% \end{arguments}
+% \begin{macro}{\@@_fixed_width_center_box:nnn,
+%   \@@_fixed_width_center_box:VVn}
+% \changes{v0.5}{2017/09/19}{改为内部函数。}
+% 居中对齐的限宽盒子（允许换行）。参数同 \cs{@@_spread_box:nnn}。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
-  { \fdu_fixed_width_box:Nn {#1} { \centering #2 } }
-\cs_generate_variant:Nn \fdu_fixed_width_center_box:Nn { NV }
+\cs_new:Npn \@@_fixed_width_center_box:nnn #1#2#3
+  { \@@_fixed_width_box:nnn {#1} {#2} { \centering #3 } }
+\cs_generate_variant:Nn \@@_fixed_width_center_box:nnn { VVn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3111,16 +3131,19 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_line_spread:N,\fdu_line_spread:n}
+% \begin{macro}{\fdu_line_spread:n,\fdu_line_spread:N}
 % 设置行距。|#1|: 行距倍数。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_line_spread:N #1
+\cs_new:Npn \fdu_line_spread:n #1
   { \linespread {#1} \selectfont }
-\cs_generate_variant:Nn \fdu_line_spread:N { n }
+\cs_generate_variant:Nn \fdu_line_spread:n { N }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{封面各部件}
+%
+% \changes{v0.5}{2017/09/19}{使用内部函数改写，减少对 \LaTeXe{}
+%   的依赖。}
 %
 % \begin{macro}[int]{\@@_cover_id:}
 % 右上角的学校代码和学号。
@@ -3129,9 +3152,8 @@ version.
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c_@@_def_cover_id_margin_sep_tl }
-      \fdu_fixed_width_box:Nn \c_@@_def_cover_id_width_tl
+      \@@_fixed_width_box:Vnn \c_@@_def_cover_id_width_tl
         {
-          \@@_cover_font_size_small:
           \bool_if:NT \l_@@_secret_bool
             {
               \group_begin:
@@ -3152,6 +3174,7 @@ version.
           \c_@@_colon_fullwidth_tl
           \l_@@_info_student_id_tl
         }
+        { \@@_cover_font_size_small: }
     \end{flushright}
   }
 %    \end{macrocode}
@@ -3185,41 +3208,46 @@ version.
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_cover_title:}
-% 标题，共有四行。第一行是论文类型，第二行是学位类型，三、四两行分别
-% 是中英文题目。
+% 标题部分，一共有四行。
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_title:
   {
     \begin{center}
-      {
-        \@@_cover_font_size_huge:
-        \fdu_spread_box:NV
-          \c_@@_def_cover_type_width_tl
-          \c_@@_def_name_thesis_type_tl
-      }
-      \par \vspace { \c_@@_def_cover_v_sep_iii_tl }
-      {
+%    \end{macrocode}
+% 论文类型。
+%    \begin{macrocode}
+      \@@_spread_box:VVn
+        \c_@@_def_cover_type_width_tl
+        \c_@@_def_name_thesis_type_tl
+        { \@@_cover_font_size_huge: }
+      \skip_vertical:n { \c_@@_def_cover_v_sep_iii_tl }
+%    \end{macrocode}
+% 学位类型。
+%    \begin{macrocode}
+      \group_begin:
         \@@_cover_font_size_normal:
         \c_@@_def_name_degree_type_tl
-      }
-      \par \vspace { \c_@@_def_cover_v_sep_iv_tl }
-      {
-        \@@_cover_font_size_large:  \sffamily
-        \fdu_fixed_width_center_box:NV
-          \c_@@_def_cover_title_width_tl
-          \l_@@_info_title_tl
-      }
-      \par \vspace { \c_@@_def_cover_v_sep_v_tl }
-      {
-        \@@_cover_font_size_normal: \bfseries
-        \fdu_fixed_width_center_box:Nn
-          \c_@@_def_cover_title_en_width_tl
-          {
-            \fdu_line_spread:N
-              \c_@@_def_cover_title_en_line_spread_tl
-            \l_@@_info_title_en_tl
-          }
-      }
+      \group_end:
+      \skip_vertical:n { \c_@@_def_cover_v_sep_iv_tl }
+%    \end{macrocode}
+% 中文题目。
+%    \begin{macrocode}
+      \@@_fixed_width_center_box:VVn
+        \c_@@_def_cover_title_width_tl
+        \l_@@_info_title_tl
+        { \@@_cover_font_size_large: \sffamily }
+      \skip_vertical:n { \c_@@_def_cover_v_sep_v_tl }
+%    \end{macrocode}
+% 英文题目。需要调整行距。
+%    \begin{macrocode}
+      \@@_fixed_width_center_box:VVn
+        \c_@@_def_cover_title_en_width_tl
+        \l_@@_info_title_en_tl
+        {
+          \@@_cover_font_size_normal: \bfseries
+          \fdu_line_spread:N
+            \c_@@_def_cover_title_en_line_spread_tl
+        }
     \end{center}
   }
 %    \end{macrocode}
@@ -3232,9 +3260,10 @@ version.
   {
     \begin{center}
 %    \end{macrocode}
+% \changes{v0.5}{2017/09/19}{各字段 |tl| 变量会被完全展开。}
 % 读取左侧名称字段。
 %    \begin{macrocode}
-      \clist_set:Nn \l_@@_tmpa_clist
+      \clist_set:Nx \l_@@_tmpa_clist
         {
           \c_@@_def_name_department_tl,
           \c_@@_def_name_major_tl,
@@ -3246,7 +3275,7 @@ version.
 % 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
 % \cs{l_@@_tmpb_dim}。
 %    \begin{macrocode}
-      \clist_set:Nn \l_@@_tmpb_clist
+      \clist_set:Nx \l_@@_tmpb_clist
         {
           \l_@@_info_department_tl,
           \l_@@_info_major_tl,
@@ -3266,12 +3295,12 @@ version.
           {
             \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
             \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
-            \fdu_spread_box:Nx
+            \@@_spread_box:VV
               \c_@@_def_cover_info_left_width_tl \l_@@_tmpa_tl
             \c_@@_colon_fullwidth_tl
-            \fdu_center_box:NV
+            \@@_center_box:VV
               \l_@@_tmpb_dim \l_@@_tmpb_tl
-            \par \vspace { \c_@@_def_cover_v_sep_vii_tl }
+            \skip_vertical:n { \c_@@_def_cover_v_sep_vii_tl }
           }
       \end{minipage}
     \end{center}
@@ -3279,35 +3308,34 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_decl_text:NNn}
+% \begin{macro}[int]{\@@_decl_text:nnn,\@@_decl_text:VVn}
 % 构建声明文本。
 % \begin{arguments}
 %   \item 标题
-%   \item 内容
+%   \item 声明内容
 %   \item 签名行
 % \end{arguments}
-% 段前空格需要用 \tn{qquad} 手动生成。
 %    \begin{macrocode}
-\cs_new:Npn \@@_decl_text:NNn #1#2#3
+\cs_new:Npn \@@_decl_text:nnn #1#2#3
   {
     \begin{center}
 %<class-en>      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
       \@@_cover_font_size_large: \sffamily #1
     \end{center}
-    \vspace { \c_@@_def_decl_v_sep_iv_tl }
-    \begin{center}
-      \fdu_fixed_width_box:Nn \textwidth
-        {
-          \fdu_line_spread:N \c_@@_def_decl_text_line_spread_tl
-          \qquad #2
-        }
-    \end{center}
-    \vspace { \c_@@_def_decl_v_sep_iv_tl }
+    \skip_vertical:n { \c_@@_def_decl_v_sep_iv_tl }
+%    \end{macrocode}
+% 段前空格需要手动生成。
+%    \begin{macrocode}
+    \@@_fixed_width_box:Vnn \textwidth
+      { \@@_qquad: #2 }
+      { \fdu_line_spread:N \c_@@_def_decl_text_line_spread_tl }
+    \skip_vertical:n { \c_@@_def_decl_v_sep_iv_tl }
 %    \end{macrocode}
 % \tn{hfill} 用来确保签名行靠右对齐。
 %    \begin{macrocode}
     { \hfill #3 }
   }
+\cs_generate_variant:Nn \@@_decl_text:nnn { VVn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3321,13 +3349,13 @@ version.
     \group_begin:
 %<class-en>      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
       \@@_cover_id:
-      \vspace { \c_@@_def_cover_v_sep_i_tl  }
+      \skip_vertical:n { \c_@@_def_cover_v_sep_i_tl  }
       \@@_cover_logo:
-      \vspace { \c_@@_def_cover_v_sep_ii_tl }
+      \skip_vertical:n { \c_@@_def_cover_v_sep_ii_tl }
       \@@_cover_title:
-      \vspace { \c_@@_def_cover_v_sep_vi_tl }
+      \skip_vertical:n { \c_@@_def_cover_v_sep_vi_tl }
       \@@_cover_info:
-      \vspace { \c_@@_def_cover_v_sep_ix_tl }
+      \skip_vertical:n { \c_@@_def_cover_v_sep_ix_tl }
     \group_end:
   }
 %    \end{macrocode}
@@ -3357,7 +3385,7 @@ version.
 %    \begin{macrocode}
       \@schapter
         {
-          \fdu_spread_box:NV
+          \@@_spread_box:VV
             \c_@@_def_cover_instructors_width_tl
             \c_@@_def_name_instructors_tl
         }
@@ -3379,43 +3407,44 @@ version.
   {
     \cleardoublepage
     \thispagestyle { empty }
-    \vspace* { \c_@@_def_decl_v_sep_i_tl }
+    \mode_leave_vertical:
+    \skip_vertical:n { \c_@@_def_decl_v_sep_i_tl }
 %    \end{macrocode}
 % 独创性声明。
 %    \begin{macrocode}
-    \@@_decl_text:NNn
+    \@@_decl_text:VVn
       \c_@@_def_name_originality_decl_tl
       \c_@@_def_originality_decl_text_tl
       {
         \c_@@_def_name_author_sign_tl
         \c_@@_colon_fullwidth_tl
         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
-        \quad
+        \@@_quad:
         \c_@@_def_name_sign_date_tl
         \c_@@_colon_fullwidth_tl
         \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
       }
-    \vspace { \c_@@_def_decl_v_sep_ii_tl }
+    \skip_vertical:n { \c_@@_def_decl_v_sep_ii_tl }
 %    \end{macrocode}
 % 使用授权声明。
 %    \begin{macrocode}
-    \@@_decl_text:NNn
+    \@@_decl_text:VVn
       \c_@@_def_name_authorization_decl_tl
       \c_@@_def_authorization_decl_text_tl
       {
         \c_@@_def_name_author_sign_tl
         \c_@@_colon_fullwidth_tl
         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
-        \quad
+        \@@_quad:
         \c_@@_def_name_supervisor_sign_tl
         \c_@@_colon_fullwidth_tl
         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
-        \quad
+        \@@_quad:
         \c_@@_def_name_sign_date_tl
         \c_@@_colon_fullwidth_tl
         \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
       }
-    \vspace { \c_@@_def_decl_v_sep_iii_tl }
+    \skip_vertical:n { \c_@@_def_decl_v_sep_iii_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3595,14 +3624,14 @@ version.
 %    \begin{macrocode}
     \par \mode_leave_vertical: \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf { \c_@@_def_name_keywords_en_tl } \quad
-    \clist_use:Nn \l_@@_info_keywords_en_clist { \quad }
+    \textbf { \c_@@_def_name_keywords_en_tl } \__fdu_quad:
+    \clist_use:Nn \l_@@_info_keywords_en_clist { \__fdu_quad: }
     \par
 %    \end{macrocode}
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    \textbf { \c_@@_def_name_clc_en_tl } \quad
+    \textbf { \c_@@_def_name_clc_en_tl } \__fdu_quad:
     \l_@@_info_clc_tl
   }
 %    \end{macrocode}
@@ -4127,6 +4156,9 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v0.5}{2017/09/19}{间距使用 |skip| 表达式，不再依赖
+%   \tn{stretch}。}
+%
 % \begin{variable}[int]{\c_@@_def_cover_v_sep_i_tl,
 %   \c_@@_def_cover_v_sep_ii_tl,
 %   \c_@@_def_cover_v_sep_iii_tl,
@@ -4137,14 +4169,14 @@ version.
 %   \c_@@_def_cover_v_sep_ix_tl}
 % 封面中的一些垂直间距，按自上而下的顺序排列。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
-\tl_const:Nn \c_@@_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_i_tl   { 0 pt plus 1.5 fill }
+\tl_const:Nn \c_@@_def_cover_v_sep_ii_tl  { 0 pt plus 0.8 fill }
 \tl_const:Nn \c_@@_def_cover_v_sep_iii_tl { 0.4 cm }
-\tl_const:Nn \c_@@_def_cover_v_sep_iv_tl  { \stretch { 2   } }
+\tl_const:Nn \c_@@_def_cover_v_sep_iv_tl  { 0 pt plus 2.0 fill }
 \tl_const:Nn \c_@@_def_cover_v_sep_v_tl   { 0.8 cm }
-\tl_const:Nn \c_@@_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_vi_tl  { 0 pt plus 2.5 fill }
 \tl_const:Nn \c_@@_def_cover_v_sep_vii_tl { 1 ex }
-\tl_const:Nn \c_@@_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
+\tl_const:Nn \c_@@_def_cover_v_sep_ix_tl  { 0 pt plus 1.5 fill }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -4164,9 +4196,9 @@ version.
 % 声明页中的一些垂直间距，按自上而下的顺序排列。最后一项是标题与
 % 文本、文本与签名行的间距。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_decl_v_sep_i_tl   { \stretch { 0.2 } }
-\tl_const:Nn \c_@@_def_decl_v_sep_ii_tl  { \stretch { 2.5 } }
-\tl_const:Nn \c_@@_def_decl_v_sep_iii_tl { \stretch { 2.5 } }
+\tl_const:Nn \c_@@_def_decl_v_sep_i_tl   { 0 pt plus 0.2 fill }
+\tl_const:Nn \c_@@_def_decl_v_sep_ii_tl  { 0 pt plus 2.5 fill }
+\tl_const:Nn \c_@@_def_decl_v_sep_iii_tl { 0 pt plus 2.5 fill }
 \tl_const:Nn \c_@@_def_decl_v_sep_iv_tl  { 0.8 cm }
 %    \end{macrocode}
 % \end{variable}
