@@ -11,7 +11,11 @@ output_file = io.open(output_file_name, "w")
 
 for line in input_file:lines() do
     if string.sub(line, 1, label_str_len) == label_str then
-        new_line = space_str .. string.sub(line, label_str_len + 1) .. lf_str
+        new_line = space_str .. string.sub(line, label_str_len + 1)
+            .. lf_str
+        -- 空行中的空格会被移除。
+        -- 缩进不处理，是为了确保 `latexexample`、`shellexample`
+        -- 等代码段缩进正常。
         if new_line == space_str .. lf_str then
             new_line = lf_str
         end

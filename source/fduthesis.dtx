@@ -288,14 +288,7 @@ version.
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \title{\textcolor{MaterialIndigo800}{^^A
-%   \textbf{fduthesis: 复旦大学论文^^A
-%     \xpinyin[font=\sffamily]{模}{mu2}板}}}
-% \author{曾祥东}
-% \date{\today \quad v0.4^^A
-%   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
-%
-%^^A! \PassOptionsToPackage{scheme=plain}{ctex}
+%^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
 %^^A! \documentclass{fdudoc}
 %^^A! \hypersetup
 %^^A!   {
@@ -307,13 +300,36 @@ version.
 %^^A!     section = {name = {}, format += \raggedright},
 %^^A!     subsubsection / tocline = {\CTEXnumberline{#1}#2}
 %^^A!   }
+%^^A! \renewcommand\equationautorefname{Equation}
+%^^A! \renewcommand\footnoteautorefname{Footnote}
+%^^A! \renewcommand\itemautorefname{Item}
+%^^A! \renewcommand\figureautorefname{Figure}
+%^^A! \renewcommand\tableautorefname{Table}
+%^^A! \renewcommand\partautorefname{Part}
+%^^A! \renewcommand\appendixautorefname{Appendix}
+%^^A! \renewcommand\chapterautorefname{Chapter}
+%^^A! \renewcommand\sectionautorefname{Section}
+%^^A! \renewcommand\subsectionautorefname{Subsection}
+%^^A! \renewcommand\subsubsectionautorefname{Subsubsection}
+%^^A! \renewcommand\paragraphautorefname{Paragraph}
+%^^A! \renewcommand\subparagraphautorefname{Subparagraph}
+%^^A! \renewcommand\FancyVerbLineautorefname{Line}
+%^^A! \renewcommand\theoremautorefname{Theorem}
+%^^A! \renewcommand\pageautorefname{Page}
 %^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 %^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+%
+% \title{\textcolor{MaterialIndigo800}{^^A
+%   \textbf{fduthesis: 复旦大学论文^^A
+%     \xpinyin[font=\sffamily]{模}{mu2}板}}}
+% \author{曾祥东}
+% \date{\today \quad v0.4^^A
+%   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A!
-%^^A! \title{\textcolor{MaterialIndigo800}{^^A
+%^^A! \title{\textcolor{MaterialIndigo800}{%
 %^^A!   \textbf{fduthesis: \LaTeX{} Thesis Template for \\ Fudan University}}}
 %^^A! \author{Xiangdong Zeng}
-%^^A! \date{\today \quad v0.4^^A
+%^^A! \date{\today \quad v0.4%
 %^^A!   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A!
 %^^A! \begin{document}
@@ -403,7 +419,6 @@ version.
 % 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
 % \scite{interfaces3,source3} 编写，以适应\TeX{} 技术发展潮流；
 % 同时还将构建一套简洁的接口，方便用户使用。
-%
 %^^A! \cls{fduthesis} is a thesis template for Fudan University.
 %^^A! This template is mostly written in \LaTeX3 syntax, and
 %^^A! provides a simple interface for users.
@@ -418,7 +433,6 @@ version.
 % \scite{刘海洋2013latex入门} 第一章，或大名鼎鼎的“\pkg{lshort}”
 % \scite{lshort} 及其中文翻译版 \scite{lshort-zh-cn}。当然，
 % 网络上的入门教程多如牛毛，您可以自行选取。
-%
 %^^A! This documentation is \emph{not} a \LaTeX{} tutorial at
 %^^A! starter's level. If you are totally a newbie, please read some
 %^^A! introductions like the famous \pkg{lshort}. Of course, there
@@ -437,7 +451,6 @@ version.
 % （或西文斜体）表示命令参数，如 \meta{模板选项}、
 % \meta{English title} 等。在使用时，参数两侧的尖括号不必输入。
 % 示例代码进行了语法高亮处理，以方便阅读。
-%
 %^^A! In this documentation, different typefaces are used to
 %^^A! represent different contents. Packages and classes are printed
 %^^A! in sans-serif font, e.g.\ \pkg{xeCJK} package and
@@ -454,7 +467,6 @@ version.
 % 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线
 % 的则为命令行代码，请注意区分。模板提供的选项、命令、环境等，
 % 均用横线框起，同时给出使用语法和相关说明。
-%
 %^^A! \LaTeX{} code will have a blue line on their left, while for
 %^^A! command lines there will be a pink line. The options, commands
 %^^A! and environments in \cls{fduthesis} will be surrounded by two
@@ -471,7 +483,6 @@ version.
 %   \item 名字后面不带有特殊符号的，表示既可以在中文模板中使用，
 %     也可以在英文模板中使用。
 % \end{itemize}
-%
 %^^A! The options, commands and environments in \cls{fduthesis} can be
 %^^A! divided into the following three types:
 %^^A! \begin{itemize}
@@ -487,14 +498,13 @@ version.
 % 代码实现主要面向对 \LaTeX{} 宏包开发感兴趣的用户。如果您有任何改进
 % 意见或者功能需求，欢迎前往 GitHub 仓库
 % \href{https://github.com/Stone-Zeng/fduthesis/issues}{提交 issue}。
-%
-% 文档的最后还提供了版本历史和代码索引，以供查阅。
-%
 %^^A! If you want to read the implementation part, please turn to the
 %^^A! Chinese version. Any issues or feature requests can be submitted
 %^^A! in the \href{https://github.com/Stone-Zeng/fduthesis/issues}%
 %^^A! {GitHub repository}.
 %^^A!
+%
+% 文档的最后还提供了版本历史和代码索引，以供查阅。
 %
 % \section{安装}
 %^^A! \section{Installation}
@@ -525,7 +535,6 @@ version.
 %
 % 本模板主要包含核心文档类、配置文件、用户文档等几个部分，
 % 其具体组成见表~\ref{tab:fduthesis-components}。
-%
 %^^A! There are several parts in \cls{fduthesis}, including kernel
 %^^A! template classes, configuration files and user's guides. More
 %^^A! details are put in \autoref{tab:fduthesis-components}.
@@ -552,7 +561,6 @@ version.
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
-%
 %^^A! \begin{table}[h]
 %^^A!   \caption{The components of \cls{fduthesis}}
 %^^A!   \label{tab:fduthesis-components}
@@ -618,7 +626,6 @@ version.
 %     你好，\LaTeX{}！
 %   \end{document}
 % \end{latexexample}
-%
 %^^A! Here is a minimal \TeX{} file for \cls{fduthesis}:
 %^^A! \begin{latexexample}[deletetexcs={\documentclass},%
 %^^A!     moretexcs={\chapter},morekeywords={\documentclass},%
@@ -635,7 +642,6 @@ version.
 %
 % 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
 % 一篇 5 页的文章。当然，这篇文章的绝大部分都是空白的。
-%
 %^^A! Compile this file under the instructions in
 %^^A! \autoref{subsec:Compilation}, you will get a 5-page article.
 %^^A! However, most of it will be blank, as you may predicate.
@@ -655,7 +661,6 @@ version.
 % \end{latexexample}
 % 英文模板只对正文部分进行了改动，封面、指导小组成员以及声明页仍将
 % 显示为中文。
-%
 %^^A! The English-version can be used in the same way:
 %^^A! \begin{latexexample}[deletetexcs={\documentclass},%
 %^^A!     moretexcs={\chapter},morekeywords={\documentclass},%
@@ -680,7 +685,6 @@ version.
 % 本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或 \LuaLaTeX{}
 % 编译。推荐使用 \XeLaTeX{}。
 % 为了生成正确的目录、脚注以及交叉引用，您至少需要连续编译两次。
-%
 %^A! \cls{fduthesis} does not support \pdfTeX{}. Please use
 %^A! \XeLaTeX{} or \LuaLaTeX{} to compile. \XeLaTeX{} is recommended.
 %^A! To get the correct table of contents, footnotes and cross-
@@ -697,7 +701,6 @@ version.
 % \begin{shellexample}[morekeywords={latexmk},emph={-xelatex}]
 %   latexmk -xelatex thesis
 % \end{shellexample}
-%
 %^^A! In the following example, supoose your \TeX{} file is
 %^^A! |thesis.tex|. Use \XeLaTeX{} to compile, please execute the
 %^^A! following commands:
@@ -720,7 +723,6 @@ version.
 % \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
 %   latexmk -lualatex thesis
 % \end{shellexample}
-%
 %^^A! Use \LuaLaTeX{} to compile, please execute:
 %^^A! \begin{shellexample}[morekeywords={lualatex}]
 %^^A!   lualatex thesis
@@ -734,7 +736,6 @@ version.
 %
 % 需要注意，请不要把模板中的配置文件 \file{latexmkrc} 放置在工作
 % 文件夹下。该配置文件仅适用于编译模板用户手册。
-%
 %^^A! Note that you should not put the profile \file{latexmkrc} in
 %^^A! your working directories. This file is meant to compile the
 %^^A! user's guide.
@@ -748,19 +749,47 @@ version.
 % \begin{latexexample}[deletetexcs={\documentclass},%
 %     morekeywords={\documentclass}]
 %   \documentclass(*\oarg{模板选项}*){fduthesis}
+%   \documentclass(*\oarg{模板选项}*){fduthesis-en}
 % \end{latexexample}
+%^^A! You can specify some \emph{template options} when loading
+%^^A! \cls{fduthesis}:
+%^^A! \begin{latexexample}[deletetexcs={\documentclass},%
+%^^A!     morekeywords={\documentclass}]
+%^^A!   \documentclass(*\oarg{options}*){fduthesis}
+%^^A!   \documentclass(*\oarg{options}*){fduthesis-en}
+%^^A! \end{latexexample}
+%^^A!
 %
 % 有些模板选项为布尔型，它们只能在 |true| 和 |false| 中取值。
 % 对于这些选项，\meta{选项} |= true| 中的“|= true|”可以省略。
+%^^A! Some options are \emph{boolean} --- they can only take the
+%^^A! value |true| or |false|. For these options, ``|=true|'' in
+%^^A! \meta{option} |= true| can be omitted.
+%^^A!
 %
 % \begin{function}{oneside,twoside}
 %   指明论文的单双面模式，默认为 |twoside|。该选项会影响每章开头的
-%   位置，还会影响页眉样式。
+%   位置，还会影响页眉样式。注意，该选项不会影响打印机的设置。
 % \end{function}
+%^^A! \begin{function}{oneside,twoside}
+%^^A!   Specifies whether single or double sided output should be
+%^^A!   generated. \opt{twoside} will be choosed by default. These
+%^^A!   option will change where the new chapters begin and how
+%^^A!   the headers display. The option \opt{twoside} does
+%^^A!   \emph{not} tell the printer to actually make a two-sided
+%^^A!   printout.
+%^^A! \end{function}
+%^^A!
 %
 % 在双面模式（|twoside|）下，按照通常的排版惯例，每章应只从奇数页
 % （在右）开始；而在单页模式（|oneside|）下，则可以从任意页面开始。
 % 本模板中，目录、摘要、符号表等均视作章，也按相同方式排版。
+%^^A! If choosing |twoside|, chapters will begin at the odd pages
+%^^A! (right hand). However, they will begin at arbitrary pages
+%^^A! available when choosing |oneside|. Table of contents, abstract
+%^^A! and the list of symbols are considered as chapters and
+%^^A! processed in the same way.
+%^^A!
 %
 % 双面模式下，正文部分偶数页（在左）的左页眉显示章标题，奇数页
 % （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，但文字
@@ -768,6 +797,18 @@ version.
 % “{\kaishu 摘\textvisiblespace{}要}”等）。
 % 而在单面模式下，正文部分则页面不分奇偶，均同时显示左、右页眉，
 % 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
+%^^A! At two-sided mode, left headers on the even pages (left hand)
+%^^A! in \emph{main body} will show the title of chapters, while the
+%^^A! right headers on the odd pages (right hand) will show the
+%^^A! title of sections. Headers in \emph{front matter} have the
+%^^A! same style, but they will have only show the title as
+%^^A! ``\textit{Contents}'', ``\textit{Abstract}'' etc.
+%^^A!
+%^^A! At one-sided mode, both left and right headers on \emph{all}
+%^^A! the pages in main body will be shown. The text is title of
+%^^A! chapters and sections, respectively. In front matter, there
+%^^A! are only middle headers, which show the corresponding titles.
+%^^A!
 %
 % \begin{function}{nofonts}
 %   \begin{fdusyntax}[emph={[1]nofonts}]
@@ -775,6 +816,13 @@ version.
 %   \end{fdusyntax}
 %   选择是否禁用默认字体设置，默认关闭。
 % \end{function}
+%^^A! \begin{function}{nofonts}
+%^^A!   \begin{fdusyntax}[emph={[1]nofonts}]
+%^^A!     nofonts = (*<\TFF>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Disable the default font settings. Default off.
+%^^A! \end{function}
+%^^A!
 %
 % 禁用默认字体设置后，中文将无法正常显示，而西文则会按照 \LaTeX{}
 % 的默认配置采用 Computer Modern 字体系列 \footnote{^^A
@@ -791,6 +839,13 @@ version.
 %   \end{fdusyntax}
 %   选择是否开启草稿模式，默认关闭。
 % \end{function}
+%^^A! \begin{function}{nofonts}
+%^^A!   \begin{fdusyntax}[emph={[1]nofonts}]
+%^^A!     nofonts = (*<\TFF>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Enable draft mode. Default off.
+%^^A! \end{function}
+%^^A!
 %
 % 草稿模式为全局选项，会影响到很多宏包的工作方式。
 % 开启之后，主要的变化有：
@@ -800,8 +855,22 @@ version.
 %   \item 关闭超链接渲染，也不再生成 PDF 书签；
 %   \item 显示页面边框。
 % \end{itemize}
+%^^A! |draft| is a global option ans will affect many packages.
+%^^A! You may notice the following changes when using |draft|:
+%^^A! \begin{itemize}
+%^^A!   \item Lines with overfull \tn{hbox}'s will be marked with
+%^^A!     a thick black square on the right margin.
+%^^A!   \item Do not include graphics files actually, but instead
+%^^A!     print a box of the size the graphic would take up, and
+%^^A!     the file name.
+%^^A!   \item Do not make hyperlinkings and PDF bookmarks.
+%^^A!   \item Show the page frames.
+%^^A! \end{itemize}
+%^^A!
 %
 % \subsection{参数设置}
+%^^A! \subsection{Other options}
+%^^A!
 %
 % 本模板提供了一系列选项，可由您自行配置。以下所有选项均可通过
 % 统一的命令 \cs{fdusetup} 来设置。
