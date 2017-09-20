@@ -1,29 +1,33 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
+%\RequirePackage{etoolbox}
+%\makeatletter
+%\patchcmd{\alloc@}%
+%  {\wlog{\string#5=\string#2\the\allocationnumber}}{}%
+%  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+%\patchcmd{\newinsert}%
+%  {\wlog{\string#1=\string\insert\the\allocationnumber}}{}%
+%  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+%\patchcmd{\e@alloc}%
+%  {\wlog{\string#6=\string#1\the\allocationnumber}}{}%
+%  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+%\makeatother
+
+%\PassOptionsToPackage{showframe}{geometry}
+
 \documentclass[twoside]{fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
-
-% \hypersetup{linktoc = page}
-
-% \ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}
-
 \fdusetup{
   style = {
-    % font = libertinus,
-    % cjkfont = founder,
+    cjkfont = founder,
     fullwidthstop,
-    footnotestyle = libertinus*,
-    % automakecover = false
     logo = {../logo/pdf/fudan-name-black.pdf},
-    % logosize = {2cm,2cm,2cm}
-    hyperlink = color,
-    hyperlinkcolor = default
   },
   info = {
-    title = {自河南经乱关内阻饥兄弟离散各在一处},
+    title = {自河南经乱关内阻饥兄弟离散各在一处因望月有感聊书所怀寄
+      上浮梁大兄於潜七兄乌江十五兄兼示符离及下邽弟妹},
     title* = {Measurements of the interaction between energetic
       photons and hadrons show that the interaction},
-%    date = {2017年2月10日},
     author = {某某某},
     author* = {Xiangdong Zeng},
     supervisor = {陈丙丁 \quad 教授},
