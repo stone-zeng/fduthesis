@@ -37,8 +37,8 @@ latexmkrc
 .vs/
 .vscode/
 build/
+files/
 logo/
-support/
 temp/
 tools/
 
@@ -46,9 +46,5 @@ source/*.cls
 source/*.def
 source/*.ins
 source/*.sty
-
-!support/*.sh
-
-# test/*.cls
-# test/*.def
-test/l3benchmark.sty
+test/*.cls
+test/*.def
