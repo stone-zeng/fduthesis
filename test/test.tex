@@ -1,19 +1,45 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
-\documentclass[twoside]{fduthesis}
-\usepackage{kantlipsum}
-\usepackage{zhlipsum}
+%\RequirePackage{l3benchmark,xparse}
+%\ExplSyntaxOn
+%\NewDocumentCommand \TIMING {m} {\benchmark:n{#1}}
+%\ExplSyntaxOff
 
-% \hypersetup{linktoc = page}
+\RequirePackage{etoolbox}
+\makeatletter
+\patchcmd{\alloc@}%
+  {\wlog{\string#5=\string#2\the\allocationnumber}}{}%
+  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+\patchcmd{\newinsert}%
+  {\wlog{\string#1=\string\insert\the\allocationnumber}}{}%
+  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+\patchcmd{\e@alloc}%
+  {\wlog{\string#6=\string#1\the\allocationnumber}}{}%
+  {\typeout{****** success ******}}{\typeout{****** fail ******}}
+\makeatother
 
-% \ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}
+\def\ONLYFONTTEST{1}
+
+\documentclass[oneside]{fduthesis}
+
+\ifdefined\ONLYFONTTEST
+  \usepackage{kantlipsum}
+  \usepackage{zhlipsum}
+\fi
+
+\makeatletter
+\@ifpackageloaded{luatexja}{%
+  \ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}}{}
+\makeatother
+
+\def\WORLDa{你好，世界。}
 
 \fdusetup{
   style = {
-    % font = libertinus,
-    % cjkfont = founder,
-    fullwidthstop,
+    % font = none,
+    % cjkfont = none,
+    % fullwidthstop = all,
     footnotestyle = libertinus*,
-    % automakecover = false
+    % automakecover = false,
     logo = {../logo/pdf/fudan-name-black.pdf},
     % logosize = {2cm,2cm,2cm}
     hyperlink = color,
@@ -23,7 +49,7 @@
     title = {自河南经乱关内阻饥兄弟离散各在一处},
     title* = {Measurements of the interaction between energetic
       photons and hadrons show that the interaction},
-%    date = {2017年2月10日},
+    % date = {2017年2月10日},
     author = {某某某},
     author* = {Xiangdong Zeng},
     supervisor = {陈丙丁 \quad 教授},
@@ -43,17 +69,26 @@
   }
 }
 
-% \setCJKmainfont[ItalicFont=FandolFang]{Source Han Serif SC}
-% \setCJKsansfont{Source Han Sans SC}
-% \setCJKfamilyfont{kai}{FandolKai}
+% \setmainfont{Adobe Garamond Pro}[ItalicFont=Consolas,BoldFont=Candara]
+% \setsansfont{Calibri}
+% \setmonofont{Consolas}
 % \setmathfont{TeX Gyre Pagella Math}
+
+% \setCJKmainfont{Source Han Serif SC}[ItalicFont=YouYuan]
+% \setCJKsansfont{Source Han Sans SC}
+% \setCJKmonofont{FangSong}
+% \setCJKfamilyfont{kai}{FandolKai} % 目前没有被 fduthesis 接管
+
+\def\WORLDb{你好，世界。}
 
 \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
 \newcommand\fonttest{%
   正常：\qquad\fonttesttext \par
   粗体：\qquad\textbf{\fonttesttext} \par
   倾斜：\qquad\textit{\fonttesttext} \par
-  小型大写：\qquad\textsc{\fonttesttext}
+  粗斜：\qquad\textit{\textbf{\fonttesttext}}
+  % 小型大写并不需要
+  %小型大写：\qquad\textsc{\fonttesttext}
 }
 
 \begin{document}
@@ -127,7 +162,7 @@ PY          &  聚吡咙
 \end{notation}
 
 \mainmatter
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
+\chapter{文本，字体，脚注 Text, font and footnote}
 \section{文字与段落 Text and paragraph}
 \subsection{中文文本 Chinese}
 \zhlipsum
@@ -147,11 +182,30 @@ PY          &  聚吡咙
 \subsection{打字机字体 Typewriter}
 \texttt{\fonttest}
 
+\subsection{数学}
+\[ \int \sin \symbf{x} \symrm{d} \symbf{x} = \pi \Sigma ABC\]
+
 \subsection{句号}
+A: [before \verb+\fdusetup}+] \WORLDa \par
+B: [after \verb+\fdusetup}+] \WORLDb  \par
+C: [normal text] 你好，世界。 \par
+C: [use \verb+\symbol+] 你好，世界\symbol{"3002}
+
+\textit{\WORLDa\WORLDb 。\symbol{"3002}}
+
+\textsf{\WORLDa\WORLDb 。\symbol{"3002}}
+
+\textbf{\addCJKfontfeatures{Mapping = fullwidth-stop}\WORLDa\WORLDb 。\symbol{"3002}}
+
+\texttt{\WORLDa\WORLDb 。\symbol{"3002}}
+
 如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
+如果\symbol{"3002}会突然：\textsc{Ideographic Full Stop} \par
 如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
 如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+
+
+\ifdefined\ONLYFONTTEST
 
 \clearpage
 
@@ -462,4 +516,7 @@ Knuth D E.
 \newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
 \newblock Boston: Addison--Wesley Publishing Company, 1986
 \end{thebibliography}
+
+\fi
+
 \end{document}
