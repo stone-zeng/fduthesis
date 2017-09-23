@@ -111,10 +111,10 @@
         \clist_gput_right:Nn \g__fdu_to_book_clist { twoside }
         \bool_set_true:N     \g__fdu_twoside_bool
       },
-    nofonts .choice:,
-    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
-    nofonts .default:n = true,
-    nofonts .initial:n = false,
+    %nofonts .choice:,
+    %nofonts .bool_set:N = \g__fdu_no_fonts_bool,
+    %nofonts .default:n = true,
+    %nofonts .initial:n = false,
     draft .choice:,
     draft / true  .code:n =
       {
@@ -224,6 +224,15 @@
         \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
       },
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    font / none .code:n =
+      {
+        \__fdu_initialize_prop:Nn \g__fdu_font_name_prop
+          { main, sans, mono, math }
+        \__fdu_initialize_prop:Nn \g__fdu_font_options_prop
+          { main, sans, mono, math }
+        \keys_set:nn { fdu / style } { footnotestyle = plain }
+      },
     cjkfont .choice:,
     cjkfont .value_required:n = true,
     cjkfont / adobe .code:n =
@@ -263,8 +272,31 @@
         \fdu_choose_cjk_font:nn { hei  } { SimHei   }
         \fdu_choose_cjk_font:nn { fang } { FangSong }
         \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
+      },
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    cjkfont / none .code:n =
+      {
+        %\bool_set_true:N \l__fdu_no_cjk_fonts_bool
+        \__fdu_initialize_prop:Nn \g__fdu_cjk_font_name_prop
+          { rm, sf, tt, kai }
+        \__fdu_initialize_prop:Nn \g__fdu_cjk_font_options_prop
+          { rm, sf, tt, kai }
       }
   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 把 #1 清空，并设置 main={}, sans={} etc.
+% #1 = prop list
+% #2 = {family 1, family 2, ...} (e.g. {main, sans, mono, math})
+\cs_new:Npn \__fdu_initialize_prop:Nn #1#2
+  {
+    \prop_clear:N #1
+    \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
+  }
+
+
+
+
 \RenewDocumentCommand \setmainfont { O { } m O { } }
   { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
 \RenewDocumentCommand \setsansfont { O { } m O { } }
@@ -299,14 +331,23 @@
     \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
     \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {  }
   }
+  
 \cs_new_protected:Npn \__fdu_set_font:
   {
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\prop_show:N \g__fdu_font_name_prop
+%\prop_show:N \g__fdu_font_options_prop
+
+
     \clist_map_inline:nn { main, sans, mono, math }
       {
         \prop_get:NnN \g__fdu_font_name_prop    {##1}
           \l__fdu_tmpa_tl
         \prop_get:NnN \g__fdu_font_options_prop {##1}
           \l__fdu_tmpb_tl
+        \tl_if_empty:NT \l__fdu_tmpa_tl
+          { \__fdu_error:nn { font-not-defined } {##1} }
         \use:c { __fdu_set_ ##1 _font:VV }
           \l__fdu_tmpa_tl \l__fdu_tmpb_tl
       }
@@ -373,11 +414,21 @@
     \exp_args:Nc \cs_generate_variant:Nn
       { __fdu_set_ #1 _font:nn } { VV }
   }
+
+
+
 \cs_new_protected:Npn \__fdu_set_cjk_font:
   {
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\prop_show:N \g__fdu_cjk_font_name_prop
+%\prop_show:N \g__fdu_cjk_font_options_prop
+
     \clist_map_inline:nn { rm, sf, tt, kai }
       {
         \use:c { __fdu_parse_cjk_ ##1 _font: }
+        \__fdu_check_cjk_font:n   {##1}
         \__fdu_set_cjk_font_aux:n {##1}
       }
     \clist_map_inline:nn { song, hei, fang }
@@ -388,6 +439,17 @@
   }
 \tl_new:N    \l__fdu_font_name_tl
 \clist_new:N \l__fdu_font_options_clist
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cs_new_protected:Npn \__fdu_check_cjk_font:n #1
+  {
+    \prop_get:NnN \g__fdu_cjk_font_name_prop {#1}
+      \l__fdu_font_name_tl
+    \tl_if_empty:NT \l__fdu_font_name_tl
+      { \__fdu_error:nn { cjk-font-not-defined } {#1} }
+  }
+
+
 \cs_new_protected:Npn \__fdu_parse_cjk_rm_font:
   {
     \prop_get:NnNF \g__fdu_cjk_font_name_prop
@@ -489,26 +551,53 @@
       { \sys_if_engine_luatex:T { \ctex_ltj_set_family:nVV } }
     {#1} \exp_not:n { \l__fdu_tmpb_tl \l__fdu_tmpa_tl }
   }
-\cs_new:Npx \__fdu_set_cjk_kai_font:n #1
+
+\__fdu_msg_new:nn { font-not-defined }
   {
-    \sys_if_engine_xetex:TF
-      { \exp_not:N \xeCJK_set_family:nnn { kai } { } {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \exp_not:N \ctex_ltj_set_family:nnn { kai } { } {#1} }
-      }
+    \str_upper_case:f { \tl_head:n {#1} } \tl_tail:n {#1} ~
+    font~ is~ not~ defined. \\\\
+    You~ can~ set~ option~ "font"~ via~ "\string\fdusetup",~
+    or~ use~ command~ \\
+    "\string\set #1 font"~ to~ define~ new~ font~ families.
   }
-\cs_generate_variant:Nn \__fdu_set_cjk_kai_font:n { V }
+\__fdu_msg_new:nn { cjk-font-not-defined }
+  {
+    CJK~ font~ family~ "#1"~ is~ not~ defined. \\\\
+    You~ can~ set~ option~ "cjkfont"~ via~ "\string\fdusetup",~
+    or~ use~ commands~ \\
+    "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
+    "\string\setCJKmonofont"~ etc~ \\
+    to~ define~ new~ CJK~ font~ families.
+  }
+
+
+% 没用了？
+%\cs_new:Npx \__fdu_set_cjk_kai_font:n #1
+%  {
+%    \sys_if_engine_xetex:TF
+%      { \exp_not:N \xeCJK_set_family:nnn { kai } { } {#1} }
+%      {
+%        \sys_if_engine_luatex:T
+%          { \exp_not:N \ctex_ltj_set_family:nnn { kai } { } {#1} }
+%      }
+%  }
+%\cs_generate_variant:Nn \__fdu_set_cjk_kai_font:n { V }
 \sys_if_engine_xetex:T
   {
     \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
     \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
   }
+
+
+
+
 \ctex_at_end_preamble:n
   {
     \__fdu_set_font:
     \__fdu_set_cjk_font:
   }
+
+
 \sys_if_engine_xetex:TF
   {
     \prg_new_protected_conditional:Npnn
@@ -754,8 +843,14 @@
 \tl_const:Nn \c__fdu_fn_style_xits_sans_negative_tl
   { xits-sans* }
 \tl_new:N \l__fdu_fn_style_tl
-\bool_if:NT \g__fdu_no_fonts_bool
-  { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
+
+
+
+%\bool_if:NT \g__fdu_no_fonts_bool
+%  { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
+
+
+
 \keys_define:nn { fdu / style }
   {
     footnotestyle .choices:nn =
@@ -1415,14 +1510,19 @@
     theorem / bodyfont       = { \fdu@kai },
     theorem / counter        = { chapter }
   }
-\bool_if:NF \g__fdu_no_fonts_bool
-  {
+
+
+
+%\bool_if:NF \g__fdu_no_fonts_bool
+%  {
     \keys_set:nn { fdu }
       {
         style / font    = times,
         style / cjkfont = fandol
       }
-  }
+%  }
+
+
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } {#1} }
 \fdunewtheorem* { proof       } { \c__fdu_def_name_proof_tl      }
