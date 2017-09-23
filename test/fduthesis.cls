@@ -146,11 +146,6 @@
 \RequirePackage { longtable }
 \RequirePackage { caption }
 \RequirePackage { xcolor }
-\__fdu_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
-\__fdu_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-\__fdu_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
-\sys_if_engine_xetex:T
-  { \__fdu_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
 \cs_new_protected:Npn \__fdu_check_package:nnn #1#2#3
   {
     \@ifpackagelater {#1} {#2}
@@ -164,6 +159,11 @@
     Please~ update~ an~ up-to-date~ version~ of~ it~ using~ your \\
     TeX~ package~ manager~ or~ from~ CTAN.
   }
+\__fdu_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
+\__fdu_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
+\__fdu_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
+\sys_if_engine_xetex:T
+  { \__fdu_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
 \geometry
   {
     paper      = \c__fdu_def_paper_size_tl,

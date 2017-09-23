@@ -1520,16 +1520,8 @@ version.
 \RequirePackage { xcolor }
 %    \end{macrocode}
 %
-% 检查过时宏包。
-%    \begin{macrocode}
-\@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
-\@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-\@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
-\sys_if_engine_xetex:T
-  { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
-%    \end{macrocode}
-%
 % \begin{macro}[int]{\@@_check_package:nnn}
+% 检查过时宏包。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_package:nnn #1#2#3
   {
@@ -1546,6 +1538,14 @@ version.
   }
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
+\@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
+\@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
+\sys_if_engine_xetex:T
+  { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
+%    \end{macrocode}
 %
 % \subsection{页面布局}
 %
