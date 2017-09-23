@@ -556,22 +556,6 @@ version.
 % 而在单面模式下，正文部分则页面不分奇偶，均同时显示左、右页眉，
 % 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
 %
-% \begin{function}{nofonts}
-%   \begin{fdusyntax}[emph={[1]nofonts}]
-%     nofonts = (*<\TFF>*)
-%   \end{fdusyntax}
-%   选择是否禁用默认字体设置，默认关闭。
-% \end{function}
-%
-% 禁用默认字体设置后，中文将无法正常显示，而西文则会按照 \LaTeX{}
-% 的默认配置采用 Computer Modern 字体系列 \footnote{^^A
-%   使用 \XeLaTeX{} 或 \LuaLaTeX{} 编译时，实际使用 Latin Modern
-%   作为正文字体，数学字体仍使用 Computer Modern。本模板加载了
-%   \pkg{unicode-math} 宏包，此时默认数学字体为 Latin Modern Math。}。
-% 此时，您需要使用 \pkg{fontspec}、\pkg{xeCJK}、\pkg{unicode-math}
-% 等宏包提供的 \cs{setmainfont}、\cs{setCJKmainfont}、
-% \cs{setmathfont} 等命令来配置字体。
-%
 % \begin{function}{draft}
 %   \begin{fdusyntax}[emph={[1]draft}]
 %     draft = (*<\TFF>*)
@@ -652,17 +636,21 @@ version.
 %
 % \begin{function}{style/font}
 %   \begin{fdusyntax}[emph={[1]font}]
-%     font = (*<libertinus|lm|palatino|(times)>*)
+%     font = (*<libertinus|lm|palatino|(times)|none>*)
 %   \end{fdusyntax}
 %   设置西文字体（包括数学字体）。
 % \end{function}
 %
 % \begin{function}[rEXP]{style/cjkfont}
 %   \begin{fdusyntax}[emph={[1]cjkfont}]
-%     cjkfont = (*<adobe|(fandol)|founder|linux|mac|windows>*)
+%     cjkfont = (*<adobe|(fandol)|founder|linux|mac|windows|none>*)
 %   \end{fdusyntax}
 %   设置中文字体。
 % \end{function}
+%
+% 启用 |font| |=| |none| 或 |cjkfont| |=| |none| 之后，模板将关闭
+% 默认西文/中文字体设置。此时，您需要自行使用 \cs{setmainfont}、
+% \cs{setCJKmainfont}、\cs{setmathfont} 等命令来配置字体。
 %
 % \begin{function}{style/fontsize}
 %   \begin{fdusyntax}[emph={[1]fontsize}]
@@ -1532,10 +1520,18 @@ version.
 \RequirePackage { xcolor }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_check_package:nnn}
 % 检查过时宏包。
 %    \begin{macrocode}
-\cs_new:Npn \@@_check_package:nnn #1#2#3
+\@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
+\@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
+\@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
+\sys_if_engine_xetex:T
+  { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\@@_check_package:nnn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_package:nnn #1#2#3
   {
     \@ifpackagelater {#1} {#2}
       { } { \@@_error:nnn { package-too-old } {#1} {#3} }
@@ -1550,16 +1546,6 @@ version.
   }
 %    \end{macrocode}
 % \end{macro}
-%
-% 2017/07/19 之后版本的 \LaTeX3 中，\cs{bool_if:n} 的定义有所
-% 改变，因此下列宏包低于所列版本时将无法正常编译。
-%    \begin{macrocode}
-\@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
-\@@_check_package:nnn { fontspec     } { 2017/07/23 } { 2.6c   }
-\@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
-\sys_if_engine_xetex:T
-  { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
-%    \end{macrocode}
 %
 % \subsection{页面布局}
 %
@@ -1904,21 +1890,14 @@ version.
 % \begin{macro}[int]{\@@_set_main_font:nn,
 %   \@@_set_sans_font:nn,
 %   \@@_set_mono_font:nn}
-% |#1| = 字体名，|#2| = 选项。
+% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
+% |#1| = 字体名，|#2| = 选项。注意它们与
+% |\__fontspec_main_set...font:nn| 的参数恰好相反。
 %    \begin{macrocode}
 \clist_map_inline:nn { main, sans, mono }
   {
     \cs_new:cpx { @@_set_ #1 _font:nn } ##1 ##2
-      {
-%    \end{macrocode}
-% |\__fontspec_main_set...font:nnn| 的参数 |#1|、|#3| 均为选项，
-% |#2| 为字体名。我们这里只用参数 |#2| 和 |#3|。
-%    \begin{macrocode}
-% TODO: These functions will be changed into :nn type in fontspec
-%       68a900de14e0847fe64d725e9371c8f543eb1434 on 2017-09-17.
-        \exp_not:c { __fontspec_main_set #1 font:nnn }
-          { } {##1} {##2}
-      }
+      { \exp_not:c { __fontspec_main_set #1 font:nn } {##2} {##1} }
   }
 %    \end{macrocode}
 % \end{macro}
