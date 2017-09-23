@@ -1373,13 +1373,6 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\g_@@_no_fonts_bool}
-% 是否禁用默认字体设置。
-%    \begin{macrocode}
-\bool_new:N \g_@@_no_fonts_bool
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{variable}[int]{\g_@@_draft_bool}
 % 是否开启草稿模式。
 %    \begin{macrocode}
@@ -1439,16 +1432,6 @@ version.
         \clist_gput_right:Nn \g_@@_to_book_clist { twoside }
         \bool_set_true:N     \g_@@_twoside_bool
       },
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{nofonts}
-% 是否禁用默认字体设置（默认关闭）。
-%    \begin{macrocode}
-    nofonts .choice:,
-    nofonts .bool_set:N = \g_@@_no_fonts_bool,
-    nofonts .default:n = true,
-    nofonts .initial:n = false,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1649,7 +1632,7 @@ version.
 %
 % \begin{macro}{style/font}
 % 预定义西文字体。部分等宽字体（TeX Gyre Cursor）使用
-% |Ligatures = CommonOff| 选项以禁用连字。
+% |Ligatures| |=| |CommonOff| 选项以禁用连字。
 %    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
@@ -1699,6 +1682,17 @@ version.
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
         \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
+      },
+%    \end{macrocode}
+% 不设置西文字体。
+%    \begin{macrocode}
+    font / none .code:n =
+      {
+        \@@_initialize_prop:Nn \g_@@_font_name_prop
+          { main, sans, mono, math }
+        \@@_initialize_prop:Nn \g_@@_font_options_prop
+          { main, sans, mono, math }
+        \keys_set:nn { fdu / style } { footnotestyle = plain }
 %<*class>
       },
 %    \end{macrocode}
@@ -1761,8 +1755,34 @@ version.
         \fdu_choose_cjk_font:nn { hei  } { SimHei   }
         \fdu_choose_cjk_font:nn { fang } { FangSong }
         \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
+      },
+%    \end{macrocode}
+% 不设置中文字体。
+%    \begin{macrocode}
+    cjkfont / none .code:n =
+      {
+        \@@_initialize_prop:Nn \g_@@_cjk_font_name_prop
+          { rm, sf, tt, kai }
+        \@@_initialize_prop:Nn \g_@@_cjk_font_options_prop
+          { rm, sf, tt, kai }
 %</class>
       }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_initialize_prop:Nn}
+% 把 prop list |#1| 清空，将其并设置为 |main={},| |sans={}| 等。
+% \begin{arguments}
+%   \item prop list
+%   \item {\meta{family 1}, \meta{family 2}, \ldots}，如
+%     |{main,| |sans,| |mono,| |math}|
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_initialize_prop:Nn #1#2
+  {
+    \prop_clear:N #1
+    \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1872,6 +1892,8 @@ version.
           \l_@@_tmpa_tl
         \prop_get:NnN \g_@@_font_options_prop {##1}
           \l_@@_tmpb_tl
+        \tl_if_empty:NT \l_@@_tmpa_tl
+          { \@@_error:nn { font-not-defined } {##1} }
         \use:c { @@_set_ ##1 _font:VV }
           \l_@@_tmpa_tl \l_@@_tmpb_tl
       }
@@ -1892,6 +1914,8 @@ version.
 % |\__fontspec_main_set...font:nnn| 的参数 |#1|、|#3| 均为选项，
 % |#2| 为字体名。我们这里只用参数 |#2| 和 |#3|。
 %    \begin{macrocode}
+% TODO: These functions will be changed into :nn type in fontspec
+%       68a900de14e0847fe64d725e9371c8f543eb1434 on 2017-09-17.
         \exp_not:c { __fontspec_main_set #1 font:nnn }
           { } {##1} {##2}
       }
@@ -1905,6 +1929,10 @@ version.
 % \href{https://github.com/wspr/unicode-math/issues/403}{issue}。
 % |#1| = 字体名，|#2| = 选项。
 %    \begin{macrocode}
+% TODO: The internal function will be added in unicode-math
+%       53e352c7658ce12deea77f10a5d1fdfb05b3fcf3 on 2017-09-10,
+%       and will be changed into :nn type in
+%       73cc2cd88415cd001bf27fabd2ead461833245ad on 2017-09-18.
 \cs_new:Npn \@@_set_math_font:nn #1#2
   {
     \tl_set:Nn \l__um_fontname_tl {#1}
@@ -1995,6 +2023,7 @@ version.
     \clist_map_inline:nn { rm, sf, tt, kai }
       {
         \use:c { @@_parse_cjk_ ##1 _font: }
+        \@@_check_cjk_font:n   {##1}
         \@@_set_cjk_font_aux:n {##1}
       }
 %    \end{macrocode}
@@ -2180,6 +2209,20 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[aux]{\@@_check_cjk_font:n}
+% 检查 CJK 字体族是否已定义。
+% |#1| = |rm| / |sf| / |tt|。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_cjk_font:n #1
+  {
+    \prop_get:NnN \g_@@_cjk_font_name_prop {#1}
+      \l_@@_font_name_tl
+    \tl_if_empty:NT \l_@@_font_name_tl
+      { \@@_error:nn { cjk-font-not-defined } {#1} }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}[int]{\xeCJK_set_family:nVV,
 %   \ctex_ltj_set_family:nVV}
 % 生成 \pkg{xeCJK} 和 \pkg{ctex} 中字体族设定函数的变体。
@@ -2208,25 +2251,31 @@ version.
       { \sys_if_engine_luatex:T { \ctex_ltj_set_family:nVV } }
     {#1} \exp_not:n { \l_@@_tmpb_tl \l_@@_tmpa_tl }
   }
+%</class>
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_set_cjk_kai_font:n,
-%   \@@_set_cjk_kai_font:V}
-% 设置楷体字体族。
+% 字体族未定义信息。
 %    \begin{macrocode}
-\cs_new:Npx \@@_set_cjk_kai_font:n #1
+\@@_msg_new:nn { font-not-defined }
   {
-    \sys_if_engine_xetex:TF
-      { \exp_not:N \xeCJK_set_family:nnn { kai } { } {#1} }
-      {
-        \sys_if_engine_luatex:T
-          { \exp_not:N \ctex_ltj_set_family:nnn { kai } { } {#1} }
-      }
+    \str_upper_case:f { \tl_head:n {#1} } \tl_tail:n {#1} ~
+    font~ is~ not~ defined. \\\\
+    You~ can~ set~ option~ "font"~ via~ "\string\fdusetup",~
+    or~ use~ command~ \\
+    "\string\set #1 font"~ to~ define~ new~ font~ families.
   }
-\cs_generate_variant:Nn \@@_set_cjk_kai_font:n { V }
+%<*class>
+\@@_msg_new:nn { cjk-font-not-defined }
+  {
+    CJK~ font~ family~ "#1"~ is~ not~ defined. \\\\
+    You~ can~ set~ option~ "cjkfont"~ via~ "\string\fdusetup",~
+    or~ use~ commands~ \\
+    "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
+    "\string\setCJKmonofont"~ etc~ \\
+    to~ define~ new~ CJK~ font~ families.
+  }
 %    \end{macrocode}
-% \end{macro}
 %
 % 这里给这两个 |prop| 变量赋一个空值，使得 \pkg{xeCJK} 认为
 % |rm| 字体族已定义，从而避免警告。\LuaTeX{} 引擎下，
@@ -2638,9 +2687,8 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_set_hyperlink_color:nnn,
-%   \@@_define_hyperlink_color:nnn}
-% 定义并设置超链接颜色。
+% \begin{macro}[aux]{\@@_set_hyperlink_color:nnn}
+% 设置超链接颜色。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_hyperlink_color:nnn #1#2#3
   {
@@ -2652,6 +2700,12 @@ version.
         citecolor = fdu@cite, citebordercolor = fdu@cite
       }
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_define_hyperlink_color:nnn}
+% 定义超链接颜色。
+%    \begin{macrocode}
 \cs_new:Npn \@@_define_hyperlink_color:nnn #1#2#3
   {
     \definecolorset { HTML } { fdu@ } { }
@@ -2747,12 +2801,6 @@ version.
 \tl_new:N \l_@@_fn_style_tl
 %    \end{macrocode}
 % \end{variable}
-%
-% 在 |nofonts=true| 的情况下设置脚注样式为 |plain|。
-%    \begin{macrocode}
-\bool_if:NT \g_@@_no_fonts_bool
-  { \tl_set_eq:NN \l_@@_fn_style_tl \c_@@_fn_style_plain_tl }
-%    \end{macrocode}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -4290,37 +4338,24 @@ version.
 %    \begin{macrocode}
 \keys_set:nn { fdu }
   {
-    style   / fontsize       =  -4,
-%<class>    style   / fullwidthstop  =  false,
-    style   / automakecover  =  true,
-    style   / logo           =  { fudan-name.pdf },
-    style   / logosize       =  { 0.5 \textwidth },
-    style   / hyperlink      =  color,
-    style   / hyperlinkcolor =  default,
-    info    / secretlevel    =  none,
-    info    / date           =  \zhtoday,
-    info    / schoolid       =  { 10246 },
+    style   / font           = times,
+%<class>    style   / cjkfont        = fandol,
+    style   / fontsize       = -4,
+%<class>    style   / fullwidthstop  = false,
+    style   / automakecover  = true,
+    style   / logo           = { fudan-name.pdf },
+    style   / logosize       = { 0.5 \textwidth },
+    style   / hyperlink      = color,
+    style   / hyperlinkcolor = default,
+    info    / secretlevel    = none,
+    info    / date           = \zhtoday,
+    info    / schoolid       = { 10246 },
 %<class>    theorem / headerfont     = { \sffamily },
 %<class-en>    theorem / headerfont     = { \bfseries \upshape },
 %<class>    theorem / bodyfont       = { \fdu@kai },
 %<class-en>    theorem / bodyfont       = { \itshape },
     theorem / counter        = { chapter }
   }
-%    \end{macrocode}
-%
-% 在 |nofonts=false| 的情况下设置默认字体。
-%    \begin{macrocode}
-\bool_if:NF \g_@@_no_fonts_bool
-%<*class>
-  {
-    \keys_set:nn { fdu }
-      {
-        style / font    = times,
-        style / cjkfont = fandol
-      }
-  }
-%</class>
-%<class-en>  { \keys_set:nn { fdu } { style / font = times } }
 %    \end{macrocode}
 %
 % \begin{macro}{\fdusetup}

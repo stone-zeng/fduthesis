@@ -87,7 +87,6 @@
 \clist_new:N \g__fdu_to_hyperref_clist
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
-\bool_new:N \g__fdu_no_fonts_bool
 \bool_new:N \g__fdu_draft_bool
 \cs_new_protected_nopar:Npn \__fdu_msg_new:nn
   { \msg_new:nnn       { fduthesis } }
@@ -111,10 +110,6 @@
         \clist_gput_right:Nn \g__fdu_to_book_clist { twoside }
         \bool_set_true:N     \g__fdu_twoside_bool
       },
-    nofonts .choice:,
-    nofonts .bool_set:N = \g__fdu_no_fonts_bool,
-    nofonts .default:n = true,
-    nofonts .initial:n = false,
     draft .choice:,
     draft / true  .code:n =
       {
@@ -223,7 +218,20 @@
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
         \fdu_choose_font:nn { math } { XITS~ Math        }
         \keys_set:nn { fdu / style } { footnotestyle = xits }
+      },
+    font / none .code:n =
+      {
+        \__fdu_initialize_prop:Nn \g__fdu_font_name_prop
+          { main, sans, mono, math }
+        \__fdu_initialize_prop:Nn \g__fdu_font_options_prop
+          { main, sans, mono, math }
+        \keys_set:nn { fdu / style } { footnotestyle = plain }
       }
+  }
+\cs_new:Npn \__fdu_initialize_prop:Nn #1#2
+  {
+    \prop_clear:N #1
+    \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
   }
 \RenewDocumentCommand \setmainfont { O { } m O { } }
   { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
@@ -261,6 +269,8 @@
           \l__fdu_tmpa_tl
         \prop_get:NnN \g__fdu_font_options_prop {##1}
           \l__fdu_tmpb_tl
+        \tl_if_empty:NT \l__fdu_tmpa_tl
+          { \__fdu_error:nn { font-not-defined } {##1} }
         \use:c { __fdu_set_ ##1 _font:VV }
           \l__fdu_tmpa_tl \l__fdu_tmpb_tl
       }
@@ -326,6 +336,14 @@
   {
     \exp_args:Nc \cs_generate_variant:Nn
       { __fdu_set_ #1 _font:nn } { VV }
+  }
+\__fdu_msg_new:nn { font-not-defined }
+  {
+    \str_upper_case:f { \tl_head:n {#1} } \tl_tail:n {#1} ~
+    font~ is~ not~ defined. \\\\
+    You~ can~ set~ option~ "font"~ via~ "\string\fdusetup",~
+    or~ use~ command~ \\
+    "\string\set #1 font"~ to~ define~ new~ font~ families.
   }
 \ctex_at_end_preamble:n
   {
@@ -536,8 +554,6 @@
 \tl_const:Nn \c__fdu_fn_style_xits_sans_negative_tl
   { xits-sans* }
 \tl_new:N \l__fdu_fn_style_tl
-\bool_if:NT \g__fdu_no_fonts_bool
-  { \tl_set_eq:NN \l__fdu_fn_style_tl \c__fdu_fn_style_plain_tl }
 \keys_define:nn { fdu / style }
   {
     footnotestyle .choices:nn =
@@ -1172,21 +1188,20 @@
   }
 \keys_set:nn { fdu }
   {
-    style   / fontsize       =  -4,
-    style   / automakecover  =  true,
-    style   / logo           =  { fudan-name.pdf },
-    style   / logosize       =  { 0.5 \textwidth },
-    style   / hyperlink      =  color,
-    style   / hyperlinkcolor =  default,
-    info    / secretlevel    =  none,
-    info    / date           =  \zhtoday,
-    info    / schoolid       =  { 10246 },
+    style   / font           = times,
+    style   / fontsize       = -4,
+    style   / automakecover  = true,
+    style   / logo           = { fudan-name.pdf },
+    style   / logosize       = { 0.5 \textwidth },
+    style   / hyperlink      = color,
+    style   / hyperlinkcolor = default,
+    info    / secretlevel    = none,
+    info    / date           = \zhtoday,
+    info    / schoolid       = { 10246 },
     theorem / headerfont     = { \bfseries \upshape },
     theorem / bodyfont       = { \itshape },
     theorem / counter        = { chapter }
   }
-\bool_if:NF \g__fdu_no_fonts_bool
-  { \keys_set:nn { fdu } { style / font = times } }
 \NewDocumentCommand \fdusetup { m }
   { \keys_set:nn { fdu } {#1} }
 \fdunewtheorem* { proof       } { \c__fdu_def_name_proof_en_tl      }
