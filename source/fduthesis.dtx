@@ -1795,28 +1795,30 @@ version.
 % 在前在后均可。
 %    \begin{macrocode}
 \RenewDocumentCommand \setmainfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
 \RenewDocumentCommand \setsansfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
 \RenewDocumentCommand \setmonofont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
 \RenewDocumentCommand \setmathfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\setCJKmainfont,\setCJKsansfont,\setCJKmonofont}
 % 声明中文字体。参数同样按照 \pkg{fontspec} 的风格。但与
 % \pkg{xeCJK} 和 \pkg{ctex} 其实稍有区别，它们要求字体选项只能
-% 出现在\emph{前或后}，而不可同时出现。
+% 出现在字体名的\emph{前或后}，而不可同时出现。
 %    \begin{macrocode}
 %<*class>
 \RenewDocumentCommand \setCJKmainfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} {#1, #3} }
+  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} { #1, #3 } }
 \RenewDocumentCommand \setCJKsansfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} {#1, #3} }
+  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} { #1, #3 } }
 \RenewDocumentCommand \setCJKmonofont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} {#1, #3} }
+  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} { #1, #3 } }
+\RenewDocumentCommand \setCJKfamilyfont { m O { } m O { } }
+  { \fdu_choose_cjk_font_with_option:nnn {#1} {#3} { #2, #4 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1825,13 +1827,13 @@ version.
 % 声明中文宋、黑、仿、楷字体，暂时不用。
 %    \begin{macrocode}
 % \DeclareDocumentCommand \setCJKsongfont { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { song } {#2} {#1, #3} }
+%   { \fdu_choose_cjk_font_with_option:nnn { song } {#2} { #1, #3 } }
 % \DeclareDocumentCommand \setCJKheifont  { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { hei  } {#2} {#1, #3} }
+%   { \fdu_choose_cjk_font_with_option:nnn { hei  } {#2} { #1, #3 } }
 % \DeclareDocumentCommand \setCJKfangfont { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { fang } {#2} {#1, #3} }
+%   { \fdu_choose_cjk_font_with_option:nnn { fang } {#2} { #1, #3 } }
 % \DeclareDocumentCommand \setCJKkaifont  { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { kai  } {#2} {#1, #3} }
+%   { \fdu_choose_cjk_font_with_option:nnn { kai  } {#2} { #1, #3 } }
 %</class>
 %    \end{macrocode}
 % \end{macro}

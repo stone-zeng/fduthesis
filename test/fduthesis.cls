@@ -88,6 +88,8 @@
 \bool_new:N \g__fdu_twoside_bool
 \bool_set_true:N \g__fdu_twoside_bool
 \bool_new:N \g__fdu_draft_bool
+\cs_new:Npn \__fdu_quad:  { \skip_horizontal:n { 1 em } }
+\cs_new:Npn \__fdu_qquad: { \skip_horizontal:n { 2 em } }
 \cs_new_protected_nopar:Npn \__fdu_msg_new:nn
   { \msg_new:nnn       { fduthesis } }
 \cs_new_protected_nopar:Npn \__fdu_error:n
@@ -281,19 +283,21 @@
     \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
   }
 \RenewDocumentCommand \setmainfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { main } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
 \RenewDocumentCommand \setsansfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { sans } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
 \RenewDocumentCommand \setmonofont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { mono } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
 \RenewDocumentCommand \setmathfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { math } {#2} {#1, #3} }
+  { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
 \RenewDocumentCommand \setCJKmainfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} {#1, #3} }
+  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} { #1, #3 } }
 \RenewDocumentCommand \setCJKsansfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} {#1, #3} }
+  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} { #1, #3 } }
 \RenewDocumentCommand \setCJKmonofont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} {#1, #3} }
+  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} { #1, #3 } }
+\RenewDocumentCommand \setCJKfamilyfont { m O { } m O { } }
+  { \fdu_choose_cjk_font_with_option:nnn {#1} {#3} { #2, #4 } }
 \cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
   {
     \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
@@ -1065,19 +1069,34 @@
     secretlevel .value_required:n = true,
     secretyear .tl_set:N = \l__fdu_info_secret_year_tl
   }
-\cs_new:Npn \fdu_spread_box:Nn #1#2
+\cs_new:Npn \__fdu_spread_box:nnn #1#2#3
   {
-    \makebox [#1] [ s ]
-      { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1}
+      {
+        #3
+        \tl_map_inline:nn {#2} { \exp_not:n {##1} \hfil } \unskip
+      }
   }
-\cs_generate_variant:Nn \fdu_spread_box:Nn { NV, Nx }
-\cs_new:Npn \fdu_center_box:Nn #1#2
-  { \makebox [#1] [ c ] {#2} }
-\cs_generate_variant:Nn \fdu_center_box:Nn { NV }
-\cs_new:Npn \fdu_fixed_width_box:Nn #1#2
-  { \parbox {#1} {#2} }
-\cs_new:Npn \fdu_fixed_width_center_box:Nn #1#2
-  { \fdu_fixed_width_box:Nn {#1} { \centering #2 } }
+\cs_new:Npx \__fdu_spread_box:nn #1#2
+  { \__fdu_spread_box:nnn {#1} {#2} { } }
+\cs_generate_variant:Nn \__fdu_spread_box:nnn { VVn }
+\cs_generate_variant:Nn \__fdu_spread_box:nn  { VV  }
+\cs_new:Npn \__fdu_center_box:nnn #1#2#3
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1} { #3 \hfil #2 \hfil }
+  }
+\cs_new:Npx \__fdu_center_box:nn #1#2
+  { \__fdu_center_box:nnn {#1} {#2} { } }
+\cs_generate_variant:Nn \__fdu_center_box:nnn { VVn }
+\cs_generate_variant:Nn \__fdu_center_box:nn  { VV  }
+\cs_new:Npn \__fdu_fixed_width_box:nnn #1#2#3
+  { \parbox {#1} { #3 #2 } }
+\cs_generate_variant:Nn \__fdu_fixed_width_box:nnn { Vnn }
+\cs_new:Npn \__fdu_fixed_width_center_box:nnn #1#2#3
+  { \__fdu_fixed_width_box:nnn {#1} {#2} { \centering #3 } }
+\cs_generate_variant:Nn \__fdu_fixed_width_center_box:nnn { VVn }
 \cs_new:Npn \fdu_get_text_width:Nn #1#2
   {
     \hbox_set:Nn \l__fdu_tmpa_box {#2}
@@ -1100,16 +1119,15 @@
   }
 \cs_new:Npn \fdu_blank_underline:N #1
   { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
-\cs_new:Npn \fdu_line_spread:N #1
+\cs_new:Npn \fdu_line_spread:n #1
   { \linespread {#1} \selectfont }
-\cs_generate_variant:Nn \fdu_line_spread:N { n }
+\cs_generate_variant:Nn \fdu_line_spread:n { N }
 \cs_new:Npn \__fdu_cover_id:
   {
     \begin{flushright}
       \dim_set:Nn \rightskip { \c__fdu_def_cover_id_margin_sep_tl }
-      \fdu_fixed_width_box:Nn \c__fdu_def_cover_id_width_tl
+      \__fdu_fixed_width_box:Vnn \c__fdu_def_cover_id_width_tl
         {
-          \__fdu_cover_font_size_small:
           \bool_if:NT \l__fdu_secret_bool
             {
               \group_begin:
@@ -1130,6 +1148,7 @@
           \c__fdu_colon_fullwidth_tl
           \l__fdu_info_student_id_tl
         }
+        { \__fdu_cover_font_size_small: }
     \end{flushright}
   }
 \cs_new:Npn \__fdu_cover_logo:
@@ -1155,45 +1174,35 @@
 \cs_new:Npn \__fdu_cover_title:
   {
     \begin{center}
-      {
-        \fdu_spread_box:Nn
-          \c__fdu_def_cover_type_width_tl
-          {
-            \__fdu_cover_font_size_huge:
-            \c__fdu_def_name_thesis_type_tl
-          }
-      }
-      \par \vspace { \c__fdu_def_cover_v_sep_iii_tl }
-      {
+      \__fdu_spread_box:VVn
+        \c__fdu_def_cover_type_width_tl
+        \c__fdu_def_name_thesis_type_tl
+        { \__fdu_cover_font_size_huge: }
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_iii_tl }
+      \group_begin:
         \__fdu_cover_font_size_normal:
         \c__fdu_def_name_degree_type_tl
-      }
-      \par \vspace { \c__fdu_def_cover_v_sep_iv_tl }
-      {
-        \fdu_fixed_width_center_box:Nn
-          \c__fdu_def_cover_title_width_tl
-          {
-            \__fdu_cover_font_size_large: \sffamily
-            \l__fdu_info_title_tl
-          }
-      }
-      \par \vspace { \c__fdu_def_cover_v_sep_v_tl }
-      {
-        \fdu_fixed_width_center_box:Nn
-          \c__fdu_def_cover_title_en_width_tl
-          {
-            \__fdu_cover_font_size_normal: \bfseries
-            \fdu_line_spread:N
-              \c__fdu_def_cover_title_en_line_spread_tl
-            \l__fdu_info_title_en_tl
-          }
-      }
+      \group_end:
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_iv_tl }
+      \__fdu_fixed_width_center_box:VVn
+        \c__fdu_def_cover_title_width_tl
+        \l__fdu_info_title_tl
+        { \__fdu_cover_font_size_large: \sffamily }
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_v_tl }
+      \__fdu_fixed_width_center_box:VVn
+        \c__fdu_def_cover_title_en_width_tl
+        \l__fdu_info_title_en_tl
+        {
+          \__fdu_cover_font_size_normal: \bfseries
+          \fdu_line_spread:N
+            \c__fdu_def_cover_title_en_line_spread_tl
+        }
     \end{center}
   }
 \cs_new:Npn \__fdu_cover_info:
   {
     \begin{center}
-      \clist_set:Nn \l__fdu_tmpa_clist
+      \clist_set:Nx \l__fdu_tmpa_clist
         {
           \c__fdu_def_name_department_tl,
           \c__fdu_def_name_major_tl,
@@ -1201,7 +1210,7 @@
           \c__fdu_def_name_supervisor_tl,
           \c__fdu_def_name_date_tl,
         }
-      \clist_set:Nn \l__fdu_tmpb_clist
+      \clist_set:Nx \l__fdu_tmpb_clist
         {
           \l__fdu_info_department_tl,
           \l__fdu_info_major_tl,
@@ -1218,43 +1227,40 @@
           {
             \clist_pop:NN \l__fdu_tmpa_clist \l__fdu_tmpa_tl
             \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
-            \fdu_spread_box:Nx
+            \__fdu_spread_box:VV
               \c__fdu_def_cover_info_left_width_tl \l__fdu_tmpa_tl
             \c__fdu_colon_fullwidth_tl
-            \fdu_center_box:NV
+            \__fdu_center_box:VV
               \l__fdu_tmpb_dim \l__fdu_tmpb_tl
-            \par \vspace { \c__fdu_def_cover_v_sep_vii_tl }
+            \skip_vertical:n { \c__fdu_def_cover_v_sep_vii_tl }
           }
       \end{minipage}
     \end{center}
   }
-\cs_new:Npn \__fdu_decl_text:NNn #1#2#3
+\cs_new:Npn \__fdu_decl_text:nnn #1#2#3
   {
     \begin{center}
       \__fdu_cover_font_size_large: \sffamily #1
     \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
-    \begin{center}
-      \fdu_fixed_width_box:Nn \textwidth
-        {
-          \fdu_line_spread:N \c__fdu_def_decl_text_line_spread_tl
-          \qquad #2
-        }
-    \end{center}
-    \vspace { \c__fdu_def_decl_v_sep_iv_tl }
+    \skip_vertical:n { \c__fdu_def_decl_v_sep_iv_tl }
+    \__fdu_fixed_width_box:Vnn \textwidth
+      { \__fdu_qquad: #2 }
+      { \fdu_line_spread:N \c__fdu_def_decl_text_line_spread_tl }
+    \skip_vertical:n { \c__fdu_def_decl_v_sep_iv_tl }
     { \hfill #3 }
   }
+\cs_generate_variant:Nn \__fdu_decl_text:nnn { VVn }
 \NewDocumentCommand \makecoveri { }
   {
     \group_begin:
       \__fdu_cover_id:
-      \vspace { \c__fdu_def_cover_v_sep_i_tl  }
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_i_tl  }
       \__fdu_cover_logo:
-      \vspace { \c__fdu_def_cover_v_sep_ii_tl }
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_ii_tl }
       \__fdu_cover_title:
-      \vspace { \c__fdu_def_cover_v_sep_vi_tl }
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_vi_tl }
       \__fdu_cover_info:
-      \vspace { \c__fdu_def_cover_v_sep_ix_tl }
+      \skip_vertical:n { \c__fdu_def_cover_v_sep_ix_tl }
     \group_end:
   }
 \NewDocumentCommand \makecoverii { }
@@ -1264,7 +1270,7 @@
       \thispagestyle { empty }
       \@schapter
         {
-          \fdu_spread_box:NV
+          \__fdu_spread_box:VV
             \c__fdu_def_cover_instructors_width_tl
             \c__fdu_def_name_instructors_tl
         }
@@ -1278,37 +1284,38 @@
   {
     \cleardoublepage
     \thispagestyle { empty }
-    \vspace* { \c__fdu_def_decl_v_sep_i_tl }
-    \__fdu_decl_text:NNn
+    \mode_leave_vertical:
+    \skip_vertical:n { \c__fdu_def_decl_v_sep_i_tl }
+    \__fdu_decl_text:VVn
       \c__fdu_def_name_originality_decl_tl
       \c__fdu_def_originality_decl_text_tl
       {
         \c__fdu_def_name_author_sign_tl
         \c__fdu_colon_fullwidth_tl
         \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-        \quad
+        \__fdu_quad:
         \c__fdu_def_name_sign_date_tl
         \c__fdu_colon_fullwidth_tl
         \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
       }
-    \vspace { \c__fdu_def_decl_v_sep_ii_tl }
-    \__fdu_decl_text:NNn
+    \skip_vertical:n { \c__fdu_def_decl_v_sep_ii_tl }
+    \__fdu_decl_text:VVn
       \c__fdu_def_name_authorization_decl_tl
       \c__fdu_def_authorization_decl_text_tl
       {
         \c__fdu_def_name_author_sign_tl
         \c__fdu_colon_fullwidth_tl
         \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-        \quad
+        \__fdu_quad:
         \c__fdu_def_name_supervisor_sign_tl
         \c__fdu_colon_fullwidth_tl
         \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
-        \quad
+        \__fdu_quad:
         \c__fdu_def_name_sign_date_tl
         \c__fdu_colon_fullwidth_tl
         \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
       }
-    \vspace { \c__fdu_def_decl_v_sep_iii_tl }
+    \skip_vertical:n { \c__fdu_def_decl_v_sep_iii_tl }
   }
 \bool_new:N \l__fdu_auto_make_cover_bool
 \keys_define:nn { fdu / style }
@@ -1395,11 +1402,11 @@
   {
     \par \mode_leave_vertical: \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf { \c__fdu_def_name_keywords_en_tl } \quad
-    \clist_use:Nn \l__fdu_info_keywords_en_clist { \quad }
+    \textbf { \c__fdu_def_name_keywords_en_tl } \__fdu_quad:
+    \clist_use:Nn \l__fdu_info_keywords_en_clist { \__fdu_quad: }
     \par
     \noindent
-    \textbf { \c__fdu_def_name_clc_en_tl } \quad
+    \textbf { \c__fdu_def_name_clc_en_tl } \__fdu_quad:
     \l__fdu_info_clc_tl
   }
 \NewDocumentEnvironment { notation }

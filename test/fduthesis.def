@@ -110,18 +110,18 @@
   { 0.9  \textwidth }
 \tl_const:Nn \c__fdu_def_cover_info_left_width_tl   { 6 em }
 \tl_const:Nn \c__fdu_def_cover_instructors_width_tl { 7 em }
-\tl_const:Nn \c__fdu_def_cover_v_sep_i_tl   { \stretch { 1.5 } }
-\tl_const:Nn \c__fdu_def_cover_v_sep_ii_tl  { \stretch { 0.8 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_i_tl   { 0 pt plus 1.5 fill }
+\tl_const:Nn \c__fdu_def_cover_v_sep_ii_tl  { 0 pt plus 0.8 fill }
 \tl_const:Nn \c__fdu_def_cover_v_sep_iii_tl { 0.4 cm }
-\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { \stretch { 2   } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_iv_tl  { 0 pt plus 2.0 fill }
 \tl_const:Nn \c__fdu_def_cover_v_sep_v_tl   { 0.8 cm }
-\tl_const:Nn \c__fdu_def_cover_v_sep_vi_tl  { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_vi_tl  { 0 pt plus 2.5 fill }
 \tl_const:Nn \c__fdu_def_cover_v_sep_vii_tl { 1 ex }
-\tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { \stretch { 1.5 } }
+\tl_const:Nn \c__fdu_def_cover_v_sep_ix_tl  { 0 pt plus 1.5 fill }
 \tl_const:Nn \c__fdu_def_cover_title_en_line_spread_tl { 1.2 }
-\tl_const:Nn \c__fdu_def_decl_v_sep_i_tl   { \stretch { 0.2 } }
-\tl_const:Nn \c__fdu_def_decl_v_sep_ii_tl  { \stretch { 2.5 } }
-\tl_const:Nn \c__fdu_def_decl_v_sep_iii_tl { \stretch { 2.5 } }
+\tl_const:Nn \c__fdu_def_decl_v_sep_i_tl   { 0 pt plus 0.2 fill }
+\tl_const:Nn \c__fdu_def_decl_v_sep_ii_tl  { 0 pt plus 2.5 fill }
+\tl_const:Nn \c__fdu_def_decl_v_sep_iii_tl { 0 pt plus 2.5 fill }
 \tl_const:Nn \c__fdu_def_decl_v_sep_iv_tl  { 0.8 cm }
 \tl_const:Nn \c__fdu_def_decl_text_line_spread_tl { 1.8 }
 \tl_const:Nn \c__fdu_def_decl_sign_width_tl { 6 em }
