@@ -26,44 +26,22 @@ fi
 # Change default package repository
 tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
 
-# TeX base
+# Basic packages
 tlmgr install         \
-  tex                 \
-  etex                \
-  knuth-lib           \
-  latex-bin           \
-  tex-ini-files       \
-  cm
-
-# Fonts
-tlmgr install         \
-  fontspec            \
   adobemapping        \
   amsfonts            \
-  fandol              \
-  libertinus          \
-  lm                  \
-  lm-math             \
-  metafont            \
-  mfware              \
-  pifont              \
-  psnfss              \
-  tex-gyre            \
-  tex-gyre-math       \
-  xits                \
-  zapfding
-
-# Other
-tlmgr install         \
   amsmath             \
   caption             \
+  cm                  \
   ctablestack         \
   ctex                \
   currfile            \
   environ             \
+  etex                \
   etoolbox            \
   fancyhdr            \
   filehook            \
+  fontspec            \
   footmisc            \
   geometry            \
   graphics            \
@@ -73,11 +51,12 @@ tlmgr install         \
   ifluatex            \
   ifpdf               \
   ifxetex             \
-  kantlipsum          \
-  l3kernel            \
-  l3experimental      \
-  l3packages          \
+  knuth-lib           \
   l3build             \
+  l3experimental      \
+  l3kernel            \
+  l3packages          \
+  latex-bin           \
   lualatex-math       \
   lualibs             \
   luaotfload          \
@@ -85,13 +64,19 @@ tlmgr install         \
   luatex85            \
   luatexbase          \
   luatexja            \
-  ntheorem            \
+  metafont            \
+  mfware              \
   ms                  \
+  ntheorem            \
   oberdiek            \
   pgf                 \
+  pifont              \
   preview             \
+  psnfss              \
   siunitx             \
   standalone          \
+  tex                 \
+  tex-ini-files       \
   tools               \
   trimspaces          \
   ucharcat            \
@@ -105,8 +90,24 @@ tlmgr install         \
   xetex               \
   xkeyval             \
   xunicode            \
-  zhlipsum            \
+  zapfding            \
   zhnumber
+
+# Recommended fonts (OpenType)
+tlmgr install         \
+  fandol              \
+  libertine           \
+  libertinus          \
+  lm                  \
+  lm-math             \
+  tex-gyre            \
+  tex-gyre-math       \
+  xits
+
+# For test
+tlmgr install         \
+  kantlipsum          \
+  zhlipsum
 
 # Keep no backups (not required, simply makes cache bigger)
 tlmgr option -- autobackup 0
