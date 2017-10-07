@@ -241,7 +241,7 @@ version.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install|ex-logo|cover)>
 %<*driver>
-\PassOptionsToPackage{showframe}{geometry}
+%\PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
 \usepackage{xpinyin}
 \hypersetup
@@ -1277,6 +1277,8 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.5}{2017/09/23}{移除 \opt{nofonts} 选项。}
+%
 % \begin{macro}{draft}
 % 是否开启草稿模式（默认关闭）。
 %    \begin{macrocode}
@@ -1525,6 +1527,7 @@ version.
         \keys_set:nn { fdu / style } { footnotestyle = xits }
       },
 %    \end{macrocode}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
 % 不设置西文字体。
 %    \begin{macrocode}
     font / none .code:n =
@@ -1598,6 +1601,7 @@ version.
         \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
       },
 %    \end{macrocode}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjkfont}{none} 选项。}
 % 不设置中文字体。
 %    \begin{macrocode}
     cjkfont / none .code:n =
