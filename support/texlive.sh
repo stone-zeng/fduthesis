@@ -56,6 +56,7 @@ tlmgr install         \
 # Other
 tlmgr install         \
   amsmath             \
+  bibtex              \
   caption             \
   ctablestack         \
   ctex                \
@@ -85,6 +86,7 @@ tlmgr install         \
   luatex85            \
   luatexbase          \
   luatexja            \
+  natbib              \
   ntheorem            \
   ms                  \
   oberdiek            \

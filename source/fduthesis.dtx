@@ -1402,7 +1402,8 @@ version.
 %    \begin{macrocode}
 \@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
 \@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-\@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
+% TODO(20171007): 临时关闭 unicode-math 版本检查，见 issue #408.
+% \@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
 \sys_if_engine_xetex:T
   { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
 %    \end{macrocode}

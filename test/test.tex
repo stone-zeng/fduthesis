@@ -3,6 +3,9 @@
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 
+\usepackage{gbt-7714-2015}
+
+
 % \hypersetup{linktoc = page}
 
 % \ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}
@@ -43,7 +46,7 @@
   }
 }
 
-% \setmainfont{Adobe Garamond Pro}[ItalicFont=Consolas,BoldFont=Candara]
+% \setmainfont{Adobe Garamond Pro}
 % \setsansfont{Calibri}
 % \setmonofont{Consolas}
 % \setmathfont{TeX Gyre Pagella Math}
@@ -62,6 +65,8 @@
   倾斜：\qquad\textit{\fonttesttext} \par
   小型大写：\qquad\textsc{\fonttesttext}
 }
+
+\def\BibTeX{B\textsc{ib}\TeX}
 
 \begin{document}
 \frontmatter
@@ -394,11 +399,13 @@ Text%
 
 \chapter{图表 vs 浮动体}
 \section{title}
-Myriad，英语单词，意为「无数的」。同时，「Myriad」也是一款字体的名字。
+Myriad，英语单词，意为「无数的」。\cite{sunstein,gjhjbhjkjbzs,hblzsthjkjyxgs}
+同时，「Myriad」也是一款字体的名字。
 由罗伯特·斯林巴赫（Robert Slimbach，1956年-）和卡罗·图温布利
-（Carol Twombly，1959年-）在1990年到1992年期间以 Frutiger 字体为蓝本
-为 Adobe 公司设计。 Myriad 是早期数码字体时代的先驱，伴随着技术的成长
-一路走来。
+（Carol Twombly，1959年-）\cite{wyf,sunstein,zgtsgxh,lzp1}
+在1990年到1992年期间以 Frutiger 字体为蓝本为 Adobe 公司设计。\cite{cdy}
+Myriad 是早期数码字体时代的先驱，伴随着技术的成长一路走来。%
+\cite{hlswedl,zgdylsdag}
 
 \begin{figure}[h]
   \centering
@@ -445,28 +452,8 @@ Myriad MM。
 保留到了今天 Truetype 和 Opentype 的 Single Master 时代。Adobe 软件的
 字体下拉菜单，仍然只显示6到72pt 的字号。
 
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-
-\chapter{章节}
-\section{title}
 \TeX{} StackExchange: \url{https://tex.stackexchange.com/}
 
-The \TeX book: \cite{knuth1986texbook}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
+\bibliography{test}
 
-\begin{thebibliography}{9}
-\bibitem{knuth1986texbook}
-Knuth D E.
-\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
-\newblock Boston: Addison--Wesley Publishing Company, 1986
-\end{thebibliography}
 \end{document}
