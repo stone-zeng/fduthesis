@@ -24,6 +24,7 @@
 *.toc
 
 # Generated files (plain text)
+*.bst
 *.cls
 *.def
 *.ins

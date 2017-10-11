@@ -14,22 +14,19 @@
 
   - **build**：构建系统或外部依赖关系
   - **ci**：持续集成（continuous integration）
+  - **docs**：文档（documentation）
   - **feature**：新功能（feature）
   - **fix**：修补 bug
-  - **docs**：文档（documentation）
-  - **perf**: 改进性能的代码更改（performance）
+  - **git**：Git ignore/attributes 等
+  - **perf**：改进性能的代码更改（performance）
   - **refactor**：重构（即非新增功能，也非修补 bug）
-  - **style**： 格式（不影响代码运行的变动）
+  - **style**：格式（不影响代码运行的变动）
   - **test**：测试
   - **other**：其他
 
 - `scope`：说明影响范围
 
-- `subject`：目的简述，不超过 70 个字符
-
-  - 以动词开头，使用第一人称现在时
-  - 第一个字母小写
-  - 结尾不加句号（.）
+- `subject`：目的简述
 
 - `[ci skip]`：临时禁止 ci 的自动测试
 

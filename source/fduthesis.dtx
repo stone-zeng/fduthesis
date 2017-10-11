@@ -1316,8 +1316,8 @@ version.
 \LoadClass { book }
 %    \end{macrocode}
 %
-% \XeLaTeX{} \LuaLaTeX{} 下的字体选取。\opt{no-math} 选项保证该宏包
-% 不参与数学字体的设置。
+% \XeLaTeX{} 和 \LuaLaTeX{} 下的字体选取。\opt{no-math} 选项保证该
+% 宏包不参与数学字体的设置。
 %    \begin{macrocode}
 \RequirePackage [ no-math ] { fontspec }
 %    \end{macrocode}
@@ -1350,6 +1350,25 @@ version.
 %    \begin{macrocode}
 \RequirePackage [math-style = ISO, bold-style = ISO] { unicode-math }
 %    \end{macrocode}
+%^^A % \pkg{unicode-math} 的依赖宏包。
+%^^A %    \begin{macrocode}
+%^^A \RequirePackage { ucharcat，filehook }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % 分引擎调用 \pkg{unicode-math} 宏包，用以支持 Unicode 编码的
+%^^A % OpenType 数学字体。
+%^^A %
+%^^A % 此处的选项用来将数学表达式中表示变量的拉丁字母和希腊字母一律设置
+%^^A % 为斜体。这是 GB 3102.11--93 以及 ISO 80000-2:2009 的规定。
+%^^A %    \begin{macrocode}
+%^^A \RequirePackage [ math-style = ISO, bold-style = ISO ]
+%^^A   {
+%^^A     \sys_if_engine_xetex:TF
+%^^A       { unicode-math-xetex }
+%^^A       { \sys_if_engine_luatex:T { unicode-math-luatex } }
+%^^A   }
+%^^A %    \end{macrocode}
+%^^A %
 %
 % 设置页面尺寸与页眉页脚。
 %    \begin{macrocode}
@@ -1402,9 +1421,20 @@ version.
 %    \begin{macrocode}
 \@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
 \@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-\@@_check_package:nnn { unicode-math } { 2017/08/02 } { 0.8f   }
+%\@@_check_package:nnn { unicode-math } { 2017/10/09 } { 0.8h   }
 \sys_if_engine_xetex:T
   { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
+% \sys_if_engine_xetex:T
+%   {
+%     \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 }
+%     \@@_check_package:nnn { unicode-math-xetex }
+%       { 2017/10/09 } { 0.8h }
+%   }
+% \sys_if_engine_luatex:T
+%   {
+%     \@@_check_package:nnn { unicode-math-luatex }
+%       { 2017/10/09 } { 0.8h }
+%   }
 %    \end{macrocode}
 %
 % \subsection{页面布局}
@@ -1762,7 +1792,7 @@ version.
 %   \@@_set_sans_font:nn,
 %   \@@_set_mono_font:nn}
 % \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
-% 引用 \cs{__fontspec_main_setmainfont:nn} 等命令。注意参数顺序
+% 拷贝 \cs{__fontspec_main_setmainfont:nn} 等命令。注意参数顺序
 % 是相反的。
 % \begin{arguments}
 %   \item 字体名
@@ -1778,67 +1808,11 @@ version.
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_set_math_font:nn}
-% 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。
-% 但该命令没有提供内部版本，只好复制一遍代码。已经提交了
-% \href{https://github.com/wspr/unicode-math/issues/403}{issue}。
-% \begin{arguments}
-%   \item 字体名
-%   \item 选项
-% \end{arguments}
+% \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
+% 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。参数同上。
 %    \begin{macrocode}
-% TODO: The internal function will be added in unicode-math
-%       53e352c7658ce12deea77f10a5d1fdfb05b3fcf3 on 2017-09-10,
-%       and will be changed into :nn type in
-%       73cc2cd88415cd001bf27fabd2ead461833245ad on 2017-09-18.
 \cs_new:Npn \@@_set_math_font:nn #1#2
-  {
-    \tl_set:Nn \l__um_fontname_tl {#1}
-    \__um_init:
-    \cs_if_exist:cF { S@ \f@size } { \calculate@math@sizes }
-    \csname S@\f@size\endcsname
-    \keys_set_known:nnN { unicode-math } {#2}
-      \l__um_unknown_keys_clist
-    \bool_if:NT \l__um_init_bool
-      { \__um_log:n { default-math-font } }
-    \__um_fontspec_select_font:
-    \bool_if:nT
-      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
-      {
-        \__um_declare_math_sizes:
-        \__um_fontspec_select_font:
-      }
-    \cs_if_exist:cF { sym \__um_symfont_tl }
-      {
-        \DeclareSymbolFont
-          { \__um_symfont_tl } { \encodingdefault }
-          { \l__um_family_tl } { \mddefault} { \updefault}
-      }
-    \SetSymbolFont
-      { \__um_symfont_tl } { \l__um_mversion_tl }
-      { \encodingdefault } { \l__um_family_tl   }
-      { \mddefault       } { \updefault         }
-    \tl_set:Nn \l__um_tmpa_tl { normal }
-    \tl_if_eq:NNT \l__um_mversion_tl \l__um_tmpa_tl
-      {
-        \SetSymbolFont
-          { \__um_symfont_tl } { bold       } { \encodingdefault }
-          { \l__um_family_tl } { \bfdefault } { \updefault       }
-      }
-    \bool_if:nT
-      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
-      {
-        \bool_set_true:N \g__um_mainfont_already_set_bool
-        \__um_setup_legacy_fam_two:
-        \__um_setup_legacy_fam_three:
-      }
-    \__um_input_math_symbol_table:
-    \__um_remap_symbols:
-    \__um_setup_mathactives:
-    \__um_setup_delcodes:
-    \__um_setup_alphabets:
-    \__um_setup_negations:
-    \ignorespaces
-  }
+  { \__um_setmathfont:nn {#2} {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3953,14 +3927,14 @@ version.
 %    \begin{macrocode}
     \par \mode_leave_vertical: \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf { \c_@@_def_name_keywords_en_tl } \__fdu_quad:
-    \clist_use:Nn \l_@@_info_keywords_en_clist { \__fdu_quad: }
+    \textbf { \c_@@_def_name_keywords_en_tl } \@@_quad:
+    \clist_use:Nn \l_@@_info_keywords_en_clist { \@@_quad: }
     \par
 %    \end{macrocode}
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    \textbf { \c_@@_def_name_clc_en_tl } \__fdu_quad:
+    \textbf { \c_@@_def_name_clc_en_tl } \@@_quad:
     \l_@@_info_clc_tl
   }
 %    \end{macrocode}
