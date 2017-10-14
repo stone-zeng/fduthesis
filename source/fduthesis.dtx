@@ -253,6 +253,7 @@ version.
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \begin{document}
   % \DisableImplementation
+  % \DocInput{\jobname.dtx}
   \DocInput{\jobname.dtx,\jobname-doc.dtx,\jobname-logo.dtx}
   \IndexLayout
   \PrintChanges
@@ -301,6 +302,12 @@ version.
 %
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
+%
+%^^A 全角标点放在引号中，需要改成半角式，否则间距过大，不好看
+% \def\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} ^^A U+3002
+% \def\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} ^^A U+FF0E
+% \def\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
+% \def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
 %
 %^^A 封面与目录的页边距
 % \newgeometry{
@@ -665,11 +672,29 @@ version.
 %
 % \begin{function}[rEXP]{style/fullwidthstop}
 %   \begin{fdusyntax}[emph={[1]fullwidthstop}]
-%     fullwidthstop = (*<\TFF>*)
+%     fullwidthstop = (*<catcode|mapping|(false)>*)
 %   \end{fdusyntax}
-%   选择是否把全角实心句点“\symbol{"FF0E}”作为默认的句号形状。
-%   这种句号一般用于科技类文章，以便与下标 o 或 0 区分。
+%   选择是否把全角实心句点\FSFW 作为默认的句号形状。
+%   这种句号一般用于科技类文章，以便与下标“$_o$”或“$_0$”区分。
 % \end{function}
+%
+% 选择 \kvopt{fullwidthstop}{catcode} 或 \opt{mapping} 后，都会实现
+% 上述效果。有所不同的是，在选择 \opt{catcode} 后，只有^^A
+% \emph{显式的}\FSID 会被替换为\FSFW，但在选择 \opt{mapping} 后，
+% \emph{所有的}\FSID 都会被替换。例如，如果您用宏保存了一些含有^^A
+% \FSID 的文字，那么在选择 \opt{catcode} 时，其中的\FSID 不会被
+% 替换为\FSFW。
+%
+% 选项 \kvopt{fullwidthstop}{mapping} 只在 \XeTeX{} 下有效。使用
+% \LuaTeX{} 编译时，该选项相当于 \kvopt{fullwidthstop}{catcode}。
+%
+% 如果您在选择 \kvopt{fullwidthstop}{mapping} 后仍需要临时显示^^A
+% \FSID，可以按如下方法操作：
+% \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
+%   % 请使用 XeTeX 编译
+%   % 外侧的花括号表示分组
+%   这是一个句号{\CJKfontspec{(*\meta{字体名}*)}[Mapping=full-stop]。}
+% \end{latexexample}
 %
 % \begin{function}{style/footnotestyle}
 % ^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
@@ -1891,8 +1916,7 @@ version.
         \@@_get_cjk_font_name_options:nn { rm } { song }
 %    \end{macrocode}
 % 根据 \opt{粗宋/黑} 选项来进行操作。目前暂未定义该选项，利用
-% \cs{use_ii:nn} 充当条件判断。使用黑体。\\
-% TODO(20170930): 加入 \opt{粗宋/黑} 选项
+% \cs{use_ii:nn} 充当条件判断。使用黑体。
 %    \begin{macrocode}
         \use_ii:nn
           {
@@ -2246,14 +2270,14 @@ version.
     fullwidthstop .choice:,
     fullwidthstop .value_required:n = true,
 %    \end{macrocode}
-% 利用类别码机制切换，只有显式的“\symbol{"3002}”会被替换。
+% 利用类别码机制切换，只有显式的\FSID 会被替换。
 %    \begin{macrocode}
     fullwidthstop / catcode .code:n =
       { \@@_set_fullwidth_stop_catcode: },
 %    \end{macrocode}
 % 利用 TECKit 映射机制切换，相当于设置了 \tn{defaultCJKfontfeatures}
 % |{|\kvopt{Mapping}{fullwidth-stop}|}|。这种手段会
-% 替换所有出现的“\symbol{"3002}”，并且将影响所有字体。只在 \XeTeX{}
+% 替换所有出现的\FSID，并且将影响所有字体。只在 \XeTeX{}
 % 下可用。
 %    \begin{macrocode}
     fullwidthstop / mapping .code:n =
@@ -2290,7 +2314,7 @@ version.
 %    \end{macrocode}
 %
 % \begin{macro}[int]{\@@_set_fullwidth_stop_catcode:}
-% 将“\symbol{"3002}”设置为活动符，并定义为句点“\symbol{"FF0E}”。
+% 将\FSID 设置为活动符，并定义为句点\FSFW。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_fullwidth_stop_catcode:
   {
@@ -4307,10 +4331,10 @@ version.
 %   \c_@@_colon_fullwidth_tl,
 %   \c_@@_semicolon_fullwidth_tl}
 % 一些标点符号：
-% U+3002 是圆圈句号“\symbol{"3002}”（ideographic full stop），
-% U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
-% U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
-% U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
+% U+3002 是圆圈句号\FSID（ideographic full stop），
+% U+FF0E 是全角实心句点\FSFW（fullwidth full stop），
+% U+FF1A 是全角冒号\COFW（fullwidth colon），
+% U+FF1B 是全角分号\SCFW（fullwidth semicolon）。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_full_stop_ideographic_tl { \symbol { "3002 } }
 \tl_const:Nn \c_@@_full_stop_fullwidth_tl   { \symbol { "FF0E } }
