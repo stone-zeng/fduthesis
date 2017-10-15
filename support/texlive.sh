@@ -88,6 +88,7 @@ tlmgr install         \
   ptex                \
   ptex-base           \
   ptex-fontmaps       \
+  ptex-fonts          \
   siunitx             \
   standalone          \
   tex                 \
@@ -103,6 +104,7 @@ tlmgr install         \
   uplatex             \
   uptex               \
   uptex-base          \
+  uptex-fonts         \
   url                 \
   varwidth            \
   xcolor              \
@@ -113,6 +115,7 @@ tlmgr install         \
   xunicode            \
   zapfding            \
   zhlipsum            \
+  zhmetrics-uptex     \
   zhnumber
 
 # Keep no backups (not required, simply makes cache bigger)
