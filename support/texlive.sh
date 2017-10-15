@@ -82,9 +82,11 @@ tlmgr install         \
   pgf                 \
   pifont              \
   platex              \
+  platex-tools        \
   preview             \
   psnfss              \
   ptex                \
+  ptex-base           \
   ptex-fontmaps       \
   siunitx             \
   standalone          \
@@ -100,6 +102,7 @@ tlmgr install         \
   unicode-math        \
   uplatex             \
   uptex               \
+  uptex-base          \
   url                 \
   varwidth            \
   xcolor              \

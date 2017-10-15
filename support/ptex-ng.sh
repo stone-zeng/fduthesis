@@ -8,8 +8,8 @@ tlmgr pinning add tltexjp '*'
 tlmgr install ptex-ng
 tlmgr path add
 
-rm /tmp/texlive/bin/x86_64-linux/ptex-ng
-rm /tmp/texlive/bin/x86_64-linux/platex-ng
+rm --verbose /tmp/texlive/bin/x86_64-linux/ptex-ng
+rm --verbose /tmp/texlive/bin/x86_64-linux/platex-ng
 
 # Build the newest version of pTeX-ng
 git clone https://github.com/clerkma/ptex-ng.git
@@ -22,8 +22,5 @@ cd ..
 # tar -xJf ptex-ng-w32.tar.xz
 
 # Generate format files
-cp ptex-ng/src/ptex-ng /tmp/texlive/bin/x86_64-linux
+cp --verbose ptex-ng/src/ptex-ng /tmp/texlive/bin/x86_64-linux
 fmtutil-sys --byengine=ptex-ng
-
-# Chech information
-ptex-ng --version
