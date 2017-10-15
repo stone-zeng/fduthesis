@@ -21,4 +21,4 @@ script:
   - mkdir pdf
   - mv fudan-*.pdf pdf
   - cd ../test
-  - aptex --format=aplatex --shell-escape test
+  - ptex-ng --format=platex-ng --shell-escape test
