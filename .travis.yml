@@ -15,12 +15,4 @@ script:
   - mkdir pdf
   - mv fudan-*.pdf pdf
   - cd ../test
-  - xelatex  -interaction=nonstopmode test
-  - xelatex  -interaction=nonstopmode test
-  - xelatex  -interaction=nonstopmode test-en
-  - xelatex  -interaction=nonstopmode test-en
-  - source ../support/clean.sh
-  - lualatex -interaction=nonstopmode test
-  - lualatex -interaction=nonstopmode test
-  - lualatex -interaction=nonstopmode test-en
-  - lualatex -interaction=nonstopmode test-en
+  - platex-ng --shell-escape test

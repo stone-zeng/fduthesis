@@ -113,3 +113,14 @@ tlmgr option -- autobackup 0
 
 # Update the TL install but add nothing new
 tlmgr update --self --all --no-auto-install
+
+# Install pTeX-ng
+wget https://texlive.texjp.org/tltexjp-key.asc
+tlmgr key add tltexjp-key.asc
+tlmgr repository add http://texlive.texjp.org/current/tltexjp tltexjp
+tlmgr pinning add tltexjp '*'
+tlmgr install ptex-ng
+tlmgr path add
+
+# Generate format files
+fmtutil-sys --byengine=ptex-ng
