@@ -5,7 +5,6 @@ compiler:
 
 install:
   - source ./support/texlive.sh
-  - source ./support/ptex-ng.sh
 
 cache:
   directories:
@@ -13,6 +12,7 @@ cache:
     - $HOME/.texlive
 
 script:
+  - source ./support/ptex-ng.sh
   - source ./support/local.sh
   - source ./support/run.sh
   - cd ../logo

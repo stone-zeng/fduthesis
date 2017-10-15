@@ -31,12 +31,12 @@ cd src
 pwd
 ls -al
 
-cd /home/travis/.travis/build/Stone-Zeng/fduthesis
+cd /home/travis/build/Stone-Zeng/fduthesis
 cp ptex-ng/src/ptex-ng /tmp/texlive/bin/x86_64-linux
 
 cd /tmp/texlive/bin/x86_64-linux
-ls
-cd /home/travis/.travis/build/Stone-Zeng/fduthesis
+ls -al
+cd /home/travis/build/Stone-Zeng/fduthesis
 
 # For Windows
 # wget http://www.ring.gr.jp/archives/text/TeX/ptex-win32/current/ptex-ng-w32.tar.xz
