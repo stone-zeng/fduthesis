@@ -55,3 +55,4 @@ tools/
 
 # Other
 !support/*.sh
+!test/*.cls
