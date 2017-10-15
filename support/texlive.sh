@@ -89,7 +89,9 @@ tlmgr install         \
   ms                  \
   oberdiek            \
   pgf                 \
+  platex              \
   preview             \
+  ptex                \
   siunitx             \
   standalone          \
   tools               \
@@ -98,6 +100,8 @@ tlmgr install         \
   ulem                \
   unicode-data        \
   unicode-math        \
+  uptex               \
+  uplatex             \
   url                 \
   varwidth            \
   xcolor              \
