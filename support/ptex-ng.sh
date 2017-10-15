@@ -9,9 +9,22 @@ tlmgr install ptex-ng
 tlmgr path add
 
 # Install newest version of pTeX-ng (from GitHub)
+if ! command -v aptex > /dev/null; then
+  echo "I have found aptex!"
+else
+  echo "I haven't found aptex!"
+fi
+
 git clone https://github.com/clerkma/ptex-ng.git
 cd ptex-ng
 ./build-aptex.sh
+
+pwd
+ls -al
+cd ..
+pwd
+ls -al
+
 cd /home/travis/.travis/build/Stone-Zeng/fduthesis
 cp ./ptex-ng/aptex /tmp/texlive/bin/x86_64-linux
 
