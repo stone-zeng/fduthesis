@@ -1,18 +1,15 @@
 \PassOptionsToPackage{log-declarations=false}{xparse}
 \documentclass[twoside]{fduthesis}
+\usepackage{amssymb}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 
-% \hypersetup{linktoc = page}
-
-% \ltjsetparameter{jacharrange={-1, -2, -3, -4, -5, +6, +7, -8}}
-
 \fdusetup{
   style = {
-    % font = none,
-    cjkfont = none,
-    fullwidthstop = mapping,
-    footnotestyle = libertinus*,
+    %font = none,
+    %cjkfont = none,
+    %fullwidthstop = mapping,
+    %footnotestyle = libertinus*,
     % automakecover = false
     logo = {../logo/pdf/fudan-name-black.pdf},
     % logosize = {2cm,2cm,2cm}
@@ -43,27 +40,10 @@
   }
 }
 
-% \setmainfont{Adobe Garamond Pro}[ItalicFont=Consolas,BoldFont=Candara]
-% \setsansfont{Calibri}
-% \setmonofont{Consolas}
-% \setmathfont{TeX Gyre Pagella Math}
-
-\setCJKmainfont{FandolSong}[ItalicFont=FandolKai]
-\setCJKsansfont{FandolHei}
-\setCJKmonofont{FandolFang}
-\setCJKfamilyfont{kai}{FandolKai}
-
-\def\WORLDb{你好，世界。}
-
-\newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
-\newcommand\fonttest{%
-  正常：\qquad\fonttesttext \par
-  粗体：\qquad\textbf{\fonttesttext} \par
-  倾斜：\qquad\textit{\fonttesttext} \par
-  小型大写：\qquad\textsc{\fonttesttext}
-}
+\def\QED{\Box}
 
 \begin{document}
+
 \frontmatter
 \tableofcontents
 
@@ -144,22 +124,22 @@ PY          &  聚吡咙
 
 \clearpage
 
-\section{字体 Font}
-\subsection{普通字体 Roman}
-\fonttest
-
-\subsection{无衬线字体 Sans-serif}
-\textsf{\fonttest}
-
-\subsection{打字机字体 Typewriter}
-\texttt{\fonttest}
-
-\ExplSyntaxOn
-\group_begin:
-\sys_if_engine_xetex:T
-  {\CJKfontspec{FandolFang}[Mapping=full-stop] 仿宋句号。}
-\group_end:
-\ExplSyntaxOff
+%\section{字体 Font}
+%\subsection{普通字体 Roman}
+%\fonttest
+%
+%\subsection{无衬线字体 Sans-serif}
+%\textsf{\fonttest}
+%
+%\subsection{打字机字体 Typewriter}
+%\texttt{\fonttest}
+%
+%\ExplSyntaxOn
+%\group_begin:
+%\sys_if_engine_xetex:T
+%  {\CJKfontspec{FandolFang}[Mapping=full-stop] 仿宋句号。}
+%\group_end:
+%\ExplSyntaxOff
 
 \subsection{句号}
 如果\symbol{"002E}会突然：\textsc{Full Stop} \par
@@ -441,9 +421,9 @@ Myriad MM。
     \hline
     \bfseries 功能 & \bfseries 环境 & \bfseries code \\
     \hline
-    表格 & tabular & \ttfamily \backslash begin\{tabular\} ... \backslash end\{tabular\} \\
-    插图 & figure  & \ttfamily \backslash begin\{figure\}  ... \backslash end\{figure\}  \\
-    居中 & center  & \ttfamily \backslash begin\{center\}  ... \backslash end\{center\}  \\
+    表格 & tabular & \ttfamily \textbackslash begin\{tabular\} ... \textbackslash end\{tabular\} \\
+    插图 & figure  & \ttfamily \textbackslash begin\{figure\}  ... \textbackslash end\{figure\}  \\
+    居中 & center  & \ttfamily \textbackslash begin\{center\}  ... \textbackslash end\{center\}  \\
     \hline
   \end{tabular}
 \end{table}

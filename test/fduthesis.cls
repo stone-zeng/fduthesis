@@ -54,14 +54,16 @@
     "#1"~ is~ not~ supported~ at~ present.~ You~ must~ change \\
     your~ typesetting~ engine~ to~ "xelatex"~ or~ "lualatex".
   }
-\sys_if_engine_xetex:F
-  {
-    \sys_if_engine_luatex:F
-      {
-        \msg_fatal:nnx { fduthesis } { unsupported-engine }
-          { \c_sys_engine_str }
-      }
-  }
+
+% \sys_if_engine_xetex:F
+%   {
+%     \sys_if_engine_luatex:F
+%       {
+%         \msg_fatal:nnx { fduthesis } { unsupported-engine }
+%           { \c_sys_engine_str }
+%       }
+%   }
+
 \RequirePackage { xparse, l3keys2e }
 \msg_new:nnn { fduthesis } { l3-too-old }
   {
@@ -132,22 +134,28 @@
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
 \LoadClass { book }
-\RequirePackage [ no-math ] { fontspec }
+
+%\RequirePackage [ no-math ] { fontspec }
+
 \RequirePackage
   [
     UTF8,
     heading    = true,
-    fontset    = none,
+    %fontset    = none,
+    fontset    = fandol,
     zihao      = \c__fdu_def_font_size_tl,
     linespread = \c__fdu_def_line_spread_fp
   ]
   { ctex }
 \RequirePackage { amsmath }
-\RequirePackage [math-style = ISO, bold-style = ISO] { unicode-math }
+
+%\RequirePackage [math-style = ISO, bold-style = ISO] { unicode-math }
+
 \RequirePackage { geometry, fancyhdr }
 \RequirePackage [ perpage ] { footmisc }
 \RequirePackage [ amsmath, thmmarks ] { ntheorem }
-\RequirePackage { graphicx }
+%\RequirePackage { graphicx }
+\RequirePackage [ dvipdfmx ] { graphicx }
 \RequirePackage { longtable }
 \RequirePackage { caption }
 \RequirePackage { xcolor }
@@ -165,9 +173,11 @@
     TeX~ package~ manager~ or~ from~ CTAN.
   }
 \__fdu_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
-\__fdu_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-\sys_if_engine_xetex:T
-  { \__fdu_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
+
+% \__fdu_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
+% \sys_if_engine_xetex:T
+%   { \__fdu_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
+
 \geometry
   {
     paper      = \c__fdu_def_paper_size_tl,
@@ -183,353 +193,358 @@
 \prop_new:N \g__fdu_font_options_prop
 \prop_new:N \g__fdu_cjk_font_name_prop
 \prop_new:N \g__fdu_cjk_font_options_prop
-\keys_define:nn { fdu / style }
-  {
-    font .choice:,
-    font .value_required:n = true,
-    font / libertinus .code:n =
-      {
-        \fdu_choose_font:nn { main } { Libertinus~ Serif }
-        \fdu_choose_font:nn { sans } { Libertinus~ Sans  }
-        \fdu_choose_font_with_option:nnn { mono }
-          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math } { Libertinus~ Math  }
-        \keys_set:nn { fdu / style } { footnotestyle = libertinus }
-      },
-    font / lm .code:n =
-      {
-        \fdu_choose_font:nn { main } { Latin~ Modern~ Roman }
-        \fdu_choose_font:nn { sans } { Latin~ Modern~ Sans  }
-        \fdu_choose_font:nn { mono } { Latin~ Modern~ Mono  }
-        \fdu_choose_font:nn { math } { Latin~ Modern~ Math  }
-        \keys_set:nn { fdu / style } { footnotestyle = pifont }
-      },
-    font / palatino .code:n =
-      {
-        \fdu_choose_font:nn { main } { TeX~ Gyre~ Pagella }
-        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros   }
-        \fdu_choose_font_with_option:nnn { mono }
-          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math } { TeX~ Gyre~ Pagella~ Math }
-        \keys_set:nn { fdu / style } { footnotestyle = pifont }
-      },
-    font / times .code:n =
-      {
-        \fdu_choose_font:nn { main } { XITS              }
-        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros  }
-        \fdu_choose_font_with_option:nnn { mono }
-          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math } { XITS~ Math        }
-        \keys_set:nn { fdu / style } { footnotestyle = xits }
-      },
-    font / none .code:n =
-      {
-        \__fdu_initialize_prop:Nn \g__fdu_font_name_prop
-          { main, sans, mono, math }
-        \__fdu_initialize_prop:Nn \g__fdu_font_options_prop
-          { main, sans, mono, math }
-        \keys_set:nn { fdu / style } { footnotestyle = plain }
-      },
-    cjkfont .choice:,
-    cjkfont .value_required:n = true,
-    cjkfont / adobe .code:n =
-      {
-        \fdu_choose_cjk_font:nn { song } { Adobe~ Song~     Std }
-        \fdu_choose_cjk_font:nn { hei  } { Adobe~ Heiti~    Std }
-        \fdu_choose_cjk_font:nn { fang } { Adobe~ Fangsong~ Std }
-        \fdu_choose_cjk_font:nn { kai  } { Adobe~ Kaiti~    Std }
-      },
-    cjkfont / fandol .code:n =
-      {
-        \fdu_choose_cjk_font_with_option:nnn { song }
-          { FandolSong } { BoldFont = FandolSong~ Bold }
-        \fdu_choose_cjk_font:nn { hei  } { FandolHei  }
-        \fdu_choose_cjk_font:nn { fang } { FandolFang }
-        \fdu_choose_cjk_font:nn { kai  } { FandolKai  }
-      },
-    cjkfont / founder .code:n =
-      {
-        \fdu_choose_cjk_font_with_option:nnn { song }
-          { FZShuSong-Z01 } { BoldFont = FZXiaoBiaoSong-B05 }
-        \fdu_choose_cjk_font:nn { hei  } { FZHei-B01      }
-        \fdu_choose_cjk_font:nn { fang } { FZFangSong-Z02 }
-        \fdu_choose_cjk_font:nn { kai  } { FZKai-Z03      }
-      },
-    cjkfont / mac .code:n =
-      {
-        \fdu_choose_cjk_font_with_option:nnn { song }
-          { STSong } { BoldFont = STZhongsong }
-        \fdu_choose_cjk_font:nn { hei  } { STHeiti    }
-        \fdu_choose_cjk_font:nn { fang } { STFangsong }
-        \fdu_choose_cjk_font:nn { kai  } { STKaiti    }
-      },
-    cjkfont / windows .code:n =
-      {
-        \fdu_choose_cjk_font:nn { song } { SimSun   }
-        \fdu_choose_cjk_font:nn { hei  } { SimHei   }
-        \fdu_choose_cjk_font:nn { fang } { FangSong }
-        \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
-      },
-    cjkfont / none .code:n =
-      {
-        \__fdu_initialize_prop:Nn \g__fdu_cjk_font_name_prop
-          { rm, sf, tt, kai }
-        \__fdu_initialize_prop:Nn \g__fdu_cjk_font_options_prop
-          { rm, sf, tt, kai }
-      }
-  }
-\cs_new:Npn \__fdu_initialize_prop:Nn #1#2
-  {
-    \prop_clear:N #1
-    \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
-  }
-\RenewDocumentCommand \setmainfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
-\RenewDocumentCommand \setsansfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
-\RenewDocumentCommand \setmonofont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
-\RenewDocumentCommand \setmathfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKmainfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKsansfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKmonofont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKfamilyfont { m O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn {#1} {#3} { #2, #4 } }
-\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
-  {
-    \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g__fdu_font_options_prop {#1} {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_font:nn #1#2
-  {
-    \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g__fdu_font_options_prop {#1} {  }
-  }
-\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
-  {
-    \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
-  {
-    \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {  }
-  }
-\cs_new_protected:Npn \__fdu_set_font:
-  {
-    \clist_map_inline:nn { main, sans, mono, math }
-      {
-        \prop_get:NnN \g__fdu_font_name_prop    {##1}
-          \l__fdu_tmpa_tl
-        \prop_get:NnN \g__fdu_font_options_prop {##1}
-          \l__fdu_tmpb_tl
-        \tl_if_empty:NT \l__fdu_tmpa_tl
-          { \__fdu_error:nn { font-not-defined } {##1} }
-        \use:c { __fdu_set_ ##1 _font:VV }
-          \l__fdu_tmpa_tl \l__fdu_tmpb_tl
-      }
-  }
-\clist_map_inline:nn { main, sans, mono }
-  {
-    \cs_new:cpx { __fdu_set_ #1 _font:nn } ##1 ##2
-      { \exp_not:c { __fontspec_main_set #1 font:nn } {##2} {##1} }
-  }
-\cs_new:Npn \__fdu_set_math_font:nn #1#2
-  { \__um_setmathfont:nn {#2} {#1} }
-\clist_map_inline:nn { main, sans, mono, math }
-  {
-    \exp_args:Nc \cs_generate_variant:Nn
-      { __fdu_set_ #1 _font:nn } { VV }
-  }
-\cs_new_protected:Npn \__fdu_set_cjk_font:
-  {
-    \clist_map_inline:nn { rm, sf, tt, kai }
-      {
-        \use:c { __fdu_parse_cjk_ ##1 _font: }
-        \__fdu_check_cjk_font:n   {##1}
-        \__fdu_set_cjk_font_aux:n {##1}
-      }
-    \clist_map_inline:nn { song, hei, fang }
-      {
-        \prop_remove:Nn \g__fdu_cjk_font_name_prop    {##1}
-        \prop_remove:Nn \g__fdu_cjk_font_options_prop {##1}
-      }
-  }
-\tl_new:N    \l__fdu_font_name_tl
-\clist_new:N \l__fdu_font_options_clist
-\cs_new_protected:Npn \__fdu_parse_cjk_rm_font:
-  {
-    \prop_get:NnNF \g__fdu_cjk_font_name_prop
-      { rm } \l__fdu_font_name_tl
-      {
-        \__fdu_get_cjk_font_name_options:nn { rm } { song }
-        \use_ii:nn
-          {
-            \tl_if_in:NnF \l__fdu_font_options_clist { BoldFont = }
-              {
-                \clist_put_right:Nx \l__fdu_font_options_clist
-                  { BoldFont = \l__fdu_font_name_tl }
-              }
-          }
-          {
-            \prop_get:NnN \g__fdu_cjk_font_name_prop { hei }
-              \l__fdu_tmpa_tl
-            \clist_put_right:Nx \l__fdu_font_options_clist
-              { BoldFont = \l__fdu_tmpa_tl }
-          }
-        \__fdu_get_cjk_kai_font:
-        \__fdu_set_cjk_font_options:n { rm }
-      }
-  }
-\cs_new_protected:Npn \__fdu_parse_cjk_sf_font:
-  {
-    \prop_get:NnNF \g__fdu_cjk_font_name_prop
-      { sf } \l__fdu_font_name_tl
-      {
-        \__fdu_get_cjk_font_name_options:nn { sf } { hei }
-        \clist_put_right:Nx \l__fdu_font_options_clist
-          {
-            BoldFont       = \l__fdu_font_name_tl,
-            ItalicFont     = \l__fdu_font_name_tl,
-            BoldItalicFont = \l__fdu_font_name_tl
-          }
-        \__fdu_set_cjk_font_options:n { sf }
-      }
-  }
-\cs_new_protected:Npn \__fdu_parse_cjk_tt_font:
-  {
-    \prop_get:NnNF \g__fdu_cjk_font_name_prop
-      { tt } \l__fdu_font_name_tl
-      {
-        \__fdu_get_cjk_font_name_options:nn { tt } { fang }
-        \clist_put_right:Nx \l__fdu_font_options_clist
-          { BoldFont = \l__fdu_font_name_tl }
-        \__fdu_get_cjk_kai_font:
-        \__fdu_set_cjk_font_options:n { tt }
-      }
-  }
-\cs_new_protected:Npn \__fdu_parse_cjk_kai_font:
-  {
-    \prop_get:NnN \g__fdu_cjk_font_name_prop { kai }
-      \l__fdu_font_name_tl
-    \clist_set:Nx \l__fdu_font_options_clist
-      {
-        BoldFont       = \l__fdu_font_name_tl,
-        ItalicFont     = \l__fdu_font_name_tl,
-        BoldItalicFont = \l__fdu_font_name_tl
-      }
-    \__fdu_set_cjk_font_options:n { kai }
-  }
-\cs_new:Npn \__fdu_get_cjk_font_name_options:nn #1#2
-  {
-    \prop_get:NnN \g__fdu_cjk_font_name_prop    {#2}
-      \l__fdu_font_name_tl
-    \prop_put:NnV \g__fdu_cjk_font_name_prop    {#1}
-      \l__fdu_font_name_tl
-    \prop_get:NnN \g__fdu_cjk_font_options_prop {#2}
-      \l__fdu_tmpa_tl
-    \clist_set:NV \l__fdu_font_options_clist \l__fdu_tmpa_tl
-  }
-\cs_new:Npn \__fdu_get_cjk_kai_font:
-  {
-    \prop_get:NnN \g__fdu_cjk_font_name_prop { kai }
-      \l__fdu_tmpa_tl
-    \clist_put_right:Nx \l__fdu_font_options_clist
-      {
-        ItalicFont     = \l__fdu_tmpa_tl,
-        BoldItalicFont = \l__fdu_tmpa_tl
-      }
-  }
-\cs_new:Npn \__fdu_set_cjk_font_options:n #1
-  {
-    \prop_put:NnV \g__fdu_cjk_font_options_prop {#1}
-      \l__fdu_font_options_clist
-  }
-\cs_new_protected:Npn \__fdu_check_cjk_font:n #1
-  {
-    \prop_get:NnN \g__fdu_cjk_font_name_prop {#1}
-      \l__fdu_font_name_tl
-    \tl_if_empty:NT \l__fdu_font_name_tl
-      { \__fdu_error:nn { cjk-font-not-defined } {#1} }
-  }
-\cs_generate_variant:Nn \xeCJK_set_family:nnn    { nVV }
-\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { nVV }
-\cs_new_protected:Npx \__fdu_set_cjk_font_aux:n #1
-  {
-    \prop_get:NnN \exp_not:N \g__fdu_cjk_font_name_prop    {#1}
-      \exp_not:N \l__fdu_tmpa_tl
-    \prop_get:NnN \exp_not:N \g__fdu_cjk_font_options_prop {#1}
-      \exp_not:N \l__fdu_tmpb_tl
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nVV }
-      { \sys_if_engine_luatex:T { \ctex_ltj_set_family:nVV } }
-    {#1} \exp_not:n { \l__fdu_tmpb_tl \l__fdu_tmpa_tl }
-  }
-\__fdu_msg_new:nn { font-not-defined }
-  {
-    \str_upper_case:f { \tl_head:n {#1} } \tl_tail:n {#1} ~
-    font~ is~ not~ defined. \\\\
-    You~ can~ set~ option~ "font"~ via~ "\string\fdusetup",~
-    or~ use~ command~ \\
-    "\string\set #1 font"~ to~ define~ new~ font~ families.
-  }
-\__fdu_msg_new:nn { cjk-font-not-defined }
-  {
-    CJK~ font~ family~ "#1"~ is~ not~ defined. \\\\
-    You~ can~ set~ option~ "cjkfont"~ via~ "\string\fdusetup",~
-    or~ use~ commands~ \\
-    "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
-    "\string\setCJKmonofont"~ etc~ \\
-    to~ define~ new~ CJK~ font~ families.
-  }
-\sys_if_engine_xetex:T
-  {
-    \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
-    \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
-  }
-\ctex_at_end_preamble:n
-  {
-    \__fdu_set_font:
-    \__fdu_set_cjk_font:
-  }
-\sys_if_engine_xetex:TF
-  {
-    \prg_new_protected_conditional:Npnn
-      \fdu_family_if_exist:n #1 { TF }
-      {
-        \xeCJK_family_if_exist:nTF {#1}
-          { \prg_return_true: } { \prg_return_false: }
-      }
-  }
-  {
-    \sys_if_engine_luatex:T
-      {
-        \prg_new_protected_conditional:Npnn
-          \fdu_family_if_exist:n #1 { TF }
-          {
-            \ctex_ltj_family_if_exist:nNTF {#1} \l__fdu_tmpa_tl
-              { \prg_return_true: } { \prg_return_false: }
-          }
-      }
-  }
-\cs_new_protected:Npx \fdu_cjk_font_kai:
-  {
-    \fdu_family_if_exist:nTF { kai }
-      {
-        \sys_if_engine_xetex:TF
-          { \xeCJK_switch_family:n { kai } }
-          {
-            \sys_if_engine_luatex:T
-              { \ctex_ltj_switch_family:n { kai } }
-          }
-      }
-      { \exp_not:n { \rmfamily \itshape } }
-  }
-\cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
+%\keys_define:nn { fdu / style }
+%  {
+%    font .choice:,
+%    font .value_required:n = true,
+%    font / libertinus .code:n =
+%      {
+%        \fdu_choose_font:nn { main } { Libertinus~ Serif }
+%        \fdu_choose_font:nn { sans } { Libertinus~ Sans  }
+%        \fdu_choose_font_with_option:nnn { mono }
+%          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
+%        \fdu_choose_font:nn { math } { Libertinus~ Math  }
+%        \keys_set:nn { fdu / style } { footnotestyle = libertinus }
+%      },
+%    font / lm .code:n =
+%      {
+%        \fdu_choose_font:nn { main } { Latin~ Modern~ Roman }
+%        \fdu_choose_font:nn { sans } { Latin~ Modern~ Sans  }
+%        \fdu_choose_font:nn { mono } { Latin~ Modern~ Mono  }
+%        \fdu_choose_font:nn { math } { Latin~ Modern~ Math  }
+%        \keys_set:nn { fdu / style } { footnotestyle = pifont }
+%      },
+%    font / palatino .code:n =
+%      {
+%        \fdu_choose_font:nn { main } { TeX~ Gyre~ Pagella }
+%        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros   }
+%        \fdu_choose_font_with_option:nnn { mono }
+%          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
+%        \fdu_choose_font:nn { math } { TeX~ Gyre~ Pagella~ Math }
+%        \keys_set:nn { fdu / style } { footnotestyle = pifont }
+%      },
+%    font / times .code:n =
+%      {
+%        \fdu_choose_font:nn { main } { XITS              }
+%        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros  }
+%        \fdu_choose_font_with_option:nnn { mono }
+%          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
+%        \fdu_choose_font:nn { math } { XITS~ Math        }
+%        \keys_set:nn { fdu / style } { footnotestyle = xits }
+%      },
+%    font / none .code:n =
+%      {
+%        \__fdu_initialize_prop:Nn \g__fdu_font_name_prop
+%          { main, sans, mono, math }
+%        \__fdu_initialize_prop:Nn \g__fdu_font_options_prop
+%          { main, sans, mono, math }
+%        \keys_set:nn { fdu / style } { footnotestyle = plain }
+%      },
+%    cjkfont .choice:,
+%    cjkfont .value_required:n = true,
+%    cjkfont / adobe .code:n =
+%      {
+%        \fdu_choose_cjk_font:nn { song } { Adobe~ Song~     Std }
+%        \fdu_choose_cjk_font:nn { hei  } { Adobe~ Heiti~    Std }
+%        \fdu_choose_cjk_font:nn { fang } { Adobe~ Fangsong~ Std }
+%        \fdu_choose_cjk_font:nn { kai  } { Adobe~ Kaiti~    Std }
+%      },
+%    cjkfont / fandol .code:n =
+%      {
+%        \fdu_choose_cjk_font_with_option:nnn { song }
+%          { FandolSong } { BoldFont = FandolSong~ Bold }
+%        \fdu_choose_cjk_font:nn { hei  } { FandolHei  }
+%        \fdu_choose_cjk_font:nn { fang } { FandolFang }
+%        \fdu_choose_cjk_font:nn { kai  } { FandolKai  }
+%      },
+%    cjkfont / founder .code:n =
+%      {
+%        \fdu_choose_cjk_font_with_option:nnn { song }
+%          { FZShuSong-Z01 } { BoldFont = FZXiaoBiaoSong-B05 }
+%        \fdu_choose_cjk_font:nn { hei  } { FZHei-B01      }
+%        \fdu_choose_cjk_font:nn { fang } { FZFangSong-Z02 }
+%        \fdu_choose_cjk_font:nn { kai  } { FZKai-Z03      }
+%      },
+%    cjkfont / mac .code:n =
+%      {
+%        \fdu_choose_cjk_font_with_option:nnn { song }
+%          { STSong } { BoldFont = STZhongsong }
+%        \fdu_choose_cjk_font:nn { hei  } { STHeiti    }
+%        \fdu_choose_cjk_font:nn { fang } { STFangsong }
+%        \fdu_choose_cjk_font:nn { kai  } { STKaiti    }
+%      },
+%    cjkfont / windows .code:n =
+%      {
+%        \fdu_choose_cjk_font:nn { song } { SimSun   }
+%        \fdu_choose_cjk_font:nn { hei  } { SimHei   }
+%        \fdu_choose_cjk_font:nn { fang } { FangSong }
+%        \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
+%      },
+%    cjkfont / none .code:n =
+%      {
+%        \__fdu_initialize_prop:Nn \g__fdu_cjk_font_name_prop
+%          { rm, sf, tt, kai }
+%        \__fdu_initialize_prop:Nn \g__fdu_cjk_font_options_prop
+%          { rm, sf, tt, kai }
+%      }
+%  }
+%\cs_new:Npn \__fdu_initialize_prop:Nn #1#2
+%  {
+%    \prop_clear:N #1
+%    \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
+%  }
+%\RenewDocumentCommand \setmainfont { O { } m O { } }
+%  { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setsansfont { O { } m O { } }
+%  { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setmonofont { O { } m O { } }
+%  { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setmathfont { O { } m O { } }
+%  { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setCJKmainfont { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setCJKsansfont { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setCJKmonofont { O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} { #1, #3 } }
+%\RenewDocumentCommand \setCJKfamilyfont { m O { } m O { } }
+%  { \fdu_choose_cjk_font_with_option:nnn {#1} {#3} { #2, #4 } }
+%\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
+%  {
+%    \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
+%    \prop_put:Nnn \g__fdu_font_options_prop {#1} {#3}
+%  }
+%\cs_new_protected:Npn \fdu_choose_font:nn #1#2
+%  {
+%    \prop_put:Nnn \g__fdu_font_name_prop    {#1} {#2}
+%    \prop_put:Nnn \g__fdu_font_options_prop {#1} {  }
+%  }
+%\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
+%  {
+%    \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
+%    \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {#3}
+%  }
+%\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
+%  {
+%    \prop_put:Nnn \g__fdu_cjk_font_name_prop    {#1} {#2}
+%    \prop_put:Nnn \g__fdu_cjk_font_options_prop {#1} {  }
+%  }
+%\cs_new_protected:Npn \__fdu_set_font:
+%  {
+%    \clist_map_inline:nn { main, sans, mono, math }
+%      {
+%        \prop_get:NnN \g__fdu_font_name_prop    {##1}
+%          \l__fdu_tmpa_tl
+%        \prop_get:NnN \g__fdu_font_options_prop {##1}
+%          \l__fdu_tmpb_tl
+%        \tl_if_empty:NT \l__fdu_tmpa_tl
+%          { \__fdu_error:nn { font-not-defined } {##1} }
+%        \use:c { __fdu_set_ ##1 _font:VV }
+%          \l__fdu_tmpa_tl \l__fdu_tmpb_tl
+%      }
+%  }
+%\clist_map_inline:nn { main, sans, mono }
+%  {
+%    \cs_new:cpx { __fdu_set_ #1 _font:nn } ##1 ##2
+%      { \exp_not:c { __fontspec_main_set #1 font:nn } {##2} {##1} }
+%  }
+%\cs_new:Npn \__fdu_set_math_font:nn #1#2
+%  { \__um_setmathfont:nn {#2} {#1} }
+%\clist_map_inline:nn { main, sans, mono, math }
+%  {
+%    \exp_args:Nc \cs_generate_variant:Nn
+%      { __fdu_set_ #1 _font:nn } { VV }
+%  }
+%\cs_new_protected:Npn \__fdu_set_cjk_font:
+%  {
+%    \clist_map_inline:nn { rm, sf, tt, kai }
+%      {
+%        \use:c { __fdu_parse_cjk_ ##1 _font: }
+%        \__fdu_check_cjk_font:n   {##1}
+%        \__fdu_set_cjk_font_aux:n {##1}
+%      }
+%    \clist_map_inline:nn { song, hei, fang }
+%      {
+%        \prop_remove:Nn \g__fdu_cjk_font_name_prop    {##1}
+%        \prop_remove:Nn \g__fdu_cjk_font_options_prop {##1}
+%      }
+%  }
+%\tl_new:N    \l__fdu_font_name_tl
+%\clist_new:N \l__fdu_font_options_clist
+%\cs_new_protected:Npn \__fdu_parse_cjk_rm_font:
+%  {
+%    \prop_get:NnNF \g__fdu_cjk_font_name_prop
+%      { rm } \l__fdu_font_name_tl
+%      {
+%        \__fdu_get_cjk_font_name_options:nn { rm } { song }
+%        \use_ii:nn
+%          {
+%            \tl_if_in:NnF \l__fdu_font_options_clist { BoldFont = }
+%              {
+%                \clist_put_right:Nx \l__fdu_font_options_clist
+%                  { BoldFont = \l__fdu_font_name_tl }
+%              }
+%          }
+%          {
+%            \prop_get:NnN \g__fdu_cjk_font_name_prop { hei }
+%              \l__fdu_tmpa_tl
+%            \clist_put_right:Nx \l__fdu_font_options_clist
+%              { BoldFont = \l__fdu_tmpa_tl }
+%          }
+%        \__fdu_get_cjk_kai_font:
+%        \__fdu_set_cjk_font_options:n { rm }
+%      }
+%  }
+%\cs_new_protected:Npn \__fdu_parse_cjk_sf_font:
+%  {
+%    \prop_get:NnNF \g__fdu_cjk_font_name_prop
+%      { sf } \l__fdu_font_name_tl
+%      {
+%        \__fdu_get_cjk_font_name_options:nn { sf } { hei }
+%        \clist_put_right:Nx \l__fdu_font_options_clist
+%          {
+%            BoldFont       = \l__fdu_font_name_tl,
+%            ItalicFont     = \l__fdu_font_name_tl,
+%            BoldItalicFont = \l__fdu_font_name_tl
+%          }
+%        \__fdu_set_cjk_font_options:n { sf }
+%      }
+%  }
+%\cs_new_protected:Npn \__fdu_parse_cjk_tt_font:
+%  {
+%    \prop_get:NnNF \g__fdu_cjk_font_name_prop
+%      { tt } \l__fdu_font_name_tl
+%      {
+%        \__fdu_get_cjk_font_name_options:nn { tt } { fang }
+%        \clist_put_right:Nx \l__fdu_font_options_clist
+%          { BoldFont = \l__fdu_font_name_tl }
+%        \__fdu_get_cjk_kai_font:
+%        \__fdu_set_cjk_font_options:n { tt }
+%      }
+%  }
+%\cs_new_protected:Npn \__fdu_parse_cjk_kai_font:
+%  {
+%    \prop_get:NnN \g__fdu_cjk_font_name_prop { kai }
+%      \l__fdu_font_name_tl
+%    \clist_set:Nx \l__fdu_font_options_clist
+%      {
+%        BoldFont       = \l__fdu_font_name_tl,
+%        ItalicFont     = \l__fdu_font_name_tl,
+%        BoldItalicFont = \l__fdu_font_name_tl
+%      }
+%    \__fdu_set_cjk_font_options:n { kai }
+%  }
+%\cs_new:Npn \__fdu_get_cjk_font_name_options:nn #1#2
+%  {
+%    \prop_get:NnN \g__fdu_cjk_font_name_prop    {#2}
+%      \l__fdu_font_name_tl
+%    \prop_put:NnV \g__fdu_cjk_font_name_prop    {#1}
+%      \l__fdu_font_name_tl
+%    \prop_get:NnN \g__fdu_cjk_font_options_prop {#2}
+%      \l__fdu_tmpa_tl
+%    \clist_set:NV \l__fdu_font_options_clist \l__fdu_tmpa_tl
+%  }
+%\cs_new:Npn \__fdu_get_cjk_kai_font:
+%  {
+%    \prop_get:NnN \g__fdu_cjk_font_name_prop { kai }
+%      \l__fdu_tmpa_tl
+%    \clist_put_right:Nx \l__fdu_font_options_clist
+%      {
+%        ItalicFont     = \l__fdu_tmpa_tl,
+%        BoldItalicFont = \l__fdu_tmpa_tl
+%      }
+%  }
+%\cs_new:Npn \__fdu_set_cjk_font_options:n #1
+%  {
+%    \prop_put:NnV \g__fdu_cjk_font_options_prop {#1}
+%      \l__fdu_font_options_clist
+%  }
+%\cs_new_protected:Npn \__fdu_check_cjk_font:n #1
+%  {
+%    \prop_get:NnN \g__fdu_cjk_font_name_prop {#1}
+%      \l__fdu_font_name_tl
+%    \tl_if_empty:NT \l__fdu_font_name_tl
+%      { \__fdu_error:nn { cjk-font-not-defined } {#1} }
+%  }
+%\cs_generate_variant:Nn \xeCJK_set_family:nnn    { nVV }
+%\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { nVV }
+%\cs_new_protected:Npx \__fdu_set_cjk_font_aux:n #1
+%  {
+%    \prop_get:NnN \exp_not:N \g__fdu_cjk_font_name_prop    {#1}
+%      \exp_not:N \l__fdu_tmpa_tl
+%    \prop_get:NnN \exp_not:N \g__fdu_cjk_font_options_prop {#1}
+%      \exp_not:N \l__fdu_tmpb_tl
+%    \sys_if_engine_xetex:TF
+%      { \xeCJK_set_family:nVV }
+%      { \sys_if_engine_luatex:T { \ctex_ltj_set_family:nVV } }
+%    {#1} \exp_not:n { \l__fdu_tmpb_tl \l__fdu_tmpa_tl }
+%  }
+%\__fdu_msg_new:nn { font-not-defined }
+%  {
+%    \str_upper_case:f { \tl_head:n {#1} } \tl_tail:n {#1} ~
+%    font~ is~ not~ defined. \\\\
+%    You~ can~ set~ option~ "font"~ via~ "\string\fdusetup",~
+%    or~ use~ command~ \\
+%    "\string\set #1 font"~ to~ define~ new~ font~ families.
+%  }
+%\__fdu_msg_new:nn { cjk-font-not-defined }
+%  {
+%    CJK~ font~ family~ "#1"~ is~ not~ defined. \\\\
+%    You~ can~ set~ option~ "cjkfont"~ via~ "\string\fdusetup",~
+%    or~ use~ commands~ \\
+%    "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
+%    "\string\setCJKmonofont"~ etc~ \\
+%    to~ define~ new~ CJK~ font~ families.
+%  }
+%\sys_if_engine_xetex:T
+%  {
+%    \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
+%    \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
+%  }
+%\ctex_at_end_preamble:n
+%  {
+%    \__fdu_set_font:
+%    \__fdu_set_cjk_font:
+%  }
+%\sys_if_engine_xetex:TF
+%  {
+%    \prg_new_protected_conditional:Npnn
+%      \fdu_family_if_exist:n #1 { TF }
+%      {
+%        \xeCJK_family_if_exist:nTF {#1}
+%          { \prg_return_true: } { \prg_return_false: }
+%      }
+%  }
+%  {
+%    \sys_if_engine_luatex:T
+%      {
+%        \prg_new_protected_conditional:Npnn
+%          \fdu_family_if_exist:n #1 { TF }
+%          {
+%            \ctex_ltj_family_if_exist:nNTF {#1} \l__fdu_tmpa_tl
+%              { \prg_return_true: } { \prg_return_false: }
+%          }
+%      }
+%  }
+%\cs_new_protected:Npx \fdu_cjk_font_kai:
+%  {
+%    \fdu_family_if_exist:nTF { kai }
+%      {
+%        \sys_if_engine_xetex:TF
+%          { \xeCJK_switch_family:n { kai } }
+%          {
+%            \sys_if_engine_luatex:T
+%              { \ctex_ltj_switch_family:n { kai } }
+%          }
+%      }
+%      { \exp_not:n { \rmfamily \itshape } }
+%  }
+%\cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cs_new_eq:NN \fdu@kai \kaishu
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \keys_define:nn { fdu / style }
   {
     fontsize .choice:,
@@ -560,11 +575,13 @@
               { Mapping = fullwidth-stop }
           }
           {
-            \sys_if_engine_luatex:T
-              {
-                \__fdu_warning:n { mapping-not-available }
-                \__fdu_set_fullwidth_stop_catcode:
-              }
+            \__fdu_warning:n { mapping-not-available }
+            \__fdu_set_fullwidth_stop_catcode:
+            %\sys_if_engine_luatex:T
+            %  {
+            %    \__fdu_warning:n { mapping-not-available }
+            %    \__fdu_set_fullwidth_stop_catcode:
+            %  }
           }
       },
     fullwidthstop / false .code:n = { }
@@ -778,34 +795,34 @@
           { 5 <= \l_keys_choice_int <= 8 }
           { \RequirePackage { pifont } }
           {
-            \int_compare:nT
-              { 9 <= \l_keys_choice_int <= 11 }
-              {
-                \__fdu_set_math_font:nn
-                  { XITS~ Math } { version = fn-XITS }
-              }
+            %\int_compare:nT
+            %  { 9 <= \l_keys_choice_int <= 11 }
+            %  {
+            %    \__fdu_set_math_font:nn
+            %      { XITS~ Math } { version = fn-XITS }
+            %  }
           }
       },
     footnotestyle .value_required:n = true
   }
-\cs_new:Npn \__fdu_fn_symbol_libertinus:n #1
-  {
-    \int_compare:nTF { #1 >= 21 }
-      {
-        \int_compare:nTF { #1 >= 47 }
-          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-\cs_new:Npn \__fdu_fn_symbol_libertinus_negative:n #1
-  {
-    \int_compare:nTF { #1 >= 11 }
-      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
-      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
-  }
-\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:n
-  \__fdu_fn_symbol_libertinus:n
+%\cs_new:Npn \__fdu_fn_symbol_libertinus:n #1
+%  {
+%    \int_compare:nTF { #1 >= 21 }
+%      {
+%        \int_compare:nTF { #1 >= 47 }
+%          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
+%          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
+%      }
+%      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+%  }
+%\cs_new:Npn \__fdu_fn_symbol_libertinus_negative:n #1
+%  {
+%    \int_compare:nTF { #1 >= 11 }
+%      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
+%      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
+%  }
+%\cs_new_eq:NN \__fdu_fn_symbol_libertinus_sans:n
+%  \__fdu_fn_symbol_libertinus:n
 \cs_new:Npn \__fdu_fn_symbol_pifont:n #1
   { \ding { \int_eval:n { 171 + #1 } } }
 \cs_new:Npn \__fdu_fn_symbol_pifont_negative:n #1
@@ -814,20 +831,20 @@
   { \ding { \int_eval:n { 191 + #1 } } }
 \cs_new:Npn \__fdu_fn_symbol_pifont_sans_negative:n #1
   { \ding { \int_eval:n { 201 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_xits:n #1
-  {
-    \int_compare:nTF { #1 >= 10 }
-      {
-        \int_compare:nTF { #1 >= 36 }
-          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
-      }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
-  }
-\cs_new:Npn \__fdu_fn_symbol_xits_sans:n #1
-  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
-\cs_new:Npn \__fdu_fn_symbol_xits_sans_negative:n #1
-  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
+%\cs_new:Npn \__fdu_fn_symbol_xits:n #1
+%  {
+%    \int_compare:nTF { #1 >= 10 }
+%      {
+%        \int_compare:nTF { #1 >= 36 }
+%          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
+%          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
+%      }
+%      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+%  }
+%\cs_new:Npn \__fdu_fn_symbol_xits_sans:n #1
+%  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
+%\cs_new:Npn \__fdu_fn_symbol_xits_sans_negative:n #1
+%  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
 \RenewDocumentCommand \thefootnote { }
   { \fdu_footnote_number:n { \value { footnote } } }
 \cs_new:Npn \fdu_footnote_number:n #1
@@ -836,21 +853,21 @@
       {
         \c__fdu_fn_style_plain_tl
           { \int_use:N #1 }
-        \c__fdu_fn_style_libertinus_tl
-          {
-            \fontspec { Libertinus~ Serif }
-            \__fdu_fn_symbol_libertinus:n {#1}
-          }
-        \c__fdu_fn_style_libertinus_negative_tl
-          {
-            \fontspec { Libertinus~ Serif }
-            \__fdu_fn_symbol_libertinus_negative:n {#1}
-          }
-        \c__fdu_fn_style_libertinus_sans_tl
-          {
-            \fontspec { Libertinus~ Sans }
-            \__fdu_fn_symbol_libertinus_sans:n {#1}
-          }
+        %\c__fdu_fn_style_libertinus_tl
+        %  {
+        %    \fontspec { Libertinus~ Serif }
+        %    \__fdu_fn_symbol_libertinus:n {#1}
+        %  }
+        %\c__fdu_fn_style_libertinus_negative_tl
+        %  {
+        %    \fontspec { Libertinus~ Serif }
+        %    \__fdu_fn_symbol_libertinus_negative:n {#1}
+        %  }
+        %\c__fdu_fn_style_libertinus_sans_tl
+        %  {
+        %    \fontspec { Libertinus~ Sans }
+        %    \__fdu_fn_symbol_libertinus_sans:n {#1}
+        %  }
         \c__fdu_fn_style_pifont_tl
           { \__fdu_fn_symbol_pifont:n {#1} }
         \c__fdu_fn_style_pifont_negative_tl
@@ -859,21 +876,21 @@
           { \__fdu_fn_symbol_pifont_sans:n {#1} }
         \c__fdu_fn_style_pifont_sans_negative_tl
           { \__fdu_fn_symbol_pifont_sans_negative:n {#1} }
-        \c__fdu_fn_style_xits_tl
-          {
-            \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits:n {#1} $
-          }
-        \c__fdu_fn_style_xits_sans_tl
-          {
-            \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits_sans:n {#1} $
-          }
-        \c__fdu_fn_style_xits_sans_negative_tl
-          {
-            \mathversion { fn-XITS }
-            $ \__fdu_fn_symbol_xits_sans_negative:n {#1} $
-          }
+        %\c__fdu_fn_style_xits_tl
+        %  {
+        %    \mathversion { fn-XITS }
+        %    $ \__fdu_fn_symbol_xits:n {#1} $
+        %  }
+        %\c__fdu_fn_style_xits_sans_tl
+        %  {
+        %    \mathversion { fn-XITS }
+        %    $ \__fdu_fn_symbol_xits_sans:n {#1} $
+        %  }
+        %\c__fdu_fn_style_xits_sans_negative_tl
+        %  {
+        %    \mathversion { fn-XITS }
+        %    $ \__fdu_fn_symbol_xits_sans_negative:n {#1} $
+        %  }
       }
       { \int_use:N #1 }
   }
@@ -1032,8 +1049,8 @@
           { \l_keys_choice_int >= 2 }
           {
             \bool_set_true:N \l__fdu_secret_bool
-            \__fdu_set_math_font:nn
-              { XITS~ Math } { version = secret-XITS }
+            %\__fdu_set_math_font:nn
+            %  { XITS~ Math } { version = secret-XITS }
             \tl_set:Nn \l__fdu_info_secret_level_tl
               {
                 \clist_item:Nn \c__fdu_def_secret_clist
@@ -1107,11 +1124,12 @@
           \bool_if:NT \l__fdu_secret_bool
             {
               \group_begin:
-                \sffamily \mathversion { secret-XITS }
+                \sffamily
+                %\mathversion { secret-XITS }
                 \c__fdu_def_name_secret_level_tl
                 \c__fdu_colon_fullwidth_tl
                 \l__fdu_info_secret_level_tl
-                \c__fdu_def_name_secret_star_tl
+                %\c__fdu_def_name_secret_star_tl
                 \l__fdu_info_secret_year_tl
               \group_end:
               \par
@@ -1411,8 +1429,8 @@
   }
 \keys_set:nn { fdu }
   {
-    style   / font           = times,
-    style   / cjkfont        = fandol,
+    %style   / font           = times,
+    %style   / cjkfont        = fandol,
     style   / fontsize       = -4,
     style   / fullwidthstop  = false,
     style   / automakecover  = true,
