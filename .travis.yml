@@ -1,3 +1,8 @@
+language: c
+
+compiler:
+  - gcc
+
 install:
   - source ./support/texlive.sh
 
@@ -15,4 +20,4 @@ script:
   - mkdir pdf
   - mv fudan-*.pdf pdf
   - cd ../test
-  - platex-ng --shell-escape test
+  - aptex --format=aplatex --shell-escape test

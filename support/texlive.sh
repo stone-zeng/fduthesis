@@ -12,58 +12,40 @@
 export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 if ! command -v texlua > /dev/null; then
   # Obtain TeX Live
-  wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
+  wget https://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz
   cd install-tl-20*
 
   # Install a minimal system
   ./install-tl                                \
     --profile     ../support/texlive.profile  \
-    --repository  https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+    --repository  https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
   cd ..
 fi
 
 # Change default package repository
-tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+tlmgr option repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
 
-# TeX base
+# Packages
 tlmgr install         \
-  tex                 \
-  etex                \
-  knuth-lib           \
-  latex-bin           \
-  tex-ini-files       \
-  cm
-
-# Fonts
-tlmgr install         \
-  fontspec            \
   adobemapping        \
   amsfonts            \
-  fandol              \
-  libertinus          \
-  lm                  \
-  lm-math             \
-  metafont            \
-  mfware              \
-  pifont              \
-  psnfss              \
-  tex-gyre            \
-  tex-gyre-math       \
-  xits                \
-  zapfding
-
-# Other
-tlmgr install         \
   amsmath             \
+  arphic-ttf          \
+  babel-japanese      \
+  baekmuk             \
   caption             \
+  cm                  \
   ctablestack         \
   ctex                \
   currfile            \
   environ             \
+  etex                \
   etoolbox            \
   fancyhdr            \
+  fandol              \
   filehook            \
+  fontspec            \
   footmisc            \
   geometry            \
   graphics            \
@@ -73,11 +55,18 @@ tlmgr install         \
   ifluatex            \
   ifpdf               \
   ifxetex             \
+  ipaex               \
+  japanese-otf        \
   kantlipsum          \
-  l3kernel            \
-  l3experimental      \
-  l3packages          \
+  knuth-lib           \
   l3build             \
+  l3experimental      \
+  l3kernel            \
+  l3packages          \
+  latex-bin           \
+  libertinus          \
+  lm                  \
+  lm-math             \
   lualatex-math       \
   lualibs             \
   luaotfload          \
@@ -85,30 +74,41 @@ tlmgr install         \
   luatex85            \
   luatexbase          \
   luatexja            \
-  ntheorem            \
+  metafont            \
+  mfware              \
   ms                  \
+  ntheorem            \
   oberdiek            \
   pgf                 \
+  pifont              \
   platex              \
   preview             \
+  psnfss              \
   ptex                \
+  ptex-fontmaps       \
   siunitx             \
   standalone          \
+  tex                 \
+  tex-gyre            \
+  tex-gyre-math       \
+  tex-ini-files       \
   tools               \
   trimspaces          \
   ucharcat            \
   ulem                \
   unicode-data        \
   unicode-math        \
-  uptex               \
   uplatex             \
+  uptex               \
   url                 \
   varwidth            \
   xcolor              \
   xecjk               \
   xetex               \
+  xits                \
   xkeyval             \
   xunicode            \
+  zapfding            \
   zhlipsum            \
   zhnumber
 
@@ -117,14 +117,3 @@ tlmgr option -- autobackup 0
 
 # Update the TL install but add nothing new
 tlmgr update --self --all --no-auto-install
-
-# Install pTeX-ng
-wget https://texlive.texjp.org/tltexjp-key.asc
-tlmgr key add tltexjp-key.asc
-tlmgr repository add http://texlive.texjp.org/current/tltexjp tltexjp
-tlmgr pinning add tltexjp '*'
-tlmgr install ptex-ng
-tlmgr path add
-
-# Generate format files
-fmtutil-sys --byengine=ptex-ng

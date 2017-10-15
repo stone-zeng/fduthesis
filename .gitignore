@@ -49,10 +49,9 @@ latexmkrc
 .vscode/
 build/
 logo/
-support/
+support/*/
 temp/
 tools/
 
 # Other
-!support/*.sh
 !test/*.cls
