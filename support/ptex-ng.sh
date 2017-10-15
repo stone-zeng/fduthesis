@@ -15,22 +15,32 @@ else
   echo "I haven't found aptex!"
 fi
 
+if ! command -v ptex-ng > /dev/null; then
+  echo "I have found ptex-ng!"
+else
+  echo "I haven't found ptex-ng!"
+fi
+
 git clone https://github.com/clerkma/ptex-ng.git
 cd ptex-ng
 ./build-aptex.sh
 
 pwd
 ls -al
-cd ..
+cd src
 pwd
 ls -al
 
 cd /home/travis/.travis/build/Stone-Zeng/fduthesis
-cp ./ptex-ng/aptex /tmp/texlive/bin/x86_64-linux
+cp ptex-ng/src/ptex-ng /tmp/texlive/bin/x86_64-linux
+
+cd /tmp/texlive/bin/x86_64-linux
+ls
+cd /home/travis/.travis/build/Stone-Zeng/fduthesis
 
 # For Windows
 # wget http://www.ring.gr.jp/archives/text/TeX/ptex-win32/current/ptex-ng-w32.tar.xz
 # tar -xJf ptex-ng-w32.tar.xz
 
 # Generate format files
-fmtutil-sys --byengine=aptex
+fmtutil-sys --byengine=ptex-ng
