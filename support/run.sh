@@ -3,6 +3,7 @@
 # Install `fduthesis`
 cd source
 xetex fduthesis.dtx
+# Now I'm directly modifying the .cls files.
 # cp fduthesis.cls       ../test/fduthesis.cls
 # cp fduthesis-en.cls    ../test/fduthesis-en.cls
 cp fduthesis.def       ../test/fduthesis.def
@@ -12,6 +13,18 @@ mkdir ../logo
 cp fdulogo.sty         ../logo/fdulogo.sty
 cp fdulogo-example.tex ../logo/fdulogo-example.tex
 cp fduthesis-cover.tex ../logo/fduthesis-cover.tex
+
+# Make logo
+cd ../logo
+pdflatex -interaction=nonstopmode -shell-escape fdulogo-example
+pdflatex -interaction=nonstopmode               fduthesis-cover
+mkdir pdf
+mv fudan-*.pdf pdf
+
+# For pTeX-ng test
+cp pdf/fudan-emblem-new-a-blue.pdf ../test/fudan-emblem-new-a-blue.pdf
+cp pdf/fudan-emblem-new-b-red.pdf  ../test/fudan-emblem-new-b-red.pdf
+cp pdf/fudan-name-black.pdf        ../test/fudan-name.pdf
 
 # Make logo
 # cd ../logo

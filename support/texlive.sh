@@ -53,7 +53,6 @@ tlmgr install         \
   graphics-def        \
   hyperref            \
   ifluatex            \
-  ifpdf               \
   ifxetex             \
   ipaex               \
   japanese-otf        \
@@ -80,7 +79,6 @@ tlmgr install         \
   ntheorem            \
   oberdiek            \
   pgf                 \
-  pifont              \
   platex              \
   platex-tools        \
   preview             \
