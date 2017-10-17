@@ -39,6 +39,7 @@ tlmgr install         \
   ctablestack         \
   ctex                \
   currfile            \
+  dvipdfmx            \
   environ             \
   etex                \
   etoolbox            \
