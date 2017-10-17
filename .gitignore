@@ -1,10 +1,10 @@
+# Auxiliary files
 *.aux
 *.auxlock
 *.bak
 *.bbl
 *.blg
 *.dpth
-*.dvi
 *.fdb_latexmk
 *.fls
 *.glg
@@ -22,30 +22,37 @@
 *.synctex(busy)
 *.thm
 *.toc
-*.xdv
 
-*.ai
+# Generated files (plain text)
+*.bst
+*.cls
+*.def
+*.ins
+*.sty
+latexmkrc
+
+# Generated files (binary)
+*.dvi
 *.pdf
+*.xdv
+*.zip
 
+# Primitive files
+*.ai
+
+# Tools
 *.bat
 *.txt
 
-*.zip
-
-latexmkrc
-
+# Folders
 .vs/
 .vscode/
 build/
-files/
 logo/
+support/
 temp/
 tools/
 
-source/*.cls
-source/*.def
-source/*.ins
-source/*.sty
+# Other
 source/*.tex
-test/*.cls
-test/*.def
+!support/*.sh

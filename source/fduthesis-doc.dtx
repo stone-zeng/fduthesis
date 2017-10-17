@@ -75,7 +75,8 @@
 %    \begin{macrocode}
 % \RequirePackage[stable, bottom]{footmisc}
 \RequirePackage{caption}
-\RequirePackage[showframe]{geometry}
+% \RequirePackage[showframe]{geometry}
+\RequirePackage{geometry}
 \RequirePackage{listings}
 \RequirePackage{makecell}
 \RequirePackage[toc]{multitoc}
@@ -183,7 +184,7 @@
 \cs_new_protected_nopar:Npn \@@_marco_code:w
   {
 %    \end{macrocode}
-% 根据 \tn{codeline@index} 是否为 true 选择是否显示行号。
+% 根据 \tn{codeline@index} 是否为 |true| 选择是否显示行号。
 %    \begin{macrocode}
     \ifcodeline@index
       \@@_marco_code_every_par:n { \@@_code_line_no: }
@@ -298,8 +299,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.4}{2017/08/09}{修复 \cls{ctxdoc} 文档类 v2.4.10
-%   之前版本中行距偏小的问题，见 ctex-kit
+% \changes{v0.4}{2017/08/09}{[\pkg{fdudoc}] 修复 \cls{ctxdoc}
+%   文档类 v2.4.10 之前版本中行距偏小的问题，见 ctex-kit
 %   \href{https://github.com/CTeX-org/ctex-kit/issues/303}{\#~303}。}
 %
 % \begin{macro}[int]{\@@_swap_cr:}
@@ -488,7 +489,10 @@
 %
 % \begin{macro}[int]{\@@_module_star:w}
 % 模块开始标记。
-% |#1| = |*|\meta{module}，|#2| 为之后的代码。
+% \begin{arguments}
+%   \item |*|\meta{module}
+%   \item 之后的代码
+% \end{arguments}
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
     {
@@ -530,7 +534,10 @@
 %
 % \begin{macro}[int]{\@@_module_slash:w}
 % 模块结束标记。结构与 \cs{@@_module_star:w} 相同。
-% |#1| = |/|\meta{module}，|#2| 为之后的代码。
+% \begin{arguments}
+%   \item |/|\meta{module}
+%   \item 之后的代码
+% \end{arguments}
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_slash:w #1 > #2 \q_stop
     {
@@ -558,8 +565,11 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_module_at:w}
-% 名字空间。|#1| 为名字空间的名称（不含 |@@=|），
-% |#2| 为之后的代码。
+% 名字空间。
+% \begin{arguments}
+%   \item 名字空间的名称（不含 |@@=|）
+%   \item 之后的代码
+% \end{arguments}
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_at:w @ @ = #1 > #2 \q_stop
     {
@@ -577,7 +587,7 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_module_verb:w}
-% 抄录开始。|#1| = |<|\meta{end-tag}，只有一个 |<|。
+% 抄录开始。|#1|: |<|\meta{end-tag}，只有一个 |<|。
 % \meta{end-tag} 的最后会带有一个回车符 |^^M|。
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
@@ -607,7 +617,10 @@
 %
 % \begin{macro}[int]{\@@_module_pm:w}
 % 处理单独一行的模块。|<|\meta{module}|>| 放在行号的左侧。
-% |#1| = \meta{module}，|#2| 为之后的代码。
+% \begin{arguments}
+%   \item \meta{module}
+%   \item 之后的代码
+% \end{arguments}
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_pm:w #1 > #2 \q_stop
     {
@@ -780,7 +793,10 @@
 %   \@@_output_module_left:nn}
 % \changes{v0.4}{2017/08/01}{允许模块名在行号左侧显示。}
 % 输出模块名（分行内和行号左侧两种）。
-% |#1| = 颜色等样式，|#2| = 模块名。
+% \begin{arguments}
+%   \item 颜色等样式
+%   \item 模块名
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_module:nn #1#2
   {
@@ -1043,8 +1059,11 @@
 % \end{variable}
 %
 % \begin{macro}[int]{\@@_save_version_date:nn}
-% 两个 |n| 的版本最终将被 \tn{changes@} 调用。
-% |#1| = 版本号，|#2| = 日期。
+% |nn| 版本最终将被 \tn{changes@} 调用。
+% \begin{arguments}
+%   \item 版本号
+%   \item 日期
+% \end{arguments}
 % 它们分别对应 \tn{change} 的前两个参数（第三个是说明文字）。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_save_version_date:nn #1#2
@@ -1066,8 +1085,12 @@
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_save_version_date_aux:nnnn}
-% |#1| = 原开始日期，|#2| = 原结束日期，|#3| = 新读入的日期，
-% |#4| = 版本号。显然应有 |#1| < |#2|。\\
+% \begin{arguments}
+%   \item 原开始日期
+%   \item 原结束日期（显然应有 |#1| < |#2|）
+%   \item 新读入的日期
+%   \item 版本号
+% \end{arguments}
 % 如果 |#3| < |#1|，则读入日期 |#3|、|#2|；
 % 如果 |#3| > |#2|，则读入日期 |#1|、|#3|。
 %    \begin{macrocode}
@@ -1085,7 +1108,11 @@
 %
 % \begin{macro}[aux]{\@@_save_version_date_aux:nnn}
 % 将版本号和日期存入 \cs{g_@@_version_date_prop}。
-% |#1| = 版本号，|#2| = 开始日期，|#3| = 结束日期。
+% \begin{arguments}
+%   \item 版本号
+%   \item 开始日期
+%   \item 结束日期
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_save_version_date_aux:nnn #1#2#3
   {
@@ -1097,7 +1124,7 @@
 %
 % \begin{macro}[int,TF]{\@@_if_date_later:nn}
 % \begin{macro}[aux]{\@@_parse_date:w}
-% 比较两个日期。如果 |#1| 在 |#2| 之后，则为 true；反之为 false。
+% 比较两个日期。如果 |#1| 在 |#2| 之后，则为 |true|；反之为 |false|。
 % 日期的格式为 YYYY/MM/DD。比较方法是直接将日期化成 8 位数字，
 % 所以月、日前的 0 不可以省略。
 %    \begin{macrocode}
@@ -1138,7 +1165,11 @@
 %
 % \begin{macro}[aux]{\@@_print_version_date:nnn}
 % 输出版本号和日期。如果开始日期和结束日期相同，则只输出一项。
-% |#1| = 开始日期，|#2| = 结束日期，|#3| = 版本号。
+% \begin{arguments}
+%   \item 开始日期
+%   \item 结束日期
+%   \item 版本号
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_print_version_date:nnn #1#2#3
   {
@@ -1742,6 +1773,18 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.5}{2017/09/30}{[\pkg{fdudoc}] 新增 \cs{kvopt} 命令，
+%   用于描述键值型选项。}
+%
+% \begin{macro}{\kvopt}
+% \meta{key} |=| \meta{value} 型选项。带星号的版本不会在等号两侧
+% 加上空格。
+%    \begin{macrocode}
+\DeclareDocumentCommand\kvopt{smm}
+  {\IfBooleanTF{#1}{\texttt{#2=#3}}{\texttt{#2 = #3}}}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\syntaxopt,\defaultval}
 % \begin{macro}[aux]{\syntaxopt@aux,\defaultval@aux}
 % \env{syntax} 中的选项及命令选项。
@@ -1763,6 +1806,21 @@
 \def\TF{true\orbar false}
 \def\TTF{\defaultval{true}\orbar false}
 \def\TFF{true\orbar\defaultval{false}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.5}{2017/09/10}{[\pkg{fdudoc}] 新增 \env{arguments}
+%   环境，用于描述参数列表。}
+%
+% \begin{macro}{arguments}
+% 放在 \env{macro} 环境中，用于描述对应命令的参数。
+% \cls{l3doc} 中的定义 \opt{labelsep} 设置不太合理，会使标签被覆盖，
+% 这里重新定义。
+%    \begin{macrocode}
+\DeclareDocumentEnvironment{arguments}{}
+  {\enumerate[%
+    label={\texttt{\#\arabic*:~}}, labelsep=0pt, nolistsep]}%
+  {\endenumerate}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1829,16 +1887,20 @@
 % \end{macro}
 %
 % \begin{macro}{\scite}
-% 位于上标的引用。
+% 位于上标的文献引用。
 %    \begin{macrocode}
 \newcommand*\scite[1]{\textsuperscript{\cite{#1}}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{quote*}
-% 引用环境。|#1| = 作者，|#2| = 朝代。
+% 引述环境。
+% \begin{arguments}
+%   \item 作者
+%   \item 朝代
+% \end{arguments}
 %    \begin{macrocode}
-\NewDocumentEnvironment{quote*}{oo}
+\DeclareDocumentEnvironment{quote*}{oo}
   {\quote\fangsong\qquad}%
   {\endquote\IfNoValueF{#1}{%
     \hfill —— \IfNoValueF{#2}{〔#2〕}#1}}
@@ -1855,7 +1917,8 @@
 \@empty\z@\@empty
 %    \end{macrocode}
 %
-% \changes{v0.5}{2017/09/05}{移除 \pkg{listings} 关键字定义文件。}
+% \changes{v0.5}{2017/09/05}{[\pkg{fdudoc}] 移除 \pkg{listings}
+%   关键字定义文件。}
 %
 % 定义几种代码样式。
 % \begin{macro}[int]{style@base}
@@ -1953,8 +2016,14 @@
 # Use XeLaTeX to compile.
 $pdf_mode = 5;
 
+# Do not use BibTeX or biber, since bbl file is provided.
+$bibtex_use = 0;
+
 # Process index.
 $makeindex = 'zhmakeindex -s gind.ist %O -o %D %S';
+
+# Show CPU time used.
+$show_time = 1;
 
 # Process glossary (change history).
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
@@ -1963,6 +2032,185 @@ sub makeglo2gls {
         -t \"$_[0].glg\" \"$_[0].glo\"");
 }
 %</latexmk>
+%    \end{macrocode}
+%
+% \clearpage
+%
+% \end{implementation}
+%
+% \DisableImplementation
+%
+% \begin{implementation}
+%
+% \subsubsection{参考文献列表}
+%
+%    \begin{macrocode}
+%<*bbl>
+\begin{thebibliography}{99}
+
+\providecommand{\urlprefix}{\newline\hspace*{\fill}}
+\let\OldUrl=\url
+\renewcommand\url[1]{{\small\OldUrl{#1}}}
+\newcommand\sourceurl[1]{{\small{\kaishu 源代码：} \OldUrl{#1}}}
+
+\bibitem{source2e}
+\textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
+\newblock \textit{The \LaTeXe{} Sources} [CP/OL].
+\newblock (2017-04-15) \urlprefix
+  \url{https://www.ctan.org/tex-archive/macros/latex/base/source2e.pdf}
+
+\bibitem{CTeX}
+\textsc{CTEX.ORG}.
+\newblock \textit{\CTeX{} 宏集手册} [EB/OL].
+\newblock version 2.4.10,
+\newblock (2017-08-07) \urlprefix
+  \url{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.pdf}
+  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.dtx}
+
+\bibitem{xeCJK}
+\textsc{CTEX.ORG}.
+\newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
+\newblock version 3.5.0,
+\newblock (2017-08-07) \urlprefix
+  \url{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.pdf}
+  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.dtx}
+
+\bibitem{hmshan2017fduphdthesistemplate}
+\textsc{hmshan}.
+\newblock \textit{复旦博士论文模板} [EB/OL].
+\newblock (2017-04-04) \urlprefix
+  \url{https://github.com/hmshan/FDU_PhD_Thesis_Template}
+
+\bibitem{knuth1986texbook}
+\textsc{Knuth D E}.
+\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
+\newblock Boston: Addison--Wesley Publishing Company, 1986
+  \urlprefix {\small {\kaishu 源代码
+    \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译该文档。}：}
+    \OldUrl{https://www.ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex}}
+
+\bibitem{interfaces3}
+\textsc{The \LaTeX3 Project}.
+\newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
+\newblock (2017-09-18) \urlprefix
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/interface3.pdf}
+
+\bibitem{source3}
+\textsc{The \LaTeX3 Project}.
+\newblock \textit{The \LaTeX3 Sources} [CP/OL].
+\newblock (2017-09-18) \urlprefix
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/source3.pdf}
+
+\bibitem{mittelbach2004latexcompanion}
+\textsc{Mittelbach F} and \textsc{Goossens M}.
+\newblock \textit{The \LaTeX{} Companion} [M].
+\newblock 2nd ed.
+\newblock Boston: Addison--Wesley Publishing Company, 2004
+
+\bibitem{lshort}
+\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+\newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 157 minutes} [EB/OL].
+\newblock version 5.05,
+\newblock (2015-07-18) \urlprefix
+  \url{https://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}
+
+\bibitem{lshort-zh-cn}
+\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+\newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 102 分钟了解 \LaTeXe{}} [EB/OL].
+\newblock China\TeX{} 论坛, 译.
+\newblock 原版版本 version 5.05, 中文版本 version 5.10,
+\newblock (2017-03-26) \urlprefix
+  \url{https://www.ctan.org/tex-archive/info/lshort/chinese/lshort-zh-cn.pdf}
+
+\bibitem{pandoxie2014fduthesislatex}
+\textsc{Pandoxie}.
+\newblock \textit{Fudan University-Latex Template} [EB/OL].
+\newblock (2014-06-07) \urlprefix
+  \url{https://github.com/Pandoxie/FDU-Thesis-Latex}
+
+\bibitem{richard2016fudanthesis}
+\textsc{richard}.
+\newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
+\newblock (2016-01-31) \urlprefix
+  \url{https://github.com/richarddzh/fudan-thesis}
+
+\bibitem{weijianwen2017sjtuthesis}
+\textsc{weijianwen}.
+\newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis.} [EB/OL].
+\newblock (2017-01-27) \urlprefix
+  \url{https://github.com/weijianwen/SJTUThesis}
+
+\bibitem{wright2009dtxfile}
+\textsc{Wright J}.
+\newblock \textit{A model dtx file} [EB/OL].
+\newblock (2009-10-06) \urlprefix
+  \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
+
+\bibitem{zepinglee2017ustcthesis}
+\textsc{zepinglee} and \textsc{seisman}.
+\newblock \textit{\LaTeX{} template for USTC thesis} [EB/OL].
+\newblock version 3.0,
+\newblock (2017-07-02) \urlprefix
+  \url{https://github.com/ustctug/ustcthesis}
+
+\bibitem{数院毕业论文格式}
+复旦大学数学科学学院.
+\newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL]. \urlprefix
+  \url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
+
+\bibitem{数院毕业论文格式更新}
+复旦大学数学科学学院.
+\newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL]. \urlprefix
+  \url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
+
+\bibitem{复旦大学论文规范}
+复旦大学图书馆, 复旦大学研究生院.
+\newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
+\newblock 2017 年 3 月修订版.
+\newblock (2017-03-27) \urlprefix
+  \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
+
+\bibitem{gb-t-7713.1-2006}
+国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
+\newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
+\newblock 北京: 中国标准出版社, 2007
+
+\bibitem{胡伟2017latex2e}
+胡伟.
+\newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
+\newblock 北京: 清华大学出版社, 2017
+
+\bibitem{gb-t-15834-2011}
+教育部语言文字信息管理司.
+\newblock \textit{标点符号用法: GB/T 15834--2011} [S].
+\newblock 北京: 中国标准出版社, 2012
+
+\bibitem{cquthesis}
+李振楠.
+\newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
+\newblock version 1.20,
+\newblock (2017-05-30) \urlprefix
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/cquthesis/cquthesis.pdf}
+
+\bibitem{刘海洋2013latex入门}
+刘海洋.
+\newblock \textit{\LaTeX{} 入门} [M].
+\newblock 北京: 电子工业出版社, 2013
+
+\bibitem{gb-t-7714-2015}
+全国信息与文献标准化技术委员会.
+\newblock \textit{信息与文献 参考文献著录规则: GB/T 7714--2015} [S].
+\newblock 北京: 中国标准出版社, 2015
+
+\bibitem{thuthesis}
+薛瑞尼.
+\newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
+\newblock version 5.3.2,
+\newblock (2017-03-26) \urlprefix
+  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/thuthesis/thuthesis.pdf}
+
+\end{thebibliography}
+%</bbl>
 %    \end{macrocode}
 %
 % \clearpage

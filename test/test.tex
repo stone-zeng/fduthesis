@@ -9,9 +9,9 @@
 
 \fdusetup{
   style = {
-    % font = libertinus,
-    % cjkfont = founder,
-    fullwidthstop,
+    % font = none,
+    cjkfont = none,
+    fullwidthstop = mapping,
     footnotestyle = libertinus*,
     % automakecover = false
     logo = {../logo/pdf/fudan-name-black.pdf},
@@ -43,10 +43,17 @@
   }
 }
 
-% \setCJKmainfont[ItalicFont=FandolFang]{Source Han Serif SC}
-% \setCJKsansfont{Source Han Sans SC}
-% \setCJKfamilyfont{kai}{FandolKai}
+% \setmainfont{Adobe Garamond Pro}[ItalicFont=Consolas,BoldFont=Candara]
+% \setsansfont{Calibri}
+% \setmonofont{Consolas}
 % \setmathfont{TeX Gyre Pagella Math}
+
+\setCJKmainfont{FandolSong}[ItalicFont=FandolKai]
+\setCJKsansfont{FandolHei}
+\setCJKmonofont{FandolFang}
+\setCJKfamilyfont{kai}{FandolKai}
+
+\def\WORLDb{你好，世界。}
 
 \newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
 \newcommand\fonttest{%
@@ -146,6 +153,13 @@ PY          &  聚吡咙
 
 \subsection{打字机字体 Typewriter}
 \texttt{\fonttest}
+
+\ExplSyntaxOn
+\group_begin:
+\sys_if_engine_xetex:T
+  {\CJKfontspec{FandolFang}[Mapping=full-stop] 仿宋句号。}
+\group_end:
+\ExplSyntaxOff
 
 \subsection{句号}
 如果\symbol{"002E}会突然：\textsc{Full Stop} \par
