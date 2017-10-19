@@ -338,6 +338,7 @@ version.
 %^^A!   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A!
 %^^A! \begin{document}
+%^^A!
 %
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
@@ -350,19 +351,13 @@ version.
 % \def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
 %
 %^^A 封面与目录的页边距
+%^^A+
 % \newgeometry{
 %   left   = 1.25 in,
 %   right  = 1.25 in,
 %   top    = 1.25 in,
 %   bottom = 1.00 in
 % }
-%^^A! \newgeometry{
-%^^A!   left   = 1.25 in,
-%^^A!   right  = 1.25 in,
-%^^A!   top    = 1.25 in,
-%^^A!   bottom = 1.00 in
-%^^A! }
-%^^A!
 %
 % \maketitle
 % \vfill
@@ -372,19 +367,10 @@ version.
 % \vfill
 % \thispagestyle{plain}
 % \clearpage
-%^^A! \maketitle
-%^^A! \vfill
-%^^A! \begin{center}
-%^^A!   \includegraphics[width=8cm]{../logo/fduthesis-cover.pdf}
-%^^A! \end{center}
-%^^A! \vfill
-%^^A! \thispagestyle{plain}
-%^^A! \clearpage
-%^^A!
 %
 % \tableofcontents
-%^^A! \tableofcontents
-%^^A!
+%
+%^^A-
 %
 % \EnableDocumentation
 %^^A \DisableDocumentation
@@ -392,19 +378,15 @@ version.
 % \begin{documentation}
 %
 %^^A 用户手册的页边距
+%^^A+
 % \newgeometry{
 %   left   = 1.75 in,
 %   right  = 1.00 in,
 %   top    = 1.25 in,
 %   bottom = 1.00 in
 % }
-%^^A! \newgeometry{
-%^^A!   left   = 1.75 in,
-%^^A!   right  = 1.00 in,
-%^^A!   top    = 1.25 in,
-%^^A!   bottom = 1.00 in
-%^^A! }
-%^^A!
+%
+%^^A-
 %
 % \section{介绍}
 %^^A! \section{Introduction}
@@ -531,9 +513,9 @@ version.
 % 本模板目前暂未上传至 CTAN，您需要从 GitHub 上自行下载并安装。
 % 具体方法如下：
 % \begin{itemize}
-%   \item 打开 \href{https://github.com/Stone-Zeng/fduthesis}{项目主页}，
-%     点击“Clone or download”，并选择“Download ZIP”，下载
-%     \file{fduthesis-master.zip}。
+%   \item 打开 \href{https://github.com/Stone-Zeng/fduthesis}^^A
+%     {项目主页}，点击“Clone or download”，并选择“Download ZIP”，
+%     下载 \file{fduthesis-master.zip}。
 %   \item 解压安装包 \file{fduthesis-master.zip} 以后，将
 %     \file{test} 文件夹下的模板文档类文件 \file{fduthesis.cls}、
 %     \file{fduthesis-en.cls} 以及参数配置文件
@@ -629,6 +611,8 @@ version.
 %
 % 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis}
 % 的最基本用法：
+%^^A! Here is a minimal \TeX{} file for \cls{fduthesis}:
+%^^A+
 % \begin{latexexample}[deletetexcs={\documentclass},%
 %     moretexcs={\chapter},morekeywords={\documentclass},%
 %     emph={[2]document}]
@@ -640,18 +624,7 @@ version.
 %     你好，\LaTeX{}！
 %   \end{document}
 % \end{latexexample}
-%^^A! Here is a minimal \TeX{} file for \cls{fduthesis}:
-%^^A! \begin{latexexample}[deletetexcs={\documentclass},%
-%^^A!     moretexcs={\chapter},morekeywords={\documentclass},%
-%^^A!     emph={[2]document}]
-%^^A!   % thesis.tex
-%^^A!   \documentclass{fduthesis}
-%^^A!   \begin{document}
-%^^A!     \chapter{您好}
-%^^A!     \section{Welcome to fduthesis!}
-%^^A!     你好，\LaTeX{}！
-%^^A!   \end{document}
-%^^A! \end{latexexample}
+%^^A-
 %^^A!
 %
 % 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
@@ -662,6 +635,8 @@ version.
 %^^A!
 %
 % 英文模板可以用类似的方式使用：
+%^^A! The English-version can be used in the same way:
+%^^A+
 % \begin{latexexample}[deletetexcs={\documentclass},%
 %     moretexcs={\chapter},morekeywords={\documentclass},%
 %     emph={[2]document}]
@@ -673,20 +648,9 @@ version.
 %     Hello, \LaTeX{}!
 %   \end{document}
 % \end{latexexample}
+%^^A-
 % 英文模板只对正文部分进行了改动，封面、指导小组成员以及声明页仍将
 % 显示为中文。
-%^^A! The English-version can be used in the same way:
-%^^A! \begin{latexexample}[deletetexcs={\documentclass},%
-%^^A!     moretexcs={\chapter},morekeywords={\documentclass},%
-%^^A!     emph={[2]document}]
-%^^A!   % thesis-en.tex
-%^^A!   \documentclass{fduthesis-en}
-%^^A!   \begin{document}
-%^^A!     \chapter{Hello}
-%^^A!     \section{Welcome to fduthesis!}
-%^^A!     Hello, \LaTeX{}!
-%^^A!   \end{document}
-%^^A! \end{latexexample}
 %^^A! The differences between English and Chinese version only
 %^^A! live in the main body. Thesis cover, instructors list and
 %^^A! declaration page are still printed in Chinese.
@@ -977,14 +941,16 @@ version.
 % \end{latexexample}
 %
 % \begin{function}{style/footnotestyle}
-% ^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
-% ^^A 空格，因此这里用 X 来占位。
+%^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
+%^^A 空格，因此这里用 X 来占位。
+%^^A+
 %   \begin{fdusyntax}[emph={[1]footnotestyle}]
 %     footnotestyle = (*<plain|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
 %   \end{fdusyntax}
+%^^A-
 %   设置脚注编号样式。西文字体设置会影响其默认取值（见
 %   表~\ref{tab:footnote-font}）。因此，要使得该选项生效，需将其
 %   放置在 |font| 选项之后。带有 |sans| 的为相应的无衬线字体版本；
