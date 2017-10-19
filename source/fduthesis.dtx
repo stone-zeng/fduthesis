@@ -323,6 +323,7 @@ version.
 %^^A! \renewcommand\pageautorefname{Page}
 %^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 %^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+%^^A!
 %
 % \title{\textcolor{MaterialIndigo800}{^^A
 %   \textbf{fduthesis: 复旦大学论文^^A
@@ -330,7 +331,6 @@ version.
 % \author{曾祥东}
 % \date{\today \quad v0.5^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
-%^^A!
 %^^A! \title{\textcolor{MaterialIndigo800}{%
 %^^A!   \textbf{fduthesis: \LaTeX{} Thesis Template for \\ Fudan University}}}
 %^^A! \author{Xiangdong Zeng}
@@ -342,9 +342,6 @@ version.
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
 %^^A! \DeleteShortVerb\"
-%
-%^^A 禁止使用 " 符号作为抄录文本缩略符
-% \DeleteShortVerb\"
 %
 %^^A 全角标点放在引号中，需要改成半角式，否则间距过大，不好看
 % \def\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} ^^A U+3002
@@ -365,6 +362,7 @@ version.
 %^^A!   top    = 1.25 in,
 %^^A!   bottom = 1.00 in
 %^^A! }
+%^^A!
 %
 % \maketitle
 % \vfill
@@ -382,9 +380,11 @@ version.
 %^^A! \vfill
 %^^A! \thispagestyle{plain}
 %^^A! \clearpage
+%^^A!
 %
 % \tableofcontents
 %^^A! \tableofcontents
+%^^A!
 %
 % \EnableDocumentation
 %^^A \DisableDocumentation
@@ -404,6 +404,7 @@ version.
 %^^A!   top    = 1.25 in,
 %^^A!   bottom = 1.00 in
 %^^A! }
+%^^A!
 %
 % \section{介绍}
 %^^A! \section{Introduction}
@@ -467,14 +468,14 @@ version.
 %^^A! In this documentation, different typefaces are used to
 %^^A! represent different contents. Packages and classes are printed
 %^^A! in sans-serif font, e.g.\ \pkg{xeCJK} package and
-%^^A! \cls{fduthesis} class. File names and commands are printed in
-%^^A! monospaced font, e.g.\  \TeX{} document \file{thesis.tex}, test
-%^^A! directory \file{test}, command |\fdusetup| and environment
-%^^A! \env{abstract}. Italic-shaped font with angle brackets outside
-%^^A! means arguments, e.g.\ \meta{English title}. However, you do
-%^^A! not need to write the brackets when using these commands. The
-%^^A! example code is printed with syntax highlighting so they will
-%^^A! be much easier to read.
+%^^A! \cls{fduthesis} class. Commands and file names are printed in
+%^^A! monospaced font, e.g.\ command \cs{fdusetup}, environment
+%^^A! \env{abstract} and \TeX{} document \file{thesis.tex}.
+%^^A! Italic-shaped font with angle brackets outside means arguments,
+%^^A! e.g.\ \meta{English title}. However, you do not need to write
+%^^A! the brackets when using these commands. The example code is
+%^^A! printed with syntax highlighting so it will be much easier to
+%^^A! read.
 %^^A!
 %
 % 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线
@@ -715,8 +716,8 @@ version.
 %   latexmk -xelatex thesis
 % \end{shellexample}
 %^^A! In the following example, supoose your \TeX{} file is
-%^^A! |thesis.tex|. Use \XeLaTeX{} to compile, please execute the
-%^^A! following commands:
+%^^A! \file{thesis.tex}. Use \XeLaTeX{} to compile, please execute
+%^^A! the following commands:
 %^^A! \begin{shellexample}[morekeywords={xelatex}]
 %^^A!   xelatex thesis
 %^^A!   xelatex thesis
@@ -777,8 +778,8 @@ version.
 % 中取值。对于这些选项，\kvopt{\meta{选项}}{true} 中的“|= true|”
 % 可以省略。
 %^^A! Some options are \emph{boolean} --- they can only take the
-%^^A! value |true| or |false|. For these options, ``|=true|'' in
-%^^A! \meta{option} |= true| can be omitted.
+%^^A! value \opt{true} or \opt{false}. For these options, ``|= true|''
+%^^A! in \kvopt{\meta{option}}{true} can be omitted safely.
 %^^A!
 %
 % \begin{function}{oneside,twoside}
@@ -799,10 +800,10 @@ version.
 % 奇数页（在右）开始；而在单页模式（\opt{oneside}）下，则可以从
 % 任意页面开始。本模板中，目录、摘要、符号表等均视作章，也按相同
 % 方式排版。
-%^^A! If choosing |twoside|, chapters will begin at the odd pages
+%^^A! If choosing \opt{twoside}, chapters will begin at the odd pages
 %^^A! (right hand). However, they will begin at arbitrary pages
-%^^A! available when choosing |oneside|. Table of contents, abstract
-%^^A! and the list of symbols are considered as chapters and
+%^^A! available when choosing \opt{oneside}. Table of contents,
+%^^A! abstract and the list of symbols are considered as chapters and
 %^^A! processed in the same way.
 %^^A!
 %
@@ -847,14 +848,14 @@ version.
 %   \item 关闭超链接渲染，也不再生成 PDF 书签；
 %   \item 显示页面边框。
 % \end{itemize}
-%^^A! |draft| is a global option ans will affect many packages.
-%^^A! You may notice the following changes when using |draft|:
+%^^A! \opt{draft} is a global option and will affect many packages.
+%^^A! You may notice the following changes when using \opt{draft}:
 %^^A! \begin{itemize}
 %^^A!   \item Lines with overfull \tn{hbox}'s will be marked with
 %^^A!     a thick black square on the right margin.
 %^^A!   \item Do not include graphics files actually, but instead
-%^^A!     print a box of the size the graphic would take up, and
-%^^A!     the file name.
+%^^A!     print a box of the size the graphic would take up, as well
+%^^A!     as the file name.
 %^^A!   \item Do not make hyperlinkings and PDF bookmarks.
 %^^A!   \item Show the page frames.
 %^^A! \end{itemize}
