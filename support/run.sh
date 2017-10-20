@@ -22,9 +22,9 @@ mkdir pdf
 mv fudan-*.pdf pdf
 
 # For pTeX-ng test
-cp pdf/fudan-emblem-new-a-blue.pdf ../test/fudan-emblem-new-a-blue.pdf
-cp pdf/fudan-emblem-new-b-red.pdf  ../test/fudan-emblem-new-b-red.pdf
-cp pdf/fudan-name-black.pdf        ../test/fudan-name.pdf
+# cp pdf/fudan-emblem-new-a-blue.pdf ../test/fudan-emblem-new-a-blue.pdf
+# cp pdf/fudan-emblem-new-b-red.pdf  ../test/fudan-emblem-new-b-red.pdf
+# cp pdf/fudan-name-black.pdf        ../test/fudan-name.pdf
 
 # Make logo
 # cd ../logo

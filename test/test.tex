@@ -11,7 +11,7 @@
     % fullwidthstop = mapping,
     % footnotestyle = libertinus*,
     % automakecover = false
-    % logo = {../logo/pdf/fudan-name-black.pdf},
+    logo = {../logo/pdf/fudan-name-black.pdf},
     % logosize = {2cm,2cm,2cm}
     hyperlink = color,
     hyperlinkcolor = default
@@ -42,9 +42,9 @@
 
 \def\QED{\Box}
 
-\immediate\write18{extractbb fudan-name.pdf}
-\immediate\write18{extractbb fudan-emblem-new-a-blue.pdf}
-\immediate\write18{extractbb fudan-emblem-new-b-red.pdf}
+%\immediate\write18{extractbb fudan-name.pdf}
+%\immediate\write18{extractbb fudan-emblem-new-a-blue.pdf}
+%\immediate\write18{extractbb fudan-emblem-new-b-red.pdf}
 
 \begin{document}
 
@@ -393,8 +393,8 @@ Myriad，英语单词，意为「无数的」。同时，「Myriad」也是一�
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=3cm]{fudan-emblem-new-a-blue.pdf}
-  \includegraphics[width=4cm]{fudan-emblem-new-b-red.pdf}
+  \includegraphics[width=3cm]{../logo/pdf/fudan-emblem-new-a-blue.pdf}
+  \includegraphics[width=4cm]{../logo/pdf/fudan-emblem-new-b-red.pdf}
   \caption{Multiple Master 是 Type 1字体格式的扩展部分。Type 1 是利用
     PostScript 语言描述字形信息的字体系统。Type 1字体是第一款矢量字体
     （outline font），通过二维坐标系中的关键点和三次贝塞尔曲线描述字体
