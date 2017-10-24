@@ -12,59 +12,42 @@
 export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 if ! command -v texlua > /dev/null; then
   # Obtain TeX Live
-  wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
+  wget https://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz
   cd install-tl-20*
 
   # Install a minimal system
   ./install-tl                                \
     --profile     ../support/texlive.profile  \
-    --repository  https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+    --repository  https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
   cd ..
 fi
 
 # Change default package repository
-tlmgr option repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+tlmgr option repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
 
-# TeX base
+# Packages
 tlmgr install         \
-  tex                 \
-  etex                \
-  knuth-lib           \
-  latex-bin           \
-  tex-ini-files       \
-  cm
-
-# Fonts
-tlmgr install         \
-  fontspec            \
   adobemapping        \
   amsfonts            \
-  fandol              \
-  libertinus          \
-  lm                  \
-  lm-math             \
-  metafont            \
-  mfware              \
-  pifont              \
-  psnfss              \
-  tex-gyre            \
-  tex-gyre-math       \
-  xits                \
-  zapfding
-
-# Other
-tlmgr install         \
   amsmath             \
+  arphic-ttf          \
+  babel-japanese      \
+  baekmuk             \
   bibtex              \
   caption             \
+  cm                  \
   ctablestack         \
   ctex                \
   currfile            \
+  dvipdfmx            \
   environ             \
+  etex                \
   etoolbox            \
   fancyhdr            \
+  fandol              \
   filehook            \
+  fontspec            \
   footmisc            \
   geometry            \
   graphics            \
@@ -72,13 +55,19 @@ tlmgr install         \
   graphics-def        \
   hyperref            \
   ifluatex            \
-  ifpdf               \
   ifxetex             \
+  ipaex               \
+  japanese-otf        \
   kantlipsum          \
-  l3kernel            \
-  l3experimental      \
-  l3packages          \
+  knuth-lib           \
   l3build             \
+  l3experimental      \
+  l3kernel            \
+  l3packages          \
+  latex-bin           \
+  libertinus          \
+  lm                  \
+  lm-math             \
   lualatex-math       \
   lualibs             \
   luaotfload          \
@@ -86,28 +75,48 @@ tlmgr install         \
   luatex85            \
   luatexbase          \
   luatexja            \
+  metafont            \
+  mfware              \
+  ms                  \
   natbib              \
   ntheorem            \
-  ms                  \
   oberdiek            \
   pgf                 \
+  platex              \
+  platex-tools        \
   preview             \
+  psnfss              \
+  ptex                \
+  ptex-base           \
+  ptex-fontmaps       \
+  ptex-fonts          \
   siunitx             \
   standalone          \
+  tex                 \
+  tex-gyre            \
+  tex-gyre-math       \
+  tex-ini-files       \
   tools               \
   trimspaces          \
   ucharcat            \
   ulem                \
   unicode-data        \
   unicode-math        \
+  uplatex             \
+  uptex               \
+  uptex-base          \
+  uptex-fonts         \
   url                 \
   varwidth            \
   xcolor              \
   xecjk               \
   xetex               \
+  xits                \
   xkeyval             \
   xunicode            \
+  zapfding            \
   zhlipsum            \
+  zhmetrics-uptex     \
   zhnumber
 
 # Keep no backups (not required, simply makes cache bigger)
