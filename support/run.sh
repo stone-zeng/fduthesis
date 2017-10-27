@@ -3,8 +3,8 @@
 # Install `fduthesis`
 cd source
 xetex fduthesis.dtx
-cp fduthesis.cls       ../test/fduthesis.cls
-cp fduthesis-en.cls    ../test/fduthesis-en.cls
+# cp fduthesis.cls       ../test/fduthesis.cls
+# cp fduthesis-en.cls    ../test/fduthesis-en.cls
 cp fduthesis.def       ../test/fduthesis.def
 cp fduthesis-user.def  ../test/fduthesis-user.def
 

@@ -151,6 +151,10 @@
 \RequirePackage { longtable }
 \RequirePackage { caption }
 \RequirePackage { xcolor }
+
+\RequirePackage [ sort&compress ] { natbib }
+
+
 \cs_new_protected:Npn \__fdu_check_package:nnn #1#2#3
   {
     \@ifpackagelater {#1} {#2}
@@ -1404,6 +1408,49 @@
       \end{longtable}
     \group_end:
   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tl_new:N \g__fdu_bib_style_tl
+
+\keys_define:nn { fdu / style }
+  {
+    bibstyle .choice:,
+    bibstyle .value_required:n = true,
+    bibstyle / numerical   .code:n =
+      {
+        \tl_set:Nn \g__fdu_bib_style_tl { numerical }
+      },
+    bibstyle / authoryear .code:n =
+      {
+        \tl_set:Nn \g__fdu_bib_style_tl { authoryear }
+      }
+  }
+
+
+\ctex_at_end_preamble:n
+  {
+    \exp_args:NV \tl_if_eq:nnTF
+      \g__fdu_bib_style_tl { numerical }
+      {
+        \bibliographystyle { gbt-7714-2015-numerical }
+        \setcitestyle { super, square, comma }
+      }
+      {
+        \exp_args:NV \tl_if_eq:nnT
+          \g__fdu_bib_style_tl { authoryear }
+          {
+            \bibliographystyle { gbt-7714-2015-author-year }
+            \setcitestyle { authoryear, open={（}, close={）}, citesep={；}, aysep={，}, yysep={、} }
+            \cs_set_eq:NN \cite \citep
+          }
+      }
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } {#1},
@@ -1420,6 +1467,7 @@
     style   / logosize       = { 0.5 \textwidth },
     style   / hyperlink      = color,
     style   / hyperlinkcolor = default,
+    style   / bibstyle       = numerical,
     info    / secretlevel    = none,
     info    / date           = \zhtoday,
     info    / schoolid       = { 10246 },
