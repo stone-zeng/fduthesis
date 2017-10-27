@@ -91,6 +91,7 @@
 \bool_new:N \g__fdu_draft_bool
 \cs_new:Npn \__fdu_quad:  { \skip_horizontal:n { 1 em } }
 \cs_new:Npn \__fdu_qquad: { \skip_horizontal:n { 2 em } }
+\cs_new:Npn \__fdu_symbol:n #1 { \tex_char:D #1 \scan_stop: }
 \cs_new_protected_nopar:Npn \__fdu_msg_new:nn
   { \msg_new:nnn       { fduthesis } }
 \cs_new_protected_nopar:Npn \__fdu_error:n
@@ -99,8 +100,6 @@
   { \msg_error:nnn     { fduthesis } }
 \cs_new_protected_nopar:Npn \__fdu_error:nnn
   { \msg_error:nnnn    { fduthesis } }
-\cs_new_protected_nopar:Npn \__fdu_warning:n
-  { \msg_warning:nn    { fduthesis } }
 \keys_define:nn { fdu / option }
   {
     oneside .value_forbidden:n = true,
@@ -150,6 +149,7 @@
 \RequirePackage { graphicx }
 \RequirePackage { longtable }
 \RequirePackage { caption }
+\RequirePackage [ sort & compress ] { natbib }
 \RequirePackage { xcolor }
 \cs_new_protected:Npn \__fdu_check_package:nnn #1#2#3
   {
@@ -284,7 +284,54 @@
       { \exp_not:c { __fontspec_main_set #1 font:nn } {##2} {##1} }
   }
 \cs_new:Npn \__fdu_set_math_font:nn #1#2
-  { \__um_setmathfont:nn {#2} {#1} }
+  {
+    \tl_set:Nn \l__um_fontname_tl {#1}
+    \__um_init:
+    \cs_if_exist:cF { S@ \f@size } { \calculate@math@sizes }
+    \csname S@\f@size\endcsname
+    \keys_set_known:nnN { unicode-math } {#2}
+      \l__um_unknown_keys_clist
+    \bool_if:NT \l__um_init_bool
+      { \__um_log:n { default-math-font } }
+    \__um_fontspec_select_font:
+    \bool_if:nT
+      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+      {
+        \__um_declare_math_sizes:
+        \__um_fontspec_select_font:
+      }
+    \cs_if_exist:cF { sym \__um_symfont_tl }
+      {
+        \DeclareSymbolFont
+          { \__um_symfont_tl } { \encodingdefault }
+          { \l__um_family_tl } { \mddefault} { \updefault}
+      }
+    \SetSymbolFont
+      { \__um_symfont_tl } { \l__um_mversion_tl }
+      { \encodingdefault } { \l__um_family_tl   }
+      { \mddefault       } { \updefault         }
+    \tl_set:Nn \l__um_tmpa_tl { normal }
+    \tl_if_eq:NNT \l__um_mversion_tl \l__um_tmpa_tl
+      {
+        \SetSymbolFont
+          { \__um_symfont_tl } { bold       } { \encodingdefault }
+          { \l__um_family_tl } { \bfdefault } { \updefault       }
+      }
+    \bool_if:nT
+      { \l__um_ot_math_bool && !\g__um_mainfont_already_set_bool }
+      {
+        \bool_set_true:N \g__um_mainfont_already_set_bool
+        \__um_setup_legacy_fam_two:
+        \__um_setup_legacy_fam_three:
+      }
+    \__um_input_math_symbol_table:
+    \__um_remap_symbols:
+    \__um_setup_mathactives:
+    \__um_setup_delcodes:
+    \__um_setup_alphabets:
+    \__um_setup_negations:
+    \ignorespaces
+  }
 \clist_map_inline:nn { main, sans, mono, math }
   {
     \exp_args:Nc \cs_generate_variant:Nn
@@ -853,7 +900,7 @@
               \group_begin:
                 \sffamily \mathversion { secret-XITS }
                 \c__fdu_def_name_secret_level_tl
-                \c__fdu_colon_fullwidth_tl
+                \c__fdu_fullwidth_colon_tl
                 \l__fdu_info_secret_level_tl
                 \c__fdu_def_name_secret_star_tl
                 \l__fdu_info_secret_year_tl
@@ -861,11 +908,11 @@
               \par
             }
           \c__fdu_def_name_school_id_tl
-          \c__fdu_colon_fullwidth_tl
+          \c__fdu_fullwidth_colon_tl
           \l__fdu_info_school_id_tl
           \par
           \c__fdu_def_name_student_id_tl
-          \c__fdu_colon_fullwidth_tl
+          \c__fdu_fullwidth_colon_tl
           \l__fdu_info_student_id_tl
         }
         { \__fdu_cover_font_size_small: }
@@ -949,7 +996,7 @@
             \clist_pop:NN \l__fdu_tmpb_clist \l__fdu_tmpb_tl
             \__fdu_spread_box:VV
               \c__fdu_def_cover_info_left_width_tl \l__fdu_tmpa_tl
-            \c__fdu_colon_fullwidth_tl
+            \c__fdu_fullwidth_colon_tl
             \__fdu_center_box:VV
               \l__fdu_tmpb_dim \l__fdu_tmpb_tl
             \skip_vertical:n { \c__fdu_def_cover_v_sep_vii_tl }
@@ -1016,11 +1063,11 @@
       \c__fdu_def_originality_decl_text_tl
       {
         \c__fdu_def_name_author_sign_tl
-        \c__fdu_colon_fullwidth_tl
+        \c__fdu_fullwidth_colon_tl
         \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
         \__fdu_quad:
         \c__fdu_def_name_sign_date_tl
-        \c__fdu_colon_fullwidth_tl
+        \c__fdu_fullwidth_colon_tl
         \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
       }
     \skip_vertical:n { \c__fdu_def_decl_v_sep_ii_tl }
@@ -1029,15 +1076,15 @@
       \c__fdu_def_authorization_decl_text_tl
       {
         \c__fdu_def_name_author_sign_tl
-        \c__fdu_colon_fullwidth_tl
+        \c__fdu_fullwidth_colon_tl
         \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
         \__fdu_quad:
         \c__fdu_def_name_supervisor_sign_tl
-        \c__fdu_colon_fullwidth_tl
+        \c__fdu_fullwidth_colon_tl
         \fdu_blank_underline:N \c__fdu_def_decl_sign_width_tl
         \__fdu_quad:
         \c__fdu_def_name_sign_date_tl
-        \c__fdu_colon_fullwidth_tl
+        \c__fdu_fullwidth_colon_tl
         \fdu_blank_underline:N \c__fdu_def_decl_date_width_tl
       }
     \skip_vertical:n { \c__fdu_def_decl_v_sep_iii_tl }
@@ -1137,6 +1184,58 @@
       \end{longtable}
     \group_end:
   }
+\tl_new:N \l__fdu_bib_style_tl
+\keys_define:nn { fdu / style }
+  {
+    bibstyle .choice:,
+    bibstyle .value_required:n = true,
+    bibstyle / numerical   .code:n =
+      { \tl_set:Nn \l__fdu_bib_style_tl { numerical  } },
+    bibstyle / authoryear .code:n =
+      { \tl_set:Nn \l__fdu_bib_style_tl { authoryear } }
+  }
+\ctex_at_end_preamble:n
+  {
+    \exp_args:NV \tl_if_eq:nnTF \l__fdu_bib_style_tl
+      { numerical }
+      {
+        \bibliographystyle { gbt-7714-2015-numerical }
+        \__fdu_set_cite_style_numerical:
+      }
+      {
+        \exp_args:NV \tl_if_eq:nnT \l__fdu_bib_style_tl
+          { authoryear }
+          {
+            \bibliographystyle { gbt-7714-2015-author-year }
+            \__fdu_set_cite_style_author_year:
+            \cs_set_eq:NN \cite \citep
+          }
+      }
+  }
+\cs_new:Npn \__fdu_set_cite_style_numerical:
+  {
+    \NAT@numberstrue \NAT@supertrue
+    \cs_set:Npn \NAT@open  { [  }
+    \cs_set:Npn \NAT@close { ]  }
+    \cs_set:Npn \NAT@sep   { ,~ }
+  }
+\cs_new:Npn \__fdu_set_cite_style_author_year:
+  {
+    \NAT@numbersfalse
+    \cs_set_eq:NN \NAT@open  \c__fdu_fullwidth_left_parenthesis
+    \cs_set_eq:NN \NAT@close \c__fdu_fullwidth_right_parenthesis
+    \cs_set_eq:NN \NAT@sep   \c__fdu_fullwidth_semicolon_tl
+    \cs_set_eq:NN \NAT@aysep \c__fdu_fullwidth_comma_tl
+    \cs_set_eq:NN \NAT@yrsep \c__fdu_ideographic_comma_tl
+  }
+\ctex_patch_cmd:Nnn \bibliography
+  { \@input@ { \jobname.bbl } }
+  {
+    \begingroup
+      \renewcommand \href [ 2 ] {##2}
+      \@input@ { \jobname.bbl }
+    \endgroup
+  }
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } {#1},
@@ -1151,6 +1250,7 @@
     style   / logosize       = { 0.5 \textwidth },
     style   / hyperlink      = color,
     style   / hyperlinkcolor = default,
+    style   / bibstyle       = numerical,
     info    / secretlevel    = none,
     info    / date           = \zhtoday,
     info    / schoolid       = { 10246 },

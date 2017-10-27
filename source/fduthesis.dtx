@@ -1222,6 +1222,15 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.6}{2017/10/27}{新增函数 \cs{@@_symbol:n}。}
+%
+% \begin{macro}[int]{\@@_symbol:n}
+% 等价于 \LaTeXe{} 中的 \tn{symbol}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_symbol:n #1 { \tex_char:D #1 \scan_stop: }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{提示信息}
 %
 % \begin{macro}[int]{\@@_msg_new:nn,
@@ -1371,6 +1380,11 @@ version.
 \RequirePackage { graphicx }
 \RequirePackage { longtable }
 \RequirePackage { caption }
+%    \end{macrocode}
+%
+% 参考文献。
+%    \begin{macrocode}
+\RequirePackage [ sort & compress ] { natbib }
 %    \end{macrocode}
 %
 % \changes{v0.4}{2017/08/13}{提供彩色支持。}
@@ -2280,7 +2294,7 @@ version.
     fullwidthstop / true  .code:n =
       {
         \char_set_active_eq:nN { "3002 }
-          \c_@@_full_stop_fullwidth_tl
+          \c_@@_fullwidth_full_stop_tl
         \char_set_catcode_active:n { "3002 }
       },
     fullwidthstop / false .code:n = { },
@@ -3488,7 +3502,7 @@ version.
               \group_begin:
                 \sffamily \mathversion { secret-XITS }
                 \c_@@_def_name_secret_level_tl
-                \c_@@_colon_fullwidth_tl
+                \c_@@_fullwidth_colon_tl
                 \l_@@_info_secret_level_tl
                 \c_@@_def_name_secret_star_tl
                 \l_@@_info_secret_year_tl
@@ -3496,11 +3510,11 @@ version.
               \par
             }
           \c_@@_def_name_school_id_tl
-          \c_@@_colon_fullwidth_tl
+          \c_@@_fullwidth_colon_tl
           \l_@@_info_school_id_tl
           \par
           \c_@@_def_name_student_id_tl
-          \c_@@_colon_fullwidth_tl
+          \c_@@_fullwidth_colon_tl
           \l_@@_info_student_id_tl
         }
         { \@@_cover_font_size_small: }
@@ -3627,7 +3641,7 @@ version.
             \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
             \@@_spread_box:VV
               \c_@@_def_cover_info_left_width_tl \l_@@_tmpa_tl
-            \c_@@_colon_fullwidth_tl
+            \c_@@_fullwidth_colon_tl
             \@@_center_box:VV
               \l_@@_tmpb_dim \l_@@_tmpb_tl
             \skip_vertical:n { \c_@@_def_cover_v_sep_vii_tl }
@@ -3747,11 +3761,11 @@ version.
       \c_@@_def_originality_decl_text_tl
       {
         \c_@@_def_name_author_sign_tl
-        \c_@@_colon_fullwidth_tl
+        \c_@@_fullwidth_colon_tl
         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
         \@@_quad:
         \c_@@_def_name_sign_date_tl
-        \c_@@_colon_fullwidth_tl
+        \c_@@_fullwidth_colon_tl
         \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
       }
     \skip_vertical:n { \c_@@_def_decl_v_sep_ii_tl }
@@ -3763,15 +3777,15 @@ version.
       \c_@@_def_authorization_decl_text_tl
       {
         \c_@@_def_name_author_sign_tl
-        \c_@@_colon_fullwidth_tl
+        \c_@@_fullwidth_colon_tl
         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
         \@@_quad:
         \c_@@_def_name_supervisor_sign_tl
-        \c_@@_colon_fullwidth_tl
+        \c_@@_fullwidth_colon_tl
         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
         \@@_quad:
         \c_@@_def_name_sign_date_tl
-        \c_@@_colon_fullwidth_tl
+        \c_@@_fullwidth_colon_tl
         \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
       }
     \skip_vertical:n { \c_@@_def_decl_v_sep_iii_tl }
@@ -3908,10 +3922,10 @@ version.
     \noindent \hangindent = 4 em  \hangafter = 1
     \group_begin:
       \normalfont \sffamily
-      \c_@@_def_name_keywords_tl \c_@@_colon_fullwidth_tl
+      \c_@@_def_name_keywords_tl \c_@@_fullwidth_colon_tl
     \group_end:
     \clist_use:Nn \l_@@_info_keywords_clist
-      { \c_@@_semicolon_fullwidth_tl }
+      { \c_@@_fullwidth_semicolon_tl }
     \par
 %    \end{macrocode}
 % 下一行输出中图分类号（CLC）。
@@ -3919,7 +3933,7 @@ version.
     \noindent
     \group_begin:
       \normalfont \sffamily
-      \c_@@_def_name_clc_tl \c_@@_colon_fullwidth_tl
+      \c_@@_def_name_clc_tl \c_@@_fullwidth_colon_tl
     \group_end:
     \l_@@_info_clc_tl
   }
@@ -4006,6 +4020,102 @@ version.
   {
       \end{longtable}
     \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{参考文献著录与引用}
+%
+% \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
+%   与引用。}
+%
+% \begin{variable}[int]{\l_@@_bib_style_tl}
+% 保存当前使用的参考文献样式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_bib_style_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{style/bibstyle}
+% 参考文献样式。
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+    bibstyle .choice:,
+    bibstyle .value_required:n = true,
+    bibstyle / numerical   .code:n =
+      { \tl_set:Nn \l_@@_bib_style_tl { numerical  } },
+    bibstyle / authoryear .code:n =
+      { \tl_set:Nn \l_@@_bib_style_tl { authoryear } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \tn{bibliographystyle} 只可出现一次。因此参考文献样式放在导言区
+% 末尾统一设置。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \exp_args:NV \tl_if_eq:nnTF \l_@@_bib_style_tl
+      { numerical }
+      {
+        \bibliographystyle { gbt-7714-2015-numerical }
+        \@@_set_cite_style_numerical:
+      }
+      {
+        \exp_args:NV \tl_if_eq:nnT \l_@@_bib_style_tl
+          { authoryear }
+          {
+            \bibliographystyle { gbt-7714-2015-author-year }
+            \@@_set_cite_style_author_year:
+            \cs_set_eq:NN \cite \citep
+          }
+      }
+  }
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\@@_set_cite_style_numerical:}
+% 顺序编码制下的引用样式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_cite_style_numerical:
+  {
+    \NAT@numberstrue \NAT@supertrue
+    \cs_set:Npn \NAT@open  { [  }
+    \cs_set:Npn \NAT@close { ]  }
+    \cs_set:Npn \NAT@sep   { ,~ }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_set_cite_style_author_year:}
+% 著者-出版年制下的引用样式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_cite_style_author_year:
+  {
+    \NAT@numbersfalse
+    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_parenthesis
+    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_parenthesis
+    \cs_set_eq:NN \NAT@sep   \c_@@_fullwidth_semicolon_tl
+    \cs_set_eq:NN \NAT@aysep \c_@@_fullwidth_comma_tl
+    \cs_set_eq:NN \NAT@yrsep \c_@@_ideographic_comma_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\bibliography}
+% \pkg{gb-t-7714-2015} 会为文献标题添加超链接，此处将其禁用。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \bibliography
+  { \@input@ { \jobname.bbl } }
+  {
+%    \group_begin:
+%      \cs_set_eq:NN \href \use_ii:nn
+%      \@input@ { \jobname.bbl }
+%    \group_end:
+    \begingroup
+      \renewcommand \href [ 2 ] {##2}
+      \@input@ { \jobname.bbl }
+    \endgroup
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4225,6 +4335,7 @@ version.
     style   / logosize       = { 0.5 \textwidth },
     style   / hyperlink      = color,
     style   / hyperlinkcolor = default,
+    style   / bibstyle       = numerical,
     info    / secretlevel    = none,
     info    / date           = \zhtoday,
     info    / schoolid       = { 10246 },
@@ -4281,6 +4392,19 @@ version.
 %
 % \subsubsection{通用配置}
 %
+% \changes{v0.6}{2017/10/27}{新增辅助函数 \cs{@@_def_punct:nn} 和
+%   \cs{@@_def_name:nn}，简化命令的定义。}
+%
+% \begin{variable}[aux]{\@@_def_punct:nn,\@@_def_name:nn}
+% 定义标点、名称的辅助函数。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_def_punct:nn #1#2
+  { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
+\cs_new_protected_nopar:Npn \@@_def_name:nn #1#2
+  { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
+%    \end{macrocode}
+% \end{variable}
+%
 % \begin{variable}[int]{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
 %   \c_@@_name_en_tl}
 % 学校名称。
@@ -4291,22 +4415,37 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_full_stop_ideographic_tl,
-%   \c_@@_full_stop_fullwidth_tl,
-%   \c_@@_colon_fullwidth_tl,
-%   \c_@@_semicolon_fullwidth_tl}
-% 一些标点符号：
-% U+3002 是圆圈句号“\symbol{"3002}”（ideographic full stop），
-% U+FF0E 是全角实心句点“\symbol{"FF0E}”（fullwidth full stop），
-% U+FF1A 是全角冒号“\symbol{"FF1A}”（fullwidth colon），
-% U+FF1B 是全角分号“\symbol{"FF1B}”（fullwidth semicolon）。
+% 常用标点符号，见表~\ref{tab:punctuations}。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_full_stop_ideographic_tl { \symbol { "3002 } }
-\tl_const:Nn \c_@@_full_stop_fullwidth_tl   { \symbol { "FF0E } }
-\tl_const:Nn \c_@@_colon_fullwidth_tl       { \symbol { "FF1A } }
-\tl_const:Nn \c_@@_semicolon_fullwidth_tl   { \symbol { "FF1B } }
+\@@_def_punct:nn { ideographic_comma           } { "3001 }
+\@@_def_punct:nn { ideographic_full_stop       } { "3002 }
+\@@_def_punct:nn { fullwidth_comma             } { "FF0C }
+\@@_def_punct:nn { fullwidth_full_stop         } { "FF0E }
+\@@_def_punct:nn { fullwidth_colon             } { "FF1A }
+\@@_def_punct:nn { fullwidth_semicolon         } { "FF1B }
+\@@_def_punct:nn { fullwidth_left_parenthesis  } { "FF08 }
+\@@_def_punct:nn { fullwidth_right_parenthesis } { "FF09 }
 %    \end{macrocode}
-% \end{variable}
+%
+% \begin{table}[h]
+%   \caption{常用标点符号}
+%   \label{tab:punctuations}
+%   \centering
+%   \begin{tabular}{cccc}
+%     \toprule
+%       \textbf{中文名称} & \textbf{英文名称} & \textbf{符号} & \textbf{Unicode} \\
+%     \midrule
+%       中文顿号     & Ideographic comma           & \symbol{"3001} & U+3001 \\
+%       中文句号     & Ideographic full stop       & \symbol{"3002} & U+3002 \\
+%       中文逗号     & Fullwidth comma             & \symbol{"FF0C} & U+FF0C \\
+%       全角西文句点 & Fullwidth full stop         & \symbol{"FF0E} & U+FF0E \\
+%       中文冒号     & Fullwidth colon             & \symbol{"FF1A} & U+FF1A \\
+%       中文分号     & Fullwidth semicolon         & \symbol{"FF1B} & U+FF1B \\
+%       中文左圆括号 & Fullwidth left parenthesis  & \symbol{"FF08} & U+FF08 \\
+%       中文右圆括号 & Fullwidth right parenthesis & \symbol{"FF09} & U+FF09 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
 %
 % \begin{variable}[int]{\c_@@_def_paper_size_tl}
 % 纸张大小（A4）。
@@ -4427,8 +4566,7 @@ version.
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_chapter_toc_format_tl
   { \normalfont \sffamily }
-\tl_const:Nn \c_@@_def_section_toc_format_tl
-  { }
+\tl_const:Nn \c_@@_def_section_toc_format_tl       { }
 \tl_const:Nn \c_@@_def_subsection_toc_format_tl    { \fdu@kai  }
 \tl_const:Nn \c_@@_def_chapter_toc_format_en_tl    { \bfseries }
 \tl_const:Nn \c_@@_def_section_toc_format_en_tl    { \bfseries }
@@ -4589,58 +4727,55 @@ version.
 %
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_name_secret_level_tl     { 密 \qquad 级 }
-\tl_const:Nn \c_@@_def_name_secret_star_tl      { $ \bigstar $ }
-\tl_const:Nn \c_@@_def_name_school_id_tl        { 学校代码     }
-\tl_const:Nn \c_@@_def_name_student_id_tl       { 学 \qquad 号 }
-\tl_const:Nn \c_@@_def_name_thesis_type_tl      { 博士学位论文 }
-\tl_const:Nn \c_@@_def_name_degree_type_tl      { （学术学位） }
-\tl_const:Nn \c_@@_def_name_department_tl       { 院系         }
-\tl_const:Nn \c_@@_def_name_major_tl            { 专业         }
-\tl_const:Nn \c_@@_def_name_author_tl           { 姓名         }
-\tl_const:Nn \c_@@_def_name_supervisor_tl       { 指导教师     }
-\tl_const:Nn \c_@@_def_name_date_tl             { 完成日期     }
-\tl_const:Nn \c_@@_def_name_instructors_tl      { 指导小组成员 }
-\tl_const:Nn \c_@@_def_name_toc_tl              { 目 \quad 录  }
-\tl_const:Nn \c_@@_def_name_abstract_tl         { 摘 \quad 要  }
-\tl_const:Nn \c_@@_def_name_keywords_tl         { 关键字       }
-\tl_const:Nn \c_@@_def_name_clc_tl              { 中图分类号   }
-\tl_const:Nn \c_@@_def_name_notation_tl         { 符号表       }
-\tl_const:Nn \c_@@_def_name_toc_en_tl           { Contents     }
-\tl_const:Nn \c_@@_def_name_abstract_en_tl      { Abstract     }
-\tl_const:Nn \c_@@_def_name_keywords_en_tl
-  { Keywords \c_colon_str }
-\tl_const:Nn \c_@@_def_name_clc_en_tl
-  { CLC~ number \c_colon_str }
-\tl_const:Nn \c_@@_def_name_notation_en_tl
-  { List~ of~ Symbols }
-\tl_const:Nn \c_@@_def_name_originality_decl_tl
+\@@_def_name:nn { secret_level    } { 密 \qquad 级      }
+\@@_def_name:nn { secret_star     } { $ \bigstar $      }
+\@@_def_name:nn { school_id       } { 学校代码          }
+\@@_def_name:nn { student_id      } { 学 \qquad 号      }
+\@@_def_name:nn { thesis_type     } { 博士学位论文      }
+\@@_def_name:nn { degree_type     } { （学术学位）      }
+\@@_def_name:nn { department      } { 院系              }
+\@@_def_name:nn { major           } { 专业              }
+\@@_def_name:nn { author          } { 姓名              }
+\@@_def_name:nn { supervisor      } { 指导教师          }
+\@@_def_name:nn { date            } { 完成日期          }
+\@@_def_name:nn { instructors     } { 指导小组成员      }
+\@@_def_name:nn { toc             } { 目 \quad 录       }
+\@@_def_name:nn { abstract        } { 摘 \quad 要       }
+\@@_def_name:nn { keywords        } { 关键字            }
+\@@_def_name:nn { clc             } { 中图分类号        }
+\@@_def_name:nn { notation        } { 符号表            }
+\@@_def_name:nn { toc_en          } { Contents          }
+\@@_def_name:nn { abstract_en     } { Abstract          }
+\@@_def_name:nn { keywords_en     } { Keywords:         }
+\@@_def_name:nn { clc_en          } { CLC~ number:      }
+\@@_def_name:nn { notation_en     } { List~ of~ Symbols }
+\@@_def_name:nn { author_sign     } { 作者签名          }
+\@@_def_name:nn { supervisor_sign } { 导师签名          }
+\@@_def_name:nn { sign_date       } { 日期              }
+\@@_def_name:nn { originality_decl }
   { \c_@@_name_simp_tl \\ 学位论文独创性声明   }
-\tl_const:Nn \c_@@_def_name_authorization_decl_tl
+\@@_def_name:nn { authorization_decl }
   { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
-\tl_const:Nn \c_@@_def_name_author_sign_tl      { 作者签名     }
-\tl_const:Nn \c_@@_def_name_supervisor_sign_tl  { 导师签名     }
-\tl_const:Nn \c_@@_def_name_sign_date_tl        { 日期         }
-\tl_const:Nn \c_@@_def_name_pdf_creator_tl
+\@@_def_name:nn { pdf_creator }
   { LaTeX~ with~ fduthesis~ class }
 %    \end{macrocode}
 %
 % 默认定理头名称。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_name_proof_tl         { 证明 }
-\tl_const:Nn \c_@@_def_name_axiom_tl         { 公理 }
-\tl_const:Nn \c_@@_def_name_corollary_tl     { 推论 }
-\tl_const:Nn \c_@@_def_name_definition_tl    { 定义 }
-\tl_const:Nn \c_@@_def_name_example_tl       { 例   }
-\tl_const:Nn \c_@@_def_name_lemma_tl         { 引理 }
-\tl_const:Nn \c_@@_def_name_theorem_tl       { 定理 }
-\tl_const:Nn \c_@@_def_name_proof_en_tl      { Proof      }
-\tl_const:Nn \c_@@_def_name_axiom_en_tl      { Axiom      }
-\tl_const:Nn \c_@@_def_name_corollary_en_tl  { Corollary  }
-\tl_const:Nn \c_@@_def_name_definition_en_tl { Definition }
-\tl_const:Nn \c_@@_def_name_example_en_tl    { Example    }
-\tl_const:Nn \c_@@_def_name_lemma_en_tl      { Lemma      }
-\tl_const:Nn \c_@@_def_name_theorem_en_tl    { Theorem    }
+\@@_def_name:nn { proof         } { 证明 }
+\@@_def_name:nn { axiom         } { 公理 }
+\@@_def_name:nn { corollary     } { 推论 }
+\@@_def_name:nn { definition    } { 定义 }
+\@@_def_name:nn { example       } { 例   }
+\@@_def_name:nn { lemma         } { 引理 }
+\@@_def_name:nn { theorem       } { 定理 }
+\@@_def_name:nn { proof_en      } { Proof      }
+\@@_def_name:nn { axiom_en      } { Axiom      }
+\@@_def_name:nn { corollary_en  } { Corollary  }
+\@@_def_name:nn { definition_en } { Definition }
+\@@_def_name:nn { example_en    } { Example    }
+\@@_def_name:nn { lemma_en      } { Lemma      }
+\@@_def_name:nn { theorem_en    } { Theorem    }
 %</definition>
 %<@@=>
 %    \end{macrocode}

@@ -42,17 +42,6 @@
   }
 }
 
-\makeatletter\ExplSyntaxOn
-\ctex_patch_cmd:Nnn \bibliography
-  { \@input@ { \jobname.bbl } }
-  {
-    \begingroup
-    \renewcommand \href [ 2 ] {##2}
-    \@input@ { \jobname.bbl }
-    \endgroup
-  }
-\ExplSyntaxOff\makeatother
-
 \def\BibTeX{B\textsc{ib}\TeX}
 
 \begin{document}
