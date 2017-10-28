@@ -4102,17 +4102,6 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\bibpreamble}
-% 禁止为文献标题添加超链接；参考文献列表改为左对齐。
-%    \begin{macrocode}
-\cs_set:Npn \bibpreamble
-  {
-    \cs_set_eq:NN \href \use_ii:
-    \raggedright
-  }
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\bibsection}
 % 修改参考文献部分的页眉，并将其添加到目录。
 %    \begin{macrocode}
@@ -4123,6 +4112,48 @@ version.
     \addcontentsline { toc } { chapter }
       { \c__fdu_def_chapter_toc_format_tl \bibname }
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\bibpreamble}
+% \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
+%   超链接，同时又能正确处理 URL 中的特殊符号。}
+% 禁止为文献标题添加超链接。
+%    \begin{macrocode}
+\cs_set:Npn \bibpreamble
+  {
+    \cs_set_eq:NN \fdu_href:w \href
+    \cs_set_eq:NN \href       \fdu_nolink_href:w
+    \NewDocumentCommand \doi { m }
+      { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\fdu_nolink_href:w}
+% 不带链接的 \tn{href}，相当于忽略第一个参数。以下代码来自
+% \pkg{hyperref}。我们这里不考虑原始 \tn{href} 的可选参数，也不
+% 考虑它放在参数中的情况。
+%    \begin{macrocode}
+\cs_new_protected:Npn \fdu_nolink_href:w
+  {
+    \group_begin:
+      \hyper@normalise \@@_href_aux:n
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_href_aux:n,\@@_href_split:w}
+% 处理 URL 中的特殊符号。
+%    \begin{macrocode}
+\group_begin:
+  \char_set_catcode_parameter:N \$
+  \char_set_catcode_other:N     \#
+  \cs_new:Npn \@@_href_aux:n $1
+    { \exp_after:wN \@@_href_split:w $1 # # \\ }
+  \cs_new:Npn \@@_href_split:w $1 # $2 # $3 \\ $4
+    { $4 \group_end: }
+\group_end:
 %    \end{macrocode}
 % \end{macro}
 %
