@@ -767,7 +767,25 @@
         pdfcreator  = \c__fdu_def_name_pdf_creator_tl
       }
     \exp_args:NV \hypersetup \g__fdu_to_hyperref_clist
+    \fdu_allow_url_line_break:
   }
+
+\cs_new:Npn \fdu_allow_url_line_break:
+  {
+    \def\UrlAlphabet{%
+      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j
+      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t
+      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D
+      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N
+      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X
+      \do\Y\do\Z}
+    \def\UrlDigits{
+      \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+    \g@addto@macro{\UrlBreaks}{\UrlOrds}
+    \g@addto@macro{\UrlBreaks}{\UrlAlphabet}
+    \g@addto@macro{\UrlBreaks}{\UrlDigits}
+  }
+
 \ctex_at_end_package:nn { hyperref }
   {
     \pdfstringdefDisableCommands
@@ -1473,11 +1491,45 @@
     \cs_set_eq:NN \NAT@aysep \c__fdu_fullwidth_comma_tl
     \cs_set_eq:NN \NAT@yrsep \c__fdu_ideographic_comma_tl
   }
+
 \cs_set:Npn \bibpreamble
   {
-    \cs_set_eq:NN \href \use_ii:
-    \raggedright
+    \cs_set_eq:NN \fdu_href:w \href
+    \cs_set_eq:NN \href       \fdu_nolink_href:w
+    \NewDocumentCommand \doi { m }
+      { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
+    %\raggedright
   }
+
+\cs_new_protected:Npn \fdu_nolink_href:w
+  {
+    \group_begin:
+      \hyper@normalise \__fdu_href_aux:n
+    %\@ifnextchar\bgroup \__fdu_href:w { \hyper@normalise \__fdu_href_aux:n }
+  }
+
+%\cs_new:Npn \__fdu_href:w #
+%  { \hyper@normalise \__fdu_href_aux:n }
+%\def\fdu@Hy@href#{
+%  \hyper@normalise\fdu@href@
+%}
+
+\group_begin:
+  \char_set_catcode_parameter:N \$
+  \char_set_catcode_other:N     \#
+  %\catcode`\$=6
+  %\catcode`\#=12
+  \cs_new:Npn \__fdu_href_aux:n $1
+    { \exp_after:wN \__fdu_href_split:w $1 # # \\ }
+  %\gdef\fdu@href@$1{\expandafter\fdu@href@split$1##\\}
+  \cs_new:Npn \__fdu_href_split:w $1 # $2 # $3 \\ $4
+    { $4 \group_end: }
+  %\gdef\fdu@href@split$1#$2#$3\\$4{
+  %  \hyper@@link{}{}{$4}
+  %  \group_end:
+  %}
+\group_end:
+
 \cs_set:Npn \bibsection
   {
     \chapter* { \bibname }
