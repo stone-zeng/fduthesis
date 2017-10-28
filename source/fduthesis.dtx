@@ -1158,12 +1158,6 @@ version.
   }
 %    \end{macrocode}
 %
-% 载入参数配置文件。
-%    \begin{macrocode}
-\file_input:n { fduthesis.def }
-\file_input:n { fduthesis-user.def }
-%    \end{macrocode}
-%
 % \subsubsection{内部变量声明}
 %
 % \begin{variable}[int]{\l_@@_tmpa_box,
@@ -1209,7 +1203,7 @@ version.
 %    \end{macrocode}
 % \end{variable}
 %
-% \subsubsection{通用函数}
+% \subsubsection{内部函数}
 %
 % \changes{v0.5}{2017/09/19}{新增函数 \cs{__fdu_quad:} 和
 %   \cs{__fdu_qquad:}。}
@@ -1231,7 +1225,20 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{提示信息}
+% \changes{v0.6}{2017/10/29}{新增一些辅助定义函数。}
+%
+% \begin{macro}[aux]{\@@_def_fn_style:nn,\@@_def_punct:nn,
+%   \@@_def_name:nn}
+% 用来定义脚注样式、标点、默认名称的辅助函数。
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_def_fn_style:nn #1#2
+  { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
+\cs_new_protected_nopar:Npn \@@_def_punct:nn #1#2
+  { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
+\cs_new_protected_nopar:Npn \@@_def_name:nn #1#2
+  { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}[int]{\@@_msg_new:nn,
 %   \@@_error:n,\@@_error:nn,\@@_error:nnn}
@@ -1323,6 +1330,12 @@ version.
 %    \begin{macrocode}
 \PassOptionsToClass { \g_@@_to_book_clist } { book }
 \LoadClass { book }
+%    \end{macrocode}
+%
+% 载入参数配置文件。
+%    \begin{macrocode}
+\file_input:n { fduthesis.def }
+\file_input:n { fduthesis-user.def }
 %    \end{macrocode}
 %
 % \XeLaTeX{} \LuaLaTeX{} 下的字体选取。\opt{no-math} 选项保证该宏包
@@ -2675,35 +2688,20 @@ version.
 %
 % \subsubsection{编号样式}
 %
-% \begin{variable}[int]{\c_@@_fn_style_plain_tl,
-%   \c_@@_fn_style_libertinus_tl,
-%   \c_@@_fn_style_libertinus_negative_tl,
-%   \c_@@_fn_style_libertinus_sans_tl,
-%   \c_@@_fn_style_pifont_tl,
-%   \c_@@_fn_style_pifont_negative_tl,
-%   \c_@@_fn_style_pifont_sans_tl,
-%   \c_@@_fn_style_pifont_sans_negative_tl,
-%   \c_@@_fn_style_xits_tl,
-%   \c_@@_fn_style_xits_sans_tl,
-%   \c_@@_fn_style_xits_sans_negative_tl}
 % 各种脚注编号样式的名称。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_fn_style_plain_tl           { plain           }
-\tl_const:Nn \c_@@_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c_@@_fn_style_libertinus_negative_tl
-  { libertinus* }
-\tl_const:Nn \c_@@_fn_style_libertinus_sans_tl { libertinus-sans }
-\tl_const:Nn \c_@@_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c_@@_fn_style_pifont_negative_tl { pifont*         }
-\tl_const:Nn \c_@@_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c_@@_fn_style_pifont_sans_negative_tl
-  { pifont-sans* }
-\tl_const:Nn \c_@@_fn_style_xits_tl            { xits            }
-\tl_const:Nn \c_@@_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c_@@_fn_style_xits_sans_negative_tl
-  { xits-sans* }
+\@@_def_fn_style:nn { plain                } { plain           }
+\@@_def_fn_style:nn { libertinus           } { libertinus      }
+\@@_def_fn_style:nn { libertinus_negative  } { libertinus*     }
+\@@_def_fn_style:nn { libertinus_sans      } { libertinus-sans }
+\@@_def_fn_style:nn { pifont               } { pifont          }
+\@@_def_fn_style:nn { pifont_negative      } { pifont*         }
+\@@_def_fn_style:nn { pifont_sans          } { pifont-sans     }
+\@@_def_fn_style:nn { pifont_sans_negative } { pifont-sans*    }
+\@@_def_fn_style:nn { xits                 } { xits            }
+\@@_def_fn_style:nn { xits_sans            } { xits-sans       }
+\@@_def_fn_style:nn { xits_sans_negative   } { xits-sans*      }
 %    \end{macrocode}
-% \end{variable}
 %
 % \begin{variable}[int]{\l_@@_fn_style_tl}
 % 保存当前使用的脚注编号样式。
@@ -4462,19 +4460,6 @@ version.
 %    \end{macrocode}
 %
 % \subsubsection{通用配置}
-%
-% \changes{v0.6}{2017/10/27}{新增辅助函数 \cs{__fdu_def_punct:nn}
-%   和 \cs{__fdu_def_name:nn}，简化命令的定义。}
-%
-% \begin{macro}[aux]{\@@_def_punct:nn,\@@_def_name:nn}
-% 定义标点、名称的辅助函数。
-%    \begin{macrocode}
-\cs_new_protected_nopar:Npn \@@_def_punct:nn #1#2
-  { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
-\cs_new_protected_nopar:Npn \@@_def_name:nn #1#2
-  { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{variable}[int]{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
 %   \c_@@_name_en_tl}

@@ -75,8 +75,6 @@
     \@ifpackagelater {#1} { 2017/07/19 }
       { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
   }
-\file_input:n { fduthesis.def }
-\file_input:n { fduthesis-user.def }
 \box_new:N   \l__fdu_tmpa_box
 \dim_new:N   \l__fdu_tmpa_dim
 \dim_new:N   \l__fdu_tmpb_dim
@@ -92,6 +90,12 @@
 \cs_new:Npn \__fdu_quad:  { \skip_horizontal:n { 1 em } }
 \cs_new:Npn \__fdu_qquad: { \skip_horizontal:n { 2 em } }
 \cs_new:Npn \__fdu_symbol:n #1 { \tex_char:D #1 \scan_stop: }
+\cs_new_protected_nopar:Npn \__fdu_def_fn_style:nn #1#2
+  { \tl_const:cn { c__fdu_fn_style_ #1 _tl } {#2} }
+\cs_new_protected_nopar:Npn \__fdu_def_punct:nn #1#2
+  { \tl_const:cn { c__fdu_ #1 _tl } { \__fdu_symbol:n {#2} } }
+\cs_new_protected_nopar:Npn \__fdu_def_name:nn #1#2
+  { \tl_const:cn { c__fdu_def_name_ #1 _tl } {#2} }
 \cs_new_protected_nopar:Npn \__fdu_msg_new:nn
   { \msg_new:nnn       { fduthesis } }
 \cs_new_protected_nopar:Npn \__fdu_error:n
@@ -131,6 +135,8 @@
 \ProcessKeysOptions { fdu / option }
 \PassOptionsToClass { \g__fdu_to_book_clist } { book }
 \LoadClass { book }
+\file_input:n { fduthesis.def }
+\file_input:n { fduthesis-user.def }
 \RequirePackage [ no-math ] { fontspec }
 \RequirePackage
   [
@@ -788,20 +794,17 @@
     \pdfstringdefDisableCommands
       { \cs_set_eq:NN \fdu@kai \prg_do_nothing: }
   }
-\tl_const:Nn \c__fdu_fn_style_plain_tl           { plain           }
-\tl_const:Nn \c__fdu_fn_style_libertinus_tl      { libertinus      }
-\tl_const:Nn \c__fdu_fn_style_libertinus_negative_tl
-  { libertinus* }
-\tl_const:Nn \c__fdu_fn_style_libertinus_sans_tl { libertinus-sans }
-\tl_const:Nn \c__fdu_fn_style_pifont_tl          { pifont          }
-\tl_const:Nn \c__fdu_fn_style_pifont_negative_tl { pifont*         }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_tl     { pifont-sans     }
-\tl_const:Nn \c__fdu_fn_style_pifont_sans_negative_tl
-  { pifont-sans* }
-\tl_const:Nn \c__fdu_fn_style_xits_tl            { xits            }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_tl       { xits-sans       }
-\tl_const:Nn \c__fdu_fn_style_xits_sans_negative_tl
-  { xits-sans* }
+\__fdu_def_fn_style:nn { plain                } { plain           }
+\__fdu_def_fn_style:nn { libertinus           } { libertinus      }
+\__fdu_def_fn_style:nn { libertinus_negative  } { libertinus*     }
+\__fdu_def_fn_style:nn { libertinus_sans      } { libertinus-sans }
+\__fdu_def_fn_style:nn { pifont               } { pifont          }
+\__fdu_def_fn_style:nn { pifont_negative      } { pifont*         }
+\__fdu_def_fn_style:nn { pifont_sans          } { pifont-sans     }
+\__fdu_def_fn_style:nn { pifont_sans_negative } { pifont-sans*    }
+\__fdu_def_fn_style:nn { xits                 } { xits            }
+\__fdu_def_fn_style:nn { xits_sans            } { xits-sans       }
+\__fdu_def_fn_style:nn { xits_sans_negative   } { xits-sans*      }
 \tl_new:N \l__fdu_fn_style_tl
 \keys_define:nn { fdu / style }
   {
