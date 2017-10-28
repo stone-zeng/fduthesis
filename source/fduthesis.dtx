@@ -2590,6 +2590,39 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.6}{2017/10/29}{优化 URL 断行设置。}
+%
+% \begin{macro}[int]{\fdu_allow_url_break:}
+% \begin{macro}[aux]{\@@_add_url_break_points:}
+% 允许 URL 在字母、数字和一些特殊符号处断行。见
+% \url{https://bit.ly/2hhIjLW}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_allow_url_break:
+  {
+    \cs_new:Npn \@@_add_url_break_points:
+      { \tl_map_function:NN \c_@@_url_break_points_tl \do }
+    \ctex_appto_cmd:NnnTF \UrlBreaks {}
+      { \UrlOrds \@@_add_url_break_points: }
+      { } { \ctex_patch_failure:N \UrlBreaks }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{variable}[int]{\c_@@_url_break_points_tl}
+% 额外的断行位置是 26 个英文字母（大小写）以及 10 个阿拉伯数字。
+% \pkg{url} 提供的宏 \tn{UrlBreaks} 还包含了特殊符号 |*|、|-|、
+% |~|、|'|、|"|、|-|，也被设置为允许断行。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_url_break_points_tl
+  {
+    abcdefghijklmnopqrstuvwxyz
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  }
+%    \end{macrocode}
+% \end{variable}
+%
 % 在导言区末尾引入 \pkg{hyperref} 宏包。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
@@ -2622,6 +2655,7 @@ version.
 % \tn{hypersetup}。
 %    \begin{macrocode}
     \exp_args:NV \hypersetup \g_@@_to_hyperref_clist
+    \fdu_allow_url_break:
   }
 %    \end{macrocode}
 %
@@ -4432,7 +4466,7 @@ version.
 % \changes{v0.6}{2017/10/27}{新增辅助函数 \cs{__fdu_def_punct:nn}
 %   和 \cs{__fdu_def_name:nn}，简化命令的定义。}
 %
-% \begin{variable}[aux]{\@@_def_punct:nn,\@@_def_name:nn}
+% \begin{macro}[aux]{\@@_def_punct:nn,\@@_def_name:nn}
 % 定义标点、名称的辅助函数。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_def_punct:nn #1#2
@@ -4440,7 +4474,7 @@ version.
 \cs_new_protected_nopar:Npn \@@_def_name:nn #1#2
   { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
 %    \end{macrocode}
-% \end{variable}
+% \end{macro}
 %
 % \begin{variable}[int]{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
 %   \c_@@_name_en_tl}

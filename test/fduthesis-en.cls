@@ -521,6 +521,20 @@
     \definecolorset { HTML } { fdu@ } { }
       { link, #1; url, #2; cite, #3}
   }
+\cs_new:Npn \fdu_allow_url_break:
+  {
+    \cs_new:Npn \__fdu_add_url_break_points:
+      { \tl_map_function:NN \c__fdu_url_break_points_tl \do }
+    \ctex_appto_cmd:NnnTF \UrlBreaks {}
+      { \UrlOrds \__fdu_add_url_break_points: }
+      { } { \ctex_patch_failure:N \UrlBreaks }
+  }
+\tl_const:Nn \c__fdu_url_break_points_tl
+  {
+    abcdefghijklmnopqrstuvwxyz
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  }
 \ctex_at_end_preamble:n
   {
     \RequirePackage { hyperref }
@@ -533,6 +547,7 @@
         pdfcreator  = \c__fdu_def_name_pdf_creator_tl
       }
     \exp_args:NV \hypersetup \g__fdu_to_hyperref_clist
+    \fdu_allow_url_break:
   }
 \ctex_at_end_package:nn { hyperref }
   {
@@ -1228,11 +1243,6 @@
     \cs_set_eq:NN \NAT@aysep \c__fdu_fullwidth_comma_tl
     \cs_set_eq:NN \NAT@yrsep \c__fdu_ideographic_comma_tl
   }
-\cs_set:Npn \bibpreamble
-  {
-    \cs_set_eq:NN \href \use_ii:
-    \raggedright
-  }
 \cs_set:Npn \bibsection
   {
     \chapter* { \bibname }
@@ -1240,6 +1250,26 @@
     \addcontentsline { toc } { chapter }
       { \c__fdu_def_chapter_toc_format_tl \bibname }
   }
+\cs_set:Npn \bibpreamble
+  {
+    \cs_set_eq:NN \fdu_href:w \href
+    \cs_set_eq:NN \href       \fdu_nolink_href:w
+    \NewDocumentCommand \doi { m }
+      { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
+  }
+\cs_new_protected:Npn \fdu_nolink_href:w
+  {
+    \group_begin:
+      \hyper@normalise \__fdu_href_aux:n
+  }
+\group_begin:
+  \char_set_catcode_parameter:N \$
+  \char_set_catcode_other:N     \#
+  \cs_new:Npn \__fdu_href_aux:n $1
+    { \exp_after:wN \__fdu_href_split:w $1 # # \\ }
+  \cs_new:Npn \__fdu_href_split:w $1 # $2 # $3 \\ $4
+    { $4 \group_end: }
+\group_end:
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } {#1},
