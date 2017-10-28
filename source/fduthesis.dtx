@@ -4102,20 +4102,26 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\bibliography}
-% \pkg{gb-t-7714-2015} 会为文献标题添加超链接，此处将其禁用。
+% \begin{macro}{\bibpreamble}
+% 禁止为文献标题添加超链接；参考文献列表改为左对齐。
 %    \begin{macrocode}
-\ctex_patch_cmd:Nnn \bibliography
-  { \@input@ { \jobname.bbl } }
+\cs_set:Npn \bibpreamble
   {
-%    \group_begin:
-%      \cs_set_eq:NN \href \use_ii:nn
-%      \@input@ { \jobname.bbl }
-%    \group_end:
-    \begingroup
-      \renewcommand \href [ 2 ] {##2}
-      \@input@ { \jobname.bbl }
-    \endgroup
+    \cs_set_eq:NN \href \use_ii:
+    \raggedright
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\bibsection}
+% 修改参考文献部分的页眉，并将其添加到目录。
+%    \begin{macrocode}
+\cs_set:Npn \bibsection
+  {
+    \chapter* { \bibname }
+    \fdu_front_matter_header:n { \bibname }
+    \addcontentsline { toc } { chapter }
+      { \c__fdu_def_chapter_toc_format_tl \bibname }
   }
 %    \end{macrocode}
 % \end{macro}

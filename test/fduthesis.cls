@@ -1473,13 +1473,17 @@
     \cs_set_eq:NN \NAT@aysep \c__fdu_fullwidth_comma_tl
     \cs_set_eq:NN \NAT@yrsep \c__fdu_ideographic_comma_tl
   }
-\ctex_patch_cmd:Nnn \bibliography
-  { \@input@ { \jobname.bbl } }
+\cs_set:Npn \bibpreamble
   {
-    \begingroup
-      \renewcommand \href [ 2 ] {##2}
-      \@input@ { \jobname.bbl }
-    \endgroup
+    \cs_set_eq:NN \href \use_ii:
+    \raggedright
+  }
+\cs_set:Npn \bibsection
+  {
+    \chapter* { \bibname }
+    \fdu_front_matter_header:n { \bibname }
+    \addcontentsline { toc } { chapter }
+      { \c__fdu_def_chapter_toc_format_tl \bibname }
   }
 \keys_define:nn { fdu }
   {
