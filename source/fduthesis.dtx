@@ -1596,7 +1596,7 @@ version.
 %    \end{macrocode}
 %
 % 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
-% 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{luatexja} 宏包。
+% 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{LuaTeX-ja} 宏包。
 % TODO(20170722): 英文模板中文字体的处理。
 %    \begin{macrocode}
 \RequirePackage
@@ -1746,7 +1746,7 @@ version.
 % \cs{setCJKmainfont} 等命令。
 %
 % 对于中文字体，\pkg{ctex} 宏包及其底层 \pkg{xeCJK} 和
-% \pkg{luatexja}，均与 \pkg{fontspec} 保持一致，以
+% \pkg{LuaTeX-ja}，均与 \pkg{fontspec} 保持一致，以
 % |main|、|sans|、|mono| 三类进行划分；而本模板则按照
 % 宋、黑、仿、楷等进行划分。为此，需要额外建立二者之间的对应关系。
 %
@@ -2572,6 +2572,35 @@ version.
 %</class>
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsubsection{修改 \pkg{LuaTeX-ja} 默认设置}
+%
+% \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母
+%   和带圈数字的显示。}
+%
+% TODO(2017/10/28): ctex v2.4.11 中会进行修改。
+%    \begin{macrocode}
+\sys_if_engine_luatex:T
+  {
+%    \end{macrocode}
+% U+2460--U+24FF (Enclosed Alphanumerics) 原属于字符范围 6，是
+% JAchar，我们把它们归入字符范围 1，改成 ALchar。
+%    \begin{macrocode}
+    \ltjdefcharrange { 1 }
+      {    "80 -   "36F,  "1E00 -  "1EFF,  "2460 -  "24FF }
+    \ltjdefcharrange { 6 }
+      {
+         "2E80 -  "2EFF,  "3000 -  "30FF,  "3190 -  "319F,
+         "31F0 -  "4DBF,  "4E00 -  "9FFF,  "F900 -  "FAFF,
+         "FE10 -  "FE6F, "20000 - "2FFFF, "E0100 - "E01EF
+      }
+%    \end{macrocode}
+% 使用西文字体显示希腊字母与西里尔字母。
+%    \begin{macrocode}
+    \ltjsetparameter
+      { jacharrange = { -1, -2, -3, -4, -5, +6, +7, -8 } }
+  }
+%    \end{macrocode}
 %
 % \subsection{章节标题结构}
 %
