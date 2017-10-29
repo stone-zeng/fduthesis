@@ -10,6 +10,9 @@
     % footnotestyle = libertinus*,
     % automakecover = false,
     logo = {../logo/pdf/fudan-name-black.pdf},
+    hyperlink = color,
+    hyperlinkcolor = autumn,
+    bibstyle = plainnat
   },
   info = {
     title = {自河南经乱关内阻饥兄弟离散各在一处},
@@ -35,18 +38,12 @@
   }
 }
 
-\newcommand{\fonttesttext}{Hello, world! Hello, \TeX{}!}
-\newcommand\fonttest{
-  \begin{tabular}{lc}
-    Normal:        & \fonttesttext \\
-    Bold:          & \textbf{\fonttesttext} \\
-    Italic:        & \textit{\fonttesttext} \\
-    Small Capital: & \textsc{\fonttesttext}
-  \end{tabular}
-}
+\def\BibTeX{B\textsc{ib}\TeX}
 
 \begin{document}
+
 \frontmatter
+
 \tableofcontents
 
 \begin{abstract}
@@ -56,8 +53,6 @@ provide structure. The name of each function is divided into
 logical units using separates the name of the function from the
 argument specifier (``arg-spec''). This describes the arguments
 expected by the function.
-
-\kant[1-5]
 \end{abstract}
 
 \begin{notation}
@@ -76,406 +71,88 @@ $c$         &  Speed of Light \\
 $P$         &  Possibility \\
 $T$         &  Time \\
 $v$         &  Velocity \\
-Wikipedia   &  Wikipedia (/ˌwɪkᵻˈpiːdiə/ (About this sound listen) or /ˌwɪkiˈpiːdiə/ (About this sound listen) \emph{WIK-i-PEE-dee-ə}) is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation. \\
-$\sin$      &  Sine \\
-HPC         &  High Performance Computing \\
-SMP         &  Symmetrical Multi-Processing \\
-API         &  Application Programming Interface \\
-PI          &  Polyimide \\
-PBI         &  Polybenzimidazole \\
-PY          &  Polypyrron \\
-$\Delta G$  &  Activation Free Energy \\
-$\chi$      &  Transmission Coefficient \\
-$E$         &  Energy \\
-$m$         &  Mass \\
-$c$         &  Speed of Light \\
-$P$         &  Possibility \\
-$T$         &  Time \\
-$v$         &  Velocity \\
-Wikipedia   &  Wikipedia (/ˌwɪkᵻˈpiːdiə/ (About this sound listen) or /ˌwɪkiˈpiːdiə/ (About this sound listen) \emph{WIK-i-PEE-dee-ə}) is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation. \\
-$\sin$      &  Sine \\
-HPC         &  High Performance Computing \\
-SMP         &  Symmetrical Multi-Processing \\
-API         &  Application Programming Interface \\
-PI          &  Polyimide \\
-PBI         &  Polybenzimidazole \\
-PY          &  Polypyrron \\
-$\Delta G$  &  Activation Free Energy \\
-$\chi$      &  Transmission Coefficient \\
-$E$         &  Energy \\
-$m$         &  Mass \\
-$c$         &  Speed of Light \\
-$P$         &  Possibility \\
-$T$         &  Time \\
-$v$         &  Velocity
+Wikipedia   &  Wikipedia (/ˌwɪkᵻˈpiːdiə/ (About this sound listen)
+               or /ˌwɪkiˈpiːdiə/ (About this sound listen)
+               \emph{WIK-i-PEE-dee-ə}) is a free online encyclopedia
+               with the aim to allow anyone to edit articles.
+               Wikipedia is the largest and most popular general
+               reference work on the Internet and is ranked among
+               the ten most popular websites. Wikipedia is owned by
+               the nonprofit Wikimedia Foundation.
 \end{notation}
 
 \mainmatter
-\chapter{Text, font and footnote}
+
+\chapter{Text}
+
 \section{Text and paragraph}
-\subsection{English}
-\kant
 
-\clearpage
+\textbf{Using \texttt{\string\cite}}
+Helvetica or Neue Haas Grotesk is a widely used sans-serif typeface
+developed in 1957 by Swiss typeface designer Max Miedinger with input
+from Eduard Hoffmann \cite{test1}.
+Helvetica is a neo-grotesque or realist design \cite{lzp1,crawfprd}, one influenced by
+the famous 19th century typeface Akzidenz-Grotesk and other German
+and Swiss designs \cite{hws,yufin,qgxxywxbzhjswyh}. Its use became a hallmark of the International
+Typographic Style that emerged from the work of Swiss designers in
+the 1950s and 60s, becoming one of the most popular typefaces of the
+20th century. Over the years, a wide range of variants have been
+released in different weights \cite{kanamori,wll}, widths and sizes, as well as matching
+designs for a range of non-Latin alphabets. Notable features of
+Helvetica as originally designed include a high x-height, the
+termination of strokes on horizontal or vertical lines and an
+unusually tight spacing between letters, which combine to give it a
+dense, compact appearance \cite{test1,kanamori,wll,qgxxywxbzhjswyh}.
 
-\section{Font}
-\subsection{Roman}
-\fonttest
-
-\subsection{Sans-serif}
-\textsf{\fonttest}
-
-\subsection{Typewriter}
-\texttt{\fonttest}
-
-\clearpage
-
-\section{Footnote}
-Footnote\footnote{Religious influence had been strong in the Russian Empire.} 
-
-Footnote \footnote{Religious influence had been strong in the Russian Empire.}. Hello
-
-Footnote. \footnote{Footnote 3 is a long footnote. \kant[2]} Nothing
-
-\textit{Italic footnote \footnote{Note 4}have nothing}
-
-\textbf{Bold fotnote\footnote{Note 5} have nothing}
-
-vs\footnote{Note 6\par}have nothing
-
-vs \footnote{Note 7 has a par. \par The Russian Orthodox Church enjoyed
-a privileged status as the church of the monarchy and took part in carrying
-out official state functions. The immediate period following the establishment
-of the Soviet state included a struggle against the Orthodox Church, which
-the revolutionaries considered an ally of the former ruling classes.}have nothing
-
-vs\footnote{Note 8}ge
-
-vs\footnote{Note 9} jsty
-
-vs\footnote{Note 10 has 3 par's.
-The government encouraged a variety of trends. In art and literature, numerous
-schools, some traditional and others radically experimental, proliferated. \par
-The government encouraged a variety of trends. In art and literature, numerous
-schools, some traditional and others radically experimental, proliferated. \par
-The government encouraged a variety of trends. In art and literature, numerous
-schools, some traditional and others radically experimental, proliferated.}
-
-Text%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-
-\chapter{Mathematics and Theorems}
-\section{Math}
-\[\pi=\sb{33}\]
-
-\[
-  \int\sin x\,\mathrm{d}x=\cos x + C
-\]
-
-\begin{proof}
-Cubum autem in duos cubos, aut quadratoquadratum in duos quadratoquadratos
-\& generaliter nullam in infinitum ultra quadratum potestatem in duos eiusdem
-nominis fas est dividere cuius rei demonstrationem mirabilem sane detexi.
-Hanc marginis exiguitas non caperet.
-\end{proof}
-
-\begin{definition}
-Q.E.D. (also written QED) is an initialism of the Latin phrase quod erat
-demonstrandum, meaning ``what was to be demonstrated'', or, less formally,
-``thus it has been demonstrated''. The phrase is traditionally placed in
-its abbreviated form at the end of a mathematical proof or philosophical
-argument when the original proposition has been exactly restated as the
-conclusion of the demonstration. The abbreviation thus signals the completion
-of the proof.
-
-The phrase quod erat demonstrandum is a translation into Latin from the
-Greek ὅπερ ἔδει δεῖξαι (hoper edei deixai; abbreviated as ΟΕΔ). Translating
-from the Latin into English yields, ``what was to be demonstrated''; however,
-translating the Greek phrase ὅπερ ἔδει δεῖξαι produces a slightly different
-meaning. Since the verb ``δείκνυμι'' also means to show or to prove, a
-better translation from the Greek would read, ``The very thing it was required
-to have shown.'' The phrase was used by many early Greek mathematicians,
-including Euclid and Archimedes.
-\end{definition}
-
-\begin{lemma}
-In the European Renaissance, scholars often wrote in Latin, and phrases
-such as Q.E.D. were often used to conclude proofs.
-\end{lemma}
-
-\begin{proof}
-\textbf{Ipso facto} is a Latin phrase, directly translated as ``by the fact itself'',
-which means that a specific phenomenon is a \emph{direct} consequence, a
-resultant \textit{effect}, of the action in question, instead of being brought
-about by a previous action.
-\begin{equation}
-  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
-\end{equation}
-\end{proof}
-
-\begin{proof}
-\textbf{Ipso facto} is a Latin phrase, directly translated as ``by the fact itself'',
-which means that a specific phenomenon is a \emph{direct} consequence, a
-resultant \textit{effect}, of the action in question, instead of being brought
-about by a previous action.
-\begin{equation*}
-  \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx
-\end{equation*}
-\end{proof}
-
-\begin{lemma}
-This is another beautiful lemma.
-\end{lemma}
-
-\chapter{Theorems (Continued)}
-\newcounter{thm}
-
-\fdunewtheorem[style=plain,qed=\ensuremath{\sin}]{p}{plain}
-\fdunewtheorem[style=margin]{mm}{BREAKINGS}
-\fdunewtheorem[style=change]{fduc}{Changing}
-\fdunewtheorem[style=break]{fdub}{plain}
-\fdunewtheorem[style=marginbreak]{mb}{BREAKINGS}
-\fdunewtheorem[style=break]{cb}{Changing}
-\fdunewtheorem*[style=plain]{np}{plain}
-\fdunewtheorem*[style=margin]{nmm}{BREAKINGS}
-\fdunewtheorem*[style=change]{nfduc}{Changing}
-\fdunewtheorem*[style=break,qed=]{nfdub}{plain}
-\fdunewtheorem*[style=marginbreak,qed={}]{nmb}{BREAKINGS}
-\fdunewtheorem[style=break,counter=thm]{ncb}{Changing}
-
-\newtheorem{prop}[thm]{Proposition}
-
-\begin{prop}
-  Right-angle triangle.
-\end{prop}
-\begin{prop}[Sphere]
-  Right-angle triangle.
-\end{prop}
-\begin{prop}
-  Right-angle triangle.
-\end{prop}
-
-\begin{p}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{p}
-
-\begin{mm}[Tomorrow morning]
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{mm}
-
-\begin{fduc}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{fduc}
-
-\begin{fdub}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{fdub}
-
-\begin{mb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{mb}
-
-\begin{cb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{cb}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{np}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{np}
-
-\begin{nmm}[Another tomorrow morning]
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{nmm}
-
-\begin{nfduc}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{nfduc}
-
-\begin{nfdub}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{nfdub}
-
-\begin{nmb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{nmb}
-
-\begin{ncb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{ncb}
-
-\begin{ncb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{ncb}
-
-\begin{ncb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{ncb}
-
-\begin{ncb}
-This is a THEOREM.
-\[ \sum_{k=0}^{\infty} \frac{1}{x^k} = \int \sin x dx \]
-\end{ncb}
-
-\chapter{Figures, Tables and Floats}
-\section{title}
-Myriad is a humanist sans-serif typeface designed by Robert Slimbach
-and Carol Twombly for Adobe Systems. The typeface is best known for
-its usage by Apple Inc., replacing Apple Garamond as Apple's corporate
-font from 2002 to 2017. Myriad is easily distinguished from other
-sans-serif fonts due to its special ``y'' descender (tail) and slanting
-``e'' cut. Myriad is similar to Frutiger, although the italic is different;
-Adrian Frutiger described the font as ``not badly done'' but felt that
-the similarities had gone ``a little too far''. The later Segoe UI and
-Corbel are also similar.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=3cm]{../logo/pdf/fudan-emblem-new-a-blue.pdf}
-  \includegraphics[width=4cm]{../logo/pdf/fudan-emblem-new-b-red.pdf}
-  \caption{This PostScript Type 1 font family was released after the
-    original Myriad MM. It initially included four fonts in two weights,
-    with complementary italics. All these Type 1 versions supported
-    the ISO-Adobe character set; all were discontinued in the early 2000s.}
-\end{figure}
-
-It was a condensed version, released around 1998. The condensed fonts
-comprise three weights, with complementary italics.
+\textbf{Using \texttt{\string\citep}}
+Developed by the Haas'sche Schriftgiesserei (Haas Type Foundry) of
+Münchenstein, Switzerland, its release was planned to match a trend:
+a resurgence of interest in turn-of-the-century grotesque typefaces
+among European graphic designers that also saw the release of Univers
+by Adrian Frutiger the same year \citep{caplan}. Hoffmann was the president of the
+Haas Type Foundry, while Miedinger was a freelance graphic designer
+who had formerly worked as a Haas salesman and designer \citep{frese,xadzkjdx,tachibana}.
+Miedinger and Hoffmann set out to create a neutral typeface that had
+great clarity, no intrinsic meaning in its form, and could be used
+on a wide variety of signage. Originally named Neue Haas Grotesk
+(New Haas Grotesque), it was rapidly licensed by Linotype and renamed
+Helvetica, being similar to the Latin adjective for Switzerland,
+Helvetia \citep{bawden,hws,yufin}. The font name was changed to Helvetica in 1960. A
+feature-length film directed by Gary Hustwit was released in 2007
+to coincide with the 50th anniversary of the typeface's introduction
+in 1957 \citep{fg,ybj}.
 
 \section{title}
-Myriad Web is a version of Myriad in TrueType font format, optimized
-for onscreen use. It supports Adobe CE and Adobe Western 2 character
-sets. Myriad Web comprises only five fonts: Myriad Web Pro Bold, Myriad
-Web Pro Regular, Myriad Web Pro Condensed Italic, Myriad Web Pro Condensed,
-Myriad Web Pro Italic. Myriad Web Pro is slightly wider than Myriad Pro,
-while the width of Myriad Web Pro Condensed is between Myriad Pro
-Condensed and Myriad Pro SemiCondensed.
 
-The family is bundled as part of the Adobe Web Type Pro font pack.
+\textbf{Using \texttt{\string\citet}}
+Influences of Helvetica included Schelter-Grotesk and Haas'
+Normal-Grotesk. Attracting considerable attention on its release
+as Neue Haas Grotesk, Linotype adopted Neue Haas Grotesk for
+widespread release \citet{buseck}.
+In 1960, its name was changed by Haas' German parent company Stempel
+to Helvetica (meaning Swiss in Latin) in order to make it more
+marketable internationally \citet{udtfha,lml}. It comes from the Latin name for the
+pre-Roman tribes of what became Switzerland. Intending to match the
+success of Univers, Arthur Ritzel of Stempel redesigned Neue Haas
+Grotesk into a larger family \citet{bcz,sftrj,babu,kanamori}. The design was popular, and rapidly
+made available for phototypesetting systems as well as for the
+original metal type. Many imitations and knock-offs were rapidly
+created \citet{test1,kanamori,wll}.
+In the late 1970s and 1980s, Linotype licensed its version to Xerox
+and then Adobe and Apple, guaranteeing its importance in digital
+printing by making it one of the core fonts of the PostScript page
+description language. The rights to it are now held by Monotype
+Imaging, which acquired Linotype; the advanced Neue Haas Grotesk
+release (discussed below) was co-released with Font Bureau \citet{dcmes,wfz,wfz1,wfz2}.
 
-\begin{table}[h]
-  \centering
-  \caption{A normal table}
-  \begin{tabular}{ccc}
-    \hline
-    \bfseries Function & \bfseries Environment & \bfseries Code \\
-    \hline
-    Table     & tabular & \ttfamily \backslash begin\{tabular\} ... \backslash end\{tabular\} \\
-    Figure    & figure  & \ttfamily \backslash begin\{figure\}  ... \backslash end\{figure\}  \\
-    Centering & center  & \ttfamily \backslash begin\{center\}  ... \backslash end\{center\}  \\
-    \hline
-  \end{tabular}
-\end{table}
+\chapter{Dummy text}
 
-Myriad Pro is the OpenType version of the original Myriad font family.
-It first shipped in 2000, as Adobe moved towards the OpenType standard.
-Additional designers were Christopher Slye and Fred Brady. Compared to
-Myriad MM, it added support for Latin Extended, Greek, and Cyrillic
-characters, as well as oldstyle figures.
+\kant[1-15]
 
-Myriad Pro originally included thirty fonts in three widths and five
-weights each, with complementary italics. A ``semi-condensed'' width
-was added in early 2002, expanding the family to forty fonts in four
-widths and five weights each, with complementary italics.
+%\nocite{*}
 
-\section{title}
-\kant[1-10]
+\backmatter
 
-\section{title}
-\kant[21-30]
-
-\section{title}
-\kant[31-40]
-
-\section{title}
-\section{title}
-\chapter{Chapter-HAHAHA}
-\section{title}
-\section{titvdale}
-\section{title}
-\section{titvsdle}
-\section{title}
-\section{ticadtle}
-\section{title}
-\TeX{} StackExchange: \url{https://tex.stackexchange.com/}
-
-The \TeX book: \cite{knuth1986texbook}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-
-\begin{thebibliography}{9}
-\bibitem{knuth1986texbook}
-Knuth D E.
-\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
-\newblock Boston: Addison--Wesley Publishing Company, 1986
-\end{thebibliography}
+\bibliography{test}
 
 \end{document}
