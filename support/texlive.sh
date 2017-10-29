@@ -34,6 +34,7 @@ tlmgr install         \
   arphic-ttf          \
   babel-japanese      \
   baekmuk             \
+  bibtex              \
   caption             \
   cm                  \
   ctablestack         \
@@ -77,6 +78,7 @@ tlmgr install         \
   metafont            \
   mfware              \
   ms                  \
+  natbib              \
   ntheorem            \
   oberdiek            \
   pgf                 \

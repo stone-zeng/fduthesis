@@ -10,6 +10,9 @@
     % footnotestyle = libertinus*,
     % automakecover = false,
     logo = {../logo/pdf/fudan-name-black.pdf},
+    hyperlink = color,
+    hyperlinkcolor = autumn,
+    bibstyle = plainnat
   },
   info = {
     title = {自河南经乱关内阻饥兄弟离散各在一处},
@@ -45,8 +48,12 @@
   \end{tabular}
 }
 
+\def\BibTeX{B\textsc{ib}\TeX}
+
 \begin{document}
+
 \frontmatter
+
 \tableofcontents
 
 \begin{abstract}
@@ -76,49 +83,29 @@ $c$         &  Speed of Light \\
 $P$         &  Possibility \\
 $T$         &  Time \\
 $v$         &  Velocity \\
-Wikipedia   &  Wikipedia (/ˌwɪkᵻˈpiːdiə/ (About this sound listen) or /ˌwɪkiˈpiːdiə/ (About this sound listen) \emph{WIK-i-PEE-dee-ə}) is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation. \\
-$\sin$      &  Sine \\
-HPC         &  High Performance Computing \\
-SMP         &  Symmetrical Multi-Processing \\
-API         &  Application Programming Interface \\
-PI          &  Polyimide \\
-PBI         &  Polybenzimidazole \\
-PY          &  Polypyrron \\
-$\Delta G$  &  Activation Free Energy \\
-$\chi$      &  Transmission Coefficient \\
-$E$         &  Energy \\
-$m$         &  Mass \\
-$c$         &  Speed of Light \\
-$P$         &  Possibility \\
-$T$         &  Time \\
-$v$         &  Velocity \\
-Wikipedia   &  Wikipedia (/ˌwɪkᵻˈpiːdiə/ (About this sound listen) or /ˌwɪkiˈpiːdiə/ (About this sound listen) \emph{WIK-i-PEE-dee-ə}) is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation. \\
-$\sin$      &  Sine \\
-HPC         &  High Performance Computing \\
-SMP         &  Symmetrical Multi-Processing \\
-API         &  Application Programming Interface \\
-PI          &  Polyimide \\
-PBI         &  Polybenzimidazole \\
-PY          &  Polypyrron \\
-$\Delta G$  &  Activation Free Energy \\
-$\chi$      &  Transmission Coefficient \\
-$E$         &  Energy \\
-$m$         &  Mass \\
-$c$         &  Speed of Light \\
-$P$         &  Possibility \\
-$T$         &  Time \\
-$v$         &  Velocity
+Wikipedia   &  Wikipedia (/ˌwɪkᵻˈpiːdiə/ (About this sound listen)
+               or /ˌwɪkiˈpiːdiə/ (About this sound listen)
+               \emph{WIK-i-PEE-dee-ə}) is a free online encyclopedia
+               with the aim to allow anyone to edit articles.
+               Wikipedia is the largest and most popular general
+               reference work on the Internet and is ranked among
+               the ten most popular websites. Wikipedia is owned by
+               the nonprofit Wikimedia Foundation.
 \end{notation}
 
 \mainmatter
+
 \chapter{Text, font and footnote}
+
 \section{Text and paragraph}
+
 \subsection{English}
 \kant
 
 \clearpage
 
 \section{Font}
+
 \subsection{Roman}
 \fonttest
 
@@ -214,7 +201,9 @@ Text%
 \footnote{This is a footnote.}%
 
 \chapter{Mathematics and Theorems}
+
 \section{Math}
+
 \[\pi=\sb{33}\]
 
 \[
@@ -382,7 +371,9 @@ This is a THEOREM.
 \end{ncb}
 
 \chapter{Figures, Tables and Floats}
+
 \section{title}
+
 Myriad is a humanist sans-serif typeface designed by Robert Slimbach
 and Carol Twombly for Adobe Systems. The typeface is best known for
 its usage by Apple Inc., replacing Apple Garamond as Apple's corporate
@@ -407,6 +398,7 @@ It was a condensed version, released around 1998. The condensed fonts
 comprise three weights, with complementary italics.
 
 \section{title}
+
 Myriad Web is a version of Myriad in TrueType font format, optimized
 for onscreen use. It supports Adobe CE and Adobe Western 2 character
 sets. Myriad Web comprises only five fonts: Myriad Web Pro Bold, Myriad
@@ -451,31 +443,80 @@ widths and five weights each, with complementary italics.
 \section{title}
 \kant[31-40]
 
-\section{title}
-\section{title}
-\chapter{Chapter-HAHAHA}
-\section{title}
-\section{titvdale}
-\section{title}
-\section{titvsdle}
-\section{title}
-\section{ticadtle}
-\section{title}
+\section{URL}
 \TeX{} StackExchange: \url{https://tex.stackexchange.com/}
 
-The \TeX book: \cite{knuth1986texbook}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
-\section{title}
+
+\chapter{Text}
+
+\section{Text and paragraph}
+
+\textbf{Using \texttt{\string\cite}}
+Helvetica or Neue Haas Grotesk is a widely used sans-serif typeface
+developed in 1957 by Swiss typeface designer Max Miedinger with input
+from Eduard Hoffmann \cite{test1}.
+Helvetica is a neo-grotesque or realist design \cite{lzp1,crawfprd}, one influenced by
+the famous 19th century typeface Akzidenz-Grotesk and other German
+and Swiss designs \cite{hws,yufin,qgxxywxbzhjswyh}. Its use became a hallmark of the International
+Typographic Style that emerged from the work of Swiss designers in
+the 1950s and 60s, becoming one of the most popular typefaces of the
+20th century. Over the years, a wide range of variants have been
+released in different weights \cite{kanamori,wll}, widths and sizes, as well as matching
+designs for a range of non-Latin alphabets. Notable features of
+Helvetica as originally designed include a high x-height, the
+termination of strokes on horizontal or vertical lines and an
+unusually tight spacing between letters, which combine to give it a
+dense, compact appearance \cite{test1,kanamori,wll,qgxxywxbzhjswyh}.
+
+\textbf{Using \texttt{\string\citep}}
+Developed by the Haas'sche Schriftgiesserei (Haas Type Foundry) of
+Münchenstein, Switzerland, its release was planned to match a trend:
+a resurgence of interest in turn-of-the-century grotesque typefaces
+among European graphic designers that also saw the release of Univers
+by Adrian Frutiger the same year \citep{caplan}. Hoffmann was the president of the
+Haas Type Foundry, while Miedinger was a freelance graphic designer
+who had formerly worked as a Haas salesman and designer \citep{frese,xadzkjdx,tachibana}.
+Miedinger and Hoffmann set out to create a neutral typeface that had
+great clarity, no intrinsic meaning in its form, and could be used
+on a wide variety of signage. Originally named Neue Haas Grotesk
+(New Haas Grotesque), it was rapidly licensed by Linotype and renamed
+Helvetica, being similar to the Latin adjective for Switzerland,
+Helvetia \citep{bawden,hws,yufin}. The font name was changed to Helvetica in 1960. A
+feature-length film directed by Gary Hustwit was released in 2007
+to coincide with the 50th anniversary of the typeface's introduction
+in 1957 \citep{fg,ybj}.
+
 \section{title}
 
-\begin{thebibliography}{9}
-\bibitem{knuth1986texbook}
-Knuth D E.
-\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
-\newblock Boston: Addison--Wesley Publishing Company, 1986
-\end{thebibliography}
+\textbf{Using \texttt{\string\citet}}
+Influences of Helvetica included Schelter-Grotesk and Haas'
+Normal-Grotesk. Attracting considerable attention on its release
+as Neue Haas Grotesk, Linotype adopted Neue Haas Grotesk for
+widespread release \citet{buseck}.
+In 1960, its name was changed by Haas' German parent company Stempel
+to Helvetica (meaning Swiss in Latin) in order to make it more
+marketable internationally \citet{udtfha,lml}. It comes from the Latin name for the
+pre-Roman tribes of what became Switzerland. Intending to match the
+success of Univers, Arthur Ritzel of Stempel redesigned Neue Haas
+Grotesk into a larger family \citet{bcz,sftrj,babu,kanamori}. The design was popular, and rapidly
+made available for phototypesetting systems as well as for the
+original metal type. Many imitations and knock-offs were rapidly
+created \citet{test1,kanamori,wll}.
+In the late 1970s and 1980s, Linotype licensed its version to Xerox
+and then Adobe and Apple, guaranteeing its importance in digital
+printing by making it one of the core fonts of the PostScript page
+description language. The rights to it are now held by Monotype
+Imaging, which acquired Linotype; the advanced Neue Haas Grotesk
+release (discussed below) was co-released with Font Bureau \citet{dcmes,wfz,wfz1,wfz2}.
+
+\chapter{Dummy text}
+
+\kant[1-15]
+
+%\nocite{*}
+
+\backmatter
+
+\bibliography{test}
 
 \end{document}
