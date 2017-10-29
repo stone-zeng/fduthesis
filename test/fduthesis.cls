@@ -1448,32 +1448,45 @@
     \group_end:
   }
 \tl_new:N \l__fdu_bib_style_tl
+\tl_new:N \l__fdu_bib_gb_style_tl
 \keys_define:nn { fdu / style }
   {
     bibstyle .choice:,
     bibstyle .value_required:n = true,
     bibstyle / numerical   .code:n =
-      { \tl_set:Nn \l__fdu_bib_style_tl { numerical  } },
+      {
+        \tl_set:Nn  \l__fdu_bib_gb_style_tl { numerical  }
+        \tl_clear:N \l__fdu_bib_style_tl
+      },
     bibstyle / authoryear .code:n =
-      { \tl_set:Nn \l__fdu_bib_style_tl { authoryear } }
+      {
+        \tl_set:Nn  \l__fdu_bib_gb_style_tl { authoryear }
+        \tl_clear:N \l__fdu_bib_style_tl
+      },
+    bibstyle / unknown    .code:n =
+      { \tl_set_eq:NN \l__fdu_bib_style_tl \l_keys_value_tl }
   }
 \ctex_at_end_preamble:n
   {
-    \exp_args:NV \tl_if_eq:nnTF \l__fdu_bib_style_tl
-      { numerical }
+    \tl_if_empty:NTF \l__fdu_bib_style_tl
       {
-        \bibliographystyle { gbt-7714-2015-numerical }
-        \__fdu_set_cite_style_numerical:
-      }
-      {
-        \exp_args:NV \tl_if_eq:nnT \l__fdu_bib_style_tl
-          { authoryear }
+        \exp_args:NV \tl_if_eq:nnTF \l__fdu_bib_gb_style_tl
+          { numerical }
           {
-            \bibliographystyle { gbt-7714-2015-author-year }
-            \__fdu_set_cite_style_author_year:
-            \cs_set_eq:NN \cite \citep
+            \bibliographystyle { gbt-7714-2015-numerical }
+            \__fdu_set_cite_style_numerical:
+          }
+          {
+            \exp_args:NV \tl_if_eq:nnT \l__fdu_bib_gb_style_tl
+              { authoryear }
+              {
+                \bibliographystyle { gbt-7714-2015-author-year }
+                \__fdu_set_cite_style_author_year:
+                \cs_set_eq:NN \cite \citep
+              }
           }
       }
+      { \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl }
   }
 \cs_new:Npn \__fdu_set_cite_style_numerical:
   {

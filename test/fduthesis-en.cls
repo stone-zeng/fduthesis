@@ -1202,45 +1202,37 @@
       \end{longtable}
     \group_end:
   }
-\tl_new:N \l__fdu_bib_style_gb_tl
 \tl_new:N \l__fdu_bib_style_tl
+\tl_new:N \l__fdu_bib_gb_style_tl
 \keys_define:nn { fdu / style }
   {
     bibstyle .choice:,
     bibstyle .value_required:n = true,
     bibstyle / numerical   .code:n =
       {
-        \tl_set:Nn \l__fdu_bib_style_gb_tl { numerical  }
+        \tl_set:Nn  \l__fdu_bib_gb_style_tl { numerical  }
         \tl_clear:N \l__fdu_bib_style_tl
       },
     bibstyle / authoryear .code:n =
       {
-        \tl_set:Nn \l__fdu_bib_style_gb_tl { authoryear }
+        \tl_set:Nn  \l__fdu_bib_gb_style_tl { authoryear }
         \tl_clear:N \l__fdu_bib_style_tl
       },
     bibstyle / unknown    .code:n =
-      {
-        \tl_set_eq:NN \l__fdu_bib_style_tl \l_keys_value_tl
-        %\tl_show:N \l__fdu_bib_style_tl
-        %\tl_show:N \l_keys_key_tl
-        %\tl_show:N \l_keys_value_tl
-        %\tl_show:N \l_keys_choice_tl
-      }
+      { \tl_set_eq:NN \l__fdu_bib_style_tl \l_keys_value_tl }
   }
-%\keys_show:nn {fdu/style} {bibstyle}
-
 \ctex_at_end_preamble:n
   {
     \tl_if_empty:NTF \l__fdu_bib_style_tl
       {
-        \exp_args:NV \tl_if_eq:nnTF \l__fdu_bib_style_gb_tl
+        \exp_args:NV \tl_if_eq:nnTF \l__fdu_bib_gb_style_tl
           { numerical }
           {
             \bibliographystyle { gbt-7714-2015-numerical }
             \__fdu_set_cite_style_numerical:
           }
           {
-            \exp_args:NV \tl_if_eq:nnT \l__fdu_bib_style_gb_tl
+            \exp_args:NV \tl_if_eq:nnT \l__fdu_bib_gb_style_tl
               { authoryear }
               {
                 \bibliographystyle { gbt-7714-2015-author-year }
@@ -1249,25 +1241,18 @@
               }
           }
       }
-      {
-        \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl
-      }
+      { \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl }
   }
 \cs_new:Npn \__fdu_set_cite_style_numerical:
   {
     \NAT@numberstrue \NAT@supertrue
-    \tl_set:Nn \NAT@open  { [  }
-    \tl_set:Nn \NAT@close { ]  }
-    \tl_set:Nn \NAT@sep   { ,~ }
+    \cs_set:Npn \NAT@open  { [  }
+    \cs_set:Npn \NAT@close { ]  }
+    \cs_set:Npn \NAT@sep   { ,~ }
   }
 \cs_new:Npn \__fdu_set_cite_style_author_year:
   {
     \NAT@numbersfalse
-    %\tl_set:Nn \NAT@open  { (  }%\c__fdu_fullwidth_left_parenthesis
-    %\tl_set:Nn \NAT@close { )  }%\c__fdu_fullwidth_right_parenthesis
-    %\tl_set:Nn \NAT@sep   { ;~ }%\c__fdu_fullwidth_semicolon_tl
-    %\tl_set:Nn \NAT@aysep { ,~ }%\c__fdu_fullwidth_comma_tl
-    %\tl_set:Nn \NAT@yrsep { ,~ }%\c__fdu_ideographic_comma_tl
   }
 \cs_set:Npn \bibsection
   {

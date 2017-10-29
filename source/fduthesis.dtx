@@ -4061,10 +4061,11 @@ version.
 % \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
 %   与引用。}
 %
-% \begin{variable}[int]{\l_@@_bib_style_tl}
+% \begin{variable}[int]{\l_@@_bib_style_tl,\l_@@_bib_gb_style_tl}
 % 保存当前使用的参考文献样式。
 %    \begin{macrocode}
 \tl_new:N \l_@@_bib_style_tl
+\tl_new:N \l_@@_bib_gb_style_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -4076,9 +4077,17 @@ version.
     bibstyle .choice:,
     bibstyle .value_required:n = true,
     bibstyle / numerical   .code:n =
-      { \tl_set:Nn \l_@@_bib_style_tl { numerical  } },
+      {
+        \tl_set:Nn  \l_@@_bib_gb_style_tl { numerical  }
+        \tl_clear:N \l_@@_bib_style_tl
+      },
     bibstyle / authoryear .code:n =
-      { \tl_set:Nn \l_@@_bib_style_tl { authoryear } }
+      {
+        \tl_set:Nn  \l_@@_bib_gb_style_tl { authoryear }
+        \tl_clear:N \l_@@_bib_style_tl
+      },
+    bibstyle / unknown    .code:n =
+      { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4088,21 +4097,25 @@ version.
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \exp_args:NV \tl_if_eq:nnTF \l_@@_bib_style_tl
-      { numerical }
+    \tl_if_empty:NTF \l_@@_bib_style_tl
       {
-        \bibliographystyle { gbt-7714-2015-numerical }
-        \@@_set_cite_style_numerical:
-      }
-      {
-        \exp_args:NV \tl_if_eq:nnT \l_@@_bib_style_tl
-          { authoryear }
+        \exp_args:NV \tl_if_eq:nnTF \l_@@_bib_gb_style_tl
+          { numerical }
           {
-            \bibliographystyle { gbt-7714-2015-author-year }
-            \@@_set_cite_style_author_year:
-            \cs_set_eq:NN \cite \citep
+            \bibliographystyle { gbt-7714-2015-numerical }
+            \@@_set_cite_style_numerical:
+          }
+          {
+            \exp_args:NV \tl_if_eq:nnT \l_@@_bib_gb_style_tl
+              { authoryear }
+              {
+                \bibliographystyle { gbt-7714-2015-author-year }
+                \@@_set_cite_style_author_year:
+                \cs_set_eq:NN \cite \citep
+              }
           }
       }
+      { \exp_args:NV \bibliographystyle \l_@@_bib_style_tl }
   }
 %    \end{macrocode}
 %
@@ -4125,11 +4138,13 @@ version.
 \cs_new:Npn \@@_set_cite_style_author_year:
   {
     \NAT@numbersfalse
+%<*class>
     \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_parenthesis
     \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_parenthesis
     \cs_set_eq:NN \NAT@sep   \c_@@_fullwidth_semicolon_tl
     \cs_set_eq:NN \NAT@aysep \c_@@_fullwidth_comma_tl
     \cs_set_eq:NN \NAT@yrsep \c_@@_ideographic_comma_tl
+%</class>
   }
 %    \end{macrocode}
 % \end{macro}
