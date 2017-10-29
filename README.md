@@ -6,7 +6,7 @@
 ## 欢迎使用 fduthesis - 复旦大学论文模板！
 
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.4/fduthesis.pdf)。
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.5/fduthesis.pdf)。
 该文档也可通过如下命令生成：
 
     latexmk fduthesis.dtx
@@ -21,10 +21,12 @@
   - `fduthesis.dtx`       模板代码、注释及文档
   - `fduthesis-doc.dtx`   `fdudoc` 文档类代码
   - `fduthesis-logo.dtx`  `fdulogo` 宏包代码
+  - `get-doc-en.lua`      英文文档生成脚本
 
 - `test/`               测试文件
   - `test.tex`            测试论文
   - `test-en.tex`         测试论文（英文版）
+  - `test.bib`            参考文献数据库
 
 - `support/`            Travis CI 支持文件
   - `texlive.sh`          安装最新版本 TeX Live
@@ -50,7 +52,7 @@
 ## Welcome to fduthesis - LaTeX thesis template for Fudan University!
 
 Before you using `fduthesis`, please read the document
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.4/fduthesis.pdf)
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.5/fduthesis.pdf)
 carefully. This file can be generated with the following commands
 as well:
 
