@@ -1,5 +1,5 @@
 install:
-  - source ./support/texlive.sh
+  - source ./scripts/texlive.sh
 
 cache:
   directories:
@@ -7,8 +7,8 @@ cache:
     - $HOME/.texlive
 
 script:
-  - source ./support/local.sh
-  - source ./support/run.sh
+  - source ./scripts/local.sh
+  - source ./scripts/run.sh
   - cd ../logo
   - pdflatex -interaction=nonstopmode -shell-escape fdulogo-example
   - pdflatex -interaction=nonstopmode               fduthesis-cover
@@ -20,7 +20,7 @@ script:
   - xelatex  -interaction=nonstopmode test
   - xelatex  -interaction=nonstopmode test-en
   - xelatex  -interaction=nonstopmode test-en
-  - source ../support/clean.sh
+  - source ../scripts/clean.sh
   - lualatex -interaction=nonstopmode test
   - bibtex test
   - lualatex -interaction=nonstopmode test

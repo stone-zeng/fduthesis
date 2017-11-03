@@ -55,4 +55,3 @@ tools/
 
 # Other
 source/*.tex
-!support/*.sh
