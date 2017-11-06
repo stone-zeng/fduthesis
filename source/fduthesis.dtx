@@ -2411,14 +2411,20 @@ version.
   }
 %    \end{macrocode}
 %
+%    \begin{macrocode}
+\sys_if_engine_xetex:T
+  {
+%    \end{macrocode}
 % 这里给这两个 |prop-list| 变量赋一个空值，使得 \pkg{xeCJK} 认为
 % |rm| 字体族已定义，从而避免警告。\LuaTeX{} 引擎下，
 % \pkg{ctex-ltj} 不会给出警告，暂且不管。
 %    \begin{macrocode}
-\sys_if_engine_xetex:T
-  {
     \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
     \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
+%    \end{macrocode}
+% 关闭 \pkg{xeCJK} 中重定义字体族的警告。
+%    \begin{macrocode}
+    \msg_redirect_name:nnn { xeCJK } { CJKfamily-redef } { none }
   }
 %</class>
 %    \end{macrocode}
