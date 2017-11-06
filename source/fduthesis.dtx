@@ -3962,16 +3962,17 @@ version.
           \c_@@_def_name_date_tl,
         }
 %    \end{macrocode}
+% \changes{v0.6}{2017/11/06}{修复字段未定义时出现的死循环问题。}
 % 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
 % \cs{l_@@_tmpb_dim}。
 %    \begin{macrocode}
       \clist_set:Nx \l_@@_tmpb_clist
         {
-          \l_@@_info_department_tl,
-          \l_@@_info_major_tl,
-          \l_@@_info_author_tl,
-          \l_@@_info_supervisor_tl,
-          \l_@@_info_date_tl
+          { \l_@@_info_department_tl },
+          { \l_@@_info_major_tl      },
+          { \l_@@_info_author_tl     },
+          { \l_@@_info_supervisor_tl },
+          { \l_@@_info_date_tl       }
         }
       \fdu_get_max_text_width:NN
         \l_@@_tmpb_dim \l_@@_tmpb_clist
