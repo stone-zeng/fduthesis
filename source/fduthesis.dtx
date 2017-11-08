@@ -2118,10 +2118,6 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_set_main_font:VV,
-%   \@@_set_sans_font:VV,
-%   \@@_set_mono_font:VV,
-%   \@@_set_math_font:VV}
 % 生成字体设定函数的变体。
 %    \begin{macrocode}
 \clist_map_inline:nn { main, sans, mono, math }
@@ -2130,7 +2126,6 @@ version.
       { @@_set_ #1 _font:nn } { VV }
   }
 %    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}[int]{\@@_set_cjk_font:}
 % 设定中文字体。复杂之处在于需要建立宋、黑、仿、楷到
@@ -3371,13 +3366,6 @@ version.
   { \theoremheaderfont {#1} }
 \cs_new:Npn \fdu_thm_set_body_font:n   #1
   { \theorembodyfont   {#1} }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_thm_set_qed:V,
-%   \fdu_thm_set_header_font:V,\fdu_thm_set_body_font:V}
-% 生成以上三个函数的变体。
-%    \begin{macrocode}
 \cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
 \cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
 \cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }

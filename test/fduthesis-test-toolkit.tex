@@ -1,0 +1,59 @@
+\makeatletter
+
+%% 关闭寄存器分配信息
+\def\e@alloc#1#2#3#4#5#6{%
+  \global\advance#3\@ne
+  \e@ch@ck{#3}{#4}{#5}#1%
+  \allocationnumber#3\relax
+  \global#2#6\allocationnumber
+% \wlog{\string#6=\string#1\the\allocationnumber}
+  }
+
+%% 关闭文档类、宏包载入信息
+\def\@pr@videpackage[#1]{%
+  \expandafter\xdef\csname ver@\@currname.\@currext\endcsname{#1}%
+% \ifx\@currext\@clsextension
+%   \typeout{Document Class: \@gtempa\space#1}%
+% \else
+%   \wlog{Package: \@gtempa\space#1}%
+% \fi
+  }
+
+%% 关闭文件载入信息
+\def\@providesfile#1[#2]{%
+%   \wlog{File: #1 #2}%
+    \expandafter\xdef\csname ver@#1\endcsname{#2}%
+  \endgroup}
+
+%% 关闭 LaTeX 提示信息
+\def\@latex@info#1{}
+\def\@font@info#1{}
+
+%% 关闭文档类、宏包提示信息
+\def\ClassInfo#1#2{}
+\def\PackageInfo#1#2{}
+
+%% `log-declarations=false` 用于关闭 xparse 下的命令声明信息
+\RequirePackage[log-declarations=false]{xparse}
+\RequirePackage{ctexhook}
+
+\ExplSyntaxOn
+
+%% 关闭（重定向） LaTeX3 下部分宏包的提示信息
+\cs_new:Npn \fdutest_close_msg:nn #1#2
+  { \msg_redirect_name:nnn {#1} {#2} { none } }
+\fdutest_close_msg:nn { fontspec     } { defining-font       }
+\fdutest_close_msg:nn { fontspec     } { no-scripts          }
+\fdutest_close_msg:nn { kantlipsum   } { how-many            }
+\fdutest_close_msg:nn { unicode-math } { patch-macro         }
+\fdutest_close_msg:nn { xtemplate    } { declare-object-type }
+
+%% 特殊宏包的处理
+\ctex_at_end_package:nn { hyperref } { \def\Hy@Message#1{}    }
+\ctex_at_end_package:nn { geometry } { \def\Gm@showparams#1{} }
+
+\ExplSyntaxOff
+
+\makeatother
+
+\endinput
