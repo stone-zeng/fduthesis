@@ -1,5 +1,5 @@
-local input_file_name  = "fduthesis.dtx"
-local output_file_name = "fduthesis-en.tex"
+local input_file_name  = "../source/fduthesis.dtx"
+local output_file_name = "../source/fduthesis-en.tex"
 
 local tag_inline_str = "%^^A!"
 local tag_begin_str  = "%^^A+"
