@@ -1,3 +1,7 @@
+#!/usr/bin/env texlua
+
+-- Parse git log into JSON.
+
 local input_file_name  = "git-log.log"
 local output_file_name = "git-log.json"
 
@@ -31,9 +35,9 @@ function parse_changed(str)
   return result
 end
 
------------------
--- 开始处理文件
------------------
+----------------------
+-- Begin processing --
+----------------------
 
 input_file  = io.open(input_file_name,  "r")
 output_file = io.open(output_file_name, "w")

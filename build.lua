@@ -1,6 +1,6 @@
 #!/usr/bin/env texlua
 
--- Build script for fduthesis
+-- Build script for fduthesis.
 
 module = "fduthesis"
 

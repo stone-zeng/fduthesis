@@ -54,4 +54,5 @@ temp/
 tools/
 
 # Other
+scripts/*.json
 source/*.tex

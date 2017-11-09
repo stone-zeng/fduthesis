@@ -1,3 +1,7 @@
+#!/usr/bin/env texlua
+
+-- Generate the English version of the documentation.
+
 local input_file_name  = "../source/fduthesis.dtx"
 local output_file_name = "../source/fduthesis-en.tex"
 
@@ -22,8 +26,8 @@ local function test_tag(str, tag)
 end
 
 local function remove_normal_space(str)
-    -- 普通文本开头会有 2 个空格
-    -- `3` 是第一个非空白字符的位置
+    -- Normal text lines begin with 2 spaces.
+    -- `3` is the first non-space char's position.
     return string.sub(str, 3)
 end
 
@@ -44,41 +48,40 @@ local function add_lst_gobble(str)
 end
 
 local function process_verbatim_line(str)
-    -- 抄录环境
     str = remove_normal_space(str)
     str = add_lst_gobble(str)
     return str
 end
 
 local function process_normal_line(str)
-    -- 普通文本行
     str = string.sub(str, tag_str_len + 2)
     str = add_lst_gobble(str)
     return str
 end
 
------------------
--- 开始处理文件
------------------
+----------------------
+-- Begin processing --
+----------------------
 
 input_file  = io.open(input_file_name,  "r")
 output_file = io.open(output_file_name, "w")
 
--- 判断是否处于抄录环境
+-- Test if it's in the verbatim environment.
 tag_inside_flag = 0
 
 for line in input_file:lines() do
-    -- 如果开头是 `%^^A+` 或 `%^^A-`，则增减 flag，以确定抄录开始、结
-    -- 束的位置
+    -- If beginning with `%^^A+` or `%^^A-`, then increase or
+    -- decrease the flag, in order to determine the start or end
+    -- position of verbatim.
     if test_tag(line, tag_begin_str) then
         tag_inside_flag = tag_inside_flag + 1
     elseif test_tag(line, tag_end_str) then
         tag_inside_flag = tag_inside_flag - 1
     else
-        -- 如果 flag = 1，则为抄录环境
+        -- If flag = 1, then it's a verbatim environment.
         if tag_inside_flag == 1 then
             output_file:write(process_verbatim_line(line), "\n")
-        -- 如果开头是 `%^^A!`，则为普通文本行
+        -- If beginning with `%^^A!`, then this line is normal text.
         elseif test_tag(line, tag_inline_str) then
             output_file:write(process_normal_line(line), "\n")
         end
