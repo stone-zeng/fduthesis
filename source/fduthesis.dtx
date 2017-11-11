@@ -539,7 +539,7 @@ version.
 %^^A! details are put in \autoref{tab:fduthesis-components}.
 %^^A!
 %
-% \begin{table}[h]
+% \begin{table}[ht]
 %   \caption{\cls{fduthesis} 的组成}
 %   \label{tab:fduthesis-components}
 %   \centering
@@ -560,7 +560,7 @@ version.
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
-%^^A! \begin{table}[h]
+%^^A! \begin{table}[ht]
 %^^A!   \caption{The components of \cls{fduthesis}}
 %^^A!   \label{tab:fduthesis-components}
 %^^A!   \centering
@@ -960,7 +960,7 @@ version.
 %   带有 |*| 的为阴文样式（即黑底白字）。
 % \end{function}
 %
-% \begin{table}[h]
+% \begin{table}[ht]
 %   \caption{西文字体与脚注编号样式默认值的对应关系}
 %   \label{tab:footnote-font}
 %   \centering
@@ -993,7 +993,7 @@ version.
 % 各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
 % \end{function}
 %
-% \begin{table}[h]
+% \begin{table}[ht]
 % \centering
 % \newcommand\linkcolorexam[3]{%
 %   {\small 图~\textcolor[HTML]{#1}{1-2}，
@@ -1267,7 +1267,7 @@ version.
 %   一系列预定义的数学环境。具体含义见表~\ref{tab:theorem}。
 % \end{function}
 %
-% \begin{table}[h]
+% \begin{table}[ht]
 %   \caption{预定义的数学环境} \label{tab:theorem}
 %   \centering
 %   \begin{tabular}{cccccccc}
@@ -1364,7 +1364,7 @@ version.
 %
 %^^A 代码部分的页边距
 % \newgeometry{
-%   left   = 2.50 in,
+%   left   = 2.25 in,
 %   right  = 1.00 in,
 %   top    = 1.25 in,
 %   bottom = 1.00 in
@@ -1723,7 +1723,7 @@ version.
 %    \begin{macrocode}
 \@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
 \@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-%\@@_check_package:nnn { unicode-math } { 2017/10/09 } { 0.8h   }
+% \@@_check_package:nnn { unicode-math } { 2017/10/09 } { 0.8h   }
 \sys_if_engine_xetex:T
   { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
 % \sys_if_engine_xetex:T
@@ -1807,7 +1807,7 @@ version.
 %
 % \begin{macro}{style/font}
 % 预定义西文字体。部分等宽字体（TeX Gyre Cursor）使用
-% \kvopt{Ligatures}{CommonOff} 选项以禁用连字。
+% \kvopt{Ligatures}{Common\-Off} 选项以禁用连字。
 %    \begin{macrocode}
     font .choice:,
     font .value_required:n = true,
@@ -1847,11 +1847,30 @@ version.
         \keys_set:nn { fdu / style } { footnotestyle = pifont }
       },
 %    \end{macrocode}
-% Times Roman 系列。
+% \changes{v0.6}{额外处理 XITS 字体的小型大写字母。}
+% Times Roman 系列。XITS 字体没有小型大写字母，因此使用普通字体代替。
 %    \begin{macrocode}
     font / times .code:n =
       {
-        \fdu_choose_font:nn { main } { XITS              }
+        \fdu_choose_font_with_option:nnn { main } { XITS }
+          {
+            UprightFeatures    = { SmallCapsFont = *                },
+            BoldFeatures       = { SmallCapsFont = * ~ Bold         },
+            ItalicFeatures     = { SmallCapsFont = * ~ Italic       },
+            BoldItalicFeatures = { SmallCapsFont = * ~ Bold~ Italic },
+          }
+%       \fdu_choose_font_with_option:nnn { main } { xits }
+%         {
+%           Extension          = .otf,
+%           UprightFont        = *-regular,
+%           BoldFont           = *-bold,
+%           ItalicFont         = *-italic,
+%           BoldItalicFont     = *-bolditalic,
+%           UprightFeatures    = { SmallCapsFont = *-regular    },
+%           BoldFeatures       = { SmallCapsFont = *-bold       },
+%           ItalicFeatures     = { SmallCapsFont = *-italic     },
+%           BoldItalicFeatures = { SmallCapsFont = *-bolditalic },
+%         }
         \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros  }
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
@@ -2130,7 +2149,7 @@ version.
 % \begin{macro}[int]{\@@_set_cjk_font:}
 % 设定中文字体。复杂之处在于需要建立宋、黑、仿、楷到
 % |rm| / |sf| / |tt| 的映照，如表~\ref{tab:cjk-font} 所示。
-% \begin{table}[h]
+% \begin{table}[ht]
 %   \caption{宋、黑、仿、楷到 \texttt{rm} / \texttt{sf} /
 %     \texttt{tt} 的映照}
 %   \label{tab:cjk-font}
@@ -2554,7 +2573,7 @@ version.
       { \@@_set_fullwidth_stop_catcode: },
 %    \end{macrocode}
 % 利用 TECKit 映射机制切换，相当于设置了 \tn{defaultCJKfontfeatures}
-% |{|\kvopt{Mapping}{fullwidth-stop}|}|。这种手段会
+% |{|\kvopt{Map\-ping}{fullwidth-stop}|}|。这种手段会
 % 替换所有出现的\FSID，并且将影响所有字体。只在 \XeTeX{}
 % 下可用。
 %    \begin{macrocode}
@@ -3379,7 +3398,7 @@ version.
   {
 %    \end{macrocode}
 % 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
-% \cs{QED}，而由 \cs{fdunewtheorem} 创建的则不带证毕符号。符号
+% \cs{QED}，而由 \cs{fdu\-new\-the\-orem} 创建的则不带证毕符号。符号
 % \cs{QED} 由 \pkg{unicode-math} 宏包提供。
 %    \begin{macrocode}
     \IfBooleanTF #1
@@ -4286,7 +4305,7 @@ version.
 %
 % \begin{macro}{abstract*,abstract}
 % 英文摘要及关键字。注意英文模板中的 \env{abstract} 环境与中文模板
-% 中的 \env{abstract*} 环境是相同的，后者在英文模板中没有定义。
+% 中的 \env{ab\-stract*} 环境是相同的，后者在英文模板中没有定义。
 %    \begin{macrocode}
 %<class>\NewDocumentEnvironment { abstract* } { }
 %<class-en>\NewDocumentEnvironment { abstract } { }
@@ -4618,7 +4637,7 @@ version.
 \@@_def_punct:nn { fullwidth_right_parenthesis } { "FF09 }
 %    \end{macrocode}
 %
-% \begin{table}[h]
+% \begin{table}[ht]
 %   \caption{常用标点符号}
 %   \label{tab:punctuations}
 %   \centering
@@ -4676,7 +4695,7 @@ version.
 % \begin{variable}[int]{\c_@@_def_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
-%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}。
+%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
 % \end{equation*}
 % 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
 % 的大小，\SI{20}{pt} 是行距固定值。
