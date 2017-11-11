@@ -9,14 +9,3 @@ cache:
 script:
   - source ./scripts/local.sh
   - source ./scripts/run.sh
-  - cd ../logo
-  - pdflatex -interaction=nonstopmode -shell-escape fdulogo-example
-  - pdflatex -interaction=nonstopmode               fduthesis-cover
-  - mkdir pdf
-  - mv fudan-*.pdf pdf
-  - cd ../test
-  - latexmk -xelatex  -f test
-  - latexmk -xelatex  -f test-en
-  - source ../scripts/clean.sh
-  - latexmk -lualatex -f test
-  - latexmk -lualatex -f test-en
