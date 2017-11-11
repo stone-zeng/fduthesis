@@ -65,6 +65,7 @@ tlmgr install         \
   l3kernel            \
   l3packages          \
   latex-bin           \
+  latexmk             \
   libertinus          \
   lm                  \
   lm-math             \

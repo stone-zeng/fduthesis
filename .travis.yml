@@ -15,14 +15,8 @@ script:
   - mkdir pdf
   - mv fudan-*.pdf pdf
   - cd ../test
-  - xelatex  -interaction=nonstopmode test
-  - bibtex test
-  - xelatex  -interaction=nonstopmode test
-  - xelatex  -interaction=nonstopmode test-en
-  - xelatex  -interaction=nonstopmode test-en
+  - latexmk -xelatex  -f test
+  - latexmk -xelatex  -f test-en
   - source ../scripts/clean.sh
-  - lualatex -interaction=nonstopmode test
-  - bibtex test
-  - lualatex -interaction=nonstopmode test
-  - lualatex -interaction=nonstopmode test-en
-  - lualatex -interaction=nonstopmode test-en
+  - latexmk -lualatex -f test
+  - latexmk -lualatex -f test-en
