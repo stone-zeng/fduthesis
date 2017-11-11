@@ -1484,6 +1484,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% 关闭 \cls{l3doc} 中使用其他名字空间的警告。
+%    \begin{macrocode}
+\msg_redirect_name:nnn { l3doc } { foreign-internal } { none }
+%    \end{macrocode}
+%
 %    \begin{macrocode}
 %<@@=>
 \ExplSyntaxOff
@@ -1563,13 +1568,27 @@
 % 中文字体。
 %    \begin{macrocode}
 \setCJKmainfont{FZShuSong-Z01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+  [
+    BoldFont       = FZHei-B01,
+    ItalicFont     = FZKai-Z03,
+    BoldItalicFont = FZKai-Z03
+  ]
 \setCJKsansfont{FZHei-B01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+  [
+    BoldFont       = FZHei-B01,
+    ItalicFont     = FZKai-Z03,
+    BoldItalicFont = FZKai-Z03
+  ]
 \setCJKmonofont{FZFangSong-Z02}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-\newCJKfontfamily\kaishu{FZKai-Z03}
-\newCJKfontfamily\fangsong{FZFangSong-Z02}
+  [
+    BoldFont       = FZHei-B01,
+    ItalicFont     = FZKai-Z03,
+    BoldItalicFont = FZKai-Z03
+  ]
+\newCJKfontfamily\kaishu{FZKai-Z03}%
+  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
+\newCJKfontfamily\fangsong{FZFangSong-Z02}%
+  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1773,9 +1792,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.5}{2017/09/30}{[\pkg{fdudoc}] 新增 \cs{kvopt} 命令，
-%   用于描述键值型选项。}
-%
 % \begin{macro}{\kvopt}
 % \meta{key} |=| \meta{value} 型选项。带星号的版本不会在等号两侧
 % 加上空格。
@@ -1809,9 +1825,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.5}{2017/09/10}{[\pkg{fdudoc}] 新增 \env{arguments}
-%   环境，用于描述参数列表。}
-%
 % \begin{macro}{arguments}
 % 放在 \env{macro} 环境中，用于描述对应命令的参数。
 % \cls{l3doc} 中的定义 \opt{labelsep} 设置不太合理，会使标签被覆盖，
@@ -1823,8 +1836,6 @@
   {\endenumerate}
 %    \end{macrocode}
 % \end{macro}
-%
-% \changes{v0.6}{2017/10/27}{[\pkg{fdudoc}] 新增 \cs{BibTeX} 命令。}
 %
 % \begin{macro}{\TeX,\LaTeX,\LaTeXe,
 %   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
