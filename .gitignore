@@ -42,6 +42,7 @@ latexmkrc
 
 # Tools
 *.bat
+*.json
 *.txt
 
 # Folders
@@ -54,5 +55,5 @@ temp/
 tools/
 
 # Other
-scripts/*.json
+git-comment.md
 source/*.tex
