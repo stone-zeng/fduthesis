@@ -65,16 +65,18 @@
 
 \begin{document}
 
+\raggedbottom
+
 \frontmatter
 
 \tableofcontents
 
 \begin{abstract}
-\zhlipsum[1-2]
+\zhlipsum[1-10]
 \end{abstract}
 
 \begin{abstract*}
-\kant[1-2]
+\kant[1-10]
 \end{abstract*}
 
 \begin{notation}[lp{20em}]
@@ -124,13 +126,6 @@ $v$         &  速度
 
 \subsection{打字机字体 Typewriter}
 \texttt{\fonttest}
-
-\ExplSyntaxOn
-\group_begin:
-\sys_if_engine_xetex:T
-  {\CJKfontspec{FandolFang}[Mapping=full-stop] 仿宋句号。}
-\group_end:
-\ExplSyntaxOff
 
 \subsection{句号}
 如果\symbol{"002E}会突然：\textsc{Full Stop} \par
@@ -265,7 +260,7 @@ Myriad MM \citep{wyf,hblzsthjkjyxgs,sunstein,zgtsgxh,aaas}。
 
 \zhlipsum[1-15]
 
-\nocite{*}
+%\nocite{*}
 
 \backmatter
 
