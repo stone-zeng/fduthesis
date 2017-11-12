@@ -3028,17 +3028,17 @@ version.
 %
 % 各种脚注编号样式的名称。
 %    \begin{macrocode}
-\@@_def_fn_style:nn { plain                } { plain           }
-\@@_def_fn_style:nn { libertinus           } { libertinus      }
-\@@_def_fn_style:nn { libertinus_negative  } { libertinus*     }
-\@@_def_fn_style:nn { libertinus_sans      } { libertinus-sans }
-\@@_def_fn_style:nn { pifont               } { pifont          }
-\@@_def_fn_style:nn { pifont_negative      } { pifont*         }
-\@@_def_fn_style:nn { pifont_sans          } { pifont-sans     }
-\@@_def_fn_style:nn { pifont_sans_negative } { pifont-sans*    }
-\@@_def_fn_style:nn { xits                 } { xits            }
-\@@_def_fn_style:nn { xits_sans            } { xits-sans       }
-\@@_def_fn_style:nn { xits_sans_negative   } { xits-sans*      }
+\@@_def_fn_style:nn { plain           } { plain           }
+\@@_def_fn_style:nn { libertinus      } { libertinus      }
+\@@_def_fn_style:nn { libertinus_neg  } { libertinus*     }
+\@@_def_fn_style:nn { libertinus_sans } { libertinus-sans }
+\@@_def_fn_style:nn { pifont          } { pifont          }
+\@@_def_fn_style:nn { pifont_neg      } { pifont*         }
+\@@_def_fn_style:nn { pifont_sans     } { pifont-sans     }
+\@@_def_fn_style:nn { pifont_sans_neg } { pifont-sans*    }
+\@@_def_fn_style:nn { xits            } { xits            }
+\@@_def_fn_style:nn { xits_sans       } { xits-sans       }
+\@@_def_fn_style:nn { xits_sans_neg   } { xits-sans*      }
 %    \end{macrocode}
 %
 % \begin{variable}[int]{\l_@@_fn_style_tl}
@@ -3060,7 +3060,7 @@ version.
 %   \item \opt{libertinus}：取自 Libertinus Serif 和 Libertinus Sans
 %     字体；
 %   \item \opt{pifont}：使用 \pkg{pifont} 宏包；
-%   \item \opt{xits}：取自 XITS-Math 字体。
+%   \item \opt{xits}：取自 XITS 字体。
 % \end{itemize}
 % 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，带“|*|”的
 % 为阴文版本。
@@ -3073,22 +3073,13 @@ version.
         xits,                    xits-sans,       xits-sans*
       }
 %    \end{macrocode}
-% 若使用 \opt{pifont} 类型，则需引入 \pkg{pifont} 宏包；
-% 若使用 \opt{xits} 类型，则需调用 XITS Math 字体。
+% \changes{v0.6}{2017/11/12}{不再依赖 XITS-Math 字体。}
+% 若使用 \opt{pifont} 类型，则需引入 \pkg{pifont} 宏包。
 %    \begin{macrocode}
       {
         \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
-        \int_compare:nTF
-          { 5 <= \l_keys_choice_int <= 8 }
+        \int_compare:nT { 5 <= \l_keys_choice_int <= 8 }
           { \RequirePackage { pifont } }
-          {
-            \int_compare:nT
-              { 9 <= \l_keys_choice_int <= 11 }
-              {
-                \@@_set_math_font:nn
-                  { XITS~ Math } { version = fn-XITS }
-              }
-          }
       },
     footnotestyle .value_required:n = true
   }
@@ -3104,22 +3095,22 @@ version.
     \int_compare:nTF { #1 >= 21 }
       {
         \int_compare:nTF { #1 >= 47 }
-          { \symbol { \int_eval:n { "24B6 - 47 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 21 + #1 } } }
+          { \@@_symbol:n { \int_eval:n { "24B6 - 47 + #1 } } }
+          { \@@_symbol:n { \int_eval:n { "24D0 - 21 + #1 } } }
       }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+      { \@@_symbol:n { \int_eval:n { "2460 - 1 + #1 } } }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_libertinus_negative:n}
+% \begin{macro}[int]{\@@_fn_symbol_libertinus_neg:n}
 % \opt{libertinus} 阴文衬线版。只含 \numrange{1}{20}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_libertinus_negative:n #1
+\cs_new:Npn \@@_fn_symbol_libertinus_neg:n #1
   {
     \int_compare:nTF { #1 >= 11 }
-      { \symbol { \int_eval:n { "24EB - 11 + #1 } } }
-      { \symbol { \int_eval:n { "2776 -  1 + #1 } } }
+      { \@@_symbol:n { \int_eval:n { "24EB - 11 + #1 } } }
+      { \@@_symbol:n { \int_eval:n { "2776 -  1 + #1 } } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3140,10 +3131,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_pifont_negative:n}
+% \begin{macro}[int]{\@@_fn_symbol_pifont_neg:n}
 % \opt{pifont} 阴文衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_pifont_negative:n #1
+\cs_new:Npn \@@_fn_symbol_pifont_neg:n #1
   { \ding { \int_eval:n { 181 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
@@ -3156,10 +3147,10 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_pifont_sans_negative:n}
+% \begin{macro}[int]{\@@_fn_symbol_pifont_sans_neg:n}
 % \opt{pifont} 阴文无衬线版。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_pifont_sans_negative:n #1
+\cs_new:Npn \@@_fn_symbol_pifont_sans_neg:n #1
   { \ding { \int_eval:n { 201 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
@@ -3173,10 +3164,10 @@ version.
     \int_compare:nTF { #1 >= 10 }
       {
         \int_compare:nTF { #1 >= 36 }
-          { \symbol { \int_eval:n { "24B6 - 36 + #1 } } }
-          { \symbol { \int_eval:n { "24D0 - 10 + #1 } } }
+          { \@@_symbol:n { \int_eval:n { "24B6 - 36 + #1 } } }
+          { \@@_symbol:n { \int_eval:n { "24D0 - 10 + #1 } } }
       }
-      { \symbol { \int_eval:n { "2460 - 1 + #1 } } }
+      { \@@_symbol:n { \int_eval:n { "2460 - 1 + #1 } } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3185,24 +3176,31 @@ version.
 % \opt{xits} 阳文无衬线版。只包含 \numrange{1}{10}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_xits_sans:n #1
-  { \symbol { \int_eval:n { "2780 - 1 + #1 } } }
+  { \@@_symbol:n { \int_eval:n { "2780 - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_xits_sans_negative:n}
+% \begin{macro}[int]{\@@_fn_symbol_xits_sans_neg:n}
 % \opt{xits} 阴文无衬线版。也只包含 \numrange{1}{10}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fn_symbol_xits_sans_negative:n #1
-  { \symbol { \int_eval:n { "278A - 1 + #1 } } }
+\cs_new:Npn \@@_fn_symbol_xits_sans_neg:n #1
+  { \@@_symbol:n { \int_eval:n { "278A - 1 + #1 } } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\thefootnote,\fdu_footnote_number:n}
+% \begin{macro}{\thefootnote}
 % 重定义脚注编号。
 %    \begin{macrocode}
 \RenewDocumentCommand \thefootnote { }
-  { \fdu_footnote_number:n { \value { footnote } } }
-\cs_new:Npn \fdu_footnote_number:n #1
+  { \fdu_footnote_number:N \c@footnote }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\fdu_footnote_number:N}
+% 脚注编号样式。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_footnote_number:N #1
   {
     \tl_case:NnF \l_@@_fn_style_tl
       {
@@ -3220,10 +3218,10 @@ version.
             \fontspec { Libertinus~ Serif }
             \@@_fn_symbol_libertinus:n {#1}
           }
-        \c_@@_fn_style_libertinus_negative_tl
+        \c_@@_fn_style_libertinus_neg_tl
           {
             \fontspec { Libertinus~ Serif }
-            \@@_fn_symbol_libertinus_negative:n {#1}
+            \@@_fn_symbol_libertinus_neg:n {#1}
           }
         \c_@@_fn_style_libertinus_sans_tl
           {
@@ -3235,29 +3233,29 @@ version.
 %    \begin{macrocode}
         \c_@@_fn_style_pifont_tl
           { \@@_fn_symbol_pifont:n {#1} }
-        \c_@@_fn_style_pifont_negative_tl
-          { \@@_fn_symbol_pifont_negative:n {#1} }
+        \c_@@_fn_style_pifont_neg_tl
+          { \@@_fn_symbol_pifont_neg:n {#1} }
         \c_@@_fn_style_pifont_sans_tl
           { \@@_fn_symbol_pifont_sans:n {#1} }
-        \c_@@_fn_style_pifont_sans_negative_tl
-          { \@@_fn_symbol_pifont_sans_negative:n {#1} }
+        \c_@@_fn_style_pifont_sans_neg_tl
+          { \@@_fn_symbol_pifont_sans_neg:n {#1} }
 %    \end{macrocode}
 % \opt{xits} 类型需要临时切换数学字体。
 %    \begin{macrocode}
         \c_@@_fn_style_xits_tl
           {
-            \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits:n {#1} $
+            \fontspec { XITS }
+            \@@_fn_symbol_xits:n {#1}
           }
         \c_@@_fn_style_xits_sans_tl
           {
-            \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits_sans:n {#1} $
+            \fontspec { XITS }
+            \@@_fn_symbol_xits_sans:n {#1}
           }
-        \c_@@_fn_style_xits_sans_negative_tl
+        \c_@@_fn_style_xits_sans_neg_tl
           {
-            \mathversion { fn-XITS }
-            $ \@@_fn_symbol_xits_sans_negative:n {#1} $
+            \fontspec { XITS }
+            \@@_fn_symbol_xits_sans_neg:n {#1}
           }
       }
 %    \end{macrocode}
@@ -3731,10 +3729,7 @@ version.
   {
     \mode_leave_vertical:
     \hbox_to_wd:nn {#1}
-      {
-        #3
-        \tl_map_inline:nn {#2} { \exp_not:n {##1} \hfil } \unskip
-      }
+      { #3 \tl_map_inline:nn {#2} { \exp_not:n {##1} \hfil } \unskip }
   }
 \cs_new:Npx \@@_spread_box:nn #1#2
   { \@@_spread_box:nnn {#1} {#2} { } }
@@ -3788,8 +3783,7 @@ version.
 \cs_new:Npn \fdu_get_text_width:Nn #1#2
   {
     \hbox_set:Nn \l_@@_tmpa_box {#2}
-    \dim_set:Nn #1
-      { \box_wd:N \l_@@_tmpa_box }
+    \dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3817,8 +3811,7 @@ version.
         \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
         \fdu_get_text_width:Nn \l_@@_tmpa_dim
           { \large \l_@@_tmpa_tl }
-        \dim_gset:Nn #1
-          { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
+        \dim_gset:Nn #1 { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
       }
     \group_end:
   }
