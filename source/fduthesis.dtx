@@ -884,7 +884,7 @@ version.
 %     info  = {
 %       author     = {阿尔伯特·爱因斯坦},
 %       department = {物理学系},
-%       title      = {关于光的产生和转变的一个启发性观点}
+%       title      = {关于光产生和转变的一个启发性观点}
 %     }
 %   }
 % \end{latexexample}
@@ -927,7 +927,7 @@ version.
 %^^A!
 %
 % 在第二种方式中，“|/|” 与 “|=|” 类似，前后的空白对设置没有影响。
-%^^A! Similar with ``|=|'', spaces around ``|/|'' have no effect
+%^^A! Similar with ``|=|'', spaces around ``|/|'' will be ignored
 %^^A! in the second method.
 %^^A!
 %
@@ -1755,25 +1755,6 @@ version.
 %    \begin{macrocode}
 \RequirePackage [math-style = ISO, bold-style = ISO] { unicode-math }
 %    \end{macrocode}
-%^^A % \pkg{unicode-math} 的依赖宏包。
-%^^A %    \begin{macrocode}
-%^^A \RequirePackage { ucharcat，filehook }
-%^^A %    \end{macrocode}
-%^^A %
-%^^A % 分引擎调用 \pkg{unicode-math} 宏包，用以支持 Unicode 编码的
-%^^A % OpenType 数学字体。
-%^^A %
-%^^A % 此处的选项用来将数学表达式中表示变量的拉丁字母和希腊字母一律设置
-%^^A % 为斜体。这是 GB 3102.11--93 以及 ISO 80000-2:2009 的规定。
-%^^A %    \begin{macrocode}
-%^^A \RequirePackage [ math-style = ISO, bold-style = ISO ]
-%^^A   {
-%^^A     \sys_if_engine_xetex:TF
-%^^A       { unicode-math-xetex }
-%^^A       { \sys_if_engine_luatex:T { unicode-math-luatex } }
-%^^A   }
-%^^A %    \end{macrocode}
-%^^A %
 %
 % 设置页面尺寸与页眉页脚。
 %    \begin{macrocode}
@@ -1831,20 +1812,9 @@ version.
 %    \begin{macrocode}
 \@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
 \@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-% \@@_check_package:nnn { unicode-math } { 2017/10/09 } { 0.8h   }
+\@@_check_package:nnn { unicode-math } { 2017/11/18 } { 0.8i   }
 \sys_if_engine_xetex:T
   { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
-% \sys_if_engine_xetex:T
-%   {
-%     \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 }
-%     \@@_check_package:nnn { unicode-math-xetex }
-%       { 2017/10/09 } { 0.8h }
-%   }
-% \sys_if_engine_luatex:T
-%   {
-%     \@@_check_package:nnn { unicode-math-luatex }
-%       { 2017/10/09 } { 0.8h }
-%   }
 %    \end{macrocode}
 %
 % \subsection{页面布局}
