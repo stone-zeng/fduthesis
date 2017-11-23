@@ -58,7 +58,7 @@ as well:
 
     latexmk fduthesis.dtx
 
-If you want to get all components of `fduthesis`, please excute the
+If you want to get all components of `fduthesis`, please execute the
 following commands:
 
     xetex fduthesis.dtx
