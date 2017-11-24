@@ -42,7 +42,7 @@
 %% 关闭（重定向） LaTeX3 下部分宏包的提示信息
 \cs_new:Npn \fdutest_close_msg:nn #1#2
   { \msg_redirect_name:nnn {#1} {#2} { none } }
-\fdutest_close_msg:nn { fontspec     } { defining-font       }
+%\fdutest_close_msg:nn { fontspec     } { defining-font       }
 \fdutest_close_msg:nn { fontspec     } { no-scripts          }
 \fdutest_close_msg:nn { kantlipsum   } { how-many            }
 \fdutest_close_msg:nn { unicode-math } { patch-macro         }

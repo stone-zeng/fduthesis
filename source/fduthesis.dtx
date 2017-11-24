@@ -3821,7 +3821,7 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_get_text_width:Nn}
+% \begin{macro}{\fdu_get_text_width:Nn,\fdu_get_text_width:NV}
 % 获取文本宽度，并存入 |dim| 型变量。
 % \begin{arguments}
 %   \item |dim| 型变量
@@ -3833,10 +3833,12 @@ version.
     \hbox_set:Nn \l_@@_tmpa_box {#2}
     \dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
   }
+\cs_generate_variant:Nn \fdu_get_text_width:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\fdu_get_max_text_width:NN}
+% \changes{v0.6}{2017/11/24}{删除不必要的字号设置。}
 % 获取多个文本中的最大宽度，并存入 |dim| 型变量。
 % \begin{arguments}
 %   \item |dim| 型变量
@@ -3857,8 +3859,7 @@ version.
     \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
       {
         \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
-        \fdu_get_text_width:Nn \l_@@_tmpa_dim
-          { \large \l_@@_tmpa_tl }
+        \fdu_get_text_width:NV \l_@@_tmpa_dim \l_@@_tmpa_tl
         \dim_gset:Nn #1 { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
       }
     \group_end:
@@ -3891,12 +3892,14 @@ version.
 %   封面，减少对 \LaTeXe{} 的依赖。}
 %
 % \begin{macro}[int]{\@@_cover_id:}
+% \changes{v0.6}{2017/11/24}{使用 \cs{skip_set:Nn} 设置
+%   \tn{rightskip} 的大小。}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_id:
   {
     \begin{flushright}
-      \dim_set:Nn \rightskip { \c_@@_def_cover_id_margin_sep_tl }
+      \skip_set:Nn \rightskip { \c_@@_def_cover_id_margin_sep_tl }
       \@@_fixed_width_box:Vnn \c_@@_def_cover_id_width_tl
         {
           \bool_if:NT \l_@@_secret_bool
@@ -3991,8 +3994,7 @@ version.
         \l_@@_info_title_en_tl
         {
           \@@_cover_font_size_normal: \bfseries
-          \fdu_line_spread:N
-            \c_@@_def_cover_title_en_line_spread_tl
+          \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_tl
         }
     \end{center}
   }
@@ -4030,13 +4032,14 @@ version.
           { \l_@@_info_supervisor_tl },
           { \l_@@_info_date_tl       }
         }
-      \fdu_get_max_text_width:NN
-        \l_@@_tmpb_dim \l_@@_tmpb_clist
 %    \end{macrocode}
+% \changes{v0.6}{2017/11/24}{设置字号后再读取字段宽度，以防止
+%   盒子溢出。}
 % 在 \env{minipage} 环境中输出各字段。用循环实现。
 %    \begin{macrocode}
       \begin{minipage} [ c ] { \textwidth }
         \centering \@@_cover_font_size_normal:
+        \fdu_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
         \bool_until_do:nn
           { \clist_if_empty_p:N \l_@@_tmpa_clist }
           {
@@ -4045,8 +4048,7 @@ version.
             \@@_spread_box:VV
               \c_@@_def_cover_info_left_width_tl \l_@@_tmpa_tl
             \c_@@_fullwidth_colon_tl
-            \@@_center_box:VV
-              \l_@@_tmpb_dim \l_@@_tmpb_tl
+            \@@_center_box:VV \l_@@_tmpb_dim \l_@@_tmpb_tl
             \skip_vertical:n { \c_@@_def_cover_v_sep_vii_tl }
           }
       \end{minipage}
@@ -4849,16 +4851,14 @@ version.
 %   \c_@@_def_cover_title_en_width_tl,
 %   \c_@@_def_cover_info_left_width_tl,
 %   \c_@@_def_cover_instructors_width_tl}
+% \changes{v0.6}{2017/11/24}{改为固定值（单位取为 \si{bp}）。}
 % 封面中的一些长度。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_id_width_tl          { 10 em }
-\tl_const:Nn \c_@@_def_cover_id_margin_sep_tl     { -2 em }
-\tl_const:Nn \c_@@_def_cover_type_width_tl
-  { 0.45 \textwidth }
-\tl_const:Nn \c_@@_def_cover_title_width_tl
-  { 0.9  \textwidth }
-\tl_const:Nn \c_@@_def_cover_title_en_width_tl
-  { 0.9  \textwidth }
+\tl_const:Nn \c_@@_def_cover_id_width_tl          { 120 bp }
+\tl_const:Nn \c_@@_def_cover_id_margin_sep_tl     { -24 bp }
+\tl_const:Nn \c_@@_def_cover_type_width_tl        { 0.45 \textwidth }
+\tl_const:Nn \c_@@_def_cover_title_width_tl       { 0.9  \textwidth }
+\tl_const:Nn \c_@@_def_cover_title_en_width_tl    { 0.9  \textwidth }
 \tl_const:Nn \c_@@_def_cover_info_left_width_tl   { 6 em }
 \tl_const:Nn \c_@@_def_cover_instructors_width_tl { 7 em }
 %    \end{macrocode}
