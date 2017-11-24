@@ -93,6 +93,7 @@ tlmgr install         \
   ptex-fonts          \
   siunitx             \
   standalone          \
+  symbol              \
   tex                 \
   tex-gyre            \
   tex-gyre-math       \
