@@ -274,7 +274,7 @@ version.
 % \changes{v0.3}{2017/07/10}{添加英文模板。}
 % \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
 % \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
-% \changes{v0.4}{2017/08/03}{拆分 dtx 文件。}
+% \changes{v0.4}{2017/08/03}{拆分 \file{dtx} 文件。}
 % \changes{v0.4}{2017/08/11}{添加错误信息提示。}
 % \changes{v0.6}{2017/11/23}{同步 \pkg{ctex} v2.4.11。}
 %
@@ -1546,7 +1546,6 @@ version.
 % \begin{variable}[int]{\l_@@_tmpa_box,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
-%^^A   \l_@@_tmpa_int,
 %   \l_@@_tmpa_clist,\l_@@_tmpb_clist}
 % 临时变量。
 %    \begin{macrocode}
@@ -1555,7 +1554,6 @@ version.
 \dim_new:N   \l_@@_tmpb_dim
 \tl_new:N    \l_@@_tmpa_tl
 \tl_new:N    \l_@@_tmpb_tl
-% \int_new:N   \l_@@_tmpa_int
 \clist_new:N \l_@@_tmpa_clist
 \clist_new:N \l_@@_tmpb_clist
 %    \end{macrocode}
@@ -1588,9 +1586,6 @@ version.
 %
 % \subsubsection{内部函数}
 %
-% \changes{v0.5}{2017/09/19}{新增函数 \cs{@@_quad:} 和
-%   \cs{@@_qquad:}。}
-%
 % \begin{macro}[int]{\@@_quad:,\@@_qquad:}
 % 等价于 \LaTeXe{} 中的 \tn{quad} 和 \tn{qquad}。
 %    \begin{macrocode}
@@ -1599,8 +1594,6 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.6}{2017/10/27}{新增函数 \cs{__fdu_symbol:n}。}
-%
 % \begin{macro}[int]{\@@_symbol:n}
 % 等价于 \LaTeXe{} 中的 \tn{symbol}。
 %    \begin{macrocode}
@@ -1608,17 +1601,31 @@ version.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.6}{2017/10/29}{新增一些辅助定义函数。}
+% \begin{macro}[int]{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
+% 给宏打补丁。来自 \pkg{ctexpatch} 宏包。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
+  {
+    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
+  {
+    \ctex_appto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}[aux]{\@@_def_fn_style:nn,\@@_def_punct:nn,
 %   \@@_def_name:nn}
 % 用来定义脚注样式、标点、默认名称的辅助函数。
 %    \begin{macrocode}
-\cs_new_protected_nopar:Npn \@@_def_fn_style:nn #1#2
+\cs_new_protected:Npn \@@_def_fn_style:nn #1#2
   { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
-\cs_new_protected_nopar:Npn \@@_def_punct:nn #1#2
+\cs_new_protected:Npn \@@_def_punct:nn #1#2
   { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
-\cs_new_protected_nopar:Npn \@@_def_name:nn #1#2
+\cs_new_protected:Npn \@@_def_name:nn #1#2
   { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
 %    \end{macrocode}
 % \end{macro}
@@ -1627,26 +1634,11 @@ version.
 %   \@@_error:n,\@@_error:nn,\@@_error:nnn,\@@_warning:n}
 % 各种信息函数的缩略形式。
 %    \begin{macrocode}
-\cs_new_protected_nopar:Npn \@@_msg_new:nn
-  { \msg_new:nnn       { fduthesis } }
-\cs_new_protected_nopar:Npn \@@_error:n
-  { \msg_error:nn      { fduthesis } }
-\cs_new_protected_nopar:Npn \@@_error:nn
-  { \msg_error:nnn     { fduthesis } }
-\cs_new_protected_nopar:Npn \@@_error:nnn
-  { \msg_error:nnnn    { fduthesis } }
-% \cs_new_protected_nopar:Npn \@@_error:nx
-%   { \msg_error:nnx     { fduthesis } }
-\cs_new_protected_nopar:Npn \@@_warning:n
-  { \msg_warning:nn    { fduthesis } }
-% \cs_new_protected_nopar:Npn \@@_warning:nx
-%   { \msg_warning:nnx   { fduthesis } }
-% \cs_new_protected_nopar:Npn \@@_warning:nxx
-%   { \msg_warning:nnxx  { fduthesis } }
-% \cs_new_protected_nopar:Npn \@@_warning:nxxx
-%   { \msg_warning:nnxxx { fduthesis } }
-% \cs_new_protected_nopar:Npn \@@_info:nxx
-%   { \msg_info:nnxx     { fduthesis } }
+\cs_new_protected:Npn \@@_msg_new:nn { \msg_new:nnn    { fduthesis } }
+\cs_new_protected:Npn \@@_error:n    { \msg_error:nn   { fduthesis } }
+\cs_new_protected:Npn \@@_error:nn   { \msg_error:nnn  { fduthesis } }
+\cs_new_protected:Npn \@@_error:nnn  { \msg_error:nnnn { fduthesis } }
+\cs_new_protected:Npn \@@_warning:n  { \msg_warning:nn { fduthesis } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2992,9 +2984,8 @@ version.
   {
     \cs_new:Npn \@@_add_url_break_points:
       { \tl_map_function:NN \c_@@_url_break_points_tl \do }
-    \ctex_appto_cmd:NnnTF \UrlBreaks {}
-      { \UrlOrds \@@_add_url_break_points: }
-      { } { \ctex_patch_failure:N \UrlBreaks }
+    \__fdu_appto_cmd:Nn \UrlBreaks
+      { \UrlOrds \__fdu_add_url_break_points: }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3834,7 +3825,7 @@ version.
 % \end{macro}
 %
 % \begin{macro}{\fdu_get_max_text_width:NN}
-% \changes{v0.6}{2017/11/24}{删除不必要的字号设置。}
+% \changes{v0.6}{2017/11/24}{移除不必要的字号设置。}
 % 获取多个文本中的最大宽度，并存入 |dim| 型变量。
 % \begin{arguments}
 %   \item |dim| 型变量
@@ -4262,8 +4253,7 @@ version.
 % 修改 \tn{tableofcontents} 的定义，使得页眉正确显示。第二个参数中的
 % 代码来源于 \LaTeXe{} 标准文档类 \file{book.cls}。
 %    \begin{macrocode}
-\ctex_patch_cmd_once:NnnnTF \tableofcontents
-  { }
+\@@_patch_cmd:Nnn \tableofcontents
   {
     \chapter*{\contentsname
       \@mkboth{%
@@ -4274,7 +4264,6 @@ version.
 %<class>    \fdu_front_matter_header:n { \c_@@_def_name_toc_tl }
 %<class-en>    \fdu_front_matter_header:n { \c_@@_def_name_toc_en_tl }
   }
-  { } { \ctex_patch_failure:N \tableofcontents }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4282,14 +4271,12 @@ version.
 % 修改 \tn{@starttoc} 的定义以调整英文模板中的目录行距。
 %    \begin{macrocode}
 %<*class-en>
-\ctex_patch_cmd_once:NnnnTF \@starttoc
-  { }
+\@@_patch_cmd:Nnn \@starttoc
   { \begingroup }
   {
     \begingroup
       \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
   }
-  { } { \ctex_patch_failure:N \@starttoc }
 %</class-en>
 %    \end{macrocode}
 % \end{macro}

@@ -65,6 +65,11 @@
 \@namedef{ver@thumbpdf.sty}{9999/99/99}
 %    \end{macrocode}
 %
+% 关闭 \pkg{xparse} 中的命令声明信息。
+%    \begin{macrocode}
+\PassOptionsToPackage{log-declarations = false}{xparse}
+%    \end{macrocode}
+%
 % 载入宏包和文档类。
 %    \begin{macrocode}
 \LoadClass[a4paper, full]{l3doc}
@@ -1484,9 +1489,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 关闭 \cls{l3doc} 中使用其他名字空间的警告。
+% 关闭 \cls{l3doc} 中的一些提示信息。
 %    \begin{macrocode}
-\msg_redirect_name:nnn { l3doc } { foreign-internal } { none }
+\msg_redirect_name:nnn { l3doc } { foreign-internal    } { none }
+\msg_redirect_name:nnn { l3doc } { print-changes-howto } { none }
+\msg_redirect_name:nnn { l3doc } { print-index-howto   } { none }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -1496,7 +1503,7 @@
 %
 % \subsubsection{排版样式设置}
 %
-% 目录中关闭对 \cs{cs} 和 \cs{tn} 等的索引。
+% 目录中禁止对 \cs{cs} 和 \cs{tn} 等的索引。
 %    \begin{macrocode}
 \AtBeginDocument{%
   \addtocontents{toc}{\StopSpecialIndexModule}}
@@ -1515,8 +1522,7 @@
 % \begin{macro}[int]{\@makefntext}
 % 调整脚注文本缩进。
 %    \begin{macrocode}
-\renewcommand\@makefntext[1]{%
-  \parindent 0em \noindent\@makefnmark~#1}
+\renewcommand\@makefntext[1]{\parindent 0em\noindent\@makefnmark~#1}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1525,16 +1531,16 @@
 %    \begin{macrocode}
 \IndexPrologue{%
   \section{\indexname}%
-  \textit{无衬线字体的数字表示描述对应索引项的页码；
+  \textit{无衬线字体的数字表示对应索引项出现的页码；
   带下划线的数字表示定义对应索引项的代码行号；
-  罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
+  其他普通数字则表示使用对应索引项的代码行号．}}
 \def\IndexLayout{%
   \newgeometry{%
     left   = 1.00 in,
     right  = 1.00 in,
     top    = 1.25 in,
     bottom = 1.00 in}%
-  \setlength\IndexMin{.5\textheight}%
+  \setlength\IndexMin{0.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
 \def\indexname{代码索引}
