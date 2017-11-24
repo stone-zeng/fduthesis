@@ -305,8 +305,8 @@ version.
 %^^A!   }
 %^^A! \ctexset
 %^^A!   {
-%^^A!     section = {name = {}, format += \raggedright},
-%^^A!     subsubsection / tocline = {\CTEXnumberline{#1}#2}
+%^^A!     section = {name = {}, format+ = \raggedright},
+%^^A!     subsubsection/tocline = {\CTEXnumberline{#1}#2}
 %^^A!   }
 %^^A! \renewcommand\equationautorefname{Equation}
 %^^A! \renewcommand\footnoteautorefname{Footnote}
@@ -866,7 +866,7 @@ version.
 % 参数列表中不可以出现空行。
 %^^A! \cs{fdusetup} follows \LaTeX3 key-value style, and different
 %^^A! types as well as various levels options are supported. In the
-%^^A! key-value list, spaces around ``|=|'' have no effect; however,
+%^^A! key-value list, spaces around ``|=|'' will be trimmed; however,
 %^^A! blank lines should never appear in the argument.
 %^^A!
 %
@@ -879,7 +879,7 @@ version.
 % 另有一些选项包含子选项，如 \opt{style} 和 \opt{info} 等。它们可以
 % 按如下两种等价方式来设定：
 % \begin{latexexample}[morekeywords={\fdusetup},%
-%     emph={[1]style,font,fontsize,info,author,department,title}]
+%     emph={[1]style,cjkfont,fontsize,info,author,department,title}]
 %   \fdusetup{
 %     style = {cjkfont = adobe, fontsize = -4},
 %     info  = {
@@ -891,13 +891,13 @@ version.
 % \end{latexexample}
 % 或者
 % \begin{latexexample}[morekeywords={\fdusetup},%
-%     emph={[1]style,font,fontsize,info,author,department,title}]
+%     emph={[1]style,cjkfont,fontsize,info,author,department,title}]
 %   \fdusetup{
-%     style / cjkfont    = adobe,
-%     style / fontsize   = -4,
-%     info  / author     = {阿尔伯特·爱因斯坦},
-%     info  / department = {物理学系},
-%     info  / title      = {关于光产生和转变的一个启发性观点}
+%     style/cjkfont   = adobe,
+%     style/fontsize  = -4,
+%     info/author     = {阿尔伯特·爱因斯坦},
+%     info/department = {物理学系},
+%     info/title      = {关于光产生和转变的一个启发性观点}
 %   }
 % \end{latexexample}
 %^^A! Some options, such as \opt{style} and \opt{info}, may have
@@ -918,18 +918,17 @@ version.
 %^^A! \begin{latexexample}[morekeywords={\fdusetup},%
 %^^A!     emph={[1]style,font,fontsize,info,author,department,title}]
 %^^A!   \fdusetup{
-%^^A!     style / font       = libertinus,
-%^^A!     style / fontsize   = -4,
-%^^A!     info  / author     = {Albert Einstein},
-%^^A!     info  / department = {Department of Physics},
-%^^A!     info  / title      = {On the Electrodynamics of Moving Bodies}
+%^^A!     style/font      = libertinus,
+%^^A!     style/fontsize  = -4,
+%^^A!     info/author     = {Albert Einstein},
+%^^A!     info/department = {Department of Physics},
+%^^A!     info/title      = {On the Electrodynamics of Moving Bodies}
 %^^A!   }
 %^^A! \end{latexexample}
 %^^A!
 %
-% 在第二种方式中，“|/|” 与 “|=|” 类似，前后的空白对设置没有影响。
-%^^A! Similar with ``|=|'', spaces around ``|/|'' will be ignored
-%^^A! in the second method.
+% 注意 “|/|” 的前后均不可以出现空白字符。
+%^^A! Note that you may \emph{not} put spaces around ``|/|''.
 %^^A!
 %
 % \subsubsection{论文格式} \label{subsubsec:论文格式}
@@ -3422,19 +3421,16 @@ version.
 %
 % \begin{macro}{\fdu_thm_set_qed:n,
 %   \fdu_thm_set_header_font:n,
-%   \fdu_thm_set_body_font:n}
+%   \fdu_thm_set_body_font:n,
 %   \fdu_thm_set_qed:V,
 %   \fdu_thm_set_header_font:V,
 %   \fdu_thm_set_body_font:V}
 % 封装 \pkg{ntheorem} 宏包提供的若干命令，分别用以设置证毕符号、
 % 定理头字体和定理正文字体。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_thm_set_qed:n         #1
-  { \theoremsymbol     {#1} }
-\cs_new:Npn \fdu_thm_set_header_font:n #1
-  { \theoremheaderfont {#1} }
-\cs_new:Npn \fdu_thm_set_body_font:n   #1
-  { \theorembodyfont   {#1} }
+\cs_new:Npn \fdu_thm_set_qed:n         #1 { \theoremsymbol     {#1} }
+\cs_new:Npn \fdu_thm_set_header_font:n #1 { \theoremheaderfont {#1} }
+\cs_new:Npn \fdu_thm_set_body_font:n   #1 { \theorembodyfont   {#1} }
 \cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
 \cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
 \cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
