@@ -233,6 +233,11 @@ version.
   }
 \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+% 全角标点放在引号中，需要改成半角式，否则间距过大，不好看
+\newcommand\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} ^^A U+3002
+\newcommand\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} ^^A U+FF0E
+\newcommand\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
+\newcommand\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
 \begin{document}
   % \DisableImplementation
   % \DocInput{\jobname.dtx}
@@ -298,7 +303,8 @@ version.
 %^^A! \renewcommand\pageautorefname{Page}
 %^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 %^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
-%^^A!
+%^^A! \newcommand\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
+%^^A! \newcommand\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
 %^^A! \IndexPrologue{\section{Index}}
 %^^A! \def\IndexLayout{%
 %^^A!   \setlength\IndexMin{0.5\textheight}%
@@ -327,12 +333,7 @@ version.
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
 %^^A! \DeleteShortVerb\"
-%
-%^^A 全角标点放在引号中，需要改成半角式，否则间距过大，不好看
-% \def\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} ^^A U+3002
-% \def\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} ^^A U+FF0E
-% \def\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
-% \def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
+%^^A!
 %
 %^^A 封面与目录的页边距
 %^^A+
@@ -614,7 +615,7 @@ version.
 % 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
 % 一篇 5 页的文章。当然，这篇文章的绝大部分都是空白的。
 %^^A! Compile this file under the instructions in
-%^^A! \autoref{subsec:Compilation}, you will get a 5-page article.
+%^^A! \autoref{subsec:compilation}, you will get a 5-page article.
 %^^A! However, most of it will be blank, as you may predicate.
 %^^A!
 %
@@ -735,7 +736,7 @@ version.
 %   的开始位置，还会影响页眉样式。
 % \end{function}
 %^^A! \begin{function}{oneside,twoside}
-%^^A!   Specifies whether single or double sided output should be
+%^^A!   Specify whether single or double sided output should be
 %^^A!   generated. \opt{twoside} will be chosen by default. These
 %^^A!   option will change where the new chapters begin and how
 %^^A!   the headers display. The option \opt{twoside} does
@@ -918,14 +919,14 @@ version.
 % \begin{function}{style}
 %   \begin{fdusyntax}[emph={[1]style}]
 %     style = (*\marg{键值列表}*)
-%     style / (*\meta{key}*) = (*\meta{value}*)
+%     style/(*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
 %   设置论文格式的通用选项，具体内容见下。
 % \end{function}
 %^^A! \begin{function}{style}
 %^^A!   \begin{fdusyntax}[emph={[1]style}]
 %^^A!     style = (*\marg{key-value list}*)
-%^^A!     style / (*\meta{key}*) = (*\meta{value}*)
+%^^A!     style/(*\meta{key}*) = (*\meta{value}*)
 %^^A!   \end{fdusyntax}
 %^^A!   This general option is for setting the thesis style and format.
 %^^A!   See the following details.
@@ -977,13 +978,21 @@ version.
 %^^A! \end{function}
 %^^A!
 %
+%^^A+
 % \begin{function}[rEXP]{style/fullwidthstop}
 %   \begin{fdusyntax}[emph={[1]fullwidthstop}]
 %     fullwidthstop = (*<catcode|mapping|(false)>*)
 %   \end{fdusyntax}
+%^^A-
 %   选择是否把全角实心句点\FSFW 作为默认的句号形状。
-%   这种句号一般用于科技类文章，以便与下标“$_o$”或“$_0$”区分。
+%   这种句号一般用于科技类文章，以避免与下标“$_o$”或“$_0$”混淆。
 % \end{function}
+%^^A!   Let full-width full stop ``\FSFW'' as the default full stop.
+%^^A!   Generally, this punctuation is used for scientific articles,
+%^^A!   where ``\FSID'' is easily to be confused with subscript
+%^^A!   ``$_o$'' or ``$_0$''.
+%^^A! \end{function}
+%^^A!
 %
 % 选择 \kvopt{fullwidthstop}{catcode} 或 \opt{mapping} 后，都会实现
 % 上述效果。有所不同的是，在选择 \opt{catcode} 后，只有^^A
@@ -991,9 +1000,17 @@ version.
 % \emph{所有的}\FSID 都会被替换。例如，如果您用宏保存了一些含有^^A
 % \FSID 的文字，那么在选择 \opt{catcode} 时，其中的\FSID 不会被
 % 替换为\FSFW。
+%^^A! If you choose \kvopt{fullwidthstop}{catcode}, only
+%^^A! \emph{explicit} ``\FSID'' will be replaced by ``\FSFW''; when
+%^^A! choosing \kvopt{fullwidthstop}{mapping}, however, \emph{all}
+%^^A! the ``\FSID'' will be replaced.
+%^^A!
 %
 % 选项 \kvopt{fullwidthstop}{mapping} 只在 \XeTeX{} 下有效。使用
 % \LuaTeX{} 编译时，该选项相当于 \kvopt{fullwidthstop}{catcode}。
+%^^A! \opt{mapping} is valid only under \XeTeX{}. When compiling
+%^^A! with \LuaTeX{}, it is equivalent to \opt{catcode}.
+%^^A!
 %
 % 如果您在选择 \kvopt{fullwidthstop}{mapping} 后仍需要临时显示^^A
 % \FSID，可以按如下方法操作：
@@ -1002,6 +1019,15 @@ version.
 %   % 外侧的花括号表示分组
 %   这是一个句号{\CJKfontspec{(*\meta{字体名}*)}[Mapping=full-stop]。}
 % \end{latexexample}
+%^^A! If you want to display ``\FSID'' temporarily after setting
+%^^A! \kvopt{fullwidthstop}{mapping}, the following code snippet
+%^^A! will be helpful:
+%^^A! \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
+%^^A!   % Compile with XeTeX
+%^^A!   % The outside braces is used for group
+%^^A!   这是一个句号{\CJKfontspec{(*\meta{font name}*)}[Mapping=full-stop]。}
+%^^A! \end{latexexample}
+%^^A!
 %
 % \begin{function}{style/footnotestyle}
 %^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
@@ -1063,38 +1089,70 @@ version.
 %^^A! \end{table}
 %^^A!
 %
+%^^A+
 % \begin{function}{style/hyperlink}
 %   \begin{fdusyntax}[emph={[1]hyperlink}]
 %     hyperlink = (*<border|(color)|none>*)
 %   \end{fdusyntax}
-% 设置超链接样式。\opt{border} 表示在超链接四周绘制方框；
-% \opt{color} 表示用彩色显示超链接；\opt{none} 表示没有特殊装饰，
-% 可用于生成最终的打印版文稿。
+%^^A-
+%   设置超链接样式。\opt{border} 表示在超链接四周绘制方框；
+%   \opt{color} 表示用彩色显示超链接；\opt{none} 表示没有特殊装饰，
+%   可用于生成最终的打印版文稿。
 % \end{function}
+%^^A!   Set the style of hyperlinks. \opt{border} draws borders around
+%^^A!   hyperlinks; \opt{color} displays hyperlinks in colorful text;
+%^^A!   \opt{none} leads to plain text, which is useful when printing
+%^^A!   the final document.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{style/hyperlinkcolor}
 %   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
 %     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
 %   \end{fdusyntax}
-% 设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
-% 各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
-% \end{function}
+%   设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
+%   各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
+%^^A! \begin{function}{style/hyperlinkcolor}
+%^^A!   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
+%^^A!     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Set the color of hyperlinks. It is invalid if
+%^^A!   \kvopt{hyperlink}{none}. The related colors can be found
+%^^A!   in \autoref{tab:hyperlink-color}.
+%^^A! \end{function}
+%^^A!
 %
+%^^A+
 % \begin{table}[ht]
 % \centering
-% \newcommand\linkcolorexam[3]{%
+%^^A-
+% \newcommand\linkcolorexam[3]{^^A
 %   {\small 图~\textcolor[HTML]{#1}{1-2}，
 %     (\textcolor[HTML]{#1}{3.4})~式} &
 %   {\small \textcolor[HTML]{#2}{\texttt{http://g.cn}}} &
 %   {\small 文献~[\textcolor[HTML]{#3}{1}]，
 %     (\textcolor[HTML]{#3}{Knuth~1986})}}
+%^^A! \newcommand\linkcolorexam[3]{%
+%^^A!   {\small Fig.~\textcolor[HTML]{#1}{1-2}，
+%^^A!     Eq.~(\textcolor[HTML]{#1}{3.4})} &
+%^^A!   {\small \textcolor[HTML]{#2}{\texttt{http://g.cn}}} &
+%^^A!   {\small Ref.~[\textcolor[HTML]{#3}{1}]，
+%^^A!     (\textcolor[HTML]{#3}{Knuth~1986})}}
 % \begin{threeparttable}
 % \caption{预定义的超链接颜色方案}
 % \label{tab:hyperlink-color}
+%^^A! \begin{threeparttable}
+%^^A! \caption{Pre-defined hyperlink color schemes}
+%^^A! \label{tab:hyperlink-color}
 % \begin{tabular}{c*{3}{>{\hspace{0.2cm}}c<{\hspace{0.2cm}}}}
 %   \toprule
 %   \textsf{选项} & \textsf{链接} & \textsf{URL} & \textsf{引用} \\
+%^^A! \begin{tabular}{c*{3}{>{\hspace{0.2cm}}c<{\hspace{0.2cm}}}}
+%^^A!   \toprule
+%^^A!   \textsf{Options} & \textsf{Cross references} & \textsf{URL} & \textsf{Citation} \\
+%^^A+
 %   \midrule
 %   \opt{default}            & \linkcolorexam{990000}{0000B2}{007F00} \\
 %   \opt{classic}            & \linkcolorexam{FF0000}{0000FF}{00FF00} \\
@@ -1110,7 +1168,8 @@ version.
 %   \bottomrule
 % \end{tabular}
 % \begin{tablenotes}
-%   \item[a] 来自 \href{https://tex.stackexchange.com/}%
+%^^A-
+%   \item[a] 来自 \href{https://tex.stackexchange.com/}^^A
 %     {\TeX{} - \LaTeX{} Stack Exchange 网站}。
 %   \item[b] Adobe CC 产品配色。
 %   \item[c] 取自 Material 色彩方案
@@ -1120,16 +1179,37 @@ version.
 %   \item[f] 均取自 Solarized 色彩方案
 %     （见 \url{http://ethanschoonover.com/solarized}）。
 %   \item[g] \textit{Physical Review Letter} 杂志配色。
+%^^A!   \item[a] From \href{https://tex.stackexchange.com/}%
+%^^A!     {\TeX{} - \LaTeX{} Stack Exchange}.
+%^^A!   \item[b] Adobe CC.
+%^^A!   \item[c] Material Design color palette
+%^^A!     (See \url{https://material.io/guidelines/style/color.html}).
+%^^A!   \item[d] Microsoft Office 2016.
+%^^A!   \item[e] From \href{https://www.wolfram.com/}{Wolfram Research website}.
+%^^A!   \item[f] Solarized color palette
+%^^A!     (See \url{http://ethanschoonover.com/solarized}).
+%^^A!   \item[g] \textit{Physical Review Letter} magazine.
+%^^A+
 % \end{tablenotes}
 % \end{threeparttable}
 % \end{table}
+%^^A-
+%^^A!
 %
 % \begin{function}{style/logo}
 %   \begin{fdusyntax}[emph={[1]logo}]
-%     logo = (*\marg{中文标题}*)
+%     logo = (*\marg{文件}*)
 %   \end{fdusyntax}
 %   封面中校名图片的文件名。默认值为 \file{fudan-name.pdf}。
 % \end{function}
+%^^A! \begin{function}{style/logo}
+%^^A!   \begin{fdusyntax}[emph={[1]logo}]
+%^^A!     logo = (*\marg{file}*)
+%^^A!   \end{fdusyntax}
+%^^A!   File name of the logo in thesis cover. Default value is
+%^^A!   \file{fudan-name.pdf}.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{style/logosize}
 %   \begin{fdusyntax}[emph={[1]logosize}]
@@ -1139,28 +1219,55 @@ version.
 %   校名图片的大小。默认仅指定了宽度，为 |0.5\textwidth|\/。
 %   如果仅需指定高度，可在 \meta{宽度} 处填入一个空的分组 |{}|。
 % \end{function}
+%^^A! \begin{function}{style/logosize}
+%^^A!   \begin{fdusyntax}[emph={[1]logosize}]
+%^^A!     logosize = (*\marg{width}*)
+%^^A!     logosize = {(*\meta{width}*), (*\meta{height}*)}
+%^^A!   \end{fdusyntax}
+%^^A!   Size of the logo. By default, only width is set to
+%^^A!   |0.5\textwidth|. To set height only, you can put an
+%^^A!   empty group ``|{}|'' at \meta{width}.
+%^^A! \end{function}
+%^^A!
 %
+%^^A+
 % \begin{function}{style/automakecover}
 %   \begin{fdusyntax}[emph={[1]automakecover}]
 %     automakecover = (*<\TTF>*)
 %   \end{fdusyntax}
+%^^A-
 %   是否自动生成论文封面（封一）、指导小组成员名单（封二）和
 %   声明页（封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，
 %   具体请参阅 \ref{subsubsec:信息录入}~节。
 % \end{function}
+%^^A!   Whether generate thesis cover, list of instructors (inside
+%^^A!   front cover) and declaration page (inside back cover)
+%^^A!   automatically. Entries in the cover can be specified also
+%^^A!   via \cs{fdusetup}, and you can find more details in
+%^^A!   \autoref{subsubsec:information}.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
-%   用于\emph{手动}生成论文封面、指导小组成员名单和声明页。
-%   这几个命令不能确保页码的正确编排，因此除非必要，您应当始终
-%   使用自动生成的封面。
+%   用于手动生成论文封面、指导小组成员名单和声明页。这几个命令不能
+%   确保页码的正确编排，因此除非必要，您应当始终使用自动生成的封面。
 % \end{function}
+%^^A! \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
+%^^A!   For generating thesis cover, list of instructors and
+%^^A!   declaration page manually. These commands cannot ensure
+%^^A!   the correct page numbers, hence you should always use the
+%^^A!   auto-generated thesis cover unless necessary.
+%^^A! \end{function}
+%^^A!
 %
 % \subsubsection{信息录入} \label{subsubsec:信息录入}
+%^^A! \subsubsection{Personal information} \label{subsubsec:information}
+%^^A!
 %
 % \begin{function}{info}
 %   \begin{fdusyntax}[emph={[1]info}]
 %     info = (*\marg{键值列表}*)
-%     info / (*\meta{key}*) = (*\meta{value}*)
+%     info/(*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
 %   录入论文信息的通用选项，具体内容见下。以下各选项中，
 %   带“|*|”的为对应的英文字段。
