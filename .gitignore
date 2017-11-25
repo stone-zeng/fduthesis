@@ -30,6 +30,7 @@
 *.ins
 *.sty
 latexmkrc
+latexmkrc-en
 
 # Generated files (binary)
 *.dvi

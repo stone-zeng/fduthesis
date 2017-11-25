@@ -15,33 +15,6 @@
 
     xetex fduthesis.dtx
 
-### 模板组成
-
-- `source/`             源代码
-  - `fduthesis.dtx`       模板代码、注释及文档
-  - `fduthesis-doc.dtx`   `fdudoc` 文档类代码
-  - `fduthesis-logo.dtx`  `fdulogo` 宏包代码
-  - `get-doc-en.lua`      英文文档生成脚本
-
-- `test/`               测试文件
-  - `test.tex`            测试论文
-  - `test-en.tex`         测试论文（英文版）
-  - `test.bib`            参考文献数据库
-
-- `support/`            Travis CI 支持文件
-  - `texlive.sh`          安装最新版本 TeX Live
-  - `texlive.profile`     TeX Live 环境变量配置
-  - `local.sh`            安装本地宏包及相关字体
-  - `run.sh`              执行测试命令
-
-- `.gitattributes`      Git 属性文件
-
-- `.gitignore`          Git 忽略文件
-
-- `.travis.yml`         Travis CI 配置文件
-
-- `README.md`           自述文件（本文档）
-
 ### 许可证
 
 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)

@@ -21,8 +21,7 @@
 % This work consists of the files fduthesis.dtx,
 %                                 fduthesis-doc.dtx,
 %                                 fduthesis-logo.dtx,
-%           and the derived files fduthesis.pdf,
-%                                 fduthesis.ins,
+%           and the derived files fduthesis.ins,
 %                                 fduthesis.cls,
 %                                 fduthesis-en.cls,
 %                                 fduthesis.def,
@@ -35,7 +34,11 @@
 %                                 fudan-*.png,
 %                                 fduthesis-cover.pdf,
 %                                 fduthesis.bbl,
+%                                 fduthesis-en.ltx,
+%                                 fduthesis.pdf,
+%                                 fduthesis-en.pdf,
 %                                 latexmkrc,
+%                                 latexmkrc-en,
 %                             and README.md.
 %
 %<*internal>
@@ -59,33 +62,6 @@
 若需要生成模板各部件，请执行如下命令：
 
     xetex fduthesis.dtx
-
-### 模板组成
-
-- `source/`             源代码
-  - `fduthesis.dtx`       模板代码、注释及文档
-  - `fduthesis-doc.dtx`   `fdudoc` 文档类代码
-  - `fduthesis-logo.dtx`  `fdulogo` 宏包代码
-  - `get-doc-en.lua`      英文文档生成脚本
-
-- `test/`               测试文件
-  - `test.tex`            测试论文
-  - `test-en.tex`         测试论文（英文版）
-  - `test.bib`            参考文献数据库
-
-- `support/`            Travis CI 支持文件
-  - `texlive.sh`          安装最新版本 TeX Live
-  - `texlive.profile`     TeX Live 环境变量配置
-  - `local.sh`            安装本地宏包及相关字体
-  - `run.sh`              执行测试命令
-
-- `.gitattributes`      Git 属性文件
-
-- `.gitignore`          Git 忽略文件
-
-- `.travis.yml`         Travis CI 配置文件
-
-- `README.md`           自述文件（本文档）
 
 ### 许可证
 
@@ -150,8 +126,7 @@ version.
     This work consists of the files fduthesis.dtx,
                                     fduthesis-doc.dtx,
                                     fduthesis-logo.dtx,
-              and the derived files fduthesis.pdf,
-                                    fduthesis.ins,
+              and the derived files fduthesis.ins,
                                     fduthesis.cls,
                                     fduthesis-en.cls,
                                     fduthesis.def,
@@ -164,7 +139,11 @@ version.
                                     fudan-*.png,
                                     fduthesis-cover.pdf,
                                     fduthesis.bbl,
+                                    fduthesis-en.ltx,
+                                    fduthesis.pdf,
+                                    fduthesis-en.pdf,
                                     latexmkrc,
+                                    latexmkrc-en,
                                 and README.md.
 
 \endpreamble
@@ -193,6 +172,7 @@ version.
   \nopreamble\nopostamble
     \file{README.md}           {\from{\jobname.dtx}{readme}}
     \file{latexmkrc.}          {\from{\jobname-doc.dtx}{latexmk}}
+    \file{latexmkrc-en.}       {\from{\jobname-doc.dtx}{latexmk-en}}
     \file{\jobname.bbl}        {\from{\jobname-doc.dtx}{bbl}}
 }
 
@@ -308,24 +288,24 @@ version.
 %^^A!     section = {name = {}, format+ = \raggedright},
 %^^A!     subsubsection/tocline = {\CTEXnumberline{#1}#2}
 %^^A!   }
-%^^A! \renewcommand\equationautorefname{Equation}
-%^^A! \renewcommand\footnoteautorefname{Footnote}
-%^^A! \renewcommand\itemautorefname{Item}
-%^^A! \renewcommand\figureautorefname{Figure}
-%^^A! \renewcommand\tableautorefname{Table}
-%^^A! \renewcommand\partautorefname{Part}
-%^^A! \renewcommand\appendixautorefname{Appendix}
-%^^A! \renewcommand\chapterautorefname{Chapter}
 %^^A! \renewcommand\sectionautorefname{Section}
 %^^A! \renewcommand\subsectionautorefname{Subsection}
 %^^A! \renewcommand\subsubsectionautorefname{Subsubsection}
 %^^A! \renewcommand\paragraphautorefname{Paragraph}
-%^^A! \renewcommand\subparagraphautorefname{Subparagraph}
-%^^A! \renewcommand\FancyVerbLineautorefname{Line}
-%^^A! \renewcommand\theoremautorefname{Theorem}
+%^^A! \renewcommand\footnoteautorefname{Footnote}
+%^^A! \renewcommand\figureautorefname{Figure}
+%^^A! \renewcommand\tableautorefname{Table}
 %^^A! \renewcommand\pageautorefname{Page}
 %^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 %^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+%^^A!
+%^^A! \IndexPrologue{\section{Index}}
+%^^A! \def\IndexLayout{%
+%^^A!   \setlength\IndexMin{0.5\textheight}%
+%^^A!   \ctexset{section/numbering=false}%
+%^^A!   \StopSpecialIndexModule}
+%^^A! \def\indexname{Index}
+%^^A! \let\usage\relax
 %^^A!
 %
 % \title{\textcolor{MaterialIndigo800}{^^A
@@ -1460,8 +1440,11 @@ version.
 %
 % \clearpage
 %
-%^^A! \end{document}
+%^^A! \IndexLayout
+%^^A! \PrintIndex
 %^^A!
+%
+%^^A! \end{document}
 %
 % \end{documentation}
 %
