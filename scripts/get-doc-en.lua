@@ -5,6 +5,17 @@
 local input_file_name  = "../source/fduthesis.dtx"
 local output_file_name = "../source/fduthesis-en.ltx"
 
+local file_banner = "%%\n"
+                 .. "%% This is file `fduthesis-en.ltx',\n"
+                 .. "%% generated with Lua script `get-doc-en.lua'.\n"
+                 .. "%%\n"
+                 .. "%% The original source files were:\n"
+                 .. "%%\n"
+                 .. "%% fduthesis.dtx\n"
+
+local tag_preamble_str    = "\\preamble"
+local tag_endpreamble_str = "\\endpreamble"
+
 local tag_inline_str = "%^^A!"
 local tag_begin_str  = "%^^A+"
 local tag_end_str    = "%^^A-"
@@ -47,6 +58,10 @@ local function add_lst_gobble(str)
     return str
 end
 
+local function process_preamble_line(str)
+    return "%% " .. str
+end
+
 local function process_verbatim_line(str)
     str = remove_normal_space(str)
     str = add_lst_gobble(str)
@@ -66,24 +81,46 @@ end
 input_file  = io.open(input_file_name,  "r")
 output_file = io.open(output_file_name, "w")
 
--- Test if it's in the verbatim environment.
-tag_inside_flag = 0
+-- Test whether it's in the preamble.
+preamble_flag = 0
+
+-- Test whether it's in the verbatim environment.
+inside_flag = 0
+
+-- output_file:write("%%\n")
+-- output_file:write("%% This is file `fduthesis-en.ltx',\n")
+-- output_file:write("%% generated with Lua script `get-doc-en.lua'.\n")
+-- output_file:write("%%\n")
+-- output_file:write("%% The original source files were:\n")
+-- output_file:write("%%\n")
+-- output_file:write("%% fduthesis.dtx\n")
+
+output_file:write(file_banner)
 
 for line in input_file:lines() do
-    -- If beginning with `%^^A+` or `%^^A-`, then increase or
-    -- decrease the flag, in order to determine the start or end
-    -- position of verbatim.
-    if test_tag(line, tag_begin_str) then
-        tag_inside_flag = tag_inside_flag + 1
-    elseif test_tag(line, tag_end_str) then
-        tag_inside_flag = tag_inside_flag - 1
+    -- Check for the preamble, as DocStrip does.
+    if test_tag(line, tag_preamble_str) then
+        preamble_flag = preamble_flag + 1
+    elseif test_tag(line, tag_endpreamble_str) then
+        preamble_flag = preamble_flag - 1
     else
-        -- If flag = 1, then it's a verbatim environment.
-        if tag_inside_flag == 1 then
-            output_file:write(process_verbatim_line(line), "\n")
-        -- If beginning with `%^^A!`, then this line is normal text.
-        elseif test_tag(line, tag_inline_str) then
-            output_file:write(process_normal_line(line), "\n")
+        -- If beginning with `%^^A+` or `%^^A-`, then increase or
+        -- decrease the flag, in order to determine the start or end
+        -- position of verbatim.
+        if test_tag(line, tag_begin_str) then
+            inside_flag = inside_flag + 1
+        elseif test_tag(line, tag_end_str) then
+            inside_flag = inside_flag - 1
+        else
+            if preamble_flag == 1 then
+                output_file:write(process_preamble_line(line), "\n")
+            -- If flag = 1, then it's a verbatim environment.
+            elseif inside_flag == 1 then
+                output_file:write(process_verbatim_line(line), "\n")
+            -- If beginning with `%^^A!`, then this line is normal text.
+            elseif test_tag(line, tag_inline_str) then
+                output_file:write(process_normal_line(line), "\n")
+            end
         end
     end
 end
