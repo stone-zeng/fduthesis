@@ -293,14 +293,6 @@ version.
 %^^A!     section = {name = {}, format+ = \raggedright},
 %^^A!     subsubsection/tocline = {\CTEXnumberline{#1}#2}
 %^^A!   }
-%^^A! \renewcommand\sectionautorefname{Section}
-%^^A! \renewcommand\subsectionautorefname{Subsection}
-%^^A! \renewcommand\subsubsectionautorefname{Subsubsection}
-%^^A! \renewcommand\paragraphautorefname{Paragraph}
-%^^A! \renewcommand\footnoteautorefname{Footnote}
-%^^A! \renewcommand\figureautorefname{Figure}
-%^^A! \renewcommand\tableautorefname{Table}
-%^^A! \renewcommand\pageautorefname{Page}
 %^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 %^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 %^^A! \newcommand\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
@@ -518,7 +510,7 @@ version.
 % 其具体组成见表~\ref{tab:fduthesis-components}。
 %^^A! There are several parts in \cls{fduthesis}, including kernel
 %^^A! template classes, configuration files and user's guides. More
-%^^A! details are put in \autoref{tab:fduthesis-components}.
+%^^A! details are put in table~\ref{tab:fduthesis-components}.
 %^^A!
 %
 % \begin{table}[ht]
@@ -614,9 +606,9 @@ version.
 %
 % 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
 % 一篇 5 页的文章。当然，这篇文章的绝大部分都是空白的。
-%^^A! Compile this file under the instructions in
-%^^A! \autoref{subsec:compilation}, you will get a 5-page article.
-%^^A! However, most of it will be blank, as you may predicate.
+%^^A! Compile this file under the instructions in subsection~%
+%^^A! \ref{subsec:compilation}, you will get a 5-page article.
+%^^A! Of course, most of it will be blank, as you may predicate.
 %^^A!
 %
 % 英文模板可以用类似的方式使用：
@@ -859,6 +851,10 @@ version.
 %
 % 另有一些选项包含子选项，如 \opt{style} 和 \opt{info} 等。它们可以
 % 按如下两种等价方式来设定：
+%^^A! Some options, such as \opt{style} and \opt{info}, may have
+%^^A! sub-options. They can be set by the following two equivalent
+%^^A! methods:
+%^^A+
 % \begin{latexexample}[morekeywords={\fdusetup},%
 %     emph={[1]style,cjkfont,fontsize,info,author,department,title}]
 %   \fdusetup{
@@ -870,7 +866,10 @@ version.
 %     }
 %   }
 % \end{latexexample}
+%^^A-
 % 或者
+%^^A! or
+%^^A+
 % \begin{latexexample}[morekeywords={\fdusetup},%
 %     emph={[1]style,cjkfont,fontsize,info,author,department,title}]
 %   \fdusetup{
@@ -881,31 +880,7 @@ version.
 %     info/title      = {关于光产生和转变的一个启发性观点}
 %   }
 % \end{latexexample}
-%^^A! Some options, such as \opt{style} and \opt{info}, may have
-%^^A! sub-options. They can be set by the following two equivalent
-%^^A! methods:
-%^^A! \begin{latexexample}[morekeywords={\fdusetup},%
-%^^A!     emph={[1]style,font,fontsize,info,author,department,title}]
-%^^A!   \fdusetup{
-%^^A!     style = {font = libertinus, fontsize = -4},
-%^^A!     info  = {
-%^^A!       author     = {Albert Einstein},
-%^^A!       department = {Department of Physics},
-%^^A!       title      = {On the Electrodynamics of Moving Bodies}
-%^^A!     }
-%^^A!   }
-%^^A! \end{latexexample}
-%^^A! or
-%^^A! \begin{latexexample}[morekeywords={\fdusetup},%
-%^^A!     emph={[1]style,font,fontsize,info,author,department,title}]
-%^^A!   \fdusetup{
-%^^A!     style/font      = libertinus,
-%^^A!     style/fontsize  = -4,
-%^^A!     info/author     = {Albert Einstein},
-%^^A!     info/department = {Department of Physics},
-%^^A!     info/title      = {On the Electrodynamics of Moving Bodies}
-%^^A!   }
-%^^A! \end{latexexample}
+%^^A-
 %^^A!
 %
 % 注意 “|/|” 的前后均不可以出现空白字符。
@@ -921,7 +896,7 @@ version.
 %     style = (*\marg{键值列表}*)
 %     style/(*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
-%   设置论文格式的通用选项，具体内容见下。
+%   该选项包含许多子项目，用于设置论文格式。具体内容见下。
 % \end{function}
 %^^A! \begin{function}{style}
 %^^A!   \begin{fdusyntax}[emph={[1]style}]
@@ -1051,7 +1026,7 @@ version.
 %^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
 %^^A!   \end{fdusyntax}
 %^^A!   Set the style of footnote numbers. Note that western fonts
-%^^A!   will affect its default value (see \autoref{tab:footnote-font}),
+%^^A!   will affect its default value (see table~\ref{tab:footnote-font}),
 %^^A!   so you may put it after |font| option. The one with |sans|
 %^^A!   is for the corresponding sans-serif version, while |*|
 %^^A!   for white on black version.
@@ -1113,6 +1088,7 @@ version.
 %   \end{fdusyntax}
 %   设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
 %   各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
+% \end{function}
 %^^A! \begin{function}{style/hyperlinkcolor}
 %^^A!   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
 %^^A!     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
@@ -1120,7 +1096,7 @@ version.
 %^^A!   \end{fdusyntax}
 %^^A!   Set the color of hyperlinks. It is invalid if
 %^^A!   \kvopt{hyperlink}{none}. The related colors can be found
-%^^A!   in \autoref{tab:hyperlink-color}.
+%^^A!   in table~\ref{tab:hyperlink-color}.
 %^^A! \end{function}
 %^^A!
 %
@@ -1244,7 +1220,7 @@ version.
 %^^A!   front cover) and declaration page (inside back cover)
 %^^A!   automatically. Entries in the cover can be specified also
 %^^A!   via \cs{fdusetup}, and you can find more details in
-%^^A!   \autoref{subsubsec:information}.
+%^^A!   subsubsection~\ref{subsubsec:information}.
 %^^A! \end{function}
 %^^A!
 %
@@ -1269,27 +1245,54 @@ version.
 %     info = (*\marg{键值列表}*)
 %     info/(*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
-%   录入论文信息的通用选项，具体内容见下。以下各选项中，
-%   带“|*|”的为对应的英文字段。
+%   该选项包含许多子项目，录入论文信息。具体内容见下。以下带“|*|”的
+%   项目表示对应的英文字段。
 % \end{function}
+%^^A! \begin{function}{info}
+%^^A!   \begin{fdusyntax}[emph={[1]info}]
+%^^A!     info = (*\marg{key-value list}*)
+%^^A!     info/(*\meta{key}*) = (*\meta{value}*)
+%^^A!   \end{fdusyntax}
+%^^A!   This general option is for entering your personal information.
+%^^A!   See the following details. Note that options with ``|*|'' are
+%^^A!   the corresponding English items.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/title,info/title*}
 %   \begin{fdusyntax}[emph={[1]title,title*}]
 %     title  = (*\marg{中文标题}*)
-%     title* = (*\marg{English title}*)
+%     title* = (*\marg{英文标题}*)
 %   \end{fdusyntax}
 %   论文标题。默认会在约 20 个汉字字宽处强制断行，但为了语义的
 %   连贯以及排版的美观，如果您的标题长于一行，建议使用“|\\|”
 %   手动断行。
 % \end{function}
+%^^A! \begin{function}{info/title,info/title*}
+%^^A!   \begin{fdusyntax}[emph={[1]title,title*}]
+%^^A!     title  = (*\marg{title in Chinese}*)
+%^^A!     title* = (*\marg{title in English}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Title of your thesis. The line width is about \SI{30}{em} by
+%^^A!   default, but you may break it with |\\| manually.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/author,info/author*}
 %   \begin{fdusyntax}[emph={[1]author,author*}]
 %     author  = (*\marg{姓名}*)
-%     author* = (*\marg{English name}*)
+%     author* = (*\marg{英文姓名（或拼音）}*)
 %   \end{fdusyntax}
 %   作者姓名。
 % \end{function}
+%^^A! \begin{function}{info/author,info/author*}
+%^^A!   \begin{fdusyntax}[emph={[1]author,author*}]
+%^^A!     author  = (*\marg{name in Chinese}*)
+%^^A!     author* = (*\marg{name in English \lparen or Pinyin\rparen}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Author's name.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/supervisor}
 %   \begin{fdusyntax}[emph={[1]supervisor}]
@@ -1297,6 +1300,13 @@ version.
 %   \end{fdusyntax}
 %   导师姓名。
 % \end{function}
+%^^A! \begin{function}{info/supervisor}
+%^^A!   \begin{fdusyntax}[emph={[1]supervisor}]
+%^^A!     supervisor = (*\marg{name}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Supervisor's name.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/department}
 %   \begin{fdusyntax}[emph={[1]department}]
@@ -1304,6 +1314,13 @@ version.
 %   \end{fdusyntax}
 %   院系名称。
 % \end{function}
+%^^A! \begin{function}{info/department}
+%^^A!   \begin{fdusyntax}[emph={[1]department}]
+%^^A!     department = (*\marg{name}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Name of the department.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/major}
 %   \begin{fdusyntax}[emph={[1]major}]
@@ -1311,6 +1328,13 @@ version.
 %   \end{fdusyntax}
 %   专业名称。
 % \end{function}
+%^^A! \begin{function}{info/major}
+%^^A!   \begin{fdusyntax}[emph={[1]major}]
+%^^A!     major = (*\marg{name}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Name of the major.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/studentid}
 %   \begin{fdusyntax}[emph={[1]studentid}]
@@ -1318,10 +1342,23 @@ version.
 %   \end{fdusyntax}
 %   作者学号。
 % \end{function}
+%^^A! \begin{function}{info/studentid}
+%^^A!   \begin{fdusyntax}[emph={[1]studentid}]
+%^^A!     studentid = (*\marg{number}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Author's student ID.
+%^^A! \end{function}
+%^^A!
 %
 % 复旦大学学号共 11 位，前两位为入学年份，之后一位为学生类型
-% 代码（本科生为 1，硕士生为 2，博士生为 3），接下来的五位为
+% 代码（博士生为 1，硕士生为 2，本科生为 3），接下来的五位为
 % 专业代码，最后三位为顺序号。
+%^^A! In Fudan University, student ID has 11 digits. The first two
+%^^A! are the year of attendance; next one represents the student's
+%^^A! type (1 for doctor, 2 for master and 3 for bachelor); the
+%^^A! following five digits are major ID while the last three are
+%^^A! serial number.
+%^^A!
 %
 % \begin{function}{info/schoolid}
 %   \begin{fdusyntax}[emph={[1]schoolid}]
@@ -1329,6 +1366,13 @@ version.
 %   \end{fdusyntax}
 %   学校代码。默认值为 10246（这是复旦大学的学校代码）。
 % \end{function}
+%^^A! \begin{function}{info/schoolid}
+%^^A!   \begin{fdusyntax}[emph={[1]schoolid}]
+%^^A!     schoolid = (*\marg{number}*)
+%^^A!   \end{fdusyntax}
+%^^A!   School ID. Default value is 10246 (school ID of Fudan University).
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/date}
 %   \begin{fdusyntax}[emph={[1]date}]
@@ -1336,14 +1380,31 @@ version.
 %   \end{fdusyntax}
 %   论文完成日期。默认值为文档编译日期（\tn{today}）。
 % \end{function}
+%^^A! \begin{function}{info/date}
+%^^A!   \begin{fdusyntax}[emph={[1]date}]
+%^^A!     date = (*\marg{date}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Finish date of your thesis. Default value is the compilation
+%^^A!   date (\tn{today}).
+%^^A! \end{function}
+%^^A!
 %
+%^^A+
 % \begin{function}{info/secretlevel}
 %   \begin{fdusyntax}[emph={[1]secretlevel}]
 %     secretlevel = (*<(none)|i|ii|iii>*)
 %   \end{fdusyntax}
+%^^A-
 %   密级。\opt{i}、\opt{ii}、\opt{iii} 分别表示秘密、机密、绝密；
 %   \opt{none} 表示论文不涉密，即不显示密级与保密年限。
 % \end{function}
+%^^A!   Secret level. \opt{i}, \opt{ii} and \opt{iii} means
+%^^A!   ``秘密'' (secret), ``机密'' (confidential) and ``绝密''
+%^^A!   (top secret) respectively. \opt{none} means your thesis is
+%^^A!   not secret-related and secret level and year will not be
+%^^A!   shown.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/secretyear}
 %   \begin{fdusyntax}[emph={[1]secretyear}]
@@ -1352,6 +1413,15 @@ version.
 %   保密年限。建议您使用中文，如“五年”。该选项在设置
 %   \kvopt{secretlevel}{none} 时无效。
 % \end{function}
+%^^A! \begin{function}{info/secretyear}
+%^^A!   \begin{fdusyntax}[emph={[1]secretyear}]
+%^^A!     secretyear = (*\marg{year}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Secret year. It's recommended to use Chinese word as ``五年''
+%^^A!   (5 years) here. This option is invalid if you have set
+%^^A!   \kvopt{secretlevel}{none}.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/instructors}
 %   \begin{fdusyntax}[emph={[1]instructors}]
@@ -1360,23 +1430,52 @@ version.
 %   指导小组成员。各成员之间需使用英文逗号隔开。为防止歧义，
 %   可以用分组括号“|{...}|”把各成员字段括起来。
 % \end{function}
+%^^A! \begin{function}{info/instructors}
+%^^A!   \begin{fdusyntax}[emph={[1]instructors}]
+%^^A!     instructors = (*\marg{member 1, member 2, ...}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Instructors' name. Each name should be separated with
+%^^A!   comma. To disambiguate, you may put text containing comma
+%^^A!   into a group ``|{...}|''.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/keywords,info/keywords*}
 %   \begin{fdusyntax}[emph={[1]keywords,keywords*}]
 %     keywords  = (*\marg{中文关键字}*)
-%     keywords* = (*\marg{English keywords}*)
+%     keywords* = (*\marg{英文关键字}*)
 %   \end{fdusyntax}
-%   关键字。
+%   关键字列表。各关键字之间需使用英文逗号隔开。为防止歧义，
+%   可以用分组括号“|{...}|”把各字段括起来。
 % \end{function}
+%^^A! \begin{function}{info/keywords,info/keywords*}
+%^^A!   \begin{fdusyntax}[emph={[1]keywords,keywords*}]
+%^^A!     keywords  = (*\marg{keywords in Chinese}*)
+%^^A!     keywords* = (*\marg{keywords in English}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Keywords list. Each keyword should be separated with comma.
+%^^A!   To disambiguate, you may put text containing comma into a
+%^^A!   group ``|{...}|''.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{info/clc}
 %   \begin{fdusyntax}[emph={[1]clc}]
 %     clc = (*\marg{分类号}*)
 %   \end{fdusyntax}
-%   中国图书馆分类号（CLC）。
+%   中图分类号（CLC）。
 % \end{function}
+%^^A! \begin{function}{info/clc}
+%^^A!   \begin{fdusyntax}[emph={[1]clc}]
+%^^A!     clc = (*\marg{classification codes}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Chinese Library Classification (CLC).
+%^^A! \end{function}
+%^^A!
 %
 % \subsection{正文编写}
+%^^A! \subsection{Writing your thesis}
+%^^A!
 %
 % \begin{quote*}[喬孟符][宋]
 %   作樂府亦有法，曰\CJKunderdot{鳳頭豬肚豹尾}六字是也。
@@ -1385,6 +1484,8 @@ version.
 % \end{quote*}
 %
 % \subsubsection{凤头}
+%^^A! \subsubsection{Front matter}
+%^^A!
 %
 % \begin{function}{\frontmatter}
 %   声明前置部分开始。
@@ -1416,7 +1517,7 @@ version.
 %   和英文摘要；英文模板中没有带星号的版本，您只需输入英文摘要。
 % \end{function}
 %
-% 摘要的最后，会显示关键字列表以及中国图书馆分类号（CLC）。
+% 摘要的最后，会显示关键字列表以及中图分类号（CLC）。
 % 这两项可通过 \cs{fdusetup} 录入，具体
 % 请参阅 \ref{subsubsec:信息录入}~节。
 %
@@ -1435,6 +1536,8 @@ version.
 % \end{function}
 %
 % \subsubsection{猪肚}
+%^^A! \subsubsection{Main matter}
+%^^A!
 %
 % \begin{function}{\mainmatter}
 %   声明主体部分开始。
@@ -1499,6 +1602,8 @@ version.
 % \env{figure}）中。
 %
 % \subsubsection{豹尾}
+%^^A! \subsubsection{Back matter}
+%^^A!
 %
 % \begin{function}{\backmatter}
 %   声明后置部分开始。
@@ -1507,6 +1612,8 @@ version.
 % 后置部分包含声明页。目前无需开启该部分。
 %
 % \section{宏包依赖情况}
+%^^A! \section{Packages dependencies}
+%^^A!
 %
 % 使用不同编译方式、指定不同选项，会导致宏包依赖情况有所不同。
 % 具体如下：
@@ -3751,7 +3858,7 @@ version.
 % \end{macro}
 %
 % \begin{macro}{info/clc}
-% 中国图书馆分类号。
+% 中图分类号。
 %    \begin{macrocode}
     clc         .tl_set:N    = \l_@@_info_clc_tl
   }

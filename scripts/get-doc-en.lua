@@ -87,14 +87,6 @@ preamble_flag = 0
 -- Test whether it's in the verbatim environment.
 inside_flag = 0
 
--- output_file:write("%%\n")
--- output_file:write("%% This is file `fduthesis-en.ltx',\n")
--- output_file:write("%% generated with Lua script `get-doc-en.lua'.\n")
--- output_file:write("%%\n")
--- output_file:write("%% The original source files were:\n")
--- output_file:write("%%\n")
--- output_file:write("%% fduthesis.dtx\n")
-
 output_file:write(file_banner)
 
 for line in input_file:lines() do
