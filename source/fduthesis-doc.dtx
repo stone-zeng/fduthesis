@@ -1025,8 +1025,8 @@
 %
 % \begin{macro}{syntax,fdusyntax}
 % 在 \env{syntax} 和 \env{fdusyntax} 环境前设置若干活动字符。
-% \texttt{\textbar} 用于分隔多个选项，无需倾斜；
-% |<xxx>| 表示选项，|(xxx)| 表示默认选项。
+% \texttt{\textbar} 用于分隔多个选项，无需倾斜；|<xxx>| 表示选项，
+% |(xxx)| 表示默认选项。原来的括号用宏保存，并且使用直立字体。
 % \env{syntax} 环境另需要额外调整行距、标点样式及字符间距。
 %    \begin{macrocode}
 \AtBeginEnvironment { syntax }
@@ -1034,19 +1034,21 @@
     \linespread { 1.2 }
     \@@_plain_punct_style:
     \@@_disable_ecglue:
-%     \char_set_catcode_active:N \|
-%     \char_set_catcode_active:N \(
-%     \char_set_active_eq:NN \| \orbar
-%     \char_set_active_eq:NN \( \defaultval@aux
+%     \char_set_catcode_active:N |
+%     \char_set_catcode_active:N (
+%     \char_set_active_eq:NN | \orbar
+%     \char_set_active_eq:NN ( \defaultval@aux
   }
 \AtBeginEnvironment { fdusyntax }
   {
-    \char_set_catcode_active:N \|
-    \char_set_catcode_active:N \<
-    \char_set_catcode_active:N \(
-    \char_set_active_eq:NN \| \orbar
-    \char_set_active_eq:NN \< \syntaxopt@aux
-    \char_set_active_eq:NN \( \defaultval@aux
+    \cs_set:Npn \lparen { \textup { ( } }
+    \cs_set:Npn \rparen { \textup { ) } }
+    \char_set_catcode_active:N |
+    \char_set_catcode_active:N <
+    \char_set_catcode_active:N (
+    \char_set_active_eq:NN | \orbar
+    \char_set_active_eq:NN < \syntaxopt@aux
+    \char_set_active_eq:NN ( \defaultval@aux
   }
 %    \end{macrocode}
 % \end{macro}
