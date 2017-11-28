@@ -425,26 +425,25 @@ version.
 % 如 \meta{模板选项}、\meta{English title} 等。在使用时，参数两侧
 % 的尖括号不必输入。示例代码进行了语法高亮处理，以方便阅读。
 %^^A! In this documentation, different typefaces are used to
-%^^A! represent different contents. Packages and classes are printed
+%^^A! represent different contents. Packages and classes are shown
 %^^A! in sans-serif font, e.g.\ \pkg{xeCJK} package and
-%^^A! \cls{fduthesis} class. Commands and file names are printed in
+%^^A! \cls{fduthesis} class. Commands and file names are shown in
 %^^A! monospaced font, e.g.\ command \cs{fdusetup}, environment
 %^^A! \env{abstract} and \TeX{} document \file{thesis.tex}.
 %^^A! Italic-shaped font with angle brackets outside means arguments,
-%^^A! e.g.\ \meta{English title}. However, you do not need to write
-%^^A! the brackets when using these commands. The example code is
-%^^A! printed with syntax highlighting so it will be much easier to
-%^^A! read.
+%^^A! e.g.\ \meta{English title}. However, you do not need to type
+%^^A! the brackets when using these commands. The example code has
+%^^A! proper syntax highlighting so it will be much easier to read.
 %^^A!
 %
 % 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线
 % 的则为命令行代码，请注意区分。模板提供的选项、命令、环境等，
 % 均用横线框起，同时给出使用语法和相关说明。
-%^^A! \LaTeX{} code will have a blue line on their left, while for
-%^^A! command lines there will be a pink line. The options, commands
-%^^A! and environments in \cls{fduthesis} will be surrounded by two
-%^^A! horizontal lines. Their usages and descriptions are provided
-%^^A! at the sametime.
+%^^A! \LaTeX{} code lines will have a blue line on their left, while
+%^^A! for command lines there will be a pink line. The options,
+%^^A! commands and environments in \cls{fduthesis} will be surrounded
+%^^A! by two horizontal lines. Their usages and descriptions are
+%^^A! provided at the same time.
 %^^A!
 %
 % 本模板中的选项、命令或环境可以分为以下三类：
@@ -464,7 +463,7 @@ version.
 %^^A!   \item Those can be only used in \emph{English templates} are
 %^^A!     indicated by \rexptarget\expstar{}.
 %^^A!   \item If they do not have special characters afterwards, then
-%^^A!     you can use them in both Chinese and English templates
+%^^A!     you can use them in both Chinese and English templates.
 %^^A! \end{itemize}
 %^^A!
 %
@@ -510,7 +509,7 @@ version.
 % 其具体组成见表~\ref{tab:fduthesis-components}。
 %^^A! There are several parts in \cls{fduthesis}, including kernel
 %^^A! template classes, configuration files and user's guides. More
-%^^A! details are put in table~\ref{tab:fduthesis-components}.
+%^^A! details are listed in table~\ref{tab:fduthesis-components}.
 %^^A!
 %
 % \begin{table}[ht]
@@ -551,7 +550,7 @@ version.
 %^^A!     \file{fduthesis.dtx}      & Source file of \cls{fduthesis},
 %^^A!       including source code, comments and documentation. \\
 %^^A!     \file{README.md}          & The brief introduction. \\
-%^^A!     \file{fduthesis.pdf}      & User's guide (this documentation). \\
+%^^A!     \file{fduthesis.pdf}      & User's guide (this document). \\
 %^^A!     \bottomrule
 %^^A!   \end{tabular}
 %^^A! \end{table}
@@ -612,7 +611,7 @@ version.
 %^^A!
 %
 % 英文模板可以用类似的方式使用：
-%^^A! The English-version can be used in the same way:
+%^^A! The English version can be used in the same way:
 %^^A+
 % \begin{latexexample}[deletetexcs={\documentclass},%
 %     moretexcs={\chapter},morekeywords={\documentclass},%
@@ -638,15 +637,16 @@ version.
 %^^A!
 %
 % 本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或 \LuaLaTeX{}
-% 编译。推荐使用 \XeLaTeX{}。
-% 为了生成正确的目录、脚注以及交叉引用，您至少需要连续编译两次。
-%^^A! \cls{fduthesis} does not support \pdfTeX{}. Please use
-%^^A! \XeLaTeX{} or \LuaLaTeX{} to compile. \XeLaTeX{} is recommended.
-%^^A! To get the correct table of contents, footnotes and cross-
-%^^A! references, you need to compile at least twice.
+% 编译。推荐使用 \XeLaTeX{}。为了生成正确的目录、脚注以及交叉引用，
+% 您至少需要连续编译两次。
+%^^A! \cls{fduthesis} does NOT support \pdfTeX{}. Please use
+%^^A! \XeLaTeX{} or \LuaLaTeX{} to compile, and \XeLaTeX{} is
+%^^A! recommended. To get the correct table of contents, footnotes
+%^^A! and cross-references, you need to compile the source file at
+%^^A! least twice.
 %^^A!
 %
-% 以下代码中，假设您的 \TeX{} 论文文档名为 \file{thesis.tex}。
+% 以下代码中，假设您的 \TeX{} 源文件名为 \file{thesis.tex}。
 % 使用 \XeLaTeX{} 编译论文，请在命令行中执行
 % \begin{shellexample}[morekeywords={xelatex}]
 %   xelatex thesis
@@ -656,9 +656,9 @@ version.
 % \begin{shellexample}[morekeywords={latexmk},emph={-xelatex}]
 %   latexmk -xelatex thesis
 % \end{shellexample}
-%^^A! In the following example, suppose your \TeX{} file is
-%^^A! \file{thesis.tex}. Use \XeLaTeX{} to compile, please execute
-%^^A! the following commands:
+%^^A! In the following example, suppose your \TeX{} source file is
+%^^A! \file{thesis.tex}. Please execute the following commands if
+%^^A! you want to use \XeLaTeX{}:
 %^^A! \begin{shellexample}[morekeywords={xelatex}]
 %^^A!   xelatex thesis
 %^^A!   xelatex thesis
@@ -678,7 +678,7 @@ version.
 % \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
 %   latexmk -lualatex thesis
 % \end{shellexample}
-%^^A! Use \LuaLaTeX{} to compile, please execute:
+%^^A! \LuaLaTeX{} can be used in a similar way:
 %^^A! \begin{shellexample}[morekeywords={lualatex}]
 %^^A!   lualatex thesis
 %^^A!   lualatex thesis
@@ -690,9 +690,9 @@ version.
 %^^A!
 %
 % 需要注意，请不要把模板中的配置文件 \file{latexmkrc} 放置在工作
-% 文件夹下。该配置文件仅适用于编译模板用户手册。
+% 文件夹下。该配置文件仅适用于生成模板用户手册。
 %^^A! Note that you should not put the profile \file{latexmkrc} in
-%^^A! your working directories. This file is meant to compile the
+%^^A! your working directories. This file is meant to generate the
 %^^A! user's guide.
 %^^A!
 %
@@ -719,8 +719,9 @@ version.
 % 中取值。对于这些选项，\kvopt{\meta{选项}}{true} 中的“|= true|”
 % 可以省略。
 %^^A! Some options are \emph{boolean} --- they only take the value
-%^^A! \opt{true} or \opt{false}. For these options, ``|= true|''
-%^^A! in \kvopt{\meta{option}}{true} can be omitted safely.
+%^^A! \opt{true} or \opt{false}. For these options, you can
+%^^A! abbreviate ``\kvopt{\meta{option}}{true}'' simply to
+%^^A! ``\opt{\meta{option}}''.
 %^^A!
 %
 % \begin{function}{oneside,twoside}
@@ -730,7 +731,7 @@ version.
 %^^A! \begin{function}{oneside,twoside}
 %^^A!   Specify whether single or double sided output should be
 %^^A!   generated. \opt{twoside} will be chosen by default. These
-%^^A!   option will change where the new chapters begin and how
+%^^A!   option will determine where the new chapters begin and how
 %^^A!   the headers display. The option \opt{twoside} does
 %^^A!   \emph{not} tell the printer to actually make a two-sided
 %^^A!   printout.
@@ -758,11 +759,11 @@ version.
 %^^A! in \emph{main body} will show the title of chapters, while the
 %^^A! right headers on the odd pages (right hand) will show the
 %^^A! title of sections. Headers in \emph{front matter} have the
-%^^A! same style, but they will have only show the title as
-%^^A! ``\textit{Contents}'', ``\textit{Abstract}'' etc.
+%^^A! same style, but they will only show the title as
+%^^A! ``\textit{Contents}'', ``\textit{Abstract}'', etc.
 %^^A!
 %^^A! At one-sided mode, both left and right headers on \emph{all}
-%^^A! the pages in main body will be shown. The text is title of
+%^^A! pages in main body will be shown. The text is the title of
 %^^A! chapters and sections, respectively. In front matter, there
 %^^A! are only middle headers, which show the corresponding titles.
 %^^A!
@@ -794,10 +795,10 @@ version.
 %^^A! \begin{itemize}
 %^^A!   \item Lines with overfull \tn{hbox}'s will be marked with
 %^^A!     a thick black square on the right margin.
-%^^A!   \item Do not include graphics files actually, but instead
+%^^A!   \item Will not include graphics files actually, but instead
 %^^A!     print a box of the size the graphic would take up, as well
 %^^A!     as the file name.
-%^^A!   \item Do not make hyperlinkings and PDF bookmarks.
+%^^A!   \item Will not make hyperlinks and PDF bookmarks.
 %^^A!   \item Show the page frames.
 %^^A! \end{itemize}
 %^^A!
@@ -817,8 +818,8 @@ version.
 %^^A!   \begin{fdusyntax}[morekeywords={\fdusetup}]
 %^^A!     \fdusetup(*\marg{key-value list}*)
 %^^A!   \end{fdusyntax}
-%^^A!   \cls{fduthesis} has provided a number of options. These
-%^^A!   options can be given via the general command \cs{fdusetup}.
+%^^A!   \cls{fduthesis} has provided a number of options, which
+%^^A!   can be given via the general command \cs{fdusetup}.
 %^^A! \end{function}
 %^^A!
 %
@@ -830,7 +831,7 @@ version.
 %^^A! list. The options usually have the form of \kvopt{\meta{key}}%
 %^^A! {\meta{value}} and in some cases \meta{value} can be omitted.
 %^^A! For the same option, the values given later will override the
-%^^A! the previous ones. Default values are indicated as
+%^^A! the previous ones. Default values are indicated in
 %^^A! \textbf{boldface} in the following descriptions.
 %^^A!
 %
@@ -845,8 +846,8 @@ version.
 %
 % 与模板选项相同，布尔型的参数可以省略 \kvopt{\meta{选项}}{true}
 % 中的“|= true|”。
-%^^A! Similar with template options, ``|= true|'' in
-%^^A! \kvopt{\meta{option}}{true} for boolean type can be omitted.
+%^^A! Similar with template options, ``\kvopt{\meta{option}}{true}''
+%^^A! can be abbreviated to \opt{\meta{option}} for boolean type.
 %^^A!
 %
 % 另有一些选项包含子选项，如 \opt{style} 和 \opt{info} 等。它们可以
@@ -938,7 +939,7 @@ version.
 %^^A! When you choose \kvopt{font}{none} or \kvopt{cjkfont}{none},
 %^^A! \cls{fduthesis} will disable the default western/CJK font
 %^^A! settings. You may use \cs{setmainfont}, \cs{setCJKmainfont}
-%^^A! and \cs{setmathfont} etc.\ to configure the fonts manually.
+%^^A! and \cs{setmathfont}, etc.\ to configure the fonts manually.
 %^^A!
 %
 %^^A+
@@ -1490,9 +1491,17 @@ version.
 % \begin{function}{\frontmatter}
 %   声明前置部分开始。
 % \end{function}
+%^^A! \begin{function}{\frontmatter}
+%^^A!   Declare the beginning of front matter.
+%^^A! \end{function}
+%^^A!
 %
 % 在本模板中，前置部分包含目录、中英文摘要以及符号表等。
 % 前置部分的页码采用小写罗马字母，并且与正文分开计数。
+%^^A! In \cls{fduthesis}, front matter contains table of contents,
+%^^A! abstracts and notation list. The page numbers in front matter
+%^^A! will be shown in lowercase Roman number, and will be counted
+%^^A! separately with main matter.
 %
 % \begin{function}{\tableofcontents}
 %   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
@@ -2687,7 +2696,7 @@ version.
     You~ can~ set~ option~ "cjkfont"~ via~ "\string\fdusetup",~
     or~ use~ commands~ \\
     "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
-    "\string\setCJKmonofont"~ etc~ \\
+    "\string\setCJKmonofont",~ etc~ \\
     to~ define~ new~ CJK~ font~ families.
   }
 %    \end{macrocode}
