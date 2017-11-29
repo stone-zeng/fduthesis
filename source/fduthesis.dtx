@@ -1173,6 +1173,26 @@ version.
 %^^A-
 %^^A!
 %
+% \begin{function}{style/bibstyle}
+%   \begin{fdusyntax}[emph={[1]bibstyle}]
+%     bibstyle = (*<authoryear|(numerical)|\meta{其他样式}>*)
+%   \end{fdusyntax}
+%   设置参考文献样式。\opt{authoryear} 和 \opt{numerical} 分别对应
+%   国家标准 GB/T 7714--2015 \scite{gb-t-7714-2015} 中的著者—出版年制
+%   和顺序编码制。选择 \meta{其他样式} 时，则需保证相应的 \file{bst}
+%   格式文件能被正确调用。
+% \end{function}
+%^^A! \begin{function}{style/bibstyle}
+%^^A!   \begin{fdusyntax}[emph={[1]bibstyle}]
+%^^A!     bibstyle = (*<authoryear|(numerical)|\meta{other style}>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Set the style of bibliography. \opt{authoryear} and
+%^^A!   \opt{numerical} will follow the standard GB/T 7714--2015;
+%^^A!   while by setting \kvopt{bibstyle}{\meta{other style}}, you
+%^^A!   can use other bibliography style (in \file{bst} format).
+%^^A! \end{function}
+%^^A!
+%
 % \begin{function}{style/logo}
 %   \begin{fdusyntax}[emph={[1]logo}]
 %     logo = (*\marg{文件}*)
@@ -1558,8 +1578,8 @@ version.
 % 这两项可通过 \cs{fdusetup} 录入，具体
 % 请参阅 \ref{subsubsec:信息录入}~节。
 %^^A! At the end of abstract (both Chinese and English, if available),
-%^^A! keywords list and CLC number will be shown. They can be specify
-%^^A! via command \cs{fdusetup} and you may refer to
+%^^A! keywords list and CLC number will be shown. They can be
+%^^A! specified via command \cs{fdusetup} and you may refer to
 %^^A! subsubsection~\ref{subsubsec:information} for more details.
 %^^A!
 %
@@ -1585,11 +1605,11 @@ version.
 %^^A!       (*\meta{symbol \kern-0.1em$n$}*)  &  (*\meta{description}*)
 %^^A!     \end{notation}
 %^^A!   \end{fdusyntax}
-%^^A!   Notation list (or symbols list, nomenclature) environment.
+%^^A!   Notation list (or symbol list, nomenclature) environment.
 %^^A!   The optional argument \meta{column format} is the same as
 %^^A!   in a standard \LaTeX{} table. The default value is
-%^^A!   ``|lp{7.5cm}|'', which means auto-width for the first column,
-%^^A!   fix-width (\SI{7.5}{cm}) for the second and both column will
+%^^A!   ``|lp{7.5cm}|'', which means auto-width for the first column
+%^^A!   and fix-width (\SI{7.5}{cm}) for the second; both columns will
 %^^A!   be left-aligned.
 %^^A! \end{function}
 %^^A!
@@ -1611,7 +1631,7 @@ version.
 %^^A! As the name suggests, ``main matter'' is the main body of your
 %^^A! thesis. When working on a big projects, it's usually a good
 %^^A! idea to split the source file into several parts. The page
-%^^A! numbers in main matter are arabic numerals.
+%^^A! numbers in main matter are shown in arabic numerals.
 %^^A!
 %
 % \begin{function}{\footnote}
@@ -1676,8 +1696,8 @@ version.
 %^^A!   demonstrandum}, means ``what was to be demonstrated''.}
 %^^A! symbol ``$\QED$'' will be added at the end of \env{proof}
 %^^A! environment. You need to compile the source file \emph{twice}
-%^^A! as in subsection~\ref{subsec:compilation} in order to get a
-%^^A! correct position for QED symbol.
+%^^A! as in subsection~\ref{subsec:compilation} in order to make
+%^^A! the position of QED symbol correct.
 %^^A!
 %
 % \begin{function}{\caption}
@@ -1696,7 +1716,7 @@ version.
 %^^A!     \caption(*\oarg{short caption}\marg{long caption}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Insert the caption of figure or table. The optional argument
-%^^A!   \meta{short caption} is used in the list of figures/tables.
+%^^A!   \meta{short caption} will be shown in the list of figures/tables.
 %^^A!   In \meta{long caption}, you can write descriptions for several
 %^^A!   paragraphs, but \meta{short caption} and the single
 %^^A!   \meta{caption} will not allow multi-paragraph text (i.e.\
@@ -1726,9 +1746,26 @@ version.
 %^^A! \end{function}
 %^^A!
 %
-% 后置部分包含声明页。目前尚无需开启该部分。
-%^^A! Back matter contains declaration page. At present, This part
-%^^A! is unnecessary and you don't need to use this command.
+% 后置部分包含参考文献、声明页等。
+%^^A! Back matter contains bibliography, declaration page, etc.
+%^^A!
+%
+% \begin{function}{\bibliography}
+%   \begin{fdusyntax}[deletetexcs={\bibliography},morekeywords={\bibliography}]
+%     \bibliography(*\marg{文献数据库}*)
+%   \end{fdusyntax}
+%   指明所要使用的文献数据库。不需要带 \file{.bib} 后缀。如果使用
+%   多个文件，各文件之间需使用英文逗号隔开。
+% \end{function}
+%^^A! \begin{function}{\bibliography}
+%^^A!   \begin{fdusyntax}[deletetexcs={\bibliography},morekeywords={\bibliography}]
+%^^A!     \bibliography(*\marg{bib file}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Specify the bibliography database (\file{bib} files). You
+%^^A!   don't need to type in the ``\file{.bib}'' suffix. If using
+%^^A!   more than one files, the file names should be separated with
+%^^A!   comma.
+%^^A! \end{function}
 %^^A!
 %
 % \section{宏包依赖情况}
@@ -1760,8 +1797,9 @@ version.
 %       \item \pkg{graphicx}，提供图形插入的接口。
 %       \item \pkg{longtable}，长表格（允许跨页）支持。
 %       \item \pkg{caption}，用于设置题注。
+%       \item \pkg{natbib}，提供增强的参考文献著录及引用支持。
 %       \item \pkg{xcolor}，提供彩色支持。
-%       \item \pkg{hyperref}，提供 PDF 超链接等电子文档功能。
+%       \item \pkg{hyperref}，提供交叉引用、超链接、电子书签等功能。
 %     \end{itemize}
 %   \item 开启 \kvopt{style/footnotestyle}{pifont} 选项后，会调用
 %     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
@@ -1787,6 +1825,7 @@ version.
 %^^A!       \item \pkg{graphicx}
 %^^A!       \item \pkg{longtable}
 %^^A!       \item \pkg{caption}
+%^^A!       \item \pkg{natbib}
 %^^A!       \item \pkg{xcolor}
 %^^A!       \item \pkg{hyperref}
 %^^A!     \end{itemize}
