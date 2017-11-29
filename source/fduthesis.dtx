@@ -239,9 +239,9 @@ version.
 \newcommand\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
 \newcommand\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
 \begin{document}
-  % \DisableImplementation
-  % \DocInput{\jobname.dtx}
-  \DocInput{\jobname.dtx,\jobname-doc.dtx,\jobname-logo.dtx}
+  \DisableImplementation
+  \DocInput{\jobname.dtx}
+  % \DocInput{\jobname.dtx,\jobname-doc.dtx,\jobname-logo.dtx}
   \IndexLayout
   \PrintChanges
   \PrintIndex
@@ -999,7 +999,7 @@ version.
 %^^A! \kvopt{fullwidthstop}{mapping}, the following code snippet
 %^^A! will be helpful:
 %^^A! \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
-%^^A!   % Compile with XeTeX
+%^^A!   % Compiled with XeTeX
 %^^A!   % The outside braces is used for group
 %^^A!   这是一个句号{\CJKfontspec{(*\meta{font name}*)}[Mapping=full-stop]。}
 %^^A! \end{latexexample}
@@ -1500,18 +1500,24 @@ version.
 % 前置部分的页码采用小写罗马字母，并且与正文分开计数。
 %^^A! In \cls{fduthesis}, front matter contains table of contents,
 %^^A! abstracts and notation list. The page numbers in front matter
-%^^A! will be shown in lowercase Roman number, and will be counted
+%^^A! will be shown in lowercase Roman numerals, and will be counted
 %^^A! separately with main matter.
+%^^A!
 %
 % \begin{function}{\tableofcontents}
 %   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
 % \end{function}
+%^^A! \begin{function}{\tableofcontents}
+%^^A!   Generate the table of contents (TOC). You need to compile
+%^^A!   the source file at least \emph{twice} to get the correct TOC.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{abstract}
 %   \begin{fdusyntax}[emph={[2]abstract}]
 %     % 中文论文模板 (fduthesis)      % 英文论文模板 (fduthesis-en)
 %     \begin{abstract}                \begin{abstract}
-%       (*\meta{中文摘要} \hspace{3.52cm} \meta{Abstract}*)
+%       (*\meta{中文摘要} \hspace{3.52cm} \meta{英文摘要}*)
 %     \end{abstract}                  \end{abstract}
 %   \end{fdusyntax}
 % \end{function}
@@ -1519,30 +1525,74 @@ version.
 %   \begin{fdusyntax}[emph={[2]abstract*}]
 %     % 中文论文模板 (fduthesis)
 %     \begin{abstract*}
-%       (*\meta{English abstract}*)
+%       (*\meta{英文摘要}*)
 %     \end{abstract*}
 %   \end{fdusyntax}
 %   摘要。中文模板中，不带星号和带星号的版本分别用来输入中文摘要
 %   和英文摘要；英文模板中没有带星号的版本，您只需输入英文摘要。
 % \end{function}
+%^^A! \begin{function}{abstract}
+%^^A!   \begin{fdusyntax}[emph={[2]abstract}]
+%^^A!     % fduthesis (Chinese thesis)    % fduthesis-en (English thesis)
+%^^A!     \begin{abstract}                \begin{abstract}
+%^^A!       (*\meta{Chinese abstract} \hspace{3cm} \meta{English abstract}*)
+%^^A!     \end{abstract}                  \end{abstract}
+%^^A!   \end{fdusyntax}
+%^^A! \end{function}
+%^^A! \begin{function}[rEXP]{abstract*}
+%^^A!   \begin{fdusyntax}[emph={[2]abstract*}]
+%^^A!     % Only for fduthesis
+%^^A!     \begin{abstract*}
+%^^A!       (*\meta{English abstract}*)
+%^^A!     \end{abstract*}
+%^^A!   \end{fdusyntax}
+%^^A!   Abstract environment. In \cls{fduthesis}, \env{abstract} and
+%^^A!   \env{abstract*} are used for Chinese and English abstract,
+%^^A!   respectively; while in \cls{fduthesis-en}, there is no
+%^^A!   \env{abstract*} environment and you need to write the English
+%^^A!   abstract merely.
+%^^A! \end{function}
+%^^A!
 %
 % 摘要的最后，会显示关键字列表以及中图分类号（CLC）。
 % 这两项可通过 \cs{fdusetup} 录入，具体
 % 请参阅 \ref{subsubsec:信息录入}~节。
+%^^A! At the end of abstract (both Chinese and English, if available),
+%^^A! keywords list and CLC number will be shown. They can be specify
+%^^A! via command \cs{fdusetup} and you may refer to
+%^^A! subsubsection~\ref{subsubsec:information} for more details.
+%^^A!
 %
 % \begin{function}{notation}
 %   \begin{fdusyntax}[emph={[2]notation}]
 %     \begin{notation}(*\oarg{列格式说明}*)
 %       (*\meta{符号 1}*)  &  (*\meta{说明}*)  \\
 %       (*\meta{符号 2}*)  &  (*\meta{说明}*)  \\
-%               (*$\vdots$*)
-%       (*\meta{符号 $n$}*)  &  (*\meta{说明}*)
+%       (*\phantom{\meta{符号 $n$}}*)  (*$\vdots$*)
+%       (*\meta{符号\ \kern-0.1em$n$}*)  &  (*\meta{说明}*)
 %     \end{notation}
 %   \end{fdusyntax}
-%   符号表。可选参数“列格式说明”与 \LaTeX 中标准表格的列格式说明
-%   语法一致，默认值为“|l p{7.5 cm}|”，即第一列宽度自动调整，
+%   符号表。可选参数\meta{列格式说明}与 \LaTeX{} 中标准表格的列格
+%   式说明语法一致，默认值为“|lp{7.5cm}|”，即第一列宽度自动调整，
 %   第二列限宽 \SI{7.5}{cm}，两列均为左对齐。
 % \end{function}
+%^^A! \begin{function}{notation}
+%^^A!   \begin{fdusyntax}[emph={[2]notation}]
+%^^A!     \begin{notation}(*\oarg{column format}*)
+%^^A!       (*\meta{symbol 1}*)  &  (*\meta{description}*)  \\
+%^^A!       (*\meta{symbol 2}*)  &  (*\meta{description}*)  \\
+%^^A!       (*\phantom{\meta{symbol $n$}}*)  (*$\vdots$*)
+%^^A!       (*\meta{symbol \kern-0.1em$n$}*)  &  (*\meta{description}*)
+%^^A!     \end{notation}
+%^^A!   \end{fdusyntax}
+%^^A!   Notation list (or symbols list, nomenclature) environment.
+%^^A!   The optional argument \meta{column format} is the same as
+%^^A!   in a standard \LaTeX{} table. The default value is
+%^^A!   ``|lp{7.5cm}|'', which means auto-width for the first column,
+%^^A!   fix-width (\SI{7.5}{cm}) for the second and both column will
+%^^A!   be left-aligned.
+%^^A! \end{function}
+%^^A!
 %
 % \subsubsection{猪肚}
 %^^A! \subsubsection{Main matter}
@@ -1551,9 +1601,18 @@ version.
 % \begin{function}{\mainmatter}
 %   声明主体部分开始。
 % \end{function}
+%^^A! \begin{function}{\mainmatter}
+%^^A!   Declare the beginning of main matter.
+%^^A! \end{function}
+%^^A!
 %
 % 主体部分是论文的核心，您可以分章节撰写。如有需求，也可以采用
 % 多文件编译的方式。主体部分的页码采用阿拉伯数字。
+%^^A! As the name suggests, ``main matter'' is the main body of your
+%^^A! thesis. When working on a big projects, it's usually a good
+%^^A! idea to split the source file into several parts. The page
+%^^A! numbers in main matter are arabic numerals.
+%^^A!
 %
 % \begin{function}{\footnote}
 %   \begin{fdusyntax}[deletetexcs={\footnote},%
@@ -1563,6 +1622,16 @@ version.
 %   插入脚注。脚注编号样式可利用 \opt{style/footnotestyle} 选项控制，
 %   具体见 \ref{subsubsec:论文格式}~小节。
 % \end{function}
+%^^A! \begin{function}{\footnote}
+%^^A!   \begin{fdusyntax}[deletetexcs={\footnote},%
+%^^A!       morekeywords={\footnote}]
+%^^A!     \footnote(*\marg{text}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Insert a footnote. The style of footnote numbers can be set
+%^^A!   with option \opt{style/footnotestyle}. See subsubsection~%
+%^^A!   \ref{subsubsec:style-and-format} for more details.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{axiom,corollary,definition,example,lemma,
 %   proof,theorem}
@@ -1573,6 +1642,16 @@ version.
 %   \end{fdusyntax}
 %   一系列预定义的数学环境。具体含义见表~\ref{tab:theorem}。
 % \end{function}
+%^^A! \begin{function}{axiom,corollary,definition,example,lemma,
+%^^A!   proof,theorem}
+%^^A!   \begin{fdusyntax}[emph={[2]proof}]
+%^^A!     \begin{proof}
+%^^A!       (*\meta{procedure of proof}*)
+%^^A!     \end{proof}
+%^^A!   \end{fdusyntax}
+%^^A!   A series of pre-defined math environments.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{table}[ht]
 %   \caption{预定义的数学环境} \label{tab:theorem}
@@ -1593,6 +1672,13 @@ version.
 % 证明环境（\env{proof}）的最后会添加证毕符号“$\QED$”。要确保
 % 该符号在正确的位置显示，您需要按照 \ref{subsec:编译方式}~节
 % 中的有关说明编译\emph{两次}。
+%^^A! A QED\footnote{Abbreviation of Latin phrase \emph{quod erat
+%^^A!   demonstrandum}, means ``what was to be demonstrated''.}
+%^^A! symbol ``$\QED$'' will be added at the end of \env{proof}
+%^^A! environment. You need to compile the source file \emph{twice}
+%^^A! as in subsection~\ref{subsec:compilation} in order to get a
+%^^A! correct position for QED symbol.
+%^^A!
 %
 % \begin{function}{\caption}
 %   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
@@ -1604,11 +1690,29 @@ version.
 %   和单独的 \meta{图表标题} 中则不允许分段。
 %   \scite{刘海洋2013latex入门}
 % \end{function}
+%^^A! \begin{function}{\caption}
+%^^A!   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
+%^^A!     \caption(*\marg{caption}*)
+%^^A!     \caption(*\oarg{short caption}\marg{long caption}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Insert the caption of figure or table. The optional argument
+%^^A!   \meta{short caption} is used in the list of figures/tables.
+%^^A!   In \meta{long caption}, you can write descriptions for several
+%^^A!   paragraphs, but \meta{short caption} and the single
+%^^A!   \meta{caption} will not allow multi-paragraph text (i.e.\
+%^^A!   text containing \tn{par}) inside.
+%^^A! \end{function}
+%^^A!
 %
 % 按照排版惯例，建议您将表格的标题放置在绘制表格的命令之前，
 % 而将图片的标题放置在绘图或插图的命令之后。另需注意，
 % \tn{caption} 命令必须放置在浮动体环境（如 \env{table} 和
 % \env{figure}）中。
+%^^A! By convention, caption of a table is usually put \emph{before}
+%^^A! the table itself, while for figure it's the opposite.
+%^^A! In addition, command \tn{caption} must be put inside float
+%^^A! environments (e.g.\ \env{table} and \env{figure}).
+%^^A!
 %
 % \subsubsection{豹尾}
 %^^A! \subsubsection{Back matter}
@@ -1617,8 +1721,15 @@ version.
 % \begin{function}{\backmatter}
 %   声明后置部分开始。
 % \end{function}
+%^^A! \begin{function}{\backmatter}
+%^^A!   Declare the beginning of back matter.
+%^^A! \end{function}
+%^^A!
 %
-% 后置部分包含声明页。目前无需开启该部分。
+% 后置部分包含声明页。目前尚无需开启该部分。
+%^^A! Back matter contains declaration page. At present, This part
+%^^A! is unnecessary and you don't need to use this command.
+%^^A!
 %
 % \section{宏包依赖情况}
 %^^A! \section{Packages dependencies}
@@ -1655,9 +1766,42 @@ version.
 %   \item 开启 \kvopt{style/footnotestyle}{pifont} 选项后，会调用
 %     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
 % \end{itemize}
+%^^A! Different compilation methods and options will result in a
+%^^A! different packages dependency. Details are as follows:
+%^^A! \begin{itemize}
+%^^A!   \item In any case, \cls{fduthesis} will load the following
+%^^A!     packages \emph{explicitly}:
+%^^A!     \begin{itemize}
+%^^A!       \item \pkg{expl3}, \pkg{xparse} and \pkg{l3keys2e},
+%^^A!         belong to \pkg{l3kernel} and \pkg{l3packages} bundles
+%^^A!       \item \cls{book} class, one of the standard \LaTeX{}
+%^^A!         document classes
+%^^A!       \item \pkg{fontspec}
+%^^A!       \item \pkg{ctex}, belongs to \CTeX{} bundle
+%^^A!       \item \pkg{amsmath}, belongs to \AmSLaTeX{} bundle
+%^^A!       \item \pkg{unicode-math}
+%^^A!       \item \pkg{geometry}
+%^^A!       \item \pkg{fancyhdr}
+%^^A!       \item \pkg{footmisc}
+%^^A!       \item \pkg{ntheorem}
+%^^A!       \item \pkg{graphicx}
+%^^A!       \item \pkg{longtable}
+%^^A!       \item \pkg{caption}
+%^^A!       \item \pkg{xcolor}
+%^^A!       \item \pkg{hyperref}
+%^^A!     \end{itemize}
+%^^A!   \item When you have chosen \kvopt{style/footnotestyle}{pifont},
+%^^A!     package \pkg{pifont} will be loaded. It belongs to
+%^^A!     \pkg{psnfss} bundle.
+%^^A! \end{itemize}
+%^^A!
 %
 % 这里只列出了本模板直接调用的宏包。这些宏包自身的调用情况，
 % 此处不再具体展开。如有需要，请参阅相关文档。
+%^^A! Only the packages loaded directly by \cls{fduthesis} are listed
+%^^A! here. If you need to know the dependencies of the packages
+%^^A! themselves, please refer to the corresponding manuals.
+%^^A!
 %
 % \input{fduthesis.bbl}
 %
