@@ -30,10 +30,7 @@
 %                                 fdulogo.sty,
 %                                 fdulogo-example.tex,
 %                                 fduthesis-cover.tex,
-%                                 fudan-*.pdf,
-%                                 fudan-*.png,
-%                                 fduthesis-cover.pdf,
-%                                 fduthesis-en.ltx,
+%                                 fduthesis-en.tex,
 %                                 fduthesis.pdf,
 %                                 fduthesis-en.pdf,
 %                                 latexmkrc,
@@ -159,10 +156,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
                                     fdulogo.sty,
                                     fdulogo-example.tex,
                                     fduthesis-cover.tex,
-                                    fudan-*.pdf,
-                                    fudan-*.png,
-                                    fduthesis-cover.pdf,
-                                    fduthesis-en.ltx,
+                                    fduthesis-en.tex,
                                     fduthesis.pdf,
                                     fduthesis-en.pdf,
                                     latexmkrc,
@@ -194,8 +188,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   \usedir{doc/latex/fduthesis}
   \nopreamble\nopostamble
     \file{README.md}           {\from{\jobname.dtx}{readme}}
-    \file{latexmkrc.}          {\from{\jobname-doc.dtx}{latexmk}}
-    \file{latexmkrc-en.}       {\from{\jobname-doc.dtx}{latexmk-en}}
+    % ``.cfg'' is only for internal/temporal use.
+    % They will be renamed by external scripts.
+    \file{latexmkrc.cfg}       {\from{\jobname-doc.dtx}{latexmk}}
+    \file{latexmkrc-en.cfg}    {\from{\jobname-doc.dtx}{latexmk-en}}
 }
 
 \obeyspaces
@@ -230,7 +226,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|doc|logo>\RequirePackage{expl3}
 %<*!(driver|install|ex-logo|cover)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.5 2017-09-30 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.6 2017-11-30 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -514,7 +510,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 较好的方法是使用 TDS 安装包：
 % \begin{itemize}
 %   \item 从 GitHub 上下载 \cls{fduthesis} 的
-%     \href{https://git.io/vbIN2}{TDS 安装包}；
+%     \href{https://git.io/vbIKa}{TDS 安装包}；
 %   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
 %     发行版的本地 TDS 根目录；
 %   \item 执行 \bashcmd{texhash} 刷新文件名数据库以完成安装。
@@ -523,7 +519,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! you need to download and install it from GitHub. Recommended
 %^^A! way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
-%^^A!   \item Download the href{https://git.io/vbIN2}{TDS ZIP file}
+%^^A!   \item Download the href{https://git.io/vbIKa}{TDS ZIP file}
 %^^A!     for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.

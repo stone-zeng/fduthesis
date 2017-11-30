@@ -52,11 +52,12 @@ latexmkrc-en
 build/
 logo/
 support/
+TDS/
 temp/
 tools/
 
 # Other
 git-comment.md
 TODO.md
-source/*.ltx
 source/*.md
+source/*.tex

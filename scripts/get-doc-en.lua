@@ -2,11 +2,11 @@
 
 -- Generate the English version of the documentation.
 
-local input_file_name  = "../source/fduthesis.dtx"
-local output_file_name = "../source/fduthesis-en.ltx"
+local input_file_name  = arg[1]
+local output_file_name = arg[2]
 
 local file_banner = "%%\n"
-                 .. "%% This is file `fduthesis-en.ltx',\n"
+                 .. "%% This is file `fduthesis-en.tex',\n"
                  .. "%% generated with Lua script `get-doc-en.lua'.\n"
                  .. "%%\n"
                  .. "%% The original source files were:\n"
