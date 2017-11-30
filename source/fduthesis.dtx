@@ -2824,10 +2824,11 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
+%
 % \begin{macro}[int]{\@@_set_main_font:nn,
 %   \@@_set_sans_font:nn,
 %   \@@_set_mono_font:nn}
-% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
 % 拷贝 \cs{__fontspec_main_setmainfont:nn} 等命令。注意参数顺序
 % 是相反的。
 % \begin{arguments}
@@ -2843,8 +2844,9 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_set_math_font:nn}
 % \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
+%
+% \begin{macro}[int]{\@@_set_math_font:nn}
 % 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。参数同上。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_math_font:nn #1#2
@@ -4490,8 +4492,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   封面，减少对 \LaTeXe{} 的依赖。}
 %
 % \begin{macro}[int]{\@@_cover_id:}
-% \changes{v0.6}{2017/11/24}{使用 \cs{skip_set:Nn} 设置
-%   \tn{rightskip} 的大小。}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_id:
@@ -4560,7 +4560,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   {
     \begin{center}
 %    \end{macrocode}
-% \changes{v0.5}{2017/09/19}{修复论文类型无法分散对齐的问题。}
 % 论文类型。
 %    \begin{macrocode}
       \@@_spread_box:VVn
@@ -4606,7 +4605,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   {
     \begin{center}
 %    \end{macrocode}
-% \changes{v0.5}{2017/09/19}{各字段 \texttt{tl} 变量会被完全展开。}
 % 读取左侧名称字段。
 %    \begin{macrocode}
       \clist_set:Nx \l_@@_tmpa_clist
@@ -4618,7 +4616,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
           \c_@@_def_name_date_tl,
         }
 %    \end{macrocode}
-% \changes{v0.6}{2017/11/06}{修复字段未定义时出现的死循环问题。}
 % 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
 % \cs{l_@@_tmpb_dim}。
 %    \begin{macrocode}
@@ -4631,8 +4628,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
           { \l_@@_info_date_tl       }
         }
 %    \end{macrocode}
-% \changes{v0.6}{2017/11/24}{设置字号后再读取字段宽度，以防止
-%   盒子溢出。}
 % 在 \env{minipage} 环境中输出各字段。用循环实现。
 %    \begin{macrocode}
       \begin{minipage} [ c ] { \textwidth }
@@ -5445,7 +5440,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   \c_@@_def_cover_title_en_width_tl,
 %   \c_@@_def_cover_info_left_width_tl,
 %   \c_@@_def_cover_instructors_width_tl}
-% \changes{v0.6}{2017/11/24}{改为固定值（单位取为 \si{bp}）。}
 % 封面中的一些长度。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_cover_id_width_tl          { 120 bp }
