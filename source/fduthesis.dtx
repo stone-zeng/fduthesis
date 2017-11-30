@@ -46,50 +46,74 @@
 %</internal>
 %
 %<*readme>
-# fduthesis
+The `fduthesis` Class
+=====================
 
-[![Build Status](https://travis-ci.org/Stone-Zeng/fduthesis.svg?branch=master)](https://travis-ci.org/Stone-Zeng/fduthesis)
-[![GitHub release](https://img.shields.io/github/release/Stone-Zeng/fduthesis/all.svg)](https://github.com/Stone-Zeng/fduthesis/releases/latest)
+*LaTeX thesis template for Fudan University, v0.6*
 
-## 欢迎使用 fduthesis - 复旦大学论文模板！
+Overview
+--------
 
-在您使用 `fduthesis` 之前，请务必仔细阅读模板文档
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.5/fduthesis.pdf)。
-该文档也可通过如下命令生成：
+`fduthesis` is a thesis template for Fudan University. This template
+is mostly written in LaTeX3, with a simple interface for users.
 
-    latexmk fduthesis.dtx
+At present, only XeTeX, LuaTeX and [ApTeX](https://github.com/clerkma/ptex-ng)
+(experimental) are supported.
 
-若需要生成模板各部件，请执行如下命令：
+The documentation can be found in
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.pdf)
+(in Chinese) or
+[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis-en.pdf)
+(in English).
 
-    xetex fduthesis.dtx
+Installation
+------------
 
-### 许可证
+To install `fduthesis`, you can use one of the following methods:
 
-本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)
-(版本 1.3c 或更高)。
+- Download
+  [fduthesis.tds.zip](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip)
+  from GitHub, extract it in the root of one of your TDS trees, and
+  update the filename database.
 
-<br></br>
+- Get the source (`microtype.zip`) from GitHub:
 
-## Welcome to fduthesis - LaTeX thesis template for Fudan University!
+      git clone https://github.com/Stone-Zeng/fduthesis.git
 
-Before you using `fduthesis`, please read the document
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.5/fduthesis.pdf)
-carefully. This file can be generated with the following commands
-as well:
+  Run
 
-    latexmk fduthesis.dtx
+      xetex fduthesis.dtx
 
-If you want to get all components of `fduthesis`, please execute the
-following commands:
+  to generate the templates and configuration files. Then move the
+  following files into a directory where LaTeX will find them (e.g.
+  `TEXMF/tex/latex/fduthesis/`):
 
-    xetex fduthesis.dtx
+  - `fduthesis.cls`
+  - `fduthesis-en.cls`
+  - `fduthesis.def`
+  - `fduthesis-user.def`
+  - `fdulogo.sty`
 
-### License
+  Do not forget to update the filename database afterwards.
+
+Contributing
+------
+
+[Issues](https://github.com/Stone-Zeng/fduthesis/issues) and
+[pull requests](https://github.com/Stone-Zeng/fduthesis/pulls)
+are always welcome.
+
+License
+-------
 
 This work may be distributed and/or modified under the conditions of
 the [LaTeX Project Public License](http://www.latex-project.org/lppl.txt),
 either version 1.3c of this license or (at your option) any later
 version.
+
+-----
+
+Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %</readme>
 %
 %<*internal>
@@ -857,13 +881,16 @@ version.
 %^^A! methods:
 %^^A+
 % \begin{latexexample}[morekeywords={\fdusetup},%
-%     emph={[1]style,cjkfont,fontsize,info,author,department,title}]
+%     emph={[1]style,cjkfont,fontsize,info,title,title*,author,author*,department}]
 %   \fdusetup{
 %     style = {cjkfont = adobe, fontsize = -4},
 %     info  = {
+%       title      = {关于光产生和转变的一个启发性观点},
+%       title*     = {On a Heuristic Viewpoint Concerning the Production
+%         and Transformation of Light},
 %       author     = {阿尔伯特·爱因斯坦},
-%       department = {物理学系},
-%       title      = {关于光产生和转变的一个启发性观点}
+%       author*    = {Albert Einstein},
+%       department = {物理学系}
 %     }
 %   }
 % \end{latexexample}
@@ -872,13 +899,16 @@ version.
 %^^A! or
 %^^A+
 % \begin{latexexample}[morekeywords={\fdusetup},%
-%     emph={[1]style,cjkfont,fontsize,info,author,department,title}]
+%     emph={[1]style,cjkfont,fontsize,info,title,title*,author,author*,department}]
 %   \fdusetup{
 %     style/cjkfont   = adobe,
 %     style/fontsize  = -4,
+%     info/title      = {关于光产生和转变的一个启发性观点},
+%     info/title*     = {On a Heuristic Viewpoint Concerning the Production
+%       and Transformation of Light},
 %     info/author     = {阿尔伯特·爱因斯坦},
-%     info/department = {物理学系},
-%     info/title      = {关于光产生和转变的一个启发性观点}
+%     info/author*    = {Albert Einstein},
+%     info/department = {物理学系}
 %   }
 % \end{latexexample}
 %^^A-
@@ -1518,10 +1548,10 @@ version.
 %
 % 在本模板中，前置部分包含目录、中英文摘要以及符号表等。
 % 前置部分的页码采用小写罗马字母，并且与正文分开计数。
-%^^A! In \cls{fduthesis}, front matter contains table of contents,
-%^^A! abstracts and notation list. The page numbers in front matter
-%^^A! will be shown in lowercase Roman numerals, and will be counted
-%^^A! separately with main matter.
+%^^A! Front matter contains table of contents, abstracts and notation
+%^^A! list. The page numbers in front matter will be shown in
+%^^A! lowercase Roman numerals, and will be counted separately with
+%^^A! main matter.
 %^^A!
 %
 % \begin{function}{\tableofcontents}
@@ -1761,7 +1791,7 @@ version.
 %^^A!   \begin{fdusyntax}[deletetexcs={\bibliography},morekeywords={\bibliography}]
 %^^A!     \bibliography(*\marg{bib file}*)
 %^^A!   \end{fdusyntax}
-%^^A!   Specify the bibliography database (\file{bib} files). You
+%^^A!   Specify the bibliography database (\file{bib} file). You
 %^^A!   don't need to type in the ``\file{.bib}'' suffix. If using
 %^^A!   more than one files, the file names should be separated with
 %^^A!   comma.
