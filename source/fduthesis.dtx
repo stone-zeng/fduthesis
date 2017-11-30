@@ -92,6 +92,7 @@ To install `fduthesis`, you can use one of the following methods:
   - `fduthesis-en.cls`
   - `fduthesis.def`
   - `fduthesis-user.def`
+  - `fdudoc.cls`
   - `fdulogo.sty`
 
   Do not forget to update the filename database afterwards.
@@ -212,9 +213,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 \Msg{*     fduthesis-en.cls                                      *}
 \Msg{*     fduthesis.def                                         *}
 \Msg{*     fduthesis-user.def                                    *}
+\Msg{*     fdudoc.cls                                            *}
 \Msg{*     fdulogo.sty                                           *}
 \Msg{*                                                           *}
-\Msg{* To produce the documentation run the file fduthesis.dtx   *}
+\Msg{* To produce the documentation, run the file fduthesis.dtx  *}
 \Msg{* through XeLaTeX.                                          *}
 \Msg{*                                                           *}
 \Msg{* Happy TeXing!                                             *}
@@ -318,6 +320,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A!     section = {name = {}, format+ = \raggedright},
 %^^A!     subsubsection/tocline = {\CTEXnumberline{#1}#2}
 %^^A!   }
+%^^A! \pagestyle{headings}
 %^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 %^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 %^^A! \newcommand\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
@@ -512,33 +515,90 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A!
 %
 % 本模板目前暂未上传至 CTAN，您需要从 GitHub 上自行下载并安装。
-% 具体方法如下：
+% 较好的方法是使用 TDS 安装包：
+% \begin{itemize}
+%   \item 从 GitHub 上下载 \cls{fduthesis} 的
+%     \href{https://git.io/vbIN2}{TDS 安装包}；
+%   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
+%     发行版的本地 TDS 根目录；
+%   \item 执行 \bashcmd{texhash} 刷新文件名数据库以完成安装。
+% \end{itemize}
+% \begin{itemize}
+%^^A! At present, \cls{fduthesis} hasn't been uploaded to CTAN, so
+%^^A! you need to download and install it from GitHub. Recommended
+%^^A! way is to use the TDS ZIP file:
+%^^A! \begin{itemize}
+%^^A!   \item Download the href{https://git.io/vbIN2}{TDS ZIP file}
+%^^A!     for \cls{fduthesis};
+%^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
+%^^A!     local TDS directory of \TeX{} distribution.
+%^^A!   \item Run \bashcmd{texhash} to update the ls-R database.
+%^^A! \end{itemize}
+%^^A
+% 您也可以从源代码直接生成模板（不推荐）：
 % \begin{itemize}
 %   \item 打开 \href{https://github.com/Stone-Zeng/fduthesis}^^A
 %     {项目主页}，点击“Clone or download”，并选择“Download ZIP”，
-%     下载 \file{fduthesis-master.zip}。
-%   \item 解压安装包 \file{fduthesis-master.zip} 以后，将
-%     \file{test} 文件夹下的模板文档类文件 \file{fduthesis.cls}、
-%     \file{fduthesis-en.cls} 以及参数配置文件
-%     \file{fduthesis.def}、\file{fduthesis-user.def} 复制到您的
-%     工作文件夹（\TeX{} 论文文件所在的文件夹）中，方可完成安装。
+%     下载 \file{fduthesis-master.zip}；如果您的电脑中安装有 git
+%     程序，也可通过以下命令直接克隆代码仓库：
+%     \begin{shellexample}[gobble=7,alsoletter={.},^^A
+%         morekeywords={git,clone}]
+%       git clone https://github.com/Stone-Zeng/fduthesis.git
+%     \end{shellexample}
+%   \item 解压并进入到 \file{source} 文件夹，执行以下命令以生成
+%     模板的各组件：
+%     \begin{shellexample}[gobble=7,morekeywords={xetex}]
+%       xetex fduthesis.dtx
+%     \end{shellexample}
+%   \item 将生成的文档类（\file{.cls}）、宏包（\file{.sty}）以及
+%     参数配置文件（\file{.def}）复制到您的工作文件夹（论文源文件
+%     所在目录）中，方可完成安装。
+%   \item 也可将上述生成文件复制到 \TeX{} 发行版本地 TDS 树的
+%     \path{texmf-local/tex/latex/fduthesis/} 目录下，并执行
+%     \bashcmd{texhash} 刷新文件名数据库。
 % \end{itemize}
-%
-% 注：这是一条缓兵之计。
+%^^A! Though not recommended, you may generate the whole template
+%^^A! from source code as well:
+%^^A! \begin{itemize}
+%^^A!   \item Open the project's \href{https://github.com/Stone-Zeng/fduthesis}%
+%^^A!     {homepage}, click ``Clone or download'' and choose
+%^^A!     ``Download ZIP'' to download \file{fduthesis-master.zip}.
+%^^A!     If you have git program on your computer, you can also
+%^^A!     clone the repository directly:
+%^^A!     \begin{shellexample}[gobble=5,alsoletter={.},%
+%^^A!         morekeywords={git,clone}]
+%^^A!       git clone https://github.com/Stone-Zeng/fduthesis.git
+%^^A!     \end{shellexample}
+%^^A!   \item Extract files, and get into the \file{source} directory.
+%^^A!     Run the following command to generate all the components:
+%^^A!     \begin{shellexample}[gobble=5,morekeywords={xetex}]
+%^^A!       xetex fduthesis.dtx
+%^^A!     \end{shellexample}
+%^^A!   \item Copy the generated document classes (\file{.cls}),
+%^^A!     packages (\file{.sty}) and configuration files (\file{.def})
+%^^A!     into your working directory (where you put the source code
+%^^A!     of your thesis).
+%^^A!   \item (\emph{Optional}) You may also copy these files into
+%^^A!     \path{texmf-local/tex/latex/fduthesis/} under the local TDS
+%^^A!     tree of \TeX{} distribution. Then run \bashcmd{texhash} to
+%^^A!     update the ls-R database.
+%^^A! \end{itemize}
+%^^A!
 %
 % \subsection{模板组成}
 %^^A! \subsection{Composition of the template}
 %^^A!
 %
-% 本模板主要包含核心文档类、配置文件、用户文档等几个部分，
-% 其具体组成见表~\ref{tab:fduthesis-components}。
+% 本模板主要包含核心文档类、配置文件、附属宏包以及用户文档等几个
+% 部分，其具体组成见表~\ref{tab:fduthesis-components}。
 %^^A! There are several parts in \cls{fduthesis}, including kernel
-%^^A! template classes, configuration files and user's guides. More
-%^^A! details are listed in table~\ref{tab:fduthesis-components}.
+%^^A! template classes, configuration files, affiliated packages and
+%^^A! user's guides. More details are listed in table~%
+%^^A! \ref{tab:fduthesis-components}.
 %^^A!
 %
 % \begin{table}[ht]
-%   \caption{\cls{fduthesis} 的组成}
+%   \caption{\cls{fduthesis} 的主要组成部分}
 %   \label{tab:fduthesis-components}
 %   \centering
 %   \begin{tabular}{lp{24em}}
@@ -551,15 +611,16 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %       \cls{fduthesis} 的初始参数，不建议您自行改动 \\
 %     \file{fduthesis-user.def} & 用户配置文件，可根据您的需求进行
 %       修改，默认为空 \\
-%     \file{fduthesis.dtx}      & 模板源文件，包含源代码、注释以及
-%       文档，同时集成有安装文件 \file{fduthesis.ins} \\
+%     \file{fdudoc.cls}         & 用户手册文档类 \\
+%     \file{fdulogo.sty}        & 复旦大学视觉识别系统 \\
 %     \file{README.md}          & 简要自述 \\
-%     \file{fduthesis.pdf}      & 用户手册（本文档） \\
+%     \file{fduthesis.pdf}      & 中文用户手册（本文档） \\
+%     \file{fduthesis-en.pdf}   & 英文用户手册 \\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
 %^^A! \begin{table}[ht]
-%^^A!   \caption{The components of \cls{fduthesis}}
+%^^A!   \caption{The main components of \cls{fduthesis}}
 %^^A!   \label{tab:fduthesis-components}
 %^^A!   \centering
 %^^A!   \begin{tabular}{lp{24em}}
@@ -572,23 +633,19 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A!       for \cls{fduthesis}. Please do \emph{not} modify it. \\
 %^^A!     \file{fduthesis-user.def} & User profile and you may modify
 %^^A!       it if necessary. This is an empty file by default. \\
-%^^A!     \file{fduthesis.dtx}      & Source file of \cls{fduthesis},
-%^^A!       including source code, comments and documentation. \\
+%^^A!     \file{fdudoc.cls}         & Document class for user guides. \\
+%^^A!     \file{fdulogo.sty}        & Fudan University's visual identity. \\
 %^^A!     \file{README.md}          & The brief introduction. \\
-%^^A!     \file{fduthesis.pdf}      & User's guide (this document). \\
+%^^A!     \file{fduthesis.pdf}      & User's guide in Chinese. \\
+%^^A!     \file{fduthesis-en.pdf}   & User's guide in English (this
+%^^A!       document). \\
 %^^A!     \bottomrule
 %^^A!   \end{tabular}
 %^^A! \end{table}
 %^^A!
 %
-% 模板中的绝大多数文件，均可由 \file{fduthesis.dtx} 导出。
-% 在命令行中执行
-% \begin{shellexample}[morekeywords={xetex}]
-%   xetex fduthesis.dtx
-% \end{shellexample}
-% 可生成各导出文件；而要生成用户手册 \file{fduthesis.pdf}，则需执行
-% \begin{shellexample}[morekeywords={xelatex,makeindex},%
-%     emph={-o,-s,-t}]
+% 如需生成用户手册 \file{fduthesis.pdf}，可在命令行中执行
+% \begin{shellexample}[morekeywords={xelatex,makeindex},emph={-o,-s,-t}]
 %   xelatex fduthesis.dtx
 %   makeindex -s gind.ist -o fduthesis.ind fduthesis.idx
 %   makeindex -s gglo.ist -o fduthesis.gls -t fduthesis.glg fduthesis.glo
@@ -717,7 +774,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 需要注意，请不要把模板中的配置文件 \file{latexmkrc} 放置在工作
 % 文件夹下。该配置文件仅适用于生成模板用户手册。
 %^^A! Note that you should not put the profile \file{latexmkrc} in
-%^^A! your working directories. This file is meant to generate the
+%^^A! your working directory. This file is meant to generate the
 %^^A! user's guide.
 %^^A!
 %
