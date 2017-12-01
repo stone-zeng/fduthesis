@@ -1,67 +1,62 @@
 # fduthesis
 
-[![Build Status](https://travis-ci.org/Stone-Zeng/fduthesis.svg?branch=master)](https://travis-ci.org/Stone-Zeng/fduthesis)
+[![Build Status](https://img.shields.io/travis/Stone-Zeng/fduthesis.svg)](https://travis-ci.org/Stone-Zeng/fduthesis)
 [![GitHub release](https://img.shields.io/github/release/Stone-Zeng/fduthesis/all.svg)](https://github.com/Stone-Zeng/fduthesis/releases/latest)
 
 ## 欢迎使用 fduthesis - 复旦大学论文模板！
 
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.5/fduthesis.pdf)。
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.pdf)。
 该文档也可通过如下命令生成：
 
-    latexmk fduthesis.dtx
+```shell
+latexmk fduthesis.dtx
+```
 
 若需要生成模板各部件，请执行如下命令：
 
-    xetex fduthesis.dtx
+```shell
+xetex fduthesis.dtx
+```
 
-### 模板组成
+**重要提醒：** 本模板未经学校相关部门审核及授权，使用前请斟酌。
+任何由于使⽤本模板⽽引起的论⽂格式审查问题均与本模板作者⽆关。
 
-- `source/`             源代码
-  - `fduthesis.dtx`       模板代码、注释及文档
-  - `fduthesis-doc.dtx`   `fdudoc` 文档类代码
-  - `fduthesis-logo.dtx`  `fdulogo` 宏包代码
-  - `get-doc-en.lua`      英文文档生成脚本
+### 贡献
 
-- `test/`               测试文件
-  - `test.tex`            测试论文
-  - `test-en.tex`         测试论文（英文版）
-  - `test.bib`            参考文献数据库
-
-- `support/`            Travis CI 支持文件
-  - `texlive.sh`          安装最新版本 TeX Live
-  - `texlive.profile`     TeX Live 环境变量配置
-  - `local.sh`            安装本地宏包及相关字体
-  - `run.sh`              执行测试命令
-
-- `.gitattributes`      Git 属性文件
-
-- `.gitignore`          Git 忽略文件
-
-- `.travis.yml`         Travis CI 配置文件
-
-- `README.md`           自述文件（本文档）
+如果您有任何改进意见或者功能需求，欢迎提交 [issue](https://github.com/Stone-Zeng/fduthesis/issues)
+或 [pull request](https://github.com/Stone-Zeng/fduthesis/pulls)。
 
 ### 许可证
 
 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)
 (版本 1.3c 或更高)。
 
-<br>
+<br></br>
 
 ## Welcome to fduthesis - LaTeX thesis template for Fudan University!
 
 Before you using `fduthesis`, please read the document
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.5/fduthesis.pdf)
-carefully. This file can be generated with the following commands
-as well:
+[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis-en.pdf)
+carefully.
 
-    latexmk fduthesis.dtx
-
-If you want to get all components of `fduthesis`, please excute the
+If you want to get all components of `fduthesis`, please execute the
 following commands:
 
-    xetex fduthesis.dtx
+```shell
+xetex fduthesis.dtx
+```
+
+**WARNING:** `fduthesis` has not reviewed or authorized by any
+department of Fudan University. Any problem of format censorship
+caused by the use of `fduthesis` will not be concerned by the
+template author.
+
+### Contributing
+
+[Issues](https://github.com/Stone-Zeng/fduthesis/issues) and
+[pull requests](https://github.com/Stone-Zeng/fduthesis/pulls)
+are always welcome.
 
 ### License
 
