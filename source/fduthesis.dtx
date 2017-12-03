@@ -4473,12 +4473,11 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_line_spread:n,\fdu_line_spread:N}
+% \begin{macro}{\fdu_line_spread:n}
 % 设置行距。|#1|: 行距倍数。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_line_spread:n #1
   { \linespread {#1} \selectfont }
-\cs_generate_variant:Nn \fdu_line_spread:n { N }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4587,7 +4586,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
         \l_@@_info_title_en_tl
         {
           \@@_cover_font_size_normal: \bfseries
-          \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_tl
+          \fdu_line_spread:n
+            { \fp_use:N \c_@@_def_cover_title_en_line_spread_fp }
         }
     \end{center}
   }
@@ -4666,7 +4666,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \begin{macrocode}
     \@@_fixed_width_box:Vnn \textwidth
       { \@@_qquad: #2 }
-      { \fdu_line_spread:N \c_@@_def_decl_text_line_spread_tl }
+      {
+        \fdu_line_spread:n
+          { \fp_use:N \c_@@_def_decl_text_line_spread_fp }
+      }
     \skip_vertical:n { \c_@@_def_decl_v_sep_iv_tl }
 %    \end{macrocode}
 % \tn{hfill} 用来确保签名行靠右对齐。
@@ -5330,8 +5333,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
 % 的大小，\SI{20}{pt} 是行距固定值。
 %    \begin{macrocode}
-\fp_const:Nn \c_@@_def_line_spread_fp
-  { ( 20 pt ) / ( 12 bp ) / 1.2 }
+\fp_const:Nn \c_@@_def_line_spread_fp { ( 20 pt ) / ( 12 bp ) / 1.2 }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -5472,10 +5474,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_cover_title_en_line_spread_tl}
+% \begin{variable}[int]{\c_@@_def_cover_title_en_line_spread_fp}
 % 英文标题的行距倍数。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_title_en_line_spread_tl { 1.2 }
+\fp_const:Nn \c_@@_def_cover_title_en_line_spread_fp { 1.2 }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -5495,10 +5497,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_decl_text_line_spread_tl}
+% \begin{variable}[int]{\c_@@_def_decl_text_line_spread_fp}
 % 声明文本的行距倍数。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_decl_text_line_spread_tl { 1.8 }
+\fp_const:Nn \c_@@_def_decl_text_line_spread_fp { 1.8 }
 %    \end{macrocode}
 % \end{variable}
 %

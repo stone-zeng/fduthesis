@@ -32,7 +32,7 @@ xetex fduthesis.dtx
 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)
 (版本 1.3c 或更高)。
 
-<br></br>
+<br>
 
 ## Welcome to fduthesis - LaTeX thesis template for Fudan University!
 
