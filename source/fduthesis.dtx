@@ -2242,6 +2242,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[int]{\@@_arabic:n}
+% 等价于 \LaTeXe{} 中的 \tn{arabic}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_arabic:n #1
+  { \exp_args:Nv \int_to_arabic:n { c@ #1 } }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}[int]{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
 % 补丁工具，来自 \pkg{ctexpatch} 宏包。
 %    \begin{macrocode}
@@ -3362,7 +3370,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %</class-en>
         beforeskip  = \c_@@_def_chapter_before_sep_tl,
         afterskip   = \c_@@_def_chapter_after_sep_tl,
-        number      = { \arabic { chapter } },
+        number      = { \@@_arabic:n { chapter } },
         fixskip     = true
       },
     section =
@@ -4040,7 +4048,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 这里将其加上。
 %    \begin{macrocode}
         \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
-        \fdu_thm_new_no_number:Vnn \l_@@_thm_style_tl {#3} {#4}
+        \fdu_thm_new_no_number:Vxx \l_@@_thm_style_tl {#3} {#4}
       }
       {
 %    \end{macrocode}
@@ -4054,7 +4062,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
             \@@_error:nx { unknown-theorem-style }
               { \l_@@_thm_style_tl }
           }
-        \fdu_thm_new:VVnn \l_@@_thm_style_tl \l_@@_thm_counter_tl
+        \fdu_thm_new:VVxx \l_@@_thm_style_tl \l_@@_thm_counter_tl
           {#3} {#4}
       }
   }
@@ -4081,7 +4089,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   { Theorem~ style~ "#1"~ is~ unknown. }
 %    \end{macrocode}
 %
-% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:VVnn}
+% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:VVxx}
 % 带编号的定理环境。
 % \begin{arguments}
 %   \item 样式
@@ -4095,12 +4103,12 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     \theoremstyle {#1}
     \newtheorem {#3} {#4} [#2]
   }
-\cs_generate_variant:Nn \fdu_thm_new:nnnn { VVnn }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { VVxx }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\fdu_thm_new_no_number:nnn,
-%   \fdu_thm_new_no_number:Vnn}
+%   \fdu_thm_new_no_number:Vxx}
 % 不带编号的定理环境。
 % \begin{arguments}
 %   \item 样式
@@ -4113,7 +4121,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     \theoremstyle {#1}
     \newtheorem {#2} {#3}
   }
-\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vnn }
+\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vxx }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4157,9 +4165,9 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 重定义图表编号。
 %    \begin{macrocode}
 \RenewDocumentCommand \thefigure { }
-  { \arabic { chapter } - \arabic { figure } }
+  { \@@_arabic:n { chapter } - \@@_arabic:n { figure } }
 \RenewDocumentCommand \thetable  { }
-  { \arabic { chapter } - \arabic { table  } }
+  { \@@_arabic:n { chapter } - \@@_arabic:n { table  } }
 %    \end{macrocode}
 % \end{macro}
 %
