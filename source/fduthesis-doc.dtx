@@ -240,7 +240,7 @@
 %    \end{macrocode}
 % 设置代码段结束标记为“\verb*|%    \end{macrocode}^^M|”。
 %    \begin{macrocode}
-    \exp_args:Nx \@@_make_finish_tag:n { \@currenvir }
+    \@@_make_finish_tag:x { \@currenvir }
 %    \end{macrocode}
 % 开始 \env{macrocode}。
 %    \begin{macrocode}
@@ -293,7 +293,7 @@
   \char_set_catcode_active:n { 13 }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_make_finish_tag:n}
+% \begin{macro}[int]{\@@_make_finish_tag:n,\@@_make_finish_tag:x}
 % \env{macrocode} 结尾标记。展开后变成
 % “\verb*|%    \end{#1}^^M|”。
 %    \begin{macrocode}
@@ -309,6 +309,7 @@
           \exp_not:N ^^M
         }
     }
+  \cs_generate_variant:Nn \@@_make_finish_tag:n { x }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -509,7 +510,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
-    \exp_args:Nx \str_case:nnF { \str_head:n {#1} }
+    \str_case_x:nnF { \str_head:n {#1} }
       {
         { * } { \@@_module_star:w }
         { / } { \@@_module_slash:w }
@@ -696,10 +697,8 @@
 % 检查开头是否为 |%|，据此分别处理。
 %    \begin{macrocode}
         \str_if_eq_x:nnTF
-          { \str_head:N \l_@@_macro_code_line_tl }
-          { \c_percent_str }
-          { \@@_output_comment_line: }
-          { \@@_output_line: }
+          { \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
+          { \@@_output_comment_line: } { \@@_output_line: }
       }
   }
 \cs_new_protected_nopar:Npn \@@_output_line:
@@ -721,8 +720,7 @@
   {
     \tex_noindent:D
     \group_begin:
-      %% According to ctex 0f21e62:
-      % \__fdudoc_swap_cr:
+      \__fdudoc_swap_cr:
       \color { code@gray } \slshape \@@_output_line:
     \group_end:
   }
@@ -730,7 +728,7 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_replace_at_at:N}
-% \begin{macro}[aux]{\@@_replace_at_at_aux:Nn}
+% \begin{macro}[aux]{\@@_replace_at_at_aux:Nn,\@@_replace_at_at_aux:No}
 % 把 |@@| 替换为相应的名字空间。其名称存放在全局变量
 % \cs{g__codedoc_module_name_tl} 中。
 % 它为空时（|%<@@=>|），不做替换。
@@ -738,10 +736,7 @@
 \cs_new_protected:Npn \@@_replace_at_at:N #1
   {
     \tl_if_empty:NF \g__codedoc_module_name_tl
-      {
-        \exp_args:NNo \@@_replace_at_at_aux:Nn
-          #1 \g__codedoc_module_name_tl
-      }
+      { \@@_replace_at_at_aux:No #1 \g__codedoc_module_name_tl }
   }
 \cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
   {
@@ -757,20 +752,18 @@
     \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
     \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
   }
+\cs_generate_variant:Nn \@@_replace_at_at_aux:Nn { No }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_module_push:n}
-% \begin{macro}[aux]{\@@_module_push_aux:nn}
+% \begin{macro}[aux]{\@@_module_push_aux:nn,\@@_module_push_aux:on}
 % 将模块名压入栈中。此处的栈主要用来处理模块名（包括抄录标记）
 % 之间的超链接。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_push:n
-  {
-    \exp_args:No \@@_module_push_aux:nn
-      { \int_use:N \c@HD@hypercount }
-  }
+  { \@@_module_push_aux:on { \int_use:N \c@HD@hypercount } }
 \cs_new_protected:Npn \@@_module_push_aux:nn #1
   {
     \seq_gpush:Nn \g_@@_module_dest_seq {#1}
@@ -778,21 +771,19 @@
     \exp_args:Nx \hdclindex
       { \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
   }
+\cs_generate_variant:Nn \@@_module_push_aux:nn { on }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_module_pop:n}
-% \begin{macro}[aux]{\@@_module_pop_aux:nn}
+% \begin{macro}[aux]{\@@_module_pop_aux:nn,\@@_module_pop_aux:on}
 % 将模块名释放出栈。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_pop:n
   {
     \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
-      {
-        \exp_args:No \@@_module_pop_aux:nn
-          { \l_@@_tmpa_tl }
-      }
+      { \@@_module_pop_aux:on { \l_@@_tmpa_tl } }
       { \BOOM \use:n }
   }
 \cs_new_protected:Npn \@@_module_pop_aux:nn #1
@@ -801,6 +792,7 @@
     \hypersetup { hidelinks }
     \hdclindex {#1} { }
   }
+\cs_generate_variant:Nn \@@_module_pop_aux:nn { on }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}

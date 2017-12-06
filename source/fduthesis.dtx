@@ -2220,11 +2220,18 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{内部函数}
 %
-% \begin{macro}[int]{\keys_define:nx}
+% \begin{macro}[int]{\cs_generate_variant:cn,\int_to_arabic:v,
+%   \keys_define:nx}
+% \begin{macro}[int,TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
-\cs_generate_variant:Nn \keys_define:nn { nx }
+\cs_generate_variant:Nn \cs_generate_variant:Nn { cn   }
+\cs_generate_variant:Nn \int_to_arabic:n        { v    }
+\cs_generate_variant:Nn \keys_define:nn         { nx   }
+\cs_generate_variant:Nn \tl_if_eq:nnT           { VnT  }
+\cs_generate_variant:Nn \tl_if_eq:nnTF          { VnTF }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_quad:,\@@_qquad:}
@@ -2246,7 +2253,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 等价于 \LaTeXe{} 中的 \tn{arabic}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_arabic:n #1
-  { \exp_args:Nv \int_to_arabic:n { c@ #1 } }
+  { \int_to_arabic:v { c@ #1 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2864,10 +2871,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 生成字体设定函数的变体。
 %    \begin{macrocode}
 \clist_map_inline:nn { main, sans, mono, math }
-  {
-    \exp_args:Nc \cs_generate_variant:Nn
-      { @@_set_ #1 _font:nn } { VV }
-  }
+  { \cs_generate_variant:cn { @@_set_ #1 _font:nn } { VV } }
 %    \end{macrocode}
 %
 % \begin{macro}[int]{\@@_set_cjk_font:}
@@ -3648,7 +3652,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
         pdfauthor   = \l_@@_info_author_en_tl,
         pdfkeywords = \l_@@_info_keywords_en_clist,
 %</class-en>
-%         pdfsubject  = ,
+%       pdfsubject  = ,
         pdfcreator  = \c_@@_def_name_pdf_creator_tl
       }
 %    \end{macrocode}
@@ -5092,15 +5096,13 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   {
     \tl_if_empty:NTF \l_@@_bib_style_tl
       {
-        \exp_args:NV \tl_if_eq:nnTF \l_@@_bib_gb_style_tl
-          { numerical }
+        \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
           {
             \bibliographystyle { gbt-7714-2015-numerical }
             \@@_set_cite_style_numerical:
           }
           {
-            \exp_args:NV \tl_if_eq:nnT \l_@@_bib_gb_style_tl
-              { authoryear }
+            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { authoryear }
               {
                 \bibliographystyle { gbt-7714-2015-author-year }
                 \@@_set_cite_style_author_year:

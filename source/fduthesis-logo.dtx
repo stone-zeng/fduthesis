@@ -77,7 +77,7 @@
 %    \begin{macrocode}
 \NewDocumentCommand \fduemblem { t+ s O { } }
   {
-    \exp_args:Nc \@@_tikz:Nx
+    \@@_tikz:cx
       {
         \IfBooleanTF {#1}
           {
@@ -107,7 +107,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_tikz:Nn,\@@_tikz:Nx}
+% \begin{macro}[int]{\@@_tikz:Nn,\@@_tikz:Nx,\@@_tikz:cx}
 % 对 \env{tikzpicture} 环境的封装。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tikz:Nn #1#2
@@ -116,7 +116,7 @@
       #1
     \end{tikzpicture}
   }
-\cs_generate_variant:Nn \@@_tikz:Nn { Nx }
+\cs_generate_variant:Nn \@@_tikz:Nn { Nx, cx }
 %    \end{macrocode}
 % \end{macro}
 %
