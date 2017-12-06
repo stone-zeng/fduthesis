@@ -242,7 +242,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install|ex-logo|cover)>
 %<*driver>
-%\PassOptionsToPackage{showframe}{geometry}
+\PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
 \usepackage{xpinyin}
 \hypersetup
@@ -510,7 +510,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 较好的方法是使用 TDS 安装包：
 % \begin{itemize}
 %   \item 从 GitHub 上下载 \cls{fduthesis} 的
-%     \href{https://git.io/vbIKa}{TDS 安装包}；
+%     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip}{TDS 安装包}；
 %   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
 %     发行版的本地 TDS 根目录；
 %   \item 执行 \bashcmd{texhash} 刷新文件名数据库以完成安装。
@@ -519,8 +519,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! you need to download and install it from GitHub. Recommended
 %^^A! way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
-%^^A!   \item Download the href{https://git.io/vbIKa}{TDS ZIP file}
-%^^A!     for \cls{fduthesis};
+%^^A!   \item Download the href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip}%
+%^^A!     {TDS ZIP file} for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.
 %^^A!   \item Run \bashcmd{texhash} to update the ls-R database.
@@ -2272,14 +2272,17 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \end{macro}
 %
 % \begin{macro}[int]{\@@_msg_new:nn,
-%   \@@_error:n,\@@_error:nn,\@@_error:nnn,\@@_warning:n}
+%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,
+%   \@@_warning:n,\@@_warning:nxx}
 % 各种信息函数的缩略形式。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_msg_new:nn { \msg_new:nnn    { fduthesis } }
-\cs_new_protected:Npn \@@_error:n    { \msg_error:nn   { fduthesis } }
-\cs_new_protected:Npn \@@_error:nn   { \msg_error:nnn  { fduthesis } }
-\cs_new_protected:Npn \@@_error:nnn  { \msg_error:nnnn { fduthesis } }
-\cs_new_protected:Npn \@@_warning:n  { \msg_warning:nn { fduthesis } }
+\cs_new:Npn \@@_msg_new:nn  { \msg_new:nnn      { fduthesis } }
+\cs_new:Npn \@@_error:n     { \msg_error:nn     { fduthesis } }
+\cs_new:Npn \@@_error:nn    { \msg_error:nnn    { fduthesis } }
+\cs_new:Npn \@@_error:nx    { \msg_error:nnx    { fduthesis } }
+\cs_new:Npn \@@_error:nnn   { \msg_error:nnnn   { fduthesis } }
+\cs_new:Npn \@@_warning:n   { \msg_warning:nn   { fduthesis } }
+\cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { fduthesis } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3317,8 +3320,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \begin{macrocode}
 \@@_msg_new:nn { mapping-not-available }
   {
-    Option~ "fullwidthstop = mapping"~ is~ not~ available~ in~
-    LuaTeX. \\
+    Option~ "fullwidthstop = mapping"~ is~ not~ available~ in~ LuaTeX. \\
     "fullwidthstop = catcode"~ will~ be~ set~ instead.
   }
 %    \end{macrocode}
@@ -3983,7 +3985,103 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:Vnnn}
+% \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
+% 创建新的定理环境。
+%    \begin{macrocode}
+\NewDocumentCommand \fdunewtheorem { s o m m }
+  {
+%    \end{macrocode}
+% 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
+% \cs{QED}，而由 \cs{fdu\-new\-the\-orem} 创建的则不带证毕符号。符号
+% \cs{QED} 由 \pkg{unicode-math} 宏包提供。
+%    \begin{macrocode}
+    \IfBooleanTF {#1}
+      { \tl_set:Nn \l_@@_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l_@@_thm_qed_tl { } }
+%    \end{macrocode}
+% 设置默认样式为 \opt{plain}。
+%    \begin{macrocode}
+    \tl_set:Nn \l_@@_thm_style_tl { plain }
+%    \end{macrocode}
+% 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
+% 定理头字体和定理正文字体。
+%    \begin{macrocode}
+    \IfValueT {#2} { \keys_set:nn { fdu / theorem } {#2} }
+    \fdu_thm_set_header_font:V \l_@@_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l_@@_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l_@@_thm_qed_tl
+%    \end{macrocode}
+% \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
+% 则负责创建无编号定理。以下分这两种情况处理。
+%    \begin{macrocode}
+    \IfBooleanTF {#1}
+      {
+%    \end{macrocode}
+% 带 |*| 的版本原则上只接受 \opt{plain} 和 \opt{break} 两种样式，
+% 其余样式将被转换成这两者其中之一。
+%    \begin{macrocode}
+        \clist_if_in:nVF { plain, break } \l_@@_thm_style_tl
+          {
+            \clist_if_in:NVTF
+              \c_@@_thm_style_plain_clist \l_@@_thm_style_tl
+              { \@@_thm_redefine_style:n { plain } }
+              {
+                \clist_if_in:NVTF
+                  \c_@@_thm_style_break_clist \l_@@_thm_style_tl
+                  { \@@_thm_redefine_style:n { break } }
+                  {
+                    \@@_error:nx { unknown-theorem-style }
+                      { \l_@@_thm_style_tl }
+                  }
+              }
+          }
+%    \end{macrocode}
+% \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
+% 这里将其加上。
+%    \begin{macrocode}
+        \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
+        \fdu_thm_new_no_number:Vnn \l_@@_thm_style_tl {#3} {#4}
+      }
+      {
+%    \end{macrocode}
+% 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式。
+%    \begin{macrocode}
+        \clist_clear:N \l_@@_tmpa_clist
+        \clist_concat:NNN \l_@@_tmpa_clist
+          \c_@@_thm_style_plain_clist \c_@@_thm_style_break_clist
+        \clist_if_in:NVF \l_@@_tmpa_clist \l_@@_thm_style_tl
+          {
+            \@@_error:nx { unknown-theorem-style }
+              { \l_@@_thm_style_tl }
+          }
+        \fdu_thm_new:VVnn \l_@@_thm_style_tl \l_@@_thm_counter_tl
+          {#3} {#4}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_thm_redefine_style:n}
+% 重定义定理类型。
+%    \begin{macrocode}
+\cs_new:Npn \@@_thm_redefine_style:n #1
+  {
+    \@@_warning:nxx { redefine-theorem-style }
+      {#1} { \l_@@_thm_style_tl }
+    \tl_set:Nn \l_@@_thm_style_tl {#1}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 提示信息。
+%    \begin{macrocode}
+\@@_msg_new:nn { redefine-theorem-style }
+  { Theorem~ style~ "#2"~ will~ be~ redefined~ as~ "#1". }
+\@@_msg_new:nn { unknown-theorem-style }
+  { Theorem~ style~ "#1"~ is~ unknown. }
+%    \end{macrocode}
+%
+% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:VVnn}
 % 带编号的定理环境。
 % \begin{arguments}
 %   \item 样式
@@ -3997,7 +4095,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     \theoremstyle {#1}
     \newtheorem {#3} {#4} [#2]
   }
-\cs_generate_variant:Nn \fdu_thm_new:nnnn { Vnnn }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { VVnn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4034,80 +4132,6 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 \cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
 \cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
 \cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
-% 创建新的定理环境。
-%    \begin{macrocode}
-\NewDocumentCommand \fdunewtheorem { s o m m }
-  {
-%    \end{macrocode}
-% 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
-% \cs{QED}，而由 \cs{fdu\-new\-the\-orem} 创建的则不带证毕符号。符号
-% \cs{QED} 由 \pkg{unicode-math} 宏包提供。
-%    \begin{macrocode}
-    \IfBooleanTF #1
-      { \tl_set:Nn \l_@@_thm_qed_tl { \ensuremath { \QED } } }
-      { \tl_set:Nn \l_@@_thm_qed_tl { } }
-%    \end{macrocode}
-% 设置默认样式为 \opt{plain}。
-%    \begin{macrocode}
-    \tl_set:Nn \l_@@_thm_style_tl { plain }
-%    \end{macrocode}
-% 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
-% 定理头字体和定理正文字体。
-%    \begin{macrocode}
-    \IfValueT {#2}
-      { \keys_set:nn { fdu / theorem } {#2} }
-    \fdu_thm_set_header_font:V \l_@@_thm_header_font_tl
-    \fdu_thm_set_body_font:V   \l_@@_thm_body_font_tl
-    \fdu_thm_set_qed:V         \l_@@_thm_qed_tl
-%    \end{macrocode}
-% \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
-% 则负责创建无编号定理。以下分这两种情况处理。
-%    \begin{macrocode}
-    \IfBooleanTF #1
-      {
-%    \end{macrocode}
-% 带 |*| 的版本原则上只接受 \opt{plain} 和 \opt{break} 两种样式，
-% 其余样式将被转换成这两者其中之一。\\
-% TODO(20170602): 给出重定义样式的警告。
-%    \begin{macrocode}
-        \clist_if_in:NVTF
-          \c_@@_thm_style_plain_clist
-          \l_@@_thm_style_tl
-          { \tl_set:Nn \l_@@_thm_style_tl { plain } }
-          {
-            \clist_if_in:NVTF
-              \c_@@_thm_style_break_clist
-              \l_@@_thm_style_tl
-              { \tl_set:Nn \l_@@_thm_style_tl { break } }
-% TODO(20170602): 给出样式未定义错误。
-              { }
-          }
-%    \end{macrocode}
-% \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
-% 这里将其加上。
-%    \begin{macrocode}
-        \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
-        \fdu_thm_new_no_number:Vnn \l_@@_thm_style_tl {#3} {#4}
-      }
-      {
-%    \end{macrocode}
-% 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式。
-%    \begin{macrocode}
-        \clist_clear:N \l_@@_tmpa_clist
-        \clist_concat:NNN \l_@@_tmpa_clist
-          \c_@@_thm_style_plain_clist \c_@@_thm_style_break_clist
-        \clist_if_in:NVF
-          \l_@@_tmpa_clist \l_@@_thm_style_tl
-% TODO(20170602): 给出样式未定义错误。
-          { }
-        \fdu_thm_new:Vnnn \l_@@_thm_style_tl
-          { \l_@@_thm_counter_tl } {#3} {#4}
-      }
-  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5123,7 +5147,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\bibpreamble}
+% \begin{macro}{\bibpreamble,\href,\doi}
+% \begin{macro}[int]{\fdu_href:w}
 % \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
 %   超链接，同时又能正确处理 URL 中的特殊符号。}
 % 禁止为文献标题添加超链接。
@@ -5137,11 +5162,12 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 %    \end{macrocode}
 % \end{macro}
+% \end{macro}
 %
 % \begin{macro}[int]{\fdu_nolink_href:w}
 % 不带链接的 \tn{href}，相当于忽略第一个参数。以下代码来自
-% \pkg{hyperref}。我们这里不考虑原始 \tn{href} 的可选参数，也不
-% 考虑它放在参数中的情况。
+% \pkg{hyperref}。这里不考虑原始 \tn{href} 的可选参数，也不考虑
+% 它放在参数中的情况。
 %    \begin{macrocode}
 \cs_new_protected:Npn \fdu_nolink_href:w
   {
