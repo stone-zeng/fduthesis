@@ -1735,7 +1735,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \begin{function}{axiom,corollary,definition,example,lemma,
 %   proof,theorem}
 %   \begin{fdusyntax}[emph={[2]proof}]
-%     \begin{proof}
+%     \begin{proof}(*\oarg{小标题}*)
 %       (*\meta{证明过程}*)
 %     \end{proof}
 %   \end{fdusyntax}
@@ -1744,7 +1744,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! \begin{function}{axiom,corollary,definition,example,lemma,
 %^^A!   proof,theorem}
 %^^A!   \begin{fdusyntax}[emph={[2]proof}]
-%^^A!     \begin{proof}
+%^^A!     \begin{proof}(*\oarg{subheading}*)
 %^^A!       (*\meta{procedure of proof}*)
 %^^A!     \end{proof}
 %^^A!   \end{fdusyntax}
@@ -1778,6 +1778,73 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! as in subsection~\ref{subsec:compilation} in order to make
 %^^A! the position of QED symbol correct.
 %^^A!
+%
+% \begin{function}{\fdunewtheorem}
+%   \begin{fdusyntax}[morekeywords={\fdunewtheorem,\fdunewtheorem*}]
+%     \fdunewtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
+%     \fdunewtheorem*(*\oarg{选项}\marg{环境名}\marg{标题}*)
+%     \begin(*\marg{环境名}\oarg{小标题}*)
+%       (*\meta{内容}*)
+%     \end(*\marg{环境名}*)
+%   \end{fdusyntax}
+%   声明新的定理类环境（数学环境）。带星号的版本表示不进行编号，
+%   并且会默认添加证毕符号“$\QED$”。声明后，即可同预定义的数学环境
+%   一样使用。
+% \end{function}
+%
+% 事实上，表~\ref{tab:theorem} 中预定义的环境正是通过以下方式定义的：
+% \begin{latexexample}[morekeywords={\fdunewtheorem,\fdunewtheorem*}]
+%   \fdunewtheorem*{proof}{证明}
+%   \fdunewtheorem{axiom}{公理}
+%   \fdunewtheorem{corollary}{定理}
+%   ...
+% \end{latexexample}
+%
+% 与 \cs{fdusetup} 相同，\cs{fdunewtheorem} 的可选参数 \meta{选项}
+% 也为一组键值列表。可用的选项见下。注意您无需输入“|theorem/|”。
+%
+% \begin{function}{theorem/style}
+%   \begin{fdusyntax}[emph={[1]style}]
+%     style = (*<(plain)|margin|change|\\
+%       XXXXXX\mbox{}~~~~~~~~break|marginbreak|changebreak>*)
+%   \end{fdusyntax}
+%   定理类环境的总体样式。
+% \end{function}
+%
+% \begin{function}{theorem/headerfont}
+%   \begin{fdusyntax}[emph={[1]headerfont}]
+%     headerfont = (*\marg{字体}*)
+%   \end{fdusyntax}
+%   定理头（即标题）的字体。中文模板默认为 \tn{sffamily}，即无衬线体
+%   （黑体）；英文模板默认为 |\bfseries\upshape|，即加粗直立体。
+% \end{function}
+%
+% \begin{function}{theorem/bodyfont}
+%   \begin{fdusyntax}[emph={[1]bodyfont}]
+%     bodyfont = (*\marg{字体}*)
+%   \end{fdusyntax}
+%   定理内容的字体。中文模板默认为 \tn{fdu@kai}，即楷体；英文模板
+%   默认为 \tn{itshape}，即斜体。
+% \end{function}
+%
+% \begin{function}{theorem/qed}
+%   \begin{fdusyntax}[emph={[1]qed}]
+%     qed = (*\marg{符号}*)
+%   \end{fdusyntax}
+%   定理结束标记（即证毕符号）。如果用 \cs{fdunewtheorem} 声明定理，
+%   则默认为空；用 \cs{fdunewtheorem*} 声明，则默认为
+%   |\ensuremath{\QED}|，即“$\QED$”。
+% \end{function}
+%
+% \begin{function}{theorem/counter}
+%   \begin{fdusyntax}[emph={[1]counter}]
+%     counter = (*\marg{计数器}*)
+%   \end{fdusyntax}
+%   定理计数器，表示定理编号在 \meta{计数器} 的下一级，并会随
+%   \meta{计数器} 的变化而清零。\scite{刘海洋2013latex入门}
+%   默认为 |chapter|，表示按章编号。使用 \cs{fdunewtheorem*}时，
+%   该选项无效。
+% \end{function}
 %
 % \begin{function}{\caption}
 %   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
@@ -2380,7 +2447,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{LuaTeX-ja} 宏包。
-% TODO(20170722): 英文模板中文字体的处理。
+% TODO(2017/07/22): 英文模板中文字体的处理。
 %    \begin{macrocode}
 \RequirePackage
   [
@@ -4013,6 +4080,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % 设置默认样式为 \opt{plain}。
 %    \begin{macrocode}
+% TODO(2017/12/07): 移到后面用户接口部分
     \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
@@ -4074,7 +4142,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \end{macro}
 %
 % \begin{macro}[aux]{\@@_thm_redefine_style:n}
-% 重定义定理类型。
+% 重定义定理样式，并给出警告。
 %    \begin{macrocode}
 \cs_new:Npn \@@_thm_redefine_style:n #1
   {
@@ -5229,7 +5297,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     style   / hyperlinkcolor = default,
     style   / bibstyle       = numerical,
     info    / secretlevel    = none,
-    info    / date           = \zhtoday,
+    info    / date           = { \zhtoday },
     info    / schoolid       = { 10246 },
 %<class>    theorem / headerfont     = { \sffamily },
 %<class-en>    theorem / headerfont     = { \bfseries \upshape },
