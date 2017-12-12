@@ -268,30 +268,18 @@ This is another beautiful lemma.
 \chapter{Theorems (Continued)}
 \newcounter{thm}
 
-\fdunewtheorem[style=plain,qed=\ensuremath{\sin}]{p}{plain}
-\fdunewtheorem[style=margin]{mm}{BREAKINGS}
-\fdunewtheorem[style=change]{fduc}{Changing}
-\fdunewtheorem[style=break]{fdub}{plain}
-\fdunewtheorem[style=marginbreak]{mb}{BREAKINGS}
-\fdunewtheorem[style=break]{cb}{Changing}
-\fdunewtheorem*[style=plain]{np}{plain}
-\fdunewtheorem*[style=margin]{nmm}{BREAKINGS}
-\fdunewtheorem*[style=change]{nfduc}{Changing}
-\fdunewtheorem*[style=break,qed=]{nfdub}{plain}
-\fdunewtheorem*[style=marginbreak,qed={}]{nmb}{BREAKINGS}
-\fdunewtheorem[style=break,counter=thm]{ncb}{Changing}
-
-\newtheorem{prop}[thm]{Proposition}
-
-\begin{prop}
-  Right-angle triangle.
-\end{prop}
-\begin{prop}[Sphere]
-  Right-angle triangle.
-\end{prop}
-\begin{prop}
-  Right-angle triangle.
-\end{prop}
+\newtheorem[style=plain,qed=\ensuremath{\sin}]{p}{plain}
+\newtheorem[style=margin]{mm}{BREAKINGS}
+\newtheorem[style=change]{fduc}{Changing}
+\newtheorem[style=break]{fdub}{plain}
+\newtheorem[style=marginbreak]{mb}{BREAKINGS}
+\newtheorem[style=break]{cb}{Changing}
+\newtheorem*[style=plain]{np}{plain}
+\newtheorem*[style=margin]{nmm}{BREAKINGS}
+\newtheorem*[style=change]{nfduc}{Changing}
+\newtheorem*[style=break,qed=]{nfdub}{plain}
+\newtheorem*[style=marginbreak,qed={}]{nmb}{BREAKINGS}
+\newtheorem[style=break,counter=thm]{ncb}{Changing}
 
 \begin{p}
 This is a THEOREM.

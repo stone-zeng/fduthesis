@@ -1779,10 +1779,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! the position of QED symbol correct.
 %^^A!
 %
-% \begin{function}{\fdunewtheorem}
-%   \begin{fdusyntax}[morekeywords={\fdunewtheorem,\fdunewtheorem*}]
-%     \fdunewtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
-%     \fdunewtheorem*(*\oarg{选项}\marg{环境名}\marg{标题}*)
+% \begin{function}{\newtheorem}
+%   \begin{fdusyntax}[morekeywords={\newtheorem,\newtheorem*}]
+%     \newtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
+%     \newtheorem*(*\oarg{选项}\marg{环境名}\marg{标题}*)
 %     \begin(*\marg{环境名}\oarg{小标题}*)
 %       (*\meta{内容}*)
 %     \end(*\marg{环境名}*)
@@ -1793,14 +1793,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \end{function}
 %
 % 事实上，表~\ref{tab:theorem} 中预定义的环境正是通过以下方式定义的：
-% \begin{latexexample}[morekeywords={\fdunewtheorem,\fdunewtheorem*}]
-%   \fdunewtheorem*{proof}{证明}
-%   \fdunewtheorem{axiom}{公理}
-%   \fdunewtheorem{corollary}{定理}
+% \begin{latexexample}[morekeywords={\newtheorem,\newtheorem*}]
+%   \newtheorem*{proof}{证明}
+%   \newtheorem{axiom}{公理}
+%   \newtheorem{corollary}{定理}
 %   ...
 % \end{latexexample}
 %
-% 与 \cs{fdusetup} 相同，\cs{fdunewtheorem} 的可选参数 \meta{选项}
+% 与 \cs{fdusetup} 相同，\cs{newtheorem} 的可选参数 \meta{选项}
 % 也为一组键值列表。可用的选项见下。注意您无需输入“|theorem/|”。
 %
 % \begin{function}{theorem/style}
@@ -1831,8 +1831,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   \begin{fdusyntax}[emph={[1]qed}]
 %     qed = (*\marg{符号}*)
 %   \end{fdusyntax}
-%   定理结束标记（即证毕符号）。如果用 \cs{fdunewtheorem} 声明定理，
-%   则默认为空；用 \cs{fdunewtheorem*} 声明，则默认为
+%   定理结束标记（即证毕符号）。如果用 \cs{newtheorem} 声明定理，
+%   则默认为空；用 \cs{newtheorem*} 声明，则默认为
 %   |\ensuremath{\QED}|，即“$\QED$”。
 % \end{function}
 %
@@ -1842,7 +1842,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   \end{fdusyntax}
 %   定理计数器，表示定理编号在 \meta{计数器} 的下一级，并会随
 %   \meta{计数器} 的变化而清零。\scite{刘海洋2013latex入门}
-%   默认为 |chapter|，表示按章编号。使用 \cs{fdunewtheorem*}时，
+%   默认为 |chapter|，表示按章编号。使用 \cs{newtheorem*}时，
 %   该选项无效。
 % \end{function}
 %
@@ -4064,15 +4064,26 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdunewtheorem,\fdunewtheorem*}
-% 创建新的定理环境。
+% \begin{macro}[int]{\@@_thm_ntheorem_style:n,\@@_thm_ntheorem_new:w}
+% 拷贝 \pkg{ntheorem} 命令。
 %    \begin{macrocode}
-\NewDocumentCommand \fdunewtheorem { s o m m }
+\cs_new_eq:NN \@@_thm_ntheorem_style:n \theoremstyle
+\cs_new_eq:NN \@@_thm_ntheorem_new:w   \newtheorem
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7}{2017/12/12}{原 \cs{fdunewtheorem} 命令更名为
+%   \cs{newtheorem}。}
+%
+% \begin{macro}{\newtheorem,\newtheorem*}
+% 定义新的定理环境。
+%    \begin{macrocode}
+\RenewDocumentCommand \newtheorem { s o m m }
   {
 %    \end{macrocode}
-% 默认情况下，由 \cs{fdunewtheorem*} 创建的定理其证毕符号为
-% \cs{QED}，而由 \cs{fdu\-new\-the\-orem} 创建的则不带证毕符号。符号
-% \cs{QED} 由 \pkg{unicode-math} 宏包提供。
+% 默认情况下，由 \cs{newtheorem*} 创建的定理其证毕符号为 \cs{QED}，
+% 而由 \cs{new\-the\-orem} 创建的则不带证毕符号。符号 \cs{QED} 由
+% \pkg{unicode-math} 宏包提供。
 %    \begin{macrocode}
     \IfBooleanTF {#1}
       { \tl_set:Nn \l_@@_thm_qed_tl { \ensuremath { \QED } } }
@@ -4091,7 +4102,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     \fdu_thm_set_body_font:V   \l_@@_thm_body_font_tl
     \fdu_thm_set_qed:V         \l_@@_thm_qed_tl
 %    \end{macrocode}
-% \cs{fdunewtheorem} 负责创建编号定理，而 \cs{fdunewtheorem*}
+% \cs{newtheorem} 负责创建编号定理，而 \cs{newtheorem*}
 % 则负责创建无编号定理。以下分这两种情况处理。
 %    \begin{macrocode}
     \IfBooleanTF {#1}
@@ -4172,8 +4183,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new:nnnn #1#2#3#4
   {
-    \theoremstyle {#1}
-    \newtheorem {#3} {#4} [#2]
+    \@@_thm_ntheorem_style:n {#1}
+    \@@_thm_ntheorem_new:w   {#3} {#4} [#2]
   }
 \cs_generate_variant:Nn \fdu_thm_new:nnnn { VVxx }
 %    \end{macrocode}
@@ -4190,8 +4201,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \begin{macrocode}
 \cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
   {
-    \theoremstyle {#1}
-    \newtheorem {#2} {#3}
+    \@@_thm_ntheorem_style:n {#1}
+    \@@_thm_ntheorem_new:w   {#2} {#3}
   }
 \cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vxx }
 %    \end{macrocode}
@@ -5321,22 +5332,22 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
 %    \begin{macrocode}
 %<*class>
-\fdunewtheorem* { proof       } { \c_@@_def_name_proof_tl      }
-\fdunewtheorem  { axiom       } { \c_@@_def_name_axiom_tl      }
-\fdunewtheorem  { corollary   } { \c_@@_def_name_corollary_tl  }
-\fdunewtheorem  { definition  } { \c_@@_def_name_definition_tl }
-\fdunewtheorem  { example     } { \c_@@_def_name_example_tl    }
-\fdunewtheorem  { lemma       } { \c_@@_def_name_lemma_tl      }
-\fdunewtheorem  { theorem     } { \c_@@_def_name_theorem_tl    }
+\newtheorem* { proof       } { \c_@@_def_name_proof_tl      }
+\newtheorem  { axiom       } { \c_@@_def_name_axiom_tl      }
+\newtheorem  { corollary   } { \c_@@_def_name_corollary_tl  }
+\newtheorem  { definition  } { \c_@@_def_name_definition_tl }
+\newtheorem  { example     } { \c_@@_def_name_example_tl    }
+\newtheorem  { lemma       } { \c_@@_def_name_lemma_tl      }
+\newtheorem  { theorem     } { \c_@@_def_name_theorem_tl    }
 %</class>
 %<*class-en>
-\fdunewtheorem* { proof       } { \c_@@_def_name_proof_en_tl      }
-\fdunewtheorem  { axiom       } { \c_@@_def_name_axiom_en_tl      }
-\fdunewtheorem  { corollary   } { \c_@@_def_name_corollary_en_tl  }
-\fdunewtheorem  { definition  } { \c_@@_def_name_definition_en_tl }
-\fdunewtheorem  { example     } { \c_@@_def_name_example_en_tl    }
-\fdunewtheorem  { lemma       } { \c_@@_def_name_lemma_en_tl      }
-\fdunewtheorem  { theorem     } { \c_@@_def_name_theorem_en_tl    }
+\newtheorem* { proof       } { \c_@@_def_name_proof_en_tl      }
+\newtheorem  { axiom       } { \c_@@_def_name_axiom_en_tl      }
+\newtheorem  { corollary   } { \c_@@_def_name_corollary_en_tl  }
+\newtheorem  { definition  } { \c_@@_def_name_definition_en_tl }
+\newtheorem  { example     } { \c_@@_def_name_example_en_tl    }
+\newtheorem  { lemma       } { \c_@@_def_name_lemma_en_tl      }
+\newtheorem  { theorem     } { \c_@@_def_name_theorem_en_tl    }
 %</class-en>
 %</class|class-en>
 %    \end{macrocode}
