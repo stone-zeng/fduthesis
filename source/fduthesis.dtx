@@ -258,8 +258,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 \newcommand\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
 \newcommand\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
 \begin{document}
-  % \DisableImplementation \DocInput{\jobname.dtx}
-  \DocInput{\jobname.dtx,\jobname-doc.dtx,\jobname-logo.dtx}
+  \DisableImplementation
+%<!--CODEDOC-->  \EnableImplementation
+  \DocInput{fduthesis.dtx}
+%<!--CODEDOC-->  \DocInput{fduthesis-doc.dtx,fduthesis-logo.dtx}
   \IndexLayout
   \PrintChanges
   \PrintIndex
