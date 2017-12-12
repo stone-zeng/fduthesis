@@ -1782,7 +1782,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A!
 %
 % \begin{function}{\newtheorem}
-%   \begin{fdusyntax}[morekeywords={\newtheorem,\newtheorem*}]
+%   \begin{fdusyntax}[deletetexcs={\newtheorem},
+%       morekeywords={\newtheorem,\newtheorem*}]
 %     \newtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
 %     \newtheorem*(*\oarg{选项}\marg{环境名}\marg{标题}*)
 %     \begin(*\marg{环境名}\oarg{小标题}*)
@@ -1793,17 +1794,49 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   并且会默认添加证毕符号“$\QED$”。声明后，即可同预定义的数学环境
 %   一样使用。
 % \end{function}
+%^^A! \begin{function}{\newtheorem}
+%^^A!   \begin{fdusyntax}[deletetexcs={\newtheorem},
+%^^A!       morekeywords={\newtheorem,\newtheorem*}]
+%^^A!     \newtheorem(*\oarg{options}\marg{environment}\marg{title}*)
+%^^A!     \newtheorem*(*\oarg{options}\marg{environment}\marg{title}*)
+%^^A!     \begin(*\marg{environment}\oarg{subheading}*)
+%^^A!       (*\meta{contents}*)
+%^^A!     \end(*\marg{environment}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Declare new math environments (theorems). If you use
+%^^A!   \cs{newtheorem*}, then the theorem will not be numbered, and
+%^^A!   a QED symbol ``$\QED$'' will be added at the end of the
+%^^A!   environment. All the theorem environments defined by yourself
+%^^A!   can be used as the pre-defined ones.
+%^^A! \end{function}
+%^^A!
 %
 % 事实上，表~\ref{tab:theorem} 中预定义的环境正是通过以下方式定义的：
-% \begin{latexexample}[morekeywords={\newtheorem,\newtheorem*}]
+% \begin{latexexample}[deletetexcs={\newtheorem},
+%     morekeywords={\newtheorem,\newtheorem*}]
 %   \newtheorem*{proof}{证明}
 %   \newtheorem{axiom}{公理}
 %   \newtheorem{corollary}{定理}
 %   ...
 % \end{latexexample}
+%^^A! Actually, the pre-defined math environments are just defined
+%^^A! with \cs{newtheorem} and \cs{newtheorem*}:
+%^^A! \begin{latexexample}[deletetexcs={\newtheorem},
+%^^A!     morekeywords={\newtheorem,\newtheorem*}]
+%^^A!   \newtheorem*{proof}{proof}
+%^^A!   \newtheorem{axiom}{axiom}
+%^^A!   \newtheorem{corollary}{corollary}
+%^^A!   ...
+%^^A! \end{latexexample}
+%^^A!
 %
 % 与 \cs{fdusetup} 相同，\cs{newtheorem} 的可选参数 \meta{选项}
 % 也为一组键值列表。可用的选项见下。注意您无需输入“|theorem/|”。
+%^^A! Similar with \cs{fdusetup}, the optional argument \meta{options}
+%^^A! of \cs{newtheorem} is a key-value list as well. The available
+%^^A! are described below. Note that you don't need to type in the
+%^^A! ``|theorem/|'' prefix.
+%^^A!
 %
 % \begin{function}{theorem/style}
 %   \begin{fdusyntax}[emph={[1]style}]
@@ -1812,6 +1845,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   \end{fdusyntax}
 %   定理类环境的总体样式。
 % \end{function}
+%^^A! \begin{function}{theorem/style}
+%^^A!   \begin{fdusyntax}[emph={[1]style}]
+%^^A!     style = (*<(plain)|margin|change|\\
+%^^A!       XXXX\mbox{}~~~~~~~~break|marginbreak|changebreak>*)
+%^^A!   \end{fdusyntax}
+%^^A!   The overall style of the theorem environment.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{theorem/headerfont}
 %   \begin{fdusyntax}[emph={[1]headerfont}]
@@ -1820,6 +1861,15 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   定理头（即标题）的字体。中文模板默认为 \tn{sffamily}，即无衬线体
 %   （黑体）；英文模板默认为 |\bfseries\upshape|，即加粗直立体。
 % \end{function}
+%^^A! \begin{function}{theorem/headerfont}
+%^^A!   \begin{fdusyntax}[emph={[1]headerfont}]
+%^^A!     headerfont = (*\marg{font}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Font of the theorem header. Default value is \tn{sffamily}
+%^^A!   and |\bfseries\upshape| for Chinese and English template,
+%^^A!   respectively.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{theorem/bodyfont}
 %   \begin{fdusyntax}[emph={[1]bodyfont}]
@@ -1828,6 +1878,15 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   定理内容的字体。中文模板默认为 \tn{fdu@kai}，即楷体；英文模板
 %   默认为 \tn{itshape}，即斜体。
 % \end{function}
+%^^A! \begin{function}{theorem/bodyfont}
+%^^A!   \begin{fdusyntax}[emph={[1]bodyfont}]
+%^^A!     bodyfont = (*\marg{font}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Font of the theorem body. Default value is \tn{fdu@kai}
+%^^A!   (\textit{楷体}) and \tn{itshape} for Chinese and English
+%^^A!   template, respectively.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{theorem/qed}
 %   \begin{fdusyntax}[emph={[1]qed}]
@@ -1837,6 +1896,15 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   则默认为空；用 \cs{newtheorem*} 声明，则默认为
 %   |\ensuremath{\QED}|，即“$\QED$”。
 % \end{function}
+%^^A! \begin{function}{theorem/qed}
+%^^A!   \begin{fdusyntax}[emph={[1]qed}]
+%^^A!     qed = (*\marg{symbol}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Theorem end mark. For \cs{newtheorem}, default value is
+%^^A!   empty; for \cs{newtheorem*}, default value is
+%^^A!   |\ensuremath{\QED}| (i.e.\ ``$\QED$'').
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{theorem/counter}
 %   \begin{fdusyntax}[emph={[1]counter}]
@@ -1844,9 +1912,19 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   \end{fdusyntax}
 %   定理计数器，表示定理编号在 \meta{计数器} 的下一级，并会随
 %   \meta{计数器} 的变化而清零。\scite{刘海洋2013latex入门}
-%   默认为 |chapter|，表示按章编号。使用 \cs{newtheorem*}时，
+%   默认为 |chapter|，表示按章编号。使用 \cs{newtheorem*} 时，
 %   该选项无效。
 % \end{function}
+%^^A! \begin{function}{theorem/counter}
+%^^A!   \begin{fdusyntax}[emph={[1]counter}]
+%^^A!     counter = (*\marg{counter}*)
+%^^A!   \end{fdusyntax}
+%^^A!   The theorem will be enumerated within \meta{counter}. For
+%^^A!   example, the default value is |chapter|, which means with
+%^^A!   each new \tn{chapter}, the enumeration begins again with 1.
+%^^A!   This option is invalid for \cs{newtheorem*}.
+%^^A! \end{function}
+%^^A!
 %
 % \begin{function}{\caption}
 %   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
@@ -1899,14 +1977,16 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A!
 %
 % \begin{function}{\bibliography}
-%   \begin{fdusyntax}[deletetexcs={\bibliography},morekeywords={\bibliography}]
+%   \begin{fdusyntax}[deletetexcs={\bibliography},%
+%       morekeywords={\bibliography}]
 %     \bibliography(*\marg{文献数据库}*)
 %   \end{fdusyntax}
 %   指明所要使用的文献数据库。不需要带 \file{.bib} 后缀。如果使用
 %   多个文件，各文件之间需使用英文逗号隔开。
 % \end{function}
 %^^A! \begin{function}{\bibliography}
-%^^A!   \begin{fdusyntax}[deletetexcs={\bibliography},morekeywords={\bibliography}]
+%^^A!   \begin{fdusyntax}[deletetexcs={\bibliography},%
+%^^A!       morekeywords={\bibliography}]
 %^^A!     \bibliography(*\marg{bib file}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Specify the bibliography database (\file{bib} file). You
@@ -4075,7 +4155,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \end{macro}
 %
 % \changes{v0.7}{2017/12/12}{原 \cs{fdunewtheorem} 命令更名为
-%   \cs{newtheorem}。}
+%   \cs{new\-the\-orem}。}
 %
 % \begin{macro}{\newtheorem,\newtheorem*}
 % 定义新的定理环境。
