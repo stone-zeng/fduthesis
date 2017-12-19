@@ -49,13 +49,6 @@
 %
 % \subsubsection{用户接口}
 %
-% \begin{variable}{\l_@@_default_arg_tl}
-% 默认参数。
-%    \begin{macrocode}
-\tl_const:Nn \l_@@_default_arg_tl { x = 1 pt, y = 1 pt }
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{macro}{\fduname}
 % 复旦大学校名（復旦大學），由毛泽东题写。原始图片来源：
 % \url{http://www.fudan.edu.cn/2016/channels/view/74/}。
@@ -107,6 +100,13 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{variable}{\l_@@_default_arg_tl}
+% 默认参数。
+%    \begin{macrocode}
+\tl_const:Nn \l_@@_default_arg_tl { x = 1 pt, y = 1 pt }
+%    \end{macrocode}
+% \end{variable}
 %
 % \begin{macro}{\@@_tikz:Nn,\@@_tikz:Nx,\@@_tikz:cx}
 % 对 \env{tikzpicture} 环境的封装。
@@ -270,10 +270,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@fduthesis@cover}
+% \begin{macro}[int]{\fduthesis@cover}
 % \cls{fduthesis} 用户手册的封面图案。内部使用。
 %    \begin{macrocode}
-\def\@fduthesis@cover{%
+\def\fduthesis@cover{%
   \hspace{1.5cm}
   \begin{tikzpicture}[x=1pt, y=1pt, scale=1.1, color=MaterialGrey]
     \useasboundingbox ( 100, -140) rectangle ( 800,  800);
@@ -356,7 +356,7 @@
 %    \begin{macrocode}
 %<*cover>
 \makeatletter
-\@fduthesis@cover
+\fduthesis@cover
 \makeatother
 %</cover>
 %    \end{macrocode}
