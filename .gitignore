@@ -30,6 +30,7 @@
 *.ins
 *.sty
 latexmkrc
+latexmkrc-en
 
 # Generated files (binary)
 *.dvi
@@ -42,6 +43,7 @@ latexmkrc
 
 # Tools
 *.bat
+*.json
 *.txt
 
 # Folders
@@ -49,9 +51,13 @@ latexmkrc
 .vscode/
 build/
 logo/
-support/*/
+support/
+TDS/
 temp/
 tools/
 
 # Other
-!test/*.cls
+git-comment.md
+TODO.md
+source/*.md
+source/*.tex
