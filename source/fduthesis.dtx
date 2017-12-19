@@ -2324,7 +2324,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 \clist_map_inline:nn { expl3, xparse, l3keys2e }
   {
-    \@ifpackagelater {#1} { 2017/07/19 }
+    \@ifpackagelater {#1} { 2017/12/16 }
       { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
   }
 %    \end{macrocode}
@@ -2379,11 +2379,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
-\cs_generate_variant:Nn \cs_generate_variant:Nn { cn   }
-\cs_generate_variant:Nn \int_to_arabic:n        { v    }
-\cs_generate_variant:Nn \keys_define:nn         { nx   }
-\cs_generate_variant:Nn \tl_if_eq:nnT           { VnT  }
-\cs_generate_variant:Nn \tl_if_eq:nnTF          { VnTF }
+\cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
+\cs_generate_variant:Nn \int_to_arabic:n        { v  }
+\cs_generate_variant:Nn \keys_define:nn         { nx }
+\prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
