@@ -1351,6 +1351,27 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\SpecialMainEnvIndex}
+% 索引汉化。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \SpecialMainEnvIndex
+  { (environment) } { { \kaishu （环境） } }
+\ctex_patch_cmd:Nnn \SpecialMainEnvIndex
+  { environments: } { 环境： }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\HDorg@SpecialEnvIndex}
+% \pkg{hypdoc} 宏包重新定义了 \tn{SpecialEnvIndex} 命令，因此需要
+% 修改内部定义。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
+  { (environment) } { { \kaishu （环境） } }
+\ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
+  { environments: } { 环境： }
+%    \end{macrocode}
+% \end{macro}
+%
 % \paragraph{\cls{l3doc} 补丁}
 %
 %    \begin{macrocode}
@@ -1480,6 +1501,33 @@
         \@@_macroname_prefix:o \l_@@_tmpa_tl
         \@@_macroname_suffix:N #2
       }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_special_index_module:nnnnN}
+% 索引汉化。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_special_index_module:nnnnN #1#2#3#4#5
+  {
+    \use:x
+      {
+        \exp_not:n { \@@_special_index_aux:nnnnnn {#1} {#2} }
+          \tl_if_empty:nTF {#3}
+            { { } { } { } }
+            {
+              \str_if_eq_x:nnTF {#3} { TeX }
+                {
+                  { TeX~ 和~ LaTeX2e }
+                  { \string \TeX{}~ 和~ \string \LaTeXe{} }
+                }
+                {
+                  {#3} { \string \pkg {#3} }
+                }
+              { \bool_if:NT #5 { ~ 内部 } 命令： }
+            }
+      }
+    {#4}
   }
 %    \end{macrocode}
 % \end{macro}
