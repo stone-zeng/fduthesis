@@ -4,7 +4,7 @@ compiler:
   - gcc
 
 install:
-  - source ./support/texlive.sh
+  - source ./scripts/texlive.sh
 
 cache:
   directories:
@@ -12,8 +12,8 @@ cache:
     - $HOME/.texlive
 
 script:
-  - source ./support/ptex-ng.sh
-  - source ./support/local.sh
-  - source ./support/run.sh
+  - source ./scripts/ptex-ng.sh
+  - source ./scripts/local.sh
+  - source ./scripts/run.sh
   - cd ../test
   - ptex-ng --format=platex-ng --shell-escape test
