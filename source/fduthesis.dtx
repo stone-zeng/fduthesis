@@ -1614,6 +1614,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! \end{function}
 %^^A!
 %
+%^^A TODO \DescribeEnv{abstract}
+%^^A TODO \DescribeEnv{abstract*}
 % \begin{function}{abstract}
 %   \begin{fdusyntax}[emph={[2]abstract}]
 %     % 中文论文模板 (fduthesis)      % 英文论文模板 (fduthesis-en)
@@ -1664,6 +1666,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! subsubsection~\ref{subsubsec:information} for more details.
 %^^A!
 %
+%^^A TODO: \DescribeEnv{notation}
 % \begin{function}{notation}
 %   \begin{fdusyntax}[emph={[2]notation}]
 %     \begin{notation}(*\oarg{列格式说明}*)
@@ -1734,6 +1737,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %^^A! \end{function}
 %^^A!
 %
+%^^A! \DescribeEnv{proof}
 % \begin{function}{axiom,corollary,definition,example,lemma,
 %   proof,theorem}
 %   \begin{fdusyntax}[emph={[2]proof}]
@@ -2255,10 +2259,11 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 %^^A 代码部分的页边距
 % \newgeometry{
-%   left   = 2.25 in,
-%   right  = 1.00 in,
-%   top    = 1.25 in,
-%   bottom = 1.00 in
+%   left      = 2.25 in,
+%   right     = 1.00 in,
+%   top       = 1.25 in,
+%   bottom    = 1.00 in,
+%   marginpar = 2.25 in
 % }
 %
 % \section{实现细节}
@@ -2326,7 +2331,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{内部变量声明}
 %
-% \begin{variable}[int]{\l_@@_tmpa_box,
+% \begin{variable}{\l_@@_tmpa_box,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
 %   \l_@@_tmpa_clist,\l_@@_tmpb_clist}
@@ -2342,8 +2347,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\g_@@_to_book_clist,
-%   \g_@@_to_hyperref_clist}
+% \begin{variable}{\g_@@_to_book_clist,\g_@@_to_hyperref_clist}
 % 分别保存由 \cls{fduthesis} 传入 \cls{book} 文档类和
 % \pkg{hyperref} 宏包的选项列表。
 %    \begin{macrocode}
@@ -2352,7 +2356,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\g_@@_twoside_bool}
+% \begin{variable}{\g_@@_twoside_bool}
 % 是否开启双页模式（默认打开）。
 %    \begin{macrocode}
 \bool_new:N \g_@@_twoside_bool
@@ -2360,7 +2364,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\g_@@_draft_bool}
+% \begin{variable}{\g_@@_draft_bool}
 % 是否开启草稿模式。
 %    \begin{macrocode}
 \bool_new:N \g_@@_draft_bool
@@ -2369,9 +2373,10 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{内部函数}
 %
-% \begin{macro}[int]{\cs_generate_variant:cn,\int_to_arabic:v,
+% \begin{macro}{\cs_generate_variant:cn,
+%   \int_to_arabic:v,
 %   \keys_define:nx}
-% \begin{macro}[int,TF]{\tl_if_eq:Vn}
+% \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
 \cs_generate_variant:Nn \cs_generate_variant:Nn { cn   }
@@ -2383,7 +2388,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_quad:,\@@_qquad:}
+% \begin{macro}{\@@_quad:,\@@_qquad:}
 % 等价于 \LaTeXe{} 中的 \tn{quad} 和 \tn{qquad}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_quad:  { \skip_horizontal:n { 1 em } }
@@ -2391,14 +2396,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_symbol:n}
+% \begin{macro}{\@@_symbol:n}
 % 等价于 \LaTeXe{} 中的 \tn{symbol}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_symbol:n #1 { \tex_char:D #1 \scan_stop: }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_arabic:n}
+% \begin{macro}{\@@_arabic:n}
 % 等价于 \LaTeXe{} 中的 \tn{arabic}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_arabic:n #1
@@ -2406,7 +2411,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
+% \begin{macro}{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
 % 补丁工具，来自 \pkg{ctexpatch} 宏包。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
@@ -2422,7 +2427,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_def_fn_style:nn,\@@_def_punct:nn,
+% \begin{macro}{\@@_def_fn_style:nn,\@@_def_punct:nn,
 %   \@@_def_name:nn}
 % 用来定义脚注样式、标点、默认名称的辅助函数。
 %    \begin{macrocode}
@@ -2435,7 +2440,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_msg_new:nn,
+% \begin{macro}{\@@_msg_new:nn,
 %   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,
 %   \@@_warning:n,\@@_warning:nxx}
 % 各种信息函数的缩略形式。
@@ -2590,7 +2595,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 \RequirePackage { xcolor }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_check_package:nnn}
+% \begin{macro}{\@@_check_package:nnn}
 % 检查过时宏包。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_package:nnn #1#2#3
@@ -2634,8 +2639,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % 草稿模式下显示页面边框及页眉、页脚线 。
 %    \begin{macrocode}
-\bool_if:NT \g_@@_draft_bool
-  { \geometry { showframe } }
+\bool_if:NT \g_@@_draft_bool { \geometry { showframe } }
 %    \end{macrocode}
 %
 % \subsection{字体}
@@ -2657,8 +2661,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % |main|、|sans|、|mono| 三类进行划分；而本模板则按照
 % 宋、黑、仿、楷等进行划分。为此，需要额外建立二者之间的对应关系。
 %
-% \begin{variable}[int]{\g_@@_font_name_prop,
-%   \g_@@_font_options_prop}
+% \begin{variable}{\g_@@_font_name_prop,\g_@@_font_options_prop}
 % 存放西文字体名称及选项。
 %    \begin{macrocode}
 \prop_new:N \g_@@_font_name_prop
@@ -2666,7 +2669,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\g_@@_cjk_font_name_prop,
+% \begin{variable}{\g_@@_cjk_font_name_prop,
 %   \g_@@_cjk_font_options_prop}
 % 存放中文字体及选项。
 %    \begin{macrocode}
@@ -2900,7 +2903,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\setCJKsongfont,\setCJKheifont,
+% \begin{macro}{\setCJKsongfont,\setCJKheifont,
 %   \setCJKfangfont,\setCJKkaifont}
 % 声明中文宋、黑、仿、楷字体，暂时不用。
 %    \begin{macrocode}
@@ -2918,8 +2921,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % 字体选择只需将字体名及选项存入相应变量即可。
 %
-% \begin{macro}[int]{\fdu_choose_font_with_option:nnn,
-%   \fdu_choose_font:nn}
+% \begin{macro}{\fdu_choose_font_with_option:nnn,\fdu_choose_font:nn}
 % 选择西文字体。
 % \begin{arguments}
 %   \item |main| / |sans| / |mono| / |math|
@@ -2967,7 +2969,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 此时需要利用 \pkg{fontspec}、\pkg{unicode-math}、\pkg{xeCJK}、
 % \pkg{ctex} 等宏包完成实际的字体调用。会在导言区末尾统一进行。
 %
-% \begin{macro}[int]{\@@_set_font:}
+% \begin{macro}{\@@_set_font:}
 % 设定西文字体。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_set_font:
@@ -2989,7 +2991,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
 %
-% \begin{macro}[int]{\@@_set_main_font:nn,
+% \begin{macro}{\@@_set_main_font:nn,
 %   \@@_set_sans_font:nn,
 %   \@@_set_mono_font:nn}
 % 拷贝 \cs{__fontspec_main_setmainfont:nn} 等命令。注意参数顺序
@@ -3009,7 +3011,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
 %
-% \begin{macro}[int]{\@@_set_math_font:nn}
+% \begin{macro}{\@@_set_math_font:nn}
 % 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。参数同上。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_math_font:nn #1#2
@@ -3023,7 +3025,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   { \cs_generate_variant:cn { @@_set_ #1 _font:nn } { VV } }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_set_cjk_font:}
+% \begin{macro}{\@@_set_cjk_font:}
 % 设定中文字体。复杂之处在于需要建立宋、黑、仿、楷到
 % |rm| / |sf| / |tt| 的映照，如表~\ref{tab:cjk-font} 所示。
 % \begin{table}[ht]
@@ -3063,7 +3065,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}[int]{\l_@@_font_name_tl,\l_@@_font_options_clist}
+% \begin{variable}{\l_@@_font_name_tl,\l_@@_font_options_clist}
 % 临时存放字体名称和选项。
 %    \begin{macrocode}
 \tl_new:N    \l_@@_font_name_tl
@@ -3071,7 +3073,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}[int]{\@@_parse_cjk_rm_font:}
+% \begin{macro}{\@@_parse_cjk_rm_font:}
 % 解析 |rm| 字体族。未设置 |rm| 字体族（即未调用 \cs{setmainfont}）
 % 时，传入 |song| 对应的字体名和选项。|sf| 和 |tt| 字体族的解析
 % 基本类似。
@@ -3115,7 +3117,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_parse_cjk_sf_font:}
+% \begin{macro}{\@@_parse_cjk_sf_font:}
 % 解析 |sf| 字体族。未设置 |sf| 字体族（即未调用 \cs{setsansfont}）
 % 时，传入 |hei| 对应的字体名和选项。
 %    \begin{macrocode}
@@ -3141,7 +3143,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_parse_cjk_tt_font:}
+% \begin{macro}{\@@_parse_cjk_tt_font:}
 % 解析 |tt| 字体族。未设置 |tt| 字体族（即未调用 \cs{setmonofont}）
 % 时，传入 |fang| 对应的字体名和选项。
 %    \begin{macrocode}
@@ -3160,7 +3162,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_parse_cjk_kai_font:}
+% \begin{macro}{\@@_parse_cjk_kai_font:}
 % 解析 |kai| 字体族。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_parse_cjk_kai_font:
@@ -3182,7 +3184,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_get_cjk_font_name_options:nn}
+% \begin{macro}{\@@_get_cjk_font_name_options:nn}
 % 处理字体名称和选项。字体名存入 \cs{l_@@_font_name_tl}，字体
 % 选项存入 \cs{l_@@_font_options_clist}。注意字体名还被存入了
 % |prop-list| 中（对应的 \meta{key} = |#1|），但选项则在
@@ -3206,7 +3208,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_get_cjk_kai_font:}
+% \begin{macro}{\@@_get_cjk_kai_font:}
 % 补齐斜体、粗斜体（都设置为楷体）。
 %    \begin{macrocode}
 \cs_new:Npn \@@_get_cjk_kai_font:
@@ -3222,7 +3224,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_set_cjk_font_options:n}
+% \begin{macro}{\@@_set_cjk_font_options:n}
 %    \begin{macrocode}
 % 设置选项，即把选项存入 |prop-list|，对应 \meta{key} = |#1|。
 % |#1| = |rm| / |sf| / |tt|。
@@ -3234,7 +3236,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_check_cjk_font:n}
+% \begin{macro}{\@@_check_cjk_font:n}
 % 检查 CJK 字体族是否已定义。
 % |#1| = |rm| / |sf| / |tt|。
 %    \begin{macrocode}
@@ -3248,8 +3250,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\xeCJK_set_family:nVV,
-%   \ctex_ltj_set_family:nVV}
+% \begin{macro}{\xeCJK_set_family:nVV,\ctex_ltj_set_family:nVV}
 % 生成 \pkg{xeCJK} 和 \pkg{ctex} 中字体族设定函数的变体。
 % 由于 \cs{@@_set_cjk_font_aux:nnnn} 使用了
 % \cs{cs_new_protected:Npx} 定义，因此必须在它之前给出变体形式。
@@ -3259,7 +3260,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_set_cjk_font_aux:n}
+% \begin{macro}{\@@_set_cjk_font_aux:n}
 % 利用 \pkg{xeCJK} 或 \pkg{ctex-ltj} 调用字体，需按照引擎的不同
 % 分别处理。使用 |Npx| 型来定义是为了在定义时直接确定引擎，以避开
 % 调用时的判断。
@@ -3334,7 +3335,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % 一般情况下，楷体被用作中文斜体。但有时需要保持西文部分不被倾斜，
 % 因此需要额外定义楷体切换命令。
 %
-% \begin{macro}[int,TF]{\fdu_family_if_exist:n}
+% \begin{macro}[TF]{\fdu_family_if_exist:n}
 % \changes{v0.4}{2017/08/10}{修复 \LuaTeX{} 下的展开错误。}
 % 判断字体族是否存在。
 % \XeTeX{} 引擎下直接利用 \pkg{xeCJK} 宏包提供的函数。
@@ -3367,7 +3368,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\fdu_cjk_font_kai:}
+% \begin{macro}{\fdu_cjk_font_kai:}
 % 楷体切换命令。
 %    \begin{macrocode}
 \cs_new_protected:Npx \fdu_cjk_font_kai:
@@ -3486,7 +3487,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_set_fullwidth_stop_catcode:}
+% \begin{macro}{\@@_set_fullwidth_stop_catcode:}
 % 将\FSID 设置为活动符，并定义为句点\FSFW。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_fullwidth_stop_catcode:
@@ -3552,7 +3553,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 \fancyhf { }
 %    \end{macrocode}
 %
-% \begin{variable}[int]{\l_@@_header_center_mark_tl}
+% \begin{variable}{\l_@@_header_center_mark_tl}
 % 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为
 % 相应标题。
 %    \begin{macrocode}
@@ -3670,7 +3671,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_set_hyperlink_color_key:n}
+% \begin{macro}{\@@_set_hyperlink_color_key:n}
 % 设置超链接颜色选项。最后的逗号用于确保 \pkg{l3keys} 可以正确解析，不能省去。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_hyperlink_color_key:n #1
@@ -3692,7 +3693,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_define_hyperlink_color:nnn}
+% \begin{macro}{\@@_define_hyperlink_color:nnn}
 % 定义超链接颜色。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_define_hyperlink_color:nnn #1#2#3
@@ -3747,8 +3748,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \changes{v0.6}{2017/10/29}{优化 URL 断行设置。}
 %
-% \begin{macro}[int]{\fdu_allow_url_break:}
-% \begin{macro}[aux]{\@@_add_url_break_points:}
+% \begin{macro}{\fdu_allow_url_break:,\@@_add_url_break_points:}
 % 允许 URL 在字母、数字和一些特殊符号处断行。见
 % \url{https://bit.ly/2hhIjLW}。
 %    \begin{macrocode}
@@ -3761,9 +3761,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{variable}[int]{\c_@@_url_break_points_tl}
+% \begin{variable}{\c_@@_url_break_points_tl}
 % 额外的断行位置是 26 个英文字母（大小写）以及 10 个阿拉伯数字。
 % \pkg{url} 提供的宏 \tn{UrlBreaks} 还包含了特殊符号 |*|、|-|、
 % |~|、|'|、|"|、|-|，也被设置为允许断行。
@@ -3848,7 +3847,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 \@@_def_fn_style:nn { xits_sans_neg   } { xits-sans*      }
 %    \end{macrocode}
 %
-% \begin{variable}[int]{\l_@@_fn_style_tl}
+% \begin{variable}{\l_@@_fn_style_tl}
 % 保存当前使用的脚注编号样式。
 %    \begin{macrocode}
 \tl_new:N \l_@@_fn_style_tl
@@ -3893,7 +3892,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_libertinus:n}
+% \begin{macro}{\@@_fn_symbol_libertinus:n}
 % \opt{libertinus} 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
 % 为小写英文字母，\numrange{47}{72} 为大写英文字母。
 %    \begin{macrocode}
@@ -3910,7 +3909,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_libertinus_neg:n}
+% \begin{macro}{\@@_fn_symbol_libertinus_neg:n}
 % \opt{libertinus} 阴文衬线版。只含 \numrange{1}{20}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_libertinus_neg:n #1
@@ -3922,7 +3921,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_libertinus_sans:n}
+% \begin{macro}{\@@_fn_symbol_libertinus_sans:n}
 % \opt{libertinus} 阳文无衬线版。符号排列与普通版相同。
 %    \begin{macrocode}
 \cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n
@@ -3930,7 +3929,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_pifont:n}
+% \begin{macro}{\@@_fn_symbol_pifont:n}
 % \opt{pifont} 普通版。以下四种都只包含 \numrange{1}{10}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_pifont:n #1
@@ -3938,7 +3937,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_pifont_neg:n}
+% \begin{macro}{\@@_fn_symbol_pifont_neg:n}
 % \opt{pifont} 阴文衬线版。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_pifont_neg:n #1
@@ -3946,7 +3945,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_pifont_sans:n}
+% \begin{macro}{\@@_fn_symbol_pifont_sans:n}
 % \opt{pifont} 阳文无衬线版。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_pifont_sans:n #1
@@ -3954,7 +3953,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_pifont_sans_neg:n}
+% \begin{macro}{\@@_fn_symbol_pifont_sans_neg:n}
 % \opt{pifont} 阴文无衬线版。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_pifont_sans_neg:n #1
@@ -3962,7 +3961,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_xits:n}
+% \begin{macro}{\@@_fn_symbol_xits:n}
 % \opt{xits} 普通版。\numrange{1}{9} 为数字，\numrange{10}{35}
 % 为小写英文字母，\numrange{36}{61} 为大写英文字母。
 %    \begin{macrocode}
@@ -3979,7 +3978,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_xits_sans:n}
+% \begin{macro}{\@@_fn_symbol_xits_sans:n}
 % \opt{xits} 阳文无衬线版。只包含 \numrange{1}{10}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_xits_sans:n #1
@@ -3987,7 +3986,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_fn_symbol_xits_sans_neg:n}
+% \begin{macro}{\@@_fn_symbol_xits_sans_neg:n}
 % \opt{xits} 阴文无衬线版。也只包含 \numrange{1}{10}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fn_symbol_xits_sans_neg:n #1
@@ -4102,7 +4101,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \changes{v0.3}{2017/05/07}{新增定理环境。}
 %
-% \begin{variable}[int]{\c_@@_thm_style_plain_clist,
+% \begin{variable}{\c_@@_thm_style_plain_clist,
 %   \c_@@_thm_style_break_clist}
 % 保存 \opt{plain}、\opt{break} 两种类型的定理样式名称。
 %    \begin{macrocode}
@@ -4113,7 +4112,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\l_@@_thm_style_tl,
+% \begin{variable}{\l_@@_thm_style_tl,
 %   \l_@@_thm_header_font_tl,
 %   \l_@@_thm_body_font_tl,
 %   \l_@@_thm_qed_tl,
@@ -4146,7 +4145,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_thm_ntheorem_style:n,\@@_thm_ntheorem_new:w}
+% \begin{macro}{\@@_thm_ntheorem_style:n,\@@_thm_ntheorem_new:w}
 % 拷贝 \pkg{ntheorem} 命令。
 %    \begin{macrocode}
 \cs_new_eq:NN \@@_thm_ntheorem_style:n \theoremstyle
@@ -4234,7 +4233,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_thm_redefine_style:n}
+% \begin{macro}{\@@_thm_redefine_style:n}
 % 重定义定理样式，并给出警告。
 %    \begin{macrocode}
 \cs_new:Npn \@@_thm_redefine_style:n #1
@@ -4340,7 +4339,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{信息录入}
 %
-% \begin{variable}[int]{\l_@@_info_title_tl,
+% \begin{variable}{\l_@@_info_title_tl,
 %   \l_@@_info_date_tl,
 %   \l_@@_info_author_tl,
 %   \l_@@_info_supervisor_tl,
@@ -4367,7 +4366,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\l_@@_info_title_en_tl,
+% \begin{variable}{\l_@@_info_title_en_tl,
 %   \l_@@_info_author_en_tl,
 %   \l_@@_info_supervisor_en_tl,
 %   \l_@@_info_department_en_tl,
@@ -4477,8 +4476,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \changes{v0.4}{2017/08/10}{新增 \opt{logo} 与 \opt{logosize}
 %   选项。}
 %
-% \begin{variable}[int]{\l_@@_cover_logo_tl,
-%   \l_@@_cover_logo_size_clist}
+% \begin{variable}{\l_@@_cover_logo_tl,\l_@@_cover_logo_size_clist}
 %    \begin{macrocode}
 \tl_new:N    \l_@@_cover_logo_tl
 \clist_new:N \l_@@_cover_logo_size_clist
@@ -4501,14 +4499,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \changes{v0.3}{2017/07/04}{新增 \opt{secretlevel} 与
 %   \opt{secretyear} 选项。}
 %
-% \begin{variable}[int]{\l_@@_secret_bool}
+% \begin{variable}{\l_@@_secret_bool}
 % 是否显示密级。
 %    \begin{macrocode}
 \bool_new:N \l_@@_secret_bool
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\l_@@_info_secret_level_tl}
+% \begin{variable}{\l_@@_info_secret_level_tl}
 % 保存当前的密级。
 %    \begin{macrocode}
 \tl_new:N \l_@@_info_secret_level_tl
@@ -4683,7 +4681,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \changes{v0.5}{2017/09/19}{使用 \pkg{expl3} 以及内部函数改写
 %   封面，减少对 \LaTeXe{} 的依赖。}
 %
-% \begin{macro}[int]{\@@_cover_id:}
+% \begin{macro}{\@@_cover_id:}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_id:
@@ -4718,7 +4716,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_cover_logo:}
+% \begin{macro}{\@@_cover_logo:}
 % 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
 % 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
 %    \begin{macrocode}
@@ -4745,7 +4743,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_cover_title:}
+% \begin{macro}{\@@_cover_title:}
 % 标题部分，一共有四行。
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_title:
@@ -4791,7 +4789,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_cover_info:}
+% \begin{macro}{\@@_cover_info:}
 % 信息栏。
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_info:
@@ -4843,7 +4841,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_decl_text:nnn,\@@_decl_text:VVn}
+% \begin{macro}{\@@_decl_text:nnn,\@@_decl_text:VVn}
 % 构建声明文本。
 % \begin{arguments}
 %   \item 标题
@@ -4988,7 +4986,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \end{macro}
 %
 % \begin{macro}{style/automakecover}
-% \begin{variable}[int]{\l_@@_auto_make_cover_bool}
+% \begin{variable}{\l_@@_auto_make_cover_bool}
 % 是否自动生成封面。
 %    \begin{macrocode}
 \bool_new:N \l_@@_auto_make_cover_bool
@@ -5087,7 +5085,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{中文摘要}
 %
-% \begin{macro}{abstract}
+% \begin{environment}{abstract}
 % 中文摘要及关键字。
 %    \begin{macrocode}
 %<*class>
@@ -5129,11 +5127,12 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 %</class>
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
 %
 % \subsubsection{英文摘要}
 %
-% \begin{macro}{abstract*,abstract}
+% \begin{environment}{abstract}
+% \begin{environment}{abstract*}
 % 英文摘要及关键字。注意英文模板中的 \env{abstract} 环境与中文模板
 % 中的 \env{ab\-stract*} 环境是相同的，后者在英文模板中没有定义。
 %    \begin{macrocode}
@@ -5169,11 +5168,12 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     \l_@@_info_clc_tl
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
+% \end{environment}
 %
 % \subsection{符号表}
 %
-% \begin{macro}{notation}
+% \begin{environment}{notation}
 % 符号表环境，利用 \env{longtable} 封装。可选参数为表格列格式说明符。
 % 与摘要类似，符号表页需要修改页眉，并添加到目录。另外需要调整
 % \cs{LTpre} 和 \cs{LTpost}，以删去 \env{longtable} 前后的空白。
@@ -5212,14 +5212,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
     \group_end:
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
 %
 % \subsection{参考文献著录与引用}
 %
 % \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
 %   与引用。}
 %
-% \begin{variable}[int]{\l_@@_bib_style_tl,\l_@@_bib_gb_style_tl}
+% \begin{variable}{\l_@@_bib_style_tl,\l_@@_bib_gb_style_tl}
 % 保存当前使用的参考文献样式。
 %    \begin{macrocode}
 \tl_new:N \l_@@_bib_style_tl
@@ -5275,7 +5275,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_set_cite_style_numerical:}
+% \begin{macro}{\@@_set_cite_style_numerical:}
 % 顺序编码制下的引用样式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_cite_style_numerical:
@@ -5288,7 +5288,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_set_cite_style_author_year:}
+% \begin{macro}{\@@_set_cite_style_author_year:}
 % 著者-出版年制下的引用样式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_cite_style_author_year:
@@ -5318,8 +5318,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\bibpreamble,\href,\doi}
-% \begin{macro}[int]{\fdu_href:w}
+% \begin{macro}{\bibpreamble,\href,\doi,\fdu_href:w}
 % \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
 %   超链接，同时又能正确处理 URL 中的特殊符号。}
 % 禁止为文献标题添加超链接。
@@ -5333,9 +5332,8 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
   }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{macro}[int]{\fdu_nolink_href:w}
+% \begin{macro}{\fdu_nolink_href:w}
 % 不带链接的 \tn{href}，相当于忽略第一个参数。以下代码来自
 % \pkg{hyperref}。这里不考虑原始 \tn{href} 的可选参数，也不考虑
 % 它放在参数中的情况。
@@ -5348,7 +5346,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_href_aux:n,\@@_href_split:w}
+% \begin{macro}{\@@_href_aux:n,\@@_href_split:w}
 % 处理 URL 中的特殊符号。
 %    \begin{macrocode}
 \group_begin:
@@ -5408,8 +5406,13 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{proof,
-%   axiom,corollary,definition,example,lemma,theorem}
+% \begin{environment}{proof}
+% \begin{environment}{axiom}
+% \begin{environment}{corollary}
+% \begin{environment}{definition}
+% \begin{environment}{example}
+% \begin{environment}{lemma}
+% \begin{environment}{theorem}
 % 模板预定义的常用数学环境。
 % 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
 %    \begin{macrocode}
@@ -5433,7 +5436,13 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %</class-en>
 %</class|class-en>
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
 %
 % \subsection{模板参数配置文件}
 %
@@ -5445,7 +5454,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{通用配置}
 %
-% \begin{variable}[int]{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
+% \begin{variable}{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
 %   \c_@@_name_en_tl}
 % 学校名称。
 %    \begin{macrocode}
@@ -5487,14 +5496,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %   \end{tabular}
 % \end{table}
 %
-% \begin{variable}[int]{\c_@@_def_paper_size_tl}
+% \begin{variable}{\c_@@_def_paper_size_tl}
 % 纸张大小（A4）。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_paper_size_tl { a4paper }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_page_margin_top_dim,
+% \begin{variable}{\c_@@_def_page_margin_top_dim,
 %   \c_@@_def_page_margin_bottom_dim,
 %   \c_@@_def_page_margin_left_dim,
 %   \c_@@_def_page_margin_right_dim}
@@ -5508,21 +5517,21 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_header_height_dim}
+% \begin{variable}{\c_@@_def_header_height_dim}
 % 页眉高度。此高度与五号字大致相配。
 %    \begin{macrocode}
 \dim_const:Nn \c_@@_def_header_height_dim { 15 pt }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_font_size_tl}
+% \begin{variable}{\c_@@_def_font_size_tl}
 % 字号（小四）。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_font_size_tl { -4 }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_line_spread_fp}
+% \begin{variable}{\c_@@_def_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
 %   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
@@ -5536,7 +5545,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{章节标题}
 %
-% \begin{variable}[int]{\c_@@_def_chapter_format_tl,
+% \begin{variable}{\c_@@_def_chapter_format_tl,
 %   \c_@@_def_section_format_tl,
 %   \c_@@_def_subsection_format_tl}
 % 中文模板章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐
@@ -5551,7 +5560,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_chapter_format_en_tl,
+% \begin{variable}{\c_@@_def_chapter_format_en_tl,
 %   \c_@@_def_chapter_name_format_en_tl,
 %   \c_@@_def_chapter_title_format_en_tl,
 %   \c_@@_def_chapter_after_name_en_tl,
@@ -5573,7 +5582,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_chapter_before_sep_tl,
+% \begin{variable}{\c_@@_def_chapter_before_sep_tl,
 %   \c_@@_def_chapter_after_sep_tl,
 %   \c_@@_def_section_before_sep_tl,
 %   \c_@@_def_section_after_sep_tl,
@@ -5595,7 +5604,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_chapter_toc_format_tl,
+% \begin{variable}{\c_@@_def_chapter_toc_format_tl,
 %   \c_@@_def_section_toc_format_tl,
 %   \c_@@_def_subsection_toc_format_tl,
 %   \c_@@_def_chapter_toc_format_en_tl,
@@ -5615,7 +5624,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{封面}
 %
-% \begin{macro}[int]{\@@_cover_font_size_small:,
+% \begin{macro}{\@@_cover_font_size_small:,
 %   \@@_cover_font_size_normal:,
 %   \@@_cover_font_size_large:,
 %   \@@_cover_font_size_huge:}
@@ -5628,7 +5637,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}[int]{\c_@@_def_cover_id_width_tl,
+% \begin{variable}{\c_@@_def_cover_id_width_tl,
 %   \c_@@_def_cover_id_margin_sep_tl,
 %   \c_@@_def_cover_type_width_tl,
 %   \c_@@_def_cover_title_width_tl,
@@ -5650,7 +5659,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 % \changes{v0.5}{2017/09/19}{间距使用 \texttt{skip} 表达式，
 %   不再依赖 \tn{stretch}。}
 %
-% \begin{variable}[int]{\c_@@_def_cover_v_sep_i_tl,
+% \begin{variable}{\c_@@_def_cover_v_sep_i_tl,
 %   \c_@@_def_cover_v_sep_ii_tl,
 %   \c_@@_def_cover_v_sep_iii_tl,
 %   \c_@@_def_cover_v_sep_iv_tl,
@@ -5671,7 +5680,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_cover_title_en_line_spread_fp}
+% \begin{variable}{\c_@@_def_cover_title_en_line_spread_fp}
 % 英文标题的行距倍数。
 %    \begin{macrocode}
 \fp_const:Nn \c_@@_def_cover_title_en_line_spread_fp { 1.2 }
@@ -5680,7 +5689,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{声明页}
 %
-% \begin{variable}[int]{\c_@@_def_decl_v_sep_i_tl,
+% \begin{variable}{\c_@@_def_decl_v_sep_i_tl,
 %   \c_@@_def_decl_v_sep_ii_tl,
 %   \c_@@_def_decl_v_sep_iii_tl,
 %   \c_@@_def_decl_v_sep_iv_tl}
@@ -5694,14 +5703,14 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_decl_text_line_spread_fp}
+% \begin{variable}{\c_@@_def_decl_text_line_spread_fp}
 % 声明文本的行距倍数。
 %    \begin{macrocode}
 \fp_const:Nn \c_@@_def_decl_text_line_spread_fp { 1.8 }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_decl_sign_width_tl,
+% \begin{variable}{\c_@@_def_decl_sign_width_tl,
 %   \c_@@_def_decl_date_width_tl}
 % 签名栏和日期栏的宽度。
 %    \begin{macrocode}
@@ -5710,7 +5719,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_originality_decl_text_tl}
+% \begin{variable}{\c_@@_def_originality_decl_text_tl}
 % 论文独创性声明。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_originality_decl_text_tl
@@ -5724,7 +5733,7 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_authorization_decl_text_tl}
+% \begin{variable}{\c_@@_def_authorization_decl_text_tl}
 % 论文使用授权声明。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_authorization_decl_text_tl
@@ -5740,21 +5749,21 @@ Copyright (C) 2017 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % \subsubsection{杂项}
 %
-% \begin{variable}[int]{\c_@@_def_secret_clist}
+% \begin{variable}{\c_@@_def_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_def_secret_clist { 秘密, 机密, 绝密 }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_notation_arg_tl}
+% \begin{variable}{\c_@@_def_notation_arg_tl}
 % 符号表默认参数。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_notation_arg_tl { l p { 7.5 cm } }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\c_@@_def_notation_line_stretch_en_tl}
+% \begin{variable}{\c_@@_def_notation_line_stretch_en_tl}
 % 英文模板中符号表的行间距。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_def_notation_line_stretch_en_tl { 1.3 }

@@ -24,10 +24,11 @@
 %
 %^^A 代码部分的页边距
 % \newgeometry{
-%   left   = 2.25 in,
-%   right  = 1.00 in,
-%   top    = 1.25 in,
-%   bottom = 1.00 in
+%   left      = 2.25 in,
+%   right     = 1.00 in,
+%   top       = 1.25 in,
+%   bottom    = 1.00 in,
+%   marginpar = 2.25 in
 % }
 %
 % \subsection{视觉识别系统 \pkg{fdulogo}}
@@ -48,7 +49,7 @@
 %
 % \subsubsection{用户接口}
 %
-% \begin{variable}[int]{\l_@@_default_arg_tl}
+% \begin{variable}{\l_@@_default_arg_tl}
 % 默认参数。
 %    \begin{macrocode}
 \tl_const:Nn \l_@@_default_arg_tl { x = 1 pt, y = 1 pt }
@@ -107,7 +108,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_tikz:Nn,\@@_tikz:Nx,\@@_tikz:cx}
+% \begin{macro}{\@@_tikz:Nn,\@@_tikz:Nx,\@@_tikz:cx}
 % 对 \env{tikzpicture} 环境的封装。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tikz:Nn #1#2
@@ -153,8 +154,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\fdulogo@emblem,\fdulogo@emblem@reversed}
-% \begin{macro}[aux]{\fdulogo@emblem@text,\fdulogo@emblem@year}
+% \begin{macro}[int]{\fdulogo@emblem,
+%   \fdulogo@emblem@reversed,
+%   \fdulogo@emblem@text,
+%   \fdulogo@emblem@year}
 % 校徽。
 %    \begin{macrocode}
 \def\fdulogo@emblem{%
@@ -196,10 +199,11 @@
   \fdulogo@emblem@five}
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{macro}[int]{\fdulogo@emblem@new,\fdulogo@emblem@new@reversed}
-% \begin{macro}[int]{\fdulogo@emblem@new@text,\fdulogo@emblem@new@year}
+% \begin{macro}[int]{\fdulogo@emblem@new,
+%   \fdulogo@emblem@new@reversed,
+%   \fdulogo@emblem@new@text,
+%   \fdulogo@emblem@new@year}
 % 校徽（重修版）。
 %    \begin{macrocode}
 \def\fdulogo@emblem@new{%
@@ -242,10 +246,10 @@
   \fdulogo@emblem@new@five}
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{macro}[int]{\fdulogo@motto}
-% \begin{macro}[aux]{\fdulogo@motto@i,\fdulogo@motto@ii}
+% \begin{macro}[int]{\fdulogo@motto,
+%   \fdulogo@motto@i,
+%   \fdulogo@motto@ii}
 % 校训。
 %    \begin{macrocode}
 \def\fdulogo@motto{%
@@ -264,7 +268,6 @@
   \fdulogo@motto@jin
   \fdulogo@motto@si}
 %    \end{macrocode}
-% \end{macro}
 % \end{macro}
 %
 % \begin{macro}[int]{\@fduthesis@cover}
