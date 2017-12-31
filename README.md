@@ -67,4 +67,4 @@ version.
 
 -----
 
-Copyright (C) 2017 by Xiangdong Zeng.
+Copyright (C) 2017, 2018 by Xiangdong Zeng.
