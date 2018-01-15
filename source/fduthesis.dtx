@@ -2,7 +2,7 @@
 % !TeX program  = XeLaTeX
 % !TeX encoding = UTF-8
 %
-% Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>
+% Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -110,7 +110,7 @@ version.
 
 -----
 
-Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>.
+Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %</readme>
 %
 %<*internal>
@@ -128,7 +128,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>.
 
 \preamble
 
-    Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>
+    Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
 
     This work may be distributed and/or modified under the
     conditions of the LaTeX Project Public License, either
@@ -226,7 +226,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>.
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|doc|logo>\RequirePackage{expl3}
 %<*!(driver|install|ex-logo|cover)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.6 2017-12-01 12:00:00Z Xiangdong Zeng <pssysrq@163.com> $
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.6 2017-12-01 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -2533,7 +2533,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>.
 %
 % 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
 % 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{LuaTeX-ja} 宏包。
-% TODO(2017/07/22): 英文模板中文字体的处理。
+% TODO: (2017/07/22) 英文模板中文字体的处理。
 %    \begin{macrocode}
 \RequirePackage
   [
@@ -3102,7 +3102,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>.
           {
 %    \end{macrocode}
 % 黑体。注意右侧选项会覆盖左侧选项。\\
-% TODO(2017/09/18): 使用 |hei| 还是 |sans|？
+% TODO: (2017/09/18) 使用 |hei| 还是 |sans|？
 %    \begin{macrocode}
             \prop_get:NnN \g_@@_cjk_font_name_prop { hei }
               \l_@@_tmpa_tl
@@ -4171,7 +4171,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <pssysrq@163.com>.
 %    \end{macrocode}
 % 设置默认样式为 \opt{plain}。
 %    \begin{macrocode}
-% TODO(2017/12/07): 移到后面用户接口部分
+% TODO: (2017/12/07) 移到后面用户接口部分
     \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
