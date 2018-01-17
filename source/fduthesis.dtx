@@ -3994,10 +3994,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\thefootnote}
+% \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
 % 重定义脚注编号。
 %    \begin{macrocode}
-\RenewDocumentCommand \thefootnote { }
-  { \fdu_footnote_number:N \c@footnote }
+\cs_set:Npn \thefootnote { \fdu_footnote_number:N \c@footnote }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4325,11 +4325,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \begin{macro}{\thefigure,\thetable}
+% \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
 % 重定义图表编号。
 %    \begin{macrocode}
-\RenewDocumentCommand \thefigure { }
+\cs_set:Npn \thefigure
   { \@@_arabic:n { chapter } - \@@_arabic:n { figure } }
-\RenewDocumentCommand \thetable  { }
+\cs_set:Npn \thetable
   { \@@_arabic:n { chapter } - \@@_arabic:n { table  } }
 %    \end{macrocode}
 % \end{macro}
