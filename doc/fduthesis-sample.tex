@@ -1,0 +1,111 @@
+\documentclass{fduthesis}
+\usepackage{fancyvrb,hologo}
+
+\fdusetup{
+  style = {
+    %font = none,
+    %cjkfont = none,
+    cjkfont = founder,
+    fontsize = 5,
+    fullwidthstop = catcode,
+    logo = {../logo/pdf/fudan-name-black.pdf},
+    automakecover = false
+  },
+  info = {
+    title = {现代 \LaTeX{} 入门教程（fduthesis 示例文档）},
+    title* = {Introduction to Modern \LaTeX{} (Sample Document of \textsf{fduthesis})},
+    author = {曾祥东},
+    author* = {Xiangdong Zeng},
+    supervisor = {某某某 \quad 教授},
+    major = {物理学},
+    department = {物理系},
+    studentid = {14307110000},
+    keywords = {\LaTeX, 排版, 教程},
+    keywords* = {\LaTeX, typesetting, tutorial},
+    clc = {TS803.23}
+  }
+}
+
+%\setmainfont{Source Serif Pro}
+%\setsansfont{Source Sans Pro Semibold}[BoldFont = Source Sans Pro Bold]
+%\setmathfont{XITS Math}
+\setmonofont{CMU Typewriter Text}%
+  [
+    UprightFont = * Light,
+    BoldFont    = * Bold,
+    SlantedFont = * Light Oblique,
+    HyphenChar  = None
+  ]
+%\setCJKmainfont{Source Han Serif SC}%
+%  [ItalicFont = FZKai-Z03, BoldItalicFont = FZKai-Z03]
+%\setCJKsansfont{Source Han Sans SC Medium}%
+%  [BoldFont = Source Han Sans SC Bold, ItalicFont = FZKai-Z03, BoldItalicFont = FZKai-Z03]
+%\setCJKmonofont{FZFangSong-Z02}%
+%  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
+%\setCJKfamilyfont{kai}{FZKai-Z03}%
+%  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
+
+\AtBeginDocument{%
+  \begin{titlepage}%
+    \makecoveri
+  \end{titlepage}%
+}
+
+\xeCJKsetkern{）}{，}{0.3em}
+\xeCJKsetkern{）}{．}{0.2em}
+
+\newcommand\kwd[1]{\textbf{#1}}
+
+\newcommand\cs[1]{\texttt{\textbackslash#1}}
+\newcommand\env[1]{\texttt{#1}}
+\newcommand\bashcmd[1]{\texttt{#1}}
+
+\newcommand\pkg[1]{\textsf{#1}}
+\newcommand\cls[1]{\textsf{#1}}
+\newcommand\file[1]{\texttt{#1}}
+
+\def\TeX{\hologo{TeX}}
+\def\LaTeX{\hologo{LaTeX}}
+\def\LaTeXe{\hologo{LaTeXe}}
+\def\pdfTeX{\hologo{pdfTeX}}
+\def\pdfLaTeX{\hologo{pdfLaTeX}}
+\def\XeTeX{\hologo{XeTeX}}
+\def\XeLaTeX{\hologo{XeLaTeX}}
+\def\LuaTeX{\hologo{LuaTeX}}
+\def\LuaLaTeX{\hologo{LuaLaTeX}}
+\def\AmSLaTeX{\hologo{AmSLaTeX}}
+\def\TeXLive{\TeX\ Live}
+\def\MiKTeX{\hologo{MiKTeX}}
+\def\BibTeX{\hologo{BibTeX}}
+\def\TikZ{Ti\emph{k}Z}
+
+\DefineShortVerb{\|}
+\VerbatimFootnotes
+
+\begin{document}
+
+\raggedbottom
+
+%\frontmatter
+%
+%\tableofcontents
+%
+%\begin{abstract}
+%你好
+%\end{abstract}
+%
+%\begin{abstract*}
+%Hello
+%\end{abstract*}
+
+\mainmatter
+
+\include{chapters/fduthesis-sample-basic}
+% \include{chapters/fduthesis-sample-installation}
+% \include{chapters/fduthesis-sample-text}
+% \include{chapters/fduthesis-sample-math}
+% \include{chapters/fduthesis-sample-figure-and-table}
+% \include{chapters/fduthesis-sample-programming}
+% \include{chapters/fduthesis-sample-faq}
+
+\end{document}
