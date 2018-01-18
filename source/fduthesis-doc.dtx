@@ -1355,7 +1355,7 @@
 % 索引汉化。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \SpecialMainEnvIndex
-  { (environment) } { { \kaishu （环境） } }
+  { (environment) } { ~ 环境 }
 \ctex_patch_cmd:Nnn \SpecialMainEnvIndex
   { environments: } { 环境： }
 %    \end{macrocode}
@@ -1366,7 +1366,7 @@
 % 修改内部定义。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
-  { (environment) } { { \kaishu （环境） } }
+  { (environment) } { ~ 环境 }
 \ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
   { environments: } { 环境： }
 %    \end{macrocode}
@@ -1512,22 +1512,67 @@
   {
     \use:x
       {
-        \exp_not:n { \@@_special_index_aux:nnnnnn {#1} {#2} }
+        \exp_not:n { \@@_special_index_aux:nnnnnnn {#1} {#2} }
           \tl_if_empty:nTF {#3}
-            { { } { } { } }
+            { { } { } { } { } }
             {
               \str_if_eq_x:nnTF {#3} { TeX }
                 {
-                  { TeX~ 和~ LaTeX2e }
+                  { TeX~ and~ LaTeX2e }
                   { \string \TeX{}~ 和~ \string \LaTeXe{} }
                 }
-                {
-                  {#3} { \string \pkg {#3} }
-                }
-              { \bool_if:NT #5 { ~ 内部 } 命令： }
+                { {#3} { \string \pkg {#3} } }
+              \bool_if:NTF #5
+                { { commands~ internal } { ~ 内部命令： } }
+                { { commands           } { ~ 命令：     } }
             }
       }
     {#4}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_special_index_aux:nnnnnnn}
+% 该函数在 \cls{l3doc} 中本来只有 6 个参数。这里增加了一个，用来辅助
+% 排序。
+% \begin{arguments}
+%   \item 键（即宏名称字符串，用来排序）
+%   \item 宏名称
+%   \item 索引头排序字符串（排序）
+%   \item 索引头文字
+%   \item 索引头后缀字符串（排序，新增）
+%   \item 索引头后缀文字
+%   \item 索引类型（\opt{main}/\opt{usage} 等）
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_special_index_aux:nnnnnnn #1#2#3#4#5#6#7
+  {
+    \tl_set:Nn \l_@@_index_escaped_key_tl {#1}
+    \@@_quote_special_char:N \l_@@_index_escaped_key_tl
+    \@@_special_index_set:Nn
+      \l_@@_index_escaped_macro_tl {#2}
+    \str_if_eq:onTF { \@currenvir } { macrocode }
+      { \codeline@wrindex }
+      {
+        \str_case:nnF {#7}
+          {
+            { main  } { \codeline@wrindex }
+            { usage } { \index }
+          }
+          { \HD@target \index }
+      }
+      {
+        \tl_if_empty:nF { #3 #4 #5 #6 }
+          { #3 #5 \actualchar #4 #6 \levelchar }
+        \l_@@_index_escaped_key_tl
+        \actualchar
+        {
+          \token_to_str:N \verbatim@font \c_space_tl
+          \l_@@_index_escaped_macro_tl
+        }
+        \encapchar
+        hdclindex { \the \c@HD@hypercount } {#7}
+      }
   }
 %    \end{macrocode}
 % \end{macro}
