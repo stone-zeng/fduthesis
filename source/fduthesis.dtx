@@ -4074,24 +4074,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsubsection{整体样式}
 %
 % \begin{macro}[int]{\@makefntext}
-% 重定义内部脚注文字命令。
+% \changes{v0.7}{2018/01/18}{简化实现，兼容 \pkg{fancyvrb} 宏包。
+%   不再使用悬挂缩进。}
+% 重定义内部脚注文字命令，使脚注编号不使用上标，宽度为 \SI{1.5}{em}。
+% 见 \url{http://tex.stackexchange.com/q/19844} 和
+% \url{https://www.zhihu.com/question/53030087}。
 %    \begin{macrocode}
-\RenewDocumentCommand \@makefntext { +m }
+\cs_set:Npn \@makefntext #1
   {
-%    \end{macrocode}
-% 脚注编号不使用上标，宽度为 \SI{1.5}{em}。
-% 见 \url{http://tex.stackexchange.com/q/19844}。
-%    \begin{macrocode}
-    \dim_set:Nn \l_@@_tmpa_dim { \textwidth - 1.5 em }
-    \makebox [ 1.5 em ] [ l ] { \@thefnmark }
-%    \end{macrocode}
-% 脚注文字用 \tn{parbox} 封装。首段无缩进，第二段起缩进 \SI{2}{em}。
-%    \begin{macrocode}
-    \parbox [ t ] { \l_@@_tmpa_dim }
-      {
-        \everypar { \hspace* { 2 em } }
-        \hspace* { -2 em } #1
-      }
+    \mode_leave_vertical:
+    \hbox_to_wd:nn { 1.5em } { \@thefnmark \hfil }
+    #1
   }
 %    \end{macrocode}
 % \end{macro}
