@@ -2013,10 +2013,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       \item \pkg{expl3}、\pkg{xparse} 和 \pkg{l3keys2e}，用于
 %         构建 \LaTeX3 编程环境 \scite{interfaces3,source3}。
 %         它们分属 \pkg{l3kernel} 和 \pkg{l3packages} 宏集。
-%       \item \cls{book} 文档类，是 \LaTeXe{} 的标准文档类之一
-%         \scite{source2e}。
-%       \item \pkg{fontspec}，提供新一代的字体设置界面。
-%       \item \pkg{ctex}，提供中文排版的通用框架。属于 \CTeX{}
+%       \item \cls{ctexbook}，提供中文排版的通用框架。属于 \CTeX{}
 %         宏集 \scite{CTeX}。
 %       \item \pkg{amsmath}，对 \LaTeX{} 的数学排版功能进行了
 %         全面扩展。属于 \AmSLaTeX{} 套件。
@@ -2044,10 +2041,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     \begin{itemize}
 %^^A!       \item \pkg{expl3}, \pkg{xparse} and \pkg{l3keys2e},
 %^^A!         belong to \pkg{l3kernel} and \pkg{l3packages} bundles
-%^^A!       \item \cls{book} class, one of the standard \LaTeX{}
-%^^A!         document classes
-%^^A!       \item \pkg{fontspec}
-%^^A!       \item \pkg{ctex}, belongs to \CTeX{} bundle
+%^^A!       \item \cls{ctexbook}, belongs to \CTeX{} bundle
 %^^A!       \item \pkg{amsmath}, belongs to \AmSLaTeX{} bundle
 %^^A!       \item \pkg{unicode-math}
 %^^A!       \item \pkg{geometry}
@@ -2347,11 +2341,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_to_book_clist,\g_@@_to_hyperref_clist}
-% 分别保存由 \cls{fduthesis} 传入 \cls{book} 文档类和
+% \begin{variable}{\g_@@_to_ctexbook_clist,\g_@@_to_hyperref_clist}
+% 分别保存由 \cls{fduthesis} 传入 \cls{ctexbook} 文档类和
 % \pkg{hyperref} 宏包的选项列表。
 %    \begin{macrocode}
-\clist_new:N \g_@@_to_book_clist
+\clist_new:N \g_@@_to_ctexbook_clist
 \clist_new:N \g_@@_to_hyperref_clist
 %    \end{macrocode}
 % \end{variable}
@@ -2469,12 +2463,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     twoside .value_forbidden:n = true,
     oneside .code:n =
       {
-        \clist_gput_right:Nn \g_@@_to_book_clist { oneside }
+        \clist_gput_right:Nn \g_@@_to_ctexbook_clist { oneside }
         \bool_set_false:N    \g_@@_twoside_bool
       },
     twoside .code:n =
       {
-        \clist_gput_right:Nn \g_@@_to_book_clist { twoside }
+        \clist_gput_right:Nn \g_@@_to_ctexbook_clist { twoside }
         \bool_set_true:N     \g_@@_twoside_bool
       },
 %    \end{macrocode}
@@ -2489,7 +2483,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     draft / true  .code:n =
       {
         \bool_set_true:N     \g_@@_draft_bool
-        \clist_gput_right:Nn \g_@@_to_book_clist { draft }
+        \clist_gput_right:Nn \g_@@_to_ctexbook_clist { draft }
       },
     draft / false .code:n =
       { \bool_set_false:N    \g_@@_draft_bool },
@@ -2511,87 +2505,71 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \ProcessKeysOptions { fdu / option }
 %    \end{macrocode}
 %
-% \subsection{载入宏包、文档类}
-%
-% 载入 \cls{book} 标准文档类，并传入相应的选项。
-%    \begin{macrocode}
-\PassOptionsToClass { \g_@@_to_book_clist } { book }
-\LoadClass { book }
-%    \end{macrocode}
-%
 % 载入参数配置文件。
 %    \begin{macrocode}
 \file_input:n { fduthesis.def }
 \file_input:n { fduthesis-user.def }
 %    \end{macrocode}
 %
-% \XeLaTeX{} 和 \LuaLaTeX{} 下的字体选取。\opt{no-math} 选项保证该
-% 宏包不参与数学字体的设置。
-%    \begin{macrocode}
-\RequirePackage [ no-math ] { fontspec }
-%    \end{macrocode}
+% \subsection{载入宏包、文档类}
 %
-% 中文排版支持。使用 \XeLaTeX{} 编译时，底层将调用 \pkg{xeCJK} 宏包；
-% 使用 \LuaLaTeX{} 编译时，底层则将调用 \pkg{LuaTeX-ja} 宏包。
+% \changes{v0.7}{2018/01/19}{使用 \cls{ctexbook} 文档类，而非直接使用
+%   标准文档类 \cls{book}。}
+%
+% 将选项传入 \cls{ctexbook} 文档类。\\
 % TODO: (2017/07/22) 英文模板中文字体的处理。
 %    \begin{macrocode}
-\RequirePackage
-  [
+\PassOptionsToClass
+  {
     UTF8,
 %<class-en>    scheme     = plain,
     heading    = true,
 %<class>    fontset    = none,
 %<class-en>    fontset    = fandol,
     zihao      = \c_@@_def_font_size_tl,
-%<class>    linespread = \c_@@_def_line_spread_fp
-  ]
-  { ctex }
+%<class>    linespread = \c_@@_def_line_spread_fp,
+    \g_@@_to_ctexbook_clist
+  }
+  { ctexbook }
 %    \end{macrocode}
 %
-% \pkg{amsmath} 必须在 \pkg{unicode-math} 之前引入。
+% 传入各宏包选项。
 %    \begin{macrocode}
-\RequirePackage { amsmath }
-%    \end{macrocode}
+\clist_map_inline:nn
+  {
+    { no-math           } { fontspec },
+    { perpage           } { footmisc },
+    { amsmath, thmmarks } { ntheorem },
+    { sort & compress   } { natbib   }
+  }
+  { \PassOptionsToPackage #1 }
 %
-% 支持 Unicode 编码的 OpenType 数学字体。根据 GB 3102.11--93 以及
-% ISO 80000-2:2009 的规定，数学表达式中表示变量的拉丁字母和希腊
-% 字母均应当使用斜体。
+% 载入 \cls{ctexbook} 文档类。
+% 在使用 \XeLaTeX{} 编译时，\cls{ctexbook} 的底层将调用 \pkg{xeCJK}
+% 宏包；而在使用 \LuaLaTeX{} 编译时，则将调用 \pkg{LuaTeX-ja} 宏包。
+% 两种情况下 \cls{ctexbook} 均会调用 \pkg{fontspec} 宏包。
 %    \begin{macrocode}
-\RequirePackage [math-style = ISO, bold-style = ISO] { unicode-math }
-%    \end{macrocode}
-%
-% 设置页面尺寸与页眉页脚。
-%    \begin{macrocode}
-\RequirePackage { geometry, fancyhdr }
-%    \end{macrocode}
-%
-% 处理脚注。\opt{perpage} 选项将使脚注编号每页清零。
-%    \begin{macrocode}
-\RequirePackage [ perpage ] { footmisc }
-%    \end{macrocode}
-%
-% 定理环境。
-%    \begin{macrocode}
-\RequirePackage [ amsmath, thmmarks ] { ntheorem }
-%    \end{macrocode}
-%
-% 插图、表格与浮动体控制。
-%    \begin{macrocode}
-\RequirePackage { graphicx }
-\RequirePackage { longtable }
-\RequirePackage { caption }
-%    \end{macrocode}
-%
-% 参考文献。
-%    \begin{macrocode}
-\RequirePackage [ sort & compress ] { natbib }
+\LoadClass { ctexbook }
 %    \end{macrocode}
 %
 % \changes{v0.4}{2017/08/13}{提供彩色支持。}
 %
-% 提供彩色支持。
+% 载入各宏包。其中，\pkg{amsmath} 必须在 \pkg{unicode-math} 之前引入。
 %    \begin{macrocode}
-\RequirePackage { xcolor }
+\RequirePackage
+  {
+    amsmath,
+    unicode-math,
+    geometry,
+    fancyhdr,
+    footmisc,
+    ntheorem,
+    graphicx,
+    longtable,
+    caption,
+    natbib,
+    xcolor
+  }
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_check_package:nnn}
@@ -3395,6 +3373,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{数学字体设置}
+%
+% 根据 GB 3102.11--93 以及 ISO 80000-2:2009 的规定，数学表达式中
+% 表示变量的拉丁字母和希腊字母均应当使用斜体。
+% 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。\\
+% TODO: (2018/01/19) 是否需要 |mathrm=sym|？
+%    \begin{macrocode}
+\keys_set:nn { unicode-math }
+  {
+    math-style = ISO,
+    bold-style = ISO,
+%   mathrm     = sym
+  }
+%    \end{macrocode}
+%
 % \subsubsection{字号}
 %
 %    \begin{macrocode}
@@ -3403,8 +3396,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \begin{macro}{style/fontsize}
-% |fontsize| 不是文档类选项，不能传给 \pkg{ctex} 宏包
-% 或者 \cls{book} 文档类，因此只能手动重定义字号命令。
+% |fontsize| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
+% 只能手动重定义字号命令。
 %    \begin{macrocode}
     fontsize .choice:,
     fontsize .value_required:n = true,
@@ -3503,7 +3496,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{章节标题结构}
 %
-% |\keys_set:nn {ctex}| 实际相当于 \cs{ctexset}。
+% |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
@@ -4164,7 +4157,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 设置默认样式为 \opt{plain}。
 %    \begin{macrocode}
-% TODO: (2017/12/07) 移到后面用户接口部分
+% TODO: (2017/12/07) 移到后面用户接口部分。
     \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
