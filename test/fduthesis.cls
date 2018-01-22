@@ -1420,6 +1420,11 @@
           { \PassOptionsToPackage { citestyle = \l__fdu_bib_style_tl } { biblatex } }
           
         \RequirePackage [ backend = biber, hyperref = manual, natbib ] { biblatex }
+
+        %\tl_show:N \l__fdu_bib_resource_tl
+        \exp_args:NV \addbibresource \l__fdu_bib_resource_tl
+
+        %\tl_show:N \blx@bibfiles
       }
   }
 \cs_new:Npn \__fdu_set_cite_style_numerical:
