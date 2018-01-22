@@ -164,7 +164,7 @@
     { no-math           } { fontspec },
     { perpage           } { footmisc },
     { amsmath, thmmarks } { ntheorem },
-    { sort & compress   } { natbib   }
+%    { sort & compress   } { natbib   }
   }
   { \PassOptionsToPackage #1 }
 \LoadClass { ctexbook }
@@ -179,7 +179,7 @@
     graphicx,
     longtable,
     caption,
-    natbib,
+%    natbib,
     xcolor
   }
 \cs_new_protected:Npn \__fdu_check_package:nnn #1#2#3
@@ -681,94 +681,10 @@
     \tl_gset:Nn \l__fdu_header_center_mark_tl { }
   }
 \pagestyle { fancy }
-\NewDocumentCommand \hypersetup { m }
-  { \fdu_hyperref_setup:n {#1} }
-\cs_new_protected:Npn \fdu_hyperref_setup:n #1
-  { \clist_gput_right:Nn \g__fdu_to_hyperref_clist {#1} }
-\cs_new:Npn \__fdu_set_hyperlink_color_key:n #1
-  {
-    hyperlinkcolor / \clist_item:nn {#1} {1} .code:n =
-      {
-        \__fdu_define_hyperlink_color:nnn
-          { \clist_item:nn {#1} {2} }
-          { \clist_item:nn {#1} {3} }
-          { \clist_item:nn {#1} {4} }
-        \fdu_hyperref_setup:n
-          {
-            linkcolor = fdu@link, linkbordercolor = fdu@link,
-            urlcolor  = fdu@url,  urlbordercolor  = fdu@url,
-            citecolor = fdu@cite, citebordercolor = fdu@cite
-          }
-      },
-  }
-\cs_new_protected:Npn \__fdu_define_hyperlink_color:nnn #1#2#3
-  {
-    \definecolorset { HTML } { fdu@ } { }
-      { link, #1; url, #2; cite, #3}
-  }
-\keys_define:nx { fdu / style }
-  {
-    hyperlink .choice:,
-    hyperlink .value_required:n = true,
-    hyperlink / border .code:n = { },
-    hyperlink / color  .code:n =
-      { \fdu_hyperref_setup:n { colorlinks = true } },
-    hyperlink / none   .code:n =
-      { \fdu_hyperref_setup:n { hidelinks  = true } },
-    hyperlinkcolor .choice:,
-    hyperlinkcolor .value_required:n = true,
-    \clist_map_function:nN
-      {
-        { autumn,    D70000, D75F00, AF8700 },
-        { business,  D14542, 295497, 1F6E43 },
-        { classic,   FF0000, 0000FF, 00FF00 },
-        { default,   990000, 0000B2, 007F00 },
-        { elegant,   961212, C31818, 9B764F },
-        { fantasy,   FF4A19, FF3F94, 934BA1 },
-        { material,  E91E63, 009688, 4CAF50 },
-        { science,   CA0619, 389F9D, FF8920 },
-        { summer,    00AFAF, 5F5FAF, 5F8700 },
-        { graylevel, 616161, 616161, 616161 },
-        { prl,       2D3092, 2D3092, 2D3092 }
-      }
-      \__fdu_set_hyperlink_color_key:n
-  }
-\cs_new:Npn \fdu_allow_url_break:
-  {
-    \cs_new:Npn \__fdu_add_url_break_points:
-      { \tl_map_function:NN \c__fdu_url_break_points_tl \do }
-    \__fdu_appto_cmd:Nn \UrlBreaks
-      { \UrlOrds \__fdu_add_url_break_points: }
-  }
-\tl_const:Nn \c__fdu_url_break_points_tl
-  {
-    abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  }
-\ctex_at_end_preamble:n
-  {
-    \RequirePackage { hyperref }
-    \hypersetup
-      {
-        bookmarksnumbered = true,
-        pdftitle    = \l__fdu_info_title_tl,
-        pdfauthor   = \l__fdu_info_author_tl,
-        pdfkeywords = \l__fdu_info_keywords_clist,
-        pdfcreator  = \c__fdu_def_name_pdf_creator_tl
-      }
-    \exp_args:NV \hypersetup \g__fdu_to_hyperref_clist
-    \fdu_allow_url_break:
-  }
-\ctex_at_end_package:nn { hyperref }
-  {
-    \pdfstringdefDisableCommands
-      {
-        \cs_set_eq:NN \fdu@kai \prg_do_nothing:
-        \cs_set_eq:NN \quad    \c_space_tl
-        \cs_set_eq:NN \qquad   \c_space_tl
-      }
-  }
+
+
+
+
 \__fdu_def_fn_style:nn { plain           } { plain           }
 \__fdu_def_fn_style:nn { libertinus      } { libertinus      }
 \__fdu_def_fn_style:nn { libertinus_neg  } { libertinus*     }
@@ -1415,8 +1331,23 @@
   }
 \tl_new:N \l__fdu_bib_style_tl
 \tl_new:N \l__fdu_bib_gb_style_tl
+
+\tl_new:N \l__fdu_cite_style_tl
+
+\bool_new:N \l__fdu_bibtex_bool
+
 \keys_define:nn { fdu / style }
   {
+    bibbackend .choice:,
+    bibbackend .value_required:n = true,
+    bibbackend / bibtex   .code:n =
+      {
+        \bool_set_true:N  \l__fdu_bibtex_bool
+      },
+    bibbackend / biblatex .code:n =
+      { \bool_set_false:N \l__fdu_bibtex_bool },
+
+
     bibstyle .choice:,
     bibstyle .value_required:n = true,
     bibstyle / numerical   .code:n =
@@ -1430,27 +1361,66 @@
         \tl_clear:N \l__fdu_bib_style_tl
       },
     bibstyle / unknown    .code:n =
-      { \tl_set_eq:NN \l__fdu_bib_style_tl \l_keys_value_tl }
+      { \tl_set_eq:NN \l__fdu_bib_style_tl \l_keys_value_tl },
+
+
+    citestyle .code:n =
+      {
+        \bool_if:NTF \l__fdu_bibtex_bool
+          {
+            % not available for bibtex
+          }
+          { \tl_set:Nn \l__fdu_cite_style_tl {#1} }
+      },
+
+    bibresource .tl_set:N = \l__fdu_bib_resource_tl
   }
 \ctex_at_end_preamble:n
   {
-    \tl_if_empty:NTF \l__fdu_bib_style_tl
+    \bool_if:NTF \l__fdu_bibtex_bool
       {
-        \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
+        \RequirePackage [ sort & compress ] { natbib }
+        
+        \tl_if_empty:NTF \l__fdu_bib_style_tl
           {
-            \bibliographystyle { gbt-7714-2015-numerical }
-            \__fdu_set_cite_style_numerical:
-          }
-          {
-            \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
+            \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
               {
-                \bibliographystyle { gbt-7714-2015-author-year }
-                \__fdu_set_cite_style_author_year:
-                \cs_set_eq:NN \cite \citep
+                \bibliographystyle { gbt7714-unsrt }
+                \__fdu_set_cite_style_numerical:
+              }
+              {
+                \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
+                  {
+                    \bibliographystyle { gbt7714-plain }
+                    \__fdu_set_cite_style_author_year:
+                    \cs_set_eq:NN \cite \citep
+                  }
               }
           }
+          { \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl }
+
+          \NewDocumentCommand \printbibliography { o }
+            {
+              % bibtex 下可选参数无效
+              \exp_args:NV \bibliography \l__fdu_bib_resource_tl
+            }
       }
-      { \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl }
+      {
+        \tl_if_empty:NTF \l__fdu_bib_style_tl
+          {
+            \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
+              { \PassOptionsToPackage { style = gb7714-2015 } { biblatex } }
+              {
+                \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
+                  { \PassOptionsToPackage { style = gb7714-2015ay } { biblatex } }
+              }
+          }
+          { \PassOptionsToPackage { style = \l__fdu_bib_style_tl } { biblatex } }
+        \tl_if_empty:NF \l__fdu_cite_style_tl
+          { \PassOptionsToPackage { citestyle = \l__fdu_bib_style_tl } { biblatex } }
+          
+        \RequirePackage [ backend = biber, hyperref = manual, natbib ] { biblatex }
+      }
   }
 \cs_new:Npn \__fdu_set_cite_style_numerical:
   {
@@ -1495,6 +1465,103 @@
   \cs_new:Npn \__fdu_href_split:w $1 # $2 # $3 \\ $4
     { $4 \group_end: }
 \group_end:
+
+
+
+
+\NewDocumentCommand \hypersetup { m }
+  { \fdu_hyperref_setup:n {#1} }
+\cs_new_protected:Npn \fdu_hyperref_setup:n #1
+  { \clist_gput_right:Nn \g__fdu_to_hyperref_clist {#1} }
+\cs_new:Npn \__fdu_set_hyperlink_color_key:n #1
+  {
+    hyperlinkcolor / \clist_item:nn {#1} {1} .code:n =
+      {
+        \__fdu_define_hyperlink_color:nnn
+          { \clist_item:nn {#1} {2} }
+          { \clist_item:nn {#1} {3} }
+          { \clist_item:nn {#1} {4} }
+        \fdu_hyperref_setup:n
+          {
+            linkcolor = fdu@link, linkbordercolor = fdu@link,
+            urlcolor  = fdu@url,  urlbordercolor  = fdu@url,
+            citecolor = fdu@cite, citebordercolor = fdu@cite
+          }
+      },
+  }
+\cs_new_protected:Npn \__fdu_define_hyperlink_color:nnn #1#2#3
+  {
+    \definecolorset { HTML } { fdu@ } { }
+      { link, #1; url, #2; cite, #3}
+  }
+\keys_define:nx { fdu / style }
+  {
+    hyperlink .choice:,
+    hyperlink .value_required:n = true,
+    hyperlink / border .code:n = { },
+    hyperlink / color  .code:n =
+      { \fdu_hyperref_setup:n { colorlinks = true } },
+    hyperlink / none   .code:n =
+      { \fdu_hyperref_setup:n { hidelinks  = true } },
+    hyperlinkcolor .choice:,
+    hyperlinkcolor .value_required:n = true,
+    \clist_map_function:nN
+      {
+        { autumn,    D70000, D75F00, AF8700 },
+        { business,  D14542, 295497, 1F6E43 },
+        { classic,   FF0000, 0000FF, 00FF00 },
+        { default,   990000, 0000B2, 007F00 },
+        { elegant,   961212, C31818, 9B764F },
+        { fantasy,   FF4A19, FF3F94, 934BA1 },
+        { material,  E91E63, 009688, 4CAF50 },
+        { science,   CA0619, 389F9D, FF8920 },
+        { summer,    00AFAF, 5F5FAF, 5F8700 },
+        { graylevel, 616161, 616161, 616161 },
+        { prl,       2D3092, 2D3092, 2D3092 }
+      }
+      \__fdu_set_hyperlink_color_key:n
+  }
+\cs_new:Npn \fdu_allow_url_break:
+  {
+    \cs_new:Npn \__fdu_add_url_break_points:
+      { \tl_map_function:NN \c__fdu_url_break_points_tl \do }
+    \__fdu_appto_cmd:Nn \UrlBreaks
+      { \UrlOrds \__fdu_add_url_break_points: }
+  }
+\tl_const:Nn \c__fdu_url_break_points_tl
+  {
+    abcdefghijklmnopqrstuvwxyz
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  }
+\ctex_at_end_preamble:n
+  {
+    \RequirePackage { hyperref }
+    \hypersetup
+      {
+        bookmarksnumbered = true,
+        pdftitle    = \l__fdu_info_title_tl,
+        pdfauthor   = \l__fdu_info_author_tl,
+        pdfkeywords = \l__fdu_info_keywords_clist,
+        pdfcreator  = \c__fdu_def_name_pdf_creator_tl
+      }
+    \exp_args:NV \hypersetup \g__fdu_to_hyperref_clist
+    \fdu_allow_url_break:
+
+    \bool_if:NF \l__fdu_bibtex_bool
+      { \BiblatexManualHyperrefOn }
+  }
+\ctex_at_end_package:nn { hyperref }
+  {
+    \pdfstringdefDisableCommands
+      {
+        \cs_set_eq:NN \fdu@kai \prg_do_nothing:
+        \cs_set_eq:NN \quad    \c_space_tl
+        \cs_set_eq:NN \qquad   \c_space_tl
+      }
+  }
+
+
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } {#1},

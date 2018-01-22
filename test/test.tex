@@ -16,7 +16,11 @@
     % logosize = {2cm,2cm,2cm}
     hyperlink = color,
     hyperlinkcolor = default,
-    % bibstyle = authoryear
+%
+%
+    bibbackend = biblatex,
+    bibstyle = numerical,
+    bibresource = {test.bib}
   },
   info = {
     title = {自河南经乱关内阻饥兄弟离散各在一处},
@@ -41,6 +45,9 @@
     clc = {O414.1/65}
   }
 }
+
+%\usepackage[backend=biber, style=gb7714-2015, citestyle=alphabetic, hyperref=manual, natbib]{biblatex}
+%\addbibresource{test.bib}
 
 % \setmainfont{Adobe Garamond Pro}[ItalicFont=Consolas,BoldFont=Candara]
 % \setsansfont{Calibri}
@@ -67,158 +74,73 @@
 
 \tableofcontents
 
-\begin{abstract}
-\zhlipsum[1-10]
-\end{abstract}
-
-\begin{abstract*}
-\kant[1-10]
-\end{abstract*}
-
-\begin{notation}[lp{20em}]
-$\sin$      &  正弦 \\
-HPC         &  高性能计算 (High Performance Computing) \\
-cluster     &  集群 \\
-Itanium     &  安腾 \\
-SMP         &  对称多处理 \\
-API         &  应用程序编程接口 \\
-PI          &  聚酰亚胺 \\
-MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-PBI         &  聚苯并咪唑 \\
-MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-PY          &  聚吡咙 \\
-PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-$\Delta G$  &  活化自由能 (Activation Free Energy) \\
-$\chi$      &  传输系数 (Transmission Coefficient) \\
-$E$         &  能量 \\
-$m$         &  质量 \\
-$c$         &  光速 \\
-$P$         &  概率 \\
-$T$         &  时间 \\
-$v$         &  速度
-\end{notation}
+%\begin{abstract}
+%\zhlipsum[1-10]
+%\end{abstract}
+%
+%\begin{abstract*}
+%\kant[1-10]
+%\end{abstract*}
+%
+%\begin{notation}[lp{20em}]
+%$\sin$      &  正弦 \\
+%HPC         &  高性能计算 (High Performance Computing) \\
+%cluster     &  集群 \\
+%Itanium     &  安腾 \\
+%SMP         &  对称多处理 \\
+%API         &  应用程序编程接口 \\
+%PI          &  聚酰亚胺 \\
+%MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
+%PBI         &  聚苯并咪唑 \\
+%MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
+%PY          &  聚吡咙 \\
+%PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
+%$\Delta G$  &  活化自由能 (Activation Free Energy) \\
+%$\chi$      &  传输系数 (Transmission Coefficient) \\
+%$E$         &  能量 \\
+%$m$         &  质量 \\
+%$c$         &  光速 \\
+%$P$         &  概率 \\
+%$T$         &  时间 \\
+%$v$         &  速度
+%\end{notation}
 
 \mainmatter
 
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
-
-\section{文字与段落 Text and paragraph}
-
-\subsection{中文文本 Chinese}
-\zhlipsum
-
-\subsection{英文文本 English}
-\kant
-
-\clearpage
-
-\section{字体 Font}
-
-\subsection{普通字体 Roman}
-\fonttest
-
-\subsection{无衬线字体 Sans-serif}
-\textsf{\fonttest}
-
-\subsection{打字机字体 Typewriter}
-\texttt{\fonttest}
-
-\subsection{句号}
-如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
-如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
-如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
-
-\clearpage
-
-\section{脚注 Footnote}
-
-脚注\footnote{脚注1如果会突然}。
-
-脚注 \footnote{脚注2。千千万的。}。未取得的
-
-脚注。\footnote{脚注3是一个长脚注。\zhlipsum*[2]}未取得的
-
-\textit{脚注倾斜。 \footnote{脚注4}未取得的}
-
-\textbf{脚注加粗。\footnote{脚注5} 未取得的}
-
-vs\footnote{脚注6}未取得的
-
-vs \footnote{脚注7要分段。\par 不舒服不得不运河滩上野跑，头顶着毒热的阳光，身上再裹起兜肚，一不风凉，
-二又窝汗，穿不了一天，就得起大半身痱子。再有，全村跟他一般大的小姑娘，
-谁的兜肚也没有这么花儿草儿的鲜艳，他穿在身上，男不男，女不女，
-小姑娘们要用手指刮破脸蛋儿。}未取得的
-
-vs\footnote{脚注8}ge
-
-vs\footnote{脚注9} jsty
-
-vs\footnote{脚注10分三段。青大娘大高个儿，一双大脚，青铜肤色，
-嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-一丈青大娘骂人，就像雨打芭蕉，长短句。\par
-青大娘大高个儿，一双大脚，青铜肤色，
-嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-一丈青大娘骂人，就像雨打芭蕉，长短句。 \par
-青大娘大高个儿，一双大脚，青铜肤色，
-嗓门也亮堂，骂起人来，方圆二三十里，敢说找不出能够招架几个回合的敌手。
-一丈青大娘骂人，就像雨打芭蕉，长短句。}
-
-Text%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-\footnote{This is a footnote.}%
-
-\input{test-theorem}
-
-\input{test-figure-table}
+%\chapter{文本，字体，脚注 \quad Text, font and footnote}
+%
+%\section{文字与段落 Text and paragraph}
+%
+%\subsection{中文文本 Chinese}
+%\zhlipsum
+%
+%\subsection{英文文本 English}
+%\kant
+%
+%\clearpage
+%
+%\section{字体 Font}
+%
+%\subsection{普通字体 Roman}
+%\fonttest
+%
+%\subsection{无衬线字体 Sans-serif}
+%\textsf{\fonttest}
+%
+%\subsection{打字机字体 Typewriter}
+%\texttt{\fonttest}
+%
+%\subsection{句号}
+%如果\symbol{"002E}会突然：\textsc{Full Stop} \par
+%如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
+%如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
+%如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+%
+%\input{test-footnote}
+%
+%\input{test-theorem}
+%
+%\input{test-figure-table}
 
 \chapter{文本}
 
@@ -256,21 +178,22 @@ Myriad MM \citep{wyf,hblzsthjkjyxgs,sunstein,zgtsgxh,aaas}。
 保留到了今天 Truetype 和 Opentype 的 Single Master 时代。Adobe 软件的
 字体下拉菜单，仍然只显示6到72pt 的字号。
 
-\chapter{假文}
-
-\begin{definition}
-证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”
-（这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei
-deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以
-在证明的尾段写出，以显示证明所需的结论已经完整了。
-\end{definition}
-
-\zhlipsum[1-15]
+% \chapter{假文}
+% 
+% \begin{definition}
+% 证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”
+% （这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei
+% deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以
+% 在证明的尾段写出，以显示证明所需的结论已经完整了。
+% \end{definition}
+% 
+% \zhlipsum[1-15]
 
 %\nocite{*}
 
 \backmatter
 
-\bibliography{test}
+%\bibliography{test}
+\printbibliography
 
 \end{document}
