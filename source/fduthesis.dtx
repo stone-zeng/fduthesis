@@ -2539,10 +2539,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     { no-math           } { fontspec },
     { perpage           } { footmisc },
-    { amsmath, thmmarks } { ntheorem },
-    { sort & compress   } { natbib   }
+    { amsmath, thmmarks } { ntheorem }
   }
   { \PassOptionsToPackage #1 }
+%    \end{macrocode}
+%
+% 本模板会在 \pkg{ctexhook} 提供的钩子 \cs{ctex_at_end_preamble:n}
+% 中调用 \pkg{biblatex}，而 \pkg{biblatex} 自身又会使用 \pkg{etoolbox}
+% 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
+% \pkg{etoolbox}。
+%
+% TODO: (2018/01/22) 钩子的展开顺序为
+%    \begin{macrocode}
+\RequirePackage { etoolbox }
 %    \end{macrocode}
 %
 % 载入 \cls{ctexbook} 文档类。
@@ -2568,7 +2577,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     graphicx,
     longtable,
     caption,
-    natbib,
     xcolor
   }
 %    \end{macrocode}
@@ -3645,178 +3653,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 为 |fancy|。
 %    \begin{macrocode}
 \pagestyle { fancy }
-%    \end{macrocode}
-%
-% \subsection{\pkg{hyperref} 相关配置}
-%
-% \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，
-%   包括超链接样式（\opt{hyperlink} 与 \opt{hyperlinkcolor}
-%   选项）及 PDF 元信息等。}
-%
-% \begin{macro}{\hypersetup,\fdu_hyperref_setup:n}
-% \pkg{hyperref} 宏包是在导言区之后才引入的。若要在导言区中使用
-% \tn{hypersetup} 命令，必须另行定义。
-%    \begin{macrocode}
-\NewDocumentCommand \hypersetup { m }
-  { \fdu_hyperref_setup:n {#1} }
-\cs_new_protected:Npn \fdu_hyperref_setup:n #1
-  { \clist_gput_right:Nn \g_@@_to_hyperref_clist {#1} }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_set_hyperlink_color_key:n}
-% 设置超链接颜色选项。最后的逗号用于确保 \pkg{l3keys} 可以正确解析，不能省去。
-%    \begin{macrocode}
-\cs_new:Npn \@@_set_hyperlink_color_key:n #1
-  {
-    hyperlinkcolor / \clist_item:nn {#1} {1} .code:n =
-      {
-        \@@_define_hyperlink_color:nnn
-          { \clist_item:nn {#1} {2} }
-          { \clist_item:nn {#1} {3} }
-          { \clist_item:nn {#1} {4} }
-        \fdu_hyperref_setup:n
-          {
-            linkcolor = fdu@link, linkbordercolor = fdu@link,
-            urlcolor  = fdu@url,  urlbordercolor  = fdu@url,
-            citecolor = fdu@cite, citebordercolor = fdu@cite
-          }
-      },
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_define_hyperlink_color:nnn}
-% 定义超链接颜色。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_define_hyperlink_color:nnn #1#2#3
-  {
-    \definecolorset { HTML } { fdu@ } { }
-      { link, #1; url, #2; cite, #3}
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
-\keys_define:nx { fdu / style }
-  {
-%    \end{macrocode}
-%
-% \begin{macro}{style/hyperlink}
-% 超链接样式。
-%    \begin{macrocode}
-    hyperlink .choice:,
-    hyperlink .value_required:n = true,
-    hyperlink / border .code:n = { },
-    hyperlink / color  .code:n =
-      { \fdu_hyperref_setup:n { colorlinks = true } },
-    hyperlink / none   .code:n =
-      { \fdu_hyperref_setup:n { hidelinks  = true } },
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{style/hyperlinkcolor}
-% 超链接颜色。
-%    \begin{macrocode}
-    hyperlinkcolor .choice:,
-    hyperlinkcolor .value_required:n = true,
-    \clist_map_function:nN
-      {
-        { autumn,    D70000, D75F00, AF8700 },
-        { business,  D14542, 295497, 1F6E43 },
-        { classic,   FF0000, 0000FF, 00FF00 },
-        { default,   990000, 0000B2, 007F00 },
-        { elegant,   961212, C31818, 9B764F },
-        { fantasy,   FF4A19, FF3F94, 934BA1 },
-        { material,  E91E63, 009688, 4CAF50 },
-        { science,   CA0619, 389F9D, FF8920 },
-        { summer,    00AFAF, 5F5FAF, 5F8700 },
-        { graylevel, 616161, 616161, 616161 },
-        { prl,       2D3092, 2D3092, 2D3092 }
-      }
-      \@@_set_hyperlink_color_key:n
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \changes{v0.6}{2017/10/29}{优化 URL 断行设置。}
-%
-% \begin{macro}{\fdu_allow_url_break:,\@@_add_url_break_points:}
-% 允许 URL 在字母、数字和一些特殊符号处断行。见
-% \url{https://bit.ly/2hhIjLW}。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_allow_url_break:
-  {
-    \cs_new:Npn \@@_add_url_break_points:
-      { \tl_map_function:NN \c_@@_url_break_points_tl \do }
-    \__fdu_appto_cmd:Nn \UrlBreaks
-      { \UrlOrds \__fdu_add_url_break_points: }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{variable}{\c_@@_url_break_points_tl}
-% 额外的断行位置是 26 个英文字母（大小写）以及 10 个阿拉伯数字。
-% \pkg{url} 提供的宏 \tn{UrlBreaks} 还包含了特殊符号 |*|、|-|、
-% |~|、|'|、|"|、|-|，也被设置为允许断行。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_url_break_points_tl
-  {
-    abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    0123456789
-  }
-%    \end{macrocode}
-% \end{variable}
-%
-% 在导言区末尾引入 \pkg{hyperref} 宏包。
-%    \begin{macrocode}
-\ctex_at_end_preamble:n
-  {
-    \RequirePackage { hyperref }
-%    \end{macrocode}
-% 此后 \tn{hypersetup} 命令由 \pkg{hyperref} 宏包接管。
-%    \begin{macrocode}
-    \hypersetup
-      {
-        bookmarksnumbered = true,
-%    \end{macrocode}
-% 填写 PDF 元信息。
-%    \begin{macrocode}
-%<*class>
-        pdftitle    = \l_@@_info_title_tl,
-        pdfauthor   = \l_@@_info_author_tl,
-        pdfkeywords = \l_@@_info_keywords_clist,
-%</class>
-%<*class-en>
-        pdftitle    = \l_@@_info_title_en_tl,
-        pdfauthor   = \l_@@_info_author_en_tl,
-        pdfkeywords = \l_@@_info_keywords_en_clist,
-%</class-en>
-%       pdfsubject  = ,
-        pdfcreator  = \c_@@_def_name_pdf_creator_tl
-      }
-%    \end{macrocode}
-% 将导言区中通过 \cs{fdu_hyperref_setup:n} 进行的设置传入
-% \tn{hypersetup}。
-%    \begin{macrocode}
-    \exp_args:NV \hypersetup \g_@@_to_hyperref_clist
-    \fdu_allow_url_break:
-  }
-%    \end{macrocode}
-%
-% 在 PDF 字符串中设置 \tn{fdu@kai} 命令为空，以抑制 \pkg{hyperref}
-% 的警告信息。
-%    \begin{macrocode}
-\ctex_at_end_package:nn { hyperref }
-  {
-    \pdfstringdefDisableCommands
-      {
-        \cs_set_eq:NN \fdu@kai \prg_do_nothing:
-        \cs_set_eq:NN \quad    \c_space_tl
-        \cs_set_eq:NN \qquad   \c_space_tl
-      }
-  }
 %    \end{macrocode}
 %
 % \subsection{脚注}
@@ -5206,19 +5042,51 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
 %   与引用。}
 %
-% \begin{variable}{\l_@@_bib_style_tl,\l_@@_bib_gb_style_tl}
-% 保存当前使用的参考文献样式。
+% \begin{variable}{\l_@@_bibtex_bool}
+% 是否使用 \BibTeX{} 作为参考文献处理程序。若为否，则使用
+% \pkg{biblatex}/\Biber{}。
+%    \begin{macrocode}
+\bool_new:N \l_@@_bibtex_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_bib_style_tl,\l_@@_bib_gb_style_tl,
+%   \l_@@_cite_style_tl}
+% 保存参考文献及引用样式。
 %    \begin{macrocode}
 \tl_new:N \l_@@_bib_style_tl
 \tl_new:N \l_@@_bib_gb_style_tl
+\tl_new:N \l_@@_cite_style_tl
 %    \end{macrocode}
 % \end{variable}
+%
+% \begin{variable}{\l_@@_bib_resource_tl}
+% 保存参考文献数据库列表。
+%    \begin{macrocode}
+\tl_new:N \l_@@_bib_resource_tl
+%    \end{macrocode}
+% \end{variable}
+%
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{style/bibbackend}
+% 参考文献后端。
+%    \begin{macrocode}
+    bibbackend .choice:,
+    bibbackend .value_required:n = true,
+    bibbackend / bibtex   .code:n =
+      { \bool_set_true:N  \l_@@_bibtex_bool },
+    bibbackend / biblatex .code:n =
+      { \bool_set_false:N \l_@@_bibtex_bool },
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{style/bibstyle}
 % 参考文献样式。
 %    \begin{macrocode}
-\keys_define:nn { fdu / style }
-  {
     bibstyle .choice:,
     bibstyle .value_required:n = true,
     bibstyle / numerical   .code:n =
@@ -5232,27 +5100,80 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \tl_clear:N \l_@@_bib_style_tl
       },
     bibstyle / unknown    .code:n =
-      { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl }
+      { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{style/citestyle}
+% 引用样式。
+%    \begin{macrocode}
+    citestyle .code:n =
+      {
+        \bool_if:NTF \l_@@_bibtex_bool
+          {
+            % TODO: (2018/01/22) not available for bibtex
+          }
+          { \tl_set:Nn \l_@@_cite_style_tl {#1} }
+      },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{style/bibresource}
+% 参考文献数据源。
+%    \begin{macrocode}
+    bibresource .tl_set:N = \l_@@_bib_resource_tl
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \tn{bibliographystyle} 只可出现一次。因此参考文献样式放在导言区
-% 末尾统一设置。
+% 导言区末尾统一调用 \pkg{natbib} 或 \pkg{biblatex} 宏包。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
+  {
+    \bool_if:NTF \l_@@_bibtex_bool
+      {
+        \RequirePackage [ sort & compress ] { natbib }
+        \@@_bibtex_setup:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\printbibliography}
+% \BibTeX{} 下接口与 \pkg{biblatex} 统一。
+%    \begin{macrocode}
+        \NewDocumentCommand \printbibliography { o }
+          {
+            % bibtex 下可选参数无效
+            \exp_args:NV \bibliography \l_@@_bib_resource_tl
+          }
+      }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+      {
+        \@@_biblatex_setup:
+        \RequirePackage [ backend = biber, hyperref = manual, natbib ] { biblatex }
+        \exp_args:NV \addbibresource \l_@@_bib_resource_tl
+      }
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_bibtex_setup:}
+% \BibTeX{} 设置。
+%    \begin{macrocode}
+\cs_new:Npn \@@_bibtex_setup:
   {
     \tl_if_empty:NTF \l_@@_bib_style_tl
       {
         \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
           {
-            \bibliographystyle { gbt-7714-2015-numerical }
+            \bibliographystyle { gbt7714-unsrt }
             \@@_set_cite_style_numerical:
           }
           {
             \tl_if_eq:VnT \l_@@_bib_gb_style_tl { authoryear }
               {
-                \bibliographystyle { gbt-7714-2015-author-year }
+                \bibliographystyle { gbt7714-plain }
                 \@@_set_cite_style_author_year:
                 \cs_set_eq:NN \cite \citep
               }
@@ -5261,6 +5182,38 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \exp_args:NV \bibliographystyle \l_@@_bib_style_tl }
   }
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_biblatex_setup:}
+% \pkg{biblatex} 设置。
+%    \begin{macrocode}
+\cs_new:Npn \@@_biblatex_setup:
+  {
+%    \end{macrocode}
+% 参考文献样式。
+%    \begin{macrocode}
+    \tl_if_empty:NTF \l_@@_bib_style_tl
+      {
+        \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
+          { \PassOptionsToPackage { style = gb7714-2015 } }
+          {
+            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { authoryear }
+              { \PassOptionsToPackage { style = gb7714-2015ay } }
+          }
+      }
+      { \PassOptionsToPackage { style = \l_@@_bib_style_tl } }
+    { biblatex }
+%    \end{macrocode}
+% 引用样式。
+%    \begin{macrocode}
+    \tl_if_empty:NF \l_@@_cite_style_tl
+      {
+        \PassOptionsToPackage { citestyle = \l_@@_bib_style_tl }
+          { biblatex }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\@@_set_cite_style_numerical:}
 % 顺序编码制下的引用样式。
@@ -5310,13 +5263,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   超链接，同时又能正确处理 URL 中的特殊符号。}
 % 禁止为文献标题添加超链接。
 %    \begin{macrocode}
-\cs_set:Npn \bibpreamble
-  {
-    \cs_set_eq:NN \fdu_href:w \href
-    \cs_set_eq:NN \href       \fdu_nolink_href:w
-    \NewDocumentCommand \doi { m }
-      { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
-  }
+% \cs_set:Npn \bibpreamble
+%   {
+%     \cs_set_eq:NN \fdu_href:w \href
+%     \cs_set_eq:NN \href       \fdu_nolink_href:w
+%     \NewDocumentCommand \doi { m }
+%       { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5325,27 +5278,206 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \pkg{hyperref}。这里不考虑原始 \tn{href} 的可选参数，也不考虑
 % 它放在参数中的情况。
 %    \begin{macrocode}
-\cs_new_protected:Npn \fdu_nolink_href:w
-  {
-    \group_begin:
-      \hyper@normalise \@@_href_aux:n
-  }
+% \cs_new_protected:Npn \fdu_nolink_href:w
+%   {
+%     \group_begin:
+%       \hyper@normalise \@@_href_aux:n
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_href_aux:n,\@@_href_split:w}
 % 处理 URL 中的特殊符号。
 %    \begin{macrocode}
-\group_begin:
-  \char_set_catcode_parameter:N \$
-  \char_set_catcode_other:N     \#
-  \cs_new:Npn \@@_href_aux:n $1
-    { \exp_after:wN \@@_href_split:w $1 # # \\ }
-  \cs_new:Npn \@@_href_split:w $1 # $2 # $3 \\ $4
-    { $4 \group_end: }
-\group_end:
+% \group_begin:
+%   \char_set_catcode_parameter:N \$
+%   \char_set_catcode_other:N     \#
+%   \cs_new:Npn \@@_href_aux:n $1
+%     { \exp_after:wN \@@_href_split:w $1 # # \\ }
+%   \cs_new:Npn \@@_href_split:w $1 # $2 # $3 \\ $4
+%     { $4 \group_end: }
+% \group_end:
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{\pkg{hyperref} 相关配置}
+%
+% \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，
+%   包括超链接样式（\opt{hyperlink} 与 \opt{hyperlinkcolor}
+%   选项）及 PDF 元信息等。}
+%
+% \begin{macro}{\hypersetup,\fdu_hyperref_setup:n}
+% \pkg{hyperref} 宏包是在导言区之后才引入的。若要在导言区中使用
+% \tn{hypersetup} 命令，必须另行定义。
+%    \begin{macrocode}
+\NewDocumentCommand \hypersetup { m }
+  { \fdu_hyperref_setup:n {#1} }
+\cs_new_protected:Npn \fdu_hyperref_setup:n #1
+  { \clist_gput_right:Nn \g_@@_to_hyperref_clist {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_hyperlink_color_key:n}
+% 设置超链接颜色选项。最后的逗号用于确保 \pkg{l3keys} 可以正确解析，不能省去。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_hyperlink_color_key:n #1
+  {
+    hyperlinkcolor / \clist_item:nn {#1} {1} .code:n =
+      {
+        \@@_define_hyperlink_color:nnn
+          { \clist_item:nn {#1} {2} }
+          { \clist_item:nn {#1} {3} }
+          { \clist_item:nn {#1} {4} }
+        \fdu_hyperref_setup:n
+          {
+            linkcolor = fdu@link, linkbordercolor = fdu@link,
+            urlcolor  = fdu@url,  urlbordercolor  = fdu@url,
+            citecolor = fdu@cite, citebordercolor = fdu@cite
+          }
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_define_hyperlink_color:nnn}
+% 定义超链接颜色。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_define_hyperlink_color:nnn #1#2#3
+  {
+    \definecolorset { HTML } { fdu@ } { }
+      { link, #1; url, #2; cite, #3}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\keys_define:nx { fdu / style }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{style/hyperlink}
+% 超链接样式。
+%    \begin{macrocode}
+    hyperlink .choice:,
+    hyperlink .value_required:n = true,
+    hyperlink / border .code:n = { },
+    hyperlink / color  .code:n =
+      { \fdu_hyperref_setup:n { colorlinks = true } },
+    hyperlink / none   .code:n =
+      { \fdu_hyperref_setup:n { hidelinks  = true } },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{style/hyperlinkcolor}
+% 超链接颜色。
+%    \begin{macrocode}
+    hyperlinkcolor .choice:,
+    hyperlinkcolor .value_required:n = true,
+    \clist_map_function:nN
+      {
+        { autumn,    D70000, D75F00, AF8700 },
+        { business,  D14542, 295497, 1F6E43 },
+        { classic,   FF0000, 0000FF, 00FF00 },
+        { default,   990000, 0000B2, 007F00 },
+        { elegant,   961212, C31818, 9B764F },
+        { fantasy,   FF4A19, FF3F94, 934BA1 },
+        { material,  E91E63, 009688, 4CAF50 },
+        { science,   CA0619, 389F9D, FF8920 },
+        { summer,    00AFAF, 5F5FAF, 5F8700 },
+        { graylevel, 616161, 616161, 616161 },
+        { prl,       2D3092, 2D3092, 2D3092 }
+      }
+      \@@_set_hyperlink_color_key:n
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.6}{2017/10/29}{优化 URL 断行设置。}
+%
+% \begin{macro}{\fdu_allow_url_break:,\@@_add_url_break_points:}
+% 允许 URL 在字母、数字和一些特殊符号处断行。见
+% \url{https://bit.ly/2hhIjLW}。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_allow_url_break:
+  {
+    \cs_new:Npn \@@_add_url_break_points:
+      { \tl_map_function:NN \c_@@_url_break_points_tl \do }
+    \__fdu_appto_cmd:Nn \UrlBreaks
+      { \UrlOrds \__fdu_add_url_break_points: }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_url_break_points_tl}
+% 额外的断行位置是 26 个英文字母（大小写）以及 10 个阿拉伯数字。
+% \pkg{url} 提供的宏 \tn{UrlBreaks} 还包含了特殊符号 |*|、|-|、
+% |~|、|'|、|"|、|-|，也被设置为允许断行。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_url_break_points_tl
+  {
+    abcdefghijklmnopqrstuvwxyz
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% 在导言区末尾引入 \pkg{hyperref} 宏包。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \RequirePackage { hyperref }
+%    \end{macrocode}
+% 此后 \tn{hypersetup} 命令由 \pkg{hyperref} 宏包接管。
+%    \begin{macrocode}
+    \hypersetup
+      {
+        bookmarksnumbered = true,
+%    \end{macrocode}
+% 填写 PDF 元信息。
+%    \begin{macrocode}
+%<*class>
+        pdftitle    = \l_@@_info_title_tl,
+        pdfauthor   = \l_@@_info_author_tl,
+        pdfkeywords = \l_@@_info_keywords_clist,
+%</class>
+%<*class-en>
+        pdftitle    = \l_@@_info_title_en_tl,
+        pdfauthor   = \l_@@_info_author_en_tl,
+        pdfkeywords = \l_@@_info_keywords_en_clist,
+%</class-en>
+%       pdfsubject  = ,
+        pdfcreator  = \c_@@_def_name_pdf_creator_tl
+      }
+%    \end{macrocode}
+% 将导言区中通过 \cs{fdu_hyperref_setup:n} 进行的设置传入
+% \tn{hypersetup}。
+%    \begin{macrocode}
+    \exp_args:NV \hypersetup \g_@@_to_hyperref_clist
+%    \end{macrocode}
+% URL 断行处理。
+%    \begin{macrocode}
+    \fdu_allow_url_break:
+%    \end{macrocode}
+% 手动开启 \pkg{biblatex} 的 \pkg{hyperref} 支持。
+%    \begin{macrocode}
+    \bool_if:NF \l_@@_bibtex_bool { \BiblatexManualHyperrefOn }
+  }
+%    \end{macrocode}
+%
+% 在 PDF 字符串中设置 \tn{fdu@kai} 命令为空，以抑制 \pkg{hyperref}
+% 的警告信息。
+%    \begin{macrocode}
+\ctex_at_end_package:nn { hyperref }
+  {
+    \pdfstringdefDisableCommands
+      {
+        \cs_set_eq:NN \fdu@kai \prg_do_nothing:
+        \cs_set_eq:NN \quad    \c_space_tl
+        \cs_set_eq:NN \qquad   \c_space_tl
+      }
+  }
+%    \end{macrocode}
 %
 % \subsection{用户接口}
 %

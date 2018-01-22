@@ -163,10 +163,10 @@
   {
     { no-math           } { fontspec },
     { perpage           } { footmisc },
-    { amsmath, thmmarks } { ntheorem },
-%    { sort & compress   } { natbib   }
+    { amsmath, thmmarks } { ntheorem }
   }
   { \PassOptionsToPackage #1 }
+\RequirePackage { etoolbox }
 \LoadClass { ctexbook }
 \RequirePackage
   {
@@ -179,7 +179,6 @@
     graphicx,
     longtable,
     caption,
-%    natbib,
     xcolor
   }
 \cs_new_protected:Npn \__fdu_check_package:nnn #1#2#3
@@ -681,10 +680,6 @@
     \tl_gset:Nn \l__fdu_header_center_mark_tl { }
   }
 \pagestyle { fancy }
-
-
-
-
 \__fdu_def_fn_style:nn { plain           } { plain           }
 \__fdu_def_fn_style:nn { libertinus      } { libertinus      }
 \__fdu_def_fn_style:nn { libertinus_neg  } { libertinus*     }
@@ -1329,25 +1324,19 @@
       \end{longtable}
     \group_end:
   }
+\bool_new:N \l__fdu_bibtex_bool
 \tl_new:N \l__fdu_bib_style_tl
 \tl_new:N \l__fdu_bib_gb_style_tl
-
 \tl_new:N \l__fdu_cite_style_tl
-
-\bool_new:N \l__fdu_bibtex_bool
-
+\tl_new:N \l__fdu_bib_resource_tl
 \keys_define:nn { fdu / style }
   {
     bibbackend .choice:,
     bibbackend .value_required:n = true,
     bibbackend / bibtex   .code:n =
-      {
-        \bool_set_true:N  \l__fdu_bibtex_bool
-      },
+      { \bool_set_true:N  \l__fdu_bibtex_bool },
     bibbackend / biblatex .code:n =
       { \bool_set_false:N \l__fdu_bibtex_bool },
-
-
     bibstyle .choice:,
     bibstyle .value_required:n = true,
     bibstyle / numerical   .code:n =
@@ -1362,17 +1351,14 @@
       },
     bibstyle / unknown    .code:n =
       { \tl_set_eq:NN \l__fdu_bib_style_tl \l_keys_value_tl },
-
-
     citestyle .code:n =
       {
         \bool_if:NTF \l__fdu_bibtex_bool
           {
-            % not available for bibtex
+            % TODO: (2018/01/22) not available for bibtex
           }
           { \tl_set:Nn \l__fdu_cite_style_tl {#1} }
       },
-
     bibresource .tl_set:N = \l__fdu_bib_resource_tl
   }
 \ctex_at_end_preamble:n
@@ -1380,51 +1366,56 @@
     \bool_if:NTF \l__fdu_bibtex_bool
       {
         \RequirePackage [ sort & compress ] { natbib }
-        
-        \tl_if_empty:NTF \l__fdu_bib_style_tl
+        \__fdu_bibtex_setup:
+        \NewDocumentCommand \printbibliography { o }
           {
-            \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
-              {
-                \bibliographystyle { gbt7714-unsrt }
-                \__fdu_set_cite_style_numerical:
-              }
-              {
-                \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
-                  {
-                    \bibliographystyle { gbt7714-plain }
-                    \__fdu_set_cite_style_author_year:
-                    \cs_set_eq:NN \cite \citep
-                  }
-              }
+            % bibtex 下可选参数无效
+            \exp_args:NV \bibliography \l__fdu_bib_resource_tl
           }
-          { \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl }
-
-          \NewDocumentCommand \printbibliography { o }
-            {
-              % bibtex 下可选参数无效
-              \exp_args:NV \bibliography \l__fdu_bib_resource_tl
-            }
       }
       {
-        \tl_if_empty:NTF \l__fdu_bib_style_tl
+        \__fdu_biblatex_setup:
+        \RequirePackage [ backend = biber, hyperref = manual, natbib ] { biblatex }
+        \exp_args:NV \addbibresource \l__fdu_bib_resource_tl
+      }
+  }
+\cs_new:Npn \__fdu_bibtex_setup:
+  {
+    \tl_if_empty:NTF \l__fdu_bib_style_tl
+      {
+        \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
           {
-            \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
-              { \PassOptionsToPackage { style = gb7714-2015 } { biblatex } }
+            \bibliographystyle { gbt7714-unsrt }
+            \__fdu_set_cite_style_numerical:
+          }
+          {
+            \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
               {
-                \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
-                  { \PassOptionsToPackage { style = gb7714-2015ay } { biblatex } }
+                \bibliographystyle { gbt7714-plain }
+                \__fdu_set_cite_style_author_year:
+                \cs_set_eq:NN \cite \citep
               }
           }
-          { \PassOptionsToPackage { style = \l__fdu_bib_style_tl } { biblatex } }
-        \tl_if_empty:NF \l__fdu_cite_style_tl
-          { \PassOptionsToPackage { citestyle = \l__fdu_bib_style_tl } { biblatex } }
-          
-        \RequirePackage [ backend = biber, hyperref = manual, natbib ] { biblatex }
-
-        %\tl_show:N \l__fdu_bib_resource_tl
-        \exp_args:NV \addbibresource \l__fdu_bib_resource_tl
-
-        %\tl_show:N \blx@bibfiles
+      }
+      { \exp_args:NV \bibliographystyle \l__fdu_bib_style_tl }
+  }
+\cs_new:Npn \__fdu_biblatex_setup:
+  {
+    \tl_if_empty:NTF \l__fdu_bib_style_tl
+      {
+        \tl_if_eq:VnTF \l__fdu_bib_gb_style_tl { numerical }
+          { \PassOptionsToPackage { style = gb7714-2015 } }
+          {
+            \tl_if_eq:VnT \l__fdu_bib_gb_style_tl { authoryear }
+              { \PassOptionsToPackage { style = gb7714-2015ay } }
+          }
+      }
+      { \PassOptionsToPackage { style = \l__fdu_bib_style_tl } }
+    { biblatex }
+    \tl_if_empty:NF \l__fdu_cite_style_tl
+      {
+        \PassOptionsToPackage { citestyle = \l__fdu_bib_style_tl }
+          { biblatex }
       }
   }
 \cs_new:Npn \__fdu_set_cite_style_numerical:
@@ -1450,30 +1441,6 @@
     \addcontentsline { toc } { chapter }
       { \c__fdu_def_chapter_toc_format_tl \bibname }
   }
-\cs_set:Npn \bibpreamble
-  {
-    \cs_set_eq:NN \fdu_href:w \href
-    \cs_set_eq:NN \href       \fdu_nolink_href:w
-    \NewDocumentCommand \doi { m }
-      { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
-  }
-\cs_new_protected:Npn \fdu_nolink_href:w
-  {
-    \group_begin:
-      \hyper@normalise \__fdu_href_aux:n
-  }
-\group_begin:
-  \char_set_catcode_parameter:N \$
-  \char_set_catcode_other:N     \#
-  \cs_new:Npn \__fdu_href_aux:n $1
-    { \exp_after:wN \__fdu_href_split:w $1 # # \\ }
-  \cs_new:Npn \__fdu_href_split:w $1 # $2 # $3 \\ $4
-    { $4 \group_end: }
-\group_end:
-
-
-
-
 \NewDocumentCommand \hypersetup { m }
   { \fdu_hyperref_setup:n {#1} }
 \cs_new_protected:Npn \fdu_hyperref_setup:n #1
@@ -1552,9 +1519,7 @@
       }
     \exp_args:NV \hypersetup \g__fdu_to_hyperref_clist
     \fdu_allow_url_break:
-
-    \bool_if:NF \l__fdu_bibtex_bool
-      { \BiblatexManualHyperrefOn }
+    \bool_if:NF \l__fdu_bibtex_bool { \BiblatexManualHyperrefOn }
   }
 \ctex_at_end_package:nn { hyperref }
   {
@@ -1565,8 +1530,6 @@
         \cs_set_eq:NN \qquad   \c_space_tl
       }
   }
-
-
 \keys_define:nn { fdu }
   {
     info  .meta:nn = { fdu / info  } {#1},

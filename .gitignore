@@ -3,6 +3,7 @@
 *.auxlock
 *.bak
 *.bbl
+*.bcf
 *.blg
 *.dpth
 *.fdb_latexmk
@@ -17,6 +18,7 @@
 *.log
 *.md5
 *.out
+*.run.xml
 *.sav
 *.synctex.gz
 *.synctex(busy)
