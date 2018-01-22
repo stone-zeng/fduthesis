@@ -43,13 +43,13 @@
 按照惯例，我们的第一篇文档将从“Hello, world!”开始。打开 TeXstudio，新建空白文档，输入以下内容，
 并保存为 \file{hello.tex}。
 
-\begin{verbatim}
+\begin{code}
 \documentclass{article}
 % This is a comment.
 \begin{document}
 Hello, world!
 \end{document}
-\end{verbatim}
+\end{code}
 
 点击工具栏中的“构建并查看”按钮（或按 F5 键），即可开始编译。如图~\ref{fig:hello} 所示，编译结果
 默认会显示在屏幕右侧。也可以直接打开 PDF 文件查看结果。生成的 PDF 文件中，除了“Hello, world!”
@@ -84,12 +84,12 @@ Hello, world!
 
 排版中文文档与排版英文文档并没有显著的区别。我们同样给出一个简短的示例：
 
-\begin{verbatim}
+\begin{code}
 \documentclass[UTF8]{ctexart}
 \begin{document}
 你好，world！
 \end{document}
-\end{verbatim}
+\end{code}
 
 \begin{figure}[htb]
   \includegraphics[width=\textwidth]{images/hello-zh.png}
@@ -115,11 +115,11 @@ TeXstudio 的默认编码）。
 
 行间公式又分为带编号和不带编号两种。带编号的公式放在 \env{equation} 环境中（|^| 符号表示上标）：
 
-\begin{verbatim}
+\begin{code}
 \begin{equation}
   a^2 + b^2 = c^2
 \end{equation}
-\end{verbatim}
+\end{code}
 
 其排版结果为：
 \begin{equation}
@@ -128,9 +128,9 @@ TeXstudio 的默认编码）。
 
 不带编号的公式放在命令 \cs{[} 与 \cs{]}之间：
 
-\begin{verbatim}
+\begin{code}
 \[ E = mc^2 \]
-\end{verbatim}
+\end{code}
 
 排版结果为：
 \[ E = mc^2 \]
@@ -139,3 +139,23 @@ TeXstudio 的默认编码）。
 \footnote{当然并非所有的空格都可以忽略，比如 |\sin| 与 |\s in| 显然不是一回事。}。
 但我们通常会人为添加一些空格以区分各个子表达式（正如上面的示例），否则很容易导致公式难以阅读。
 另需注意，公式中不可以出现空行。
+
+我们再来看一个较为复杂的数学公式：
+
+\begin{equation}
+  \int^\infty_{-\infty} \, \frac{1}{\sqrt{2\mathrm{\pi}} \, \sigma}
+  \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}} \, \mathrm{d}x
+  = 1
+\end{equation}
+
+这是正态分布概率密度的归一化条件，其代码如下：
+
+\begin{code}
+\begin{equation}
+  \int^\infty_{-\infty} \, \frac{1}{\sqrt{2\mathrm{\pi}} \, \sigma}
+  \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}} \, \mathrm{d}x
+  = 1
+\end{equation}
+\end{code}
+
+

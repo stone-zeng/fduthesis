@@ -1,5 +1,6 @@
-\documentclass{fduthesis}
-\usepackage{fancyvrb,hologo}
+\PassOptionsToPackage{mathrm=sym}{unicode-math}
+\documentclass[oneside]{fduthesis}
+\usepackage{fancyvrb,hologo,etoolbox}
 
 \fdusetup{
   style = {
@@ -53,6 +54,28 @@
 
 \xeCJKsetkern{）}{，}{0.3em}
 \xeCJKsetkern{）}{．}{0.2em}
+
+\makeatletter
+%\DefineVerbatimEnvironment{frameverb}{Verbatim}{%
+%  gobble=4,
+%  frame=single,framesep=8pt,
+%  listparameters=
+%    \setlength\topsep{\medskipamount}%
+%    \appto\FV@EndList{\nointerlineskip}}
+\DefineVerbatimEnvironment{code}{Verbatim}{%
+  frame = single,
+  framesep = 10pt,
+  label = \rule{0pt}{12pt}\textnormal{\sffamily 例 \thecode},
+  listparameters = \setlength\topsep{\bigskipamount}%
+                   \refstepcounter{code}%
+                   \codelabelref
+                   \appto\FV@EndList{\nointerlineskip}%
+}
+\define@key{FV}{labelref}{\def\codelabelref{\label{#1}}}
+\let\codelabelref\empty
+\newcounter{code}[chapter]
+\def\thecode{\arabic{chapter}-\arabic{code}}
+\makeatother
 
 \newcommand\kwd[1]{\textbf{#1}}
 
