@@ -29,3 +29,6 @@ latexmk -xelatex  -f test-en
 source ../scripts/clean.sh
 latexmk -lualatex -f test
 latexmk -lualatex -f test-en
+source ../scripts/clean.sh
+
+latexmk -xelatex  -f test-biblatex

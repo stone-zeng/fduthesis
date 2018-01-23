@@ -34,6 +34,8 @@ tlmgr install         \
   arphic-ttf          \
   babel-japanese      \
   baekmuk             \
+  biber               \
+  biblatex            \
   bibtex              \
   caption             \
   cm                  \
