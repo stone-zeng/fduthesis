@@ -71,6 +71,7 @@ tlmgr install         \
   libertinus          \
   lm                  \
   lm-math             \
+  logreq              \
   lualatex-math       \
   lualibs             \
   luaotfload          \
@@ -117,6 +118,7 @@ tlmgr install         \
   xetex               \
   xits                \
   xkeyval             \
+  xstring             \
   xunicode            \
   zapfding            \
   zhlipsum            \
