@@ -12,7 +12,9 @@
     logo = {../logo/pdf/fudan-name-black.pdf},
     hyperlink = color,
     hyperlinkcolor = autumn,
-    bibstyle = plainnat
+    bibbackend = bibtex,
+    bibstyle = plainnat,
+    bibresource = {test.bib}
   },
   info = {
     title = {自河南经乱关内阻饥兄弟离散各在一处},
@@ -501,10 +503,10 @@ release (discussed below) was co-released with Font Bureau \citet{dcmes,wfz,wfz1
 
 \kant[1-15]
 
-%\nocite{*}
+\nocite{*}
 
 \backmatter
 
-\bibliography{test}
+\printbibliography
 
 \end{document}
