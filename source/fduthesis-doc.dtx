@@ -1918,11 +1918,17 @@
 % \end{macro}
 %
 % \begin{macro}{\kvopt}
-% \meta{key} |=| \meta{value} 型选项。带星号的版本不会在等号两侧
-% 加上空格。
+% \meta{key} |=| \meta{value} 型选项。
 %    \begin{macrocode}
-\DeclareDocumentCommand\kvopt{smm}
-  {\IfBooleanTF{#1}{\texttt{#2=#3}}{\texttt{#2 = #3}}}
+\newcommand*\kvopt[2]{%
+  \texttt{#1\breakablethinspace=\breakablethinspace#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\breakablethinspace}
+% 允许换行的细间距。
+%    \begin{macrocode}
+\def\breakablethinspace{\hskip 0.16667em\relax}
 %    \end{macrocode}
 % \end{macro}
 %

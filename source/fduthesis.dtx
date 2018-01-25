@@ -1254,23 +1254,83 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A-
 %^^A!
 %
+%^^A+
+% \begin{function}{style/bibbackend}
+%   \begin{fdusyntax}[emph={[1]bibbackend}]
+%     bibbackend = (*<bibtex|biblatex>*)
+%   \end{fdusyntax}
+%^^A-
+%   选择参考文献的支持方式。选择 \opt{bibtex} 后，将使用 \BibTeX{}
+%   处理文献，样式由 \pkg{natbib} 宏包负责；选择 \opt{biblatex} 后，
+%   将使用 \biber{} 处理文献，样式则由 \pkg{biblatex} 宏包负责。
+% \end{function}
+%^^A!   Specify the backend or driver of bibliography processing.
+%^^A!   \BibTeX{} and \pkg{natbib} package will be used if you choose
+%^^A!   \opt{bibtex}, while \biber{} and \pkg{biblatex} will be used
+%^^A!   if you choose \opt{biblatex}.
+%^^A! \end{function}
+%^^A!
+%
 % \begin{function}{style/bibstyle}
 %   \begin{fdusyntax}[emph={[1]bibstyle}]
 %     bibstyle = (*<authoryear|(numerical)|\meta{其他样式}>*)
 %   \end{fdusyntax}
 %   设置参考文献样式。\opt{authoryear} 和 \opt{numerical} 分别对应
 %   国家标准 GB/T 7714--2015 \scite{gb-t-7714-2015} 中的著者—出版年制
-%   和顺序编码制。选择 \meta{其他样式} 时，则需保证相应的 \file{bst}
-%   格式文件能被正确调用。
+%   和顺序编码制。选择 \meta{其他样式} 时，如果 \kvopt{bibbackend}^^A
+%   {bibtex}，需保证相应的 \file{.bst} 格式文件能被调用；而如果
+%   \kvopt{bibbackend}{biblatex}，则需保证相应的 \file{.bbx} 格式文件
+%   能被调用。
 % \end{function}
 %^^A! \begin{function}{style/bibstyle}
 %^^A!   \begin{fdusyntax}[emph={[1]bibstyle}]
 %^^A!     bibstyle = (*<authoryear|(numerical)|\meta{other style}>*)
 %^^A!   \end{fdusyntax}
 %^^A!   Set the style of bibliography. \opt{authoryear} and
-%^^A!   \opt{numerical} will follow the standard GB/T 7714--2015;
-%^^A!   while by setting \kvopt{bibstyle}{\meta{other style}}, you
-%^^A!   can use other bibliography style (in \file{bst} format).
+%^^A!   \opt{numerical} will follow the standard GB/T 7714--2015.
+%^^A!   By setting \kvopt{bibstyle}{\meta{other style}}, you can use
+%^^A!   other bibliography style (\file{.bst} file for
+%^^A!   \kvopt{bibbackend}{bibtex} and \file{.bbx} file for
+%^^A!   \kvopt{bibbackend}{biblatex}). Suffix is not needed.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{style/citestyle}
+%   \begin{fdusyntax}[emph={[1]citestyle}]
+%     citestyle = (*\marg{引用样式}*)
+%   \end{fdusyntax}
+%   选择引用格式。默认为空，即与参考文献样式（著者—出版年制或顺序
+%   编码制）保持一致。如果手动填写，需保证相应的 \file{.cbx} 格式文件
+%   能被调用。该选项在 \kvopt{bibbackend}{bibtex} 时无效。
+% \end{function}
+%^^A! \begin{function}{style/citestyle}
+%^^A!   \begin{fdusyntax}[emph={[1]citestyle}]
+%^^A!     citestyle = (*\marg{style}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Select citation style. Default value is empty, which means
+%^^A!   the citation style will follow your bibliography style
+%^^A!   (author-year or numeric). If you want change the citation
+%^^A!   style, the corresponding \file{.cbx} file must be available.
+%^^A!   This option is invalid when \kvopt{bibbackend}{bibtex}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{style/bibresource}
+%   \begin{fdusyntax}[emph={[1]bibresource}]
+%     bibresource = (*\marg{文件}*)
+%   \end{fdusyntax}
+%   参考文献数据源。可以是单个文件，也可以是用英文逗号隔开的一组文件。
+%   如果 \kvopt{bibbackend}{biblatex}，则必须明确给出 \file{.bib}
+%   后缀名。
+% \end{function}
+%^^A! \begin{function}{style/bibresource}
+%^^A!   \begin{fdusyntax}[emph={[1]bibresource}]
+%^^A!     bibresource = (*\marg{bib file(s)}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Specify the bibliography database (usually in \file{.bib}
+%^^A!   format). If using more than one files, the file names should
+%^^A!   be separated with comma. When \kvopt{bibbackend}{biblatex},
+%^^A!   you must type in the ``\file{.bib}'' suffix.
 %^^A! \end{function}
 %^^A!
 %
@@ -1614,8 +1674,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-%^^A TODO \DescribeEnv{abstract}
-%^^A TODO \DescribeEnv{abstract*}
+%^^A TODO: \DescribeEnv{abstract}
+%^^A TODO: \DescribeEnv{abstract*}
 % \begin{function}{abstract}
 %   \begin{fdusyntax}[emph={[2]abstract}]
 %     % 中文论文模板 (fduthesis)      % 英文论文模板 (fduthesis-en)
@@ -1737,7 +1797,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-%^^A! \DescribeEnv{proof}
+%^^A TODO: \DescribeEnv{proof}
 % \begin{function}{axiom,corollary,definition,example,lemma,
 %   proof,theorem}
 %   \begin{fdusyntax}[emph={[2]proof}]
@@ -1980,23 +2040,30 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! Back matter contains bibliography, declaration page, etc.
 %^^A!
 %
-% \begin{function}{\bibliography}
-%   \begin{fdusyntax}[deletetexcs={\bibliography},%
-%       morekeywords={\bibliography}]
-%     \bibliography(*\marg{文献数据库}*)
+% \begin{function}{\printbibliography}
+%   \begin{fdusyntax}[morekeywords={\printbibliography}]
+%     \printbibliography(*\oarg{选项}*)
 %   \end{fdusyntax}
-%   指明所要使用的文献数据库。不需要带 \file{.bib} 后缀。如果使用
-%   多个文件，各文件之间需使用英文逗号隔开。
+%   打印参考文献列表。如果 \kvopt{bibbackend}{bibtex}，则 \meta{选项}
+%   无效，相当于 \tn{bibliography} \texttt{\marg{文献数据库}}，其中的
+%   \meta{文献数据库} 可利用 \opt{style/bibresource} 选项指定，具体见
+%   \ref{subsubsec:论文格式}~小节；而如果 \kvopt{bibbackend}^^A
+%   {biblatex}，则该命令由 \pkg{biblatex} 宏包直接提供，可用选项请
+%   参阅其文档 \cite{biblatex}。
 % \end{function}
-%^^A! \begin{function}{\bibliography}
-%^^A!   \begin{fdusyntax}[deletetexcs={\bibliography},%
-%^^A!       morekeywords={\bibliography}]
-%^^A!     \bibliography(*\marg{bib file}*)
+%^^A! \begin{function}{\printbibliography}
+%^^A!   \begin{fdusyntax}[morekeywords={\printbibliography}]
+%^^A!     \printbibliography(*\oarg{options}*)
 %^^A!   \end{fdusyntax}
-%^^A!   Specify the bibliography database (\file{bib} file). You
-%^^A!   don't need to type in the ``\file{.bib}'' suffix. If using
-%^^A!   more than one files, the file names should be separated with
-%^^A!   comma.
+%^^A!   Print the bibliography. When \kvopt{bibbackend}{bibtex}, then
+%^^A!   \meta{options} is invalid and this command is equivalent to
+%^^A!   \tn{bibliography} \texttt{\marg{bib files}}, where
+%^^A!   \meta{bib files} should be specified with option
+%^^A!   \opt{style/bibresource} (see subsubsection~%
+%^^A!   \ref{subsubsec:style-and-format}). When \kvopt{bibbackend}%
+%^^A!   {bibtex}, then \tn{printbibliography} is provided by
+%^^A!   \pkg{biblatex} and the available options can be found in its
+%^^A!   documentation.
 %^^A! \end{function}
 %^^A!
 %
@@ -2030,8 +2097,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       \item \pkg{xcolor}，提供彩色支持。
 %       \item \pkg{hyperref}，提供交叉引用、超链接、电子书签等功能。
 %     \end{itemize}
-%   \item 开启 \kvopt{style/footnotestyle}{pifont} 选项后，会调用
+%   \item 开启 \kvopt{style/footnotestyle}{pifont} 后，会调用
 %     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
+%   \item 开启 \kvopt{style/bibbackend}{bibtex} 后，会调用
+%     \pkg{natbib} 宏包，并依赖 \BibTeX{} 程序。参考文献样式由
+%     \pkg{gbt7714} 宏包提供 \scite{natbib,bibtex-gb7714-2015}。
+%   \item 开启 \kvopt{style/bibbackend}{biblatex} 后，会调用
+%     \pkg{biblatex} 宏包，并依赖 \biber{} 程序。参考文献样式由
+%     \pkg{biblatex-gb7714-2015} 宏包提供
+%     \scite{biblatex,biblatex-gb7714-2015}。
 % \end{itemize}
 %^^A! Different compilation methods and options will result in a
 %^^A! different packages dependency. Details are as follows:
@@ -2055,9 +2129,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \item \pkg{xcolor}
 %^^A!       \item \pkg{hyperref}
 %^^A!     \end{itemize}
-%^^A!   \item When you have chosen \kvopt{style/footnotestyle}{pifont},
+%^^A!   \item When chosen \kvopt{style/footnotestyle}{pifont},
 %^^A!     package \pkg{pifont} will be loaded. It belongs to
 %^^A!     \pkg{psnfss} bundle.
+%^^A!   \item When chosen \kvopt{style/bibbackend}{bibtex},
+%^^A!     package \pkg{natbib} will be loaded. Meanwhile, program
+%^^A!     \BibTeX{} will be required for compilation.
+%^^A!   \item When chosen \kvopt{style/bibbackend}{biblatex},
+%^^A!     package \pkg{biblatex} will be loaded. Program \biber{}
+%^^A!     will be required then.
 %^^A! \end{itemize}
 %^^A!
 %
@@ -2100,6 +2180,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \CTANurl{macros/xetex/latex/xecjk/xeCJK.pdf}
 %   \urlprefix \sourceurl{macros/xetex/latex/xecjk/xeCJK.dtx}
 %
+% \bibitem{natbib}
+% \textsc{Daly P W}.
+% \newblock \textit{Natural Sciences Citations and References} [EB/OL].
+% \newblock version 8.31b,
+% \newblock (2010-09-13) \urlprefix
+%   \CTANurl{macros/latex/contrib/natbib/natbib.pdf}
+%
 % \bibitem{hmshan2017fduphdthesistemplate}
 % \textsc{hmshan}.
 % \newblock \textit{复旦博士论文模板} [EB/OL].
@@ -2125,6 +2212,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newblock \textit{The \LaTeX3 Sources} [CP/OL].
 % \newblock (2017-11-14) \urlprefix
 %   \CTANurl{macros/latex/contrib/l3kernel/source3.pdf}
+%
+% \bibitem{biblatex}
+% \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
+% \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
+% \newblock version 3.9,
+% \newblock (2017-12-19) \urlprefix
+%   \CTANurl{macros/latex/contrib/biblatex/doc/biblatex.pdf}
 %
 % \bibitem{mittelbach2004latexcompanion}
 % \textsc{Mittelbach F} and \textsc{Goossens M}.
@@ -2171,11 +2265,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newblock (2009-10-06) \urlprefix
 %   \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
 %
+% \bibitem{bibtex-gb7714-2015}
+% \textsc{zepinglee}.
+% \newblock \textit{GB/T 7714-2015 BibTeX Style} [EB/OL].
+% \newblock version 1.0,
+% \newblock (2018-01-04) \urlprefix
+%   \url{https://github.com/zepinglee/gbt7714-bibtex-style}
+%
 % \bibitem{zepinglee2017ustcthesis}
 % \textsc{zepinglee} and \textsc{seisman}.
 % \newblock \textit{\LaTeX{} template for USTC thesis} [EB/OL].
-% \newblock version 3.0,
-% \newblock (2017-09-19) \urlprefix
+% \newblock version 3.0.1,
+% \newblock (2018-01-09) \urlprefix
 %   \url{https://github.com/ustctug/ustcthesis}
 %
 % \bibitem{数院毕业论文格式}
@@ -2204,6 +2305,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 胡伟.
 % \newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
 % \newblock 北京: 清华大学出版社, 2017
+%
+% \bibitem{biblatex-gb7714-2015}
+% 胡振震.
+% \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
+% \newblock version 1.0i,
+% \newblock (2018-01-14) \urlprefix
+% {\small\href{https://www.ctan.org/tex-archive/macros/latex/contrib/biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}^^A
+%   {\ttfamily CTAN://macros/latex/contrib/biblatex-contrib/biblatex-gb7714-2015/biblatex-gb77 14-2015.pdf}}
 %
 % \bibitem{gb-t-15834-2011}
 % 教育部语言文字信息管理司.
@@ -2435,7 +2544,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\@@_msg_new:nn,
 %   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,
-%   \@@_warning:n,\@@_warning:nxx}
+%   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx}
 % 各种信息函数的缩略形式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_msg_new:nn  { \msg_new:nnn      { fduthesis } }
@@ -2444,6 +2553,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new:Npn \@@_error:nx    { \msg_error:nnx    { fduthesis } }
 \cs_new:Npn \@@_error:nnn   { \msg_error:nnnn   { fduthesis } }
 \cs_new:Npn \@@_warning:n   { \msg_warning:nn   { fduthesis } }
+\cs_new:Npn \@@_warning:nn  { \msg_warning:nnn  { fduthesis } }
 \cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { fduthesis } }
 %    \end{macrocode}
 % \end{macro}
@@ -2549,7 +2659,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
 % \pkg{etoolbox}。
 %
-% TODO: (2018/01/22) 钩子的展开顺序为
+% 钩子的顺序为：\tn{CTEX@document@left@hook} $\prec$
+% \tn{@endpreamblehook} $\prec$ |\begin{document}|。
 %    \begin{macrocode}
 \RequirePackage { etoolbox }
 %    \end{macrocode}
@@ -4296,8 +4407,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.4}{2017/08/10}{新增 \opt{logo} 与 \opt{logosize}
-%   选项。}
+% \changes{v0.4}{2017/08/10}{新增 \opt{style/logo} 与
+%   \opt{style/logosize} 选项。}
 %
 % \begin{variable}{\l_@@_cover_logo_tl,\l_@@_cover_logo_size_clist}
 %    \begin{macrocode}
@@ -4319,8 +4430,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{密级}
 %
-% \changes{v0.3}{2017/07/04}{新增 \opt{secretlevel} 与
-%   \opt{secretyear} 选项。}
+% \changes{v0.3}{2017/07/04}{新增 \opt{info/secretlevel} 与
+%   \opt{info/secretyear} 选项。}
 %
 % \begin{variable}{\l_@@_secret_bool}
 % 是否显示密级。
@@ -5041,10 +5152,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
 %   与引用。}
+% \changes{v0.7}{2018/01/25}{支持 \biber{} 与 \pkg{biblatex}。}
 %
 % \begin{variable}{\l_@@_bibtex_bool}
 % 是否使用 \BibTeX{} 作为参考文献处理程序。若为否，则使用
-% \pkg{biblatex}/\Biber{}。
+% \pkg{biblatex}/\biber{}。
 %    \begin{macrocode}
 \bool_new:N \l_@@_bibtex_bool
 %    \end{macrocode}
@@ -5066,6 +5178,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \tl_new:N \l_@@_bib_resource_tl
 %    \end{macrocode}
 % \end{variable}
+%
+% \changes{v0.6}{2017/10/28}{新增 \opt{style/bibstyle} 选项。}
+% \changes{v0.7}{2018/01/25}{新增 \opt{style/bibbackend}、
+%   \opt{style/citestyle} 和 \opt{style/bibresource} 选项。}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -5110,9 +5226,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     citestyle .code:n =
       {
         \bool_if:NTF \l_@@_bibtex_bool
-          {
-            % TODO: (2018/01/22) not available for bibtex
-          }
+          { \@@_warning:n { cite-style-not-available } }
           { \tl_set:Nn \l_@@_cite_style_tl {#1} }
       },
 %    \end{macrocode}
@@ -5123,39 +5237,56 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     bibresource .tl_set:N = \l_@@_bib_resource_tl
   }
+\@@_msg_new:nn { cite-style-not-available }
+  { Option~ "citestyle"~ is~ not~ available~ in~ BibTeX. }
 %    \end{macrocode}
 % \end{macro}
 %
-% 导言区末尾统一调用 \pkg{natbib} 或 \pkg{biblatex} 宏包。
+% 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包
+% 均需要在导言区末尾载入（仍在 \pkg{hyperref} 之前）。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
+%    \end{macrocode}
+%
+% 调用 \pkg{natbib} 宏包并进行配置。
+%    \begin{macrocode}
     \bool_if:NTF \l_@@_bibtex_bool
       {
         \RequirePackage [ sort & compress ] { natbib }
         \@@_bibtex_setup:
 %    \end{macrocode}
-% \end{macro}
+%
+% \changes{v0.7}{2017/01/25}{统一使用 \cs{printbibliography} 命令
+%   生成参考文献列表。}
 %
 % \begin{macro}{\printbibliography}
 % \BibTeX{} 下接口与 \pkg{biblatex} 统一。
 %    \begin{macrocode}
         \NewDocumentCommand \printbibliography { o }
           {
-            % bibtex 下可选参数无效
             \exp_args:NV \bibliography \l_@@_bib_resource_tl
+            \IfValueT {#1}
+              { \@@_warning:nn { invalid-option-in-bibtex } {#1} }
           }
       }
 %    \end{macrocode}
 % \end{macro}
 %
+% 调用 \pkg{biblatex} 宏包，并载入参考文献数据库。
+% \cs{@@_biblatex_setup:} 依靠传入宏包选项，因此要放在
+% \tn{RequirePackage} 之前。
 %    \begin{macrocode}
       {
         \@@_biblatex_setup:
-        \RequirePackage [ backend = biber, hyperref = manual, natbib ] { biblatex }
+        \RequirePackage [ backend = biber, hyperref = manual, natbib ]
+          { biblatex }
         \exp_args:NV \addbibresource \l_@@_bib_resource_tl
+        \@@_biblatex_allow_url_break:
       }
   }
+\@@_msg_new:nn { invalid-option-in-bibtex }
+  { Option(s)~ "#1"~ are~ invalid~ in~ BibTeX. }
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_bibtex_setup:}
@@ -5215,6 +5346,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_biblatex_allow_url_break:}
+% \pkg{biblatex} 下允许 URL 在字母、数字和一些特殊符号处断行。
+%    \begin{macrocode}
+\cs_new:Npn \@@_biblatex_allow_url_break:
+  {
+    \int_set_eq:NN \c@biburlucpenalty  \c_one
+    \int_set_eq:NN \c@biburlnumpenalty \c_one
+    \int_set_eq:NN \c@biburllcpenalty  \c_one
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_set_cite_style_numerical:}
 % 顺序编码制下的引用样式。
 %    \begin{macrocode}
@@ -5229,7 +5372,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_set_cite_style_author_year:}
-% 著者-出版年制下的引用样式。
+% 著者—出版年制下的引用样式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_cite_style_author_year:
   {
@@ -5258,53 +5401,57 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\bibpreamble,\href,\doi,\fdu_href:w}
-% \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
-%   超链接，同时又能正确处理 URL 中的特殊符号。}
-% 禁止为文献标题添加超链接。
-%    \begin{macrocode}
-% \cs_set:Npn \bibpreamble
-%   {
-%     \cs_set_eq:NN \fdu_href:w \href
-%     \cs_set_eq:NN \href       \fdu_nolink_href:w
-%     \NewDocumentCommand \doi { m }
-%       { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
-%   }
-%    \end{macrocode}
-% \end{macro}
+% \changes{v0.7}{2017/01/25}{同步 \pkg{gbt7714} v1.0。}
 %
-% \begin{macro}{\fdu_nolink_href:w}
-% 不带链接的 \tn{href}，相当于忽略第一个参数。以下代码来自
-% \pkg{hyperref}。这里不考虑原始 \tn{href} 的可选参数，也不考虑
-% 它放在参数中的情况。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \fdu_nolink_href:w
-%   {
-%     \group_begin:
-%       \hyper@normalise \@@_href_aux:n
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_href_aux:n,\@@_href_split:w}
-% 处理 URL 中的特殊符号。
-%    \begin{macrocode}
-% \group_begin:
-%   \char_set_catcode_parameter:N \$
-%   \char_set_catcode_other:N     \#
-%   \cs_new:Npn \@@_href_aux:n $1
-%     { \exp_after:wN \@@_href_split:w $1 # # \\ }
-%   \cs_new:Npn \@@_href_split:w $1 # $2 # $3 \\ $4
-%     { $4 \group_end: }
-% \group_end:
-%    \end{macrocode}
-% \end{macro}
+%^^A \begin{macro}{\bibpreamble,\href,\doi,\fdu_href:w}
+%^^A \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
+%^^A   超链接，同时又能正确处理 URL 中的特殊符号。}
+%^^A 禁止为文献标题添加超链接。
+%^^A    \begin{macrocode}
+%^^A \cs_set:Npn \bibpreamble
+%^^A   {
+%^^A     \cs_set_eq:NN \fdu_href:w \href
+%^^A     \cs_set_eq:NN \href       \fdu_nolink_href:w
+%^^A     \NewDocumentCommand \doi { m }
+%^^A       { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
+%^^A   }
+%^^A    \end{macrocode}
+%^^A \end{macro}
+%^^A
+%^^A \begin{macro}{\fdu_nolink_href:w}
+%^^A 不带链接的 \tn{href}，相当于忽略第一个参数。以下代码来自
+%^^A \pkg{hyperref}。这里不考虑原始 \tn{href} 的可选参数，也不考虑
+%^^A 它放在参数中的情况。
+%^^A    \begin{macrocode}
+%^^A \cs_new_protected:Npn \fdu_nolink_href:w
+%^^A   {
+%^^A     \group_begin:
+%^^A       \hyper@normalise \@@_href_aux:n
+%^^A   }
+%^^A    \end{macrocode}
+%^^A \end{macro}
+%^^A
+%^^A \begin{macro}{\@@_href_aux:n,\@@_href_split:w}
+%^^A 处理 URL 中的特殊符号。
+%^^A    \begin{macrocode}
+%^^A \group_begin:
+%^^A   \char_set_catcode_parameter:N \$
+%^^A   \char_set_catcode_other:N     \#
+%^^A   \cs_new:Npn \@@_href_aux:n $1
+%^^A     { \exp_after:wN \@@_href_split:w $1 # # \\ }
+%^^A   \cs_new:Npn \@@_href_split:w $1 # $2 # $3 \\ $4
+%^^A     { $4 \group_end: }
+%^^A \group_end:
+%^^A    \end{macrocode}
+%^^A \end{macro}
 %
 % \subsection{\pkg{hyperref} 相关配置}
 %
-% \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，
-%   包括超链接样式（\opt{hyperlink} 与 \opt{hyperlinkcolor}
-%   选项）及 PDF 元信息等。}
+% \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，包括超链接
+%   样式（\opt{style/hyperlink} 与 \opt{style/hyperlinkcolor} 选项）
+%   及 PDF 元信息等。}
+% \changes{v0.7}{2017/01/23}{将 \pkg{hyperref} 相关配置移至模板末尾，
+%   以减少冲突。}
 %
 % \begin{macro}{\hypersetup,\fdu_hyperref_setup:n}
 % \pkg{hyperref} 宏包是在导言区之后才引入的。若要在导言区中使用
@@ -5345,7 +5492,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new_protected:Npn \@@_define_hyperlink_color:nnn #1#2#3
   {
     \definecolorset { HTML } { fdu@ } { }
-      { link, #1; url, #2; cite, #3}
+      { link, #1; url, #2; cite, #3 }
   }
 %    \end{macrocode}
 % \end{macro}
