@@ -10,4 +10,9 @@ script:
   - source ./scripts/local.sh
   - source ./scripts/run.sh
   - texlua build.lua check
-  - texlua build.lua check -f -e pdftex 03-logo
+  - cat ./build/test/02-basic.luatex.diff
+  # - texlua build.lua check -f -e pdftex 03-logo
+
+notifications:
+  email:
+    - pssysrq@163.com
