@@ -63,3 +63,4 @@ git-comment.md
 TODO.md
 source/*.md
 source/*.tex
+!testfiles/support/

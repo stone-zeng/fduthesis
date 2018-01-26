@@ -6,6 +6,7 @@
   info = {
     title = {论文标题},
     title* = {Thesis Title},
+    date = {2018 年 1 月 1 日},
     author = {某某},
     supervisor = {某某某\quad 教授},
     major = {物理学},
@@ -27,6 +28,10 @@
 \START
 
 \loggingoutput
+
+%\SEPARATOR
+%
+%\TYPE{Checking compilation. No log file data expected.}
 
 \frontmatter
 
@@ -60,6 +65,8 @@
 \chapter{第二章}
 
 \backmatter
+
+%\SEPARATOR
 
 \END
 

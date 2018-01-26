@@ -177,10 +177,6 @@ l. ...  }
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
-luaotfload | aux : font no 74 (nil) does not define feature vert for script latn with language dflt
-luaotfload | aux : no font with id 74
-luaotfload | aux : font no 74 (nil) does not define feature vrt2 for script latn with language dflt
-luaotfload | aux : no font with id 74
 > \box...=
 \hbox(13.2495+1.80675)x142.26378, direction TLT
 .\whatsit4=[]
