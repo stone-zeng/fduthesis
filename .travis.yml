@@ -9,3 +9,5 @@ cache:
 script:
   - source ./scripts/local.sh
   - source ./scripts/run.sh
+  - texlua build.lua check
+  - texlua build.lua check -f -e pdftex 03-logo

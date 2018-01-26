@@ -1,0 +1,66 @@
+\input{regression-test}
+
+\documentclass{fduthesis}
+
+\fdusetup{
+  info = {
+    title = {论文标题},
+    title* = {Thesis Title},
+    author = {某某},
+    supervisor = {某某某\quad 教授},
+    major = {物理学},
+    department = {物理系},
+    studentid = {12300000000},
+    instructors = {
+      {张\quad 三 \quad 教\quad 授},
+      {王五六     \quad 教\quad 授},
+      {李\quad 四 \quad 副教授}
+    },
+    keywords = {关键字一, 关键字二, 关键字三},
+    keywords* = {Keyword 1, keyword 2, keyword 3},
+    clc = {TS803.23}
+  }
+}
+
+\begin{document}
+
+\START
+
+\loggingoutput
+
+\frontmatter
+
+% \tableofcontents
+
+\begin{abstract}
+  中文摘要
+\end{abstract}
+
+\begin{abstract*}
+  English abstract
+\end{abstract*}
+
+\begin{notation}
+  $x$                          & 坐标        \\
+  $p$                          & 动量        \\
+  $\psi(x)$                    & 波函数      \\
+  $\langle x |$                & 左矢（bra） \\
+  $| x \rangle$                & 右矢（ket） \\
+  $\langle\alpha|\beta\rangle$ & 内积        \\
+\end{notation}
+
+\mainmatter
+
+\chapter{第一章}
+
+\section{第一节}
+\section{第二节}
+\section{第三节}
+
+\chapter{第二章}
+
+\backmatter
+
+\END
+
+\end{document}

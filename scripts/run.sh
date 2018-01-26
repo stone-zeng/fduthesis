@@ -18,8 +18,9 @@ cd ../logo/
 pdflatex -interaction=nonstopmode -shell-escape fdulogo-example
 pdflatex -interaction=nonstopmode               fduthesis-cover
 
-mkdir          pdf/
-mv fudan-*.pdf pdf/
+mkdir                   pdf/
+mv fudan-*.pdf          pdf/
+cp fudan-name-black.pdf ../testfiles/support/fudan-name.pdf
 
 cd ../test/
 
@@ -32,3 +33,5 @@ latexmk -lualatex -f test-en
 source ../scripts/clean.sh
 
 latexmk -xelatex  -f test-biblatex
+
+cd ..

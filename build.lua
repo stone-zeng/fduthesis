@@ -4,9 +4,10 @@
 
 module = "fduthesis"
 
-stdengine = "xetex"
+checkengines = {"xetex", "luatex"}
 
-sourcefiles = {"source/*.dtx"}
+sourcefiles  = {"source/*.dtx"}
+installfiles = {"*.cls", "*.sty", "*.def"}
 
 -- typesetdeps = {"source/latexmkrc."}
 typesetexe  = "xelatex"
@@ -18,7 +19,7 @@ unpackexe   = "xetex"
 -- "*/eqbreaks.pdf"}
 -- unpackopts = "-interaction=batchmode"
 
-cmdchkfiles = {"*.dtx"}
+-- cmdchkfiles = {"*.dtx"}
 
 kpse.set_program_name("kpsewhich")
 dofile(kpse.lookup("l3build.lua"))

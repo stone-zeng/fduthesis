@@ -1,0 +1,32 @@
+\input{regression-test}
+
+\documentclass{article}
+\usepackage{fdulogo}
+
+\begin{document}
+
+\START
+
+\SEPARATOR
+
+\TYPE{Checking compilation. No log file data expected.}
+
+\fduname[x=0.2pt, y=0.2pt]
+
+\fduemblem[x=0.2pt, y=0.2pt]
+
+\fduemblem+[x=0.2pt, y=0.2pt]
+
+\fduemblem*[x=0.2pt, y=0.2pt, color=FudanRed]
+
+\fduemblem+*[x=0.2pt, y=0.2pt, color=FudanBlue]
+
+\fdumotto[x=0.2pt, y=0.2pt]
+
+\clearpage
+
+\SEPARATOR
+
+\END
+
+\end{document}

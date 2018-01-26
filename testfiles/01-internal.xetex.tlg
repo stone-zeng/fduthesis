@@ -1,0 +1,536 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Footnote number
+============================================================
+> \box...=
+\hbox(8.14243+0.0)x6.0225
+.\TU/XITS(0)/m/n/12.045 1
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x12.045
+.\TU/XITS(0)/m/n/12.045 10
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x12.045
+.\TU/XITS(0)/m/n/12.045 20
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x12.045
+.\TU/XITS(0)/m/n/12.045 30
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.1927)x9.14215
+.\TU/LibertinusSerif(0)/m/n/12.045 ①
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.1927)x9.13011
+.\TU/LibertinusSerif(0)/m/n/12.045 ⓐ
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.1927)x9.14215
+.\TU/LibertinusSerif(0)/m/n/12.045 Ⓐ
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.1927)x9.14215
+.\TU/LibertinusSerif(0)/m/n/12.045 ⓒ
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x8.23878
+.\TU/XITS(2)/m/n/12.045 ①
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x8.23878
+.\TU/XITS(2)/m/n/12.045 ⓐ
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x8.23878
+.\TU/XITS(2)/m/n/12.045 Ⓐ
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x8.23878
+.\TU/XITS(2)/m/n/12.045 ⓒ
+.\kern -0.0002
+.\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146
+.\U/pzd/m/n/12.045 ^^ac
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146
+.\U/pzd/m/n/12.045 ^^b5
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146
+.\U/pzd/m/n/12.045 ^^bb
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146
+.\U/pzd/m/n/12.045 ^^ca
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146
+.\U/pzd/m/n/12.045 ^^d3
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(6.57655+0.0)x11.12956
+.\U/pzd/m/n/12.045 ^^d9
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 2: Theorem define
+============================================================
+> Empty at present..
+<recently read> }
+l. ...  }
+============================================================
+============================================================
+TEST 3: Boxes in thesis cover
+============================================================
+> \box...=
+\hbox(8.14243+0.16861)x142.26378
+.\hbox(8.14243+0.16861)x142.26378, glue set 36.2676fil
+..\TU/XITS(0)/m/n/12.045 A
+..\kern -0.0002
+..\kern 0.0002
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 B
+..\kern -0.0002
+..\kern 0.0002
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 C
+..\kern -0.0002
+..\kern 0.0002
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 D
+..\kern -0.0002
+..\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(9.33487+1.96332)x142.26378
+.\hbox(9.33487+1.96332)x142.26378, glue set 31.36127fil
+..\TU/FandolSong(0)/m/n/12.045 复
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 旦
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 大
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 学
+..\kern -0.00017
+..\kern 0.00017
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(11.6686+2.45415)x142.26378
+.\hbox(11.6686+2.45415)x142.26378, glue set 27.34627fil
+..\TU/FandolSong(0)/m/n/15.05624 复
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/15.05624 旦
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/15.05624 大
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/15.05624 学
+..\kern -0.00017
+..\kern 0.00017
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16861)x142.26378
+.\hbox(8.14243+0.16861)x142.26378, glue set 54.4014fil
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 ABCD
+..\kern -0.0002
+..\kern 0.0002
+..\glue 0.0 plus 1.0fil
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(9.33487+1.96332)x142.26378
+.\hbox(9.33487+1.96332)x142.26378, glue set 47.0419fil
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 复
+..\glue 0.0 plus 0.59575
+..\TU/FandolSong(0)/m/n/12.045 旦
+..\glue 0.0 plus 0.59575
+..\TU/FandolSong(0)/m/n/12.045 大
+..\glue 0.0 plus 0.59575
+..\TU/FandolSong(0)/m/n/12.045 学
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(11.6686+2.45415)x142.26378
+.\hbox(11.6686+2.45415)x142.26378, glue set 41.01941fil
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/15.05624 复
+..\glue 0.0 plus 1.00346
+..\TU/FandolSong(0)/m/n/15.05624 旦
+..\glue 0.0 plus 1.00346
+..\TU/FandolSong(0)/m/n/15.05624 大
+..\glue 0.0 plus 1.00346
+..\TU/FandolSong(0)/m/n/15.05624 学
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+LaTeX Font Info:    Font shape `TU/XITSMath(2)/m/n' will be
+(Font)              scaled to size 12.04518pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath(2)/m/n' will be
+(Font)              scaled to size 8.99907pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath(2)/m/n' will be
+(Font)              scaled to size 7.26242pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
+(Font)              scaled to size 12.0448pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
+(Font)              scaled to size 8.99881pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
+(Font)              scaled to size 7.26219pt on input line ....
+> \box...=
+\hbox(7.16681+1.14423)x142.26378
+.\mathon
+.\vbox(7.16681+1.14423)x142.26378
+..\hbox(8.14243+0.16861)x142.26378, glue set 108.80278fil
+...\hbox(0.0+0.0)x0.0
+...\TU/XITS(0)/m/n/12.045 ABCD
+...\kern -0.0002
+...\kern 0.0002
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.66039+2.6378)x142.26378
+.\mathon
+.\vbox(8.66039+2.6378)x142.26378
+..\hbox(9.33487+1.96332)x142.26378, glue set 94.08379fil
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/12.045 复
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 旦
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 大
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 学
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.07266+4.05008)x142.26378
+.\mathon
+.\vbox(10.07266+4.05008)x142.26378
+..\hbox(11.6686+2.45415)x142.26378, glue set 82.0388fil
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/15.05624 复
+...\glue 0.0 plus 3.11626
+...\TU/FandolSong(0)/m/n/15.05624 旦
+...\glue 0.0 plus 3.11626
+...\TU/FandolSong(0)/m/n/15.05624 大
+...\glue 0.0 plus 3.11626
+...\TU/FandolSong(0)/m/n/15.05624 学
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+Underfull \hbox (badness 10000) in paragraph at lines 80--80
+[]\TU/FandolSong(0)/m/n/12.045 复 旦 大 学
+\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
+.\hbox(0.0+0.0)x0.0
+.\TU/FandolSong(0)/m/n/12.045 复
+.\glue 0.0 plus 0.59575
+.\TU/FandolSong(0)/m/n/12.045 旦
+.\glue 0.0 plus 0.59575
+.\TU/FandolSong(0)/m/n/12.045 大
+.\glue 0.0 plus 0.59575
+.\TU/FandolSong(0)/m/n/12.045 学
+.\glue(\rightskip) 0.0
+> \box...=
+\hbox(18.59412+12.57153)x56.9055
+.\mathon
+.\vbox(18.59412+12.57153)x56.9055
+..\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/12.045 复
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 旦
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 大
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 学
+...\glue(\rightskip) 0.0
+..\penalty 300
+..\glue(\baselineskip) 8.8222
+..\hbox(9.21443+1.83083)x56.9055, glue set 32.8155fil
+...\TU/FandolSong(0)/m/n/12.045 论
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 文
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(22.57263+16.55005)x56.9055
+.\mathon
+.\vbox(22.57263+16.55005)x56.9055
+..\hbox(11.6686+2.4391)x56.9055, glue set 0.21902
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/15.05624 复
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 旦
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 大
+...\glue(\rightskip) 0.0
+..\penalty 300
+..\glue(\baselineskip) 11.04282
+..\hbox(11.51802+2.45415)x56.9055, glue set 11.73677fil
+...\TU/FandolSong(0)/m/n/15.05624 学
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 论
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 文
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.16681+1.14423)x142.26378
+.\mathon
+.\vbox(7.16681+1.14423)x142.26378
+..\hbox(8.14243+0.16861)x142.26378, glue set 54.4014fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\hbox(0.0+0.0)x0.0
+...\TU/XITS(0)/m/n/12.045 ABCD
+...\kern -0.0002
+...\kern 0.0002
+...\penalty 10000
+...\glue(\parfillskip) 0.0
+...\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.66039+2.6378)x142.26378
+.\mathon
+.\vbox(8.66039+2.6378)x142.26378
+..\hbox(9.33487+1.96332)x142.26378, glue set 47.0419fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/12.045 复
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 旦
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 大
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 学
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0
+...\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.07266+4.05008)x142.26378
+.\mathon
+.\vbox(10.07266+4.05008)x142.26378
+..\hbox(11.6686+2.45415)x142.26378, glue set 41.01941fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/15.05624 复
+...\glue 0.0 plus 3.11626
+...\TU/FandolSong(0)/m/n/15.05624 旦
+...\glue 0.0 plus 3.11626
+...\TU/FandolSong(0)/m/n/15.05624 大
+...\glue 0.0 plus 3.11626
+...\TU/FandolSong(0)/m/n/15.05624 学
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0
+...\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(18.59412+12.57153)x56.9055
+.\mathon
+.\vbox(18.59412+12.57153)x56.9055
+..\hbox(9.33487+1.96332)x56.9055, glue set 4.36276fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/12.045 复
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 旦
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 大
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 学
+...\glue(\rightskip) 0.0 plus 1.0fil
+..\penalty 300
+..\glue(\baselineskip) 8.8222
+..\hbox(9.21443+1.83083)x56.9055, glue set 16.40776fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\TU/FandolSong(0)/m/n/12.045 论
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 文
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0
+...\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(22.57263+16.55005)x56.9055
+.\mathon
+.\vbox(22.57263+16.55005)x56.9055
+..\hbox(11.6686+2.4391)x56.9055, glue set 5.8684fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/15.05624 复
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 旦
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 大
+...\glue(\rightskip) 0.0 plus 1.0fil
+..\penalty 300
+..\glue(\baselineskip) 11.04282
+..\hbox(11.51802+2.45415)x56.9055, glue set 5.8684fil
+...\glue(\leftskip) 0.0 plus 1.0fil
+...\TU/FandolSong(0)/m/n/15.05624 学
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 论
+...\glue 0.0 plus 26.79301
+...\TU/FandolSong(0)/m/n/15.05624 文
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0
+...\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 4: Text width
+============================================================
+> \l_tmpa_dim=33.461pt.
+> \l_tmpa_dim=48.18pt.
+============================================================
+============================================================
+TEST 5: Maximum text width
+============================================================
+> \l_tmpa_dim=48.18pt.
+> \l_tmpa_dim=60.22498pt.
+============================================================

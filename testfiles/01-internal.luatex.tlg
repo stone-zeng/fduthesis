@@ -1,0 +1,652 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Footnote number
+============================================================
+> \box...=
+\hbox(8.14243+0.0)x6.0225, direction TLT
+.\whatsit4=[]
+.\TU/XITS(0)/m/n/12.045 1
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x12.04501, direction TLT
+.\whatsit4=[]
+.\TU/XITS(0)/m/n/12.045 1
+.\TU/XITS(0)/m/n/12.045 0
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x12.04501, direction TLT
+.\whatsit4=[]
+.\TU/XITS(0)/m/n/12.045 2
+.\TU/XITS(0)/m/n/12.045 0
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x12.04501, direction TLT
+.\whatsit4=[]
+.\TU/XITS(0)/m/n/12.045 3
+.\TU/XITS(0)/m/n/12.045 0
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.18068)x9.14215, direction TLT
+.\whatsit4=[]
+.\TU/LibertinusSerif(0)/m/n/12.045 ①
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.18068)x9.13011, direction TLT
+.\whatsit4=[]
+.\TU/LibertinusSerif(0)/m/n/12.045 ⓐ
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.18068)x9.14215, direction TLT
+.\whatsit4=[]
+.\TU/LibertinusSerif(0)/m/n/12.045 Ⓐ
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.76903+0.18068)x9.14215, direction TLT
+.\whatsit4=[]
+.\TU/LibertinusSerif(0)/m/n/12.045 ⓒ
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x8.23878, direction TLT
+.\whatsit4=[]
+.\TU/XITS(2)/m/n/12.045 ①
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x8.23878, direction TLT
+.\whatsit4=[]
+.\TU/XITS(2)/m/n/12.045 ⓐ
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x8.23878, direction TLT
+.\whatsit4=[]
+.\TU/XITS(2)/m/n/12.045 Ⓐ
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x8.23878, direction TLT
+.\whatsit4=[]
+.\TU/XITS(2)/m/n/12.045 ⓒ
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146, direction TLT
+.\whatsit4=[]
+.\U/pzd/m/n/12.045 ^^ac
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146, direction TLT
+.\whatsit4=[]
+.\U/pzd/m/n/12.045 ^^b5
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146, direction TLT
+.\whatsit4=[]
+.\U/pzd/m/n/12.045 ^^bb
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146, direction TLT
+.\whatsit4=[]
+.\U/pzd/m/n/12.045 ^^ca
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.52785+0.16862)x9.49146, direction TLT
+.\whatsit4=[]
+.\U/pzd/m/n/12.045 ^^d3
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(6.57655+0.0)x11.12956, direction TLT
+.\whatsit4=[]
+.\U/pzd/m/n/12.045 ^^d9
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 2: Theorem define
+============================================================
+> Empty at present..
+<recently read> }
+l. ...  }
+============================================================
+============================================================
+TEST 3: Boxes in thesis cover
+============================================================
+> \box...=
+\hbox(8.14243+0.16862)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(8.14243+0.16862)x142.26378, glue set 36.2676fil, direction TLT
+..\whatsit4=[]
+..\TU/XITS(0)/m/n/12.045 A
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 B
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 C
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 D
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.5996+1.4454)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(10.5996+1.4454)x142.26378, glue set 31.36127fil, direction TLT
+..\whatsit4=[]
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 复
+..\glue 0.0 plus 1.0fil
+..\norule(10.5996+1.4454)x0.0
+..\LTJY3/FandolSong(0)/m/n/12.045 旦
+..\glue 0.0 plus 1.0fil
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 大
+..\glue 0.0 plus 1.0fil
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 学
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+luaotfload | aux : font no 74 (nil) does not define feature vert for script latn with language dflt
+luaotfload | aux : no font with id 74
+luaotfload | aux : font no 74 (nil) does not define feature vrt2 for script latn with language dflt
+luaotfload | aux : no font with id 74
+> \box...=
+\hbox(13.2495+1.80675)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(13.2495+1.80675)x142.26378, glue set 27.34627fil, direction TLT
+..\whatsit4=[]
+..\hbox(13.2495+1.80675)x15.05624, direction TLT
+...\LTJY3/FandolSong(0)/m/n/15.05624 复
+..\glue 0.0 plus 1.0fil
+..\norule(13.2495+1.80675)x0.0
+..\LTJY3/FandolSong(0)/m/n/15.05624 旦
+..\glue 0.0 plus 1.0fil
+..\hbox(13.2495+1.80675)x15.05624, direction TLT
+...\LTJY3/FandolSong(0)/m/n/15.05624 大
+..\glue 0.0 plus 1.0fil
+..\hbox(13.2495+1.80675)x15.05624, direction TLT
+...\LTJY3/FandolSong(0)/m/n/15.05624 学
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(8.14243+0.16862)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(8.14243+0.16862)x142.26378, glue set 54.4014fil, direction TLT
+..\whatsit4=[]
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 A
+..\TU/XITS(0)/m/n/12.045 B
+..\TU/XITS(0)/m/n/12.045 C
+..\TU/XITS(0)/m/n/12.045 D
+..\glue 0.0 plus 1.0fil
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.5996+1.4454)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(10.5996+1.4454)x142.26378, glue set 47.0419fil, direction TLT
+..\whatsit4=[]
+..\glue 0.0 plus 1.0fil
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 复
+..\glue 0.0 plus 1.00346
+..\norule(10.5996+1.4454)x0.0
+..\LTJY3/FandolSong(0)/m/n/12.045 旦
+..\glue 0.0 plus 1.00346
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 大
+..\glue 0.0 plus 1.00346
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 学
+..\glue 0.0 plus 1.0fil
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(13.2495+1.80675)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(13.2495+1.80675)x142.26378, glue set 41.01941fil, direction TLT
+..\whatsit4=[]
+..\glue 0.0 plus 1.0fil
+..\hbox(13.2495+1.80675)x15.05624, direction TLT
+...\LTJY3/FandolSong(0)/m/n/15.05624 复
+..\glue 0.0 plus 1.00346
+..\norule(13.2495+1.80675)x0.0
+..\LTJY3/FandolSong(0)/m/n/15.05624 旦
+..\glue 0.0 plus 1.00346
+..\hbox(13.2495+1.80675)x15.05624, direction TLT
+...\LTJY3/FandolSong(0)/m/n/15.05624 大
+..\glue 0.0 plus 1.00346
+..\hbox(13.2495+1.80675)x15.05624, direction TLT
+...\LTJY3/FandolSong(0)/m/n/15.05624 学
+..\glue 0.0 plus 1.0fil
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.16673+1.14432)x142.26378, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(7.16673+1.14432)x142.26378, direction TLT
+..\whatsit4=[]
+..\vbox(8.14243+0.16862)x142.26378, direction TLT
+...\whatsit4=[]
+...\hbox(8.14243+0.16862)x142.26378, glue set 108.80278fil, direction TLT
+....\whatsit4=[]
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\TU/XITS(0)/m/n/12.045 A
+....\TU/XITS(0)/m/n/12.045 B
+....\TU/XITS(0)/m/n/12.045 C
+....\TU/XITS(0)/m/n/12.045 D
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(9.0337+3.01129)x142.26378, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(9.0337+3.01129)x142.26378, direction TLT
+..\whatsit4=[]
+..\vbox(10.5996+1.4454)x142.26378, direction TLT
+...\whatsit4=[]
+...\hbox(10.5996+1.4454)x142.26378, glue set 94.08379fil, direction TLT
+....\whatsit4=[]
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 复
+....\glue 0.0 plus 1.00346
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 旦
+....\glue 0.0 plus 1.00346
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 大
+....\penalty 500
+....\glue 0.0 plus 1.00346
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 学
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.53932+4.51692)x142.26378, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(10.53932+4.51692)x142.26378, direction TLT
+..\whatsit4=[]
+..\vbox(13.2495+1.80675)x142.26378, direction TLT
+...\whatsit4=[]
+...\hbox(13.2495+1.80675)x142.26378, glue set 82.0388fil, direction TLT
+....\whatsit4=[]
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 复
+....\glue 0.0 plus 3.11626
+....\norule(13.2495+1.80675)x0.0
+....\LTJY3/FandolSong(0)/m/n/15.05624 旦
+....\glue 0.0 plus 3.11626
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 大
+....\penalty 500
+....\glue 0.0 plus 3.11626
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 学
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(19.03368+13.01128)x56.9055, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(19.03368+13.01128)x56.9055, direction TLT
+..\whatsit4=[]
+..\vbox(30.59955+1.4454)x56.9055, direction TLT
+...\whatsit4=[]
+...\hbox(10.5996+1.4454)x56.9055, glue set 0.93333, direction TLT
+....\whatsit4=[]
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 复
+....\glue 0.0 plus 3.11626
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 旦
+....\glue 0.0 plus 3.11626
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 大
+....\glue 0.0 plus 3.11626
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 学
+....\glue(\rightskip) 0.0
+...\penalty 300
+...\glue(\baselineskip) 7.95496
+...\hbox(10.5996+1.4454)x56.9055, glue set 32.8155fil, direction TLT
+....\whatsit4=[]
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 论
+....\penalty 500
+....\glue 0.0 plus 3.11626
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 文
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(23.03929+17.01689)x56.9055, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(23.03929+17.01689)x56.9055, direction TLT
+..\whatsit4=[]
+..\vbox(38.24944+1.80675)x56.9055, direction TLT
+...\whatsit4=[]
+...\hbox(13.2495+1.80675)x56.9055, glue set 0.21902, direction TLT
+....\whatsit4=[]
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 复
+....\glue 0.0 plus 26.79301
+....\norule(13.2495+1.80675)x0.0
+....\LTJY3/FandolSong(0)/m/n/15.05624 旦
+....\glue 0.0 plus 26.79301
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 大
+....\glue(\rightskip) 0.0
+...\penalty 300
+...\glue(\baselineskip) 9.9437
+...\hbox(13.2495+1.80675)x56.9055, glue set 11.73677fil, direction TLT
+....\whatsit4=[]
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 学
+....\glue 0.0 plus 26.79301
+....\norule(13.2495+1.80675)x0.0
+....\LTJY3/FandolSong(0)/m/n/15.05624 论
+....\penalty 500
+....\glue 0.0 plus 26.79301
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 文
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(7.16673+1.14432)x142.26378, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(7.16673+1.14432)x142.26378, direction TLT
+..\whatsit4=[]
+..\vbox(8.14243+0.16862)x142.26378, direction TLT
+...\whatsit4=[]
+...\hbox(8.14243+0.16862)x142.26378, glue set 54.4014fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\TU/XITS(0)/m/n/12.045 A
+....\TU/XITS(0)/m/n/12.045 B
+....\TU/XITS(0)/m/n/12.045 C
+....\TU/XITS(0)/m/n/12.045 D
+....\penalty 10000
+....\glue(\parfillskip) 0.0
+....\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(9.0337+3.01129)x142.26378, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(9.0337+3.01129)x142.26378, direction TLT
+..\whatsit4=[]
+..\vbox(10.5996+1.4454)x142.26378, direction TLT
+...\whatsit4=[]
+...\hbox(10.5996+1.4454)x142.26378, glue set 47.0419fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 复
+....\glue 0.0 plus 26.79301
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 旦
+....\glue 0.0 plus 26.79301
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 大
+....\penalty 500
+....\glue 0.0 plus 26.79301
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 学
+....\penalty 10000
+....\glue(\parfillskip) 0.0
+....\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.53932+4.51692)x142.26378, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(10.53932+4.51692)x142.26378, direction TLT
+..\whatsit4=[]
+..\vbox(13.2495+1.80675)x142.26378, direction TLT
+...\whatsit4=[]
+...\hbox(13.2495+1.80675)x142.26378, glue set 41.01941fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 复
+....\glue 0.0 plus 3.11626
+....\norule(13.2495+1.80675)x0.0
+....\LTJY3/FandolSong(0)/m/n/15.05624 旦
+....\glue 0.0 plus 3.11626
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 大
+....\penalty 500
+....\glue 0.0 plus 3.11626
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 学
+....\penalty 10000
+....\glue(\parfillskip) 0.0
+....\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(19.03368+13.01128)x56.9055, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(19.03368+13.01128)x56.9055, direction TLT
+..\whatsit4=[]
+..\vbox(30.59955+1.4454)x56.9055, direction TLT
+...\whatsit4=[]
+...\hbox(10.5996+1.4454)x56.9055, glue set 4.36276fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 复
+....\glue 0.0 plus 3.11626
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 旦
+....\glue 0.0 plus 3.11626
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 大
+....\glue 0.0 plus 3.11626
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 学
+....\glue(\rightskip) 0.0 plus 1.0fil
+...\penalty 300
+...\glue(\baselineskip) 7.95496
+...\hbox(10.5996+1.4454)x56.9055, glue set 16.40776fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 论
+....\penalty 500
+....\glue 0.0 plus 3.11626
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 文
+....\penalty 10000
+....\glue(\parfillskip) 0.0
+....\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(23.03929+17.01689)x56.9055, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(23.03929+17.01689)x56.9055, direction TLT
+..\whatsit4=[]
+..\vbox(38.24944+1.80675)x56.9055, direction TLT
+...\whatsit4=[]
+...\hbox(13.2495+1.80675)x56.9055, glue set 5.8684fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 复
+....\glue 0.0 plus 26.79301
+....\norule(13.2495+1.80675)x0.0
+....\LTJY3/FandolSong(0)/m/n/15.05624 旦
+....\glue 0.0 plus 26.79301
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 大
+....\glue(\rightskip) 0.0 plus 1.0fil
+...\penalty 300
+...\glue(\baselineskip) 9.9437
+...\hbox(13.2495+1.80675)x56.9055, glue set 5.8684fil, direction TLT
+....\whatsit4=[]
+....\glue(\leftskip) 0.0 plus 1.0fil
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 学
+....\glue 0.0 plus 26.79301
+....\norule(13.2495+1.80675)x0.0
+....\LTJY3/FandolSong(0)/m/n/15.05624 论
+....\penalty 500
+....\glue 0.0 plus 26.79301
+....\hbox(13.2495+1.80675)x15.05624, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/15.05624 文
+....\penalty 10000
+....\glue(\parfillskip) 0.0
+....\glue(\rightskip) 0.0 plus 1.0fil
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 4: Text width
+============================================================
+> \l_tmpa_dim=33.461pt.
+> \l_tmpa_dim=48.18pt.
+============================================================
+============================================================
+TEST 5: Maximum text width
+============================================================
+> \l_tmpa_dim=48.18pt.
+> \l_tmpa_dim=60.22498pt.
+============================================================
