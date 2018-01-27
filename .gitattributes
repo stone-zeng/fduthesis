@@ -6,16 +6,19 @@
 
 # Declare files that will always have LF line endings on checkout.
 *.bib          text eol=lf
+*.bst          text eol=lf
 *.cls          text eol=lf
+*.conf         text eol=lf
 *.def          text eol=lf
 *.dtx          text eol=lf
 *.ins          text eol=lf
 *.lua          text eol=lf
-*.tex          text eol=lf
+*.lvt          text eol=lf
 *.md           text eol=lf
 *.profile      text eol=lf
 *.sh           text eol=lf
-*.yml          text eol=lf
+*.tex          text eol=lf
+*.tlg          text eol=lf
 .gitignore     text eol=lf
 .gitattributes text eol=lf
 latexmkrc      text eol=lf
