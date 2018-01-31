@@ -2397,14 +2397,25 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<*class|class-en>
 %    \end{macrocode}
 %
+% 检查 \LaTeX3 编程环境。
+%    \begin{macrocode}
+\RequirePackage { xparse, l3keys2e }
+\clist_map_inline:nn { expl3, xparse, l3keys2e }
+  {
+    \@ifpackagelater {#1} { 2017/12/16 }
+      { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
+  }
+\msg_new:nnn { fduthesis } { l3-too-old }
+  {
+    Package~ "#1"~ is~ too~ old. \\\\
+    Please~ update~ an~ up-to-date~ version~ of~ the~ bundles \\
+    "l3kernel"~ and~ "l3packages"~ using~ your~ TeX~ package \\
+    manager~ or~ from~ CTAN.
+  }
+%    \end{macrocode}
+%
 % 目前 \cls{fduthesis} 仅支持 \XeTeX{} 和 \LuaTeX{}。
 %    \begin{macrocode}
-\msg_new:nnn { fduthesis } { unsupported-engine }
-  {
-    The~ fduthesis~ class~ requires~ either~ XeTeX~ or~ LuaTeX. \\\\
-    "#1"~ is~ not~ supported~ at~ present.~ You~ must~ change \\
-    your~ typesetting~ engine~ to~ "xelatex"~ or~ "lualatex".
-  }
 \sys_if_engine_xetex:F
   {
     \sys_if_engine_luatex:F
@@ -2413,22 +2424,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           { \c_sys_engine_str }
       }
   }
-%    \end{macrocode}
-%
-% 检查 \LaTeX3 编程环境。
-%    \begin{macrocode}
-\RequirePackage { xparse, l3keys2e }
-\msg_new:nnn { fduthesis } { l3-too-old }
+\msg_new:nnn { fduthesis } { unsupported-engine }
   {
-    Package~ "#1"~ is~ too~ old. \\\\
-    Please~ update~ an~ up-to-date~ version~ of~ the~ bundles \\
-    "l3kernel"~ and~ "l3packages"~ using~ your~ TeX~ package \\
-    manager~ or~ from~ CTAN.
-  }
-\clist_map_inline:nn { expl3, xparse, l3keys2e }
-  {
-    \@ifpackagelater {#1} { 2017/12/16 }
-      { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
+    The~ fduthesis~ class~ requires~ either~ XeTeX~ or~ LuaTeX. \\\\
+    "#1"~ is~ not~ supported~ at~ present.~ You~ must~ change \\
+    your~ typesetting~ engine~ to~ "xelatex"~ or~ "lualatex".
   }
 %    \end{macrocode}
 %
