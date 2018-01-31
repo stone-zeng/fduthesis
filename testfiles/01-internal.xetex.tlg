@@ -211,7 +211,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16861)x142.26378
-.\hbox(8.14243+0.16861)x142.26378, glue set 54.4014fil
+.\hbox(8.14243+0.16861)x142.26378, glue set 54.40138fil
 ..\glue 0.0 plus 1.0fil
 ..\TU/XITS(0)/m/n/12.045 ABCD
 ..\kern -0.0002
@@ -270,7 +270,7 @@ LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
 \hbox(7.16681+1.14423)x142.26378
 .\mathon
 .\vbox(7.16681+1.14423)x142.26378
-..\hbox(8.14243+0.16861)x142.26378, glue set 108.80278fil
+..\hbox(8.14243+0.16861)x142.26378, glue set 108.80276fil
 ...\hbox(0.0+0.0)x0.0
 ...\TU/XITS(0)/m/n/12.045 ABCD
 ...\kern -0.0002
@@ -353,8 +353,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--80
 ...\TU/FandolSong(0)/m/n/12.045 学
 ...\glue(\rightskip) 0.0
 ..\penalty 300
-..\glue(\baselineskip) 8.8222
-..\hbox(9.21443+1.83083)x56.9055, glue set 32.8155fil
+..\glue(\baselineskip) 8.82222
+..\hbox(9.21442+1.83083)x56.9055, glue set 32.8155fil
 ...\TU/FandolSong(0)/m/n/12.045 论
 ...\glue 0.0 plus 0.59575
 ...\TU/FandolSong(0)/m/n/12.045 文
@@ -400,7 +400,7 @@ l. ...  }
 \hbox(7.16681+1.14423)x142.26378
 .\mathon
 .\vbox(7.16681+1.14423)x142.26378
-..\hbox(8.14243+0.16861)x142.26378, glue set 54.4014fil
+..\hbox(8.14243+0.16861)x142.26378, glue set 54.40138fil
 ...\glue(\leftskip) 0.0 plus 1.0fil
 ...\hbox(0.0+0.0)x0.0
 ...\TU/XITS(0)/m/n/12.045 ABCD
@@ -475,8 +475,8 @@ l. ...  }
 ...\TU/FandolSong(0)/m/n/12.045 学
 ...\glue(\rightskip) 0.0 plus 1.0fil
 ..\penalty 300
-..\glue(\baselineskip) 8.8222
-..\hbox(9.21443+1.83083)x56.9055, glue set 16.40776fil
+..\glue(\baselineskip) 8.82222
+..\hbox(9.21442+1.83083)x56.9055, glue set 16.40776fil
 ...\glue(\leftskip) 0.0 plus 1.0fil
 ...\TU/FandolSong(0)/m/n/12.045 论
 ...\glue 0.0 plus 0.59575
@@ -525,7 +525,7 @@ l. ...  }
 ============================================================
 TEST 4: Text width
 ============================================================
-> \l_tmpa_dim=33.461pt.
+> \l_tmpa_dim=33.46101pt.
 > \l_tmpa_dim=48.18pt.
 ============================================================
 ============================================================
