@@ -10,7 +10,7 @@ script:
   - source ./scripts/local.sh
   - source ./scripts/run.sh
   - texlua build.lua check
-  - texlua build.lua check -f -e pdftex 03-logo
+  - texlua build.lua check -q -f -e pdftex 03-logo
 
 after_failure:
   - cat ./build/test/*.diff

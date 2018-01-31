@@ -7,4 +7,4 @@ texlua build.lua save --engine luatex $TESTFILES
 texlua build.lua save 03-logo
 
 texlua build.lua check
-texlua build.lua check -f -e pdftex 03-logo
+texlua build.lua check -q -f -e pdftex 03-logo

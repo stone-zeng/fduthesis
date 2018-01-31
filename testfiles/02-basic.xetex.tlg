@@ -97,6 +97,7 @@ Completed box being shipped out [1]
 .....\TU/FandolHei(0)/m/n/12.045 ：
 .....\rule(0.0+0.0)x-8.52786
 .....\glue 8.52786 minus 6.0225
+.....\glue 0.0 plus 0.59575
 .....\TU/FandolSong(0)/m/n/12.045 关
 .....\glue 0.0 plus 0.59575
 .....\TU/FandolSong(0)/m/n/12.045 键
@@ -108,6 +109,7 @@ Completed box being shipped out [1]
 .....\TU/FandolSong(0)/m/n/12.045 ；
 .....\rule(0.0+0.0)x-8.32309
 .....\glue 8.32309 minus 6.02249
+.....\glue 0.0 plus 0.59575
 .....\TU/FandolSong(0)/m/n/12.045 关
 .....\glue 0.0 plus 0.59575
 .....\TU/FandolSong(0)/m/n/12.045 键
@@ -119,6 +121,7 @@ Completed box being shipped out [1]
 .....\TU/FandolSong(0)/m/n/12.045 ；
 .....\rule(0.0+0.0)x-8.32309
 .....\glue 8.32309 minus 6.02249
+.....\glue 0.0 plus 0.59575
 .....\TU/FandolSong(0)/m/n/12.045 关
 .....\glue 0.0 plus 0.59575
 .....\TU/FandolSong(0)/m/n/12.045 键
@@ -146,6 +149,10 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\TU/FandolHei(0)/m/n/12.045 ：
 .....\rule(0.0+0.0)x-8.52786
+.....\kern 0.00052
+.....\kern -0.00052
+.....\kern -0.99649
+.....\kern 0.99649
 .....\glue 8.52786 minus 6.0225
 .....\TU/XITS(0)/m/n/12.045 TS803.23
 .....\kern -0.0002
@@ -570,12 +577,14 @@ Completed box being shipped out [5]
 .........\glue 7.63654 minus 6.0225
 .........\rule(0.0+0.0)x-7.63654
 .........\TU/FandolSong(0)/m/n/12.045 （
-.........\penalty 10000
-.........\glue 0.0
 .........\TU/XITS(0)/m/n/12.045 bra
 .........\penalty 10000
 .........\TU/FandolSong(0)/m/n/12.045 ）
 .........\rule(0.0+0.0)x-7.63654
+.........\kern 0.00047
+.........\kern -0.00047
+.........\kern -0.99623
+.........\kern 0.99623
 .........\penalty 10000
 .........\rule(0.0+6.00005)x0.0
 .........\penalty 10000
@@ -612,12 +621,14 @@ Completed box being shipped out [5]
 .........\glue 7.63654 minus 6.0225
 .........\rule(0.0+0.0)x-7.63654
 .........\TU/FandolSong(0)/m/n/12.045 （
-.........\penalty 10000
-.........\glue 0.0
 .........\TU/XITS(0)/m/n/12.045 ket
 .........\penalty 10000
 .........\TU/FandolSong(0)/m/n/12.045 ）
 .........\rule(0.0+0.0)x-7.63654
+.........\kern 0.00047
+.........\kern -0.00047
+.........\kern -0.99623
+.........\kern 0.99623
 .........\penalty 10000
 .........\rule(0.0+6.00005)x0.0
 .........\penalty 10000

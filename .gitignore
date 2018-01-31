@@ -61,6 +61,7 @@ tools/
 # Other
 git-comment.md
 TODO.md
+doc/images/
 source/*.md
 source/*.tex
 !testfiles/support/
