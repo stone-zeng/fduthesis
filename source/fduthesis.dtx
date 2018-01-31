@@ -25,7 +25,6 @@
 %                                 fduthesis.cls,
 %                                 fduthesis-en.cls,
 %                                 fduthesis.def,
-%                                 fduthesis-user.def,
 %                                 fdudoc.cls,
 %                                 fdulogo.sty,
 %                                 fdulogo-example.tex,
@@ -87,7 +86,6 @@ To install `fduthesis`, you can use one of the following methods:
   - `fduthesis.cls`
   - `fduthesis-en.cls`
   - `fduthesis.def`
-  - `fduthesis-user.def`
   - `fdudoc.cls`
   - `fdulogo.sty`
 
@@ -151,7 +149,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
                                     fduthesis.cls,
                                     fduthesis-en.cls,
                                     fduthesis.def,
-                                    fduthesis-user.def,
                                     fdudoc.cls,
                                     fdulogo.sty,
                                     fdulogo-example.tex,
@@ -170,7 +167,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \file{\jobname.cls}        {\from{\jobname.dtx}{class}}
     \file{\jobname-en.cls}     {\from{\jobname.dtx}{class-en}}
     \file{\jobname.def}        {\from{\jobname.dtx}{definition}}
-    \file{\jobname-user.def}   {\from{\jobname.dtx}{user}}
     \file{fdudoc.cls}          {\from{\jobname.dtx}{doc}
                                 \from{\jobname-doc.dtx}{doc}}
     \file{fdulogo.sty}         {\from{\jobname.dtx}{logo}
@@ -205,7 +201,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \Msg{*     fduthesis.cls                                         *}
 \Msg{*     fduthesis-en.cls                                      *}
 \Msg{*     fduthesis.def                                         *}
-\Msg{*     fduthesis-user.def                                    *}
 \Msg{*     fdudoc.cls                                            *}
 \Msg{*     fdulogo.sty                                           *}
 \Msg{*                                                           *}
@@ -233,8 +228,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<class-en>\ProvidesExplClass{\ExplFileName-en}
 %<definition>  {Definition file for fduthesis}
 %<definition>\ProvidesExplFile{\ExplFileName.def}
-%<user>  {User definition file for fduthesis}
-%<user>\ProvidesExplFile{\ExplFileName-user.def}
 %<doc>  {Documentation class for fduthesis}
 %<doc>\ProvidesExplClass{fdudoc}
 %<logo>  {Fudan University's Visual Identity}
@@ -602,8 +595,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \file{fduthesis-en.cls}   & 英文模板文档类 \\
 %     \file{fduthesis.def}      & 参数配置文件，用于设定
 %       \cls{fduthesis} 的初始参数，不建议您自行改动 \\
-%     \file{fduthesis-user.def} & 用户配置文件，可根据您的需求进行
-%       修改，默认为空 \\
 %     \file{fdudoc.cls}         & 用户手册文档类 \\
 %     \file{fdulogo.sty}        & 复旦大学视觉识别系统 \\
 %     \file{README.md}          & 简要自述 \\
@@ -624,8 +615,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     \file{fduthesis-en.cls}   & Document class for English thesis.\\
 %^^A!     \file{fduthesis.def}      & Configuration parameters file
 %^^A!       for \cls{fduthesis}. Please do \emph{not} modify it. \\
-%^^A!     \file{fduthesis-user.def} & User profile and you may modify
-%^^A!       it if necessary. This is an empty file by default. \\
 %^^A!     \file{fdudoc.cls}         & Document class for user guides. \\
 %^^A!     \file{fdulogo.sty}        & Fudan University's visual identity. \\
 %^^A!     \file{README.md}          & The brief introduction. \\
@@ -876,6 +865,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   \item Will not make hyperlinks and PDF bookmarks.
 %^^A!   \item Show the page frames.
 %^^A! \end{itemize}
+%^^A!
+%
+% \begin{function}{config}
+%   \begin{fdusyntax}[emph={[1]config}]
+%     config = (*\marg{文件}*)
+%   \end{fdusyntax}
+%   用户配置文件的文件名。默认为空，即不载入用户配置文件。
+% \end{function}
+%^^A! \begin{function}{config}
+%^^A!   \begin{fdusyntax}[emph={[1]config}]
+%^^A!     config = (*\marg{file}*)
+%^^A!   \end{fdusyntax}
+%^^A!   File name of user profile. Default value is empty, so no
+%^^A!   profile is loaded automatically.
+%^^A! \end{function}
 %^^A!
 %
 % \subsection{参数设置}
@@ -2474,15 +2478,24 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_config_tl}
+% 保存配置文件名称。默认为空。
+%    \begin{macrocode}
+\tl_new:N \g_@@_config_tl
+%    \end{macrocode}
+% \end{variable}
+%
 % \subsubsection{内部函数}
 %
 % \begin{macro}{\cs_generate_variant:cn,
+%   \file_input:V,
 %   \int_to_arabic:v,
 %   \keys_define:nx}
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
 \cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
+\cs_generate_variant:Nn \file_input:n           { V  }
 \cs_generate_variant:Nn \int_to_arabic:n        { v  }
 \cs_generate_variant:Nn \keys_define:nn         { nx }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
@@ -2544,7 +2557,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\@@_msg_new:nn,
 %   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,
-%   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx}
+%   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx,
+%   \@@_info:nx}
 % 各种信息函数的缩略形式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_msg_new:nn  { \msg_new:nnn      { fduthesis } }
@@ -2555,6 +2569,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new:Npn \@@_warning:n   { \msg_warning:nn   { fduthesis } }
 \cs_new:Npn \@@_warning:nn  { \msg_warning:nnn  { fduthesis } }
 \cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { fduthesis } }
+\cs_new:Npn \@@_info:nx     { \msg_info:nnx     { fduthesis } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2602,6 +2617,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7}{2018/01/31}{新增 \opt{config} 选项。}
+%
+% \begin{macro}{config}
+% 配置文件名。
+%    \begin{macrocode}
+    config .tl_set:N = \g_@@_config_tl,
+%    \end{macrocode}
+% \end{macro}
+%
 % 处理未知选项。
 %    \begin{macrocode}
     unknown .code:n = { \@@_error:n { unknown-option } }
@@ -2615,10 +2639,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \ProcessKeysOptions { fdu / option }
 %    \end{macrocode}
 %
+% \changes{v0.7}{2018/01/31}{不再自动载入用户配置文件。}
+%
 % 载入参数配置文件。
 %    \begin{macrocode}
 \file_input:n { fduthesis.def }
-\file_input:n { fduthesis-user.def }
+\tl_if_empty:NF \g_@@_config_tl
+  {
+    \file_input:V \g_@@_config_tl
+    \@@_info:nx { load-config-file } { \g_@@_config_tl }
+  }
+\@@_msg_new:nn { load-config-file }
+  { You~ are~ loading~ config~ file~ '#1'. }
 %    \end{macrocode}
 %
 % \subsection{载入宏包、文档类}
@@ -2659,8 +2691,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
 % \pkg{etoolbox}。
 %
-% 钩子的顺序为：\tn{CTEX@document@left@hook} $\prec$
-% \tn{@endpreamblehook} $\prec$ |\begin{document}|。
+% 钩子的顺序为：$\text{\tn{CTEX@document@left@hook}} \prec
+% \text{\tn{@endpreamblehook}} \prec
+% \text{\texttt{\textbackslash begin\{document\}}}$。
 %    \begin{macrocode}
 \RequirePackage { etoolbox }
 %    \end{macrocode}
@@ -6097,16 +6130,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \@@_def_name:nn { theorem_en    } { Theorem    }
 %</definition>
 %<@@=>
-%    \end{macrocode}
-%
-% \subsection{用户配置文件}
-%
-% 以下是一个示例：修改论文类型为“硕士学位论文”。
-%    \begin{macrocode}
-%<*user>
-%%
-%% \tl_set:Nn \c__fdu_def_name_thesis_type_tl { 硕士学位论文 }
-%</user>
 %    \end{macrocode}
 %
 % \clearpage

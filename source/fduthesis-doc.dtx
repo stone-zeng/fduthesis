@@ -1913,15 +1913,15 @@
 % \begin{macro}{\opt}
 % 选项名。
 %    \begin{macrocode}
-\newcommand*\opt[1]{\texttt{#1}}
+\DeclareDocumentCommand\opt{m}{\texttt{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\kvopt}
 % \meta{key} |=| \meta{value} 型选项。
 %    \begin{macrocode}
-\newcommand*\kvopt[2]{%
-  \texttt{#1\breakablethinspace=\breakablethinspace#2}}
+\DeclareDocumentCommand\kvopt{mm}
+  {\texttt{#1\breakablethinspace=\breakablethinspace#2}}
 %    \end{macrocode}
 % \end{macro}
 %

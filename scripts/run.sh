@@ -6,7 +6,6 @@ xetex fduthesis.dtx
 cp fduthesis.cls       ../test/
 cp fduthesis-en.cls    ../test/
 cp fduthesis.def       ../test/
-cp fduthesis-user.def  ../test/
 
 mkdir                  ../logo/
 cp fdulogo.sty         ../logo/
