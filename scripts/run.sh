@@ -24,14 +24,14 @@ cp fudan-name-black.pdf ../testfiles/support/fudan-name.pdf
 
 cd ../test/
 
-# # Make test theses
-# latexmk -xelatex  -f test
-# latexmk -xelatex  -f test-en
-# source ../scripts/clean.sh
-# latexmk -lualatex -f test
-# latexmk -lualatex -f test-en
-# source ../scripts/clean.sh
-# 
-# latexmk -xelatex  -f test-biblatex
+# Make test theses
+latexmk -xelatex  -f test
+latexmk -xelatex  -f test-en
+source ../scripts/clean.sh
+latexmk -lualatex -f test
+latexmk -lualatex -f test-en
+source ../scripts/clean.sh
+
+latexmk -xelatex  -f test-biblatex
 
 cd ..
