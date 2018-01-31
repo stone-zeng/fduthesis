@@ -19,6 +19,8 @@
 *.sh           text eol=lf
 *.tex          text eol=lf
 *.tlg          text eol=lf
+*.wl           text eol=lf
+*.wls          text eol=lf
 *.yml          text eol=lf
 .gitignore     text eol=lf
 .gitattributes text eol=lf
