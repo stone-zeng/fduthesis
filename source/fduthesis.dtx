@@ -276,6 +276,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.4}{2017/08/11}{添加错误信息提示。}
 % \changes{v0.6}{2017/11/23}{同步 \pkg{ctex} v2.4.11。}
 % \changes{v0.6}{2017/11/29}{添加英文版用户文档。}
+% \changes{v0.7}{2018/01/26}{使用 \pkg{l3build} 进行回归测试。}
+% \changes{v0.7}{2018/01/31}{不再需要 \file{fduthesis-user.def}。}
 %
 % \CheckSum{0}
 %
@@ -788,6 +790,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! ``\opt{\meta{option}}''.
 %^^A!
 %
+%^^A+
+% \begin{function}[added=2018-02-01]{type}
+%   \begin{fdusyntax}[emph={[1]type}]
+%     type = (*<doctor|master|(bachelor)>*)
+%   \end{fdusyntax}
+%^^A-
+%   选择论文类型。三种选项分别代表博士学位论文、硕士学位论文和本科
+%   毕业论文。
+% \end{function}
+%^^A!   Choose the type of your thesis. The three options represent
+%^^A!   doctoral dissertation, master degree thesis and undergraduate
+%^^A!   thesis, respectively.
+%^^A! \end{function}
+%^^A!
+%
 % \begin{function}{oneside,twoside}
 %   指明论文的单双面模式，默认为 \opt{twoside}。该选项会影响每章
 %   的开始位置，还会影响页眉样式。
@@ -867,13 +884,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{itemize}
 %^^A!
 %
-% \begin{function}{config}
+% \begin{function}[added=2018-01-31]{config}
 %   \begin{fdusyntax}[emph={[1]config}]
 %     config = (*\marg{文件}*)
 %   \end{fdusyntax}
 %   用户配置文件的文件名。默认为空，即不载入用户配置文件。
 % \end{function}
-%^^A! \begin{function}{config}
+%^^A! \begin{function}[added=2018-01-31]{config}
 %^^A!   \begin{fdusyntax}[emph={[1]config}]
 %^^A!     config = (*\marg{file}*)
 %^^A!   \end{fdusyntax}
@@ -1411,8 +1428,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     info = (*\marg{键值列表}*)
 %     info/(*\meta{key}*) = (*\meta{value}*)
 %   \end{fdusyntax}
-%   该选项包含许多子项目，录入论文信息。具体内容见下。以下带“|*|”的
-%   项目表示对应的英文字段。
+%   该选项包含许多子项目，用于录入论文信息。具体内容见下。以下带“|*|”
+%   的项目表示对应的英文字段。
 % \end{function}
 %^^A! \begin{function}{info}
 %^^A!   \begin{fdusyntax}[emph={[1]info}]
@@ -1422,6 +1439,20 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   This general option is for entering your personal information.
 %^^A!   See the following details. Note that options with ``|*|'' are
 %^^A!   the corresponding English items.
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2018-02-01]{info/degree}
+%   \begin{fdusyntax}[emph={[1]degree}]
+%     degree = (*<(academic)|professional>*)
+%   \end{fdusyntax}
+%^^A-
+%   学位类型。本选项仅用于硕士学位论文，\opt{academic} 和
+%   \opt{professional} 分表表示学术学位和专业学位。
+% \end{function}
+%^^A!   Degree type. This option can only be used in master degree
+%^^A!   thesis.
 %^^A! \end{function}
 %^^A!
 %
@@ -2454,6 +2485,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_thesis_type_int}
+% 论文类型。取值 1、2、3 分别对应博士、硕士、本科（学士），这与学号
+% 第三位是一致的。
+%    \begin{macrocode}
+\int_new:N \g_@@_thesis_type_int
+%    \end{macrocode}
+% \end{variable}
+%
 % \begin{variable}{\g_@@_to_ctexbook_clist,\g_@@_to_hyperref_clist}
 % 分别保存由 \cls{fduthesis} 传入 \cls{ctexbook} 文档类和
 % \pkg{hyperref} 宏包的选项列表。
@@ -2581,6 +2620,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %    \end{macrocode}
 %
+% \changes{v0.7}{2018/02/01}{新增 \opt{type} 选项。}
+%
+% \begin{macro}{type}
+% 设置论文类型。设为模板选项主要是为了以后的兼容性。论文类型可能会
+% 影响很多设置，只是暂时还不考虑。默认为本科毕业论文。
+%    \begin{macrocode}
+    type .choice:,
+    type .value_required:n = true,
+    type .choices:nn = 
+      { doctor, master, bachelor }
+      { \int_set_eq:NN \g_@@_thesis_type_int \l_keys_choice_int },
+    type .initial:n = bachelor,
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{oneside,twoside}
 % 设置页面类型为单面或双面。
 %    \begin{macrocode}
@@ -2638,8 +2692,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \ProcessKeysOptions { fdu / option }
 %    \end{macrocode}
-%
-% \changes{v0.7}{2018/01/31}{不再自动载入用户配置文件。}
 %
 % 载入参数配置文件。
 %    \begin{macrocode}
@@ -4350,11 +4402,32 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\l_@@_info_degree_type_int}
+% 学位类型。1 为学术学位，2 为专业学位。
+%    \begin{macrocode}
+\int_new:N \l_@@_info_degree_type_int
+%    \end{macrocode}
+% \end{variable}
+%
 % 定义 |fdu/info| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / info }
   {
 %    \end{macrocode}
+%
+% \changes{v0.7}{2018/02/01}{新增 \opt{info/degree} 选项。}
+%
+% \begin{macro}{info/degree}
+% 学位类型。只对硕士论文有效。
+%    \begin{macrocode}
+    degree      .choices:nn  =
+      { academic, professional }
+      {
+        \int_set_eq:NN
+          \l_@@_info_degree_type_int \l_keys_choice_int
+      },
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{info/title,info/title*}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
@@ -4719,18 +4792,33 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 论文类型。
 %    \begin{macrocode}
+      \tl_set:Nx \l_@@_tmpa_tl
+        {
+          \clist_item:Nn \c_@@_def_thesis_type_clist
+            { \g_@@_thesis_type_int }
+        }
       \@@_spread_box:VVn
         \c_@@_def_cover_type_width_tl
-        \c_@@_def_name_thesis_type_tl
+        \l_@@_tmpa_tl
         { \@@_cover_font_size_huge: }
       \skip_vertical:n { \c_@@_def_cover_v_sep_iii_tl }
 %    \end{macrocode}
 % 学位类型。
 %    \begin{macrocode}
-      \group_begin:
-        \@@_cover_font_size_normal:
-        \c_@@_def_name_degree_type_tl
-      \group_end:
+      \int_compare:nNnT \g_@@_thesis_type_int = \c_two
+        {
+          \tl_set:Nx \l_@@_tmpa_tl
+            {
+              \clist_item:Nn \c_@@_def_degree_type_clist
+                { \l_@@_info_degree_type_int }
+            }
+          \group_begin:
+            \_@@_cover_font_size_normal:
+            \c_@@_fullwidth_left_parenthesis_tl
+            \l_@@_tmpa_tl
+            \c_@@_fullwidth_right_parenthesis_tl
+          \group_end:
+        }
       \skip_vertical:n { \c_@@_def_cover_v_sep_iv_tl }
 %    \end{macrocode}
 % 中文题目。
@@ -5411,8 +5499,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \NAT@numbersfalse
 %<*class>
-    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_parenthesis
-    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_parenthesis
+    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_parenthesis_tl
+    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_parenthesis_tl
     \cs_set_eq:NN \NAT@sep   \c_@@_fullwidth_semicolon_tl
     \cs_set_eq:NN \NAT@aysep \c_@@_fullwidth_comma_tl
     \cs_set_eq:NN \NAT@yrsep \c_@@_ideographic_comma_tl
@@ -5582,8 +5670,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \cs_new:Npn \@@_add_url_break_points:
       { \tl_map_function:NN \c_@@_url_break_points_tl \do }
-    \__fdu_appto_cmd:Nn \UrlBreaks
-      { \UrlOrds \__fdu_add_url_break_points: }
+    \@@_appto_cmd:Nn \UrlBreaks
+      { \UrlOrds \@@_add_url_break_points: }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5686,9 +5774,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     style   / hyperlink      = color,
     style   / hyperlinkcolor = default,
     style   / bibstyle       = numerical,
+    info    / degree         = academic,
     info    / secretlevel    = none,
-    info    / date           = { \zhtoday },
     info    / schoolid       = { 10246 },
+    info    / date           = { \zhtoday },
 %<class>    theorem / headerfont     = { \sffamily },
 %<class-en>    theorem / headerfont     = { \bfseries \upshape },
 %<class>    theorem / bodyfont       = { \fdu@kai },
@@ -6049,6 +6138,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{杂项}
 %
+% \begin{variable}{\c_@@_def_thesis_type_clist,
+%   \c_@@_def_degree_type_clist}
+% 论文类型与学位类型。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_def_thesis_type_clist
+  { 博士学位论文, 硕士学位论文, 本科毕业论文 }
+\clist_const:Nn \c_@@_def_degree_type_clist
+  { 学术学位, 专业学位 }
+%    \end{macrocode}
+% \end{variable}
+%
 % \begin{variable}{\c_@@_def_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
@@ -6083,8 +6183,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \@@_def_name:nn { secret_star     } { \textrm { \bigstar } }
 \@@_def_name:nn { school_id       } { 学校代码             }
 \@@_def_name:nn { student_id      } { 学 \qquad 号         }
-\@@_def_name:nn { thesis_type     } { 博士学位论文         }
-\@@_def_name:nn { degree_type     } { （学术学位）         }
 \@@_def_name:nn { department      } { 院系                 }
 \@@_def_name:nn { major           } { 专业                 }
 \@@_def_name:nn { author          } { 姓名                 }
