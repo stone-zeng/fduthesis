@@ -516,7 +516,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! you need to download and install it from GitHub. Recommended
 %^^A! way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
-%^^A!   \item Download the href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip}%
+%^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip}%
 %^^A!     {TDS ZIP file} for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.
@@ -661,7 +661,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   % thesis.tex
 %   \documentclass{fduthesis}
 %   \begin{document}
-%     \chapter{您好}
+%     \chapter{欢迎}
 %     \section{Welcome to fduthesis!}
 %     你好，\LaTeX{}！
 %   \end{document}
@@ -685,7 +685,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   % thesis-en.tex
 %   \documentclass{fduthesis-en}
 %   \begin{document}
-%     \chapter{Hello}
+%     \chapter{Welcome}
 %     \section{Welcome to fduthesis!}
 %     Hello, \LaTeX{}!
 %   \end{document}
@@ -1012,7 +1012,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}{style/font}
+% \begin{function}[updated=2017-09-23]{style/font}
 %   \begin{fdusyntax}[emph={[1]font}]
 %     font = (*<libertinus|lm|palatino|(times)|none>*)
 %   \end{fdusyntax}
@@ -1024,7 +1024,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[rEXP]{style/cjkfont}
+% \begin{function}[rEXP,updated=2017-09-23]{style/cjkfont}
 %   \begin{fdusyntax}[emph={[1]cjkfont}]
 %     cjkfont = (*<adobe|(fandol)|founder|mac|windows|none>*)
 %   \end{fdusyntax}
@@ -1057,7 +1057,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[rEXP]{style/fullwidthstop}
+% \begin{function}[rEXP,updated=2017-10-14]{style/fullwidthstop}
 %   \begin{fdusyntax}[emph={[1]fullwidthstop}]
 %     fullwidthstop = (*<catcode|mapping|(false)>*)
 %   \end{fdusyntax}
@@ -1168,7 +1168,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}{style/hyperlink}
+% \begin{function}[added=2017-08-13]{style/hyperlink}
 %   \begin{fdusyntax}[emph={[1]hyperlink}]
 %     hyperlink = (*<border|(color)|none>*)
 %   \end{fdusyntax}
@@ -1184,7 +1184,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{style/hyperlinkcolor}
+% \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlinkcolor}
 %   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
 %     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
 %       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
@@ -1192,7 +1192,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
 %   各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
 % \end{function}
-%^^A! \begin{function}{style/hyperlinkcolor}
+%^^A! \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlinkcolor}
 %^^A!   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
 %^^A!     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
 %^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
@@ -1276,7 +1276,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}{style/bibbackend}
+% \begin{function}[added=2018-01-25]{style/bibbackend}
 %   \begin{fdusyntax}[emph={[1]bibbackend}]
 %     bibbackend = (*<bibtex|biblatex>*)
 %   \end{fdusyntax}
@@ -1292,7 +1292,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{style/bibstyle}
+% \begin{function}[added=2017-10-28,updated=2018-01-25]^^A
+%     {style/bibstyle}
 %   \begin{fdusyntax}[emph={[1]bibstyle}]
 %     bibstyle = (*<authoryear|(numerical)|\meta{其他样式}>*)
 %   \end{fdusyntax}
@@ -1303,7 +1304,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \kvopt{bibbackend}{biblatex}，则需保证相应的 \file{.bbx} 格式文件
 %   能被调用。
 % \end{function}
-%^^A! \begin{function}{style/bibstyle}
+%^^A! \begin{function}[added=2017-10-28,updated=2018-01-25]%
+%^^A!     {style/bibstyle}
 %^^A!   \begin{fdusyntax}[emph={[1]bibstyle}]
 %^^A!     bibstyle = (*<authoryear|(numerical)|\meta{other style}>*)
 %^^A!   \end{fdusyntax}
@@ -1316,7 +1318,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{style/citestyle}
+% \begin{function}[added=2018-01-25]{style/citestyle}
 %   \begin{fdusyntax}[emph={[1]citestyle}]
 %     citestyle = (*\marg{引用样式}*)
 %   \end{fdusyntax}
@@ -1324,7 +1326,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   编码制）保持一致。如果手动填写，需保证相应的 \file{.cbx} 格式文件
 %   能被调用。该选项在 \kvopt{bibbackend}{bibtex} 时无效。
 % \end{function}
-%^^A! \begin{function}{style/citestyle}
+%^^A! \begin{function}[added=2018-01-25]{style/citestyle}
 %^^A!   \begin{fdusyntax}[emph={[1]citestyle}]
 %^^A!     citestyle = (*\marg{style}*)
 %^^A!   \end{fdusyntax}
@@ -1336,7 +1338,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{style/bibresource}
+% \begin{function}[added=2018-01-25]{style/bibresource}
 %   \begin{fdusyntax}[emph={[1]bibresource}]
 %     bibresource = (*\marg{文件}*)
 %   \end{fdusyntax}
@@ -1344,7 +1346,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   如果 \kvopt{bibbackend}{biblatex}，则必须明确给出 \file{.bib}
 %   后缀名。
 % \end{function}
-%^^A! \begin{function}{style/bibresource}
+%^^A! \begin{function}[added=2018-01-25]{style/bibresource}
 %^^A!   \begin{fdusyntax}[emph={[1]bibresource}]
 %^^A!     bibresource = (*\marg{bib file(s)}*)
 %^^A!   \end{fdusyntax}
@@ -1355,13 +1357,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{style/logo}
+% \begin{function}[added=2017-08-10]{style/logo}
 %   \begin{fdusyntax}[emph={[1]logo}]
 %     logo = (*\marg{文件}*)
 %   \end{fdusyntax}
 %   封面中校名图片的文件名。默认值为 \file{fudan-name.pdf}。
 % \end{function}
-%^^A! \begin{function}{style/logo}
+%^^A! \begin{function}[added=2017-08-10]{style/logo}
 %^^A!   \begin{fdusyntax}[emph={[1]logo}]
 %^^A!     logo = (*\marg{file}*)
 %^^A!   \end{fdusyntax}
@@ -1370,7 +1372,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{style/logosize}
+% \begin{function}[added=2017-08-10]{style/logosize}
 %   \begin{fdusyntax}[emph={[1]logosize}]
 %     logosize = (*\marg{宽度}*)
 %     logosize = {(*\meta{宽度}*), (*\meta{高度}*)}
@@ -1378,7 +1380,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   校名图片的大小。默认仅指定了宽度，为 |0.5\textwidth|\/。
 %   如果仅需指定高度，可在 \meta{宽度} 处填入一个空的分组 |{}|。
 % \end{function}
-%^^A! \begin{function}{style/logosize}
+%^^A! \begin{function}[added=2017-08-10]{style/logosize}
 %^^A!   \begin{fdusyntax}[emph={[1]logosize}]
 %^^A!     logosize = (*\marg{width}*)
 %^^A!     logosize = {(*\meta{width}*), (*\meta{height}*)}
@@ -1390,7 +1392,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}{style/automakecover}
+% \begin{function}[added=2017-07-06]{style/automakecover}
 %   \begin{fdusyntax}[emph={[1]automakecover}]
 %     automakecover = (*<\TTF>*)
 %   \end{fdusyntax}
@@ -1587,7 +1589,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}{info/secretlevel}
+% \begin{function}[added=2017-07-04]{info/secretlevel}
 %   \begin{fdusyntax}[emph={[1]secretlevel}]
 %     secretlevel = (*<(none)|i|ii|iii>*)
 %   \end{fdusyntax}
@@ -1603,14 +1605,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{info/secretyear}
+% \begin{function}[added=2017-07-04]{info/secretyear}
 %   \begin{fdusyntax}[emph={[1]secretyear}]
 %     secretyear = (*\marg{年限}*)
 %   \end{fdusyntax}
 %   保密年限。建议您使用中文，如“五年”。该选项在设置
 %   \kvopt{secretlevel}{none} 时无效。
 % \end{function}
-%^^A! \begin{function}{info/secretyear}
+%^^A! \begin{function}[added=2017-07-04]{info/secretyear}
 %^^A!   \begin{fdusyntax}[emph={[1]secretyear}]
 %^^A!     secretyear = (*\marg{year}*)
 %^^A!   \end{fdusyntax}
@@ -1813,7 +1815,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! numbers in main matter are shown in arabic numerals.
 %^^A!
 %
-% \begin{function}{\footnote}
+% \begin{function}[updated=2018-01-15]{\footnote}
 %   \begin{fdusyntax}[deletetexcs={\footnote},%
 %       morekeywords={\footnote}]
 %     \footnote(*\marg{脚注文字}*)
@@ -1821,7 +1823,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   插入脚注。脚注编号样式可利用 \opt{style/footnotestyle} 选项控制，
 %   具体见 \ref{subsubsec:论文格式}~小节。
 % \end{function}
-%^^A! \begin{function}{\footnote}
+%^^A! \begin{function}[updated=2018-01-15]{\footnote}
 %^^A!   \begin{fdusyntax}[deletetexcs={\footnote},%
 %^^A!       morekeywords={\footnote}]
 %^^A!     \footnote(*\marg{text}*)
@@ -1880,7 +1882,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! the position of QED symbol correct.
 %^^A!
 %
-% \begin{function}{\newtheorem}
+% \begin{function}[updated=2017-12-12]{\newtheorem}
 %   \begin{fdusyntax}[deletetexcs={\newtheorem},
 %       morekeywords={\newtheorem,\newtheorem*}]
 %     \newtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
@@ -1893,7 +1895,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   并且会默认添加证毕符号“$\QED$”。声明后，即可同预定义的数学环境
 %   一样使用。
 % \end{function}
-%^^A! \begin{function}{\newtheorem}
+%^^A! \begin{function}[updated=2017-12-12]{\newtheorem}
 %^^A!   \begin{fdusyntax}[deletetexcs={\newtheorem},
 %^^A!       morekeywords={\newtheorem,\newtheorem*}]
 %^^A!     \newtheorem(*\oarg{options}\marg{environment}\marg{title}*)
@@ -2075,7 +2077,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! Back matter contains bibliography, declaration page, etc.
 %^^A!
 %
-% \begin{function}{\printbibliography}
+% \begin{function}[updated=2018-01-25]{\printbibliography}
 %   \begin{fdusyntax}[morekeywords={\printbibliography}]
 %     \printbibliography(*\oarg{选项}*)
 %   \end{fdusyntax}
@@ -2086,7 +2088,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   {biblatex}，则该命令由 \pkg{biblatex} 宏包直接提供，可用选项请
 %   参阅其文档 \cite{biblatex}。
 % \end{function}
-%^^A! \begin{function}{\printbibliography}
+%^^A! \begin{function}[updated=2018-01-25]{\printbibliography}
 %^^A!   \begin{fdusyntax}[morekeywords={\printbibliography}]
 %^^A!     \printbibliography(*\oarg{options}*)
 %^^A!   \end{fdusyntax}
@@ -2381,10 +2383,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{thebibliography}
 %
 % \clearpage
-%
-%^^A! \IndexLayout
-%^^A! \PrintIndex
-%^^A!
 %
 %^^A! \end{document}
 %

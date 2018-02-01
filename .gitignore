@@ -65,6 +65,7 @@ TODO.md
 doc/images/
 source/*.md
 source/*.tex
+test/dtxtest/
 !install-win.bat
 !testfiles/support/
 !testfiles/support/*
