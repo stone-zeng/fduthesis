@@ -2579,16 +2579,29 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_def_fn_style:nn,\@@_def_punct:nn,
-%   \@@_def_name:nn}
+% \begin{macro}{\@@_define_fn_style:nn,
+%   \@@_define_punct:nn,
+%   \@@_define_sep:nn,
+%   \@@_define_format:nn,
+%   \@@_define_name:nn,
+%   \@@_define_name:nnn}
 % 用来定义脚注样式、标点、默认名称的辅助函数。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_def_fn_style:nn #1#2
+\cs_new_protected:Npn \@@_define_fn_style:nn #1#2
   { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
-\cs_new_protected:Npn \@@_def_punct:nn #1#2
+\cs_new_protected:Npn \@@_define_punct:nn #1#2
   { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
-\cs_new_protected:Npn \@@_def_name:nn #1#2
+\cs_new_protected:Npn \@@_define_sep:nn #1#2
+  { \tl_const:cn { c_@@_def_ #1 _sep_tl } {#2} }
+\cs_new_protected:Npn \@@_define_format:nn #1#2
+  { \tl_const:cn { c_@@_def_ #1 _format_tl } {#2} }
+\cs_new_protected:Npn \@@_define_name:nn #1#2
   { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
+\cs_new_protected:Npn \@@_define_name:nnn #1#2#3
+  {
+    \tl_const:cn { c_@@_def_name_ #1    _tl } {#2}
+    \tl_const:cn { c_@@_def_name_ #1 _en_tl } {#3}
+  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3712,9 +3725,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       {
 %<class>        format      = \c_@@_def_chapter_format_tl,
 %<*class-en>
-        format      = \c_@@_def_chapter_format_en_tl,
-        nameformat  = \c_@@_def_chapter_name_format_en_tl,
-        titleformat = \c_@@_def_chapter_title_format_en_tl,
+        format      = \c_@@_def_chapter_en_format_tl,
+        nameformat  = \c_@@_def_chapter_name_en_format_tl,
+        titleformat = \c_@@_def_chapter_title_en_format_tl,
         aftername   = \c_@@_def_chapter_after_name_en_tl,
 %</class-en>
         beforeskip  = \c_@@_def_chapter_before_sep_tl,
@@ -3725,7 +3738,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     section =
       {
 %<class>        format      = \c_@@_def_section_format_tl,
-%<class-en>        format      = \c_@@_def_section_format_en_tl,
+%<class-en>        format      = \c_@@_def_section_en_format_tl,
         beforeskip  = \c_@@_def_section_before_sep_tl,
         afterskip   = \c_@@_def_section_after_sep_tl,
         fixskip     = true
@@ -3733,7 +3746,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     subsection =
       {
 %<class>        format      = \c_@@_def_subsection_format_tl,
-%<class-en>        format      = \c_@@_def_subsection_format_en_tl,
+%<class-en>        format      = \c_@@_def_subsection_en_format_tl,
         beforeskip  = \c_@@_def_subsection_before_sep_tl,
         afterskip   = \c_@@_def_subsection_after_sep_tl,
         fixskip     = true
@@ -3857,17 +3870,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 各种脚注编号样式的名称。
 %    \begin{macrocode}
-\@@_def_fn_style:nn { plain           } { plain           }
-\@@_def_fn_style:nn { libertinus      } { libertinus      }
-\@@_def_fn_style:nn { libertinus_neg  } { libertinus*     }
-\@@_def_fn_style:nn { libertinus_sans } { libertinus-sans }
-\@@_def_fn_style:nn { pifont          } { pifont          }
-\@@_def_fn_style:nn { pifont_neg      } { pifont*         }
-\@@_def_fn_style:nn { pifont_sans     } { pifont-sans     }
-\@@_def_fn_style:nn { pifont_sans_neg } { pifont-sans*    }
-\@@_def_fn_style:nn { xits            } { xits            }
-\@@_def_fn_style:nn { xits_sans       } { xits-sans       }
-\@@_def_fn_style:nn { xits_sans_neg   } { xits-sans*      }
+\clist_map_inline:nn
+  {
+    { plain           } { plain           },
+    { libertinus      } { libertinus      },
+    { libertinus_neg  } { libertinus*     },
+    { libertinus_sans } { libertinus-sans },
+    { pifont          } { pifont          },
+    { pifont_neg      } { pifont*         },
+    { pifont_sans     } { pifont-sans     },
+    { pifont_sans_neg } { pifont-sans*    },
+    { xits            } { xits            },
+    { xits_sans       } { xits-sans       },
+    { xits_sans_neg   } { xits-sans*      }
+  }
+  { \@@_define_fn_style:nn #1 }
 %    \end{macrocode}
 %
 % \begin{variable}{\l_@@_fn_style_tl}
@@ -5086,17 +5103,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     chapter / tocline =
       {
 %<class>        \c_@@_def_chapter_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_def_chapter_toc_format_en_tl \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_def_chapter_toc_en_format_tl \CTEXnumberline {#1} #2
       },
     section / tocline =
       {
 %<class>        \c_@@_def_section_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_def_section_toc_format_en_tl \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_def_section_toc_en_format_tl \CTEXnumberline {#1} #2
       },
     subsection / tocline =
       {
 %<class>        \c_@@_def_subsection_toc_format_tl \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_def_subsection_toc_format_en_tl
+%<class-en>        \c_@@_def_subsection_toc_en_format_tl
 %<class-en>        \CTEXnumberline {#1} #2
       }
   }
@@ -5200,7 +5217,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \addcontentsline { toc } { chapter }
       {
 %<class>        \c_@@_def_chapter_toc_format_tl
-%<class-en>        \c_@@_def_chapter_toc_format_en_tl
+%<class-en>        \c_@@_def_chapter_toc_en_format_tl
         \c_@@_def_name_abstract_en_tl
       }
   }
@@ -5249,7 +5266,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_def_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_def_chapter_toc_format_en_tl
+        \c_@@_def_chapter_toc_en_format_tl
         \c_@@_def_name_notation_en_tl
       }
     \group_begin:
@@ -5408,7 +5425,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 %<*class-en>
         \exp_args:Nnx \DefineBibliographyStrings { english }
-          { bibliography = { \c_@@_def_name_bibliography_en_tl } }
+          { bibliography = { \c_@@_def_name_bib_en_tl } }
 %</class-en>
       }
   }
@@ -5860,14 +5877,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 常用标点符号，见表~\ref{tab:punctuations}。
 %    \begin{macrocode}
-\@@_def_punct:nn { ideographic_comma           } { "3001 }
-\@@_def_punct:nn { ideographic_full_stop       } { "3002 }
-\@@_def_punct:nn { fullwidth_comma             } { "FF0C }
-\@@_def_punct:nn { fullwidth_full_stop         } { "FF0E }
-\@@_def_punct:nn { fullwidth_colon             } { "FF1A }
-\@@_def_punct:nn { fullwidth_semicolon         } { "FF1B }
-\@@_def_punct:nn { fullwidth_left_parenthesis  } { "FF08 }
-\@@_def_punct:nn { fullwidth_right_parenthesis } { "FF09 }
+\clist_map_inline:nn
+  {
+    { ideographic_comma           } { "3001 },
+    { ideographic_full_stop       } { "3002 },
+    { fullwidth_comma             } { "FF0C },
+    { fullwidth_full_stop         } { "FF0E },
+    { fullwidth_colon             } { "FF1A },
+    { fullwidth_semicolon         } { "FF1B },
+    { fullwidth_left_parenthesis  } { "FF08 },
+    { fullwidth_right_parenthesis } { "FF09 }
+  }
+  { \@@_define_punct:nn #1 }
 %    \end{macrocode}
 %
 % \begin{table}[ht]
@@ -5940,82 +5961,63 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{章节标题}
 %
-% \begin{variable}{\c_@@_def_chapter_format_tl,
-%   \c_@@_def_section_format_tl,
-%   \c_@@_def_subsection_format_tl}
 % 中文模板章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐
 % （但需要使用 \tn{raggedright}）。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_chapter_format_tl
-  { \huge  \normalfont \sffamily \centering   }
-\tl_const:Nn \c_@@_def_section_format_tl
-  { \Large \normalfont \sffamily \raggedright }
-\tl_const:Nn \c_@@_def_subsection_format_tl
-  { \large \normalfont \sffamily \raggedright }
+\clist_map_inline:nn
+  {
+    { chapter    } { \huge  \normalfont \sffamily \centering   },
+    { section    } { \Large \normalfont \sffamily \raggedright },
+    { subsection } { \large \normalfont \sffamily \raggedright }
+  }
+  { \@@_define_format:nn #1 }
 %    \end{macrocode}
-% \end{variable}
 %
-% \begin{variable}{\c_@@_def_chapter_format_en_tl,
-%   \c_@@_def_chapter_name_format_en_tl,
-%   \c_@@_def_chapter_title_format_en_tl,
-%   \c_@@_def_chapter_after_name_en_tl,
-%   \c_@@_def_section_format_en_tl,
-%   \c_@@_def_subsection_format_en_tl}
+% \begin{variable}{\c_@@_def_chapter_name_format_en_tl}
 % 英文模板章节标题样式。均使用粗体。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_chapter_format_en_tl { \centering }
-\tl_const:Nn \c_@@_def_chapter_name_format_en_tl
-  { \LARGE \bfseries }
-\tl_const:Nn \c_@@_def_chapter_title_format_en_tl
-  { \huge  \bfseries }
+\clist_map_inline:nn
+  {
+    { chapter_en            } { \centering                    },
+    { chapter_name_en       } { \LARGE \bfseries              },
+    { chapter_title_en      } { \huge  \bfseries              },
+    { section_en            } { \Large \bfseries \raggedright },
+    { subsection_en         } { \large \bfseries \raggedright }
+  }
+  { \@@_define_format:nn #1 }
 \tl_const:Nn \c_@@_def_chapter_after_name_en_tl
   { \par \nobreak \vskip 10 pt }
-\tl_const:Nn \c_@@_def_section_format_en_tl
-  { \Large \bfseries \raggedright }
-\tl_const:Nn \c_@@_def_subsection_format_en_tl
-  { \large \bfseries \raggedright }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_chapter_before_sep_tl,
-%   \c_@@_def_chapter_after_sep_tl,
-%   \c_@@_def_section_before_sep_tl,
-%   \c_@@_def_section_after_sep_tl,
-%   \c_@@_def_subsection_before_sep_tl,
-%   \c_@@_def_subsection_after_sep_tl}
 % 章节标题前后间距。使用 |tl| 而非 |skip|，是为了防止在没有上下文的
 % 时候 |ex| 被展开成 0。之后的不少间距也是这样定义的。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_chapter_before_sep_tl { 50 pt }
-\tl_const:Nn \c_@@_def_chapter_after_sep_tl  { 40 pt }
-\tl_const:Nn \c_@@_def_section_before_sep_tl
-  { 3.5  ex plus 1   ex minus 0.2 ex }
-\tl_const:Nn \c_@@_def_section_after_sep_tl
-  { 2.7  ex plus 0.5 ex }
-\tl_const:Nn \c_@@_def_subsection_before_sep_tl
-  { 3.25 ex plus 1   ex minus 0.2 ex }
-\tl_const:Nn \c_@@_def_subsection_after_sep_tl
-  { 2.5  ex plus 0.3 ex }
+\clist_map_inline:nn
+  {
+    { chapter_before    } { 50 pt },
+    { chapter_after     } { 40 pt },
+    { section_before    } { 3.5  ex plus 1.0 ex minus 0.2 ex },
+    { section_after     } { 2.7  ex plus 0.5 ex },
+    { subsection_before } { 3.25 ex plus 1.0 ex minus 0.2 ex },
+    { subsection_after  } { 2.5  ex plus 0.3 ex }
+  }
+  { \@@_define_sep:nn #1 }
 %    \end{macrocode}
-% \end{variable}
 %
-% \begin{variable}{\c_@@_def_chapter_toc_format_tl,
-%   \c_@@_def_section_toc_format_tl,
-%   \c_@@_def_subsection_toc_format_tl,
-%   \c_@@_def_chapter_toc_format_en_tl,
-%   \c_@@_def_section_toc_format_en_tl,
-%   \c_@@_def_subsection_toc_format_en_tl}
 % 章节目录在目录中的样式。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_chapter_toc_format_tl
-  { \normalfont \sffamily }
-\tl_const:Nn \c_@@_def_section_toc_format_tl       { }
-\tl_const:Nn \c_@@_def_subsection_toc_format_tl    { \fdu@kai  }
-\tl_const:Nn \c_@@_def_chapter_toc_format_en_tl    { \bfseries }
-\tl_const:Nn \c_@@_def_section_toc_format_en_tl    { \bfseries }
-\tl_const:Nn \c_@@_def_subsection_toc_format_en_tl { }
+\clist_map_inline:nn
+  {
+    { chapter_toc       } { \normalfont \sffamily },
+    { section_toc       } {                       },
+    { subsection_toc    } { \fdu@kai              },
+    { chapter_toc_en    } { \bfseries             },
+    { section_toc_en    } { \bfseries             },
+    { subsection_toc_en } {                       }
+  }
+  { \@@_define_format:nn #1 }
 %    \end{macrocode}
-% \end{variable}
 %
 % \subsubsection{封面}
 %
@@ -6185,54 +6187,53 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
-\@@_def_name:nn { secret_level    } { 密 \qquad 级         }
-\@@_def_name:nn { secret_star     } { \textrm { \bigstar } }
-\@@_def_name:nn { school_id       } { 学校代码             }
-\@@_def_name:nn { student_id      } { 学 \qquad 号         }
-\@@_def_name:nn { department      } { 院系                 }
-\@@_def_name:nn { major           } { 专业                 }
-\@@_def_name:nn { author          } { 姓名                 }
-\@@_def_name:nn { supervisor      } { 指导教师             }
-\@@_def_name:nn { date            } { 完成日期             }
-\@@_def_name:nn { instructors     } { 指导小组成员         }
-\@@_def_name:nn { toc             } { 目 \quad 录          }
-\@@_def_name:nn { abstract        } { 摘 \quad 要          }
-\@@_def_name:nn { keywords        } { 关键字               }
-\@@_def_name:nn { clc             } { 中图分类号           }
-\@@_def_name:nn { notation        } { 符号表               }
-\@@_def_name:nn { toc_en          } { Contents             }
-\@@_def_name:nn { abstract_en     } { Abstract             }
-\@@_def_name:nn { keywords_en     } { Keywords:            }
-\@@_def_name:nn { clc_en          } { CLC~ number:         }
-\@@_def_name:nn { notation_en     } { List~ of~ Symbols    }
-\@@_def_name:nn { bibliography_en } { Bibliography         }
-\@@_def_name:nn { author_sign     } { 作者签名             }
-\@@_def_name:nn { supervisor_sign } { 导师签名             }
-\@@_def_name:nn { sign_date       } { 日期                 }
-\@@_def_name:nn { originality_decl }
-  { \c_@@_name_simp_tl \\ 学位论文独创性声明   }
-\@@_def_name:nn { authorization_decl }
-  { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
-\@@_def_name:nn { pdf_creator }
-  { LaTeX~ with~ fduthesis~ class }
+\clist_map_inline:nn
+  {
+    { secret_level    } { 密 \qquad 级                  },
+    { secret_star     } { \textrm { \bigstar }          },
+    { school_id       } { 学校代码                      },
+    { student_id      } { 学 \qquad 号                  },
+    { department      } { 院系                          },
+    { major           } { 专业                          },
+    { author          } { 姓名                          },
+    { supervisor      } { 指导教师                      },
+    { date            } { 完成日期                      },
+    { instructors     } { 指导小组成员                  },
+    { author_sign     } { 作者签名                      },
+    { supervisor_sign } { 导师签名                      },
+    { sign_date       } { 日期                          },
+    { bib_en          } { Bibliography                  },
+    { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
+    { originality_decl   }
+      { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
+    { authorization_decl }
+      { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
+  }
+  { \@@_define_name:nn #1 }
+\clist_map_inline:nn
+  {
+    { abstract } { 摘 \quad 要 } { Abstract          },
+    { keywords } { 关键字      } { Keywords:         },
+    { clc      } { 中图分类号  } { CLC~ number:      },
+    { toc      } { 目 \quad 录 } { Contents          },
+    { notation } { 符号表      } { List~ of~ Symbols }
+  }
+  { \@@_define_name:nnn #1 }
 %    \end{macrocode}
 %
 % 默认定理头名称。
 %    \begin{macrocode}
-\@@_def_name:nn { proof         } { 证明 }
-\@@_def_name:nn { axiom         } { 公理 }
-\@@_def_name:nn { corollary     } { 推论 }
-\@@_def_name:nn { definition    } { 定义 }
-\@@_def_name:nn { example       } { 例   }
-\@@_def_name:nn { lemma         } { 引理 }
-\@@_def_name:nn { theorem       } { 定理 }
-\@@_def_name:nn { proof_en      } { Proof      }
-\@@_def_name:nn { axiom_en      } { Axiom      }
-\@@_def_name:nn { corollary_en  } { Corollary  }
-\@@_def_name:nn { definition_en } { Definition }
-\@@_def_name:nn { example_en    } { Example    }
-\@@_def_name:nn { lemma_en      } { Lemma      }
-\@@_def_name:nn { theorem_en    } { Theorem    }
+\clist_map_inline:nn
+  {
+    { proof      } { 证明 } { Proof      },
+    { axiom      } { 公理 } { Axiom      },
+    { corollary  } { 推论 } { Corollary  },
+    { definition } { 定义 } { Definition },
+    { example    } { 例   } { Example    },
+    { lemma      } { 引理 } { Lemma      },
+    { theorem    } { 定理 } { Theorem    }
+  }
+  { \@@_define_name:nnn #1 }
 %</definition>
 %<@@=>
 %    \end{macrocode}
