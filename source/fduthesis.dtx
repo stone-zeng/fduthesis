@@ -5402,6 +5402,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           { biblatex }
         \exp_args:NV \addbibresource \l_@@_bib_resource_tl
         \@@_biblatex_allow_url_break:
+%    \end{macrocode}
+%
+% 英文模板需要重定义参考文献标题。
+%    \begin{macrocode}
+%<*class-en>
+        \exp_args:Nnx \DefineBibliographyStrings { english }
+          { bibliography = { \c_@@_def_name_bibliography_en_tl } }
+%</class-en>
       }
   }
 \@@_msg_new:nn { invalid-option-in-bibtex }
@@ -6197,6 +6205,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \@@_def_name:nn { keywords_en     } { Keywords:            }
 \@@_def_name:nn { clc_en          } { CLC~ number:         }
 \@@_def_name:nn { notation_en     } { List~ of~ Symbols    }
+\@@_def_name:nn { bibliography_en } { Bibliography         }
 \@@_def_name:nn { author_sign     } { 作者签名             }
 \@@_def_name:nn { supervisor_sign } { 导师签名             }
 \@@_def_name:nn { sign_date       } { 日期                 }
