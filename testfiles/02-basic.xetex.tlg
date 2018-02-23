@@ -35,7 +35,7 @@ Completed box being shipped out [1]
 ....\write-{}
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
-....\special{pdf:dest (chapter*.2) [@thispage /XYZ @xpos @ypos null]}
+....\special{pdf:dest (chapter*.1) [@thispage /XYZ @xpos @ypos null]}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -59,7 +59,7 @@ Completed box being shipped out [1]
 ....\glue 40.0 plus -1.0
 ....\mark{{摘\hskip 1em\relax 要}{摘\hskip 1em\relax 要}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\144\130\000\040\211\20\ETC.}
+....\write5{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\20\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
@@ -239,7 +239,7 @@ Completed box being shipped out [3]
 ...\glue 19.8738
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 524.3577fil
-....\special{pdf:dest (chapter*.3) [@thispage /XYZ @xpos @ypos null]}
+....\special{pdf:dest (chapter*.2) [@thispage /XYZ @xpos @ypos null]}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -259,7 +259,7 @@ Completed box being shipped out [3]
 ....\glue 40.0 plus -1.0
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\000A\000b\000s\000t\00\ETC.}
+....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\00\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
@@ -415,7 +415,7 @@ Completed box being shipped out [5]
 ...\vbox(700.50723+0.0)x416.54877, glue set 467.52576fil
 ....\glue(\topskip) 0.0
 ....\vbox(226.98143+6.00005)x416.54877
-.....\special{pdf:dest (chapter*.4) [@thispage /XYZ @xpos @ypos null]}
+.....\special{pdf:dest (chapter*.3) [@thispage /XYZ @xpos @ypos null]}
 .....\glue(\topskip) 12.0
 .....\rule(0.0+0.0)x*
 .....\penalty 10000
@@ -439,7 +439,7 @@ Completed box being shipped out [5]
 .....\glue 40.0 plus -1.0
 .....\mark{{符号表}{符号表}}
 .....\penalty 10000
-.....\write5{\protect \BOOKMARK [0][-]{chapter*.4}{\376\377\173\046\123\367\210\15\ETC.}
+.....\write5{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210\15\ETC.}
 .....\penalty 10000
 .....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 .....\penalty 10000

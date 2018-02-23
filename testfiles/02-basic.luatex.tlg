@@ -41,7 +41,7 @@ Completed box being shipped out [1]
 ....\write-{}
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
-....\pdfdest name{chapter*.2} xyz
+....\pdfdest name{chapter*.1} xyz
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -70,7 +70,7 @@ Completed box being shipped out [1]
 ....\glue 40.0 plus -1.0
 ....\mark{{摘\hskip 1em\relax 要}{摘\hskip 1em\relax 要}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\144\130\000\040\211\
+....\write5{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\
 20\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -322,7 +322,7 @@ Completed box being shipped out [3]
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 524.35767fil, direction TLT
 ....\whatsit4=[]
-....\pdfdest name{chapter*.3} xyz
+....\pdfdest name{chapter*.2} xyz
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -358,7 +358,7 @@ Completed box being shipped out [3]
 ....\glue 40.0 plus -1.0
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\000A\000b\000s\000t\
+....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\
 00\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -632,7 +632,7 @@ Completed box being shipped out [5]
 ....\glue(\topskip) 0.0
 ....\vbox(228.08958+6.00005)x416.54877, direction TLT
 .....\whatsit4=[]
-.....\pdfdest name{chapter*.4} xyz
+.....\pdfdest name{chapter*.3} xyz
 .....\glue(\topskip) 12.0
 .....\rule(0.0+0.0)x*
 .....\penalty 10000
@@ -664,7 +664,7 @@ Completed box being shipped out [5]
 .....\glue 40.0 plus -1.0
 .....\mark{{符号表}{符号表}}
 .....\penalty 10000
-.....\write5{\protect \BOOKMARK [0][-]{chapter*.4}{\376\377\173\046\123\367\210
+.....\write5{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210
 \15\ETC.}
 .....\penalty 10000
 .....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{to
