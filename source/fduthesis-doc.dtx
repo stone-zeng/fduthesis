@@ -1607,11 +1607,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 关闭 \cls{l3doc} 中的一些提示信息。
+% 重定向 \cls{l3doc} 中的一些提示信息。
 %    \begin{macrocode}
-% \msg_redirect_name:nnn { l3doc } { foreign-internal    } { none }
-% \msg_redirect_name:nnn { l3doc } { print-changes-howto } { none }
-% \msg_redirect_name:nnn { l3doc } { print-index-howto   } { none }
+\msg_redirect_name:nnn { l3doc } { foreign-internal    } { log }
+\msg_redirect_name:nnn { l3doc } { print-changes-howto } { log }
+\msg_redirect_name:nnn { l3doc } { print-index-howto   } { log }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -1654,8 +1654,8 @@
     其他普通数字则表示使用对应索引项的代码行号．}}
 \def\IndexLayout{%
   \newgeometry{%
-    left   = 0.90 in,
-    right  = 0.90 in,
+    left   = 0.85 in,
+    right  = 0.85 in,
     top    = 1.25 in,
     bottom = 1.00 in}%
   \setlength\IndexMin{0.5\textheight}%
