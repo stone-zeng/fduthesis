@@ -4951,6 +4951,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     \@@_declare_template_interface:nx {#1}
       {
+        format      : tokenlist,
         top-skip    : skip,
         bottom-skip : skip,
         \clist_map_function:nN {#2} \@@_key_type:n
@@ -4958,27 +4959,30 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 声明所用变量。
 %    \begin{macrocode}
+    \tl_new:c   { l_@@ / #1 / format_tl   }
     \skip_new:c { l_@@ / #1 / top_skip    }
     \skip_new:c { l_@@ / #1 / bottom_skip }
     \clist_map_inline:nn {#2}
       {
+        \tl_new:c   { l_@@ / #1 / ##1 / content_tl  }
         \tl_new:c   { l_@@ / #1 / ##1 / format_tl   }
         \skip_new:c { l_@@ / #1 / ##1 / bottom_skip }
-        \tl_new:c   { l_@@ / #1 / ##1 / content_tl  }
       }
 %    \end{macrocode}
 % 声明模板代码。
 %    \begin{macrocode}
     \@@_declare_template_code:nxn {#1}
       {
-        top-skip    = \use:c { l_@@ / #1 / top_skip    },
-        bottom-skip = \use:c { l_@@ / #1 / bottom_skip },
+        format      = \exp_not:c { l_@@ / #1 / format_tl   },
+        top-skip    = \use:c     { l_@@ / #1 / top_skip    },
+        bottom-skip = \use:c     { l_@@ / #1 / bottom_skip },
         \clist_map_function:nN {#2} \@@_key_binding:n
       }
       {
         \AssignTemplateKeys
         \mode_leave_vertical:
-        \skip_vertical:c { l_@@ / #1 / top_skip }
+        \tl_use:c        { l_@@ / #1 / format_tl }
+        \skip_vertical:c { l_@@ / #1 / top_skip  }
         \clist_map_inline:nn {#2}
           {
             \use:c { @@ / #1 / ####1 / align:n }
@@ -5109,6 +5113,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
   {
+%<class-en>    format                 =
+%<class-en>      \fdu_line_spread:N \c_@@_def_line_spread_fp,
     bottom-skip            = 0 pt plus 1.5 fill,
     id       / content     = \@@_cover_id:,
     logo     / content     = \@@_cover_logo:,
@@ -5129,6 +5135,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 \DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
   {
+%<class-en>    format              =
+%<class-en>      \fdu_line_spread:N \c_@@_def_line_spread_fp,
     title     / content =
       \@@_spread_box:VV
         \c_@@_def_cover_instructors_width_tl
@@ -5142,6 +5150,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 \DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
   {
+    format                                =
+%<class>      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
+%<class-en>      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp
+%<class-en>      \dim_set:Nn \parindent { 2 \ccwd },
     top-skip                              = 0 pt plus 0.2 fill,
     bottom-skip                           = 0 pt plus 2.5 fill,
     originality-decl-name   / content     =
@@ -5156,19 +5168,22 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       \c_@@_def_authorization_decl_text_tl,
     authorization-decl-sig  / content     =
       \@@_cover_signature:n {作者签名, 导师签名, 日期},
-    originality-decl-name   / format      = \zihao { -2 } \sffamily,
+    originality-decl-name   / format      =
+      \sffamily \zihao { -2 }
+      \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp,
     originality-decl-text   / format      =
       \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
-    authorization-decl-name / format      = \zihao { -2 } \sffamily,
+    authorization-decl-name / format      =
+      \sffamily \zihao { -2 }
+      \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp,
     authorization-decl-text / format      =
       \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
     originality-decl-name   / bottom-skip = 0.4 cm,
-    originality-decl-text   / bottom-skip = 0.5 cm,
+    originality-decl-text   / bottom-skip = 0.4 cm,
     originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
     authorization-decl-name / bottom-skip = 0.4 cm,
-    authorization-decl-text / bottom-skip = 0.5 cm,
+    authorization-decl-text / bottom-skip = 0.4 cm,
     originality-decl-name   / align       = center,
-    originality-decl-text   / align       = normal,
     originality-decl-sig    / align       = right,
     authorization-decl-name / align       = center,
     authorization-decl-sig  / align       = right,
