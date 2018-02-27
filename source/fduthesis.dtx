@@ -4725,11 +4725,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_line_spread:n}
-% 设置行距。|#1|: 行距倍数。
+% \begin{macro}{\fdu_line_spread:N}
+% 设置行距。|#1|: 行距倍数 |fp| 变量。
 %    \begin{macrocode}
-\cs_new:Npn \fdu_line_spread:n #1
-  { \linespread {#1} \selectfont }
+\cs_new:Npn \fdu_line_spread:N #1
+  { \linespread { \fp_use:N #1 } \selectfont }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4855,8 +4855,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       \l_@@_info_title_en_tl
       {
         \@@_cover_font_size_normal: \bfseries
-        \fdu_line_spread:n
-          { \fp_use:N \c_@@_def_cover_title_en_line_spread_fp }
+        \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp
       }
   }
 %    \end{macrocode}
@@ -5022,10 +5021,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_key_type:n #1
   {
+    #1 / content     : tokenlist,
     #1 / format      : tokenlist,
     #1 / bottom-skip : skip,
     #1 / align       : choice { left, right, center, normal } = normal,
-    #1 / content     : tokenlist,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5034,35 +5033,67 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_key_binding:n #1
   {
-    #1 / format      = \exp_not:c { l_@@ / \l_@@_template_tl / #1 / format_tl   },
-    #1 / bottom-skip = \exp_not:c { l_@@ / \l_@@_template_tl / #1 / bottom_skip },
+    #1 / content     =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / content_tl  },
+    #1 / format      =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / format_tl   },
+    #1 / bottom-skip =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / bottom_skip },
     #1 / align       =
       {
         left   =
           \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n } \exp_not:n {##1}
-            { \exp_not:n { \group_begin: \flushleft ##1 \endflushleft \group_end: } },
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \flushleft ##1 \endflushleft
+                  \group_end:
+                }
+            },
         right  =
           \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n } \exp_not:n {##1}
-            { \exp_not:n { \group_begin: \flushright ##1 \endflushright \group_end: } },
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \flushright ##1 \endflushright
+                  \group_end:
+                }
+            },
         center =
           \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n } \exp_not:n {##1}
-            { \exp_not:n { \group_begin: \center ##1 \endcenter \group_end: } },
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \center ##1 \endcenter
+                  \group_end:
+                }
+            },
         normal =
           \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n } \exp_not:n {##1}
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
             { \exp_not:n { \group_begin: ##1 \group_end: } }
       },
-    #1 / content     = \exp_not:c { l_@@ / \l_@@_template_tl / #1 / content_tl   },
   }
 %<@@=fdu>
 %    \end{macrocode}
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareCoverTemplate { cover-i   } { id, logo, type, title, title-en, info }
+\DeclareCoverTemplate { cover-i   }
+  { id, logo, type, title, title-en, info }
 \DeclareCoverTemplate { cover-ii  } { title, name-list }
 \DeclareCoverTemplate { cover-iii }
   {
@@ -5079,60 +5110,68 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
   {
     bottom-skip            = 0 pt plus 1.5 fill,
-    id       / align       = right,
-    logo     / align       = center,
-    type     / align       = center,
-    title    / align       = center,
-    title-en / align       = center,
-    info     / align       = center,
-    %id       / format      = \tiny,
-    %logo     / format      = \Huge,
-    %type     / format      = \large,
-    %title    / format      = \bfseries,
-    id       / bottom-skip = 0 pt plus 1.5 fill,
-    logo     / bottom-skip = 0 pt plus 0.8 fill,
-    type     / bottom-skip = 0 pt plus 1.6 fill,
-    title-en / bottom-skip = 0 pt plus 2.5 fill,
     id       / content     = \@@_cover_id:,
     logo     / content     = \@@_cover_logo:,
     type     / content     = \@@_cover_type:,
     title    / content     = \@@_cover_title:,
     title-en / content     = \@@_cover_title_en:,
     info     / content     = \@@_cover_info:,
+    id       / bottom-skip = 0 pt plus 1.5 fill,
+    logo     / bottom-skip = 0 pt plus 0.8 fill,
+    type     / bottom-skip = 0 pt plus 1.6 fill,
+    title-en / bottom-skip = 0 pt plus 2.5 fill,
+    id       / align       = right,
+    logo     / align       = center,
+    type     / align       = center,
+    title    / align       = center,
+    title-en / align       = center,
+    info     / align       = center,
   }
 \DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
   {
-    title     / align   = center,
-    name-list / align   = center,
+    title     / content =
+      \@@_spread_box:VV
+        \c_@@_def_cover_instructors_width_tl
+        \c_@@_def_name_instructors_tl,
+    name-list / content =
+      \clist_use:Nn \l_@@_info_instructors_clist { \par },
     title     / format  = \zihao { 2 } \sffamily,
     name-list / format  = \large,
-    title     / content = \@@_spread_box:VV \c_@@_def_cover_instructors_width_tl \c_@@_def_name_instructors_tl,
-    name-list / content = \clist_use:Nn \l_@@_info_instructors_clist { \par },
+    title     / align   = center,
+    name-list / align   = center,
   }
 \DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
   {
     top-skip                              = 0 pt plus 0.2 fill,
     bottom-skip                           = 0 pt plus 2.5 fill,
-    originality-decl-name   / align       = center,
-    originality-decl-text   / align       = normal,
-    originality-decl-sig    / align       = right,
-    authorization-decl-name / align       = center,
-    authorization-decl-sig  / align       = right,
+    originality-decl-name   / content     =
+      \c_@@_def_name_originality_decl_tl,
+    originality-decl-text   / content     =
+      \c_@@_def_originality_decl_text_tl,
+    originality-decl-sig    / content     =
+      \@@_cover_signature:n {作者签名, 日期},
+    authorization-decl-name / content     =
+      \c_@@_def_name_authorization_decl_tl,
+    authorization-decl-text / content     =
+      \c_@@_def_authorization_decl_text_tl,
+    authorization-decl-sig  / content     =
+      \@@_cover_signature:n {作者签名, 导师签名, 日期},
     originality-decl-name   / format      = \zihao { -2 } \sffamily,
-    originality-decl-text   / format      = \fdu_line_spread:n { \fp_use:N \c_@@_def_decl_text_line_spread_fp },
+    originality-decl-text   / format      =
+      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
     authorization-decl-name / format      = \zihao { -2 } \sffamily,
-    authorization-decl-text / format      = \fdu_line_spread:n { \fp_use:N \c_@@_def_decl_text_line_spread_fp },
+    authorization-decl-text / format      =
+      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
     originality-decl-name   / bottom-skip = 0.4 cm,
     originality-decl-text   / bottom-skip = 0.5 cm,
     originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
     authorization-decl-name / bottom-skip = 0.4 cm,
     authorization-decl-text / bottom-skip = 0.5 cm,
-    originality-decl-name   / content     = \c_@@_def_name_originality_decl_tl,
-    originality-decl-text   / content     = \c_@@_def_originality_decl_text_tl,
-    originality-decl-sig    / content     = \@@_cover_signature:n {作者签名, 日期},
-    authorization-decl-name / content     = \c_@@_def_name_authorization_decl_tl,
-    authorization-decl-text / content     = \c_@@_def_authorization_decl_text_tl,
-    authorization-decl-sig  / content     = \@@_cover_signature:n {作者签名, 导师签名, 日期},
+    originality-decl-name   / align       = center,
+    originality-decl-text   / align       = normal,
+    originality-decl-sig    / align       = right,
+    authorization-decl-name / align       = center,
+    authorization-decl-sig  / align       = right,
   }
 %    \end{macrocode}
 %
@@ -5357,7 +5396,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \begingroup }
   {
     \begingroup
-      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
+      \fdu_line_spread:N \c_@@_def_line_spread_fp
   }
 %</class-en>
 %    \end{macrocode}
