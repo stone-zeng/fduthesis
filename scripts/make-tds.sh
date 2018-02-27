@@ -8,7 +8,7 @@ mkdir -p TDS/temp/
 cp source/*.dtx TDS/temp/
 
 cd TDS/temp/
-xetex fduthesis.dtx
+xetex -interaction=batchmode -halt-on-error "fduthesis.dtx"
 texlua ../../scripts/get-doc-en.lua "fduthesis.dtx" "fduthesis-en.tex"
 cd ../..
 

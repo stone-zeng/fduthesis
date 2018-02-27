@@ -4941,7 +4941,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item 模板名称
 %   \item 封面部件列表，以逗号分隔
 % \end{arguments}
-%    \end{macrocode}
+%    \begin{macrocode}
 \NewDocumentCommand \DeclareCoverTemplate { m m }
   { \fdu_cover_declare_template:nn {#1} {#2} }
 \cs_new_protected:Npn \fdu_cover_declare_template:nn #1#2
@@ -4949,7 +4949,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \tl_set:Nn \l_@@_template_tl {#1}
 %    \end{macrocode}
 % 构建模板接口。
-%    \end{macrocode}
+%    \begin{macrocode}
     \@@_declare_template_interface:nx {#1}
       {
         top-skip    : skip,
@@ -4958,7 +4958,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       }
 %    \end{macrocode}
 % 声明所用变量。
-%    \end{macrocode}
+%    \begin{macrocode}
     \skip_new:c { l_@@ / #1 / top_skip    }
     \skip_new:c { l_@@ / #1 / bottom_skip }
     \clist_map_inline:nn {#2}
@@ -4969,7 +4969,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       }
 %    \end{macrocode}
 % 声明模板代码。
-%    \end{macrocode}
+%    \begin{macrocode}
     \@@_declare_template_code:nxn {#1}
       {
         top-skip    = \use:c { l_@@ / #1 / top_skip    },

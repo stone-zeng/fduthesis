@@ -1,8 +1,12 @@
 #!/usr/bin/env sh
 
+# Options
+export TEXOPT="-interaction=batchmode -halt-on-error"
+export LATEXMKOPT="-silent -f"
+
 # Install `fduthesis`
 cd source
-xetex fduthesis.dtx
+xetex $TEXOPT "fduthesis.dtx"
 cp fduthesis.cls       ../test/
 cp fduthesis-en.cls    ../test/
 cp fduthesis.def       ../test/
@@ -14,8 +18,8 @@ cp fduthesis-cover.tex ../logo/
 
 # Make logos
 cd ../logo/
-pdflatex -interaction=nonstopmode -shell-escape fdulogo-example
-pdflatex -interaction=nonstopmode               fduthesis-cover
+pdflatex $TEXOPT -shell-escape "fdulogo-example.tex"
+pdflatex $TEXOPT               "fduthesis-cover.tex"
 
 mkdir                   pdf/
 mv fudan-*.pdf          pdf/
@@ -24,13 +28,14 @@ cp fudan-name-black.pdf ../testfiles/support/fudan-name.pdf
 cd ../test/
 
 # Make test theses
-latexmk -xelatex  -f test
-latexmk -xelatex  -f test-en
-source ../scripts/clean.sh
-latexmk -lualatex -f test
-latexmk -lualatex -f test-en
+latexmk -xelatex  $LATEXMKOPT "test.tex"
+latexmk -xelatex  $LATEXMKOPT "test-en.tex"
 source ../scripts/clean.sh
 
-latexmk -xelatex  -f test-biblatex
+latexmk -lualatex $LATEXMKOPT "test.tex"
+latexmk -lualatex $LATEXMKOPT "test-en.tex"
+source ../scripts/clean.sh
+
+latexmk -xelatex  $LATEXMKOPT "test-biblatex.tex"
 
 cd ..

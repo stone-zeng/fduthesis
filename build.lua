@@ -5,12 +5,13 @@
 module = "fduthesis"
 
 checkengines = {"xetex", "luatex"}
+checkopts    = "-interaction=batchmode"
 
 sourcefiles  = {"source/*.dtx"}
 installfiles = {"*.cls", "*.sty", "*.def"}
 
 -- typesetdeps = {"source/latexmkrc."}
-typesetexe  = "xelatex"
+typesetexe   = "xelatex"
 typesetfiles = {"fduthesis.dtx"}
 
 unpackfiles = {"fduthesis.dtx"}
