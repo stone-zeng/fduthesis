@@ -269,6 +269,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.3}{2017/03/20}{添加测试文件。}
 % \changes{v0.3}{2017/05/26}{使用 Travis CI 进行持续集成。}
 % \changes{v0.3}{2017/06/23}{添加复旦大学视觉识别系统。}
+% \changes{v0.3}{2017/07/05}{新增声明页。}
 % \changes{v0.3}{2017/07/10}{添加英文模板。}
 % \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
 % \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
@@ -2550,6 +2551,22 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_vspace:n,\@@_vspace:c}
+% 类似 \LaTeXe{} 中的 \tn{vspace*}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_vspace:n #1
+  {
+    \dim_set_eq:NN \l_@@_tmpa_dim \prevdepth
+    \hrule height \c_zero_dim
+    \nobreak
+    \skip_vertical:n {#1}
+    \skip_vertical:N \c_zero_skip
+    \dim_set_eq:NN \prevdepth \l_@@_tmpa_dim
+  }
+\cs_generate_variant:Nn \@@_vspace:n { c }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_symbol:n}
 % 等价于 \LaTeXe{} 中的 \tn{symbol}。
 %    \begin{macrocode}
@@ -4650,12 +4667,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fixed_width_box:nnn,\@@_fixed_width_box:Vnn}
+% \begin{macro}{\@@_fixed_width_box:nn,\@@_fixed_width_box:nnn}
 % 限宽盒子（允许换行）。参数同 \cs{@@_spread_box:nnn}。
 %    \begin{macrocode}
+\cs_new:Npn \@@_fixed_width_box:nn #1#2
+  { \parbox {#1} {#2} }
 \cs_new:Npn \@@_fixed_width_box:nnn #1#2#3
   { \parbox {#1} { #3 #2 } }
-\cs_generate_variant:Nn \@@_fixed_width_box:nnn { Vnn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4743,7 +4761,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_id:
   {
-    \@@_fixed_width_box:Vnn \c_@@_def_cover_id_width_tl
+    \@@_fixed_width_box:nn { 120 pt }
       {
         \bool_if:NT \l_@@_secret_bool
           {
@@ -4758,9 +4776,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \@@_cover_id_aux:n { school_id  } \par
         \@@_cover_id_aux:n { student_id }
       }
-      { \@@_cover_font_size_small: }
-    % -24 pt
-    \hbox_to_wd:nn { \c_@@_def_cover_id_margin_sep_tl } { }
+    \hbox_to_wd:nn { -24 pt } { }
   }
 \cs_new:Npn \@@_cover_id_aux:n #1
   {
@@ -4794,26 +4810,27 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_type:}
-% 论文类型与学位类型。
+% 论文类型。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_type:
   {
-%    \end{macrocode}
-% 论文类型。
-%    \begin{macrocode}
     \tl_set:Nx \l_@@_tmpa_tl
       {
         \clist_item:Nn \c_@@_def_thesis_type_clist
           { \g_@@_thesis_type_int }
       }
-    \@@_spread_box:VVn
+    \@@_spread_box:VV
       \c_@@_def_cover_type_width_tl
       \l_@@_tmpa_tl
-      { \@@_cover_font_size_huge: }
-    \skip_vertical:n { \c_@@_def_cover_v_sep_iii_tl }
+  }
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_degree:}
 % 学位类型。
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_degree:
+  {
     \int_compare:nNnT \g_@@_thesis_type_int = \c_two
       {
         \tl_set:Nx \l_@@_tmpa_tl
@@ -4821,12 +4838,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
             \clist_item:Nn \c_@@_def_degree_type_clist
               { \l_@@_info_degree_type_int }
           }
-        \group_begin:
-          \@@_cover_font_size_normal:
-          \c_@@_fullwidth_left_parenthesis_tl
-          \l_@@_tmpa_tl
-          \c_@@_fullwidth_right_parenthesis_tl
-        \group_end:
+        \c_@@_fullwidth_left_parenthesis_tl
+        \l_@@_tmpa_tl
+        \c_@@_fullwidth_right_parenthesis_tl
       }
   }
 %    \end{macrocode}
@@ -4911,12 +4925,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_signature:n}
+% \begin{macro}{\@@_cover_signature:N}
 % 签名行。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_signature:n #1
+\cs_new_protected:Npn \@@_cover_signature:N #1
   {
-    \clist_map_inline:nn {#1}
+    \clist_map_inline:Nn #1
       {
         ##1 \c_@@_fullwidth_colon_tl
         \fdu_blank_underline:n { 6 em }
@@ -4927,6 +4941,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \subsubsection{封面模板}
+%
+% \changes{v0.7}{2018/02/27}{使用 \pkg{xtemplate} 重构封面布局。}
 %
 % 声明封面对象。不需要带参数。
 %    \begin{macrocode}
@@ -4980,9 +4996,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       }
       {
         \AssignTemplateKeys
-        \mode_leave_vertical:
-        \tl_use:c        { l_@@ / #1 / format_tl }
-        \skip_vertical:c { l_@@ / #1 / top_skip  }
+        \tl_use:c       { l_@@ / #1 / format_tl }
+        \__fdu_vspace:c { l_@@ / #1 / top_skip  }
         \clist_map_inline:nn {#2}
           {
             \use:c { @@ / #1 / ####1 / align:n }
@@ -4991,9 +5006,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
                 \tl_use:c { l_@@ / #1 / ####1 / content_tl }
                 \par
               }
-            \skip_vertical:c { l_@@ / #1 / ####1 / bottom_skip }
+            \__fdu_vspace:c { l_@@ / #1 / ####1 / bottom_skip }
           }
-        \skip_vertical:c { l_@@ / #1 / bottom_skip }
+        \__fdu_vspace:c { l_@@ / #1 / bottom_skip }
       }
   }
 %    \end{macrocode}
@@ -5095,9 +5110,34 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsection{绘制封面}
+%
+% \begin{macro}{\makecoveri,\makecoverii,\makecoveriii}
+% 使用实例（instance）构建封一、封二、封三。
+%    \begin{macrocode}
+\NewDocumentCommand \makecoveri { }
+  {
+    \thispagestyle { empty }
+    \UseInstance { fdu / cover } { cover-i-default }
+  }
+\NewDocumentCommand \makecoverii { }
+  {
+    \thispagestyle { empty }
+    \UseInstance { fdu / cover } { cover-ii-default }
+  }
+\NewDocumentCommand \makecoveriii { }
+  {
+    \cleardoublepage
+    \thispagestyle { empty }
+    \UseInstance { fdu / cover } { cover-iii-default }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 声明各封面模板组成部分。
 %    \begin{macrocode}
 \DeclareCoverTemplate { cover-i   }
-  { id, logo, type, title, title-en, info }
+  { id, logo, type, degree, title, title-en, info }
 \DeclareCoverTemplate { cover-ii  } { title, name-list }
 \DeclareCoverTemplate { cover-iii }
   {
@@ -5110,6 +5150,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
+% 定义封面的具体配置参数。
 %    \begin{macrocode}
 \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
   {
@@ -5119,16 +5160,22 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     id       / content     = \@@_cover_id:,
     logo     / content     = \@@_cover_logo:,
     type     / content     = \@@_cover_type:,
+    degree   / content     = \@@_cover_degree:,
     title    / content     = \@@_cover_title:,
     title-en / content     = \@@_cover_title_en:,
     info     / content     = \@@_cover_info:,
-    id       / bottom-skip = 0 pt plus 1.5 fill,
-    logo     / bottom-skip = 0 pt plus 0.8 fill,
-    type     / bottom-skip = 0 pt plus 1.6 fill,
+    id       / format      = \zihao { -5 },
+    type     / format      = \zihao {  2 },
+    degree   / format      = \zihao {  4 },
+    id       / bottom-skip = 0 pt plus 1.6 fill,
+    logo     / bottom-skip = 0 pt plus 0.3 fill,
+    type     / bottom-skip = -18 pt,
+    degree   / bottom-skip = 0 pt plus 0.8 fill,
     title-en / bottom-skip = 0 pt plus 2.5 fill,
     id       / align       = right,
     logo     / align       = center,
     type     / align       = center,
+    degree   / align       = center,
     title    / align       = center,
     title-en / align       = center,
     info     / align       = center,
@@ -5161,13 +5208,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     originality-decl-text   / content     =
       \c_@@_def_originality_decl_text_tl,
     originality-decl-sig    / content     =
-      \@@_cover_signature:n {作者签名, 日期},
+      \@@_cover_signature:N \c_@@_def_originality_decl_sign_clist,
     authorization-decl-name / content     =
       \c_@@_def_name_authorization_decl_tl,
     authorization-decl-text / content     =
       \c_@@_def_authorization_decl_text_tl,
     authorization-decl-sig  / content     =
-      \@@_cover_signature:n {作者签名, 导师签名, 日期},
+      \@@_cover_signature:N \c_@@_def_authorization_decl_sign_clist,
     originality-decl-name   / format      =
       \sffamily \zihao { -2 }
       \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp,
@@ -5189,137 +5236,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     authorization-decl-sig  / align       = right,
   }
 %    \end{macrocode}
-%
-% \begin{macro}{\makecoveri,\makecoverii,\makecoveriii}
-%    \begin{macrocode}
-\NewDocumentCommand \makecoveri { }
-  {
-    \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-i-default }
-  }
-\NewDocumentCommand \makecoverii { }
-  {
-    \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-ii-default }
-  }
-\NewDocumentCommand \makecoveriii { }
-  {
-    \cleardoublepage
-    \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-iii-default }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsubsection{绘制封面}
-%
-% \begin{macro}{\makecoveri}
-% 生成封一，即真正的封面。各部件之间用橡皮长度隔开。
-%    \begin{macrocode}
-% \NewDocumentCommand \makecoveri { }
-%   {
-%     \group_begin:
-% %<class-en>      \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
-%       \@@_cover_id:
-%       \skip_vertical:n { \c_@@_def_cover_v_sep_i_tl  }
-%       \@@_cover_logo:
-%       \skip_vertical:n { \c_@@_def_cover_v_sep_ii_tl }
-%       \@@_cover_title:
-%       \skip_vertical:n { \c_@@_def_cover_v_sep_vi_tl }
-%       \@@_cover_info:
-%       \skip_vertical:n { \c_@@_def_cover_v_sep_ix_tl }
-%     \group_end:
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\makecoverii}
-% 生成封二，即指导小组成员名单。
-%    \begin{macrocode}
-% \NewDocumentCommand \makecoverii { }
-%   {
-%     \group_begin:
-% %    \end{macrocode}
-% % 临时禁用 \tn{cleardoublepage} 带来的分页。
-% %    \begin{macrocode}
-%       \cs_set_eq:NN \cleardoublepage \relax
-%       \thispagestyle { empty }
-% %    \end{macrocode}
-% % 保持英文模板与中文模板的一致。
-% %    \begin{macrocode}
-% %<*class-en>
-%       \keys_set:nn { ctex }
-%         { chapter / titleformat = \c_@@_def_chapter_format_tl }
-%       \fdu_line_spread:n { \fp_use:N \c_@@_def_line_spread_fp }
-% %</class-en>
-% %    \end{macrocode}
-% % 为了关闭页眉页脚，此处使用了不编号章节的原始命令 \tn{@schapter}。
-% %    \begin{macrocode}
-%       \@schapter
-%         {
-%           \@@_spread_box:VV
-%             \c_@@_def_cover_instructors_width_tl
-%             \c_@@_def_name_instructors_tl
-%         }
-%       \begin{center}
-%         \large
-%         \clist_use:Nn \l_@@_info_instructors_clist { \par }
-%       \end{center}
-%     \group_end:
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \changes{v0.3}{2017/07/05}{新增声明页。}
-%
-% \begin{macro}{\makecoveriii}
-% 生成封三，即声明页。该页也需要关闭页眉、页脚显示。
-%    \begin{macrocode}
-% \NewDocumentCommand \makecoveriii { }
-%   {
-%     \cleardoublepage
-%     \thispagestyle { empty }
-%     \mode_leave_vertical:
-%     \skip_vertical:n { \c_@@_def_decl_v_sep_i_tl }
-% %    \end{macrocode}
-% % 独创性声明。
-% %    \begin{macrocode}
-%     \@@_decl_text:VVn
-%       \c_@@_def_name_originality_decl_tl
-%       \c_@@_def_originality_decl_text_tl
-%       {
-%         \c_@@_def_name_author_sign_tl
-%         \c_@@_fullwidth_colon_tl
-%         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
-%         \@@_quad:
-%         \c_@@_def_name_sign_date_tl
-%         \c_@@_fullwidth_colon_tl
-%         \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
-%       }
-%     \skip_vertical:n { \c_@@_def_decl_v_sep_ii_tl }
-% %    \end{macrocode}
-% % 使用授权声明。
-% %    \begin{macrocode}
-%     \@@_decl_text:VVn
-%       \c_@@_def_name_authorization_decl_tl
-%       \c_@@_def_authorization_decl_text_tl
-%       {
-%         \c_@@_def_name_author_sign_tl
-%         \c_@@_fullwidth_colon_tl
-%         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
-%         \@@_quad:
-%         \c_@@_def_name_supervisor_sign_tl
-%         \c_@@_fullwidth_colon_tl
-%         \fdu_blank_underline:N \c_@@_def_decl_sign_width_tl
-%         \@@_quad:
-%         \c_@@_def_name_sign_date_tl
-%         \c_@@_fullwidth_colon_tl
-%         \fdu_blank_underline:N \c_@@_def_decl_date_width_tl
-%       }
-%     \skip_vertical:n { \c_@@_def_decl_v_sep_iii_tl }
-%   }
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}{style/automakecover}
 % \begin{variable}{\l_@@_auto_make_cover_bool}
@@ -5659,7 +5575,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \@@_bibtex_setup:
 %    \end{macrocode}
 %
-% \changes{v0.7}{2017/01/25}{统一使用 \cs{printbibliography} 命令
+% \changes{v0.7}{2018/01/25}{统一使用 \cs{printbibliography} 命令
 %   生成参考文献列表。}
 %
 % \begin{macro}{\printbibliography}
@@ -5811,7 +5727,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.7}{2017/01/25}{同步 \pkg{gbt7714} v1.0。}
+% \changes{v0.7}{2018/01/25}{同步 \pkg{gbt7714} v1.0。}
 %
 %^^A \begin{macro}{\bibpreamble,\href,\doi,\fdu_href:w}
 %^^A \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
@@ -5860,7 +5776,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，包括超链接
 %   样式（\opt{style/hyperlink} 与 \opt{style/hyperlinkcolor} 选项）
 %   及 PDF 元信息等。}
-% \changes{v0.7}{2017/01/23}{将 \pkg{hyperref} 相关配置移至模板末尾，
+% \changes{v0.7}{2018/01/23}{将 \pkg{hyperref} 相关配置移至模板末尾，
 %   以减少冲突。}
 %
 % \begin{macro}{\hypersetup,\fdu_hyperref_setup:n}
@@ -6322,24 +6238,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.5}{2017/09/19}{间距使用 \texttt{skip} 表达式，
 %   不再依赖 \tn{stretch}。}
 %
-% \begin{variable}{\c_@@_def_cover_v_sep_i_tl,
-%   \c_@@_def_cover_v_sep_ii_tl,
-%   \c_@@_def_cover_v_sep_iii_tl,
-%   \c_@@_def_cover_v_sep_iv_tl,
-%   \c_@@_def_cover_v_sep_v_tl,
-%   \c_@@_def_cover_v_sep_vi_tl,
-%   \c_@@_def_cover_v_sep_vii_tl,
-%   \c_@@_def_cover_v_sep_ix_tl}
+% \begin{variable}{\c_@@_def_cover_v_sep_vii_tl}
 % 封面中的一些垂直间距，按自上而下的顺序排列。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_v_sep_i_tl   { 0 pt plus 1.5 fill }
-\tl_const:Nn \c_@@_def_cover_v_sep_ii_tl  { 0 pt plus 0.8 fill }
-\tl_const:Nn \c_@@_def_cover_v_sep_iii_tl { 0.4 cm }
-\tl_const:Nn \c_@@_def_cover_v_sep_iv_tl  { 0 pt plus 2.0 fill }
-\tl_const:Nn \c_@@_def_cover_v_sep_v_tl   { 0.8 cm }
-\tl_const:Nn \c_@@_def_cover_v_sep_vi_tl  { 0 pt plus 2.5 fill }
 \tl_const:Nn \c_@@_def_cover_v_sep_vii_tl { 1 ex }
-\tl_const:Nn \c_@@_def_cover_v_sep_ix_tl  { 0 pt plus 1.5 fill }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -6373,15 +6275,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_decl_sign_width_tl,
-%   \c_@@_def_decl_date_width_tl}
-% 签名栏和日期栏的宽度。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_decl_sign_width_tl { 6 em }
-\tl_const:Nn \c_@@_def_decl_date_width_tl { 5 em }
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{variable}{\c_@@_def_originality_decl_text_tl}
 % 论文独创性声明。
 %    \begin{macrocode}
@@ -6407,6 +6300,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     采用影印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此
     规定。
   }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_def_originality_decl_sign_clist,
+%   \c_@@_def_authorization_decl_sign_clist}
+% 声明页签名项目。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_def_originality_decl_sign_clist
+  { 作者签名, 日期 }
+\clist_const:Nn \c_@@_def_authorization_decl_sign_clist
+  { 作者签名, 导师签名, 日期 }
 %    \end{macrocode}
 % \end{variable}
 %
