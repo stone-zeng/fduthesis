@@ -1,37 +1,14 @@
-\input{regression-test}
+\input{fduthesis-regression-test}
 
 \documentclass{fduthesis}
 
-\fdusetup{
-  info = {
-    title = {论文标题},
-    title* = {Thesis Title},
-    date = {2018 年 1 月 1 日},
-    author = {某某},
-    supervisor = {某某某\quad 教授},
-    major = {物理学},
-    department = {物理系},
-    studentid = {12300000000},
-    instructors = {
-      {张\quad 三 \quad 教\quad 授},
-      {王五六     \quad 教\quad 授},
-      {李\quad 四 \quad 副教授}
-    },
-    keywords = {关键字一, 关键字二, 关键字三},
-    keywords* = {Keyword 1, keyword 2, keyword 3},
-    clc = {TS803.23}
-  }
-}
+\DEFAULTSETUP
 
 \begin{document}
 
 \START
 
 \loggingoutput
-
-%\SEPARATOR
-%
-%\TYPE{Checking compilation. No log file data expected.}
 
 \frontmatter
 
@@ -51,7 +28,7 @@
   $\psi(x)$                    & 波函数      \\
   $\langle x |$                & 左矢（bra） \\
   $| x \rangle$                & 右矢（ket） \\
-  $\langle\alpha|\beta\rangle$ & 内积        \\
+  $\langle\alpha|\beta\rangle$ & 内积
 \end{notation}
 
 \mainmatter
@@ -65,8 +42,6 @@
 \chapter{第二章}
 
 \backmatter
-
-%\SEPARATOR
 
 \END
 

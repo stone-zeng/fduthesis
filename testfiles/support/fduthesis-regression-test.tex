@@ -1,0 +1,52 @@
+\input{regression-test}
+
+\RequirePackage{expl3}
+
+\def\MAKECOVERFALSE{%
+  \fdusetup{style/automakecover = false}}
+
+\def\DEFAULTSETUP{%
+  \fdusetup{
+    info = {
+      title = {这是一个论文标题},
+      title* = {This is a Thesis Title},
+      date = {2018 年 1 月 1 日},
+      author = {某某},
+      supervisor = {某某某\quad 教授},
+      major = {物理学},
+      department = {物理系},
+      studentid = {12300000000},
+      instructors = {
+        {张\quad 三 \quad 教\quad 授},
+        {王五六     \quad 教\quad 授},
+        {李\quad 四 \quad 副教授}
+      },
+      keywords = {关键字一, 关键字二, 关键字三},
+      keywords* = {Keyword 1, keyword 2, keyword 3},
+      clc = {TS803.23}
+    }
+  }
+}
+
+% To skip log for font setup, PDF strings etc.
+\ExplSyntaxOn
+\cs_set:Npn \EMPTYPAGE
+{
+  \clist_map_inline:nn
+    { \normalfont, \sffamily, \ttfamily, \bfseries, \itshape }
+    { \mbox { ##1 X ~ 字} }
+  \clist_map_inline:nn
+    {
+      \tiny, \scriptsize, \footnotesize, \small, \normalsize,
+      \large, \Large, \LARGE, \huge, \HUGE
+    }
+    { \mbox { ##1 $\sin x^{x^x}$ } }
+  \newpage
+}
+\ExplSyntaxOff
+
+% For testing entire page.
+\def\COMPLETEPAGE{\vfil\break}
+
+\def\CHECKCOMPILATION{%
+  \TYPE{Checking compilation. No log file data expected.}}

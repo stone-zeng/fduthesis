@@ -1,4 +1,4 @@
-\input{regression-test}
+\input{fduthesis-regression-test}
 
 \documentclass{article}
 \usepackage{fdulogo}
@@ -9,7 +9,7 @@
 
 \SEPARATOR
 
-\TYPE{Checking compilation. No log file data expected.}
+\CHECKCOMPILATION
 
 \fduname[x=0.2pt, y=0.2pt]
 

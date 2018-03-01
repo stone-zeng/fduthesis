@@ -1,0 +1,1335 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Completed box being shipped out [1]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\pdfdest name{page.i} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x416.54877, glue set 541.95917fil, direction TLT
+....\whatsit4=[]
+....\pdfdest name{Doc-Start} xyz
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\write-{}
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\write-{}
+....\pdfdest name{chapter*.1} xyz
+....\glue(\topskip) 12.0
+....\rule(0.0+0.0)x*
+....\penalty 10000
+....\glue 38.0 plus -1.0
+....\glue 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(16.6221+0.33727)x416.54877, glue set 163.82834fil, direction TLT
+.....\whatsit4=[]
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
+.....\TU/XITS(0)/bx/n/24.09 A
+.....\kern -0.4818
+.....\TU/XITS(0)/bx/n/24.09 b
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/24.09 -
+.....\TU/XITS(0)/bx/n/24.09 s
+.....\kern -0.16862
+.....\TU/XITS(0)/bx/n/24.09 t
+.....\TU/XITS(0)/bx/n/24.09 r
+.....\kern -0.09636
+.....\TU/XITS(0)/bx/n/24.09 a
+.....\TU/XITS(0)/bx/n/24.09 c
+.....\TU/XITS(0)/bx/n/24.09 t
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 40.0 plus -1.0
+....\mark{{Abstract}{Abstract}}
+....\penalty 10000
+....\write5{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\000A\000b\000s\000t\
+00\ETC.}
+....\penalty 10000
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\penalty 10000
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(8.22673+2.62581)x416.54877, glue set 339.4126fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\TU/XITS(0)/m/n/12.045 E
+.....\TU/XITS(0)/m/n/12.045 n
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/m/n/12.045 -
+.....\TU/XITS(0)/m/n/12.045 g
+.....\kern -0.0241
+.....\TU/XITS(0)/m/n/12.045 l
+.....\TU/XITS(0)/m/n/12.045 i
+.....\TU/XITS(0)/m/n/12.045 s
+.....\TU/XITS(0)/m/n/12.045 h
+.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.....\TU/XITS(0)/m/n/12.045 a
+.....\TU/XITS(0)/m/n/12.045 b
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/m/n/12.045 -
+.....\TU/XITS(0)/m/n/12.045 s
+.....\kern -0.09636
+.....\TU/XITS(0)/m/n/12.045 t
+.....\TU/XITS(0)/m/n/12.045 r
+.....\kern -0.0241
+.....\TU/XITS(0)/m/n/12.045 a
+.....\TU/XITS(0)/m/n/12.045 c
+.....\TU/XITS(0)/m/n/12.045 t
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\baselineskip) 11.82819
+....\hbox(0.0+0.0)x416.54877, glue set 398.54877fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x18.0, direction TLT
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\baselineskip) 6.22726
+....\hbox(8.22673+2.62581)x416.54877, glue set 171.16798fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\TU/XITS(0)/bx/n/12.045 K
+.....\kern -0.20476
+.....\TU/XITS(0)/bx/n/12.045 e
+.....\kern -0.20476
+.....\TU/XITS(0)/bx/n/12.045 y
+.....\discretionary (penalty 50)
+......< \kern -0.30113
+......< \TU/XITS(0)/bx/n/12.045 -
+.....\TU/XITS(0)/bx/n/12.045 w
+.....\kern -0.3734
+.....\TU/XITS(0)/bx/n/12.045 o
+.....\TU/XITS(0)/bx/n/12.045 r
+.....\kern -0.12045
+.....\TU/XITS(0)/bx/n/12.045 d
+.....\TU/XITS(0)/bx/n/12.045 s
+.....\TU/XITS(0)/bx/n/12.045 :
+.....\glue 12.045
+.....\TU/XITS(0)/m/n/12.045 K
+.....\kern -0.18068
+.....\TU/XITS(0)/m/n/12.045 e
+.....\kern -0.25294
+.....\TU/XITS(0)/m/n/12.045 y
+.....\discretionary (penalty 50)
+......< \kern -0.21681
+......< \TU/XITS(0)/m/n/12.045 -
+.....\TU/XITS(0)/m/n/12.045 w
+.....\kern -0.31317
+.....\TU/XITS(0)/m/n/12.045 o
+.....\TU/XITS(0)/m/n/12.045 r
+.....\kern -0.0241
+.....\TU/XITS(0)/m/n/12.045 d
+.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.....\TU/XITS(0)/m/n/12.045 1
+.....\glue 12.045
+.....\TU/XITS(0)/m/n/12.045 k
+.....\kern -0.15659
+.....\TU/XITS(0)/m/n/12.045 e
+.....\kern -0.25294
+.....\TU/XITS(0)/m/n/12.045 y
+.....\discretionary (penalty 50)
+......< \kern -0.21681
+......< \TU/XITS(0)/m/n/12.045 -
+.....\TU/XITS(0)/m/n/12.045 w
+.....\kern -0.31317
+.....\TU/XITS(0)/m/n/12.045 o
+.....\TU/XITS(0)/m/n/12.045 r
+.....\kern -0.0241
+.....\TU/XITS(0)/m/n/12.045 d
+.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.....\TU/XITS(0)/m/n/12.045 2
+.....\glue 12.045
+.....\TU/XITS(0)/m/n/12.045 k
+.....\kern -0.15659
+.....\TU/XITS(0)/m/n/12.045 e
+.....\kern -0.25294
+.....\TU/XITS(0)/m/n/12.045 y
+.....\discretionary (penalty 50)
+......< \kern -0.21681
+......< \TU/XITS(0)/m/n/12.045 -
+.....\TU/XITS(0)/m/n/12.045 w
+.....\kern -0.31317
+.....\TU/XITS(0)/m/n/12.045 o
+.....\TU/XITS(0)/m/n/12.045 r
+.....\kern -0.0241
+.....\TU/XITS(0)/m/n/12.045 d
+.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.....\TU/XITS(0)/m/n/12.045 3
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\baselineskip) 3.5051
+....\hbox(8.32309+0.22885)x416.54877, glue set 284.37897fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\TU/XITS(0)/bx/n/12.045 C
+.....\TU/XITS(0)/bx/n/12.045 L
+.....\kern -0.09636
+.....\TU/XITS(0)/bx/n/12.045 C
+.....\glue(\spaceskip) 3.01125 plus 1.50412 minus 1.00475
+.....\TU/XITS(0)/bx/n/12.045 n
+.....\TU/XITS(0)/bx/n/12.045 u
+.....\TU/XITS(0)/bx/n/12.045 m
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/12.045 -
+.....\TU/XITS(0)/bx/n/12.045 b
+.....\TU/XITS(0)/bx/n/12.045 e
+.....\TU/XITS(0)/bx/n/12.045 r
+.....\kern -0.12045
+.....\TU/XITS(0)/bx/n/12.045 :
+.....\glue 12.045
+.....\TU/XITS(0)/m/n/12.045 T
+.....\kern -0.1084
+.....\TU/XITS(0)/m/n/12.045 S
+.....\TU/XITS(0)/m/n/12.045 8
+.....\TU/XITS(0)/m/n/12.045 0
+.....\TU/XITS(0)/m/n/12.045 3
+.....\TU/XITS(0)/m/n/12.045 .
+.....\TU/XITS(0)/m/n/12.045 2
+.....\TU/XITS(0)/m/n/12.045 3
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\glue -0.22885
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 21.77327
+...\hbox(8.22673+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(8.22673+0.0)x416.54877, glue set 206.60013fil, direction TLT
+.....\whatsit4=[]
+.....\glue 0.0 plus 1.0fil
+.....\TU/XITS(0)/m/n/12.045 i
+.....\glue 0.0 plus 1.0fil
+....\pdfcolorstack 0 pop
+Completed box being shipped out [2]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\pdfdest name{page.ii} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x0.0, glue set 688.5072fil, direction TLT
+....\whatsit4=[]
+....\write-{}
+....\glue(\topskip) 12.0
+....\hbox(0.0+0.0)x0.0, direction TLT
+.....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 30.0
+...\hbox(0.0+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+....\pdfcolorstack 0 pop
+Completed box being shipped out [3]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\pdfdest name{page.iii} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x416.54877, glue set 476.15729fil, direction TLT
+....\whatsit4=[]
+....\glue(\topskip) 0.0
+....\vbox(218.71286+5.6371)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfdest name{chapter*.2} xyz
+.....\glue(\topskip) 12.0
+.....\rule(0.0+0.0)x*
+.....\penalty 10000
+.....\glue 38.0 plus -1.0
+.....\glue 0.0
+.....\glue(\parskip) 0.0 plus 1.0
+.....\hbox(16.67027+4.93845)x416.54877, glue set 128.71716fil, direction TLT
+......\whatsit4=[]
+......\glue(\leftskip) 0.0 plus 1.0fil
+......\localpar
+.......\localinterlinepenalty=0
+.......\localbrokenpenalty=0
+.......\localleftbox=null
+.......\localrightbox=null
+......\hbox(0.0+0.0)x0.0, direction TLT
+......\TU/XITS(0)/bx/n/24.09 L
+......\TU/XITS(0)/bx/n/24.09 i
+......\TU/XITS(0)/bx/n/24.09 s
+......\kern -0.16862
+......\TU/XITS(0)/bx/n/24.09 t
+......\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
+......\TU/XITS(0)/bx/n/24.09 o
+......\TU/XITS(0)/bx/n/24.09 f
+......\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
+......\TU/XITS(0)/bx/n/24.09 S
+......\TU/XITS(0)/bx/n/24.09 y
+......\TU/XITS(0)/bx/n/24.09 m
+......\discretionary (penalty 50)
+.......< \TU/XITS(0)/bx/n/24.09 -
+......\TU/XITS(0)/bx/n/24.09 b
+......\TU/XITS(0)/bx/n/24.09 o
+......\TU/XITS(0)/bx/n/24.09 l
+......\TU/XITS(0)/bx/n/24.09 s
+......\penalty 10000
+......\glue(\parfillskip) 0.0
+......\glue(\rightskip) 0.0 plus 1.0fil
+.....\penalty 10000
+.....\glue 40.0 plus -1.0
+.....\mark{{List of Symbols}{List of Symbols}}
+.....\penalty 10000
+.....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t
+\00\ETC.}
+.....\penalty 10000
+.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{to
+c}{\ETC.}
+.....\penalty 10000
+.....\penalty 0
+.....\glue 0.0
+.....\pdfdest name{table.0.1} xyz
+.....\penalty 10000
+.....\penalty 10000
+.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill, direction TLT
+......\glue(\tabskip) 0.0 plus 1.0fill
+......\hbox(13.1531+5.6371)x39.0049, glue set 20.38013fil, direction TLT
+.......\whatsit4=[]
+.......\rule(13.1531+5.6371)x0.0
+.......\glue 6.0
+.......\glue 0.00002
+.......\mathon
+.......\TU/XITSMath(1)/m/n/12.045 𝑥
+.......\mathoff
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0
+......\hbox(13.1531+5.6371)x225.39566, direction TLT
+.......\whatsit4=[]
+.......\glue 6.0
+.......\vbox(13.1531+5.6371)x213.39566, direction TLT
+........\hbox(13.1531+5.6371)x213.39566, glue set 159.89175fil, direction TLT
+.........\whatsit4=[]
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\rule(13.1531+*)x0.0
+.........\TU/XITS(0)/m/n/12.045 C
+.........\TU/XITS(0)/m/n/12.045 o
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 o
+.........\TU/XITS(0)/m/n/12.045 r
+.........\discretionary (penalty 50)
+..........< \kern -0.3493
+..........< \TU/XITS(0)/m/n/12.045 -
+..........= \kern -0.0241
+.........\TU/XITS(0)/m/n/12.045 d
+.........\TU/XITS(0)/m/n/12.045 i
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 n
+.........\TU/XITS(0)/m/n/12.045 a
+.........\TU/XITS(0)/m/n/12.045 t
+.........\TU/XITS(0)/m/n/12.045 e
+.........\penalty 10000
+.........\rule(0.0+5.6371)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+........\whatsit4=[]
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0 plus 1.0fill
+.....\glue(\lineskip) 0.0
+.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill, direction TLT
+......\glue(\tabskip) 0.0 plus 1.0fill
+......\hbox(13.1531+5.6371)x39.0049, glue set 21.11488fil, direction TLT
+.......\whatsit4=[]
+.......\rule(13.1531+5.6371)x0.0
+.......\glue 6.0
+.......\glue 0.00002
+.......\mathon
+.......\TU/XITSMath(1)/m/n/12.045 𝑝
+.......\mathoff
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0
+......\hbox(13.1531+5.6371)x225.39566, direction TLT
+.......\whatsit4=[]
+.......\glue 6.0
+.......\vbox(13.1531+5.6371)x213.39566, direction TLT
+........\hbox(13.1531+5.6371)x213.39566, glue set 157.18164fil, direction TLT
+.........\whatsit4=[]
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\rule(13.1531+*)x0.0
+.........\TU/XITS(0)/m/n/12.045 M
+.........\TU/XITS(0)/m/n/12.045 o
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 m
+.........\TU/XITS(0)/m/n/12.045 e
+.........\TU/XITS(0)/m/n/12.045 n
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 t
+.........\TU/XITS(0)/m/n/12.045 u
+.........\TU/XITS(0)/m/n/12.045 m
+.........\penalty 10000
+.........\rule(0.0+5.6371)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+........\whatsit4=[]
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0 plus 1.0fill
+.....\glue(\lineskip) 0.0
+.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill, direction TLT
+......\glue(\tabskip) 0.0 plus 1.0fill
+......\hbox(13.1531+5.6371)x39.0049, glue set 3.31236fil, direction TLT
+.......\whatsit4=[]
+.......\rule(13.1531+5.6371)x0.0
+.......\glue 6.0
+.......\glue 0.00002
+.......\mathon
+.......\TU/XITSMath(1)/m/n/12.045 𝜓
+.......\kern1.08405
+.......\TU/XITSMath(1)/m/n/12.045 (
+.......\TU/XITSMath(1)/m/n/12.045 𝑥
+.......\TU/XITSMath(1)/m/n/12.045 )
+.......\mathoff
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0
+......\hbox(13.1531+5.6371)x225.39566, direction TLT
+.......\whatsit4=[]
+.......\glue 6.0
+.......\vbox(13.1531+5.6371)x213.39566, direction TLT
+........\hbox(13.1531+5.6371)x213.39566, glue set 143.54668fil, direction TLT
+.........\whatsit4=[]
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\rule(13.1531+*)x0.0
+.........\TU/XITS(0)/m/n/12.045 W
+.........\kern -0.7227
+.........\TU/XITS(0)/m/n/12.045 a
+.........\kern -0.38544
+.........\TU/XITS(0)/m/n/12.045 v
+.........\kern -0.28908
+.........\TU/XITS(0)/m/n/12.045 e
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 f
+.........\TU/XITS(0)/m/n/12.045 u
+.........\TU/XITS(0)/m/n/12.045 n
+.........\TU/XITS(0)/m/n/12.045 c
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 t
+.........\TU/XITS(0)/m/n/12.045 i
+.........\TU/XITS(0)/m/n/12.045 o
+.........\TU/XITS(0)/m/n/12.045 n
+.........\penalty 10000
+.........\rule(0.0+5.6371)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+........\whatsit4=[]
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0 plus 1.0fill
+.....\glue(\lineskip) 0.0
+.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill, direction TLT
+......\glue(\tabskip) 0.0 plus 1.0fill
+......\hbox(13.1531+5.6371)x39.0049, glue set 11.70773fil, direction TLT
+.......\whatsit4=[]
+.......\rule(13.1531+5.6371)x0.0
+.......\glue 6.0
+.......\glue 0.00002
+.......\mathon
+.......\TU/XITSMath(1)/m/n/12.045 ⟨
+.......\TU/XITSMath(1)/m/n/12.045 𝑥
+.......\TU/XITSMath(1)/m/n/12.045 |
+.......\mathoff
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0
+......\hbox(13.1531+5.6371)x225.39566, direction TLT
+.......\whatsit4=[]
+.......\glue 6.0
+.......\vbox(13.1531+5.6371)x213.39566, direction TLT
+........\hbox(13.1531+5.6371)x213.39566, glue set 110.72408fil, direction TLT
+.........\whatsit4=[]
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\rule(13.1531+*)x0.0
+.........\TU/XITS(0)/m/n/12.045 D
+.........\TU/XITS(0)/m/n/12.045 i
+.........\TU/XITS(0)/m/n/12.045 r
+.........\kern -0.0241
+.........\TU/XITS(0)/m/n/12.045 a
+.........\TU/XITS(0)/m/n/12.045 c
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 n
+.........\TU/XITS(0)/m/n/12.045 o
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+..........= \kern -0.09636
+.........\TU/XITS(0)/m/n/12.045 t
+.........\kern 0.12045
+.........\TU/XITS(0)/m/n/12.045 a
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 t
+.........\TU/XITS(0)/m/n/12.045 i
+.........\TU/XITS(0)/m/n/12.045 o
+.........\TU/XITS(0)/m/n/12.045 n
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 — (ligature ---)
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 b
+.........\TU/XITS(0)/m/n/12.045 r
+.........\kern -0.0241
+.........\TU/XITS(0)/m/n/12.045 a
+.........\penalty 10000
+.........\rule(0.0+5.6371)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+........\whatsit4=[]
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0 plus 1.0fill
+.....\glue(\lineskip) 0.0
+.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill, direction TLT
+......\glue(\tabskip) 0.0 plus 1.0fill
+......\hbox(13.1531+5.6371)x39.0049, glue set 11.70773fil, direction TLT
+.......\whatsit4=[]
+.......\rule(13.1531+5.6371)x0.0
+.......\glue 6.0
+.......\glue 0.00002
+.......\mathon
+.......\TU/XITSMath(1)/m/n/12.045 |
+.......\TU/XITSMath(1)/m/n/12.045 𝑥
+.......\TU/XITSMath(1)/m/n/12.045 ⟩
+.......\mathoff
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0
+......\hbox(13.1531+5.6371)x225.39566, direction TLT
+.......\whatsit4=[]
+.......\glue 6.0
+.......\vbox(13.1531+5.6371)x213.39566, direction TLT
+........\hbox(13.1531+5.6371)x213.39566, glue set 111.62744fil, direction TLT
+.........\whatsit4=[]
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\rule(13.1531+*)x0.0
+.........\TU/XITS(0)/m/n/12.045 D
+.........\TU/XITS(0)/m/n/12.045 i
+.........\TU/XITS(0)/m/n/12.045 r
+.........\kern -0.0241
+.........\TU/XITS(0)/m/n/12.045 a
+.........\TU/XITS(0)/m/n/12.045 c
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 n
+.........\TU/XITS(0)/m/n/12.045 o
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+..........= \kern -0.09636
+.........\TU/XITS(0)/m/n/12.045 t
+.........\kern 0.12045
+.........\TU/XITS(0)/m/n/12.045 a
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 t
+.........\TU/XITS(0)/m/n/12.045 i
+.........\TU/XITS(0)/m/n/12.045 o
+.........\TU/XITS(0)/m/n/12.045 n
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 — (ligature ---)
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 k
+.........\kern -0.15659
+.........\TU/XITS(0)/m/n/12.045 e
+.........\kern -0.1084
+.........\TU/XITS(0)/m/n/12.045 t
+.........\penalty 10000
+.........\rule(0.0+5.6371)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+........\whatsit4=[]
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0 plus 1.0fill
+.....\glue(\lineskip) 0.0
+.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill, direction TLT
+......\glue(\tabskip) 0.0 plus 1.0fill
+......\hbox(13.1531+5.6371)x39.0049, direction TLT
+.......\whatsit4=[]
+.......\rule(13.1531+5.6371)x0.0
+.......\glue 6.0
+.......\glue 0.00002
+.......\mathon
+.......\TU/XITSMath(1)/m/n/12.045 ⟨
+.......\TU/XITSMath(1)/m/n/12.045 𝛼
+.......\kern0.4818
+.......\TU/XITSMath(1)/m/n/12.045 |
+.......\TU/XITSMath(1)/m/n/12.045 𝛽
+.......\kern0.78293
+.......\TU/XITSMath(1)/m/n/12.045 ⟩
+.......\mathoff
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0
+......\hbox(13.1531+5.6371)x225.39566, direction TLT
+.......\whatsit4=[]
+.......\glue 6.0
+.......\vbox(13.1531+5.6371)x213.39566, direction TLT
+........\hbox(13.1531+5.6371)x213.39566, glue set 148.24422fil, direction TLT
+.........\whatsit4=[]
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\rule(13.1531+*)x0.0
+.........\TU/XITS(0)/m/n/12.045 I
+.........\TU/XITS(0)/m/n/12.045 n
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 n
+.........\TU/XITS(0)/m/n/12.045 e
+.........\TU/XITS(0)/m/n/12.045 r
+.........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.........\TU/XITS(0)/m/n/12.045 p
+.........\TU/XITS(0)/m/n/12.045 r
+.........\kern -0.07227
+.........\TU/XITS(0)/m/n/12.045 o
+.........\TU/XITS(0)/m/n/12.045 d
+.........\discretionary (penalty 50)
+..........< \TU/XITS(0)/m/n/12.045 -
+.........\TU/XITS(0)/m/n/12.045 u
+.........\TU/XITS(0)/m/n/12.045 c
+.........\TU/XITS(0)/m/n/12.045 t
+.........\penalty 10000
+.........\rule(0.0+5.6371)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0 plus 1.0fil
+.........\glue(\rightskip) 0.0
+........\whatsit4=[]
+.......\glue 0.0 plus 1.0fil
+.......\glue 6.0
+......\glue(\tabskip) 0.0 plus 1.0fill
+....\penalty 10000
+....\penalty 0
+....\glue 0.0
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\penalty 10000
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 21.77327
+...\hbox(8.22673+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(8.22673+0.0)x416.54877, glue set 203.25162fil, direction TLT
+.....\whatsit4=[]
+.....\glue 0.0 plus 1.0fil
+.....\TU/XITS(0)/m/n/12.045 i
+.....\TU/XITS(0)/m/n/12.045 i
+.....\TU/XITS(0)/m/n/12.045 i
+.....\glue 0.0 plus 1.0fil
+....\pdfcolorstack 0 pop
+Completed box being shipped out [4]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\pdfdest name{page.iv} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x0.0, glue set 688.5072fil, direction TLT
+....\whatsit4=[]
+....\write-{}
+....\glue(\topskip) 12.0
+....\hbox(0.0+0.0)x0.0, direction TLT
+.....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 30.0
+...\hbox(0.0+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+....\pdfcolorstack 0 pop
+Chapter 1
+warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
+Completed box being shipped out [1]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x416.54877, glue set 469.17676fil, direction TLT
+....\whatsit4=[]
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\write-{}
+....\pdfdest name{chapter.1} xyz
+....\write5{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\000C\000h\000a\000p\0
+00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{
+\ETC.}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
+}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
+}{\ETC.}
+....\glue(\topskip) 12.0
+....\rule(0.0+0.0)x*
+....\penalty 10000
+....\glue 38.0 plus -1.0
+....\glue 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(15.259+4.52692)x416.54877, glue set 160.86328fil, direction TLT
+.....\whatsit4=[]
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
+.....\TU/XITS(0)/bx/n/22.08249 C
+.....\TU/XITS(0)/bx/n/22.08249 h
+.....\TU/XITS(0)/bx/n/22.08249 a
+.....\TU/XITS(0)/bx/n/22.08249 p
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/22.08249 -
+......= \kern -0.19875
+.....\TU/XITS(0)/bx/n/22.08249 t
+.....\kern -0.04416
+.....\TU/XITS(0)/bx/n/22.08249 e
+.....\TU/XITS(0)/bx/n/22.08249 r
+.....\glue(\spaceskip) 5.52063 plus 2.76031 minus 1.84021
+.....\TU/XITS(0)/bx/n/22.08249 1
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 10.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\baselineskip) 7.73488
+....\hbox(16.6462+4.93845)x416.54877, glue set 141.37646fil, direction TLT
+.....\whatsit4=[]
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
+.....\TU/XITS(0)/bx/n/24.09 F
+.....\kern -0.0241
+.....\TU/XITS(0)/bx/n/24.09 i
+.....\TU/XITS(0)/bx/n/24.09 r
+.....\TU/XITS(0)/bx/n/24.09 s
+.....\kern -0.16862
+.....\TU/XITS(0)/bx/n/24.09 t
+.....\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
+.....\TU/XITS(0)/bx/n/24.09 c
+.....\kern -0.21681
+.....\TU/XITS(0)/bx/n/24.09 h
+.....\TU/XITS(0)/bx/n/24.09 a
+.....\TU/XITS(0)/bx/n/24.09 p
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/24.09 -
+......= \kern -0.21681
+.....\TU/XITS(0)/bx/n/24.09 t
+.....\kern -0.04819
+.....\TU/XITS(0)/bx/n/24.09 e
+.....\TU/XITS(0)/bx/n/24.09 r
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 40.0 plus -1.0
+....\pdfdest name{section.1.1} xyz
+....\penalty 10000
+....\glue -40.0 plus 1.0
+....\glue 40.0 plus -1.0
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(12.48463+0.25294)x416.54877, glue set 140.60257fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(12.43044+0.23488)x40.65187, direction TLT
+......\whatsit4=[]
+......\glue 0.0
+......\TU/XITS(0)/bx/n/18.06749 1
+......\TU/XITS(0)/bx/n/18.06749 .
+......\TU/XITS(0)/bx/n/18.06749 1
+......\glue 18.06749
+.....\TU/XITS(0)/bx/n/18.06749 F
+.....\kern -0.01807
+.....\TU/XITS(0)/bx/n/18.06749 i
+.....\TU/XITS(0)/bx/n/18.06749 r
+.....\TU/XITS(0)/bx/n/18.06749 s
+.....\kern -0.12646
+.....\TU/XITS(0)/bx/n/18.06749 t
+.....\glue(\spaceskip) 4.51688 plus 2.25844 minus 1.50563
+.....\TU/XITS(0)/bx/n/18.06749 s
+.....\TU/XITS(0)/bx/n/18.06749 e
+.....\TU/XITS(0)/bx/n/18.06749 c
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/18.06749 -
+.....\TU/XITS(0)/bx/n/18.06749 t
+.....\TU/XITS(0)/bx/n/18.06749 i
+.....\TU/XITS(0)/bx/n/18.06749 o
+.....\TU/XITS(0)/bx/n/18.06749 n
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{
+\ETC.}
+....\penalty 10000
+....\write5{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\
+04\ETC.}
+....\penalty 10000
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\penalty 10000
+....\penalty 10000
+....\glue 14.63463 plus 1.71011
+....\pdfdest name{section.1.2} xyz
+....\penalty 10000
+....\glue -14.63463 plus -1.71011
+....\glue 14.63463 plus 1.71011
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(12.5027+0.34328)x416.54877, glue set 131.48752fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(12.43044+0.23488)x40.65187, direction TLT
+......\whatsit4=[]
+......\glue 0.0
+......\TU/XITS(0)/bx/n/18.06749 1
+......\TU/XITS(0)/bx/n/18.06749 .
+......\TU/XITS(0)/bx/n/18.06749 2
+......\glue 18.06749
+.....\TU/XITS(0)/bx/n/18.06749 S
+.....\TU/XITS(0)/bx/n/18.06749 e
+.....\TU/XITS(0)/bx/n/18.06749 c
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/18.06749 -
+.....\TU/XITS(0)/bx/n/18.06749 o
+.....\TU/XITS(0)/bx/n/18.06749 n
+.....\TU/XITS(0)/bx/n/18.06749 d
+.....\glue(\spaceskip) 4.51688 plus 2.25844 minus 1.50563
+.....\TU/XITS(0)/bx/n/18.06749 s
+.....\TU/XITS(0)/bx/n/18.06749 e
+.....\TU/XITS(0)/bx/n/18.06749 c
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/18.06749 -
+.....\TU/XITS(0)/bx/n/18.06749 t
+.....\TU/XITS(0)/bx/n/18.06749 i
+.....\TU/XITS(0)/bx/n/18.06749 o
+.....\TU/XITS(0)/bx/n/18.06749 n
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{
+\ETC.}
+....\penalty 10000
+....\write5{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\
+04\ETC.}
+....\penalty 10000
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\penalty 10000
+....\penalty 10000
+....\glue 14.63463 plus 1.71011
+....\pdfdest name{section.1.3} xyz
+....\penalty 10000
+....\glue -14.63463 plus -1.71011
+....\glue 14.63463 plus 1.71011
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(12.48463+0.25294)x416.54877, glue set 136.5916fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(12.43044+0.25294)x40.65187, direction TLT
+......\whatsit4=[]
+......\glue 0.0
+......\TU/XITS(0)/bx/n/18.06749 1
+......\TU/XITS(0)/bx/n/18.06749 .
+......\TU/XITS(0)/bx/n/18.06749 3
+......\glue 18.06749
+.....\TU/XITS(0)/bx/n/18.06749 T
+.....\TU/XITS(0)/bx/n/18.06749 h
+.....\TU/XITS(0)/bx/n/18.06749 i
+.....\TU/XITS(0)/bx/n/18.06749 r
+.....\kern -0.18068
+.....\TU/XITS(0)/bx/n/18.06749 d
+.....\glue(\spaceskip) 4.51688 plus 2.25844 minus 1.50563
+.....\TU/XITS(0)/bx/n/18.06749 s
+.....\TU/XITS(0)/bx/n/18.06749 e
+.....\TU/XITS(0)/bx/n/18.06749 c
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/18.06749 -
+.....\TU/XITS(0)/bx/n/18.06749 t
+.....\TU/XITS(0)/bx/n/18.06749 i
+.....\TU/XITS(0)/bx/n/18.06749 o
+.....\TU/XITS(0)/bx/n/18.06749 n
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{
+\ETC.}
+....\penalty 10000
+....\write5{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\
+04\ETC.}
+....\penalty 10000
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\penalty 10000
+....\penalty 10000
+....\glue 14.63463 plus 1.71011
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\penalty 10000
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 21.85757
+...\hbox(8.14243+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(8.14243+0.0)x416.54877, glue set 205.26312fil, direction TLT
+.....\whatsit4=[]
+.....\glue 0.0 plus 1.0fil
+.....\TU/XITS(0)/m/n/12.045 1
+.....\glue 0.0 plus 1.0fil
+....\pdfcolorstack 0 pop
+warning  (pdf backend): ignoring duplicate destination with the name 'page.2'
+Completed box being shipped out [2]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x0.0, glue set 688.5072fil, direction TLT
+....\whatsit4=[]
+....\write-{}
+....\glue(\topskip) 12.0
+....\hbox(0.0+0.0)x0.0, direction TLT
+.....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 30.0
+...\hbox(0.0+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+....\pdfcolorstack 0 pop
+Chapter 2
+Completed box being shipped out [3]
+\vbox(730.50705+0.16862)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\pdfdest name{page.3} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.16862)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.16862)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x416.54877, glue set 551.4018fil, direction TLT
+....\whatsit4=[]
+....\pdfdest name{chapter.2} xyz
+....\write5{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\000C\000h\000a\000p\0
+00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\mark{{\protect \MakeUppercase  {Chapter 2\hskip 1em\relax Second chapter}}
+\ETC.}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
+}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
+}{\ETC.}
+....\glue(\topskip) 12.0
+....\rule(0.0+0.0)x*
+....\penalty 10000
+....\glue 38.0 plus -1.0
+....\glue 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\hbox(15.259+4.52692)x416.54877, glue set 160.86328fil, direction TLT
+.....\whatsit4=[]
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
+.....\TU/XITS(0)/bx/n/22.08249 C
+.....\TU/XITS(0)/bx/n/22.08249 h
+.....\TU/XITS(0)/bx/n/22.08249 a
+.....\TU/XITS(0)/bx/n/22.08249 p
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/22.08249 -
+......= \kern -0.19875
+.....\TU/XITS(0)/bx/n/22.08249 t
+.....\kern -0.04416
+.....\TU/XITS(0)/bx/n/22.08249 e
+.....\TU/XITS(0)/bx/n/22.08249 r
+.....\glue(\spaceskip) 5.52063 plus 2.76031 minus 1.84021
+.....\TU/XITS(0)/bx/n/22.08249 2
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 10.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\baselineskip) 7.7108
+....\hbox(16.67027+4.93845)x416.54877, glue set 129.22305fil, direction TLT
+.....\whatsit4=[]
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
+.....\TU/XITS(0)/bx/n/24.09 S
+.....\TU/XITS(0)/bx/n/24.09 e
+.....\TU/XITS(0)/bx/n/24.09 c
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/24.09 -
+.....\TU/XITS(0)/bx/n/24.09 o
+.....\TU/XITS(0)/bx/n/24.09 n
+.....\TU/XITS(0)/bx/n/24.09 d
+.....\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
+.....\TU/XITS(0)/bx/n/24.09 c
+.....\kern -0.21681
+.....\TU/XITS(0)/bx/n/24.09 h
+.....\TU/XITS(0)/bx/n/24.09 a
+.....\TU/XITS(0)/bx/n/24.09 p
+.....\discretionary (penalty 50)
+......< \TU/XITS(0)/bx/n/24.09 -
+......= \kern -0.21681
+.....\TU/XITS(0)/bx/n/24.09 t
+.....\kern -0.04819
+.....\TU/XITS(0)/bx/n/24.09 e
+.....\TU/XITS(0)/bx/n/24.09 r
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 40.0 plus -1.0
+....\write1{\protect \FN@pp@footnotehinttrue }
+....\penalty 10000
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 21.85757
+...\hbox(8.14243+0.16862)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(8.14243+0.16862)x416.54877, glue set 205.26312fil, direction TLT
+.....\whatsit4=[]
+.....\glue 0.0 plus 1.0fil
+.....\TU/XITS(0)/m/n/12.045 3
+.....\glue 0.0 plus 1.0fil
+....\pdfcolorstack 0 pop
+Completed box being shipped out [4]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern 0.0
+..\kern -34.87398
+..\kern -1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern 0.0
+...\kern 18.20956
+...\kern -1.00374
+...\pdfdest name{page.4} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x0.0, glue set 688.5072fil, direction TLT
+....\whatsit4=[]
+....\write-{}
+....\glue(\topskip) 12.0
+....\hbox(0.0+0.0)x0.0, direction TLT
+.....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 30.0
+...\hbox(0.0+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+....\pdfcolorstack 0 pop

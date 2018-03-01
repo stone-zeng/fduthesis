@@ -1,8 +1,9 @@
-\input{regression-test}
+\input{fduthesis-regression-test}
 
 \documentclass{fduthesis}
 \usepackage{pifont}
-\fdusetup{style/automakecover = false}
+
+\MAKECOVERFALSE
 
 \begin{document}
 

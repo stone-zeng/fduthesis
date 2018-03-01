@@ -1,0 +1,44 @@
+\input{fduthesis-regression-test}
+
+\documentclass{fduthesis-en}
+
+\DEFAULTSETUP
+
+\begin{document}
+
+\START
+
+\loggingoutput
+
+\frontmatter
+
+% \tableofcontents
+
+\begin{abstract}
+  English abstract
+\end{abstract}
+
+\begin{notation}
+  $x$                          & Coordinate             \\
+  $p$                          & Momentum               \\
+  $\psi(x)$                    & Wave function          \\
+  $\langle x |$                & Dirac notation --- bra \\
+  $| x \rangle$                & Dirac notation --- ket \\
+  $\langle\alpha|\beta\rangle$ & Inner product
+\end{notation}
+
+\mainmatter
+
+\chapter{First chapter}
+
+\section{First section}
+\section{Second section}
+\section{Third section}
+
+\chapter{Second chapter}
+
+\backmatter
+
+\END
+
+\end{document}

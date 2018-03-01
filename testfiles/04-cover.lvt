@@ -1,0 +1,26 @@
+\input{fduthesis-regression-test}
+
+\documentclass{fduthesis}
+
+\MAKECOVERFALSE
+\DEFAULTSETUP
+
+\begin{document}
+
+\START
+
+\OMIT
+\EMPTYPAGE
+\TIMO
+
+\loggingoutput
+
+\begin{titlepage}
+  \makecoveri
+  \newpage
+  \makecoverii
+\end{titlepage}
+
+\END
+
+\end{document}
