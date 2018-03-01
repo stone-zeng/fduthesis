@@ -2471,18 +2471,20 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsubsection{内部变量声明}
 %
 % \begin{variable}{\l_@@_tmpa_box,
+%   \l_@@_tmpa_clist,\l_@@_tmpb_clist,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
-%   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
-%   \l_@@_tmpa_clist,\l_@@_tmpb_clist}
+%   \l_@@_tmpa_skip,
+%   \l_@@_tmpa_tl,\l_@@_tmpb_tl}
 % 临时变量。
 %    \begin{macrocode}
 \box_new:N   \l_@@_tmpa_box
-\dim_new:N   \l_@@_tmpa_dim
-\dim_new:N   \l_@@_tmpb_dim
-\tl_new:N    \l_@@_tmpa_tl
-\tl_new:N    \l_@@_tmpb_tl
 \clist_new:N \l_@@_tmpa_clist
 \clist_new:N \l_@@_tmpb_clist
+\dim_new:N   \l_@@_tmpa_dim
+\dim_new:N   \l_@@_tmpb_dim
+\skip_new:N  \l_@@_tmpa_skip
+\tl_new:N    \l_@@_tmpa_tl
+\tl_new:N    \l_@@_tmpb_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -2530,7 +2532,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\cs_generate_variant:cn,
 %   \file_input:V,
 %   \int_to_arabic:v,
-%   \keys_define:nx}
+%   \keys_define:nx,
+%   \tl_map_inline:xn}
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
@@ -2538,6 +2541,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_generate_variant:Nn \file_input:n           { V  }
 \cs_generate_variant:Nn \int_to_arabic:n        { v  }
 \cs_generate_variant:Nn \keys_define:nn         { nx }
+\cs_generate_variant:Nn \tl_map_inline:nn       { xn }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
 % \end{macro}
@@ -2551,19 +2555,24 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_vspace:n,\@@_vspace:c}
+% \begin{macro}{\@@_vspace:N,\@@_vspace:n,\@@_vspace:c}
 % 类似 \LaTeXe{} 中的 \tn{vspace*}。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_vspace:n #1
+\cs_new_protected:Npn \@@_vspace:N #1
   {
     \dim_set_eq:NN \l_@@_tmpa_dim \prevdepth
     \hrule height \c_zero_dim
     \nobreak
-    \skip_vertical:n {#1}
+    \skip_vertical:N #1
     \skip_vertical:N \c_zero_skip
     \dim_set_eq:NN \prevdepth \l_@@_tmpa_dim
   }
-\cs_generate_variant:Nn \@@_vspace:n { c }
+\cs_new_protected:Npn \@@_vspace:n #1
+  {
+    \skip_set:Nn \l_@@_tmpa_skip {#1}
+    \@@_vspace:N \l_@@_tmpa_skip
+  }
+\cs_generate_variant:Nn \@@_vspace:N { c }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4626,64 +4635,51 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{定义内部函数}
 %
-% \begin{macro}{\@@_spread_box:nnn,\@@_spread_box:VVn,
-%   \@@_spread_box:nn,\@@_spread_box:VV}
+% \begin{macro}{\@@_spread_box:nn}
 % 分散对齐的水平盒子。
 % \begin{arguments}
 %   \item 宽度
 %   \item 内容
-%   \item 字体、字号等设置
 % \end{arguments}
-% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；
-% 紧随其后的 \tn{unskip} 将会去掉最后一个 \tn{hfil}。
-% 见 \url{http://tex.stackexchange.com/q/169689}。
+% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的
+% \tn{unskip} 将会去掉最后一个 \tn{hfil}。见
+% \url{http://tex.stackexchange.com/q/169689}。|#2| 需要完全展开以
+% 避免 underfull 警告。
 %    \begin{macrocode}
-\cs_new:Npn \@@_spread_box:nnn #1#2#3
+\cs_new_protected:Npn \@@_spread_box:nn #1#2
   {
     \mode_leave_vertical:
     \hbox_to_wd:nn {#1}
-      { #3 \tl_map_inline:nn {#2} { \exp_not:n {##1} \hfil } \unskip }
+      { \tl_map_inline:xn {#2} { ##1 \hfil } \unskip }
   }
-\cs_new:Npx \@@_spread_box:nn #1#2
-  { \@@_spread_box:nnn {#1} {#2} { } }
-\cs_generate_variant:Nn \@@_spread_box:nnn { VVn }
-\cs_generate_variant:Nn \@@_spread_box:nn  { VV  }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_center_box:nnn,\@@_center_box:VVn,
-%   \@@_center_box:nn,\@@_center_box:VV}
-% 居中对齐的水平盒子。参数同 \cs{@@_spread_box:nnn}。
+% \begin{macro}{\@@_center_box:nn,\@@_center_box:Vn}
+% 居中对齐的水平盒子。
 %    \begin{macrocode}
-\cs_new:Npn \@@_center_box:nnn #1#2#3
+\cs_new_protected:Npn \@@_center_box:nn #1#2
   {
     \mode_leave_vertical:
-    \hbox_to_wd:nn {#1} { #3 \hfil #2 \hfil }
+    \hbox_to_wd:nn {#1} { \hfil #2 \hfil }
   }
-\cs_new:Npx \@@_center_box:nn #1#2
-  { \@@_center_box:nnn {#1} {#2} { } }
-\cs_generate_variant:Nn \@@_center_box:nnn { VVn }
-\cs_generate_variant:Nn \@@_center_box:nn  { VV  }
+\cs_generate_variant:Nn \@@_center_box:nn  { Vn }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fixed_width_box:nn,\@@_fixed_width_box:nnn}
-% 限宽盒子（允许换行）。参数同 \cs{@@_spread_box:nnn}。
+% \begin{macro}{\@@_fixed_width_box:nn}
+% 限宽盒子（允许换行）。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fixed_width_box:nn #1#2
   { \parbox {#1} {#2} }
-\cs_new:Npn \@@_fixed_width_box:nnn #1#2#3
-  { \parbox {#1} { #3 #2 } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fixed_width_center_box:nnn,
-%   \@@_fixed_width_center_box:VVn}
-% 居中对齐的限宽盒子（允许换行）。参数同 \cs{@@_spread_box:nnn}。
+% \begin{macro}{\@@_fixed_width_center_box:nn}
+% 居中对齐的限宽盒子（允许换行）。
 %    \begin{macrocode}
-\cs_new:Npn \@@_fixed_width_center_box:nnn #1#2#3
-  { \@@_fixed_width_box:nnn {#1} {#2} { \centering #3 } }
-\cs_generate_variant:Nn \@@_fixed_width_center_box:nnn { VVn }
+\cs_new:Npn \@@_fixed_width_center_box:nn #1#2
+  { \parbox {#1} { \centering #2 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4743,11 +4739,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fdu_line_spread:N}
+% \begin{macro}{\fdu_line_spread:N,\fdu_line_spread:n}
 % 设置行距。|#1|: 行距倍数 |fp| 变量。
 %    \begin{macrocode}
 \cs_new:Npn \fdu_line_spread:N #1
   { \linespread { \fp_use:N #1 } \selectfont }
+\cs_new:Npn \fdu_line_spread:n #1
+  { \linespread {#1} \selectfont }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4759,7 +4757,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\@@_cover_id:,\@@_cover_id_aux:n}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
-\cs_new:Npn \@@_cover_id:
+\cs_new_protected:Npn \@@_cover_id:
   {
     \@@_fixed_width_box:nn { 120 pt }
       {
@@ -4776,6 +4774,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \@@_cover_id_aux:n { school_id  } \par
         \@@_cover_id_aux:n { student_id }
       }
+%    \end{macrocode}
+% 插入一个宽度为负的水平盒子以减少右侧边距。
+%    \begin{macrocode}
     \hbox_to_wd:nn { -24 pt } { }
   }
 \cs_new:Npn \@@_cover_id_aux:n #1
@@ -4791,7 +4792,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
 % 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
 %    \begin{macrocode}
-\cs_new:Npn \@@_cover_logo:
+\cs_new_protected:Npn \@@_cover_logo:
   {
     \clist_pop:NN   \l_@@_cover_logo_size_clist \l_@@_tmpa_tl
     \clist_pop:NNTF \l_@@_cover_logo_size_clist \l_@@_tmpb_tl
@@ -4819,9 +4820,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \clist_item:Nn \c_@@_def_thesis_type_clist
           { \g_@@_thesis_type_int }
       }
-    \@@_spread_box:VV
-      \c_@@_def_cover_type_width_tl
-      \l_@@_tmpa_tl
+    \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4846,79 +4845,49 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_title:}
-% 中文标题。
-%    \begin{macrocode}
-\cs_new:Npn \@@_cover_title:
-  {
-    \@@_fixed_width_center_box:VVn
-      \c_@@_def_cover_title_width_tl
-      \l_@@_info_title_tl
-      { \@@_cover_font_size_large: \sffamily }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_cover_title_en:}
-% 英文题目。需要调整行距。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_title_en:
-  {
-    \@@_fixed_width_center_box:VVn
-      \c_@@_def_cover_title_en_width_tl
-      \l_@@_info_title_en_tl
-      {
-        \@@_cover_font_size_normal: \bfseries
-        \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\@@_cover_info:}
 % 信息栏。
 %    \begin{macrocode}
-\cs_new:Npn \@@_cover_info:
+\cs_new_protected:Npn \@@_cover_info:
   {
+    \begin{minipage} [ c ] { \textwidth }
+      \centering \zihao { 4 }
 %    \end{macrocode}
 % 读取左侧名称字段。
 %    \begin{macrocode}
-    \clist_set:Nx \l_@@_tmpa_clist
-      {
-        \c_@@_def_name_department_tl,
-        \c_@@_def_name_major_tl,
-        \c_@@_def_name_author_tl,
-        \c_@@_def_name_supervisor_tl,
-        \c_@@_def_name_date_tl,
-      }
+      \clist_set:Nx \l_@@_tmpa_clist
+        {
+          \c_@@_def_name_department_tl,
+          \c_@@_def_name_major_tl,
+          \c_@@_def_name_author_tl,
+          \c_@@_def_name_supervisor_tl,
+          \c_@@_def_name_date_tl,
+        }
 %    \end{macrocode}
 % 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
 % \cs{l_@@_tmpb_dim}。
 %    \begin{macrocode}
-    \clist_set:Nx \l_@@_tmpb_clist
-      {
-        { \l_@@_info_department_tl },
-        { \l_@@_info_major_tl      },
-        { \l_@@_info_author_tl     },
-        { \l_@@_info_supervisor_tl },
-        { \l_@@_info_date_tl       }
-      }
-%    \end{macrocode}
-% 在 \env{minipage} 环境中输出各字段。用循环实现。
-%    \begin{macrocode}
-    \begin{minipage} [ c ] { \textwidth }
-      \centering \@@_cover_font_size_normal:
+      \clist_set:Nx \l_@@_tmpb_clist
+        {
+          { \l_@@_info_department_tl },
+          { \l_@@_info_major_tl      },
+          { \l_@@_info_author_tl     },
+          { \l_@@_info_supervisor_tl },
+          { \l_@@_info_date_tl       }
+        }
       \fdu_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
+%    \end{macrocode}
+% 用循环输出各字段。
+%    \begin{macrocode}
       \bool_until_do:nn
         { \clist_if_empty_p:N \l_@@_tmpa_clist }
         {
           \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
           \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
-          \@@_spread_box:VV
-            \c_@@_def_cover_info_left_width_tl \l_@@_tmpa_tl
+          \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
           \c_@@_fullwidth_colon_tl
-          \@@_center_box:VV \l_@@_tmpb_dim \l_@@_tmpb_tl
-          \skip_vertical:n { \c_@@_def_cover_v_sep_vii_tl }
+          \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
+          \skip_vertical:n { 1 ex }
         }
     \end{minipage}
   }
@@ -5161,12 +5130,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     logo     / content     = \@@_cover_logo:,
     type     / content     = \@@_cover_type:,
     degree   / content     = \@@_cover_degree:,
-    title    / content     = \@@_cover_title:,
-    title-en / content     = \@@_cover_title_en:,
+    title    / content     =
+      \@@_fixed_width_center_box:nn
+        { 0.9 \textwidth } { \l_@@_info_title_tl },
+    title-en / content     =
+      \@@_fixed_width_center_box:nn
+        { 0.9 \textwidth } { \l_@@_info_title_en_tl },
     info     / content     = \@@_cover_info:,
     id       / format      = \zihao { -5 },
     type     / format      = \zihao {  2 },
     degree   / format      = \zihao {  4 },
+    title    / format      = \zihao { -2 } \sffamily,
+    title-en / format      =
+      \fdu_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
     id       / bottom-skip = 0 pt plus 1.6 fill,
     logo     / bottom-skip = 0 pt plus 0.3 fill,
     type     / bottom-skip = -18 pt,
@@ -5185,9 +5161,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<class-en>    format              =
 %<class-en>      \fdu_line_spread:N \c_@@_def_line_spread_fp,
     title     / content =
-      \@@_spread_box:VV
-        \c_@@_def_cover_instructors_width_tl
-        \c_@@_def_name_instructors_tl,
+      \@@_spread_box:nn { 7 em } { \c_@@_def_name_instructors_tl },
     name-list / content =
       \clist_use:Nn \l_@@_info_instructors_clist { \par },
     title     / format  = \zihao { 2 } \sffamily,
@@ -5198,9 +5172,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
   {
     format                                =
-%<class>      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
-%<class-en>      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp
-%<class-en>      \dim_set:Nn \parindent { 2 \ccwd },
+%<class>      \fdu_line_spread:n { 1.8 },
+%<class-en>      \fdu_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
     top-skip                              = 0 pt plus 0.2 fill,
     bottom-skip                           = 0 pt plus 2.5 fill,
     originality-decl-name   / content     =
@@ -5216,15 +5189,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     authorization-decl-sig  / content     =
       \@@_cover_signature:N \c_@@_def_authorization_decl_sign_clist,
     originality-decl-name   / format      =
-      \sffamily \zihao { -2 }
-      \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp,
-    originality-decl-text   / format      =
-      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
+      \fdu_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
     authorization-decl-name / format      =
-      \sffamily \zihao { -2 }
-      \fdu_line_spread:N \c_@@_def_cover_title_en_line_spread_fp,
-    authorization-decl-text / format      =
-      \fdu_line_spread:N \c_@@_def_decl_text_line_spread_fp,
+      \fdu_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
     originality-decl-name   / bottom-skip = 0.4 cm,
     originality-decl-text   / bottom-skip = 0.4 cm,
     originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
@@ -6201,79 +6168,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \@@_define_format:nn #1 }
 %    \end{macrocode}
 %
-% \subsubsection{封面}
-%
-% \begin{macro}{\@@_cover_font_size_small:,
-%   \@@_cover_font_size_normal:,
-%   \@@_cover_font_size_large:,
-%   \@@_cover_font_size_huge:}
-% 字号，使用固定值。这里的定义与正文字号有所不同。
-%    \begin{macrocode}
-\cs_new:Npn \@@_cover_font_size_small:  { \zihao { -5 } }
-\cs_new:Npn \@@_cover_font_size_normal: { \zihao {  4 } }
-\cs_new:Npn \@@_cover_font_size_large:  { \zihao { -2 } }
-\cs_new:Npn \@@_cover_font_size_huge:   { \zihao {  2 } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{variable}{\c_@@_def_cover_id_width_tl,
-%   \c_@@_def_cover_id_margin_sep_tl,
-%   \c_@@_def_cover_type_width_tl,
-%   \c_@@_def_cover_title_width_tl,
-%   \c_@@_def_cover_title_en_width_tl,
-%   \c_@@_def_cover_info_left_width_tl,
-%   \c_@@_def_cover_instructors_width_tl}
-% 封面中的一些长度。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_id_width_tl          { 120 bp }
-\tl_const:Nn \c_@@_def_cover_id_margin_sep_tl     { -24 bp }
-\tl_const:Nn \c_@@_def_cover_type_width_tl        { 0.45 \textwidth }
-\tl_const:Nn \c_@@_def_cover_title_width_tl       { 0.9  \textwidth }
-\tl_const:Nn \c_@@_def_cover_title_en_width_tl    { 0.9  \textwidth }
-\tl_const:Nn \c_@@_def_cover_info_left_width_tl   { 6 em }
-\tl_const:Nn \c_@@_def_cover_instructors_width_tl { 7 em }
-%    \end{macrocode}
-% \end{variable}
-%
-% \changes{v0.5}{2017/09/19}{间距使用 \texttt{skip} 表达式，
-%   不再依赖 \tn{stretch}。}
-%
-% \begin{variable}{\c_@@_def_cover_v_sep_vii_tl}
-% 封面中的一些垂直间距，按自上而下的顺序排列。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_cover_v_sep_vii_tl { 1 ex }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_def_cover_title_en_line_spread_fp}
-% 英文标题的行距倍数。
-%    \begin{macrocode}
-\fp_const:Nn \c_@@_def_cover_title_en_line_spread_fp { 1.2 }
-%    \end{macrocode}
-% \end{variable}
-%
 % \subsubsection{声明页}
-%
-% \begin{variable}{\c_@@_def_decl_v_sep_i_tl,
-%   \c_@@_def_decl_v_sep_ii_tl,
-%   \c_@@_def_decl_v_sep_iii_tl,
-%   \c_@@_def_decl_v_sep_iv_tl}
-% 声明页中的一些垂直间距，按自上而下的顺序排列。最后一项是标题与
-% 文本、文本与签名行的间距。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_decl_v_sep_i_tl   { 0 pt plus 0.2 fill }
-\tl_const:Nn \c_@@_def_decl_v_sep_ii_tl  { 0 pt plus 2.5 fill }
-\tl_const:Nn \c_@@_def_decl_v_sep_iii_tl { 0 pt plus 2.5 fill }
-\tl_const:Nn \c_@@_def_decl_v_sep_iv_tl  { 0.8 cm }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_def_decl_text_line_spread_fp}
-% 声明文本的行距倍数。
-%    \begin{macrocode}
-\fp_const:Nn \c_@@_def_decl_text_line_spread_fp { 1.8 }
-%    \end{macrocode}
-% \end{variable}
 %
 % \begin{variable}{\c_@@_def_originality_decl_text_tl}
 % 论文独创性声明。
