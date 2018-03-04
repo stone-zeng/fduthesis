@@ -4500,7 +4500,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 导师姓名。
 %    \begin{macrocode}
     supervisor  .tl_set:N    = \l_@@_info_supervisor_tl,
-    supervisor* .tl_set:N    = \l_@@_info_supervisor_en_tl,
+%   supervisor* .tl_set:N    = \l_@@_info_supervisor_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4515,7 +4515,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 院系。
 %    \begin{macrocode}
     department  .tl_set:N    = \l_@@_info_department_tl,
-    department* .tl_set:N    = \l_@@_info_department_en_tl,
+%   department* .tl_set:N    = \l_@@_info_department_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4523,7 +4523,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 专业。
 %    \begin{macrocode}
     major       .tl_set:N    = \l_@@_info_major_tl,
-    major*      .tl_set:N    = \l_@@_info_major_en_tl,
+%   major*      .tl_set:N    = \l_@@_info_major_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4718,13 +4718,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 这里用 |group| 确保局部变量不会被污染。
 %    \begin{macrocode}
     \group_begin:
-    \clist_set_eq:NN \l_@@_tmpa_clist #2
-    \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
-      {
-        \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
-        \@@_get_text_width:NV \l_@@_tmpa_dim \l_@@_tmpa_tl
-        \dim_gset:Nn #1 { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
-      }
+      \clist_set_eq:NN \l_@@_tmpa_clist #2
+      \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
+        {
+          \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
+          \@@_get_text_width:NV \l_@@_tmpa_dim \l_@@_tmpa_tl
+          \dim_gset:Nn #1 { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
+        }
     \group_end:
   }
 %    \end{macrocode}
@@ -5420,8 +5420,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \c_@@_def_name_notation_en_tl
       }
     \group_begin:
-      \cs_set_eq:NN \arraystretch
-        \c_@@_def_notation_line_stretch_en_tl
+      \cs_set_eq:NN \arraystretch \c_@@_def_notation_line_stretch_en_tl
 %</class-en>
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
