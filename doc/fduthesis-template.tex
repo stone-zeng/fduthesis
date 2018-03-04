@@ -53,67 +53,67 @@
     %> 允许选项：
     %>   font = libertinus|lm|palatino|times|none
     %
-    % cjkfont = fandol,
+    % cjk-font = fandol,
     %> 中文字体
     %> 允许选项：
-    %>   cjkfont = adobe|fandol|founder|mac|windows|none
+    %>   cjk-font = adobe|fandol|founder|mac|windows|none
     %
     %> 注意：
     %>   1. 中文字体设置高度依赖于系统。各系统建议方案：
-    %>        windows：cjkfont = windows
-    %>        mac：    cjkfont = mac
-    %>        linux：  cjkfont = fandol（默认值）
+    %>        windows：cjk-font = windows
+    %>        mac：    cjk-font = mac
+    %>        linux：  cjk-font = fandol（默认值）
     %>   2. 除 fandol 外，其余字体均为商用字体，请注意版权问题
     %>   3. 但 fandol 字体缺字比较严重
     %>   4. 这里中西文字体设置均注释掉了，即使用默认设置：
-    %>        font    = times
-    %>        cjkfont = fandol
-    %>   5. 使用 font = none / cjkfont = none 关闭默认字体设置，需手动进行配置
+    %>        font     = times
+    %>        cjk-font = fandol
+    %>   5. 使用 font = none / cjk-font = none 关闭默认字体设置，需手动进行配置
     %
-    fontsize = 5,
+    font-size = 5,
     %> 字号
     %> 允许选项：
-    %>   fontsize = -4|5
+    %>   font-size = -4|5
     %
-    fullwidthstop = catcode,
+    fullwidth-stop = catcode,
     %> 是否把全角实心句点 “．” 作为默认的句号形状
     %> 允许选项：
-    %>   fullwidthstop = catcode|mapping|false
+    %>   fullwidth-stop = catcode|mapping|false
     %> 解释：
     %>   catcode  【显式】的 “。” 会被替换为 “．”（e.g. 不包括用宏定义保存的 “。”）
     %>   mapping  【所有】的 “。” 会被替换为 “．”（使用 LuaLaTeX 编译则无效）
     %>   false     不进行替换
     %
-    % footnotestyle = pifont,
+    % footnote-style = pifont,
     %> 脚注编号样式
     %> 允许选项：
-    %>   footnotestyle = plain|libertinus|libertinus*|libertinus-sans|
-    %>                   pifont|pifont*|pifont-sans|pifont-sans*|
-    %>                   xits|xits-sans|xits-sans*
+    %>   footnote-style = plain|libertinus|libertinus*|libertinus-sans|
+    %>                    pifont|pifont*|pifont-sans|pifont-sans*|
+    %>                    xits|xits-sans|xits-sans*
     %
     % hyperlink = color,
     %> 超链接样式
     %> 允许选项：
     %>   hyperlink = border|color|none
     %
-    % hyperlinkcolor = default,
+    % hyperlink-color = default,
     %> 超链接颜色
     %> 允许选项：
-    %> hyperlinkcolor = default|classic|elegant|fantasy|material|
-    %>                  business|science|summer|autumn|graylevel|prl
+    %> hyperlink-color = default|classic|elegant|fantasy|material|
+    %>                   business|science|summer|autumn|graylevel|prl
     %
     logo = {../logo/pdf/fudan-name-black.pdf},
     % logo = {fudan-name.pdf},             %> 图片与本文件放在同一目录
     % logo = {figure/fudan-name.pdf},      %> 图片放在 figure/ 目录
     %> 封面中的校名图片
     %
-    % logosize = {0.5\textwidth},      %> 只设置宽度
-    % logosize = {{}, 3cm},            %> 只设置高度
-    % logosize = {8cm, 3cm},           %> 设置宽度和高度
+    % logo-size = {0.5\textwidth},      %> 只设置宽度
+    % logo-size = {{}, 3cm},            %> 只设置高度
+    % logo-size = {8cm, 3cm},           %> 设置宽度和高度
     %> 设置校名图片的大小
     %> 通常不需要调整
     %
-    % automakecover = true
+    % auto-make-cover = true
     %> 是否自动生成论文封面（封一）、指导小组成员名单（封二）和声明页（封三）
     %> 除非特殊需要（e.g. 不要封面），否则不建议设为 false
   },
@@ -148,26 +148,26 @@
     department = {物理系},
     %> 院系
     %
-    studentid = {12300000000},
+    student-id = {12300000000},
     %> 作者学号
     %
     % date = {2018 年 1 月 1 日},
     %> 日期
     %> 注释掉表示使用编译日期
     %
-    % secretlevel = ii,
+    % secret-level = ii,
     %> 密级
     %> 允许选项：
-    %>   secretlevel = none|i|ii|iii
+    %>   secret-level = none|i|ii|iii
     %> 解释：
     %>   none  不显示密级与保密年限
     %>   i     秘密
     %>   ii    机密
     %>   iii   绝密
     %
-    % secretyear = {五年},
+    % secret-year = {五年},
     %> 保密年限
-    %> secretlevel = none 时该选项无效
+    %> secret-level = none 时该选项无效
     %
     instructors = {
       {张\quad 三 \quad 工程师},

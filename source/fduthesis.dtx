@@ -279,6 +279,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.6}{2017/11/29}{添加英文版用户文档。}
 % \changes{v0.7}{2018/01/26}{使用 \pkg{l3build} 进行回归测试。}
 % \changes{v0.7}{2018/01/31}{不再需要 \file{fduthesis-user.def}。}
+% \changes{v0.7}{2018/03/04}{所有选项更改为用连字符隔开的形式。}
 %
 % \CheckSum{0}
 %
@@ -954,9 +955,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! methods:
 %^^A+
 % \begin{latexexample}[morekeywords={\fdusetup},%
-%     emph={[1]style,cjkfont,fontsize,info,title,title*,author,author*,department}]
+%     emph={[1]style,cjk-font,font-size,info,title,title*,author,author*,department}]
 %   \fdusetup{
-%     style = {cjkfont = adobe, fontsize = -4},
+%     style = {cjk-font = adobe, font-size = -4},
 %     info  = {
 %       title      = {关于光产生和转变的一个启发性观点},
 %       title*     = {On a Heuristic Viewpoint Concerning the Production
@@ -972,10 +973,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! or
 %^^A+
 % \begin{latexexample}[morekeywords={\fdusetup},%
-%     emph={[1]style,cjkfont,fontsize,info,title,title*,author,author*,department}]
+%     emph={[1]style,cjk-font,font-size,info,title,title*,author,author*,department}]
 %   \fdusetup{
-%     style/cjkfont   = adobe,
-%     style/fontsize  = -4,
+%     style/cjk-font  = adobe,
+%     style/font-size = -4,
 %     info/title      = {关于光产生和转变的一个启发性观点},
 %     info/title*     = {On a Heuristic Viewpoint Concerning the Production
 %       and Transformation of Light},
@@ -1025,9 +1026,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[rEXP,updated=2017-09-23]{style/cjkfont}
-%   \begin{fdusyntax}[emph={[1]cjkfont}]
-%     cjkfont = (*<adobe|(fandol)|founder|mac|windows|none>*)
+% \begin{function}[rEXP,updated=2017-09-23]{style/cjk-font}
+%   \begin{fdusyntax}[emph={[1]cjk-font}]
+%     cjk-font = (*<adobe|(fandol)|founder|mac|windows|none>*)
 %   \end{fdusyntax}
 %^^A-
 %   设置中文字体。
@@ -1036,19 +1037,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% 启用 \kvopt{font}{none} 或 \kvopt{cjkfont}{none} 之后，模板将关闭
+% 启用 \kvopt{font}{none} 或 \kvopt{cjk-font}{none} 之后，模板将关闭
 % 默认西文 / 中文字体设置。此时，您需要自行使用 \cs{setmainfont}、
 % \cs{setCJKmainfont}、\cs{setmathfont} 等命令来配置字体。
-%^^A! When you choose \kvopt{font}{none} or \kvopt{cjkfont}{none},
+%^^A! When you choose \kvopt{font}{none} or \kvopt{cjk-font}{none},
 %^^A! \cls{fduthesis} will disable the default western/CJK font
 %^^A! settings. You may use \cs{setmainfont}, \cs{setCJKmainfont}
-%^^A! and \cs{setmathfont}, etc.\ to configure the fonts manually.
+%^^A! and \cs{set\-math\-font}, etc.\ to configure the fonts manually.
 %^^A!
 %
 %^^A+
-% \begin{function}{style/fontsize}
-%   \begin{fdusyntax}[emph={[1]fontsize}]
-%     fontsize = (*<(-4)|5>*)
+% \begin{function}{style/font-size}
+%   \begin{fdusyntax}[emph={[1]font-size}]
+%     font-size = (*<(-4)|5>*)
 %   \end{fdusyntax}
 %^^A-
 %   设置论文的基础字号。
@@ -1058,9 +1059,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[rEXP,updated=2017-10-14]{style/fullwidthstop}
-%   \begin{fdusyntax}[emph={[1]fullwidthstop}]
-%     fullwidthstop = (*<catcode|mapping|(false)>*)
+% \begin{function}[rEXP,updated=2017-10-14]{style/fullwidth-stop}
+%   \begin{fdusyntax}[emph={[1]fullwidth-stop}]
+%     fullwidth-stop = (*<catcode|mapping|(false)>*)
 %   \end{fdusyntax}
 %^^A-
 %   选择是否把全角实心句点\FSFW 作为默认的句号形状。
@@ -1073,25 +1074,25 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% 选择 \kvopt{fullwidthstop}{catcode} 或 \opt{mapping} 后，都会实现
+% 选择 \kvopt{fullwidth-stop}{catcode} 或 \opt{mapping} 后，都会实现
 % 上述效果。有所不同的是，在选择 \opt{catcode} 后，只有^^A
 % \emph{显式的}\FSID 会被替换为\FSFW，但在选择 \opt{mapping} 后，
 % \emph{所有的}\FSID 都会被替换。例如，如果您用宏保存了一些含有^^A
 % \FSID 的文字，那么在选择 \opt{catcode} 时，其中的\FSID 不会被
 % 替换为\FSFW。
-%^^A! If you choose \kvopt{fullwidthstop}{catcode}, only
+%^^A! If you choose \kvopt{fullwidth-stop}{catcode}, only
 %^^A! \emph{explicit} ``\FSID'' will be replaced by ``\FSFW''; when
-%^^A! choosing \kvopt{fullwidthstop}{mapping}, however, \emph{all}
+%^^A! choosing \kvopt{fullwidth-stop}{mapping}, however, \emph{all}
 %^^A! the ``\FSID'' will be replaced.
 %^^A!
 %
-% 选项 \kvopt{fullwidthstop}{mapping} 只在 \XeTeX{} 下有效。使用
-% \LuaTeX{} 编译时，该选项相当于 \kvopt{fullwidthstop}{catcode}。
+% 选项 \kvopt{fullwidth-stop}{mapping} 只在 \XeTeX{} 下有效。使用
+% \LuaTeX{} 编译时，该选项相当于 \kvopt{fullwidth-stop}{catcode}。
 %^^A! \opt{mapping} is valid only under \XeTeX{}. When compiling
 %^^A! with \LuaTeX{}, it is equivalent to \opt{catcode}.
 %^^A!
 %
-% 如果您在选择 \kvopt{fullwidthstop}{mapping} 后仍需要临时显示^^A
+% 如果您在选择 \kvopt{fullwidth-stop}{mapping} 后仍需要临时显示^^A
 % \FSID，可以按如下方法操作：
 % \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
 %   % 请使用 XeTeX 编译
@@ -1099,7 +1100,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   这是一个句号{\CJKfontspec{(*\meta{字体名}*)}[Mapping=full-stop]。}
 % \end{latexexample}
 %^^A! If you want to display ``\FSID'' temporarily after setting
-%^^A! \kvopt{fullwidthstop}{mapping}, the following code snippet
+%^^A! \kvopt{fullwidth-stop}{mapping}, the following code snippet
 %^^A! will be helpful:
 %^^A! \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
 %^^A!   % Compiled with XeTeX
@@ -1108,26 +1109,26 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{latexexample}
 %^^A!
 %
-% \begin{function}{style/footnotestyle}
+% \begin{function}{style/footnote-style}
 %^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
 %^^A 空格，因此这里用 X 来占位。
-%   \begin{fdusyntax}[emph={[1]footnotestyle}]
-%     footnotestyle = (*<plain|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%   \begin{fdusyntax}[emph={[1]footnote-style}]
+%     footnote-style = (*<plain|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
 %   \end{fdusyntax}
 %   设置脚注编号样式。西文字体设置会影响其默认取值（见
 %   表~\ref{tab:footnote-font}）。因此，要使得该选项生效，需将其
 %   放置在 \opt{font} 选项之后。带有 |sans| 的为相应的无衬线字体
 %   版本；带有 |*| 的为阴文样式（即黑底白字）。
 % \end{function}
-%^^A! \begin{function}{style/footnotestyle}
-%^^A!   \begin{fdusyntax}[emph={[1]footnotestyle}]
-%^^A!     footnotestyle = (*<plain|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%^^A! \begin{function}{style/footnote-style}
+%^^A!   \begin{fdusyntax}[emph={[1]footnote-style}]
+%^^A!     footnote-style = (*<plain|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
 %^^A!   \end{fdusyntax}
 %^^A!   Set the style of footnote numbers. Note that western fonts
 %^^A!   will affect its default value (see table~\ref{tab:footnote-font}),
@@ -1153,7 +1154,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{table}
 %^^A! \begin{table}[ht]
 %^^A!   \caption{Relationship between option \opt{font} and the
-%^^A!     default value of \opt{footnotestyle}}
+%^^A!     default value of \opt{footnote-style}}
 %^^A!   \label{tab:footnote-font}
 %^^A!   \centering
 %^^A!   \begin{tabular}{ccccc}
@@ -1185,18 +1186,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlinkcolor}
-%   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
-%     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+% \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlink-color}
+%   \begin{fdusyntax}[emph={[1]hyperlink-color}]
+%     hyperlink-color = (*<(default)|classic|elegant|fantasy|material|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
 %   \end{fdusyntax}
 %   设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
 %   各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
 % \end{function}
-%^^A! \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlinkcolor}
-%^^A!   \begin{fdusyntax}[emph={[1]hyperlinkcolor}]
-%^^A!     hyperlinkcolor = (*<(default)|classic|elegant|fantasy|material|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%^^A! \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlink-color}
+%^^A!   \begin{fdusyntax}[emph={[1]hyperlink-color}]
+%^^A!     hyperlink-color = (*<(default)|classic|elegant|fantasy|material|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
 %^^A!   \end{fdusyntax}
 %^^A!   Set the color of hyperlinks. It is invalid if
 %^^A!   \kvopt{hyperlink}{none}. The related colors can be found
@@ -1277,9 +1278,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[added=2018-01-25]{style/bibbackend}
-%   \begin{fdusyntax}[emph={[1]bibbackend}]
-%     bibbackend = (*<bibtex|biblatex>*)
+% \begin{function}[added=2018-01-25]{style/bib-backend}
+%   \begin{fdusyntax}[emph={[1]bib-backend}]
+%     bib-backend = (*<bibtex|biblatex>*)
 %   \end{fdusyntax}
 %^^A-
 %   选择参考文献的支持方式。选择 \opt{bibtex} 后，将使用 \BibTeX{}
@@ -1294,66 +1295,66 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 % \begin{function}[added=2017-10-28,updated=2018-01-25]^^A
-%     {style/bibstyle}
-%   \begin{fdusyntax}[emph={[1]bibstyle}]
-%     bibstyle = (*<authoryear|(numerical)|\meta{其他样式}>*)
+%     {style/bib-style}
+%   \begin{fdusyntax}[emph={[1]bib-style}]
+%     bib-style = (*<author-year|(numerical)|\meta{其他样式}>*)
 %   \end{fdusyntax}
-%   设置参考文献样式。\opt{authoryear} 和 \opt{numerical} 分别对应
+%   设置参考文献样式。\opt{author-year} 和 \opt{numerical} 分别对应
 %   国家标准 GB/T 7714--2015 \scite{gb-t-7714-2015} 中的著者—出版年制
-%   和顺序编码制。选择 \meta{其他样式} 时，如果 \kvopt{bibbackend}^^A
+%   和顺序编码制。选择 \meta{其他样式} 时，如果 \kvopt{bib-backend}^^A
 %   {bibtex}，需保证相应的 \file{.bst} 格式文件能被调用；而如果
-%   \kvopt{bibbackend}{biblatex}，则需保证相应的 \file{.bbx} 格式文件
+%   \kvopt{bib-backend}{biblatex}，则需保证相应的 \file{.bbx} 格式文件
 %   能被调用。
 % \end{function}
 %^^A! \begin{function}[added=2017-10-28,updated=2018-01-25]%
-%^^A!     {style/bibstyle}
-%^^A!   \begin{fdusyntax}[emph={[1]bibstyle}]
-%^^A!     bibstyle = (*<authoryear|(numerical)|\meta{other style}>*)
+%^^A!     {style/bib-style}
+%^^A!   \begin{fdusyntax}[emph={[1]bib-style}]
+%^^A!     bib-style = (*<author-year|(numerical)|\meta{other style}>*)
 %^^A!   \end{fdusyntax}
-%^^A!   Set the style of bibliography. \opt{authoryear} and
+%^^A!   Set the style of bibliography. \opt{author-year} and
 %^^A!   \opt{numerical} will follow the standard GB/T 7714--2015.
-%^^A!   By setting \kvopt{bibstyle}{\meta{other style}}, you can use
+%^^A!   By setting \kvopt{bib-style}{\meta{other style}}, you can use
 %^^A!   other bibliography style (\file{.bst} file for
-%^^A!   \kvopt{bibbackend}{bibtex} and \file{.bbx} file for
-%^^A!   \kvopt{bibbackend}{biblatex}). Suffix is not needed.
+%^^A!   \kvopt{bib-backend}{bibtex} and \file{.bbx} file for
+%^^A!   \kvopt{bib-backend}{biblatex}). Suffix is not needed.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2018-01-25]{style/citestyle}
-%   \begin{fdusyntax}[emph={[1]citestyle}]
-%     citestyle = (*\marg{引用样式}*)
+% \begin{function}[added=2018-01-25]{style/cite-style}
+%   \begin{fdusyntax}[emph={[1]cite-style}]
+%     cite-style = (*\marg{引用样式}*)
 %   \end{fdusyntax}
 %   选择引用格式。默认为空，即与参考文献样式（著者—出版年制或顺序
 %   编码制）保持一致。如果手动填写，需保证相应的 \file{.cbx} 格式文件
-%   能被调用。该选项在 \kvopt{bibbackend}{bibtex} 时无效。
+%   能被调用。该选项在 \kvopt{bib-backend}{bibtex} 时无效。
 % \end{function}
-%^^A! \begin{function}[added=2018-01-25]{style/citestyle}
-%^^A!   \begin{fdusyntax}[emph={[1]citestyle}]
-%^^A!     citestyle = (*\marg{style}*)
+%^^A! \begin{function}[added=2018-01-25]{style/cite-style}
+%^^A!   \begin{fdusyntax}[emph={[1]cite-style}]
+%^^A!     cite-style = (*\marg{style}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Select citation style. Default value is empty, which means
 %^^A!   the citation style will follow your bibliography style
 %^^A!   (author-year or numeric). If you want change the citation
 %^^A!   style, the corresponding \file{.cbx} file must be available.
-%^^A!   This option is invalid when \kvopt{bibbackend}{bibtex}.
+%^^A!   This option is invalid when \kvopt{bib-backend}{bibtex}.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2018-01-25]{style/bibresource}
-%   \begin{fdusyntax}[emph={[1]bibresource}]
-%     bibresource = (*\marg{文件}*)
+% \begin{function}[added=2018-01-25]{style/bib-resource}
+%   \begin{fdusyntax}[emph={[1]bib-resource}]
+%     bib-resource = (*\marg{文件}*)
 %   \end{fdusyntax}
 %   参考文献数据源。可以是单个文件，也可以是用英文逗号隔开的一组文件。
-%   如果 \kvopt{bibbackend}{biblatex}，则必须明确给出 \file{.bib}
+%   如果 \kvopt{bib-backend}{biblatex}，则必须明确给出 \file{.bib}
 %   后缀名。
 % \end{function}
-%^^A! \begin{function}[added=2018-01-25]{style/bibresource}
-%^^A!   \begin{fdusyntax}[emph={[1]bibresource}]
-%^^A!     bibresource = (*\marg{bib file(s)}*)
+%^^A! \begin{function}[added=2018-01-25]{style/bib-resource}
+%^^A!   \begin{fdusyntax}[emph={[1]bib-resource}]
+%^^A!     bib-resource = (*\marg{bib file(s)}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Specify the bibliography database (usually in \file{.bib}
 %^^A!   format). If using more than one files, the file names should
-%^^A!   be separated with comma. When \kvopt{bibbackend}{biblatex},
+%^^A!   be separated with comma. When \kvopt{bib-backend}{biblatex},
 %^^A!   you must type in the ``\file{.bib}'' suffix.
 %^^A! \end{function}
 %^^A!
@@ -1373,18 +1374,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2017-08-10]{style/logosize}
-%   \begin{fdusyntax}[emph={[1]logosize}]
-%     logosize = (*\marg{宽度}*)
-%     logosize = {(*\meta{宽度}*), (*\meta{高度}*)}
+% \begin{function}[added=2017-08-10]{style/logo-size}
+%   \begin{fdusyntax}[emph={[1]logo-size}]
+%     logo-size = (*\marg{宽度}*)
+%     logo-size = {(*\meta{宽度}*), (*\meta{高度}*)}
 %   \end{fdusyntax}
 %   校名图片的大小。默认仅指定了宽度，为 |0.5\textwidth|\/。
 %   如果仅需指定高度，可在 \meta{宽度} 处填入一个空的分组 |{}|。
 % \end{function}
-%^^A! \begin{function}[added=2017-08-10]{style/logosize}
-%^^A!   \begin{fdusyntax}[emph={[1]logosize}]
-%^^A!     logosize = (*\marg{width}*)
-%^^A!     logosize = {(*\meta{width}*), (*\meta{height}*)}
+%^^A! \begin{function}[added=2017-08-10]{style/logo-size}
+%^^A!   \begin{fdusyntax}[emph={[1]logo-size}]
+%^^A!     logo-size = (*\marg{width}*)
+%^^A!     logo-size = {(*\meta{width}*), (*\meta{height}*)}
 %^^A!   \end{fdusyntax}
 %^^A!   Size of the logo. By default, only width is set to
 %^^A!   |0.5\textwidth|. To set height only, you can put an
@@ -1393,9 +1394,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[added=2017-07-06]{style/automakecover}
-%   \begin{fdusyntax}[emph={[1]automakecover}]
-%     automakecover = (*<\TTF>*)
+% \begin{function}[added=2017-07-06]{style/auto-make-cover}
+%   \begin{fdusyntax}[emph={[1]auto-make-cover}]
+%     auto-make-cover = (*<\TTF>*)
 %   \end{fdusyntax}
 %^^A-
 %   是否自动生成论文封面（封一）、指导小组成员名单（封二）和
@@ -1536,15 +1537,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{info/studentid}
-%   \begin{fdusyntax}[emph={[1]studentid}]
-%     studentid = (*\marg{数字}*)
+% \begin{function}{info/student-id}
+%   \begin{fdusyntax}[emph={[1]student-id}]
+%     student-id = (*\marg{数字}*)
 %   \end{fdusyntax}
 %   作者学号。
 % \end{function}
-%^^A! \begin{function}{info/studentid}
-%^^A!   \begin{fdusyntax}[emph={[1]studentid}]
-%^^A!     studentid = (*\marg{number}*)
+%^^A! \begin{function}{info/student-id}
+%^^A!   \begin{fdusyntax}[emph={[1]student-id}]
+%^^A!     student-id = (*\marg{number}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Author's student ID.
 %^^A! \end{function}
@@ -1560,15 +1561,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! serial number.
 %^^A!
 %
-% \begin{function}{info/schoolid}
-%   \begin{fdusyntax}[emph={[1]schoolid}]
-%     schoolid = (*\marg{数字}*)
+% \begin{function}{info/school-id}
+%   \begin{fdusyntax}[emph={[1]school-id}]
+%     school-id = (*\marg{数字}*)
 %   \end{fdusyntax}
 %   学校代码。默认值为 10246（这是复旦大学的学校代码）。
 % \end{function}
-%^^A! \begin{function}{info/schoolid}
-%^^A!   \begin{fdusyntax}[emph={[1]schoolid}]
-%^^A!     schoolid = (*\marg{number}*)
+%^^A! \begin{function}{info/school-id}
+%^^A!   \begin{fdusyntax}[emph={[1]school-id}]
+%^^A!     school-id = (*\marg{number}*)
 %^^A!   \end{fdusyntax}
 %^^A!   School ID. Default value is 10246 (school ID of Fudan University).
 %^^A! \end{function}
@@ -1590,9 +1591,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[added=2017-07-04]{info/secretlevel}
-%   \begin{fdusyntax}[emph={[1]secretlevel}]
-%     secretlevel = (*<(none)|i|ii|iii>*)
+% \begin{function}[added=2017-07-04]{info/secret-level}
+%   \begin{fdusyntax}[emph={[1]secret-level}]
+%     secret-level = (*<(none)|i|ii|iii>*)
 %   \end{fdusyntax}
 %^^A-
 %   密级。\opt{i}、\opt{ii}、\opt{iii} 分别表示秘密、机密、绝密；
@@ -1606,20 +1607,20 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2017-07-04]{info/secretyear}
-%   \begin{fdusyntax}[emph={[1]secretyear}]
-%     secretyear = (*\marg{年限}*)
+% \begin{function}[added=2017-07-04]{info/secret-year}
+%   \begin{fdusyntax}[emph={[1]secret-year}]
+%     secret-year = (*\marg{年限}*)
 %   \end{fdusyntax}
 %   保密年限。建议您使用中文，如“五年”。该选项在设置
-%   \kvopt{secretlevel}{none} 时无效。
+%   \kvopt{secret-level}{none} 时无效。
 % \end{function}
-%^^A! \begin{function}[added=2017-07-04]{info/secretyear}
-%^^A!   \begin{fdusyntax}[emph={[1]secretyear}]
-%^^A!     secretyear = (*\marg{year}*)
+%^^A! \begin{function}[added=2017-07-04]{info/secret-year}
+%^^A!   \begin{fdusyntax}[emph={[1]secret-year}]
+%^^A!     secret-year = (*\marg{year}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Secret year. It's recommended to use Chinese word as ``五年''
 %^^A!   (5 years) here. This option is invalid if you have set
-%^^A!   \kvopt{secretlevel}{none}.
+%^^A!   \kvopt{secret-level}{none}.
 %^^A! \end{function}
 %^^A!
 %
@@ -1821,7 +1822,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       morekeywords={\footnote}]
 %     \footnote(*\marg{脚注文字}*)
 %   \end{fdusyntax}
-%   插入脚注。脚注编号样式可利用 \opt{style/footnotestyle} 选项控制，
+%   插入脚注。脚注编号样式可利用 \opt{style/footnote-style} 选项控制，
 %   具体见 \ref{subsubsec:论文格式}~小节。
 % \end{function}
 %^^A! \begin{function}[updated=2018-01-15]{\footnote}
@@ -1956,16 +1957,16 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{theorem/headerfont}
-%   \begin{fdusyntax}[emph={[1]headerfont}]
-%     headerfont = (*\marg{字体}*)
+% \begin{function}{theorem/header-font}
+%   \begin{fdusyntax}[emph={[1]header-font}]
+%     header-font = (*\marg{字体}*)
 %   \end{fdusyntax}
 %   定理头（即标题）的字体。中文模板默认为 \tn{sffamily}，即无衬线体
 %   （黑体）；英文模板默认为 |\bfseries\upshape|，即加粗直立体。
 % \end{function}
-%^^A! \begin{function}{theorem/headerfont}
-%^^A!   \begin{fdusyntax}[emph={[1]headerfont}]
-%^^A!     headerfont = (*\marg{font}*)
+%^^A! \begin{function}{theorem/header-font}
+%^^A!   \begin{fdusyntax}[emph={[1]header-font}]
+%^^A!     header-font = (*\marg{font}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Font of the theorem header. Default value is \tn{sffamily}
 %^^A!   and |\bfseries\upshape| for Chinese and English template,
@@ -1973,16 +1974,16 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}{theorem/bodyfont}
-%   \begin{fdusyntax}[emph={[1]bodyfont}]
-%     bodyfont = (*\marg{字体}*)
+% \begin{function}{theorem/body-font}
+%   \begin{fdusyntax}[emph={[1]body-font}]
+%     body-font = (*\marg{字体}*)
 %   \end{fdusyntax}
 %   定理内容的字体。中文模板默认为 \tn{fdu@kai}，即楷体；英文模板
 %   默认为 \tn{itshape}，即斜体。
 % \end{function}
-%^^A! \begin{function}{theorem/bodyfont}
-%^^A!   \begin{fdusyntax}[emph={[1]bodyfont}]
-%^^A!     bodyfont = (*\marg{font}*)
+%^^A! \begin{function}{theorem/body-font}
+%^^A!   \begin{fdusyntax}[emph={[1]body-font}]
+%^^A!     body-font = (*\marg{font}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Font of the theorem body. Default value is \tn{fdu@kai}
 %^^A!   (\textit{楷体}) and \tn{itshape} for Chinese and English
@@ -2082,10 +2083,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \begin{fdusyntax}[morekeywords={\printbibliography}]
 %     \printbibliography(*\oarg{选项}*)
 %   \end{fdusyntax}
-%   打印参考文献列表。如果 \kvopt{bibbackend}{bibtex}，则 \meta{选项}
+%   打印参考文献列表。如果 \kvopt{bib-backend}{bibtex}，则 \meta{选项}
 %   无效，相当于 \tn{bibliography} \texttt{\marg{文献数据库}}，其中的
-%   \meta{文献数据库} 可利用 \opt{style/bibresource} 选项指定，具体见
-%   \ref{subsubsec:论文格式}~小节；而如果 \kvopt{bibbackend}^^A
+%   \meta{文献数据库} 可利用 \opt{style/bib-resource} 选项指定，具体见
+%   \ref{subsubsec:论文格式}~小节；而如果 \kvopt{bib-backend}^^A
 %   {biblatex}，则该命令由 \pkg{biblatex} 宏包直接提供，可用选项请
 %   参阅其文档 \cite{biblatex}。
 % \end{function}
@@ -2093,12 +2094,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   \begin{fdusyntax}[morekeywords={\printbibliography}]
 %^^A!     \printbibliography(*\oarg{options}*)
 %^^A!   \end{fdusyntax}
-%^^A!   Print the bibliography. When \kvopt{bibbackend}{bibtex}, then
+%^^A!   Print the bibliography. When \kvopt{bib-backend}{bibtex}, then
 %^^A!   \meta{options} is invalid and this command is equivalent to
 %^^A!   \tn{bibliography} \texttt{\marg{bib files}}, where
 %^^A!   \meta{bib files} should be specified with option
-%^^A!   \opt{style/bibresource} (see subsubsection~%
-%^^A!   \ref{subsubsec:style-and-format}). When \kvopt{bibbackend}%
+%^^A!   \opt{style/bib-resource} (see subsubsection~%
+%^^A!   \ref{subsubsec:style-and-format}). When \kvopt{bib-backend}%
 %^^A!   {bibtex}, then \tn{printbibliography} is provided by
 %^^A!   \pkg{biblatex} and the available options can be found in its
 %^^A!   documentation.
@@ -2136,12 +2137,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       \item \pkg{xcolor}，提供彩色支持。
 %       \item \pkg{hyperref}，提供交叉引用、超链接、电子书签等功能。
 %     \end{itemize}
-%   \item 开启 \kvopt{style/footnotestyle}{pifont} 后，会调用
+%   \item 开启 \kvopt{style/footnote-style}{pifont} 后，会调用
 %     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
-%   \item 开启 \kvopt{style/bibbackend}{bibtex} 后，会调用
+%   \item 开启 \kvopt{style/bib-backend}{bibtex} 后，会调用
 %     \pkg{natbib} 宏包，并依赖 \BibTeX{} 程序。参考文献样式由
 %     \pkg{gbt7714} 宏包提供 \scite{natbib,bibtex-gb7714-2015}。
-%   \item 开启 \kvopt{style/bibbackend}{biblatex} 后，会调用
+%   \item 开启 \kvopt{style/bib-backend}{biblatex} 后，会调用
 %     \pkg{biblatex} 宏包，并依赖 \biber{} 程序。参考文献样式由
 %     \pkg{biblatex-gb7714-2015} 宏包提供
 %     \scite{biblatex,biblatex-gb7714-2015}。
@@ -2169,13 +2170,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \item \pkg{xcolor}
 %^^A!       \item \pkg{hyperref}
 %^^A!     \end{itemize}
-%^^A!   \item When chosen \kvopt{style/footnotestyle}{pifont},
+%^^A!   \item When chosen \kvopt{style/footnote-style}{pifont},
 %^^A!     package \pkg{pifont} will be loaded. It belongs to
 %^^A!     \pkg{psnfss} bundle.
-%^^A!   \item When chosen \kvopt{style/bibbackend}{bibtex},
+%^^A!   \item When chosen \kvopt{style/bib-backend}{bibtex},
 %^^A!     package \pkg{natbib} will be loaded. Meanwhile, program
 %^^A!     \BibTeX{} will be required for compilation.
-%^^A!   \item When chosen \kvopt{style/bibbackend}{biblatex},
+%^^A!   \item When chosen \kvopt{style/bib-backend}{biblatex},
 %^^A!     package \pkg{biblatex} will be loaded. Program \biber{}
 %^^A!     will be required then.
 %^^A! \end{itemize}
@@ -2923,7 +2924,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
         \fdu_choose_font:nn { math } { Libertinus~ Math  }
-        \keys_set:nn { fdu / style } { footnotestyle = libertinus }
+        \keys_set:nn { fdu / style } { footnote-style = libertinus }
       },
 %    \end{macrocode}
 % Latin Modern 系列。
@@ -2934,7 +2935,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \fdu_choose_font:nn { sans } { Latin~ Modern~ Sans  }
         \fdu_choose_font:nn { mono } { Latin~ Modern~ Mono  }
         \fdu_choose_font:nn { math } { Latin~ Modern~ Math  }
-        \keys_set:nn { fdu / style } { footnotestyle = pifont }
+        \keys_set:nn { fdu / style } { footnote-style = pifont }
       },
 %    \end{macrocode}
 % Palatino 系列。
@@ -2946,7 +2947,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
         \fdu_choose_font:nn { math } { TeX~ Gyre~ Pagella~ Math }
-        \keys_set:nn { fdu / style } { footnotestyle = pifont }
+        \keys_set:nn { fdu / style } { footnote-style = pifont }
       },
 %    \end{macrocode}
 % \changes{v0.6}{2017/11/11}{额外处理 XITS 字体的小型大写字母。}
@@ -2977,7 +2978,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
         \fdu_choose_font:nn { math } { XITS~ Math        }
-        \keys_set:nn { fdu / style } { footnotestyle = xits }
+        \keys_set:nn { fdu / style } { footnote-style = xits }
       },
 %    \end{macrocode}
 % \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
@@ -2989,21 +2990,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           { main, sans, mono, math }
         \@@_initialize_prop:Nn \g_@@_font_options_prop
           { main, sans, mono, math }
-        \keys_set:nn { fdu / style } { footnotestyle = plain }
+        \keys_set:nn { fdu / style } { footnote-style = plain }
 %<*class>
       },
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{style/cjkfont}
+% \begin{macro}{style/cjk-font}
 % 预定义中文（CJK）字体。Adobe 和中易系列没有粗宋体。
 %    \begin{macrocode}
-    cjkfont .choice:,
-    cjkfont .value_required:n = true,
+    cjk-font .choice:,
+    cjk-font .value_required:n = true,
 %    \end{macrocode}
 % Adobe 系列。
 %    \begin{macrocode}
-    cjkfont / adobe .code:n =
+    cjk-font / adobe .code:n =
       {
         \fdu_choose_cjk_font:nn { song } { Adobe~ Song~     Std }
         \fdu_choose_cjk_font:nn { hei  } { Adobe~ Heiti~    Std }
@@ -3013,7 +3014,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % Fandol 系列。
 %    \begin{macrocode}
-    cjkfont / fandol .code:n =
+    cjk-font / fandol .code:n =
       {
         \fdu_choose_cjk_font_with_option:nnn { song }
           { FandolSong } { BoldFont = FandolSong~ Bold }
@@ -3024,7 +3025,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 方正系列。
 %    \begin{macrocode}
-    cjkfont / founder .code:n =
+    cjk-font / founder .code:n =
       {
         \fdu_choose_cjk_font_with_option:nnn { song }
           { FZShuSong-Z01 } { BoldFont = FZXiaoBiaoSong-B05 }
@@ -3035,7 +3036,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % Mac （华文）系列。
 %    \begin{macrocode}
-    cjkfont / mac .code:n =
+    cjk-font / mac .code:n =
       {
         \fdu_choose_cjk_font_with_option:nnn { song }
           { STSong } { BoldFont = STZhongsong }
@@ -3046,7 +3047,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % Windows （中易）系列。
 %    \begin{macrocode}
-    cjkfont / windows .code:n =
+    cjk-font / windows .code:n =
       {
         \fdu_choose_cjk_font:nn { song } { SimSun   }
         \fdu_choose_cjk_font:nn { hei  } { SimHei   }
@@ -3054,10 +3055,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
       },
 %    \end{macrocode}
-% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjkfont}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjk-font}{none} 选项。}
 % 不设置中文字体。
 %    \begin{macrocode}
-    cjkfont / none .code:n =
+    cjk-font / none .code:n =
       {
         \@@_initialize_prop:Nn \g_@@_cjk_font_name_prop
           { rm, sf, tt, kai }
@@ -3516,7 +3517,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \@@_msg_new:nn { cjk-font-not-defined }
   {
     CJK~ font~ family~ "#1"~ is~ not~ defined. \\\\
-    You~ can~ set~ option~ "cjkfont"~ via~ "\string\fdusetup",~
+    You~ can~ set~ option~ "cjk-font"~ via~ "\string\fdusetup",~
     or~ use~ commands~ \\
     "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
     "\string\setCJKmonofont",~ etc~ \\
@@ -3639,13 +3640,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %    \end{macrocode}
 %
-% \begin{macro}{style/fontsize}
-% |fontsize| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
+% \begin{macro}{style/font-size}
+% |font-size| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
 % 只能手动重定义字号命令。
 %    \begin{macrocode}
-    fontsize .choice:,
-    fontsize .value_required:n = true,
-    fontsize / -4 .code:n = { },
+    font-size .choice:,
+    font-size .value_required:n = true,
+    font-size / -4 .code:n = { },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3653,7 +3654,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \normalsize,\large,\Large,\LARGE,\huge,\Huge}
 % 默认使用小四号字，所以只有五号字需要重新设置。
 %    \begin{macrocode}
-    fontsize /  5 .code:n =
+    font-size /  5 .code:n =
       {
         \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
         \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
@@ -3674,16 +3675,16 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{句号}
 %
-% \begin{macro}{style/fullwidthstop}
+% \begin{macro}{style/fullwidth-stop}
 % \changes{v0.6}{2017/10/14}{支持类别码和 TECKit 映射两种机制。}
 % 设置句号形状（圆圈或是圆点）。
 %    \begin{macrocode}
-    fullwidthstop .choice:,
-    fullwidthstop .value_required:n = true,
+    fullwidth-stop .choice:,
+    fullwidth-stop .value_required:n = true,
 %    \end{macrocode}
 % 利用类别码机制切换，只有显式的\FSID 会被替换。
 %    \begin{macrocode}
-    fullwidthstop / catcode .code:n =
+    fullwidth-stop / catcode .code:n =
       { \@@_set_fullwidth_stop_catcode: },
 %    \end{macrocode}
 % 利用 TECKit 映射机制切换，相当于设置了 \tn{defaultCJKfontfeatures}
@@ -3691,7 +3692,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 替换所有出现的\FSID，并且将影响所有字体。只在 \XeTeX{}
 % 下可用。
 %    \begin{macrocode}
-    fullwidthstop / mapping .code:n =
+    fullwidth-stop / mapping .code:n =
       {
         \sys_if_engine_xetex:TF
           {
@@ -3709,7 +3710,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
               }
           }
       },
-    fullwidthstop / false .code:n = { }
+    fullwidth-stop / false .code:n = { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3718,8 +3719,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \@@_msg_new:nn { mapping-not-available }
   {
-    Option~ "fullwidthstop = mapping"~ is~ not~ available~ in~ LuaTeX. \\
-    "fullwidthstop = catcode"~ will~ be~ set~ instead.
+    Option~ "fullwidth-stop = mapping"~ is~ not~ available~ in~ LuaTeX. \\
+    "fullwidth-stop = catcode"~ will~ be~ set~ instead.
   }
 %    \end{macrocode}
 %
@@ -3927,7 +3928,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %    \end{macrocode}
 %
-% \begin{macro}{style/footnotestyle}
+% \begin{macro}{style/footnote-style}
 % 脚注类型共分四大类：
 % \begin{itemize}
 %   \item \opt{plain}：使用当前字体；
@@ -3939,7 +3940,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，带“|*|”的
 % 为阴文版本。
 %    \begin{macrocode}
-    footnotestyle .choices:nn =
+    footnote-style .choices:nn =
       {
         plain,
         libertinus, libertinus*, libertinus-sans,
@@ -3955,7 +3956,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \int_compare:nT { 5 <= \l_keys_choice_int <= 8 }
           { \RequirePackage { pifont } }
       },
-    footnotestyle .value_required:n = true
+    footnote-style .value_required:n = true
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4189,19 +4190,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{variable}
 %
 % \begin{macro}{theorem/style,
-%   theorem/headerfont,
-%   theorem/bodyfont,
+%   theorem/header-font,
+%   theorem/body-font,
 %   theorem/qed,
 %   theorem/counter}
 % 定义 |fdu/theorem| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / theorem }
   {
-    style      .tl_set:N  = \l_@@_thm_style_tl,
-    headerfont .tl_set:N  = \l_@@_thm_header_font_tl,
-    bodyfont   .tl_set:N  = \l_@@_thm_body_font_tl,
-    qed        .tl_set:N  = \l_@@_thm_qed_tl,
-    counter    .tl_set:N  = \l_@@_thm_counter_tl
+    style       .tl_set:N  = \l_@@_thm_style_tl,
+    header-font .tl_set:N  = \l_@@_thm_header_font_tl,
+    body-font   .tl_set:N  = \l_@@_thm_body_font_tl,
+    qed         .tl_set:N  = \l_@@_thm_qed_tl,
+    counter     .tl_set:N  = \l_@@_thm_counter_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4526,17 +4527,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/studentid}
+% \begin{macro}{info/student-id}
 % 学号。
 %    \begin{macrocode}
-    studentid   .tl_set:N    = \l_@@_info_student_id_tl,
+    student-id  .tl_set:N    = \l_@@_info_student_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/schoolid}
+% \begin{macro}{info/school-id}
 % 学校代码。
 %    \begin{macrocode}
-    schoolid    .tl_set:N    = \l_@@_info_school_id_tl,
+    school-id   .tl_set:N    = \l_@@_info_school_id_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4557,7 +4558,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \changes{v0.4}{2017/08/10}{新增 \opt{style/logo} 与
-%   \opt{style/logosize} 选项。}
+%   \opt{style/logo-size} 选项。}
 %
 % \begin{variable}{\l_@@_cover_logo_tl,\l_@@_cover_logo_size_clist}
 %    \begin{macrocode}
@@ -4566,21 +4567,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}{style/logo,style/logosize}
+% \begin{macro}{style/logo,style/logo-size}
 % 校名图片的文件名和尺寸。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
-    logo     .tl_set:N    = \l_@@_cover_logo_tl,
-    logosize .clist_set:N = \l_@@_cover_logo_size_clist
+    logo      .tl_set:N    = \l_@@_cover_logo_tl,
+    logo-size .clist_set:N = \l_@@_cover_logo_size_clist
   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{密级}
 %
-% \changes{v0.3}{2017/07/04}{新增 \opt{info/secretlevel} 与
-%   \opt{info/secretyear} 选项。}
+% \changes{v0.3}{2017/07/04}{新增 \opt{info/secret-level} 与
+%   \opt{info/secret-year} 选项。}
 %
 % \begin{variable}{\l_@@_secret_bool}
 % 是否显示密级。
@@ -4601,12 +4602,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %    \end{macrocode}
 %
-% \begin{macro}{info/secretlevel}
+% \begin{macro}{info/secret-level}
 % \changes{v0.6}{2017/11/11}{不再依赖 XITS-Math 字体。}
 % 密级。\opt{none} 表示不涉密，\opt{i}、\opt{ii}、\opt{iii} 分别为
 % 秘密、机密、绝密。
 %    \begin{macrocode}
-    secretlevel .choices:nn  =
+    secret-level .choices:nn  =
       { none, i, ii, iii }
       {
         \int_compare:nTF
@@ -4621,14 +4622,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           }
           { \bool_set_false:N \l_@@_secret_bool }
       },
-    secretlevel .value_required:n = true,
+    secret-level .value_required:n = true,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/secretyear}
+% \begin{macro}{info/secret-year}
 % 保密年限。
 %    \begin{macrocode}
-    secretyear .tl_set:N = \l_@@_info_secret_year_tl
+    secret-year  .tl_set:N = \l_@@_info_secret_year_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5204,15 +5205,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \begin{macro}{style/automakecover}
+% \begin{macro}{style/auto-make-cover}
 % \begin{variable}{\l_@@_auto_make_cover_bool}
 % 是否自动生成封面。
 %    \begin{macrocode}
 \bool_new:N \l_@@_auto_make_cover_bool
 \keys_define:nn { fdu / style }
   {
-    automakecover .bool_set:N = \l_@@_auto_make_cover_bool,
-    automakecover .default:n  = true
+    auto-make-cover .bool_set:N = \l_@@_auto_make_cover_bool,
+    auto-make-cover .default:n  = true
   }
 %    \end{macrocode}
 % \end{variable}
@@ -5464,51 +5465,51 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \changes{v0.6}{2017/10/28}{新增 \opt{style/bibstyle} 选项。}
-% \changes{v0.7}{2018/01/25}{新增 \opt{style/bibbackend}、
-%   \opt{style/citestyle} 和 \opt{style/bibresource} 选项。}
+% \changes{v0.6}{2017/10/28}{新增 \opt{style/bib-style} 选项。}
+% \changes{v0.7}{2018/01/25}{新增 \opt{style/bib-backend}、
+%   \opt{style/cite-style} 和 \opt{style/bib-resource} 选项。}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
 %    \end{macrocode}
 %
-% \begin{macro}{style/bibbackend}
+% \begin{macro}{style/bib-backend}
 % 参考文献后端。
 %    \begin{macrocode}
-    bibbackend .choice:,
-    bibbackend .value_required:n = true,
-    bibbackend / bibtex   .code:n =
+    bib-backend .choice:,
+    bib-backend .value_required:n = true,
+    bib-backend / bibtex   .code:n =
       { \bool_set_true:N  \l_@@_bibtex_bool },
-    bibbackend / biblatex .code:n =
+    bib-backend / biblatex .code:n =
       { \bool_set_false:N \l_@@_bibtex_bool },
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{style/bibstyle}
+% \begin{macro}{style/bib-style}
 % 参考文献样式。
 %    \begin{macrocode}
-    bibstyle .choice:,
-    bibstyle .value_required:n = true,
-    bibstyle / numerical   .code:n =
+    bib-style .choice:,
+    bib-style .value_required:n = true,
+    bib-style / numerical    .code:n =
       {
         \tl_set:Nn  \l_@@_bib_gb_style_tl { numerical  }
         \tl_clear:N \l_@@_bib_style_tl
       },
-    bibstyle / authoryear .code:n =
+    bib-style / author-year .code:n =
       {
-        \tl_set:Nn  \l_@@_bib_gb_style_tl { authoryear }
+        \tl_set:Nn  \l_@@_bib_gb_style_tl { author-year }
         \tl_clear:N \l_@@_bib_style_tl
       },
-    bibstyle / unknown    .code:n =
+    bib-style / unknown     .code:n =
       { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl },
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{style/citestyle}
+% \begin{macro}{style/cite-style}
 % 引用样式。
 %    \begin{macrocode}
-    citestyle .code:n =
+    cite-style .code:n =
       {
         \bool_if:NTF \l_@@_bibtex_bool
           { \@@_warning:n { cite-style-not-available } }
@@ -5517,13 +5518,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{style/bibresource}
+% \begin{macro}{style/bib-resource}
 % 参考文献数据源。
 %    \begin{macrocode}
-    bibresource .tl_set:N = \l_@@_bib_resource_tl
+    bib-resource .tl_set:N = \l_@@_bib_resource_tl
   }
 \@@_msg_new:nn { cite-style-not-available }
-  { Option~ "citestyle"~ is~ not~ available~ in~ BibTeX. }
+  { Option~ "cite-style"~ is~ not~ available~ in~ BibTeX. }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5595,7 +5596,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
             \@@_set_cite_style_numerical:
           }
           {
-            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { authoryear }
+            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
               {
                 \bibliographystyle { gbt7714-plain }
                 \@@_set_cite_style_author_year:
@@ -5621,7 +5622,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
           { \PassOptionsToPackage { style = gb7714-2015 } }
           {
-            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { authoryear }
+            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
               { \PassOptionsToPackage { style = gb7714-2015ay } }
           }
       }
@@ -5741,7 +5742,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsection{\pkg{hyperref} 相关配置}
 %
 % \changes{v0.4}{2017/08/13}{新增 \pkg{hyperref} 相关配置，包括超链接
-%   样式（\opt{style/hyperlink} 与 \opt{style/hyperlinkcolor} 选项）
+%   样式（\opt{style/hyperlink} 与 \opt{style/hyperlink-color} 选项）
 %   及 PDF 元信息等。}
 % \changes{v0.7}{2018/01/23}{将 \pkg{hyperref} 相关配置移至模板末尾，
 %   以减少冲突。}
@@ -5762,7 +5763,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_hyperlink_color_key:n #1
   {
-    hyperlinkcolor / \clist_item:nn {#1} {1} .code:n =
+    hyperlink-color / \clist_item:nn {#1} {1} .code:n =
       {
         \@@_define_hyperlink_color:nnn
           { \clist_item:nn {#1} {2} }
@@ -5808,11 +5809,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{style/hyperlinkcolor}
+% \begin{macro}{style/hyperlink-color}
 % 超链接颜色。
 %    \begin{macrocode}
-    hyperlinkcolor .choice:,
-    hyperlinkcolor .value_required:n = true,
+    hyperlink-color .choice:,
+    hyperlink-color .value_required:n = true,
     \clist_map_function:nN
       {
         { autumn,    D70000, D75F00, AF8700 },
@@ -5936,24 +5937,24 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \keys_set:nn { fdu }
   {
-    style   / font           = times,
-%<class>    style   / cjkfont        = fandol,
-    style   / fontsize       = -4,
-%<class>    style   / fullwidthstop  = false,
-    style   / automakecover  = true,
-    style   / logo           = { fudan-name.pdf },
-    style   / logosize       = { 0.5 \textwidth },
-    style   / hyperlink      = color,
-    style   / hyperlinkcolor = default,
-    style   / bibstyle       = numerical,
-    info    / degree         = academic,
-    info    / secretlevel    = none,
-    info    / schoolid       = { 10246 },
-    info    / date           = { \zhtoday },
-%<class>    theorem / headerfont     = { \sffamily },
-%<class-en>    theorem / headerfont     = { \bfseries \upshape },
-%<class>    theorem / bodyfont       = { \fdu@kai },
-%<class-en>    theorem / bodyfont       = { \itshape },
+    style   / font            = times,
+%<class>    style   / cjk-font        = fandol,
+    style   / font-size       = -4,
+%<class>    style   / fullwidth-stop  = false,
+    style   / auto-make-cover = true,
+    style   / logo            = { fudan-name.pdf },
+    style   / logo-size       = { 0.5 \textwidth },
+    style   / hyperlink       = color,
+    style   / hyperlink-color = default,
+    style   / bib-style       = numerical,
+    info    / degree          = academic,
+    info    / secret-level    = none,
+    info    / school-id       = { 10246 },
+    info    / date            = { \zhtoday },
+%<class>    theorem / header-font    = { \sffamily },
+%<class-en>    theorem / header-font    = { \bfseries \upshape },
+%<class>    theorem / body-font      = { \fdu@kai },
+%<class-en>    theorem / body-font      = { \itshape },
     theorem / counter        = { chapter }
   }
 %    \end{macrocode}
