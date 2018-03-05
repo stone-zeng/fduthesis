@@ -5224,12 +5224,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{目录}
 %
-% \begin{variable}{\c_@@_chapter_toc_format_tl}
+% \begin{variable}{\@@_chapter_toc_format:,\@@_chapter_toc_en_format:}
 % 目录中章标题的样式还要用在摘要、符号表中。因为摘要分中英文，所以这里
 % 需要分别定义其样式。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_chapter_toc_format_tl    { \normalfont \sffamily }
-\tl_const:Nn \c_@@_chapter_toc_en_format_tl { \bfseries }
+\tl_const:Nn \@@_chapter_toc_format:    { \normalfont \sffamily }
+\tl_const:Nn \@@_chapter_toc_en_format: { \bfseries }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -5245,8 +5245,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     chapter / tocline =
       {
-%<class>        \c_@@_chapter_toc_format_tl
-%<class-en>        \c_@@_chapter_toc_en_format_tl
+%<class>        \@@_chapter_toc_format:
+%<class-en>        \@@_chapter_toc_en_format:
         \CTEXnumberline {#1} #2
       },
     section / tocline =
@@ -5322,7 +5322,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_abstract_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_chapter_toc_format_tl
+        \@@_chapter_toc_format:
         \c_@@_name_abstract_tl
       }
   }
@@ -5333,8 +5333,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
       {
-%<class>        \c_@@_chapter_toc_format_tl
-%<class-en>        \c_@@_chapter_toc_en_format_tl
+%<class>        \@@_chapter_toc_format:
+%<class-en>        \@@_chapter_toc_en_format:
         \c_@@_name_abstract_en_tl
       }
   }
@@ -5410,7 +5410,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_notation_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_chapter_toc_format_tl
+        \@@_chapter_toc_format:
         \c_@@_name_notation_tl
       }
 %</class>
@@ -5419,7 +5419,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_chapter_toc_en_format_tl
+        \@@_chapter_toc_en_format:
         \c_@@_name_notation_en_tl
       }
 %</class-en>
@@ -5697,7 +5697,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \chapter* { \bibname }
     \fdu_front_matter_header:n { \bibname }
     \addcontentsline { toc } { chapter }
-      { \c_@@_chapter_toc_format_tl \bibname }
+      { \@@_chapter_toc_format: \bibname }
   }
 %    \end{macrocode}
 % \end{macro}
