@@ -2621,15 +2621,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new_protected:Npn \@@_define_punct:nn #1#2
   { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
 \cs_new_protected:Npn \@@_define_sep:nn #1#2
-  { \tl_const:cn { c_@@_def_ #1 _sep_tl } {#2} }
+  { \tl_const:cn { c_@@_ #1 _sep_tl } {#2} }
 \cs_new_protected:Npn \@@_define_format:nn #1#2
-  { \tl_const:cn { c_@@_def_ #1 _format_tl } {#2} }
+  { \tl_const:cn { c_@@_ #1 _format_tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nn #1#2
-  { \tl_const:cn { c_@@_def_name_ #1 _tl } {#2} }
+  { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nnn #1#2#3
   {
-    \tl_const:cn { c_@@_def_name_ #1    _tl } {#2}
-    \tl_const:cn { c_@@_def_name_ #1 _en_tl } {#3}
+    \tl_const:cn { c_@@_name_ #1    _tl } {#2}
+    \tl_const:cn { c_@@_name_ #1 _en_tl } {#3}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2760,8 +2760,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     heading    = true,
 %<class>    fontset    = none,
 %<class-en>    fontset    = fandol,
-    zihao      = \c_@@_def_font_size_tl,
-%<class>    linespread = \c_@@_def_line_spread_fp,
+    zihao      = \c_@@_font_size_tl,
+%<class>    linespread = \c_@@_line_spread_fp,
     \g_@@_to_ctexbook_clist
   }
   { ctexbook }
@@ -2850,12 +2850,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \geometry
   {
-    paper      = \c_@@_def_paper_size_tl,
-    top        = \c_@@_def_page_margin_top_dim,
-    bottom     = \c_@@_def_page_margin_bottom_dim,
-    left       = \c_@@_def_page_margin_left_dim,
-    right      = \c_@@_def_page_margin_right_dim,
-    headheight = \c_@@_def_header_height_dim
+    paper      = \c_@@_paper_size_tl,
+    top        = \c_@@_page_margin_top_dim,
+    bottom     = \c_@@_page_margin_bottom_dim,
+    left       = \c_@@_page_margin_left_dim,
+    right      = \c_@@_page_margin_right_dim,
+    headheight = \c_@@_header_height_dim
   }
 %    \end{macrocode}
 %
@@ -2962,18 +2962,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
             ItalicFeatures     = { SmallCapsFont = *~ Italic       },
             BoldItalicFeatures = { SmallCapsFont = *~ Bold~ Italic },
           }
-%       \fdu_choose_font_with_option:nnn { main } { xits }
-%         {
-%           Extension          = .otf,
-%           UprightFont        = *-regular,
-%           BoldFont           = *-bold,
-%           ItalicFont         = *-italic,
-%           BoldItalicFont     = *-bolditalic,
-%           UprightFeatures    = { SmallCapsFont = *-regular    },
-%           BoldFeatures       = { SmallCapsFont = *-bold       },
-%           ItalicFeatures     = { SmallCapsFont = *-italic     },
-%           BoldItalicFeatures = { SmallCapsFont = *-bolditalic },
-%         }
         \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros  }
         \fdu_choose_font_with_option:nnn { mono }
           { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
@@ -3078,10 +3066,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     |{main,| |sans,| |mono,| |math}|
 % \end{arguments}
 %    \begin{macrocode}
-\cs_new:Npn \@@_initialize_prop:Nn #1#2
+\cs_new_protected:Npn \@@_initialize_prop:Nn #1#2
   {
-    \prop_clear:N #1
-    \clist_map_inline:nn {#2} { \prop_put:Nnn #1 {##1} { } }
+    \prop_gclear:N #1
+    \clist_map_inline:nn {#2} { \prop_gput:Nnn #1 {##1} { } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3094,14 +3082,20 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 声明西文字体。参数按照 \pkg{fontspec} 的风格，字体选项
 % 在前在后均可。
 %    \begin{macrocode}
-\RenewDocumentCommand \setmainfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
-\RenewDocumentCommand \setsansfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
-\RenewDocumentCommand \setmonofont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
-\RenewDocumentCommand \setmathfont { O { } m O { } }
-  { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
+\clist_map_inline:nn
+  { main, sans, mono, math }
+  {
+    \exp_args:Nc \RenewDocumentCommand { set #1 font } { O { } m O { } }
+      { \fdu_choose_font_with_option:nnn { #1 } {##2} { ##1, ##3 } }
+  }
+% \RenewDocumentCommand \setmainfont { O { } m O { } }
+%   { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
+% \RenewDocumentCommand \setsansfont { O { } m O { } }
+%   { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
+% \RenewDocumentCommand \setmonofont { O { } m O { } }
+%   { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
+% \RenewDocumentCommand \setmathfont { O { } m O { } }
+%   { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3153,13 +3147,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
   {
-    \prop_put:Nnn \g_@@_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g_@@_font_options_prop {#1} {#3}
+    \prop_gput:Nnn \g_@@_font_name_prop    {#1} {#2}
+    \prop_gput:Nnn \g_@@_font_options_prop {#1} {#3}
   }
 \cs_new_protected:Npn \fdu_choose_font:nn #1#2
   {
-    \prop_put:Nnn \g_@@_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g_@@_font_options_prop {#1} {  }
+    \prop_gput:Nnn \g_@@_font_name_prop    {#1} {#2}
+    \prop_gput:Nnn \g_@@_font_options_prop {#1} {  }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3175,13 +3169,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
   {
-    \prop_put:Nnn \g_@@_cjk_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g_@@_cjk_font_options_prop {#1} {#3}
+    \prop_gput:Nnn \g_@@_cjk_font_name_prop    {#1} {#2}
+    \prop_gput:Nnn \g_@@_cjk_font_options_prop {#1} {#3}
   }
 \cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
   {
-    \prop_put:Nnn \g_@@_cjk_font_name_prop    {#1} {#2}
-    \prop_put:Nnn \g_@@_cjk_font_options_prop {#1} {  }
+    \prop_gput:Nnn \g_@@_cjk_font_name_prop    {#1} {#2}
+    \prop_gput:Nnn \g_@@_cjk_font_options_prop {#1} {  }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3198,14 +3192,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \clist_map_inline:nn { main, sans, mono, math }
       {
-        \prop_get:NnN \g_@@_font_name_prop    {##1}
-          \l_@@_tmpa_tl
-        \prop_get:NnN \g_@@_font_options_prop {##1}
-          \l_@@_tmpb_tl
+        \prop_get:NnN \g_@@_font_name_prop    {##1} \l_@@_tmpa_tl
+        \prop_get:NnN \g_@@_font_options_prop {##1} \l_@@_tmpb_tl
         \tl_if_empty:NT \l_@@_tmpa_tl
           { \@@_error:nn { font-not-defined } {##1} }
-        \use:c { @@_set_ ##1 _font:VV }
-          \l_@@_tmpa_tl \l_@@_tmpb_tl
+        \use:c { @@_set_ ##1 _font:VV } \l_@@_tmpa_tl \l_@@_tmpb_tl
       }
   }
 %    \end{macrocode}
@@ -3225,7 +3216,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn { main, sans, mono }
   {
-    \cs_new:cpx { @@_set_ #1 _font:nn } ##1 ##2
+    \cs_new_protected:cpx { @@_set_ #1 _font:nn } ##1 ##2
       { \exp_not:c { __fontspec_main_set #1 font:nn } {##2} {##1} }
   }
 %    \end{macrocode}
@@ -3236,7 +3227,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\@@_set_math_font:nn}
 % 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。参数同上。
 %    \begin{macrocode}
-\cs_new:Npn \@@_set_math_font:nn #1#2
+\cs_new_protected:Npn \@@_set_math_font:nn #1#2
   { \__um_setmathfont:nn {#2} {#1} }
 %    \end{macrocode}
 % \end{macro}
@@ -3280,8 +3271,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     \clist_map_inline:nn { song, hei, fang }
       {
-        \prop_remove:Nn \g_@@_cjk_font_name_prop    {##1}
-        \prop_remove:Nn \g_@@_cjk_font_options_prop {##1}
+        \prop_gremove:Nn \g_@@_cjk_font_name_prop    {##1}
+        \prop_gremove:Nn \g_@@_cjk_font_options_prop {##1}
       }
   }
 %    \end{macrocode}
@@ -3417,15 +3408,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item |song| / |hei| / |fang|
 % \end{arguments}
 %    \begin{macrocode}
-\cs_new:Npn \@@_get_cjk_font_name_options:nn #1#2
+\cs_new_protected:Npn \@@_get_cjk_font_name_options:nn #1#2
   {
-    \prop_get:NnN \g_@@_cjk_font_name_prop    {#2}
-      \l_@@_font_name_tl
-    \prop_put:NnV \g_@@_cjk_font_name_prop    {#1}
-      \l_@@_font_name_tl
-    \prop_get:NnN \g_@@_cjk_font_options_prop {#2}
-      \l_@@_tmpa_tl
-    \clist_set:NV \l_@@_font_options_clist \l_@@_tmpa_tl
+    \prop_get:NnN  \g_@@_cjk_font_name_prop    {#2} \l_@@_font_name_tl
+    \prop_gput:NnV \g_@@_cjk_font_name_prop    {#1} \l_@@_font_name_tl
+    \prop_get:NnN  \g_@@_cjk_font_options_prop {#2} \l_@@_tmpa_tl
+    \clist_set:NV  \l_@@_font_options_clist \l_@@_tmpa_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3433,7 +3421,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\@@_get_cjk_kai_font:}
 % 补齐斜体、粗斜体（都设置为楷体）。
 %    \begin{macrocode}
-\cs_new:Npn \@@_get_cjk_kai_font:
+\cs_new_protected:Npn \@@_get_cjk_kai_font:
   {
     \prop_get:NnN \g_@@_cjk_font_name_prop { kai }
       \l_@@_tmpa_tl
@@ -3450,7 +3438,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 % 设置选项，即把选项存入 |prop-list|，对应 \meta{key} = |#1|。
 % |#1| = |rm| / |sf| / |tt|。
-\cs_new:Npn \@@_set_cjk_font_options:n #1
+\cs_new_protected:Npn \@@_set_cjk_font_options:n #1
   {
     \prop_put:NnV \g_@@_cjk_font_options_prop {#1}
       \l_@@_font_options_clist
@@ -3533,8 +3521,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % |rm| 字体族已定义，从而避免警告。\LuaTeX{} 引擎下，
 % \pkg{ctex-ltj} 不会给出警告，暂且不管。
 %    \begin{macrocode}
-    \prop_put:Nnn \g__xeCJK_family_font_name_prop { rm } { }
-    \prop_put:Nnn \g__xeCJK_family_name_prop      { rm } { }
+    \prop_gput:Nnn \g__xeCJK_family_font_name_prop { rm } { }
+    \prop_gput:Nnn \g__xeCJK_family_name_prop      { rm } { }
 %    \end{macrocode}
 % 关闭 \pkg{xeCJK} 中重定义字体族的警告。
 %    \begin{macrocode}
@@ -3752,32 +3740,32 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     chapter =
       {
-%<class>        format      = \c_@@_def_chapter_format_tl,
+%<class>        format      = \c_@@_chapter_format_tl,
 %<*class-en>
-        format      = \c_@@_def_chapter_en_format_tl,
-        nameformat  = \c_@@_def_chapter_name_en_format_tl,
-        titleformat = \c_@@_def_chapter_title_en_format_tl,
-        aftername   = \c_@@_def_chapter_after_name_en_tl,
+        format      = \c_@@_chapter_en_format_tl,
+        nameformat  = \c_@@_chapter_name_en_format_tl,
+        titleformat = \c_@@_chapter_title_en_format_tl,
+        aftername   = \c_@@_chapter_after_name_en_tl,
 %</class-en>
-        beforeskip  = \c_@@_def_chapter_before_sep_tl,
-        afterskip   = \c_@@_def_chapter_after_sep_tl,
+        beforeskip  = \c_@@_chapter_before_sep_tl,
+        afterskip   = \c_@@_chapter_after_sep_tl,
         number      = { \@@_arabic:n { chapter } },
         fixskip     = true
       },
     section =
       {
-%<class>        format      = \c_@@_def_section_format_tl,
-%<class-en>        format      = \c_@@_def_section_en_format_tl,
-        beforeskip  = \c_@@_def_section_before_sep_tl,
-        afterskip   = \c_@@_def_section_after_sep_tl,
+%<class>        format      = \c_@@_section_format_tl,
+%<class-en>        format      = \c_@@_section_en_format_tl,
+        beforeskip  = \c_@@_section_before_sep_tl,
+        afterskip   = \c_@@_section_after_sep_tl,
         fixskip     = true
       },
     subsection =
       {
-%<class>        format      = \c_@@_def_subsection_format_tl,
-%<class-en>        format      = \c_@@_def_subsection_en_format_tl,
-        beforeskip  = \c_@@_def_subsection_before_sep_tl,
-        afterskip   = \c_@@_def_subsection_after_sep_tl,
+%<class>        format      = \c_@@_subsection_format_tl,
+%<class-en>        format      = \c_@@_subsection_en_format_tl,
+        beforeskip  = \c_@@_subsection_before_sep_tl,
+        afterskip   = \c_@@_subsection_after_sep_tl,
         fixskip     = true
       }
   }
@@ -4153,7 +4141,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_set:Npn \@makefntext #1
   {
     \mode_leave_vertical:
-    \hbox_to_wd:nn { \c_@@_def_fn_mark_sep_tl } { \@thefnmark \hfil }
+    \hbox_to_wd:nn { 1.5 em } { \@thefnmark \hfil }
     #1
   }
 %    \end{macrocode}
@@ -4616,7 +4604,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
             \bool_set_true:N \l_@@_secret_bool
             \tl_set:Nn \l_@@_info_secret_level_tl
               {
-                \clist_item:Nn \c_@@_def_secret_clist
+                \clist_item:Nn \c_@@_secret_clist
                   { \l_keys_choice_int - 1 }
               }
           }
@@ -4767,7 +4755,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
             \group_begin:
               \sffamily
               \@@_cover_id_aux:n { secret_level }
-              \c_@@_def_name_secret_star_tl
+              \c_@@_name_secret_star_tl
               \l_@@_info_secret_year_tl
             \group_end:
             \par
@@ -4782,7 +4770,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 \cs_new:Npn \@@_cover_id_aux:n #1
   {
-    \tl_use:c { c_@@_def_name_ #1 _tl }
+    \tl_use:c { c_@@_name_ #1 _tl }
     \c_@@_fullwidth_colon_tl
     \tl_use:c { l_@@_info_ #1 _tl }
   }
@@ -4818,7 +4806,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \tl_set:Nx \l_@@_tmpa_tl
       {
-        \clist_item:Nn \c_@@_def_thesis_type_clist
+        \clist_item:Nn \c_@@_thesis_type_clist
           { \g_@@_thesis_type_int }
       }
     \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
@@ -4835,12 +4823,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       {
         \tl_set:Nx \l_@@_tmpa_tl
           {
-            \clist_item:Nn \c_@@_def_degree_type_clist
+            \clist_item:Nn \c_@@_degree_type_clist
               { \l_@@_info_degree_type_int }
           }
-        \c_@@_fullwidth_left_parenthesis_tl
+        \c_@@_fullwidth_left_paren_tl
         \l_@@_tmpa_tl
-        \c_@@_fullwidth_right_parenthesis_tl
+        \c_@@_fullwidth_right_paren_tl
       }
   }
 %    \end{macrocode}
@@ -4858,11 +4846,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
       \clist_set:Nx \l_@@_tmpa_clist
         {
-          \c_@@_def_name_department_tl,
-          \c_@@_def_name_major_tl,
-          \c_@@_def_name_author_tl,
-          \c_@@_def_name_supervisor_tl,
-          \c_@@_def_name_date_tl,
+          \c_@@_name_department_tl,
+          \c_@@_name_major_tl,
+          \c_@@_name_author_tl,
+          \c_@@_name_supervisor_tl,
+          \c_@@_name_date_tl,
         }
 %    \end{macrocode}
 % 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
@@ -5125,7 +5113,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
   {
 %<class-en>    format                 =
-%<class-en>      \@@_line_spread:N \c_@@_def_line_spread_fp,
+%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
     bottom-skip            = 0 pt plus 1.5 fill,
     id       / content     = \@@_cover_id:,
     logo     / content     = \@@_cover_logo:,
@@ -5160,9 +5148,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
   {
 %<class-en>    format              =
-%<class-en>      \@@_line_spread:N \c_@@_def_line_spread_fp,
+%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
     title     / content =
-      \@@_spread_box:nn { 7 em } { \c_@@_def_name_instructors_tl },
+      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
     name-list / content =
       \clist_use:Nn \l_@@_info_instructors_clist { \par },
     title     / format  = \zihao { 2 } \sffamily,
@@ -5177,18 +5165,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
     top-skip                              = 0 pt plus 0.2 fill,
     bottom-skip                           = 0 pt plus 2.5 fill,
-    originality-decl-name   / content     =
-      \c_@@_def_name_originality_decl_tl,
-    originality-decl-text   / content     =
-      \c_@@_def_originality_decl_text_tl,
+    originality-decl-name   / content     = \c_@@_name_orig_decl_tl,
+    originality-decl-text   / content     = \c_@@_orig_decl_text_tl,
     originality-decl-sig    / content     =
-      \@@_cover_signature:N \c_@@_def_originality_decl_sign_clist,
-    authorization-decl-name / content     =
-      \c_@@_def_name_authorization_decl_tl,
-    authorization-decl-text / content     =
-      \c_@@_def_authorization_decl_text_tl,
+      \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
+    authorization-decl-name / content     = \c_@@_name_auth_decl_tl,
+    authorization-decl-text / content     = \c_@@_auth_decl_text_tl,
     authorization-decl-sig  / content     =
-      \@@_cover_signature:N \c_@@_def_authorization_decl_sign_clist,
+      \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
     originality-decl-name   / format      =
       \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
     authorization-decl-name / format      =
@@ -5244,26 +5228,26 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-%<class>    contentsname = \c_@@_def_name_toc_tl,
-%<class-en>    contentsname = \c_@@_def_name_toc_en_tl,
+%<class>    contentsname = \c_@@_name_toc_tl,
+%<class-en>    contentsname = \c_@@_name_toc_en_tl,
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
     chapter / tocline =
       {
-%<class>        \c_@@_def_chapter_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_def_chapter_toc_en_format_tl \CTEXnumberline {#1} #2
+%<class>        \c_@@_chapter_toc_format_tl    \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_chapter_toc_en_format_tl \CTEXnumberline {#1} #2
       },
     section / tocline =
       {
-%<class>        \c_@@_def_section_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_def_section_toc_en_format_tl \CTEXnumberline {#1} #2
+%<class>        \c_@@_section_toc_format_tl    \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_section_toc_en_format_tl \CTEXnumberline {#1} #2
       },
     subsection / tocline =
       {
-%<class>        \c_@@_def_subsection_toc_format_tl \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_def_subsection_toc_en_format_tl
+%<class>        \c_@@_subsection_toc_format_tl \CTEXnumberline {#1} #2
+%<class-en>        \c_@@_subsection_toc_en_format_tl
 %<class-en>        \CTEXnumberline {#1} #2
       }
   }
@@ -5281,8 +5265,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
   {
     \chapter* { \contentsname }
-%<class>    \fdu_front_matter_header:n { \c_@@_def_name_toc_tl }
-%<class-en>    \fdu_front_matter_header:n { \c_@@_def_name_toc_en_tl }
+%<class>    \fdu_front_matter_header:n { \c_@@_name_toc_tl }
+%<class-en>    \fdu_front_matter_header:n { \c_@@_name_toc_en_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5295,7 +5279,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \begingroup }
   {
     \begingroup
-      \@@_line_spread:N \c_@@_def_line_spread_fp
+      \@@_line_spread:N \c_@@_line_spread_fp
   }
 %</class-en>
 %    \end{macrocode}
@@ -5314,12 +5298,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 摘要页需要修改页眉，并添加到目录。
 %    \begin{macrocode}
-    \chapter* { \c_@@_def_name_abstract_tl }
-    \fdu_front_matter_header:n { \c_@@_def_name_abstract_tl }
+    \chapter* { \c_@@_name_abstract_tl }
+    \fdu_front_matter_header:n { \c_@@_name_abstract_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_def_chapter_toc_format_tl
-        \c_@@_def_name_abstract_tl
+        \c_@@_chapter_toc_format_tl
+        \c_@@_name_abstract_tl
       }
   }
   {
@@ -5330,7 +5314,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \noindent \hangindent = 4 em  \hangafter = 1
     \group_begin:
       \normalfont \sffamily
-      \c_@@_def_name_keywords_tl \c_@@_fullwidth_colon_tl
+      \c_@@_name_keywords_tl \c_@@_fullwidth_colon_tl
     \group_end:
     \clist_use:Nn \l_@@_info_keywords_clist
       { \c_@@_fullwidth_semicolon_tl }
@@ -5341,7 +5325,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \noindent
     \group_begin:
       \normalfont \sffamily
-      \c_@@_def_name_clc_tl \c_@@_fullwidth_colon_tl
+      \c_@@_name_clc_tl \c_@@_fullwidth_colon_tl
     \group_end:
     \l_@@_info_clc_tl
   }
@@ -5362,13 +5346,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 同样需要修改页眉并添加到目录。
 %    \begin{macrocode}
-    \chapter* { \c_@@_def_name_abstract_en_tl }
-    \fdu_front_matter_header:n { \c_@@_def_name_abstract_en_tl }
+    \chapter* { \c_@@_name_abstract_en_tl }
+    \fdu_front_matter_header:n { \c_@@_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
       {
-%<class>        \c_@@_def_chapter_toc_format_tl
-%<class-en>        \c_@@_def_chapter_toc_en_format_tl
-        \c_@@_def_name_abstract_en_tl
+%<class>        \c_@@_chapter_toc_format_tl
+%<class-en>        \c_@@_chapter_toc_en_format_tl
+        \c_@@_name_abstract_en_tl
       }
   }
   {
@@ -5377,14 +5361,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     \par \mode_leave_vertical: \par
     \noindent \hangindent = 4 em \hangafter = 1
-    \textbf { \c_@@_def_name_keywords_en_tl } \@@_quad:
+    \textbf { \c_@@_name_keywords_en_tl } \@@_quad:
     \clist_use:Nn \l_@@_info_keywords_en_clist { \@@_quad: }
     \par
 %    \end{macrocode}
 % 下一行输出中图分类号（CLC）。
 %    \begin{macrocode}
     \noindent
-    \textbf { \c_@@_def_name_clc_en_tl } \@@_quad:
+    \textbf { \c_@@_name_clc_en_tl } \@@_quad:
     \l_@@_info_clc_tl
   }
 %    \end{macrocode}
@@ -5398,29 +5382,31 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 与摘要类似，符号表页需要修改页眉，并添加到目录。另外需要调整
 % \cs{LTpre} 和 \cs{LTpost}，以删去 \env{longtable} 前后的空白。
 %    \begin{macrocode}
-\NewDocumentEnvironment { notation }
-  { O { \c_@@_def_notation_arg_tl } }
+\NewDocumentEnvironment { notation } { O { l p { 7.5 cm } } }
   {
 %<*class>
-    \chapter* { \c_@@_def_name_notation_tl }
-    \fdu_front_matter_header:n { \c_@@_def_name_notation_tl }
+    \chapter* { \c_@@_name_notation_tl }
+    \fdu_front_matter_header:n { \c_@@_name_notation_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_def_chapter_toc_format_tl
-        \c_@@_def_name_notation_tl
+        \c_@@_chapter_toc_format_tl
+        \c_@@_name_notation_tl
       }
     \group_begin:
 %</class>
 %<*class-en>
-    \chapter* { \c_@@_def_name_notation_en_tl }
-    \fdu_front_matter_header:n { \c_@@_def_name_notation_en_tl }
+    \chapter* { \c_@@_name_notation_en_tl }
+    \fdu_front_matter_header:n { \c_@@_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_def_chapter_toc_en_format_tl
-        \c_@@_def_name_notation_en_tl
+        \c_@@_chapter_toc_en_format_tl
+        \c_@@_name_notation_en_tl
       }
     \group_begin:
-      \cs_set_eq:NN \arraystretch \c_@@_def_notation_line_stretch_en_tl
+%    \end{macrocode}
+% \tn{arraystretch} 只是一个简单宏，不能使用 \cs{fp_set:Nn}。
+%    \begin{macrocode}
+      \tl_set:Nn \arraystretch { 1.3 }
 %</class-en>
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
@@ -5574,7 +5560,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 %<*class-en>
         \exp_args:Nnx \DefineBibliographyStrings { english }
-          { bibliography = { \c_@@_def_name_bib_en_tl } }
+          { bibliography = { \c_@@_name_bib_en_tl } }
 %</class-en>
       }
   }
@@ -5671,8 +5657,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \NAT@numbersfalse
 %<*class>
-    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_parenthesis_tl
-    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_parenthesis_tl
+    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_paren_tl
+    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_paren_tl
     \cs_set_eq:NN \NAT@sep   \c_@@_fullwidth_semicolon_tl
     \cs_set_eq:NN \NAT@aysep \c_@@_fullwidth_comma_tl
     \cs_set_eq:NN \NAT@yrsep \c_@@_ideographic_comma_tl
@@ -5689,7 +5675,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \chapter* { \bibname }
     \fdu_front_matter_header:n { \bibname }
     \addcontentsline { toc } { chapter }
-      { \c_@@_def_chapter_toc_format_tl \bibname }
+      { \c_@@_chapter_toc_format_tl \bibname }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5887,7 +5873,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         pdfkeywords = \l_@@_info_keywords_en_clist,
 %</class-en>
 %       pdfsubject  = ,
-        pdfcreator  = \c_@@_def_name_pdf_creator_tl
+        pdfcreator  = \c_@@_name_pdf_creator_tl
       }
 %    \end{macrocode}
 % 将导言区中通过 \cs{fdu_hyperref_setup:n} 进行的设置传入
@@ -5977,22 +5963,22 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
 %    \begin{macrocode}
 %<*class>
-\newtheorem* { proof       } { \c_@@_def_name_proof_tl      }
-\newtheorem  { axiom       } { \c_@@_def_name_axiom_tl      }
-\newtheorem  { corollary   } { \c_@@_def_name_corollary_tl  }
-\newtheorem  { definition  } { \c_@@_def_name_definition_tl }
-\newtheorem  { example     } { \c_@@_def_name_example_tl    }
-\newtheorem  { lemma       } { \c_@@_def_name_lemma_tl      }
-\newtheorem  { theorem     } { \c_@@_def_name_theorem_tl    }
+\newtheorem* { proof       } { \c_@@_name_proof_tl      }
+\newtheorem  { axiom       } { \c_@@_name_axiom_tl      }
+\newtheorem  { corollary   } { \c_@@_name_corollary_tl  }
+\newtheorem  { definition  } { \c_@@_name_definition_tl }
+\newtheorem  { example     } { \c_@@_name_example_tl    }
+\newtheorem  { lemma       } { \c_@@_name_lemma_tl      }
+\newtheorem  { theorem     } { \c_@@_name_theorem_tl    }
 %</class>
 %<*class-en>
-\newtheorem* { proof       } { \c_@@_def_name_proof_en_tl      }
-\newtheorem  { axiom       } { \c_@@_def_name_axiom_en_tl      }
-\newtheorem  { corollary   } { \c_@@_def_name_corollary_en_tl  }
-\newtheorem  { definition  } { \c_@@_def_name_definition_en_tl }
-\newtheorem  { example     } { \c_@@_def_name_example_en_tl    }
-\newtheorem  { lemma       } { \c_@@_def_name_lemma_en_tl      }
-\newtheorem  { theorem     } { \c_@@_def_name_theorem_en_tl    }
+\newtheorem* { proof       } { \c_@@_name_proof_en_tl      }
+\newtheorem  { axiom       } { \c_@@_name_axiom_en_tl      }
+\newtheorem  { corollary   } { \c_@@_name_corollary_en_tl  }
+\newtheorem  { definition  } { \c_@@_name_definition_en_tl }
+\newtheorem  { example     } { \c_@@_name_example_en_tl    }
+\newtheorem  { lemma       } { \c_@@_name_lemma_en_tl      }
+\newtheorem  { theorem     } { \c_@@_name_theorem_en_tl    }
 %</class-en>
 %</class|class-en>
 %    \end{macrocode}
@@ -6028,14 +6014,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { ideographic_comma           } { "3001 },
-    { ideographic_full_stop       } { "3002 },
-    { fullwidth_comma             } { "FF0C },
-    { fullwidth_full_stop         } { "FF0E },
-    { fullwidth_colon             } { "FF1A },
-    { fullwidth_semicolon         } { "FF1B },
-    { fullwidth_left_parenthesis  } { "FF08 },
-    { fullwidth_right_parenthesis } { "FF09 }
+    { ideographic_comma     } { "3001 },
+    { ideographic_full_stop } { "3002 },
+    { fullwidth_comma       } { "FF0C },
+    { fullwidth_full_stop   } { "FF0E },
+    { fullwidth_colon       } { "FF1A },
+    { fullwidth_semicolon   } { "FF1B },
+    { fullwidth_left_paren  } { "FF08 },
+    { fullwidth_right_paren } { "FF09 }
   }
   { \@@_define_punct:nn #1 }
 %    \end{macrocode}
@@ -6060,42 +6046,42 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \end{tabular}
 % \end{table}
 %
-% \begin{variable}{\c_@@_def_paper_size_tl}
+% \begin{variable}{\c_@@_paper_size_tl}
 % 纸张大小（A4）。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_paper_size_tl { a4paper }
+\tl_const:Nn \c_@@_paper_size_tl { a4paper }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_page_margin_top_dim,
-%   \c_@@_def_page_margin_bottom_dim,
-%   \c_@@_def_page_margin_left_dim,
-%   \c_@@_def_page_margin_right_dim}
+% \begin{variable}{\c_@@_page_margin_top_dim,
+%   \c_@@_page_margin_bottom_dim,
+%   \c_@@_page_margin_left_dim,
+%   \c_@@_page_margin_right_dim}
 % 页面边距。这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
 % $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
 %    \begin{macrocode}
-\dim_const:Nn \c_@@_def_page_margin_top_dim    { 2.54 cm }
-\dim_const:Nn \c_@@_def_page_margin_bottom_dim { 2.54 cm }
-\dim_const:Nn \c_@@_def_page_margin_left_dim   { 3.18 cm }
-\dim_const:Nn \c_@@_def_page_margin_right_dim  { 3.18 cm }
+\dim_const:Nn \c_@@_page_margin_top_dim    { 2.54 cm }
+\dim_const:Nn \c_@@_page_margin_bottom_dim { 2.54 cm }
+\dim_const:Nn \c_@@_page_margin_left_dim   { 3.18 cm }
+\dim_const:Nn \c_@@_page_margin_right_dim  { 3.18 cm }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_header_height_dim}
+% \begin{variable}{\c_@@_header_height_dim}
 % 页眉高度。此高度与五号字大致相配。
 %    \begin{macrocode}
-\dim_const:Nn \c_@@_def_header_height_dim { 15 pt }
+\dim_const:Nn \c_@@_header_height_dim { 15 pt }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_font_size_tl}
+% \begin{variable}{\c_@@_font_size_tl}
 % 字号（小四）。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_font_size_tl { -4 }
+\tl_const:Nn \c_@@_font_size_tl { -4 }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_line_spread_fp}
+% \begin{variable}{\c_@@_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
 %   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
@@ -6103,7 +6089,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
 % 的大小，\SI{20}{pt} 是行距固定值。
 %    \begin{macrocode}
-\fp_const:Nn \c_@@_def_line_spread_fp
+\fp_const:Nn \c_@@_line_spread_fp
   { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
 %    \end{macrocode}
 % \end{variable}
@@ -6122,7 +6108,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \@@_define_format:nn #1 }
 %    \end{macrocode}
 %
-% \begin{variable}{\c_@@_def_chapter_name_format_en_tl}
 % 英文模板章节标题样式。均使用粗体。
 %    \begin{macrocode}
 \clist_map_inline:nn
@@ -6134,10 +6119,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { subsection_en         } { \large \bfseries \raggedright }
   }
   { \@@_define_format:nn #1 }
-\tl_const:Nn \c_@@_def_chapter_after_name_en_tl
+\tl_const:Nn \c_@@_chapter_after_name_en_tl
   { \par \nobreak \vskip 10 pt }
 %    \end{macrocode}
-% \end{variable}
 %
 % 章节标题前后间距。使用 |tl| 而非 |skip|，是为了防止在没有上下文的
 % 时候 |ex| 被展开成 0。之后的不少间距也是这样定义的。
@@ -6170,10 +6154,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{声明页}
 %
-% \begin{variable}{\c_@@_def_originality_decl_text_tl}
+% \begin{variable}{\c_@@_orig_decl_text_tl}
 % 论文独创性声明。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_originality_decl_text_tl
+\tl_const:Nn \c_@@_orig_decl_text_tl
   {
     本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研
     究工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人
@@ -6184,10 +6168,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_authorization_decl_text_tl}
+% \begin{variable}{\c_@@_auth_decl_text_tl}
 % 论文使用授权声明。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_def_authorization_decl_text_tl
+\tl_const:Nn \c_@@_auth_decl_text_tl
   {
     本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：
     学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版
@@ -6198,55 +6182,34 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_originality_decl_sign_clist,
-%   \c_@@_def_authorization_decl_sign_clist}
+% \begin{variable}{\c_@@_orig_decl_sign_clist,
+%   \c_@@_auth_decl_sign_clist}
 % 声明页签名项目。
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_def_originality_decl_sign_clist
+\clist_const:Nn \c_@@_orig_decl_sign_clist
   { 作者签名, 日期 }
-\clist_const:Nn \c_@@_def_authorization_decl_sign_clist
+\clist_const:Nn \c_@@_auth_decl_sign_clist
   { 作者签名, 导师签名, 日期 }
 %    \end{macrocode}
 % \end{variable}
 %
 % \subsubsection{杂项}
 %
-% \begin{variable}{\c_@@_def_thesis_type_clist,
-%   \c_@@_def_degree_type_clist}
+% \begin{variable}{\c_@@_thesis_type_clist,
+%   \c_@@_degree_type_clist}
 % 论文类型与学位类型。
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_def_thesis_type_clist
+\clist_const:Nn \c_@@_thesis_type_clist
   { 博士学位论文, 硕士学位论文, 本科毕业论文 }
-\clist_const:Nn \c_@@_def_degree_type_clist
+\clist_const:Nn \c_@@_degree_type_clist
   { 学术学位, 专业学位 }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_def_secret_clist}
+% \begin{variable}{\c_@@_secret_clist}
 % 三种密级。
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_def_secret_clist { 秘密, 机密, 绝密 }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_def_notation_arg_tl}
-% 符号表默认参数。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_notation_arg_tl { l p { 7.5 cm } }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_def_notation_line_stretch_en_tl}
-% 英文模板中符号表的行间距。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_notation_line_stretch_en_tl { 1.3 }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_def_fn_mark_sep_tl}
-% 脚注编号与文本的间距。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_def_fn_mark_sep_tl { 1.5 em }
+\clist_const:Nn \c_@@_secret_clist { 秘密, 机密, 绝密 }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -6269,10 +6232,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { sign_date       } { 日期                          },
     { bib_en          } { Bibliography                  },
     { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
-    { originality_decl   }
-      { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
-    { authorization_decl }
-      { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
+    { orig_decl       } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
+    { auth_decl       } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
   }
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn
