@@ -5333,7 +5333,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_chapter_toc_format_tl
+%<class>        \c_@@_chapter_toc_format_tl
+%<class-en>        \c_@@_chapter_toc_en_format_tl
         \c_@@_name_abstract_en_tl
       }
   }
@@ -5384,10 +5385,25 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{environment}{notation}
 % 符号表环境，利用 \env{longtable} 封装。可选参数为表格列格式说明符。
-% 与摘要类似，符号表页需要修改页眉，并添加到目录。另外需要调整
-% \cs{LTpre} 和 \cs{LTpost}，以删去 \env{longtable} 前后的空白。
 %    \begin{macrocode}
 \NewDocumentEnvironment { notation } { O { l p { 7.5 cm } } }
+  {
+    \@@_notation_begin:
+    \group_begin:
+      \@@_notation_long_table_setup:
+      \longtable {#1}
+  }
+  {
+      \endlongtable
+    \group_end:
+  }
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{macro}{\@@_notation_begin:}
+% 与摘要类似，符号表页需要修改页眉，并添加到目录。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_notation_begin:
   {
 %<*class>
     \chapter* { \c_@@_name_notation_tl }
@@ -5397,33 +5413,33 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \c_@@_chapter_toc_format_tl
         \c_@@_name_notation_tl
       }
-    \group_begin:
 %</class>
 %<*class-en>
     \chapter* { \c_@@_name_notation_en_tl }
     \fdu_front_matter_header:n { \c_@@_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        %\c_@@_chapter_toc_en_format_tl
-        \c_@@_chapter_toc_format_tl
+        \c_@@_chapter_toc_en_format_tl
         \c_@@_name_notation_en_tl
       }
-    \group_begin:
-%    \end{macrocode}
-% \tn{arraystretch} 只是一个简单宏，不能使用 \cs{fp_set:Nn}。
-%    \begin{macrocode}
-      \tl_set:Nn \arraystretch { 1.3 }
 %</class-en>
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_notation_begin:}
+% 调整 \cs{LTpre} 和 \cs{LTpost}，以删去 \env{longtable} 前后的空白。
+% 英文模板中还需要调整表格的行距。注意 \tn{arraystretch} 只是一个简单
+% 宏，不能使用 \cs{fp_set:Nn}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_notation_long_table_setup:
+  {
+%<class-en>      \tl_set:Nn \arraystretch { 1.3 }
       \dim_set_eq:NN \LTpre  \c_zero_dim
       \dim_set_eq:NN \LTpost \c_zero_dim
-      \begin{longtable} {#1}
-  }
-  {
-      \end{longtable}
-    \group_end:
   }
 %    \end{macrocode}
-% \end{environment}
+% \end{macro}
 %
 % \subsection{参考文献著录与引用}
 %
