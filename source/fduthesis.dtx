@@ -2718,7 +2718,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     config .tl_set:N = \g_@@_config_tl,
 %    \end{macrocode}
-% \end{macro}4
+% \end{macro}
 %
 % 处理未知选项。
 %    \begin{macrocode}
@@ -4394,26 +4394,23 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \l_@@_info_date_tl,
 %   \l_@@_info_author_tl,
 %   \l_@@_info_supervisor_tl,
-%   \l_@@_info_instructors_clist,
 %   \l_@@_info_department_tl,
 %   \l_@@_info_major_tl,
 %   \l_@@_info_student_id_tl,
 %   \l_@@_info_school_id_tl,
-%   \l_@@_info_keywords_clist,
-%   \l_@@_info_clc_tl}
+%   \l_@@_info_clc_tl,
+%   \l_@@_info_instructors_clist,
+%   \l_@@_info_keywords_clist}
 % 封面所需的一些字段。
 %    \begin{macrocode}
-\tl_new:N    \l_@@_info_title_tl
-\tl_new:N    \l_@@_info_date_tl
-\tl_new:N    \l_@@_info_author_tl
-\tl_new:N    \l_@@_info_supervisor_tl
+\clist_map_inline:nn
+  {
+    title, date, author, supervisor, department, major, student_id,
+    school_id, clc
+  }
+  { \tl_new:c { l_@@_info_ #1 _tl } }
 \clist_new:N \l_@@_info_instructors_clist
-\tl_new:N    \l_@@_info_department_tl
-\tl_new:N    \l_@@_info_major_tl
-\tl_new:N    \l_@@_info_student_id_tl
-\tl_new:N    \l_@@_info_school_id_tl
 \clist_new:N \l_@@_info_keywords_clist
-\tl_new:N    \l_@@_info_clc_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -4425,11 +4422,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \l_@@_info_keywords_en_clist}
 % 对应的英文字段。
 %    \begin{macrocode}
-\tl_new:N    \l_@@_info_title_en_tl
-\tl_new:N    \l_@@_info_author_en_tl
-\tl_new:N    \l_@@_info_supervisor_en_tl
-\tl_new:N    \l_@@_info_department_en_tl
-\tl_new:N    \l_@@_info_major_en_tl
+\clist_map_inline:nn
+  { title, author, supervisor, department, major }
+  { \tl_new:c { l_@@_info_ #1 _en_tl } }
 \clist_new:N \l_@@_info_keywords_en_clist
 %    \end{macrocode}
 % \end{variable}
@@ -4454,10 +4449,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     degree      .choices:nn  =
       { academic, professional }
-      {
-        \int_set_eq:NN
-          \l_@@_info_degree_type_int \l_keys_choice_int
-      },
+      { \int_set_eq:NN \l_@@_info_degree_type_int \l_keys_choice_int },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5298,6 +5290,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{environment}{abstract}
 % \begin{environment}{abstract*}
+% \changes{v0.7}{2018/03/05}{整理代码。}
 % 摘要环境。在中文模板定义了中英文双语摘要，但在英文模板中则没有
 % 定义中文摘要。
 %    \begin{macrocode}
@@ -5384,6 +5377,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsection{符号表}
 %
 % \begin{environment}{notation}
+% \changes{v0.7}{2018/03/05}{整理代码。}
 % 符号表环境，利用 \env{longtable} 封装。可选参数为表格列格式说明符。
 %    \begin{macrocode}
 \NewDocumentEnvironment { notation } { O { l p { 7.5 cm } } }
@@ -6088,11 +6082,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_orig_decl_text_tl
   {
-    本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研
-    究工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人
-    或机构已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集
-    体，均已在论文中作了明确的声明并表示了谢意。本声明的法律结果由本
-    人承担。
+    本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究
+    工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人或机
+    构已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集体，均
+    已在论文中作了明确的声明并表示了谢意。本声明的法律结果由本人承担。
   }
 %    \end{macrocode}
 % \end{variable}
@@ -6102,11 +6095,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_auth_decl_text_tl
   {
-    本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：
-    学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版
-    本；允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以
-    采用影印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此
-    规定。
+    本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：学
+    校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版本；
+    允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影
+    印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此规定。
   }
 %    \end{macrocode}
 % \end{variable}
