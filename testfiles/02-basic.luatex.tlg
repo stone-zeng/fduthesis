@@ -134,6 +134,7 @@ Completed box being shipped out [1]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 ：
+.....\kern 0.0
 .....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 关
@@ -210,6 +211,7 @@ Completed box being shipped out [1]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 ：
+.....\kern 0.0
 .....\glue 6.0225 minus 6.0225
 .....\TU/XITS(0)/m/n/12.045 T
 .....\kern -0.1084
