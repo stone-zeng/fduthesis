@@ -2620,10 +2620,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_punct:nn #1#2
   { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
-\cs_new_protected:Npn \@@_define_sep:nn #1#2
-  { \tl_const:cn { c_@@_ #1 _sep_tl } {#2} }
-\cs_new_protected:Npn \@@_define_format:nn #1#2
-  { \tl_const:cn { c_@@_ #1 _format_tl } {#2} }
+% \cs_new_protected:Npn \@@_define_sep:nn #1#2
+%   { \tl_const:cn { c_@@_ #1 _sep_tl } {#2} }
+% \cs_new_protected:Npn \@@_define_format:nn #1#2
+%   { \tl_const:cn { c_@@_ #1 _format_tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nn #1#2
   { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nnn #1#2#3
@@ -2760,7 +2760,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     heading    = true,
 %<class>    fontset    = none,
 %<class-en>    fontset    = fandol,
-    zihao      = \c_@@_font_size_tl,
+    zihao      = -4,
 %<class>    linespread = \c_@@_line_spread_fp,
     \g_@@_to_ctexbook_clist
   }
@@ -2846,16 +2846,16 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{页面布局}
 %
-% 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。
+% 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。这里，
+% $\SI{2.54}{\centi\meter}=\SI{1}{in}$，
+% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
 %    \begin{macrocode}
 \geometry
   {
-    paper      = \c_@@_paper_size_tl,
-    top        = \c_@@_page_margin_top_dim,
-    bottom     = \c_@@_page_margin_bottom_dim,
-    left       = \c_@@_page_margin_left_dim,
-    right      = \c_@@_page_margin_right_dim,
-    headheight = \c_@@_header_height_dim
+    paper      = a4paper,
+    vmargin    = 2.54 cm,
+    hmargin    = 3.18 cm,
+    headheight = 15 pt
   }
 %    \end{macrocode}
 %
@@ -3740,32 +3740,32 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     chapter =
       {
-%<class>        format      = \c_@@_chapter_format_tl,
+%<class>        format      = \huge \normalfont \sffamily \centering,
 %<*class-en>
-        format      = \c_@@_chapter_en_format_tl,
-        nameformat  = \c_@@_chapter_name_en_format_tl,
-        titleformat = \c_@@_chapter_title_en_format_tl,
-        aftername   = \c_@@_chapter_after_name_en_tl,
+        format      = \centering,
+        nameformat  = \LARGE \bfseries,
+        titleformat = \huge \bfseries,
+        aftername   = \par \nobreak \vskip 10 pt,
 %</class-en>
-        beforeskip  = \c_@@_chapter_before_sep_tl,
-        afterskip   = \c_@@_chapter_after_sep_tl,
-        number      = { \@@_arabic:n { chapter } },
+        beforeskip  = 50 pt,
+        afterskip   = 40 pt,
+        number      = \@@_arabic:n { chapter },
         fixskip     = true
       },
     section =
       {
-%<class>        format      = \c_@@_section_format_tl,
-%<class-en>        format      = \c_@@_section_en_format_tl,
-        beforeskip  = \c_@@_section_before_sep_tl,
-        afterskip   = \c_@@_section_after_sep_tl,
+%<class>        format      = \Large \normalfont \sffamily \raggedright,
+%<class-en>        format      = \Large \bfseries \raggedright,
+        beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
+        afterskip   = 2.7 ex plus 0.5 ex,
         fixskip     = true
       },
     subsection =
       {
-%<class>        format      = \c_@@_subsection_format_tl,
-%<class-en>        format      = \c_@@_subsection_en_format_tl,
-        beforeskip  = \c_@@_subsection_before_sep_tl,
-        afterskip   = \c_@@_subsection_after_sep_tl,
+%<class>        format      = \large \normalfont \sffamily \raggedright,
+%<class-en>        format      = \large \bfseries \raggedright,
+        beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
+        afterskip   = 2.5  ex plus 0.3 ex,
         fixskip     = true
       }
   }
@@ -5224,6 +5224,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{目录}
 %
+% \begin{variable}{\c_@@_chapter_toc_format_tl}
+% 目录中章标题的样式还要用在摘要、符号表中。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_chapter_toc_format_tl
+%<class>  { \normalfont \sffamily }
+%<class-en>  { \bfseries }
+%    \end{macrocode}
+% \end{variable}
+%
 % 设置目录标题。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
@@ -5236,19 +5245,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     chapter / tocline =
       {
-%<class>        \c_@@_chapter_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_chapter_toc_en_format_tl \CTEXnumberline {#1} #2
+        \c_@@_chapter_toc_format_tl
+        \CTEXnumberline {#1} #2
       },
     section / tocline =
       {
-%<class>        \c_@@_section_toc_format_tl    \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_section_toc_en_format_tl \CTEXnumberline {#1} #2
+%<class-en>        \bfseries
+         \CTEXnumberline {#1} #2
       },
     subsection / tocline =
       {
-%<class>        \c_@@_subsection_toc_format_tl \CTEXnumberline {#1} #2
-%<class-en>        \c_@@_subsection_toc_en_format_tl
-%<class-en>        \CTEXnumberline {#1} #2
+%<class>        \fdu@kai
+         \CTEXnumberline {#1} #2
       }
   }
 %    \end{macrocode}
@@ -5350,8 +5358,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
       {
-%<class>        \c_@@_chapter_toc_format_tl
-%<class-en>        \c_@@_chapter_toc_en_format_tl
+        \c_@@_chapter_toc_format_tl
         \c_@@_name_abstract_en_tl
       }
   }
@@ -5399,7 +5406,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \fdu_front_matter_header:n { \c_@@_name_notation_en_tl }
     \addcontentsline { toc } { chapter }
       {
-        \c_@@_chapter_toc_en_format_tl
+        %\c_@@_chapter_toc_en_format_tl
+        \c_@@_chapter_toc_format_tl
         \c_@@_name_notation_en_tl
       }
     \group_begin:
@@ -6046,41 +6054,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \end{tabular}
 % \end{table}
 %
-% \begin{variable}{\c_@@_paper_size_tl}
-% 纸张大小（A4）。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_paper_size_tl { a4paper }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_page_margin_top_dim,
-%   \c_@@_page_margin_bottom_dim,
-%   \c_@@_page_margin_left_dim,
-%   \c_@@_page_margin_right_dim}
-% 页面边距。这里，$\SI{2.54}{\centi\meter}=\SI{1}{in}$，
-% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
-%    \begin{macrocode}
-\dim_const:Nn \c_@@_page_margin_top_dim    { 2.54 cm }
-\dim_const:Nn \c_@@_page_margin_bottom_dim { 2.54 cm }
-\dim_const:Nn \c_@@_page_margin_left_dim   { 3.18 cm }
-\dim_const:Nn \c_@@_page_margin_right_dim  { 3.18 cm }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_header_height_dim}
-% 页眉高度。此高度与五号字大致相配。
-%    \begin{macrocode}
-\dim_const:Nn \c_@@_header_height_dim { 15 pt }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_font_size_tl}
-% 字号（小四）。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_font_size_tl { -4 }
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{variable}{\c_@@_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
@@ -6093,64 +6066,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
 %    \end{macrocode}
 % \end{variable}
-%
-% \subsubsection{章节标题}
-%
-% 中文模板章节标题样式。均使用黑体。章标题居中，节与小节标题左对齐
-% （但需要使用 \tn{raggedright}）。
-%    \begin{macrocode}
-\clist_map_inline:nn
-  {
-    { chapter    } { \huge  \normalfont \sffamily \centering   },
-    { section    } { \Large \normalfont \sffamily \raggedright },
-    { subsection } { \large \normalfont \sffamily \raggedright }
-  }
-  { \@@_define_format:nn #1 }
-%    \end{macrocode}
-%
-% 英文模板章节标题样式。均使用粗体。
-%    \begin{macrocode}
-\clist_map_inline:nn
-  {
-    { chapter_en            } { \centering                    },
-    { chapter_name_en       } { \LARGE \bfseries              },
-    { chapter_title_en      } { \huge  \bfseries              },
-    { section_en            } { \Large \bfseries \raggedright },
-    { subsection_en         } { \large \bfseries \raggedright }
-  }
-  { \@@_define_format:nn #1 }
-\tl_const:Nn \c_@@_chapter_after_name_en_tl
-  { \par \nobreak \vskip 10 pt }
-%    \end{macrocode}
-%
-% 章节标题前后间距。使用 |tl| 而非 |skip|，是为了防止在没有上下文的
-% 时候 |ex| 被展开成 0。之后的不少间距也是这样定义的。
-%    \begin{macrocode}
-\clist_map_inline:nn
-  {
-    { chapter_before    } { 50 pt },
-    { chapter_after     } { 40 pt },
-    { section_before    } { 3.5  ex plus 1.0 ex minus 0.2 ex },
-    { section_after     } { 2.7  ex plus 0.5 ex },
-    { subsection_before } { 3.25 ex plus 1.0 ex minus 0.2 ex },
-    { subsection_after  } { 2.5  ex plus 0.3 ex }
-  }
-  { \@@_define_sep:nn #1 }
-%    \end{macrocode}
-%
-% 章节目录在目录中的样式。
-%    \begin{macrocode}
-\clist_map_inline:nn
-  {
-    { chapter_toc       } { \normalfont \sffamily },
-    { section_toc       } {                       },
-    { subsection_toc    } { \fdu@kai              },
-    { chapter_toc_en    } { \bfseries             },
-    { section_toc_en    } { \bfseries             },
-    { subsection_toc_en } {                       }
-  }
-  { \@@_define_format:nn #1 }
-%    \end{macrocode}
 %
 % \subsubsection{声明页}
 %
