@@ -5225,11 +5225,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsection{目录}
 %
 % \begin{variable}{\c_@@_chapter_toc_format_tl}
-% 目录中章标题的样式还要用在摘要、符号表中。
+% 目录中章标题的样式还要用在摘要、符号表中。因为摘要分中英文，所以这里
+% 需要分别定义其样式。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_chapter_toc_format_tl
-%<class>  { \normalfont \sffamily }
-%<class-en>  { \bfseries }
+\tl_const:Nn \c_@@_chapter_toc_format_tl    { \normalfont \sffamily }
+\tl_const:Nn \c_@@_chapter_toc_en_format_tl { \bfseries }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -5245,7 +5245,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     chapter / tocline =
       {
-        \c_@@_chapter_toc_format_tl
+%<class>        \c_@@_chapter_toc_format_tl
+%<class-en>        \c_@@_chapter_toc_en_format_tl
         \CTEXnumberline {#1} #2
       },
     section / tocline =
@@ -5295,17 +5296,28 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{摘要}
 %
-% \subsubsection{中文摘要}
-%
 % \begin{environment}{abstract}
-% 中文摘要及关键字。
+% \begin{environment}{abstract*}
+% 摘要环境。在中文模板定义了中英文双语摘要，但在英文模板中则没有
+% 定义中文摘要。
 %    \begin{macrocode}
+\NewDocumentEnvironment { abstract  } { }
+%<class>  { \@@_abstract_begin:    } { \@@_abstract_end:      }
+%<class-en>  { \@@_abstract_en_begin: } { \@@_abstract_en_end:   }
 %<*class>
-\NewDocumentEnvironment { abstract } { }
-  {
+\NewDocumentEnvironment { abstract* } { }
+  { \@@_abstract_en_begin: } { \@@_abstract_en_end:   }
+%</class>
 %    \end{macrocode}
+% \end{environment}
+% \end{environment}
+%
+% \begin{macro}{\@@_abstract_begin:,\@@_abstract_en_begin:}
 % 摘要页需要修改页眉，并添加到目录。
 %    \begin{macrocode}
+%<*class>
+\cs_new_protected:Npn \@@_abstract_begin:
+  {
     \chapter* { \c_@@_name_abstract_tl }
     \fdu_front_matter_header:n { \c_@@_name_abstract_tl }
     \addcontentsline { toc } { chapter }
@@ -5314,46 +5326,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \c_@@_name_abstract_tl
       }
   }
-  {
-%    \end{macrocode}
-% 摘要正文完成后，空行，输出关键字列表，之间用分号隔开。
-%    \begin{macrocode}
-    \par \mode_leave_vertical: \par
-    \noindent \hangindent = 4 em  \hangafter = 1
-    \group_begin:
-      \normalfont \sffamily
-      \c_@@_name_keywords_tl \c_@@_fullwidth_colon_tl
-    \group_end:
-    \clist_use:Nn \l_@@_info_keywords_clist
-      { \c_@@_fullwidth_semicolon_tl }
-    \par
-%    \end{macrocode}
-% 下一行输出中图分类号（CLC）。
-%    \begin{macrocode}
-    \noindent
-    \group_begin:
-      \normalfont \sffamily
-      \c_@@_name_clc_tl \c_@@_fullwidth_colon_tl
-    \group_end:
-    \l_@@_info_clc_tl
-  }
 %</class>
-%    \end{macrocode}
-% \end{environment}
-%
-% \subsubsection{英文摘要}
-%
-% \begin{environment}{abstract}
-% \begin{environment}{abstract*}
-% 英文摘要及关键字。注意英文模板中的 \env{abstract} 环境与中文模板
-% 中的 \env{ab\-stract*} 环境是相同的，后者在英文模板中没有定义。
-%    \begin{macrocode}
-%<class>\NewDocumentEnvironment { abstract* } { }
-%<class-en>\NewDocumentEnvironment { abstract } { }
+\cs_new_protected:Npn \@@_abstract_en_begin:
   {
-%    \end{macrocode}
-% 同样需要修改页眉并添加到目录。
-%    \begin{macrocode}
     \chapter* { \c_@@_name_abstract_en_tl }
     \fdu_front_matter_header:n { \c_@@_name_abstract_en_tl }
     \addcontentsline { toc } { chapter }
@@ -5362,25 +5337,48 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \c_@@_name_abstract_en_tl
       }
   }
-  {
 %    \end{macrocode}
-% 空行，输出关键字，之间为全角空格。
+% \end{macro}
+%
+% \begin{macro}{\@@_abstract_end:,\@@_abstract_en_end:}
+% 摘要正文完成后，输出关键字列表和中图分类号（CLC）。
 %    \begin{macrocode}
-    \par \mode_leave_vertical: \par
-    \noindent \hangindent = 4 em \hangafter = 1
+%<*class>
+\cs_new_protected:Npn \@@_abstract_end:
+  {
+    \@@_keywords_par:
+    \textsf { \c_@@_name_keywords_tl \c_@@_fullwidth_colon_tl }
+    \clist_use:Nn \l_@@_info_keywords_clist
+      { \c_@@_fullwidth_semicolon_tl }
+    \@@_clc_par:
+    \textsf { \c_@@_name_clc_tl \c_@@_fullwidth_colon_tl }
+    \l_@@_info_clc_tl
+  }
+%</class>
+\cs_new_protected:Npn \@@_abstract_en_end:
+  {
+    \@@_keywords_par:
     \textbf { \c_@@_name_keywords_en_tl } \@@_quad:
     \clist_use:Nn \l_@@_info_keywords_en_clist { \@@_quad: }
-    \par
-%    \end{macrocode}
-% 下一行输出中图分类号（CLC）。
-%    \begin{macrocode}
-    \noindent
+    \@@_clc_par:
     \textbf { \c_@@_name_clc_en_tl } \@@_quad:
     \l_@@_info_clc_tl
   }
 %    \end{macrocode}
-% \end{environment}
-% \end{environment}
+% \end{macro}
+%
+% \begin{macro}{\@@_keywords_par:,\@@_clc_par:}
+% 关键字列表前要空一行，使用悬挂缩进；中图分类号不缩进。
+%    \begin{macrocode}
+\cs_new:Npn \@@_keywords_par:
+  {
+    \par \mode_leave_vertical: \par
+    \noindent \hangindent = 4 em  \hangafter = 1
+  }
+\cs_new:Npn \@@_clc_par:
+  { \par \noindent }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{符号表}
 %
@@ -5944,11 +5942,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     info    / secret-level    = none,
     info    / school-id       = { 10246 },
     info    / date            = { \zhtoday },
-%<class>    theorem / header-font    = { \sffamily },
-%<class-en>    theorem / header-font    = { \bfseries \upshape },
-%<class>    theorem / body-font      = { \fdu@kai },
-%<class-en>    theorem / body-font      = { \itshape },
-    theorem / counter        = { chapter }
+%<class>    theorem / header-font     = { \sffamily },
+%<class-en>    theorem / header-font     = { \bfseries \upshape },
+%<class>    theorem / body-font       = { \fdu@kai },
+%<class-en>    theorem / body-font       = { \itshape },
+    theorem / counter         = { chapter }
   }
 %    \end{macrocode}
 %
