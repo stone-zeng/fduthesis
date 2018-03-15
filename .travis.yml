@@ -15,5 +15,4 @@ script:
   - source ./scripts/ptex-ng.sh
   - source ./scripts/local.sh
   - source ./scripts/run.sh
-  - cd ../test
   - ptex-ng --format=platex-ng --shell-escape test

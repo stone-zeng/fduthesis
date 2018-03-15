@@ -1,4 +1,9 @@
+% Compile with:
+%   platex-ng --shell-escape test
+
 \PassOptionsToPackage{log-declarations=false}{xparse}
+\PassOptionsToPackage{dvipdfmx}{graphicx}
+
 \documentclass[twoside]{fduthesis}
 \usepackage{amssymb}
 \usepackage{kantlipsum}
@@ -14,7 +19,8 @@
     logo = {../logo/pdf/fudan-name-black.pdf},
     % logosize = {2cm,2cm,2cm}
     hyperlink = color,
-    hyperlinkcolor = default
+    hyperlink-color = default,
+    bib-backend = bibtex
   },
   info = {
     title = {自河南经乱关内阻饥兄弟离散各在一处},
@@ -31,9 +37,9 @@
     },
     major = {物理学},
     department = {凝聚态物理系},
-    secretlevel = ii,
-    secretyear = {三年},
-    studentid = {14307110000},
+    secret-level = ii,
+    secret-year = {三年},
+    student-id = {14307110000},
     keywords = {\LaTeX, hih, vwvs, 物理, 中心法则, vsbd, 为侨服务},
     keywords* = {\LaTeX, hih, vwvs, Physics, Central Rule, vsbd},
     clc = {O414.1/65}
@@ -42,7 +48,7 @@
 
 \def\QED{\Box}
 
-%\immediate\write18{extractbb fudan-name.pdf}
+%\immediate\write18{extractbb fudan-name-black.pdf}
 %\immediate\write18{extractbb fudan-emblem-new-a-blue.pdf}
 %\immediate\write18{extractbb fudan-emblem-new-b-red.pdf}
 
@@ -279,32 +285,21 @@ Text%
 \end{lemma}
 
 \chapter{定理（续）}
+
 \newcounter{thm}
 
-\fdunewtheorem[style=plain,qed=\ensuremath{\sin}]{p}{平凡}
-\fdunewtheorem[style=margin]{mm}{打断}
-\fdunewtheorem[style=change]{fduc}{变革}
-\fdunewtheorem[style=break]{fdub}{平凡}
-\fdunewtheorem[style=marginbreak]{mb}{打断}
-\fdunewtheorem[style=break]{cb}{变革}
-\fdunewtheorem*[style=plain]{np}{平凡}
-\fdunewtheorem*[style=margin]{nmm}{打断}
-\fdunewtheorem*[style=change]{nfduc}{变革}
-\fdunewtheorem*[style=break,qed=]{nfdub}{平凡}
-\fdunewtheorem*[style=marginbreak,qed={}]{nmb}{打断}
-\fdunewtheorem[style=break,counter=thm]{ncb}{变革}
-
-\newtheorem{prop}[thm]{命题}
-
-\begin{prop}
-  直角三角形。
-\end{prop}
-\begin{prop}[圆形]
-  直角三角形。
-\end{prop}
-\begin{prop}
-  直角三角形。
-\end{prop}
+\newtheorem[style=plain,qed=\ensuremath{\sin}]{p}{平凡}
+\newtheorem[style=margin]{mm}{打断}
+\newtheorem[style=change]{fduc}{变革}
+\newtheorem[style=break]{fdub}{平凡}
+\newtheorem[style=marginbreak]{mb}{打断}
+\newtheorem[style=break]{cb}{变革}
+\newtheorem*[style=plain]{np}{平凡}
+\newtheorem*[style=margin]{nmm}{打断}
+\newtheorem*[style=change]{nfduc}{变革}
+\newtheorem*[style=break,qed=]{nfdub}{平凡}
+\newtheorem*[style=marginbreak,qed={}]{nmb}{打断}
+\newtheorem[style=break,counter=thm]{ncb}{变革}
 
 \begin{p}
 这是一条定理。

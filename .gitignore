@@ -3,6 +3,7 @@
 *.auxlock
 *.bak
 *.bbl
+*.bcf
 *.blg
 *.dpth
 *.fdb_latexmk
@@ -17,11 +18,13 @@
 *.log
 *.md5
 *.out
+*.run.xml
 *.sav
 *.synctex.gz
 *.synctex(busy)
 *.thm
 *.toc
+*.xbb
 
 # Generated files (plain text)
 *.bst
@@ -54,10 +57,16 @@ logo/
 support/
 TDS/
 temp/
+thesis/
 tools/
 
 # Other
 git-comment.md
 TODO.md
+doc/images/
 source/*.md
 source/*.tex
+test/dtxtest/
+!install-win.bat
+!testfiles/support/
+!testfiles/support/*

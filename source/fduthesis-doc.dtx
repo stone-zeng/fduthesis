@@ -1,14 +1,34 @@
-%^^A \EnableImplementation
-%^^A \DisableImplementation
+% \iffalse meta-comment
+%
+% Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3c of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Xiangdong Zeng.
+%
+% \fi
+%
+% \EnableImplementation
 %
 % \begin{implementation}
 %
 %^^A 代码部分的页边距
 % \newgeometry{
-%   left   = 2.50 in,
-%   right  = 1.00 in,
-%   top    = 1.25 in,
-%   bottom = 1.00 in
+%   left      = 2.25 in,
+%   right     = 1.00 in,
+%   top       = 1.25 in,
+%   bottom    = 1.00 in,
+%   marginpar = 2.25 in
 % }
 %
 % \subsection{模板文档样式 \cls{fdudoc}}
@@ -65,6 +85,11 @@
 \@namedef{ver@thumbpdf.sty}{9999/99/99}
 %    \end{macrocode}
 %
+% 关闭 \pkg{xparse} 中的命令声明信息。
+%    \begin{macrocode}
+\PassOptionsToPackage{log-declarations = false}{xparse}
+%    \end{macrocode}
+%
 % 载入宏包和文档类。
 %    \begin{macrocode}
 \LoadClass[a4paper, full]{l3doc}
@@ -94,10 +119,10 @@
 % \paragraph{继承的代码}
 %
 % \begin{macro}[int]{\macro@code}
-% 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由
+% 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由命令
 % \tn{macro@code} 负责实现，而 \tn{xmacro@code} 只用来结束
 % \env{macrocode} 环境。但在 \cls{l3doc} 以及 \cls{ctxdoc} 中，
-% \tn{xmacro@code} 则基本接管了 \tn{macro@code} 的功能。
+% \tn{xmacro\-@\-code} 则基本接管了 \tn{macro@code} 的功能。
 % 后者此时只起辅助作用。
 %    \begin{macrocode}
 \def\macro@code{%
@@ -155,13 +180,34 @@
 \ExplSyntaxOn
 %    \end{macrocode}
 %
-% \begin{variable}[int]{\l_@@_tmpa_tl}
+% \begin{variable}{\l_@@_tmpa_tl,\l_@@_tmpb_tl}
 % 临时变量。
 %    \begin{macrocode}
 \tl_new:N \l_@@_tmpa_tl
 \tl_new:N \l_@@_tmpb_tl
 %    \end{macrocode}
 % \end{variable}
+%
+% \begin{macro}{\@@_patch_cmd:Nnn,\@@_preto_cmd:Nn,\@@_appto_cmd:Nn}
+% 补丁工具。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
+  {
+    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_preto_cmd:Nn #1#2
+  {
+    \ctex_preto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
+  {
+    \ctex_appto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \paragraph{代码行处理}
 %
@@ -179,7 +225,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_marco_code:w}
+% \begin{macro}{\@@_marco_code:w}
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_marco_code:w
   {
@@ -194,7 +240,7 @@
 %    \end{macrocode}
 % 设置代码段结束标记为“\verb*|%    \end{macrocode}^^M|”。
 %    \begin{macrocode}
-    \exp_args:Nx \@@_make_finish_tag:n { \@currenvir }
+    \@@_make_finish_tag:x { \@currenvir }
 %    \end{macrocode}
 % 开始 \env{macrocode}。
 %    \begin{macrocode}
@@ -203,7 +249,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_marco_code_every_par:n}
+% \begin{macro}{\@@_marco_code_every_par:n}
 % 在每段之前插入内容。这里每段即相当于每行。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_marco_code_every_par:n #1
@@ -228,7 +274,7 @@
   \int_set:Nn \tex_endlinechar:D { -1 }
 %    \end{macrocode}
 %
-% \begin{variable}[int]{\c_@@_active_space_tl}
+% \begin{variable}{\c_@@_active_space_tl}
 % 活动字符类的空格（ASCII 码为 32）。
 %    \begin{macrocode}
   \use:n
@@ -247,7 +293,7 @@
   \char_set_catcode_active:n { 13 }
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_make_finish_tag:n}
+% \begin{macro}{\@@_make_finish_tag:n,\@@_make_finish_tag:x}
 % \env{macrocode} 结尾标记。展开后变成
 % “\verb*|%    \end{#1}^^M|”。
 %    \begin{macrocode}
@@ -263,10 +309,11 @@
           \exp_not:N ^^M
         }
     }
+  \cs_generate_variant:Nn \@@_make_finish_tag:n { x }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_macro_code_start:w}
+% \begin{macro}{\@@_macro_code_start:w}
 % 开始代码环境。此命令主要是为了防止 |\begin{macrocode}|
 % 后出现多余的空行。
 %    \begin{macrocode}
@@ -279,7 +326,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_macro_code_read_line:w}
+% \begin{macro}{\@@_macro_code_read_line:w}
 % 逐行读取代码，并连同行尾回车符一并存入
 % \cs{l_@@_macro_code_line_tl}。如果该行与结束标记
 % “\verb*|%    \end{macrocode}^^M|”相同，则结束此
@@ -303,8 +350,7 @@
 %   文档类 v2.4.10 之前版本中行距偏小的问题，见 ctex-kit
 %   \href{https://github.com/CTeX-org/ctex-kit/issues/303}{\#~303}。}
 %
-% \begin{macro}[int]{\@@_swap_cr:}
-% \begin{macro}[aux]{\@@_swap_cr_aux:w}
+% \begin{macro}{\@@_swap_cr:,\@@_swap_cr_aux:w}
 % 把 \cs{l_@@_macro_code_line_tl} 中的回车符 |^^M| 挪到外面。
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_swap_cr:
@@ -319,9 +365,8 @@
     }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{variable}[int]{\c_@@_active_cr_tl}
+% \begin{variable}{\c_@@_active_cr_tl}
 % 活动字符类的回车符。
 %    \begin{macrocode}
   \tl_const:Nn \c_@@_active_cr_tl { ^^M }
@@ -329,7 +374,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}[int]{\l_@@_macro_code_line_tl,
+% \begin{variable}{\l_@@_macro_code_line_tl,
 %   \l_@@_macro_code_finish_tl,
 %   \g_@@_macro_code_verbatim_stop_tl}
 % 分别用来存储代码行、\env{macrocode} 结束标记以及抄录停止标记。
@@ -340,8 +385,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}[int]{\@@_process_normal_line:}
-% \changes{v0.4}{2017/08/04}{注释行允许以 \texttt{\#} 开头。}
+% \begin{macro}{\@@_process_normal_line:}
 % 普通代码行根据开头字符分别处理。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
@@ -371,7 +415,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_process_verbatim_line:}
+% \begin{macro}{\@@_process_verbatim_line:}
 % 处理抄录代码行（不检查 |%| 与 |<|）。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_verbatim_line:
@@ -403,7 +447,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_macro_code_process_line:}
+% \begin{macro}{\@@_macro_code_process_line:}
 % 处理代码行。该命令的作用如下：
 % \begin{itemize}
 %   \item 正常情况下，等同于 \cs{@@_process_normal_line:}；
@@ -437,7 +481,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_check_angle:n,\@@_check_angle:x}
+% \begin{macro}{\@@_check_angle:n,\@@_check_angle:x}
 % 检查第一个字符是否是 |<|。若是，则检查模块；否则立刻输出改行。
 % 该函数的参数不带 |%|。
 %    \begin{macrocode}
@@ -451,7 +495,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_check_module:n,\@@_check_module:x}
+% \begin{macro}{\@@_check_module:n,\@@_check_module:x}
 % 检查紧跟 |<| 之后的字符。共有四种情况：
 % \begin{itemize}
 %   \item |*|：模块开始（|%<*|\meta{module}|>|）；
@@ -464,7 +508,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
-    \exp_args:Nx \str_case:nnF { \str_head:n {#1} }
+    \str_case_x:nnF { \str_head:n {#1} }
       {
         { * } { \@@_module_star:w }
         { / } { \@@_module_slash:w }
@@ -487,7 +531,7 @@
   \char_set_catcode_active:N \>
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_module_star:w}
+% \begin{macro}{\@@_module_star:w}
 % 模块开始标记。
 % \begin{arguments}
 %   \item |*|\meta{module}
@@ -532,7 +576,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_module_slash:w}
+% \begin{macro}{\@@_module_slash:w}
 % 模块结束标记。结构与 \cs{@@_module_star:w} 相同。
 % \begin{arguments}
 %   \item |/|\meta{module}
@@ -564,7 +608,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_module_at:w}
+% \begin{macro}{\@@_module_at:w}
 % 名字空间。
 % \begin{arguments}
 %   \item 名字空间的名称（不含 |@@=|）
@@ -586,7 +630,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_module_verb:w}
+% \begin{macro}{\@@_module_verb:w}
 % 抄录开始。|#1|: |<|\meta{end-tag}，只有一个 |<|。
 % \meta{end-tag} 的最后会带有一个回车符 |^^M|。
 %    \begin{macrocode}
@@ -615,7 +659,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_module_pm:w}
+% \begin{macro}{\@@_module_pm:w}
 % 处理单独一行的模块。|<|\meta{module}|>| 放在行号的左侧。
 % \begin{arguments}
 %   \item \meta{module}
@@ -633,7 +677,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_output_line:n,\@@_output_line:}
+% \begin{macro}{\@@_output_line:n,\@@_output_line:}
 % 输出代码行。参数将被存入 \cs{l_@@_macro_code_line_tl}，
 % 再由不带参数的版本调用。
 %    \begin{macrocode}
@@ -651,10 +695,8 @@
 % 检查开头是否为 |%|，据此分别处理。
 %    \begin{macrocode}
         \str_if_eq_x:nnTF
-          { \str_head:N \l_@@_macro_code_line_tl }
-          { \c_percent_str }
-          { \@@_output_comment_line: }
-          { \@@_output_line: }
+          { \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
+          { \@@_output_comment_line: } { \@@_output_line: }
       }
   }
 \cs_new_protected_nopar:Npn \@@_output_line:
@@ -669,23 +711,22 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_output_comment_line:}
+% \begin{macro}{\@@_output_comment_line:}
 % 输出注释代码行。用灰色、斜体显示。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_output_comment_line:
   {
     \tex_noindent:D
     \group_begin:
-      %% According to ctex 0f21e62:
-      % \__fdudoc_swap_cr:
+      \__fdudoc_swap_cr:
       \color { code@gray } \slshape \@@_output_line:
     \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_replace_at_at:N}
-% \begin{macro}[aux]{\@@_replace_at_at_aux:Nn}
+% \begin{macro}{\@@_replace_at_at:N,
+%   \@@_replace_at_at_aux:Nn,\@@_replace_at_at_aux:No}
 % 把 |@@| 替换为相应的名字空间。其名称存放在全局变量
 % \cs{g__codedoc_module_name_tl} 中。
 % 它为空时（|%<@@=>|），不做替换。
@@ -693,10 +734,7 @@
 \cs_new_protected:Npn \@@_replace_at_at:N #1
   {
     \tl_if_empty:NF \g__codedoc_module_name_tl
-      {
-        \exp_args:NNo \@@_replace_at_at_aux:Nn
-          #1 \g__codedoc_module_name_tl
-      }
+      { \@@_replace_at_at_aux:No #1 \g__codedoc_module_name_tl }
   }
 \cs_new_protected:Npn \@@_replace_at_at_aux:Nn #1#2
   {
@@ -712,20 +750,17 @@
     \tl_replace_all:Nnn #1 { _ @ @ } { _ _ #2 }
     \tl_replace_all:Nnn #1 {   @ @ } { _ _ #2 }
   }
+\cs_generate_variant:Nn \@@_replace_at_at_aux:Nn { No }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{macro}[int]{\@@_module_push:n}
-% \begin{macro}[aux]{\@@_module_push_aux:nn}
+% \begin{macro}{\@@_module_push:n,
+%   \@@_module_push_aux:nn,\@@_module_push_aux:on}
 % 将模块名压入栈中。此处的栈主要用来处理模块名（包括抄录标记）
 % 之间的超链接。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_push:n
-  {
-    \exp_args:No \@@_module_push_aux:nn
-      { \int_use:N \c@HD@hypercount }
-  }
+  { \@@_module_push_aux:on { \int_use:N \c@HD@hypercount } }
 \cs_new_protected:Npn \@@_module_push_aux:nn #1
   {
     \seq_gpush:Nn \g_@@_module_dest_seq {#1}
@@ -733,21 +768,18 @@
     \exp_args:Nx \hdclindex
       { \zref@extractdefault { HD.#1 } { guard@end } { 1 } } { }
   }
+\cs_generate_variant:Nn \@@_module_push_aux:nn { on }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
 %
-% \begin{macro}[int]{\@@_module_pop:n}
-% \begin{macro}[aux]{\@@_module_pop_aux:nn}
+% \begin{macro}{\@@_module_pop:n,
+%   \@@_module_pop_aux:nn,\@@_module_pop_aux:on}
 % 将模块名释放出栈。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_pop:n
   {
     \seq_gpop:NNTF \g_@@_module_dest_seq \l_@@_tmpa_tl
-      {
-        \exp_args:No \@@_module_pop_aux:nn
-          { \l_@@_tmpa_tl }
-      }
+      { \@@_module_pop_aux:on { \l_@@_tmpa_tl } }
       { \BOOM \use:n }
   }
 \cs_new_protected:Npn \@@_module_pop_aux:nn #1
@@ -756,8 +788,8 @@
     \hypersetup { hidelinks }
     \hdclindex {#1} { }
   }
+\cs_generate_variant:Nn \@@_module_pop_aux:nn { on }
 %    \end{macrocode}
-% \end{macro}
 % \end{macro}
 %
 % \begin{variable}{\g_@@_module_dest_seq}
@@ -789,9 +821,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_output_module:nn,
-%   \@@_output_module_left:nn}
-% \changes{v0.4}{2017/08/01}{允许模块名在行号左侧显示。}
+% \begin{macro}{\@@_output_module:nn,\@@_output_module_left:nn}
 % 输出模块名（分行内和行号左侧两种）。
 % \begin{arguments}
 %   \item 颜色等样式
@@ -818,9 +848,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_star_color:,
-%   \@@_slash_color:,
-%   \@@_pm_color:}
+% \begin{macro}{\@@_star_color:,\@@_slash_color:,\@@_pm_color:}
 % 选择模块标记的颜色。模块标记的颜色会根据嵌套层次而改变。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_star_color:
@@ -852,8 +880,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}[int]{\g_@@_star_color_seq,
-%   \g_@@_slash_color_seq}
+% \begin{variable}{\g_@@_star_color_seq,\g_@@_slash_color_seq}
 % 存放模块标记颜色的序列。
 %    \begin{macrocode}
 \seq_new:N \g_@@_star_color_seq
@@ -861,7 +888,8 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}[int]{\@@_select_color:,guard@series}
+% \begin{macro}{\@@_select_color:}
+% \begin{macro}[int]{guard@series}
 % 设置模块标记的色系。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_select_color:
@@ -869,6 +897,7 @@
 \definecolorseries { guard@series }
   { cmyk } { last } { blue } { purple }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % 设置色系的增量大小。可选参数 |3| 意味着基色（blue）与
@@ -881,12 +910,12 @@
 % 设置颜色。
 %    \begin{macrocode}
 \definecolor { verb@guard } { named } { MaterialLime600 }
-\definecolor { at@guard }   { named } { MaterialPink    }
-\definecolor { code@gray }  { named } { MaterialGrey    }
+\definecolor { at@guard   } { named } { MaterialPink    }
+\definecolor { code@gray  } { named } { MaterialGrey    }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_module_angle:n}
+% \begin{macro}{\@@_module_angle:n}
 % 输出“$\langle\cdots\rangle$”。^^A\\
 %^^A 注：原来所使用的 \tn{textlangle} 和 \tn{textrangle} 在
 %^^A Source Sans Pro 字体下不可用。
@@ -898,7 +927,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_code_line_no:}
+% \begin{macro}{\@@_code_line_no:}
 % 行号。设置为阿拉伯数字。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_code_line_no:
@@ -920,7 +949,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int]{\@@_code_line_no_style:}
+% \begin{macro}{\@@_code_line_no_style:}
 % 行号格式。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_code_line_no_style:
@@ -949,10 +978,10 @@
 %
 % \subsubsection{\env{function} 环境}
 %
-% \begin{macro}[int]{\meta@font@select}
-% \begin{macro}[aux]{\@@_verb_addon:,
+% \begin{macro}{\@@_verb_addon:,
 %   \@@_disable_ecglue:,
 %   \@@_plain_punct_style:}
+% \begin{macro}[int]{\meta@font@select}
 % 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
 % 空格的宽度。需要按编译情况分别定义。
 %    \begin{macrocode}
@@ -963,27 +992,23 @@
       { \xeCJKsetup { PunctStyle = plain } }
     \cs_set:Nn \@@_disable_ecglue:
       { \xeCJKsetup { CJKecglue } }
-    \ctex_appto_cmd:NnnTF \meta@font@select
-      { }
+    \@@_appto_cmd:Nn \meta@font@select
       { \mode_if_inner:T { \@@_disable_ecglue: } }
-      { } { \ctex_patch_failure:N \meta@font@select }
   }
   {
     \cs_set_eq:NN \@@_verb_addon:        \prg_do_nothing:
     \cs_set_eq:NN \@@_plain_punct_style: \prg_do_nothing:
     \cs_set:Nn \@@_disable_ecglue:
       { \ltjsetparameter { autoxspacing = false } }
-    \ctex_appto_cmd:NnnTF \meta@font@select
-      { }
+    \@@_appto_cmd:Nn \meta@font@select
       { \@@_disable_ecglue: }
-      { } { \ctex_patch_failure:N \meta@font@select }
   }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{function}
-% \begin{macro}[aux]{\@@_fix_previous_depth:}
+% \begin{environment}{function}
+% \begin{macro}{\@@_fix_previous_depth:}
 % 调整 \env{function} 环境前后间距。
 %    \begin{macrocode}
 \BeforeBeginEnvironment { function }
@@ -998,12 +1023,13 @@
   { \@@_fix_previous_depth: }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
+% \end{environment}
 %
-% \begin{macro}{syntax,fdusyntax}
+% \begin{environment}{syntax}
+% \begin{environment}{fdusyntax}
 % 在 \env{syntax} 和 \env{fdusyntax} 环境前设置若干活动字符。
-% \texttt{\textbar} 用于分隔多个选项，无需倾斜；
-% |<xxx>| 表示选项，|(xxx)| 表示默认选项。
+% \texttt{\textbar} 用于分隔多个选项，无需倾斜；|<xxx>| 表示选项，
+% |(xxx)| 表示默认选项。原来的括号用宏保存，并且使用直立字体。
 % \env{syntax} 环境另需要额外调整行距、标点样式及字符间距。
 %    \begin{macrocode}
 \AtBeginEnvironment { syntax }
@@ -1011,26 +1037,29 @@
     \linespread { 1.2 }
     \@@_plain_punct_style:
     \@@_disable_ecglue:
-%     \char_set_catcode_active:N \|
-%     \char_set_active_eq:NN \| \orbar
-%     \char_set_catcode_active:N \(
-%     \char_set_active_eq:NN \( \defaultval@aux
+%     \char_set_catcode_active:N |
+%     \char_set_catcode_active:N (
+%     \char_set_active_eq:NN | \orbar
+%     \char_set_active_eq:NN ( \defaultval@aux
   }
 \AtBeginEnvironment { fdusyntax }
   {
-    \char_set_catcode_active:N \|
-    \char_set_active_eq:NN \| \orbar
-    \char_set_catcode_active:N \<
-    \char_set_active_eq:NN \< \syntaxopt@aux
-    \char_set_catcode_active:N \(
-    \char_set_active_eq:NN \( \defaultval@aux
+    \cs_set:Npn \lparen { \textup { ( } }
+    \cs_set:Npn \rparen { \textup { ) } }
+    \char_set_catcode_active:N |
+    \char_set_catcode_active:N <
+    \char_set_catcode_active:N (
+    \char_set_active_eq:NN | \orbar
+    \char_set_active_eq:NN < \syntaxopt@aux
+    \char_set_active_eq:NN ( \defaultval@aux
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
+% \end{environment}
 %
 % \subsubsection{修订记录索引项}
 %
-% \begin{macro}[int]{\@@_ltx_changes:nnn}
+% \begin{macro}{\@@_ltx_changes:nnn}
 % 保存 \pkg{doc} 中 \tn{changes@} 的定义。
 %    \begin{macrocode}
 \cs_new_eq:NN \@@_ltx_changes:nnn \changes@
@@ -1049,7 +1078,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}[int]{\g_@@_version_date_prop}
+% \begin{variable}{\g_@@_version_date_prop}
 % 存放版本号与对应的修改日期。
 % key = 版本号，value = \{ 开始日期，结束日期 \}。
 % 开始日期与结束日期可以相同。
@@ -1058,7 +1087,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}[int]{\@@_save_version_date:nn}
+% \begin{macro}{\@@_save_version_date:nn}
 % |nn| 版本最终将被 \tn{changes@} 调用。
 % \begin{arguments}
 %   \item 版本号
@@ -1084,7 +1113,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_save_version_date_aux:nnnn}
+% \begin{macro}{\@@_save_version_date_aux:nnnn}
 % \begin{arguments}
 %   \item 原开始日期
 %   \item 原结束日期（显然应有 |#1| < |#2|）
@@ -1106,7 +1135,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_save_version_date_aux:nnn}
+% \begin{macro}{\@@_save_version_date_aux:nnn}
 % 将版本号和日期存入 \cs{g_@@_version_date_prop}。
 % \begin{arguments}
 %   \item 版本号
@@ -1115,15 +1144,12 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_save_version_date_aux:nnn #1#2#3
-  {
-    \prop_gput:Nnn \g_@@_version_date_prop
-      {#1} { {#2} {#3} }
-  }
+  { \prop_gput:Nnn \g_@@_version_date_prop {#1} { {#2} {#3} } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[int,TF]{\@@_if_date_later:nn}
-% \begin{macro}[aux]{\@@_parse_date:w}
+% \begin{macro}[TF]{\@@_if_date_later:nn}
+% \begin{macro}{\@@_parse_date:w}
 % 比较两个日期。如果 |#1| 在 |#2| 之后，则为 |true|；反之为 |false|。
 % 日期的格式为 YYYY/MM/DD。比较方法是直接将日期化成 8 位数字，
 % 所以月、日前的 0 不可以省略。
@@ -1163,7 +1189,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_print_version_date:nnn}
+% \begin{macro}{\@@_print_version_date:nnn}
 % 输出版本号和日期。如果开始日期和结束日期相同，则只输出一项。
 % \begin{arguments}
 %   \item 开始日期
@@ -1180,8 +1206,7 @@
       {
         \footnotesize
         \str_if_eq:nnTF {#1} {#2}
-          { ( #1 ) }
-          { ( #1 ~ -- ~ #2 ) }
+          { ( #1 ) } { ( #1 ~ -- ~ #2 ) }
       }
     \par \nopagebreak
   }
@@ -1275,10 +1300,8 @@
 % \begin{macro}[int]{\@thehead}
 % 修改页眉，禁用 \tn{MakeUppercase}。
 %    \begin{macrocode}
-\ctex_preto_cmd:NnnTF \@thehead
-  { }
+\@@_preto_cmd:Nn \@thehead
   { \cs_set_eq:cN { MakeUppercase \space } \@iden }
-  { } { \ctex_patch_failure:N \@thehead }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1296,16 +1319,56 @@
 % \begin{macro}{\GlossaryParms}
 % 修改修订记录中的一些缩进。
 %    \begin{macrocode}
-\ctex_appto_cmd:NnnTF \GlossaryParms
-  { }
+\@@_appto_cmd:Nn \GlossaryParms
   {
     \raggedcolumns
     \cs_set_eq:NN \Hy@writebookmark \HDorg@writebookmark
-    \def \@idxitem   { \par \hangindent 2em }
-    \def \subitem    { \@idxitem \hspace* { 1em } }
-    \def \subsubitem { \@idxitem \hspace* { 2em } }
+    \cs_set:Npn \@idxitem   { \par \hangindent 2em }
+    \cs_set:Npn \subitem    { \@idxitem \hspace* { 1em } }
+    \cs_set:Npn \subsubitem { \@idxitem \hspace* { 2em } }
   }
-  { } { \ctex_patch_failure:N \GlossaryParms }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\HoLogo@LaTeXe}
+% 由于使用了 \pkg{unicode-math}，需要额外修改 \pkg{hologo} 中的
+% \tn{LaTeXe} 命令，以使粗体正常显示。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \HoLogo@LaTeXe
+  { \hbox { \HOLOGO@MathSetup 2 $ _{ \textstyle \varepsilon } $ } }
+  {
+    \hbox
+      {
+        \mathsurround 0pt \relax
+        2
+        \if b \expandafter \@car \f@series \@nil
+          $ _{ \textstyle \symbf { \varepsilon } } $
+        \else
+          $ _{ \textstyle \varepsilon } $
+        \fi
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\SpecialMainEnvIndex}
+% 索引汉化。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \SpecialMainEnvIndex
+  { (environment) } { ~ 环境 }
+\ctex_patch_cmd:Nnn \SpecialMainEnvIndex
+  { environments: } { 环境： }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\HDorg@SpecialEnvIndex}
+% \pkg{hypdoc} 宏包重新定义了 \tn{SpecialEnvIndex} 命令，因此需要
+% 修改内部定义。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
+  { (environment) } { ~ 环境 }
+\ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
+  { environments: } { 环境： }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1323,76 +1386,63 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_function_descr_start:w}
+% \begin{macro}{\@@_function_descr_start:w}
 % 抑制首段的 \tn{parskip}。
 %    \begin{macrocode}
-\ctex_patch_cmd_once:NnnnTF \@@_function_descr_start:w
-  { }
+\__fdudoc_patch_cmd:Nnn \@@_function_descr_start:w
   { \noindent }
   { \skip_vertical:n { -\parskip } \noindent }
-  { } { \ctex_patch_failure:N \@@_function_descr_start:w }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_function_assemble:}
+% \begin{macro}{\@@_function_assemble:}
 % 在 \cls{l3doc} 中，\env{function} 环境里的 \env{syntax} 和
-% \env{descr} 盒子中间存在一段 \tn{medskipamount} 的距离。
+% \env{descr} 盒子中间存在一段 \tn{med\-skip\-amount} 的距离。
 % 但是如果 \env{syntax} 盒子为空（未使用 \env{syntax} 环境），
 % 就会显得不好看。此时通过把 \tn{medskipamount} 设置为零来修正。
 % 若盒子非空，则把 \tn{parskip} 还回去。
 %    \begin{macrocode}
-\ctex_preto_cmd:NnnTF \@@_function_assemble:
-  { }
+\__fdudoc_preto_cmd:Nn \@@_function_assemble:
   {
     \box_if_empty:NTF \g_@@_syntax_box
       { \skip_zero:N \medskipamount }
       { \skip_add:Nn \medskipamount { \parskip } }
   }
-  { } { \ctex_patch_failure:N \@@_function_assemble: }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_typeset_functions:}
+% \begin{macro}{\@@_typeset_functions:}
 % 调整 \env{function} 环境的字体。
 %    \begin{macrocode}
-\ctex_patch_cmd_once:NnnnTF \@@_typeset_functions:
-  { }
+\__fdudoc_patch_cmd:Nnn \@@_typeset_functions:
   { \small \ttfamily } { \footnotesize \CodeFont }
-  { } { \ctex_patch_failure:N \@@_meta_original:n }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_typeset_functions:,\@@_macro_init:,
+% \begin{macro}{\@@_typeset_functions:,\@@_macro_init:,
 %   \@@_macro_dump:}
 % 左侧边注的函数列表采用单倍行距。
 %    \begin{macrocode}
-\ctex_preto_cmd:NnnTF \@@_typeset_functions:
-  { }
+\__fdudoc_preto_cmd:Nn \@@_typeset_functions:
   { \MacroFont }
-  { } { \ctex_patch_failure:N \@@_typeset_functions: }
-\ctex_patch_cmd_once:NnnnTF \@@_macro_init:
-  { }
+\__fdudoc_patch_cmd:Nnn \@@_macro_init:
   { \hbox:n } { \MacroFont \hbox:n }
-  { } { \ctex_patch_failure:N \@@_macro_init: }
-\ctex_patch_cmd_once:NnnnTF \@@_macro_dump:
-  { }
+\__fdudoc_patch_cmd:Nnn \@@_macro_dump:
   { \hbox_unpack_clear:N } { \MacroFont \hbox_unpack_clear:N }
-  { } { \ctex_patch_failure:N \@@_macro_dump: }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_macro_end_style:n}
-% 禁止显示 \env{macro} 环境最后的
-% “(\emph{End definition for ...})”。
+% \begin{macro}{\@@_macro_end_style:n}
+% 禁止显示 \env{macro} 环境最后的 “(\emph{End definition for ...})”。
 %    \begin{macrocode}
 \cs_set_eq:NN \@@_macro_end_style:n \use_none:n
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_macro_typeset_one:nN}
-% 在 \env{macro} 环境的侧边栏中，\cls{l3doc} 根据命令的长短，
-% 分别用普通字体和紧缩字体输出。然而很长的命令还是会超出页边。
-% 这里用缩放盒子的手段使得长命令也可正常显示。
+% \begin{macro}{\@@_macro_typeset_one:nN}
+% 在 \env{macro} 环境的侧边栏中，\cls{l3doc} 根据命令的长短，分别用
+% 普通字体和紧缩字体输出。然而很长的命令还是会超出页边。这里用缩放
+% 盒子的手段使得长命令也可正常显示。
 %    \begin{macrocode}
 \cs_set_protected:Npn \@@_macro_typeset_one:nN #1#2
   {
@@ -1403,10 +1453,12 @@
         \hbox_set:Nn \l_tmpa_box
           { \@@_print_macroname:nN {#1} #2 }
 %    \end{macrocode}
-% \tn{marginparwidth} 为边注宽度，而 \tn{labelsep} 则用来控制
-% 编号盒子右端与条目首行文本之间的距离。
+% \tn{marginparwidth} 和 \tn{marginparsep} 分别是边注的宽度及其到
+% 版心的距离，\tn{la\-bel\-sep} 则是编号盒子右端与条目首行文本之间
+% 的距离。
 %    \begin{macrocode}
-        \dim_set:Nn \l_tmpa_dim { \marginparwidth - \labelsep }
+        \dim_set:Nn \l_tmpa_dim
+          { \marginparwidth - \labelsep - \marginparsep }
         \dim_compare:nNnT { \box_wd:N \l_tmpa_box } > \l_tmpa_dim
           {
             \box_resize_to_wd_and_ht:Nnn \l_tmpa_box
@@ -1423,7 +1475,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[aux]{\@@_print_macroname:nN}
+% \begin{macro}{\@@_print_macroname:nN}
 % 该函数不再需要根据命令的长短切换字体。
 %    \begin{macrocode}
 \cs_set_protected:Npn \@@_print_macroname:nN #1#2
@@ -1453,10 +1505,82 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_special_index_module:nnnnN}
+% 索引汉化。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_special_index_module:nnnnN #1#2#3#4#5
+  {
+    \use:x
+      {
+        \exp_not:n { \@@_special_index_aux:nnnnnnn {#1} {#2} }
+          \tl_if_empty:nTF {#3}
+            { { } { } { } { } }
+            {
+              \str_if_eq_x:nnTF {#3} { TeX }
+                {
+                  { TeX~ and~ LaTeX2e }
+                  { \string \TeX{}~ 和~ \string \LaTeXe{} }
+                }
+                { {#3} { \string \pkg {#3} } }
+              \bool_if:NTF #5
+                { { commands~ internal } { ~ 内部命令： } }
+                { { commands           } { ~ 命令：     } }
+            }
+      }
+    {#4}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_special_index_aux:nnnnnnn}
+% 该函数在 \cls{l3doc} 中本来只有 6 个参数。这里增加了一个，用来辅助
+% 排序。
+% \begin{arguments}
+%   \item 键（即宏名称字符串，用来排序）
+%   \item 宏名称
+%   \item 索引头排序字符串（排序）
+%   \item 索引头文字
+%   \item 索引头后缀字符串（排序，新增）
+%   \item 索引头后缀文字
+%   \item 索引类型（\opt{main}/\opt{usage} 等）
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_special_index_aux:nnnnnnn #1#2#3#4#5#6#7
+  {
+    \tl_set:Nn \l_@@_index_escaped_key_tl {#1}
+    \@@_quote_special_char:N \l_@@_index_escaped_key_tl
+    \@@_special_index_set:Nn
+      \l_@@_index_escaped_macro_tl {#2}
+    \str_if_eq:onTF { \@currenvir } { macrocode }
+      { \codeline@wrindex }
+      {
+        \str_case:nnF {#7}
+          {
+            { main  } { \codeline@wrindex }
+            { usage } { \index }
+          }
+          { \HD@target \index }
+      }
+      {
+        \tl_if_empty:nF { #3 #4 #5 #6 }
+          { #3 #5 \actualchar #4 #6 \levelchar }
+        \l_@@_index_escaped_key_tl
+        \actualchar
+        {
+          \token_to_str:N \verbatim@font \c_space_tl
+          \l_@@_index_escaped_macro_tl
+        }
+        \encapchar
+        hdclindex { \the \c@HD@hypercount } {#7}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{杂项}
 %
-% \begin{macro}{\StopSpecialIndexModule}
-% \begin{macro}[aux]{\@@_special_index_module:nnnnN}
+% \begin{macro}{\StopSpecialIndexModule,
+%   \@@_special_index_module:nnnnN}
 % 不对 \cs{cs} 和 \cs{tn} 等编索引。用于目录、索引等。
 %    \begin{macrocode}
 \DeclareDocumentCommand \StopSpecialIndexModule { }
@@ -1467,7 +1591,6 @@
 \tl_map_inline:nn { \actualchar \encapchar \levelchar }
   { \exp_args:Nx \DoNotIndex { \bslash \tl_to_str:N #1 } }
 %    \end{macrocode}
-% \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\meta}
@@ -1484,6 +1607,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% 重定向 \cls{l3doc} 中的一些提示信息。
+%    \begin{macrocode}
+\msg_redirect_name:nnn { l3doc } { foreign-internal    } { log }
+\msg_redirect_name:nnn { l3doc } { print-changes-howto } { log }
+\msg_redirect_name:nnn { l3doc } { print-index-howto   } { log }
+%    \end{macrocode}
+%
 %    \begin{macrocode}
 %<@@=>
 \ExplSyntaxOff
@@ -1491,7 +1621,7 @@
 %
 % \subsubsection{排版样式设置}
 %
-% 目录中关闭对 \cs{cs} 和 \cs{tn} 等的索引。
+% 目录中禁止对 \cs{cs} 和 \cs{tn} 等的索引。
 %    \begin{macrocode}
 \AtBeginDocument{%
   \addtocontents{toc}{\StopSpecialIndexModule}}
@@ -1510,8 +1640,7 @@
 % \begin{macro}[int]{\@makefntext}
 % 调整脚注文本缩进。
 %    \begin{macrocode}
-\renewcommand\@makefntext[1]{%
-  \parindent 0em \noindent\@makefnmark~#1}
+\renewcommand\@makefntext[1]{\parindent 0em\noindent\@makefnmark~#1}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1520,16 +1649,16 @@
 %    \begin{macrocode}
 \IndexPrologue{%
   \section{\indexname}%
-  \textit{无衬线字体的数字表示描述对应索引项的页码；
-  带下划线的数字表示定义对应索引项的代码行号；
-  罗马字体的数字表示使用对应索引项的代码行号（或页码）．}}
+  \textit{无衬线字体的数字表示对应索引项出现的页码；
+    带下划线的数字表示定义对应索引项的代码行号；
+    其他普通数字则表示使用对应索引项的代码行号．}}
 \def\IndexLayout{%
   \newgeometry{%
-    left   = 1.00 in,
-    right  = 1.00 in,
+    left   = 0.85 in,
+    right  = 0.85 in,
     top    = 1.25 in,
     bottom = 1.00 in}%
-  \setlength\IndexMin{.5\textheight}%
+  \setlength\IndexMin{0.5\textheight}%
   \ctexset{section/numbering=false}%
   \StopSpecialIndexModule}
 \def\indexname{代码索引}
@@ -1563,13 +1692,27 @@
 % 中文字体。
 %    \begin{macrocode}
 \setCJKmainfont{FZShuSong-Z01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+  [
+    BoldFont       = FZHei-B01,
+    ItalicFont     = FZKai-Z03,
+    BoldItalicFont = FZKai-Z03
+  ]
 \setCJKsansfont{FZHei-B01}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
+  [
+    BoldFont       = FZHei-B01,
+    ItalicFont     = FZKai-Z03,
+    BoldItalicFont = FZKai-Z03
+  ]
 \setCJKmonofont{FZFangSong-Z02}%
-  [BoldFont = FZHei-B01, ItalicFont = FZKai-Z03]
-\newCJKfontfamily\kaishu{FZKai-Z03}
-\newCJKfontfamily\fangsong{FZFangSong-Z02}
+  [
+    BoldFont       = FZHei-B01,
+    ItalicFont     = FZKai-Z03,
+    BoldItalicFont = FZKai-Z03
+  ]
+\newCJKfontfamily\kaishu{FZKai-Z03}%
+  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
+\newCJKfontfamily\fangsong{FZFangSong-Z02}%
+  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1597,8 +1740,8 @@
 %    \begin{macrocode}
 \ctexset
   {
-    section = {name = {第,节}, format += \raggedright},
-    subsubsection / tocline = {\kaishu\CTEXnumberline{#1}#2},
+    section = {name = {第,节}, format+ = \raggedright},
+    subsubsection/tocline = {\kaishu\CTEXnumberline{#1}#2},
     paragraph = {runin = false, numbering = false}
   }
 %    \end{macrocode}
@@ -1627,12 +1770,12 @@
 %    \begin{macrocode}
 \hypersetup
   {
-    bookmarksdepth     = 4,
-    bookmarksnumbered  = true,
-    colorlinks         = true,
-    citecolor          = MaterialGreen,
-    linkcolor          = MaterialPink,
-    urlcolor           = MaterialIndigo
+    bookmarksdepth    = 4,
+    bookmarksnumbered = true,
+    colorlinks        = true,
+    citecolor         = MaterialGreen,
+    linkcolor         = MaterialPink,
+    urlcolor          = MaterialIndigo
   }
 %    \end{macrocode}
 %
@@ -1649,7 +1792,7 @@
 \setlist[itemize]{leftmargin=*}
 %    \end{macrocode}
 %
-% \begin{macro}{optdesc}
+% \begin{environment}{optdesc}
 % 用于描述各选项。设置条目间距为 \tn{marginparsep}，与
 % \cls{l3doc} 一致。
 %    \begin{macrocode}
@@ -1660,9 +1803,9 @@
   labelsep=\marginparsep, labelindent=-\marginparsep,
   leftmargin=*}
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
 %
-% \begin{macro}{tablenotes}
+% \begin{environment}{tablenotes}
 % \begin{variable}{tpt@id}
 % 重新定义 \pkg{threeparttable} 包的 \env{tablenotes} 环境，
 % 用于表格的注释。
@@ -1682,7 +1825,7 @@
 \newcounter{tpt@id}
 %    \end{macrocode}
 % \end{variable}
-% \end{macro}
+% \end{environment}
 %
 % \begin{macro}[int]{\tnote@item,\TPTtagStyle}
 % 为 \tn{tnote} 增加超链接。
@@ -1696,8 +1839,8 @@
 % \begin{macro}{\UrlAlphabet,\UrlDigits}
 % 网址断行。\tn{UrlOrds}、\tn{UrlAlphabet} 和 \tn{UrlDigits}
 % 分别记录了特殊符号、字母和数字，把它们依次附加在 \pkg{url} 宏包
-% 提供的命令 \tn{UrlBreaks} 之后，即可允许在这些位置处断行。见
-% \url{https://liam0205.me/2017/05/17/help-the-url-command-from-hyperref-to-break-at-line-wrapping-point/}。
+% 提供的命令 \tn{UrlBreaks} 之后，即可允许在这些位置处断行。与
+% \cs{fdu_allow_url_break:} 的原理是相同的。
 %    \begin{macrocode}
 \def\UrlAlphabet{%
   \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
@@ -1733,7 +1876,8 @@
 %
 % \subsubsection{文档层命令}
 %
-% \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar}
+% \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
+%   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
 % 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
 % 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
 % 和“restricted-expandable”。
@@ -1742,7 +1886,7 @@
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
 \newcommand*\expstar{\hyperlink{expstar}{$\star$}}
 \newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
-% TODO(20170812): 允许修改 exptstar 和 rexpstar
+% TODO: (2017/08/12) 允许修改 exptstar 和 rexpstar
 \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
 \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
 \ExplSyntaxOn
@@ -1769,24 +1913,27 @@
 % \begin{macro}{\opt}
 % 选项名。
 %    \begin{macrocode}
-\newcommand*\opt[1]{\texttt{#1}}
+\DeclareDocumentCommand\opt{m}{\texttt{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.5}{2017/09/30}{[\pkg{fdudoc}] 新增 \cs{kvopt} 命令，
-%   用于描述键值型选项。}
-%
 % \begin{macro}{\kvopt}
-% \meta{key} |=| \meta{value} 型选项。带星号的版本不会在等号两侧
-% 加上空格。
+% \meta{key} |=| \meta{value} 型选项。
 %    \begin{macrocode}
-\DeclareDocumentCommand\kvopt{smm}
-  {\IfBooleanTF{#1}{\texttt{#2=#3}}{\texttt{#2 = #3}}}
+\DeclareDocumentCommand\kvopt{mm}
+  {\texttt{#1\breakablethinspace=\breakablethinspace#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\breakablethinspace}
+% 允许换行的细间距。
+%    \begin{macrocode}
+\def\breakablethinspace{\hskip 0.16667em\relax}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\syntaxopt,\defaultval}
-% \begin{macro}[aux]{\syntaxopt@aux,\defaultval@aux}
+% \begin{macro}[int]{\syntaxopt@aux,\defaultval@aux}
 % \env{syntax} 中的选项及命令选项。
 % |aux| 结尾的两个命令用于定义利用 |<>| 和 |()| 的简写形式。
 %    \begin{macrocode}
@@ -1809,10 +1956,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.5}{2017/09/10}{[\pkg{fdudoc}] 新增 \env{arguments}
-%   环境，用于描述参数列表。}
-%
-% \begin{macro}{arguments}
+% \begin{environment}{arguments}
 % 放在 \env{macro} 环境中，用于描述对应命令的参数。
 % \cls{l3doc} 中的定义 \opt{labelsep} 设置不太合理，会使标签被覆盖，
 % 这里重新定义。
@@ -1822,21 +1966,16 @@
     label={\texttt{\#\arabic*:~}}, labelsep=0pt, nolistsep]}%
   {\endenumerate}
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
 %
 % \begin{macro}{\TeX,\LaTeX,\LaTeXe,
 %   \pdfTeX,\pdfLaTeX,\XeTeX,\XeLaTeX,\LuaTeX,\LuaLaTeX,
-%   \AmSLaTeX,\TeXLive,\MiKTeX,
-%   \TikZ}
+%   \AmSLaTeX,\TeXLive,\MiKTeX,\BibTeX,\biber,\TikZ}
 % \TeX{} 相关标志。
 %    \begin{macrocode}
 \def\TeX{\hologo{TeX}}
 \def\LaTeX{\hologo{LaTeX}}
 \def\LaTeXe{\hologo{LaTeXe}}
-%    \end{macrocode}
-% \LaTeX3 使用 |\LaTeX3| 输入。
-%    \begin{macrocode}
-% \def\LaTeXiii{\hologo{LaTeX3}}
 \def\pdfTeX{\hologo{pdfTeX}}
 \def\pdfLaTeX{\hologo{pdfLaTeX}}
 \def\XeTeX{\hologo{XeTeX}}
@@ -1846,6 +1985,9 @@
 \def\AmSLaTeX{\hologo{AmSLaTeX}}
 \def\TeXLive{\TeX\ Live}
 \def\MiKTeX{\hologo{MiKTeX}}
+\def\BibTeX{\hologo{BibTeX}}
+\def\BibTeX{\hologo{BibTeX}}
+\def\biber{\hologo{biber}}
 %    \end{macrocode}
 % 该定义来自 \file{pgfmanual-en-macros.tex}。
 %    \begin{macrocode}
@@ -1854,9 +1996,9 @@
 % \end{macro}
 %
 % \begin{macro}{\cs,\tn}
-% \begin{macro}[aux]{\codedoc@cs,\codedoc@tn}
+% \begin{macro}[int]{\codedoc@cs,\codedoc@tn}
 % 控制序列。
-% ^^A Colors are used for debug.
+%^^A Colors are used for debug.
 %    \begin{macrocode}
 % \let\codedoc@cs=\cs
 % \let\codedoc@tn=\tn
@@ -1893,7 +2035,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{quote*}
+% \begin{environment}{quote*}
 % 引述环境。
 % \begin{arguments}
 %   \item 作者
@@ -1905,7 +2047,7 @@
   {\endquote\IfNoValueF{#1}{%
     \hfill —— \IfNoValueF{#2}{〔#2〕}#1}}
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
 %
 % \paragraph{示例代码环境}
 %
@@ -1961,7 +2103,7 @@
     style      = style@base,
     rulecolor  = \color{MaterialIndigo},
     language   = [LaTeX]TeX,
-    alsoletter = {*},
+    alsoletter = {*, -},
     texcsstyle = *\color{MaterialDeepOrange},
     emphstyle  = [1]\color{MaterialGreen800},
     emphstyle  = [2]\color{MaterialTeal}
@@ -1977,7 +2119,7 @@
     gobble        = 6,
     escapeinside  = {(*}{*)},
     language      = [LaTeX]TeX,
-    alsoletter    = {*},
+    alsoletter    = {*, -},
     basicstyle    = \footnotesize\CodeFont\color{MaterialGrey900},
     keywordstyle  = \bfseries\color{MaterialIndigo},
     commentstyle  = \itshape\color{MaterialGrey600},
@@ -1988,42 +2130,43 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{shellexample,latexexample}
-% shell 和 \LaTeX{} 示例代码。
+% \begin{environment}{shellexample}
+% \begin{environment}{latexexample}
+% Shell 和 \LaTeX{} 示例代码。
 %    \begin{macrocode}
 \lstnewenvironment{shellexample}[1][]{%
   \lstset{style=style@shell, #1}}{}
 \lstnewenvironment{latexexample}[1][]{%
   \lstset{style=style@latex, #1}}{}
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
+% \end{environment}
 %
-% \begin{macro}{fdusyntax}
+% \begin{environment}{fdusyntax}
 % 语法说明。用于代替 \cls{l3doc} 中的 \env{syntax} 环境。
 %    \begin{macrocode}
 \lstnewenvironment{fdusyntax}[1][]{%
   \lstset{style=style@syntax, #1}\vspace{-1.8ex}}{}
 %</doc>
 %    \end{macrocode}
-% \end{macro}
+% \end{environment}
 %
 % \subsubsection{\pkg{latexmk} 配置文件}
 %
 %    \begin{macrocode}
-%<*latexmk>
+%<*latexmk|latexmk-en>
 # Latexmk configuration file.
 
 # Use XeLaTeX to compile.
 $pdf_mode = 5;
-
-# Do not use BibTeX or biber, since bbl file is provided.
-$bibtex_use = 0;
 
 # Process index.
 $makeindex = 'zhmakeindex -s gind.ist %O -o %D %S';
 
 # Show CPU time used.
 $show_time = 1;
+%</latexmk|latexmk-en>
+%<*latexmk>
 
 # Process glossary (change history).
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
@@ -2032,185 +2175,6 @@ sub makeglo2gls {
         -t \"$_[0].glg\" \"$_[0].glo\"");
 }
 %</latexmk>
-%    \end{macrocode}
-%
-% \clearpage
-%
-% \end{implementation}
-%
-% \DisableImplementation
-%
-% \begin{implementation}
-%
-% \subsubsection{参考文献列表}
-%
-%    \begin{macrocode}
-%<*bbl>
-\begin{thebibliography}{99}
-
-\providecommand{\urlprefix}{\newline\hspace*{\fill}}
-\let\OldUrl=\url
-\renewcommand\url[1]{{\small\OldUrl{#1}}}
-\newcommand\sourceurl[1]{{\small{\kaishu 源代码：} \OldUrl{#1}}}
-
-\bibitem{source2e}
-\textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
-\newblock \textit{The \LaTeXe{} Sources} [CP/OL].
-\newblock (2017-04-15) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/base/source2e.pdf}
-
-\bibitem{CTeX}
-\textsc{CTEX.ORG}.
-\newblock \textit{\CTeX{} 宏集手册} [EB/OL].
-\newblock version 2.4.10,
-\newblock (2017-08-07) \urlprefix
-  \url{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.pdf}
-  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/language/chinese/ctex/ctex.dtx}
-
-\bibitem{xeCJK}
-\textsc{CTEX.ORG}.
-\newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
-\newblock version 3.5.0,
-\newblock (2017-08-07) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.pdf}
-  \urlprefix \sourceurl{https://www.ctan.org/tex-archive/macros/xetex/latex/xecjk/xeCJK.dtx}
-
-\bibitem{hmshan2017fduphdthesistemplate}
-\textsc{hmshan}.
-\newblock \textit{复旦博士论文模板} [EB/OL].
-\newblock (2017-04-04) \urlprefix
-  \url{https://github.com/hmshan/FDU_PhD_Thesis_Template}
-
-\bibitem{knuth1986texbook}
-\textsc{Knuth D E}.
-\newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
-\newblock Boston: Addison--Wesley Publishing Company, 1986
-  \urlprefix {\small {\kaishu 源代码
-    \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译该文档。}：}
-    \OldUrl{https://www.ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex}}
-
-\bibitem{interfaces3}
-\textsc{The \LaTeX3 Project}.
-\newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
-\newblock (2017-09-18) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/interface3.pdf}
-
-\bibitem{source3}
-\textsc{The \LaTeX3 Project}.
-\newblock \textit{The \LaTeX3 Sources} [CP/OL].
-\newblock (2017-09-18) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/l3kernel/source3.pdf}
-
-\bibitem{mittelbach2004latexcompanion}
-\textsc{Mittelbach F} and \textsc{Goossens M}.
-\newblock \textit{The \LaTeX{} Companion} [M].
-\newblock 2nd ed.
-\newblock Boston: Addison--Wesley Publishing Company, 2004
-
-\bibitem{lshort}
-\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-\newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 157 minutes} [EB/OL].
-\newblock version 5.05,
-\newblock (2015-07-18) \urlprefix
-  \url{https://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}
-
-\bibitem{lshort-zh-cn}
-\textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-\newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 102 分钟了解 \LaTeXe{}} [EB/OL].
-\newblock China\TeX{} 论坛, 译.
-\newblock 原版版本 version 5.05, 中文版本 version 5.10,
-\newblock (2017-03-26) \urlprefix
-  \url{https://www.ctan.org/tex-archive/info/lshort/chinese/lshort-zh-cn.pdf}
-
-\bibitem{pandoxie2014fduthesislatex}
-\textsc{Pandoxie}.
-\newblock \textit{Fudan University-Latex Template} [EB/OL].
-\newblock (2014-06-07) \urlprefix
-  \url{https://github.com/Pandoxie/FDU-Thesis-Latex}
-
-\bibitem{richard2016fudanthesis}
-\textsc{richard}.
-\newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
-\newblock (2016-01-31) \urlprefix
-  \url{https://github.com/richarddzh/fudan-thesis}
-
-\bibitem{weijianwen2017sjtuthesis}
-\textsc{weijianwen}.
-\newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis.} [EB/OL].
-\newblock (2017-01-27) \urlprefix
-  \url{https://github.com/weijianwen/SJTUThesis}
-
-\bibitem{wright2009dtxfile}
-\textsc{Wright J}.
-\newblock \textit{A model dtx file} [EB/OL].
-\newblock (2009-10-06) \urlprefix
-  \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
-
-\bibitem{zepinglee2017ustcthesis}
-\textsc{zepinglee} and \textsc{seisman}.
-\newblock \textit{\LaTeX{} template for USTC thesis} [EB/OL].
-\newblock version 3.0,
-\newblock (2017-07-02) \urlprefix
-  \url{https://github.com/ustctug/ustcthesis}
-
-\bibitem{数院毕业论文格式}
-复旦大学数学科学学院.
-\newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL]. \urlprefix
-  \url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
-
-\bibitem{数院毕业论文格式更新}
-复旦大学数学科学学院.
-\newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL]. \urlprefix
-  \url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
-
-\bibitem{复旦大学论文规范}
-复旦大学图书馆, 复旦大学研究生院.
-\newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
-\newblock 2017 年 3 月修订版.
-\newblock (2017-03-27) \urlprefix
-  \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
-
-\bibitem{gb-t-7713.1-2006}
-国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
-\newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
-\newblock 北京: 中国标准出版社, 2007
-
-\bibitem{胡伟2017latex2e}
-胡伟.
-\newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
-\newblock 北京: 清华大学出版社, 2017
-
-\bibitem{gb-t-15834-2011}
-教育部语言文字信息管理司.
-\newblock \textit{标点符号用法: GB/T 15834--2011} [S].
-\newblock 北京: 中国标准出版社, 2012
-
-\bibitem{cquthesis}
-李振楠.
-\newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
-\newblock version 1.20,
-\newblock (2017-05-30) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/cquthesis/cquthesis.pdf}
-
-\bibitem{刘海洋2013latex入门}
-刘海洋.
-\newblock \textit{\LaTeX{} 入门} [M].
-\newblock 北京: 电子工业出版社, 2013
-
-\bibitem{gb-t-7714-2015}
-全国信息与文献标准化技术委员会.
-\newblock \textit{信息与文献 参考文献著录规则: GB/T 7714--2015} [S].
-\newblock 北京: 中国标准出版社, 2015
-
-\bibitem{thuthesis}
-薛瑞尼.
-\newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
-\newblock version 5.3.2,
-\newblock (2017-03-26) \urlprefix
-  \url{https://www.ctan.org/tex-archive/macros/latex/contrib/thuthesis/thuthesis.pdf}
-
-\end{thebibliography}
-%</bbl>
 %    \end{macrocode}
 %
 % \clearpage
