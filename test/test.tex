@@ -1,8 +1,7 @@
 % Compile with:
-%   platex-ng --shell-escape test
+%   pdflatex test
 
 \PassOptionsToPackage{log-declarations=false}{xparse}
-\PassOptionsToPackage{dvipdfmx}{graphicx}
 
 \documentclass[twoside]{fduthesis}
 \usepackage{amssymb}
@@ -13,11 +12,11 @@
   style = {
     % font = none,
     % cjkfont = none,
-    % fullwidthstop = mapping,
-    % footnotestyle = libertinus*,
-    % automakecover = false
+    fullwidth-stop = catcode,
+    % footnote-style = libertinus*,
+    % auto-make-cover = false
     logo = {../logo/pdf/fudan-name-black.pdf},
-    % logosize = {2cm,2cm,2cm}
+    % logo-size = {2cm,2cm,2cm}
     hyperlink = color,
     hyperlink-color = default,
     bib-backend = bibtex
@@ -86,7 +85,7 @@ expected by the function.
 \kant[1-5]
 \end{abstract*}
 
-\begin{notation}[lp{15em}]
+\begin{notation}[lp{24em}]
 $\sin$      &  正弦 \\
 HPC         &  高性能计算 (High Performance Computing) \\
 cluster     &  集群 \\
@@ -108,7 +107,7 @@ $P$         &  概率 \\
 $T$         &  时间 \\
 $v$         &  速度 \\
 劝学        &  君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木
-  直中绳。\symbol{"2B413}\symbol{"8F2E} d 輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
+  直中绳。{"2B413}{"8F2E} 輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就
   砺则利，君子博学而日参省乎己，则知明而行无过矣。—— 荀况 \\
 $\sin$      &  正弦 \\
 HPC         &  高性能计算 (High Performance Computing) \\
@@ -152,11 +151,10 @@ PY          &  聚吡咙
 %\ExplSyntaxOff
 
 \subsection{句号}
-如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
-如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
-如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
-
+如果 {"002E} 会突然：\textsc{Full Stop} \par
+如果 {"3002} 会突然：\textsc{Ideographic Full SStop} \par
+如果 {"FF0E} 会突然：\textsc{Fullwidth Full Stop} \par
+如果 {"FF61} 会突然：\textsc{Halfwidth Ideographic Full Stop} \par
 \clearpage
 
 \section{脚注 Footnote}

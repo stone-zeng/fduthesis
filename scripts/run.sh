@@ -6,10 +6,10 @@ export TEXOPT="-interaction=batchmode -halt-on-error"
 # Install `fduthesis`
 cd source
 xetex $TEXOPT "fduthesis.dtx"
-# Now I'm directly modifying the .cls files.
+# Now I'm directly modifying the .cls and .def files.
 # cp fduthesis.cls       ../test/
 # cp fduthesis-en.cls    ../test/
-cp fduthesis.def       ../test/
+# cp fduthesis.def       ../test/
 
 mkdir                  ../logo/
 cp fdulogo.sty         ../logo/

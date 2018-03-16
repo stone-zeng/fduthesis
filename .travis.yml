@@ -1,10 +1,6 @@
-language: c
-
-compiler:
-  - gcc
-
 install:
   - source ./scripts/texlive.sh
+  - source ./scripts/local.sh
 
 cache:
   directories:
@@ -12,7 +8,9 @@ cache:
     - $HOME/.texlive
 
 script:
-  - source ./scripts/ptex-ng.sh
-  - source ./scripts/local.sh
   - source ./scripts/run.sh
-  - ptex-ng --format=platex-ng --shell-escape test
+  - pdflatex test
+
+notifications:
+  email:
+    - pssysrq@163.com

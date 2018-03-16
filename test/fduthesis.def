@@ -1,0 +1,132 @@
+%%
+%% This is file `fduthesis.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% fduthesis.dtx  (with options: `definition')
+%% 
+%%     Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+%% 
+%%     This work may be distributed and/or modified under the
+%%     conditions of the LaTeX Project Public License, either
+%%     version 1.3c of this license or (at your option) any later
+%%     version. The latest version of this license is in:
+%% 
+%%       http://www.latex-project.org/lppl.txt
+%% 
+%%     and version 1.3 or later is part of all distributions of
+%%     LaTeX version 2005/12/01 or later.
+%% 
+%%     This work has the LPPL maintenance status `maintained'.
+%% 
+%%     The Current Maintainer of this work is Xiangdong Zeng.
+%% 
+%%     This work consists of the files fduthesis.dtx,
+%%                                     fduthesis-doc.dtx,
+%%                                     fduthesis-logo.dtx,
+%%               and the derived files fduthesis.ins,
+%%                                     fduthesis.cls,
+%%                                     fduthesis-en.cls,
+%%                                     fduthesis.def,
+%%                                     fdudoc.cls,
+%%                                     fdulogo.sty,
+%%                                     fdulogo-example.tex,
+%%                                     fduthesis-cover.tex,
+%%                                     fduthesis-en.tex,
+%%                                     fduthesis.pdf,
+%%                                     fduthesis-en.pdf,
+%%                                     latexmkrc,
+%%                                     latexmkrc-en,
+%%                                 and README.md.
+%% 
+\GetIdInfo $Id: fduthesis.dtx 0.6 2017-12-01 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
+  {Definition file for fduthesis}
+\ProvidesExplFile{\ExplFileName.def}
+  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+\tl_const:Nn \c__fdu_name_simp_tl { 复旦大学          }
+\tl_const:Nn \c__fdu_name_trad_tl { 復旦大學          }
+\tl_const:Nn \c__fdu_name_en_tl   { Fudan~ University }
+%%>>>
+\clist_map_inline:nn
+  {
+    { ideographic_comma     } { 、 }, % { "3001 },
+    { ideographic_full_stop } { 。 }, % { "3002 },
+    { fullwidth_comma       } { ， }, % { "FF0C },
+    { fullwidth_full_stop   } { ． }, % { "FF0E },
+    { fullwidth_colon       } { ： }, % { "FF1A },
+    { fullwidth_semicolon   } { ； }, % { "FF1B },
+    { fullwidth_left_paren  } { （ }, % { "FF08 },
+    { fullwidth_right_paren } { ） }  % { "FF09 }
+  }
+  { \__fdu_define_punct:nn #1 }
+%%<<<
+\fp_const:Nn \c__fdu_line_spread_fp
+  { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
+\tl_const:Nn \c__fdu_orig_decl_text_tl
+  {
+    本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究
+    工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人或机
+    构已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集体，均
+    已在论文中作了明确的声明并表示了谢意。本声明的法律结果由本人承担。
+  }
+\tl_const:Nn \c__fdu_auth_decl_text_tl
+  {
+    本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：学
+    校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版本；
+    允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影
+    印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此规定。
+  }
+\clist_const:Nn \c__fdu_orig_decl_sign_clist
+  { 作者签名, 日期 }
+\clist_const:Nn \c__fdu_auth_decl_sign_clist
+  { 作者签名, 导师签名, 日期 }
+\clist_const:Nn \c__fdu_thesis_type_clist
+  { 博士学位论文, 硕士学位论文, 本科毕业论文 }
+\clist_const:Nn \c__fdu_degree_type_clist
+  { 学术学位, 专业学位 }
+\clist_const:Nn \c__fdu_secret_clist { 秘密, 机密, 绝密 }
+\clist_map_inline:nn
+  {
+    { secret_level    } { 密 \qquad 级                  },
+    { secret_star     } { \textrm { \bigstar }          },
+    { school_id       } { 学校代码                      },
+    { student_id      } { 学 \qquad 号                  },
+    { department      } { 院系                          },
+    { major           } { 专业                          },
+    { author          } { 姓名                          },
+    { supervisor      } { 指导教师                      },
+    { date            } { 完成日期                      },
+    { instructors     } { 指导小组成员                  },
+    { author_sign     } { 作者签名                      },
+    { supervisor_sign } { 导师签名                      },
+    { sign_date       } { 日期                          },
+    { bib_en          } { Bibliography                  },
+    { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
+    { orig_decl       } { \c__fdu_name_simp_tl \\ 学位论文独创性声明   },
+    { auth_decl       } { \c__fdu_name_simp_tl \\ 学位论文使用授权声明 }
+  }
+  { \__fdu_define_name:nn #1 }
+\clist_map_inline:nn
+  {
+    { abstract } { 摘 \quad 要 } { Abstract          },
+    { keywords } { 关键字      } { Keywords:         },
+    { clc      } { 中图分类号  } { CLC~ number:      },
+    { toc      } { 目 \quad 录 } { Contents          },
+    { notation } { 符号表      } { List~ of~ Symbols }
+  }
+  { \__fdu_define_name:nnn #1 }
+\clist_map_inline:nn
+  {
+    { proof      } { 证明 } { Proof      },
+    { axiom      } { 公理 } { Axiom      },
+    { corollary  } { 推论 } { Corollary  },
+    { definition } { 定义 } { Definition },
+    { example    } { 例   } { Example    },
+    { lemma      } { 引理 } { Lemma      },
+    { theorem    } { 定理 } { Theorem    }
+  }
+  { \__fdu_define_name:nnn #1 }
+\endinput
+%%
+%% End of file `fduthesis.def'.

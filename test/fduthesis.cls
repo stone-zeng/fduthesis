@@ -126,8 +126,12 @@
   }
 \cs_new_protected:Npn \__fdu_define_fn_style:nn #1#2
   { \tl_const:cn { c__fdu_fn_style_ #1 _tl } {#2} }
+%%\cs_new_protected:Npn \__fdu_define_punct:nn #1#2
+%%  { \tl_const:cn { c__fdu_ #1 _tl } { \__fdu_symbol:n {#2} } }
+%%>>>
 \cs_new_protected:Npn \__fdu_define_punct:nn #1#2
-  { \tl_const:cn { c__fdu_ #1 _tl } { \__fdu_symbol:n {#2} } }
+  { \tl_const:cn { c__fdu_ #1 _tl } {#2} }
+%%<<<
 \cs_new_protected:Npn \__fdu_define_name:nn #1#2
   { \tl_const:cn { c__fdu_name_ #1 _tl } {#2} }
 \cs_new_protected:Npn \__fdu_define_name:nnn #1#2#3
@@ -180,6 +184,9 @@
 \__fdu_msg_new:nn { unknown-option }
   { Class~ option~ "\l_keys_key_tl"~ is~ unknown. }
 \ProcessKeysOptions { fdu / option }
+%%>>>
+\RequirePackage{CJKutf8}
+%%<<<
 \file_input:n { fduthesis.def }
 \tl_if_empty:NF \g__fdu_config_tl
   {
@@ -194,7 +201,8 @@
     heading    = true,
 %%    fontset    = none,
 %%>>>
-    fontset    = fandol,
+    %zhmap      = false,
+    %fontset    = windowsnew,
 %<<<
     zihao      = -4,
     linespread = \c__fdu_line_spread_fp,
@@ -650,10 +658,25 @@
     Option~ "fullwidth-stop = mapping"~ is~ not~ available~ in~ LuaTeX. \\
     "fullwidth-stop = catcode"~ will~ be~ set~ instead.
   }
-\cs_new:Npn \__fdu_set_fullwidth_stop_catcode:
+\cs_new_protected:Npn \__fdu_set_fullwidth_stop_catcode:
   {
-    \char_set_active_eq:nN { "3002 } \c__fdu_fullwidth_full_stop_tl
-    \char_set_catcode_active:n { "3002 }
+%%    \char_set_active_eq:nN { "3002 } \c__fdu_fullwidth_full_stop_tl
+%%    \char_set_catcode_active:n { "3002 }
+%%>>>
+    % http://bbs.ctex.org/forum.php?mod=viewthread&tid=71625
+    % ^^e3^^80^^82 句号
+    % ^^ef^^bc^^8e 句点
+    \AtBeginDocument
+      {
+        \cs_new_eq:cN { __fdu_cjk_char_e3:w } ^^e3
+        \cs_set:Npn ^^e3 ^^80 ##1
+          {
+            \int_compare:nTF { `##1 = `^^82 }
+              { ^^ef ^^bc ^^8e }
+              { \use:c { __fdu_cjk_char_e3:w } ^^80 ##1 }
+          }
+      }
+%%<<<
   }
 \keys_set:nn { ctex }
   {
@@ -890,7 +913,7 @@
               }
           }
         \tl_put_left:Nn \l__fdu_thm_style_tl { nonumber }
-        \fdu_thm_new_no_number:Vxx \l__fdu_thm_style_tl {#3} {#4}
+        \fdu_thm_new_no_number:Vxx \l__fdu_thm_style_tl {#3} { \exp_not:o {#4} }
       }
       {
         \clist_clear:N \l__fdu_tmpa_clist
@@ -902,7 +925,7 @@
               { \l__fdu_thm_style_tl }
           }
         \fdu_thm_new:VVxx \l__fdu_thm_style_tl \l__fdu_thm_counter_tl
-          {#3} {#4}
+          {#3} { \exp_not:o {#4} }
       }
   }
 \cs_new:Npn \__fdu_thm_redefine_style:n #1
@@ -1011,9 +1034,14 @@
   }
 \cs_new_protected:Npn \__fdu_spread_box:nn #1#2
   {
-    \mode_leave_vertical:
-    \hbox_to_wd:nn {#1}
-      { \tl_map_inline:xn {#2} { ##1 \hfil } \unskip }
+%%    \mode_leave_vertical:
+%%    \hbox_to_wd:nn {#1}
+%%      { \tl_map_inline:xn {#2} { ##1 \hfil } \unskip }
+%%>>>
+    \CJKfilltwosides {#1}
+      #2
+    \endCJKfilltwosides
+%%<<<
   }
 \cs_new_protected:Npn \__fdu_center_box:nn #1#2
   {
@@ -1121,19 +1149,19 @@
       \centering \zihao { 4 }
       \clist_set:Nx \l__fdu_tmpa_clist
         {
-          \c__fdu_name_department_tl,
-          \c__fdu_name_major_tl,
-          \c__fdu_name_author_tl,
-          \c__fdu_name_supervisor_tl,
-          \c__fdu_name_date_tl,
+          \exp_not:o { \c__fdu_name_department_tl },
+          \exp_not:o { \c__fdu_name_major_tl      },
+          \exp_not:o { \c__fdu_name_author_tl     },
+          \exp_not:o { \c__fdu_name_supervisor_tl },
+          \exp_not:o { \c__fdu_name_date_tl       },
         }
       \clist_set:Nx \l__fdu_tmpb_clist
         {
-          { \l__fdu_info_department_tl },
-          { \l__fdu_info_major_tl      },
-          { \l__fdu_info_author_tl     },
-          { \l__fdu_info_supervisor_tl },
-          { \l__fdu_info_date_tl       }
+          \exp_not:o { \l__fdu_info_department_tl },
+          \exp_not:o { \l__fdu_info_major_tl      },
+          \exp_not:o { \l__fdu_info_author_tl     },
+          \exp_not:o { \l__fdu_info_supervisor_tl },
+          \exp_not:o { \l__fdu_info_date_tl       }
         }
       \__fdu_get_max_text_width:NN \l__fdu_tmpb_dim \l__fdu_tmpb_clist
       \bool_until_do:nn

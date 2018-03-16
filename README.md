@@ -1,8 +1,8 @@
 # fduthesis
 
-## [ptex-ng](https://github.com/clerkma/ptex-ng) branch
+## pdfTeX branch
 
-[![Build Status](https://img.shields.io/travis/Stone-Zeng/fduthesis/ptex-ng.svg)](https://github.com/Stone-Zeng/fduthesis/tree/ptex-ng)
+[![Build Status](https://img.shields.io/travis/Stone-Zeng/fduthesis/pdftex.svg)](https://github.com/Stone-Zeng/fduthesis/tree/pdftex)
 
 This work may be distributed and/or modified under the conditions of
 the [LaTeX Project Public License](http://www.latex-project.org/lppl.txt),
