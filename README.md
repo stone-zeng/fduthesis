@@ -6,7 +6,7 @@
 ## 欢迎使用 fduthesis - 复旦大学论文模板！
 
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.pdf)。
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.pdf)。
 该文档也可通过如下命令生成：
 
 ```shell
@@ -37,7 +37,7 @@ xetex fduthesis.dtx
 ## Welcome to fduthesis - LaTeX thesis template for Fudan University!
 
 Before you using `fduthesis`, please read the document
-[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis-en.pdf)
+[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis-en.pdf)
 carefully.
 
 If you want to get all components of `fduthesis`, please execute the

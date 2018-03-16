@@ -21,6 +21,7 @@
 % This work consists of the files fduthesis.dtx,
 %                                 fduthesis-doc.dtx,
 %                                 fduthesis-logo.dtx,
+%                                 fduthesis-template.tex,
 %           and the derived files fduthesis.ins,
 %                                 fduthesis.cls,
 %                                 fduthesis-en.cls,
@@ -32,6 +33,7 @@
 %                                 fduthesis-en.tex,
 %                                 fduthesis.pdf,
 %                                 fduthesis-en.pdf,
+%                                 fduthesis-code.pdf,
 %                                 latexmkrc,
 %                                 latexmkrc-en,
 %                             and README.md.
@@ -44,7 +46,7 @@
 The `fduthesis` Class
 =====================
 
-*LaTeX thesis template for Fudan University, v0.6*
+*LaTeX thesis template for Fudan University, v0.7*
 
 Overview
 --------
@@ -56,9 +58,9 @@ At present, only XeTeX, LuaTeX and [ApTeX](https://github.com/clerkma/ptex-ng)
 (experimental) are supported.
 
 The documentation can be found in
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.pdf)
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.pdf)
 (in Chinese) or
-[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis-en.pdf)
+[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis-en.pdf)
 (in English).
 
 Installation
@@ -67,7 +69,7 @@ Installation
 To install `fduthesis`, you can use one of the following methods:
 
 - Download
-  [fduthesis.tds.zip](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip)
+  [fduthesis.tds.zip](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip)
   from GitHub, extract it in the root of one of your TDS trees, and
   update the filename database.
 
@@ -145,6 +147,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     This work consists of the files fduthesis.dtx,
                                     fduthesis-doc.dtx,
                                     fduthesis-logo.dtx,
+                                    fduthesis-template.tex,
               and the derived files fduthesis.ins,
                                     fduthesis.cls,
                                     fduthesis-en.cls,
@@ -156,6 +159,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
                                     fduthesis-en.tex,
                                     fduthesis.pdf,
                                     fduthesis-en.pdf,
+                                    fduthesis-code.pdf,
                                     latexmkrc,
                                     latexmkrc-en,
                                 and README.md.
@@ -221,7 +225,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|doc|logo>\RequirePackage{expl3}
 %<*!(driver|install|ex-logo|cover)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.6 2017-12-01 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7 2018-03-16 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -253,6 +257,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \begin{document}
   \DisableImplementation
 %<!--CODEDOC-->  \EnableImplementation
+%<!--CODEDOC-->  \def\FDUCODEDOC{}
   \DocInput{fduthesis.dtx}
 %<!--CODEDOC-->  \DocInput{fduthesis-doc.dtx,fduthesis-logo.dtx}
   \IndexLayout
@@ -329,13 +334,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \textbf{fduthesis: 复旦大学论文^^A
 %     \xpinyin[font=\sffamily]{模}{mu2}板}}}
 % \author{曾祥东}
-% \date{\today \quad v0.6^^A
+% \date{\today \quad v0.7^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A! \title{\textcolor{MaterialIndigo800}{%
 %^^A!   \textbf{The \textsf{fduthesis} Class \\
 %^^A!     \LaTeX{} Thesis Template for Fudan University}}}
 %^^A! \author{Xiangdong Zeng}
-%^^A! \date{\today \quad v0.6%
+%^^A! \date{\today \quad v0.7%
 %^^A!   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A!
 %^^A! \begin{document}
@@ -509,7 +514,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 较好的方法是使用 TDS 安装包：
 % \begin{itemize}
 %   \item 从 GitHub 上下载 \cls{fduthesis} 的
-%     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip}{TDS 安装包}；
+%     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip}{TDS 安装包}；
 %   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
 %     发行版的本地 TDS 根目录；
 %   \item 执行 \bashcmd{texhash} 刷新文件名数据库以完成安装。
@@ -518,7 +523,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! you need to download and install it from GitHub. Recommended
 %^^A! way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
-%^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.6/fduthesis.tds.zip}%
+%^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip}%
 %^^A!     {TDS ZIP file} for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.
@@ -595,15 +600,24 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \toprule
 %     \textbf{文件} & \textbf{功能说明} \\
 %     \midrule
-%     \file{fduthesis.cls}      & 中文模板文档类 \\
-%     \file{fduthesis-en.cls}   & 英文模板文档类 \\
-%     \file{fduthesis.def}      & 参数配置文件，用于设定
+%     \file{fduthesis.cls}          & 中文模板文档类 \\
+%     \file{fduthesis-en.cls}       & 英文模板文档类 \\
+%     \file{fduthesis.def}          & 参数配置文件，用于设定
 %       \cls{fduthesis} 的初始参数，不建议您自行改动 \\
-%     \file{fdudoc.cls}         & 用户手册文档类 \\
-%     \file{fdulogo.sty}        & 复旦大学视觉识别系统 \\
-%     \file{README.md}          & 简要自述 \\
-%     \file{fduthesis.pdf}      & 中文用户手册（本文档） \\
-%     \file{fduthesis-en.pdf}   & 英文用户手册 \\
+%     \file{fdudoc.cls}             & 用户手册文档类 \\
+%     \file{fdulogo.sty}            & 复旦大学视觉识别系统 \\
+%     \file{README.md}              & 简要自述 \\
+%     \ifdefined\FDUCODEDOC
+%       \file{fduthesis.pdf}        & 中文用户手册 \\
+%       \file{fduthesis-en.pdf}     & 英文用户手册 \\
+%       \file{fduthesis-code.pdf}   & 模板实现代码（本文档） \\
+%     \else
+%       \file{fduthesis.pdf}        & 中文用户手册（本文档） \\
+%       \file{fduthesis-en.pdf}     & 英文用户手册 \\
+%       \file{fduthesis-code.pdf}   & 模板实现代码 \\
+%     \fi
+%     \file{fduthesis-template.tex} & 空白模板，可据此为基础完成论文
+%       撰写 \\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
@@ -615,16 +629,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     \toprule
 %^^A!     \textbf{Files} & \textbf{Descriptions} \\
 %^^A!     \midrule
-%^^A!     \file{fduthesis.cls}      & Document class for Chinese thesis. \\
-%^^A!     \file{fduthesis-en.cls}   & Document class for English thesis.\\
-%^^A!     \file{fduthesis.def}      & Configuration parameters file
+%^^A!     \file{fduthesis.cls}          & Document class for Chinese thesis. \\
+%^^A!     \file{fduthesis-en.cls}       & Document class for English thesis.\\
+%^^A!     \file{fduthesis.def}          & Configuration parameters file
 %^^A!       for \cls{fduthesis}. Please do \emph{not} modify it. \\
-%^^A!     \file{fdudoc.cls}         & Document class for user guides. \\
-%^^A!     \file{fdulogo.sty}        & Fudan University's visual identity. \\
-%^^A!     \file{README.md}          & The brief introduction. \\
-%^^A!     \file{fduthesis.pdf}      & User's guide in Chinese. \\
-%^^A!     \file{fduthesis-en.pdf}   & User's guide in English (this
+%^^A!     \file{fdudoc.cls}             & Document class for user guides. \\
+%^^A!     \file{fdulogo.sty}            & Fudan University's visual identity. \\
+%^^A!     \file{README.md}              & The brief introduction. \\
+%^^A!     \file{fduthesis.pdf}          & User's guide in Chinese. \\
+%^^A!     \file{fduthesis-en.pdf}       & User's guide in English (this
 %^^A!       document). \\
+%^^A!     \file{fduthesis-code.pdf}     & Code implementation. \\
+%^^A!     \file{fduthesis-template.tex} & An empty thesis template, and you can
+%^^A!       write your thesis based on it. \\
 %^^A!     \bottomrule
 %^^A!   \end{tabular}
 %^^A! \end{table}
@@ -5696,49 +5713,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.7}{2018/01/25}{同步 \pkg{gbt7714} v1.0。}
-%
-%^^A \begin{macro}{\bibpreamble,\href,\doi,\fdu_href:w}
-%^^A \changes{v0.6}{2017/10/28}{修改 \tn{href} 的定义，使其不显示
-%^^A   超链接，同时又能正确处理 URL 中的特殊符号。}
-%^^A 禁止为文献标题添加超链接。
-%^^A    \begin{macrocode}
-%^^A \cs_set:Npn \bibpreamble
-%^^A   {
-%^^A     \cs_set_eq:NN \fdu_href:w \href
-%^^A     \cs_set_eq:NN \href       \fdu_nolink_href:w
-%^^A     \NewDocumentCommand \doi { m }
-%^^A       { DOI:~ \fdu_href:w { http://dx.doi.org/ ##1 } {##1} }
-%^^A   }
-%^^A    \end{macrocode}
-%^^A \end{macro}
-%^^A
-%^^A \begin{macro}{\fdu_nolink_href:w}
-%^^A 不带链接的 \tn{href}，相当于忽略第一个参数。以下代码来自
-%^^A \pkg{hyperref}。这里不考虑原始 \tn{href} 的可选参数，也不考虑
-%^^A 它放在参数中的情况。
-%^^A    \begin{macrocode}
-%^^A \cs_new_protected:Npn \fdu_nolink_href:w
-%^^A   {
-%^^A     \group_begin:
-%^^A       \hyper@normalise \@@_href_aux:n
-%^^A   }
-%^^A    \end{macrocode}
-%^^A \end{macro}
-%^^A
-%^^A \begin{macro}{\@@_href_aux:n,\@@_href_split:w}
-%^^A 处理 URL 中的特殊符号。
-%^^A    \begin{macrocode}
-%^^A \group_begin:
-%^^A   \char_set_catcode_parameter:N \$
-%^^A   \char_set_catcode_other:N     \#
-%^^A   \cs_new:Npn \@@_href_aux:n $1
-%^^A     { \exp_after:wN \@@_href_split:w $1 # # \\ }
-%^^A   \cs_new:Npn \@@_href_split:w $1 # $2 # $3 \\ $4
-%^^A     { $4 \group_end: }
-%^^A \group_end:
-%^^A    \end{macrocode}
-%^^A \end{macro}
+% \changes{v0.7}{2018/01/25}{同步 \pkg{gbt7714} v1.0，移除有关超链接
+%   的额外设置。}
 %
 % \subsection{\pkg{hyperref} 相关配置}
 %
