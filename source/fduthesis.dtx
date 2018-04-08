@@ -46,7 +46,7 @@
 The `fduthesis` Class
 =====================
 
-*LaTeX thesis template for Fudan University, v0.7*
+*LaTeX thesis template for Fudan University, v0.7a*
 
 Overview
 --------
@@ -58,9 +58,9 @@ At present, only XeTeX, LuaTeX and [ApTeX](https://github.com/clerkma/ptex-ng)
 (experimental) are supported.
 
 The documentation can be found in
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.pdf)
+[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.pdf)
 (in Chinese) or
-[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis-en.pdf)
+[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis-en.pdf)
 (in English).
 
 Installation
@@ -69,7 +69,7 @@ Installation
 To install `fduthesis`, you can use one of the following methods:
 
 - Download
-  [fduthesis.tds.zip](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip)
+  [fduthesis.tds.zip](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.tds.zip)
   from GitHub, extract it in the root of one of your TDS trees, and
   update the filename database.
 
@@ -225,7 +225,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|doc|logo>\RequirePackage{expl3}
 %<*!(driver|install|ex-logo|cover)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7 2018-03-16 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7a 2018-04-09 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -285,6 +285,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7}{2018/01/26}{使用 \pkg{l3build} 进行回归测试。}
 % \changes{v0.7}{2018/01/31}{不再需要 \file{fduthesis-user.def}。}
 % \changes{v0.7}{2018/03/04}{所有选项更改为用连字符隔开的形式。}
+% \changes{v0.7a}{2018/04/09}{更新文档，发布至 CTAN。}
 %
 % \CheckSum{0}
 %
@@ -334,13 +335,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \textbf{fduthesis: 复旦大学论文^^A
 %     \xpinyin[font=\sffamily]{模}{mu2}板}}}
 % \author{曾祥东}
-% \date{\today \quad v0.7^^A
+% \date{\today \quad v0.7a^^A
 %   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A! \title{\textcolor{MaterialIndigo800}{%
 %^^A!   \textbf{The \textsf{fduthesis} Class \\
 %^^A!     \LaTeX{} Thesis Template for Fudan University}}}
 %^^A! \author{Xiangdong Zeng}
-%^^A! \date{\today \quad v0.7%
+%^^A! \date{\today \quad v0.7a%
 %^^A!   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
 %^^A!
 %^^A! \begin{document}
@@ -544,7 +545,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 安装包：
 % \begin{itemize}
 %   \item 从 GitHub 上下载 \cls{fduthesis} 的
-%     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip}{TDS 安装包}；
+%     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.tds.zip}{TDS 安装包}；
 %   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
 %     发行版的本地 TDS 根目录；
 %   \item 执行 \bashcmd{mktexlsr} 刷新文件名数据库以完成安装。
@@ -552,7 +553,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! If you want to download the template from GitHub and install it
 %^^A! manually, the recommended way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
-%^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip}%
+%^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.tds.zip}%
 %^^A!     {TDS ZIP file} for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.
@@ -2231,10 +2232,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     \pkg{psnfss} bundle.
 %^^A!   \item When chosen \kvopt{style/bib-backend}{bibtex},
 %^^A!     package \pkg{natbib} will be loaded. Meanwhile, program
-%^^A!     \BibTeX{} will be required for compilation.
+%^^A!     \BibTeX{} will be required for compilation. The
+%^^A!     bibliography style is provided by \pkg{gbt7714}.
 %^^A!   \item When chosen \kvopt{style/bib-backend}{biblatex},
 %^^A!     package \pkg{biblatex} will be loaded. Program \biber{}
-%^^A!     will be required then.
+%^^A!     will be required then. The bibliography style is provided
+%^^A!     by \pkg{biblatex-gb7714-2015}.
 %^^A! \end{itemize}
 %^^A!
 %
