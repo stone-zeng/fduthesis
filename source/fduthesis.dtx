@@ -510,24 +510,53 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsection{Obtaining \cls{fduthesis}}
 %^^A!
 %
-% 本模板目前暂未上传至 CTAN，您需要从 GitHub 上自行下载并安装。
-% 较好的方法是使用 TDS 安装包：
+% \subsubsection{标准安装}
+%^^A! \subsubsection{Standard installation}
+%^^A!
+%
+% 如果没有特殊理由，始终建议您使用宏包管理器安装 \cls{fduthesis}。
+% 例如在 \TeXLive{} 中，执行（可能需要管理员权限）
+% \begin{shellexample}[morekeywords={tlmgr,install}]
+%   tlmgr install fduthesis
+% \end{shellexample}
+% 即可完成安装。
+%^^A! If there are no special reasons, it is always recommended to
+%^^A! install \cls{fduthesis} with a package manager. For example,
+%^^A! the following command will install the package in \TeXLive{}
+%^^A! (administrator permission may be required):
+%^^A! \begin{shellexample}[morekeywords={tlmgr,install}]
+%^^A!   tlmgr install fduthesis
+%^^A! \end{shellexample}
+%^^A!
+%
+% 在 \TeXLive{} 和 \MiKTeX{} 中，您还可以通过图形界面进行安装，
+% 此处不再赘述。
+%^^A! In \TeXLive{} and \MiKTeX{}, you can also install \cls{fduthesis}
+%^^A! through a graphical interface. It's rather simple and will not be
+%^^A! described here.
+%^^A!
+%
+% \subsubsection{手动安装}
+%^^A! \subsubsection{Install manually}
+%^^A!
+%
+% 如果您需要从 GitHub 上自行下载并手动安装，较好的方法是使用 TDS
+% 安装包：
 % \begin{itemize}
 %   \item 从 GitHub 上下载 \cls{fduthesis} 的
 %     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip}{TDS 安装包}；
 %   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
 %     发行版的本地 TDS 根目录；
-%   \item 执行 \bashcmd{texhash} 刷新文件名数据库以完成安装。
+%   \item 执行 \bashcmd{mktexlsr} 刷新文件名数据库以完成安装。
 % \end{itemize}
-%^^A! At present, \cls{fduthesis} hasn't been uploaded to CTAN, so
-%^^A! you need to download and install it from GitHub. Recommended
-%^^A! way is to use the TDS ZIP file:
+%^^A! If you want to download the template from GitHub and install it
+%^^A! manually, the recommended way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
 %^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.tds.zip}%
 %^^A!     {TDS ZIP file} for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.
-%^^A!   \item Run \bashcmd{texhash} to update the ls-R database.
+%^^A!   \item Run \bashcmd{mktexlsr} to update the ls-R database.
 %^^A! \end{itemize}
 %^^A
 % 您也可以从源代码直接生成模板（不推荐）：
@@ -546,13 +575,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       xetex fduthesis.dtx
 %     \end{shellexample}
 %   \item 将生成的文档类（\file{.cls}）、宏包（\file{.sty}）以及
-%     参数配置文件（\file{.def}）复制到您的工作文件夹（论文源文件
-%     所在目录）中，方可完成安装。
-%   \item 也可将上述生成文件复制到 \TeX{} 发行版本地 TDS 树的
-%     \path{texmf-local/tex/latex/fduthesis/} 目录下，并执行
-%     \bashcmd{texhash} 刷新文件名数据库。
+%     参数配置文件（\file{.def}）复制到 \TeX{} 发行版本地 TDS 树
+%     的 \path{texmf-local/tex/latex/fduthesis/} 目录下，并执行
+%     \bashcmd{mktexlsr} 刷新文件名数据库，方可完成安装。
 % \end{itemize}
-%^^A! Though not recommended, you may generate the whole template
+%^^A! Although not recommended, you may generate the whole template
 %^^A! from source code as well:
 %^^A! \begin{itemize}
 %^^A!   \item Open the project's \href{https://github.com/Stone-Zeng/fduthesis}%
@@ -571,13 +598,25 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     \end{shellexample}
 %^^A!   \item Copy the generated document classes (\file{.cls}),
 %^^A!     packages (\file{.sty}) and configuration files (\file{.def})
-%^^A!     into your working directory (where you put the source code
-%^^A!     of your thesis).
-%^^A!   \item (\emph{Optional}) You may also copy these files into
-%^^A!     \path{texmf-local/tex/latex/fduthesis/} under the local TDS
-%^^A!     tree of \TeX{} distribution. Then run \bashcmd{texhash} to
-%^^A!     update the ls-R database.
+%^^A!     into \path{texmf-local/tex/latex/fduthesis/} under the local
+%^^A!     TDS tree of \TeX{} distribution. Then run \bashcmd{mktexlsr}
+%^^A!     to update the ls-R database.
 %^^A! \end{itemize}
+%^^A!
+%
+% \subsubsection{扁平化安装}
+%^^A! \subsubsection{\cls{fduthesis} on the fly}
+%^^A!
+%
+% 如果您不希望安装本模板，但需要立刻使用，也可以使用模板提供的安装脚本。
+% 从 GitHub 上获取代码仓库后，执行 \file{install-win.bat}（Windows 系统）
+% 或 \file{install-linux.sh}（Linux 系统），所有需要的文件便会在
+% \file{thesis} 文件夹中生成。
+%^^A! If you don't want to install \cls{fduthesis} but need to use it
+%^^A! at once, you can try the installation scripts. Download the
+%^^A! repository from GitHub, run \file{install-win.bat} (on Windows)
+%^^A! or \file{install-linux.sh} (on Linux), then all the necessary
+%^^A! files will be found in the \file{thesis} folder.
 %^^A!
 %
 % \subsection{模板组成}
@@ -2158,7 +2197,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
 %   \item 开启 \kvopt{style/bib-backend}{bibtex} 后，会调用
 %     \pkg{natbib} 宏包，并依赖 \BibTeX{} 程序。参考文献样式由
-%     \pkg{gbt7714} 宏包提供 \scite{natbib,bibtex-gb7714-2015}。
+%     \pkg{gbt7714} 宏包提供 \scite{natbib,gbt7714}。
 %   \item 开启 \kvopt{style/bib-backend}{biblatex} 后，会调用
 %     \pkg{biblatex} 宏包，并依赖 \biber{} 程序。参考文献样式由
 %     \pkg{biblatex-gb7714-2015} 宏包提供
@@ -2208,35 +2247,31 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{thebibliography}{99}
 %
-% \providecommand{\urlprefix}{\newline\hspace*{\fill}}
+% \newcommand\urlprefix{\newline\hspace*{\fill}}
 % \let\OldUrl=\url
 % \renewcommand\url[1]{{\small\OldUrl{#1}}}
-% \newcommand\sourceurl[1]{{\small{\kaishu 源代码：}
-%   \href{https://www.ctan.org/tex-archive/#1}{\ttfamily CTAN://#1}}}
-% \newcommand\CTANurl[1]{{\small\href{https://www.ctan.org/tex-archive/#1}^^A
+% \newcommand\CTANurl[1]{{\small\href{http://mirror.ctan.org/#1}^^A
 %   {\ttfamily CTAN://#1}}}
 %
 % \bibitem{source2e}
 % \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
 % \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
-% \newblock (2017-04-15) \urlprefix
+% \newblock (2018-04-01) \urlprefix
 %   \CTANurl{macros/latex/base/source2e.pdf}
 %
 % \bibitem{CTeX}
 % \textsc{CTEX.ORG}.
 % \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
-% \newblock version 2.4.11,
-% \newblock (2017-11-22) \urlprefix
+% \newblock version 2.4.12,
+% \newblock (2018-01-28) \urlprefix
 %   \CTANurl{language/chinese/ctex/ctex.pdf}
-%   \urlprefix \sourceurl{language/chinese/ctex/ctex.dtx}
 %
 % \bibitem{xeCJK}
 % \textsc{CTEX.ORG}.
 % \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
-% \newblock version 3.5.1,
-% \newblock (2017-11-22) \urlprefix
+% \newblock version 3.7.0,
+% \newblock (2018-04-07) \urlprefix
 %   \CTANurl{macros/xetex/latex/xecjk/xeCJK.pdf}
-%   \urlprefix \sourceurl{macros/xetex/latex/xecjk/xeCJK.dtx}
 %
 % \bibitem{natbib}
 % \textsc{Daly P W}.
@@ -2262,20 +2297,20 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{interfaces3}
 % \textsc{The \LaTeX3 Project}.
 % \newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
-% \newblock (2017-11-14) \urlprefix
+% \newblock (2018-03-05) \urlprefix
 %   \CTANurl{macros/latex/contrib/l3kernel/interface3.pdf}
 %
 % \bibitem{source3}
 % \textsc{The \LaTeX3 Project}.
 % \newblock \textit{The \LaTeX3 Sources} [CP/OL].
-% \newblock (2017-11-14) \urlprefix
+% \newblock (2018-03-05) \urlprefix
 %   \CTANurl{macros/latex/contrib/l3kernel/source3.pdf}
 %
 % \bibitem{biblatex}
 % \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
 % \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
-% \newblock version 3.9,
-% \newblock (2017-12-19) \urlprefix
+% \newblock version 3.11,
+% \newblock (2018-03-01) \urlprefix
 %   \CTANurl{macros/latex/contrib/biblatex/doc/biblatex.pdf}
 %
 % \bibitem{mittelbach2004latexcompanion}
@@ -2286,9 +2321,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \bibitem{lshort}
 % \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 157 minutes} [EB/OL].
-% \newblock version 5.05,
-% \newblock (2015-07-18) \urlprefix
+% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
+% \newblock version 6.2,
+% \newblock (2018-02-28) \urlprefix
 %   \CTANurl{info/lshort/english/lshort.pdf}
 %
 % \bibitem{lshort-zh-cn}
@@ -2313,8 +2348,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \bibitem{weijianwen2017sjtuthesis}
 % \textsc{weijianwen}.
-% \newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis.} [EB/OL].
-% \newblock (2017-01-27) \urlprefix
+% \newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis} [EB/OL].
+% \newblock version 0.10,
+% \newblock (2018-02-11) \urlprefix
 %   \url{https://github.com/weijianwen/SJTUThesis}
 %
 % \bibitem{wright2009dtxfile}
@@ -2323,18 +2359,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newblock (2009-10-06) \urlprefix
 %   \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
 %
-% \bibitem{bibtex-gb7714-2015}
-% \textsc{zepinglee}.
-% \newblock \textit{GB/T 7714-2015 BibTeX Style} [EB/OL].
-% \newblock version 1.0,
-% \newblock (2018-01-04) \urlprefix
-%   \url{https://github.com/zepinglee/gbt7714-bibtex-style}
+% \bibitem{gbt7714}
+% \textsc{Zeping Lee}.
+% \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
+% \newblock version 1.0.3,
+% \newblock (2018-03-16) \urlprefix
+%   \CTANurl{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
 %
 % \bibitem{zepinglee2017ustcthesis}
-% \textsc{zepinglee} and \textsc{seisman}.
-% \newblock \textit{\LaTeX{} template for USTC thesis} [EB/OL].
-% \newblock version 3.0.1,
-% \newblock (2018-01-09) \urlprefix
+% \textsc{Zeping Lee} and \textsc{seisman}.
+% \newblock \textit{\LaTeX{} template for USTC thesis v3.0} [EB/OL].
+% \newblock version 3.0.4,
+% \newblock (2018-04-03) \urlprefix
 %   \url{https://github.com/ustctug/ustcthesis}
 %
 % \bibitem{数院毕业论文格式}
@@ -2380,8 +2416,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{cquthesis}
 % 李振楠.
 % \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
-% \newblock version 1.20,
-% \newblock (2017-05-30) \urlprefix
+% \newblock version 1.30,
+% \newblock (2018-02-23) \urlprefix
 %   \CTANurl{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
 % \bibitem{刘海洋2013latex入门}
@@ -2397,8 +2433,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{thuthesis}
 % 薛瑞尼.
 % \newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
-% \newblock version 5.3.2,
-% \newblock (2017-03-26) \urlprefix
+% \newblock version 5.4.3,
+% \newblock (2017-12-24) \urlprefix
 %   \CTANurl{macros/latex/contrib/thuthesis/thuthesis.pdf}
 %
 % \end{thebibliography}
@@ -2768,8 +2804,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   标准文档类 \cls{book}。}
 %
 % 将选项传入 \cls{ctexbook} 文档类。\\
-% TODO: (2017/07/22) 英文模板中文字体的处理。
 %    \begin{macrocode}
+% TODO: (2017/07/22) Chinese fonts in fduthesis-en
 \PassOptionsToClass
   {
     UTF8,
@@ -3333,8 +3369,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           {
 %    \end{macrocode}
 % 黑体。注意右侧选项会覆盖左侧选项。\\
-% TODO: (2017/09/18) 使用 |hei| 还是 |sans|？
 %    \begin{macrocode}
+% TODO: (2017/09/18) `hei` or `sans`?
             \prop_get:NnN \g_@@_cjk_font_name_prop { hei }
               \l_@@_tmpa_tl
             \clist_put_right:Nx \l_@@_font_options_clist
@@ -3628,8 +3664,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 根据 GB 3102.11--93 以及 ISO 80000-2:2009 的规定，数学表达式中
 % 表示变量的拉丁字母和希腊字母均应当使用斜体。
 % 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。\\
-% TODO: (2018/01/19) 是否需要 |mathrm=sym|？
 %    \begin{macrocode}
+% TODO: (2018/01/19) do we need `mathrm=sym`?
 \keys_set:nn { unicode-math }
   {
     math-style = ISO,
@@ -4239,7 +4275,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 设置默认样式为 \opt{plain}。
 %    \begin{macrocode}
-% TODO: (2017/12/07) 移到后面用户接口部分。
+% TODO: (2017/12/07) move to interface
     \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
@@ -5588,7 +5624,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \exp_args:NV \addbibresource \l_@@_bib_resource_tl
         \@@_biblatex_allow_url_break:
 %    \end{macrocode}
-%
 % 英文模板需要重定义参考文献标题。
 %    \begin{macrocode}
 %<*class-en>
