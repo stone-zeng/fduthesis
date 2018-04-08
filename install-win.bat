@@ -9,7 +9,7 @@ copy /Y "..\source\fduthesis-doc.dtx"         .
 copy /Y "..\source\fduthesis-logo.dtx"        .
 copy /Y "..\testfiles\support\fudan-name.pdf" .
 
-xetex --interaction=batchmode "fduthesis.dtx"
+xetex "fduthesis.dtx" > NUL
 
 del "*.cfg"
 del "*.dtx"
