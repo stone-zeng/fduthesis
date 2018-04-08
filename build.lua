@@ -22,6 +22,9 @@ unpackexe   = "xetex"
 
 -- cmdchkfiles = {"*.dtx"}
 
+local insert = table.insert
+local sort   = table.sort
+
 function modified_check(names)
   local errorlevel = 0
   if testfiledir ~= "" and direxists(testfiledir) then
