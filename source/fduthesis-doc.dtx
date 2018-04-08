@@ -1439,6 +1439,25 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_typeset_TF:}
+% 关闭 |TF| 上的超链接，并且保证颜色与函数主体一致。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_typeset_TF:
+  {
+    \group_begin:
+      \exp_args:No \@@_if_macro_internal:nT \l_@@_tmpa_tl
+        { \color [ gray ] { 0.5 } }
+      \itshape TF
+      \makebox [ 0 pt ] [ r ]
+        {
+          \color { red }
+          \underline { \phantom { \itshape TF } \kern -0.1 em }
+        }
+    \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_macro_typeset_one:nN}
 % 在 \env{macro} 环境的侧边栏中，\cls{l3doc} 根据命令的长短，分别用
 % 普通字体和紧缩字体输出。然而很长的命令还是会超出页边。这里用缩放
