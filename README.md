@@ -1,26 +1,89 @@
 # fduthesis
 
 [![Build Status](https://img.shields.io/travis/Stone-Zeng/fduthesis.svg)](https://travis-ci.org/Stone-Zeng/fduthesis)
+[![CTAN](https://img.shields.io/ctan/v/fduthesis.svg)](https://www.ctan.org/pkg/fduthesis)
 [![GitHub release](https://img.shields.io/github/release/Stone-Zeng/fduthesis/all.svg)](https://github.com/Stone-Zeng/fduthesis/releases/latest)
 
-## 欢迎使用 fduthesis - 复旦大学论文模板！
+## 欢迎使用 fduthesis （复旦大学论文模板）
+
+本模板支持中英文的博士、硕士学位论文以及本科毕业论文撰写。借助现代 LaTeX 技术，希望达到用户接口简明、内容格式规范和模板样式可定制的统一。
+
+本模板目前支持 XeTeX 和 LuaTeX 引擎，对其他引擎（包括 pdfTeX 和 [ApTeX](https://github.com/clerkma/ptex-ng)）的支持仍在实验阶段。本模板仅支持 UTF-8 编码。
 
 在您使用 `fduthesis` 之前，请务必仔细阅读模板文档
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis.pdf)。
-该文档也可通过如下命令生成：
-
-```shell
-latexmk fduthesis.dtx
-```
-
-若需要生成模板各部件，请执行如下命令：
-
-```shell
-xetex fduthesis.dtx
-```
+[fduthesis.pdf](http://mirrors.ctan.org/macros/latex/contrib/fduthesis/fduthesis.pdf)。
 
 **重要提醒：** 本模板未经学校相关部门审核及授权，使用前请斟酌。
 任何由于使⽤本模板⽽引起的论⽂格式审查问题均与本模板作者⽆关。
+
+### 模板组成
+
+- 核心文档类
+
+  - `fduthesis.cls`
+  - `fduthesis-en.cls`
+
+- 配置文件
+
+  - `fduthesis.def`
+
+- 附属宏包
+
+  - `fdulogo.sty`
+  - `fdudoc.cls`
+
+- 使用示例
+
+  - `fduthesis-template.tex`
+
+### 使用示例
+
+```tex
+% !TeX program  = XeLaTeX
+% !TeX encoding = UTF-8
+
+\documentclass{fduthesis}
+
+\fdusetup{
+  style = {
+    font-size = 5,
+    fullwidth-stop = catcode,
+    logo = {fudan-name-black.pdf},
+  },
+  info = {
+    title = {论文标题},
+    title* = {Thesis Title},
+    author = {你的名字},
+    supervisor = {某某某\quad 教授},
+    major = {物理学},
+    department = {物理系},
+    student-id = {12300000000},
+    keywords = {不确定关系, 量子力学, 理论物理},
+    keywords* = {Uncertainty principle, quantum mechanics, theoretical physics},
+    clc = {O413.1}
+  }
+}
+
+\begin{document}
+
+\tableofcontents
+
+\begin{abstract}
+  中文摘要
+\end{abstract}
+
+\begin{abstract*}
+  English abstract
+\end{abstract*}
+
+\mainmatter
+
+<论文主体>
+
+\backmatter
+
+\end{document}
+```
 
 ### 贡献
 
@@ -34,23 +97,81 @@ xetex fduthesis.dtx
 
 <br>
 
-## Welcome to fduthesis - LaTeX thesis template for Fudan University!
+## Welcome to fduthesis (LaTeX thesis template for Fudan University)
+
+This template supports doctoral or master dissertion and undergraduate thesis, both in Chinese or English. With the help of modern LaTeX technology, `fduthesis` aims to create a simple interface, a normative format, as well as a hackable class for the users.
+
+At present, `fduthesis` only supports XeTeX and LuaTeX engines. Support for pdfTeX and [ApTeX](https://github.com/clerkma/ptex-ng) is still under development. `fduthesis` only allows UTF-8 encoding.
 
 Before you using `fduthesis`, please read the document
-[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7/fduthesis-en.pdf)
+[fduthesis-en.pdf](http://mirrors.ctan.org/macros/latex/contrib/fduthesis/fduthesis-en.pdf)
 carefully.
-
-If you want to get all components of `fduthesis`, please execute the
-following commands:
-
-```shell
-xetex fduthesis.dtx
-```
 
 **WARNING:** `fduthesis` has not reviewed or authorized by any
 department of Fudan University. Any problem of format censorship
 caused by the use of `fduthesis` will not be concerned by the
 template author.
+
+### Components
+
+- Main template classes:
+
+  - `fduthesis.cls`
+  - `fduthesis-en.cls`
+
+- Configuration file:
+
+  - `fduthesis.def`
+
+- Affiliated packages:
+
+  - `fdulogo.sty`
+  - `fdudoc.cls`
+
+- Demo:
+
+  - `fduthesis-template.tex`
+
+### Sample
+
+```tex
+\documentclass{fduthesis-en}
+
+\fdusetup{
+  style = {
+    font-size = 5,
+    logo = {fudan-name-black.pdf},
+  },
+  info = {
+    title = {论文标题},
+    title* = {Thesis Title},
+    author = {你的名字},
+    supervisor = {某某某\quad 教授},
+    major = {物理学},
+    department = {物理系},
+    student-id = {12300000000},
+    keywords = {不确定关系, 量子力学, 理论物理},
+    keywords* = {Uncertainty principle, quantum mechanics, theoretical physics},
+    clc = {O413.1}
+  }
+}
+
+\begin{document}
+
+\tableofcontents
+
+\begin{abstract}
+  Abstract
+\end{abstract}
+
+\mainmatter
+
+<Main body of your thesis>
+
+\backmatter
+
+\end{document}
+```
 
 ### Contributing
 

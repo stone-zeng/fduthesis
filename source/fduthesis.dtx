@@ -51,38 +51,48 @@ The `fduthesis` Class
 Overview
 --------
 
-`fduthesis` is a thesis template for Fudan University. This template
-is mostly written in LaTeX3, with a simple interface for users.
+This template supports doctoral or master dissertion and undergraduate
+thesis, both in Chinese or English. With the help of modern LaTeX
+technology, `fduthesis` aims to create a simple interface, a normative
+format, as well as a hackable class for the users.
 
-At present, only XeTeX, LuaTeX and [ApTeX](https://github.com/clerkma/ptex-ng)
-(experimental) are supported.
+At present, `fduthesis` only supports XeTeX and LuaTeX engines.
+Support for pdfTeX and [ApTeX](https://github.com/clerkma/ptex-ng) is
+still under development. `fduthesis` only allows UTF-8 encoding.
 
 The documentation can be found in
-[fduthesis.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.pdf)
+[fduthesis.pdf](http://mirrors.ctan.org/macros/latex/contrib/fduthesis/fduthesis.pdf)
 (in Chinese) or
-[fduthesis-en.pdf](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis-en.pdf)
+[fduthesis-en.pdf](http://mirrors.ctan.org/macros/latex/contrib/fduthesis/fduthesis-en.pdf)
 (in English).
+
+GitHub re­pos­i­tory: <https://github.com/Stone-Zeng/fduthesis>.
 
 Installation
 ------------
 
 To install `fduthesis`, you can use one of the following methods:
 
+- If you are running TeX Live, the simplest way is to run
+
+      tlmgr install fduthesis
+
 - Download
-  [fduthesis.tds.zip](https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.tds.zip)
-  from GitHub, extract it in the root of one of your TDS trees, and
+  [fduthesis.tds.zip](http://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip)
+  from CTAN, extract it in the root of one of your TDS trees, and
   update the filename database.
 
-- Get the source (`fduthesis.zip`) from GitHub:
+- Get the source from GitHub:
 
       git clone https://github.com/Stone-Zeng/fduthesis.git
 
-  Run
+  Run `install-win.bat` (on Windows) or `install-linux.sh` (on Linux)
+  to generate the templates and configuration files. These files would
+  be found in a new-created `thesis` folder. You can enjoy `fduthesis`
+  here at once.
 
-      xetex fduthesis.dtx
-
-  to generate the templates and configuration files. Then move the
-  following files into a directory where LaTeX will find them (e.g.
+  For permanent installation, you may move the following files into a
+  directory where LaTeX will find them (e.g.
   `TEXMF/tex/latex/fduthesis/`):
 
   - `fduthesis.cls`
@@ -541,19 +551,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsubsection{Install manually}
 %^^A!
 %
-% 如果您需要从 GitHub 上自行下载并手动安装，较好的方法是使用 TDS
+% 如果您需要从 CTAN 上自行下载并手动安装，较好的方法是使用 TDS
 % 安装包：
 % \begin{itemize}
-%   \item 从 GitHub 上下载 \cls{fduthesis} 的
-%     \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.tds.zip}{TDS 安装包}；
+%   \item 从 CTAN 上下载 \cls{fduthesis} 的
+%     \href{http://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip}{TDS 安装包}；
 %   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
 %     发行版的本地 TDS 根目录；
 %   \item 执行 \bashcmd{mktexlsr} 刷新文件名数据库以完成安装。
 % \end{itemize}
-%^^A! If you want to download the template from GitHub and install it
+%^^A! If you want to download the template from CTAN and install it
 %^^A! manually, the recommended way is to use the TDS ZIP file:
 %^^A! \begin{itemize}
-%^^A!   \item Download the \href{https://github.com/Stone-Zeng/fduthesis/releases/download/v0.7a/fduthesis.tds.zip}%
+%^^A!   \item Download the \href{http://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip}%
 %^^A!     {TDS ZIP file} for \cls{fduthesis};
 %^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
 %^^A!     local TDS directory of \TeX{} distribution.
