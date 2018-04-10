@@ -14,7 +14,3 @@ script:
 
 after_failure:
   - cat ./build/test/*.diff
-
-notifications:
-  email:
-    - pssysrq@163.com
