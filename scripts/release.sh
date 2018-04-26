@@ -27,9 +27,10 @@ mkdir -p $SRC_DIR
 mkdir -p $TEX_DIR
 mkdir -p $DOC_DIR
 
-cp $WORKING_DIR/source/*.dtx               $TEMP_DIR
-cp $WORKING_DIR/source/*.pdf               $TEMP_DIR
-cp $WORKING_DIR/doc/$JOB_NAME-template.tex $TEMP_DIR
+cp $WORKING_DIR/source/*.dtx                     $TEMP_DIR
+cp $WORKING_DIR/source/*.pdf                     $TEMP_DIR
+cp $WORKING_DIR/doc/$JOB_NAME-template.tex       $TEMP_DIR
+cp $WORKING_DIR/testfiles/support/fudan-name.pdf $TEMP_DIR
 
 cd $TEMP_DIR
 xetex $JOB_NAME.dtx > /dev/null
@@ -44,6 +45,9 @@ cp $TEMP_DIR/*.ins $SRC_DIR
 cp $TEMP_DIR/*.cls $TEX_DIR
 cp $TEMP_DIR/*.def $TEX_DIR
 cp $TEMP_DIR/*.sty $TEX_DIR
+
+# This file should not be put in doc/
+mv $TEMP_DIR/fudan-name.pdf   $TEX_DIR
 
 cp $TEMP_DIR/*.md             $DOC_DIR
 cp $TEMP_DIR/*.tex            $DOC_DIR
