@@ -52,6 +52,7 @@ tlmgr install           \
   filehook              \
   fontspec              \
   footmisc              \
+  gbt7714               \
   geometry              \
   graphics              \
   graphics-cfg          \
