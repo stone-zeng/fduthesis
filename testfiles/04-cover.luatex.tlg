@@ -5,14 +5,14 @@ Completed box being shipped out [2]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.2} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -65,14 +65,14 @@ Completed box being shipped out [1]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
@@ -248,7 +248,7 @@ Completed box being shipped out [1]
 ...........\image(297.20033+0.0)x789.8137
 ..........\glue 0.0 plus 1.0fil minus 1.0fil
 .........\pdfrestore
-........\kern 208.27576
+........\kern208.27576
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
@@ -473,7 +473,7 @@ Completed box being shipped out [1]
 ........\TU/XITS(0)/bx/n/14.05249 s
 ........\glue(\spaceskip) 3.51312 plus 1.75656 minus 1.17104
 ........\TU/XITS(0)/bx/n/14.05249 T
-........\kern -0.0281
+........\kern-0.0281
 ........\TU/XITS(0)/bx/n/14.05249 i
 ........\discretionary (penalty 50)
 .........< \TU/XITS(0)/bx/n/14.05249 -
@@ -768,14 +768,14 @@ Completed box being shipped out [2]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil

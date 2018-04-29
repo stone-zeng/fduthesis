@@ -5,14 +5,14 @@ Completed box being shipped out [1]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.i} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -58,15 +58,15 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/XITS(0)/bx/n/24.09 A
-.....\kern -0.4818
+.....\kern-0.4818
 .....\TU/XITS(0)/bx/n/24.09 b
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/bx/n/24.09 -
 .....\TU/XITS(0)/bx/n/24.09 s
-.....\kern -0.16862
+.....\kern-0.16862
 .....\TU/XITS(0)/bx/n/24.09 t
 .....\TU/XITS(0)/bx/n/24.09 r
-.....\kern -0.09636
+.....\kern-0.09636
 .....\TU/XITS(0)/bx/n/24.09 a
 .....\TU/XITS(0)/bx/n/24.09 c
 .....\TU/XITS(0)/bx/n/24.09 t
@@ -96,7 +96,7 @@ Completed box being shipped out [1]
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 g
-.....\kern -0.0241
+.....\kern-0.0241
 .....\TU/XITS(0)/m/n/12.045 l
 .....\TU/XITS(0)/m/n/12.045 i
 .....\TU/XITS(0)/m/n/12.045 s
@@ -107,10 +107,10 @@ Completed box being shipped out [1]
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 s
-.....\kern -0.09636
+.....\kern-0.09636
 .....\TU/XITS(0)/m/n/12.045 t
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern -0.0241
+.....\kern-0.0241
 .....\TU/XITS(0)/m/n/12.045 a
 .....\TU/XITS(0)/m/n/12.045 c
 .....\TU/XITS(0)/m/n/12.045 t
@@ -140,69 +140,69 @@ Completed box being shipped out [1]
 ......\localleftbox=null
 ......\localrightbox=null
 .....\TU/XITS(0)/bx/n/12.045 K
-.....\kern -0.20476
+.....\kern-0.20476
 .....\TU/XITS(0)/bx/n/12.045 e
-.....\kern -0.20476
+.....\kern-0.20476
 .....\TU/XITS(0)/bx/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern -0.30113
+......< \kern-0.30113
 ......< \TU/XITS(0)/bx/n/12.045 -
 .....\TU/XITS(0)/bx/n/12.045 w
-.....\kern -0.3734
+.....\kern-0.3734
 .....\TU/XITS(0)/bx/n/12.045 o
 .....\TU/XITS(0)/bx/n/12.045 r
-.....\kern -0.12045
+.....\kern-0.12045
 .....\TU/XITS(0)/bx/n/12.045 d
 .....\TU/XITS(0)/bx/n/12.045 s
 .....\TU/XITS(0)/bx/n/12.045 :
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 K
-.....\kern -0.18068
+.....\kern-0.18068
 .....\TU/XITS(0)/m/n/12.045 e
-.....\kern -0.25294
+.....\kern-0.25294
 .....\TU/XITS(0)/m/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern -0.21681
+......< \kern-0.21681
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 w
-.....\kern -0.31317
+.....\kern-0.31317
 .....\TU/XITS(0)/m/n/12.045 o
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern -0.0241
+.....\kern-0.0241
 .....\TU/XITS(0)/m/n/12.045 d
 .....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .....\TU/XITS(0)/m/n/12.045 1
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 k
-.....\kern -0.15659
+.....\kern-0.15659
 .....\TU/XITS(0)/m/n/12.045 e
-.....\kern -0.25294
+.....\kern-0.25294
 .....\TU/XITS(0)/m/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern -0.21681
+......< \kern-0.21681
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 w
-.....\kern -0.31317
+.....\kern-0.31317
 .....\TU/XITS(0)/m/n/12.045 o
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern -0.0241
+.....\kern-0.0241
 .....\TU/XITS(0)/m/n/12.045 d
 .....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .....\TU/XITS(0)/m/n/12.045 2
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 k
-.....\kern -0.15659
+.....\kern-0.15659
 .....\TU/XITS(0)/m/n/12.045 e
-.....\kern -0.25294
+.....\kern-0.25294
 .....\TU/XITS(0)/m/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern -0.21681
+......< \kern-0.21681
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 w
-.....\kern -0.31317
+.....\kern-0.31317
 .....\TU/XITS(0)/m/n/12.045 o
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern -0.0241
+.....\kern-0.0241
 .....\TU/XITS(0)/m/n/12.045 d
 .....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .....\TU/XITS(0)/m/n/12.045 3
@@ -220,7 +220,7 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\TU/XITS(0)/bx/n/12.045 C
 .....\TU/XITS(0)/bx/n/12.045 L
-.....\kern -0.09636
+.....\kern-0.09636
 .....\TU/XITS(0)/bx/n/12.045 C
 .....\glue(\spaceskip) 3.01125 plus 1.50412 minus 1.00475
 .....\TU/XITS(0)/bx/n/12.045 n
@@ -231,11 +231,11 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/bx/n/12.045 b
 .....\TU/XITS(0)/bx/n/12.045 e
 .....\TU/XITS(0)/bx/n/12.045 r
-.....\kern -0.12045
+.....\kern-0.12045
 .....\TU/XITS(0)/bx/n/12.045 :
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 T
-.....\kern -0.1084
+.....\kern-0.1084
 .....\TU/XITS(0)/m/n/12.045 S
 .....\TU/XITS(0)/m/n/12.045 8
 .....\TU/XITS(0)/m/n/12.045 0
@@ -265,14 +265,14 @@ Completed box being shipped out [2]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.ii} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -314,14 +314,14 @@ Completed box being shipped out [3]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.iii} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -367,7 +367,7 @@ Completed box being shipped out [3]
 ......\TU/XITS(0)/bx/n/24.09 L
 ......\TU/XITS(0)/bx/n/24.09 i
 ......\TU/XITS(0)/bx/n/24.09 s
-......\kern -0.16862
+......\kern-0.16862
 ......\TU/XITS(0)/bx/n/24.09 t
 ......\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
 ......\TU/XITS(0)/bx/n/24.09 o
@@ -433,9 +433,9 @@ c}{\ETC.}
 .........\TU/XITS(0)/m/n/12.045 o
 .........\TU/XITS(0)/m/n/12.045 r
 .........\discretionary (penalty 50)
-..........< \kern -0.3493
+..........< \kern-0.3493
 ..........< \TU/XITS(0)/m/n/12.045 -
-..........= \kern -0.0241
+..........= \kern-0.0241
 .........\TU/XITS(0)/m/n/12.045 d
 .........\TU/XITS(0)/m/n/12.045 i
 .........\discretionary (penalty 50)
@@ -511,7 +511,7 @@ c}{\ETC.}
 .......\glue 0.00002
 .......\mathon
 .......\TU/XITSMath(1)/m/n/12.045 𝜓
-.......\kern1.08405
+.......\kern1.08405 (italic)
 .......\TU/XITSMath(1)/m/n/12.045 (
 .......\TU/XITSMath(1)/m/n/12.045 𝑥
 .......\TU/XITSMath(1)/m/n/12.045 )
@@ -533,11 +533,11 @@ c}{\ETC.}
 .........\hbox(0.0+0.0)x0.0, direction TLT
 .........\rule(13.1531+*)x0.0
 .........\TU/XITS(0)/m/n/12.045 W
-.........\kern -0.7227
+.........\kern-0.7227
 .........\TU/XITS(0)/m/n/12.045 a
-.........\kern -0.38544
+.........\kern-0.38544
 .........\TU/XITS(0)/m/n/12.045 v
-.........\kern -0.28908
+.........\kern-0.28908
 .........\TU/XITS(0)/m/n/12.045 e
 .........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .........\TU/XITS(0)/m/n/12.045 f
@@ -591,7 +591,7 @@ c}{\ETC.}
 .........\TU/XITS(0)/m/n/12.045 D
 .........\TU/XITS(0)/m/n/12.045 i
 .........\TU/XITS(0)/m/n/12.045 r
-.........\kern -0.0241
+.........\kern-0.0241
 .........\TU/XITS(0)/m/n/12.045 a
 .........\TU/XITS(0)/m/n/12.045 c
 .........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
@@ -599,9 +599,9 @@ c}{\ETC.}
 .........\TU/XITS(0)/m/n/12.045 o
 .........\discretionary (penalty 50)
 ..........< \TU/XITS(0)/m/n/12.045 -
-..........= \kern -0.09636
+..........= \kern-0.09636
 .........\TU/XITS(0)/m/n/12.045 t
-.........\kern 0.12045
+.........\kern0.12045
 .........\TU/XITS(0)/m/n/12.045 a
 .........\discretionary (penalty 50)
 ..........< \TU/XITS(0)/m/n/12.045 -
@@ -614,7 +614,7 @@ c}{\ETC.}
 .........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .........\TU/XITS(0)/m/n/12.045 b
 .........\TU/XITS(0)/m/n/12.045 r
-.........\kern -0.0241
+.........\kern-0.0241
 .........\TU/XITS(0)/m/n/12.045 a
 .........\penalty 10000
 .........\rule(0.0+5.6371)x0.0
@@ -657,7 +657,7 @@ c}{\ETC.}
 .........\TU/XITS(0)/m/n/12.045 D
 .........\TU/XITS(0)/m/n/12.045 i
 .........\TU/XITS(0)/m/n/12.045 r
-.........\kern -0.0241
+.........\kern-0.0241
 .........\TU/XITS(0)/m/n/12.045 a
 .........\TU/XITS(0)/m/n/12.045 c
 .........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
@@ -665,9 +665,9 @@ c}{\ETC.}
 .........\TU/XITS(0)/m/n/12.045 o
 .........\discretionary (penalty 50)
 ..........< \TU/XITS(0)/m/n/12.045 -
-..........= \kern -0.09636
+..........= \kern-0.09636
 .........\TU/XITS(0)/m/n/12.045 t
-.........\kern 0.12045
+.........\kern0.12045
 .........\TU/XITS(0)/m/n/12.045 a
 .........\discretionary (penalty 50)
 ..........< \TU/XITS(0)/m/n/12.045 -
@@ -679,9 +679,9 @@ c}{\ETC.}
 .........\TU/XITS(0)/m/n/12.045 — (ligature ---)
 .........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .........\TU/XITS(0)/m/n/12.045 k
-.........\kern -0.15659
+.........\kern-0.15659
 .........\TU/XITS(0)/m/n/12.045 e
-.........\kern -0.1084
+.........\kern-0.1084
 .........\TU/XITS(0)/m/n/12.045 t
 .........\penalty 10000
 .........\rule(0.0+5.6371)x0.0
@@ -703,10 +703,10 @@ c}{\ETC.}
 .......\mathon
 .......\TU/XITSMath(1)/m/n/12.045 ⟨
 .......\TU/XITSMath(1)/m/n/12.045 𝛼
-.......\kern0.4818
+.......\kern0.4818 (italic)
 .......\TU/XITSMath(1)/m/n/12.045 |
 .......\TU/XITSMath(1)/m/n/12.045 𝛽
-.......\kern0.78293
+.......\kern0.78293 (italic)
 .......\TU/XITSMath(1)/m/n/12.045 ⟩
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
@@ -735,7 +735,7 @@ c}{\ETC.}
 .........\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .........\TU/XITS(0)/m/n/12.045 p
 .........\TU/XITS(0)/m/n/12.045 r
-.........\kern -0.07227
+.........\kern-0.07227
 .........\TU/XITS(0)/m/n/12.045 o
 .........\TU/XITS(0)/m/n/12.045 d
 .........\discretionary (penalty 50)
@@ -776,14 +776,14 @@ Completed box being shipped out [4]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.iv} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -827,14 +827,14 @@ Completed box being shipped out [1]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
@@ -891,9 +891,9 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/bx/n/22.08249 p
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/bx/n/22.08249 -
-......= \kern -0.19875
+......= \kern-0.19875
 .....\TU/XITS(0)/bx/n/22.08249 t
-.....\kern -0.04416
+.....\kern-0.04416
 .....\TU/XITS(0)/bx/n/22.08249 e
 .....\TU/XITS(0)/bx/n/22.08249 r
 .....\glue(\spaceskip) 5.52063 plus 2.76031 minus 1.84021
@@ -915,23 +915,23 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/XITS(0)/bx/n/24.09 F
-.....\kern -0.0241
+.....\kern-0.0241
 .....\TU/XITS(0)/bx/n/24.09 i
 .....\TU/XITS(0)/bx/n/24.09 r
 .....\TU/XITS(0)/bx/n/24.09 s
-.....\kern -0.16862
+.....\kern-0.16862
 .....\TU/XITS(0)/bx/n/24.09 t
 .....\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
 .....\TU/XITS(0)/bx/n/24.09 c
-.....\kern -0.21681
+.....\kern-0.21681
 .....\TU/XITS(0)/bx/n/24.09 h
 .....\TU/XITS(0)/bx/n/24.09 a
 .....\TU/XITS(0)/bx/n/24.09 p
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/bx/n/24.09 -
-......= \kern -0.21681
+......= \kern-0.21681
 .....\TU/XITS(0)/bx/n/24.09 t
-.....\kern -0.04819
+.....\kern-0.04819
 .....\TU/XITS(0)/bx/n/24.09 e
 .....\TU/XITS(0)/bx/n/24.09 r
 .....\penalty 10000
@@ -959,11 +959,11 @@ Completed box being shipped out [1]
 ......\TU/XITS(0)/bx/n/18.06749 1
 ......\glue 18.06749
 .....\TU/XITS(0)/bx/n/18.06749 F
-.....\kern -0.01807
+.....\kern-0.01807
 .....\TU/XITS(0)/bx/n/18.06749 i
 .....\TU/XITS(0)/bx/n/18.06749 r
 .....\TU/XITS(0)/bx/n/18.06749 s
-.....\kern -0.12646
+.....\kern-0.12646
 .....\TU/XITS(0)/bx/n/18.06749 t
 .....\glue(\spaceskip) 4.51688 plus 2.25844 minus 1.50563
 .....\TU/XITS(0)/bx/n/18.06749 s
@@ -1063,7 +1063,7 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/bx/n/18.06749 h
 .....\TU/XITS(0)/bx/n/18.06749 i
 .....\TU/XITS(0)/bx/n/18.06749 r
-.....\kern -0.18068
+.....\kern-0.18068
 .....\TU/XITS(0)/bx/n/18.06749 d
 .....\glue(\spaceskip) 4.51688 plus 2.25844 minus 1.50563
 .....\TU/XITS(0)/bx/n/18.06749 s
@@ -1109,14 +1109,14 @@ Completed box being shipped out [2]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
@@ -1158,14 +1158,14 @@ Completed box being shipped out [3]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.3} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -1221,9 +1221,9 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/bx/n/22.08249 p
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/bx/n/22.08249 -
-......= \kern -0.19875
+......= \kern-0.19875
 .....\TU/XITS(0)/bx/n/22.08249 t
-.....\kern -0.04416
+.....\kern-0.04416
 .....\TU/XITS(0)/bx/n/22.08249 e
 .....\TU/XITS(0)/bx/n/22.08249 r
 .....\glue(\spaceskip) 5.52063 plus 2.76031 minus 1.84021
@@ -1254,15 +1254,15 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/bx/n/24.09 d
 .....\glue(\spaceskip) 6.0225 plus 3.01125 minus 2.0075
 .....\TU/XITS(0)/bx/n/24.09 c
-.....\kern -0.21681
+.....\kern-0.21681
 .....\TU/XITS(0)/bx/n/24.09 h
 .....\TU/XITS(0)/bx/n/24.09 a
 .....\TU/XITS(0)/bx/n/24.09 p
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/bx/n/24.09 -
-......= \kern -0.21681
+......= \kern-0.21681
 .....\TU/XITS(0)/bx/n/24.09 t
-.....\kern -0.04819
+.....\kern-0.04819
 .....\TU/XITS(0)/bx/n/24.09 e
 .....\TU/XITS(0)/bx/n/24.09 r
 .....\penalty 10000
@@ -1289,14 +1289,14 @@ Completed box being shipped out [4]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.4} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil

@@ -1,6 +1,5 @@
 install:
-  - source ./scripts/texlive.sh
-  - source ./scripts/local.sh
+  - source ./scripts/install.sh
 
 cache:
   directories:

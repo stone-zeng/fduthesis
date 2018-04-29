@@ -5,14 +5,14 @@ Completed box being shipped out [2]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.2} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -55,14 +55,14 @@ Completed box being shipped out [3]
 .\whatsit4=[]
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
-..\kern 0.0
-..\kern -34.87398
-..\kern -1.00374
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
 ..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
 ...\whatsit4=[]
-...\kern 0.0
-...\kern 18.20956
-...\kern -1.00374
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
 ...\pdfdest name{page.3} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
