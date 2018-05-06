@@ -48,7 +48,6 @@
   style = {
     font-size = 5,
     fullwidth-stop = catcode,
-    logo = {fudan-name-black.pdf},
   },
   info = {
     title = {论文标题},
@@ -138,10 +137,7 @@ template author.
 \documentclass{fduthesis-en}
 
 \fdusetup{
-  style = {
-    font-size = 5,
-    logo = {fudan-name-black.pdf},
-  },
+  style/font-size = 5,
   info = {
     title = {论文标题},
     title* = {Thesis Title},
