@@ -96,22 +96,24 @@
 \RequirePackage[UTF8, heading, sub3section, fontset = none]{ctex}
 %    \end{macrocode}
 % 与 \pkg{hypdoc}（由 \cls{l3doc} 调用）冲突，导致脚注超链接
-% 无法正常跳转。临时禁用。
+% 无法正常跳转。暂时禁用。
 %    \begin{macrocode}
 % \RequirePackage[stable, bottom]{footmisc}
-\RequirePackage{graphicx}
-\RequirePackage{caption}
-\RequirePackage{geometry}
-\RequirePackage{listings}
-\RequirePackage{makecell}
-\RequirePackage[toc]{multitoc}
-\RequirePackage{siunitx}
-\RequirePackage{tabularx}
-\RequirePackage{threeparttable}
-\RequirePackage{unicode-math}
-\RequirePackage{xcolor}
-\RequirePackage{xcolor-material}
-\RequirePackage{zref-base}
+\RequirePackage{%
+  caption,
+  geometry,
+  graphicx,
+  listings,
+  makecell,
+  siunitx,
+  tabularx,
+  threeparttable,
+  unicode-math,
+  xcolor,
+  xcolor-material,
+  xunicode,
+  zref-base
+}
 %    \end{macrocode}
 %
 % \subsubsection{\env{macrocode} 环境}
@@ -129,12 +131,12 @@
 %    \end{macrocode}
 % 调整前后间距，禁止 \env{macrocode} 环境前的分页。
 %    \begin{macrocode}
-   \topsep \MacrocodeTopsep
-   \@beginparpenalty \predisplaypenalty
+  \topsep \MacrocodeTopsep
+  \@beginparpenalty \predisplaypenalty
 %    \end{macrocode}
 % 将列表前后的附加垂直空白设为 0。根据 \cls{ctxdoc} 修改。
 %    \begin{macrocode}
-   \partopsep \z@skip
+  \partopsep \z@skip
 %    \if@inlabel\leavevmode\fi
 %    \end{macrocode}
 % 构建 \env{trivlist} 环境，设置段间距为 0。
@@ -143,35 +145,35 @@
 % \tn{macro@font} 用来在不同模块见切换字体。本文档类不使用
 % \tn{AltMacroFont}，因此这里改用 \tn{MacroFont} 代替。
 %    \begin{macrocode}
-   \trivlist \parskip \z@ \item[]%
+  \trivlist \parskip \z@ \item[]%
 %    \macro@font
-   \MacroFont
-   \leftskip\@totalleftmargin \advance\leftskip\MacroIndent
-   \rightskip\z@ \parindent\z@ \parfillskip\@flushglue
+  \MacroFont
+  \leftskip\@totalleftmargin \advance\leftskip\MacroIndent
+  \rightskip\z@ \parindent\z@ \parfillskip\@flushglue
 %    \end{macrocode}
 % 按照 \LaTeXe{} 中 \tn{verbatim} 环境中定义 \tn{par}，使得空行
 % 可以原样输出，否则空行会被吃掉。
 %    \begin{macrocode}
-   \blank@linefalse \def\par{\ifblank@line
-                             \leavevmode\fi
-                             \blank@linetrue\@@par
-                             \penalty\interlinepenalty}
+  \blank@linefalse \def\par{\ifblank@line
+                            \leavevmode\fi
+                            \blank@linetrue\@@par
+                            \penalty\interlinepenalty}
 %    \end{macrocode}
 % \tn{obeylines} 将把回车符 |^^M| 变成 \tn{par}。
 % 接下来将所有特殊符号的类别码设为 12，即“其他”类。
 %    \begin{macrocode}
-   \obeylines
-   \let\do\do@noligs \verbatim@nolig@list
-   \let\do\@makeother \dospecials
+  \obeylines
+  \let\do\do@noligs \verbatim@nolig@list
+  \let\do\@makeother \dospecials
 %    \end{macrocode}
 % 相当于退出 |\begin{list}| 和 |\begin{minipage}|。
 %    \begin{macrocode}
-   \global\@newlistfalse
-   \global\@minipagefalse
+  \global\@newlistfalse
+  \global\@minipagefalse
 %    \end{macrocode}
 % 初始化交叉引用功能。
 %    \begin{macrocode}
-   \init@crossref}
+  \init@crossref}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1653,6 +1655,17 @@
   \let\path\meta
   \let\opt\@firstofone
   \let\kaishu\relax}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\@multitoc@starttoc,\@starttoc}
+% 目录分栏，相当于调用 \pkg{multitoc} 宏包。
+%    \begin{macrocode}
+\let\@multitoc@starttoc\@starttoc
+\renewcommand*\@starttoc[1]{%
+  \begin{multicols}{2}%
+    \@multitoc@starttoc{#1}%
+  \end{multicols}}
 %    \end{macrocode}
 % \end{macro}
 %
