@@ -215,7 +215,7 @@
 %
 % \begin{macro}[int]{\xmacro@code,\sxmacro@code}
 % 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，
-% 将对代码逐行处理。后者会将空格显示为“\textvisiblespace”。
+% 将对代码逐行处理。后者会将空格显示为“\verb*| |”。
 %    \begin{macrocode}
 \cs_set_protected_nopar:Npn \xmacro@code
   { \@@_marco_code:w }

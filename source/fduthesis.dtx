@@ -2841,7 +2841,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7}{2018/01/19}{使用 \cls{ctexbook} 文档类，而非直接使用
 %   标准文档类 \cls{book}。}
 %
-% 将选项传入 \cls{ctexbook} 文档类。\\
+% 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
 % TODO: (2017/07/22) Chinese fonts in fduthesis-en
 \PassOptionsToClass
@@ -2932,7 +2932,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
 \@@_check_package:nnn { unicode-math } { 2017/11/18 } { 0.8i   }
 \sys_if_engine_xetex:T
-  { \@@_check_package:nnn { xeCJK } { 2017/08/07 } { 3.5.0 } }
+  { \@@_check_package:nnn { xeCJK          } { 2017/08/07 } { 3.5.0 } }
+\sys_if_engine_luatex:T
+  { \@@_check_package:nnn { xunicode-addon } { 2018/04/30 } { 3.7.1 } }
 %    \end{macrocode}
 %
 % \subsection{页面布局}
@@ -3406,7 +3408,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           }
           {
 %    \end{macrocode}
-% 黑体。注意右侧选项会覆盖左侧选项。\\
+% 黑体。注意右侧选项会覆盖左侧选项。
 %    \begin{macrocode}
 % TODO: (2017/09/18) `hei` or `sans`?
             \prop_get:NnN \g_@@_cjk_font_name_prop { hei }
@@ -3701,7 +3703,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 根据 GB 3102.11--93 以及 ISO 80000-2:2009 的规定，数学表达式中
 % 表示变量的拉丁字母和希腊字母均应当使用斜体。
-% 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。\\
+% 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。
 %    \begin{macrocode}
 % TODO: (2018/01/19) do we need `mathrm=sym`?
 \keys_set:nn { unicode-math }
@@ -5335,12 +5337,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     section / tocline =
       {
 %<class-en>        \bfseries
-         \CTEXnumberline {#1} #2
+        \CTEXnumberline {#1} #2
       },
     subsection / tocline =
       {
 %<class>        \fdu@kai
-         \CTEXnumberline {#1} #2
+        \CTEXnumberline {#1} #2
       }
   }
 %    \end{macrocode}
