@@ -2,7 +2,7 @@
 
 \RequirePackage{etoolbox}
 
-\documentclass[twoside]{fduthesis}
+\documentclass[draft,twoside]{fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 
@@ -14,7 +14,7 @@
     fullwidth-stop = mapping,
     footnote-style = pifont*,
     % auto-make-cover = false
-    logo = {../logo/pdf/fudan-name-black.pdf},
+    % logo = {../logo/pdf/fudan-name-black.pdf},
     % logo-size = {2cm,2cm,2cm}
     hyperlink = color,
     hyperlink-color = default,
@@ -107,11 +107,26 @@ $v$         &  速度
 
 \mainmatter
 
+\def\PLACEHOLDERi{————汉字————汉字————汉字————汉字————汉字————六七八九十}
+\def\PLACEHOLDER{\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi}
+
 \chapter{文本，字体，脚注 \quad Text, font and footnote}
+\PLACEHOLDER
 
 \section{文字与段落 Text and paragraph}
+\PLACEHOLDER
 
 \subsection{中文文本 Chinese}
+\PLACEHOLDER
+
+\subsubsection{中文文本}
+\PLACEHOLDER
+
+\clearpage
+
+\zhlipsum[-10]
+
+\subsubsection{Chinese}
 \zhlipsum
 
 \subsection{英文文本 English}
@@ -119,28 +134,28 @@ $v$         &  速度
 
 \clearpage
 
-\section{字体 Font}
-
-\subsection{普通字体 Roman}
-\fonttest
-
-\subsection{无衬线字体 Sans-serif}
-\textsf{\fonttest}
-
-\subsection{打字机字体 Typewriter}
-\texttt{\fonttest}
-
-\subsection{句号}
-如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
-如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
-如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
-
-\input{test-footnote}
-
-\input{test-theorem}
-
-\input{test-figure-table}
+%\section{字体 Font}
+%
+%\subsection{普通字体 Roman}
+%\fonttest
+%
+%\subsection{无衬线字体 Sans-serif}
+%\textsf{\fonttest}
+%
+%\subsection{打字机字体 Typewriter}
+%\texttt{\fonttest}
+%
+%\subsection{句号}
+%如果\symbol{"002E}会突然：\textsc{Full Stop} \par
+%如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
+%如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
+%如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
+%
+%\input{test-footnote}
+%
+%\input{test-theorem}
+%
+%\input{test-figure-table}
 
 \chapter{文本}
 
@@ -194,6 +209,6 @@ Myriad MM \citep{wyf,hblzsthjkjyxgs,sunstein,zgtsgxh,aaas}。
 \backmatter
 
 %\bibliography{test}
-\printbibliography
+%\printbibliography
 
 \end{document}

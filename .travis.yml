@@ -8,8 +8,8 @@ cache:
 
 script:
   - source ./scripts/run.sh
-  - texlua build.lua check --halt-on-error --quiet
-  - texlua build.lua check --halt-on-error --quiet --force --engine pdftex "06-logo"
+#  - texlua build.lua check --halt-on-error --quiet
+#  - texlua build.lua check --halt-on-error --quiet --force --engine pdftex "06-logo"
 
 after_failure:
   - cat ./build/test/*.diff

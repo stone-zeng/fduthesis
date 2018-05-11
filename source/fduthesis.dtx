@@ -2947,7 +2947,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     paper      = a4paper,
     vmargin    = 2.54 cm,
-    hmargin    = 3.18 cm,
+    hmargin    = 3.17 cm,
     headheight = 15 pt
   }
 %    \end{macrocode}
@@ -3822,6 +3822,23 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{章节标题结构}
 %
+%    \begin{macrocode}
+% 设置标题编号深度（到 subsubsection）。
+\int_set:cn { c@secnumdepth } { 3 }
+% 固定的行距值。
+% #1 = 字号
+\cs_new_protected:Npn \@@_define_base_line_skip:n #1
+  {
+    \group_begin:
+      \zihao { #1 }
+      \skip_const:cn { c_@@_zihao_ #1 _base_line_skip } { \baselineskip }
+    \group_end:
+  }
+\@@_define_base_line_skip:n {  5 }
+\@@_define_base_line_skip:n { -4 }
+\@@_define_base_line_skip:n {  3 }
+%    \end{macrocode}
+%
 % |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
@@ -3833,33 +3850,61 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     chapter =
       {
-%<class>        format      = \huge \normalfont \sffamily \centering,
+%<class>        format      = \zihao { 3 } \normalfont \sffamily \centering,
 %<*class-en>
         format      = \centering,
         nameformat  = \LARGE \bfseries,
         titleformat = \huge \bfseries,
         aftername   = \par \nobreak \vskip 10 pt,
 %</class-en>
-        beforeskip  = 50 pt,
-        afterskip   = 40 pt,
+        beforeskip  =
+          \skip_eval:n
+            {
+                0.5 \use:c { c_@@_zihao_ 5 _base_line_skip }
+              - 0.5 \use:c { c_@@_zihao_ 3 _base_line_skip }
+            },
+        afterskip   =
+          \skip_eval:n
+            {
+                1.5 \use:c { c_@@_zihao_ 5 _base_line_skip }
+              - 0.5 \use:c { c_@@_zihao_ 3 _base_line_skip }
+            },
         number      = \@@_arabic:n { chapter },
-        fixskip     = true
+        % fixskip     = true
       },
     section =
       {
-%<class>        format      = \Large \normalfont \sffamily \raggedright,
+%<class>        format      = \zihao { -4 } \normalfont \bfseries \centering,
 %<class-en>        format      = \Large \bfseries \raggedright,
-        beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
-        afterskip   = 2.7 ex plus 0.5 ex,
-        fixskip     = true
+        beforeskip  =
+          \skip_eval:n
+            {
+                    \use:c { c_@@_zihao_  5 _base_line_skip }
+              - 0.5 \use:c { c_@@_zihao_ -4 _base_line_skip }
+            },
+        afterskip   =
+          \skip_eval:n
+            {
+                    \use:c { c_@@_zihao_  5 _base_line_skip }
+              - 0.5 \use:c { c_@@_zihao_ -4 _base_line_skip }
+            },
+        % fixskip     = true
       },
     subsection =
       {
-%<class>        format      = \large \normalfont \sffamily \raggedright,
+%<class>        format      = \normalfont \sffamily \raggedright,
 %<class-en>        format      = \large \bfseries \raggedright,
-        beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
-        afterskip   = 2.5  ex plus 0.3 ex,
-        fixskip     = true
+        beforeskip  = 0.5 \use:c { c_@@_zihao_ 5 _base_line_skip },
+        afterskip   = 0.5 \use:c { c_@@_zihao_ 5 _base_line_skip },
+        % fixskip     = true
+      },
+    subsubsection =
+      {
+        format      = \normalfont \fdu_cjk_font_kai: \raggedright,
+        beforeskip  = \c_zero_skip,
+        afterskip   = \c_zero_skip,
+        number      = \@@_arabic:n { subsubsection },
+        indent      = 2 \ccwd
       }
   }
 %    \end{macrocode}
@@ -5991,8 +6036,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     style   / font            = times,
 %<class>    style   / cjk-font        = fandol,
-    style   / font-size       = -4,
-%<class>    style   / fullwidth-stop  = false,
+    style   / font-size       = 5,
+%<class>    style   / fullwidth-stop  = mapping,
     style   / auto-make-cover = true,
     style   / logo            = { fudan-name.pdf },
     style   / logo-size       = { 0.5 \textwidth },
