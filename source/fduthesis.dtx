@@ -2562,13 +2562,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{内部变量声明}
 %
-% \begin{variable}{\l_@@_tmpa_box,
+% \begin{variable}{\l_@@_tmpa_bool,
+%   \l_@@_tmpa_box,
 %   \l_@@_tmpa_clist,\l_@@_tmpb_clist,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
 %   \l_@@_tmpa_skip,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl}
 % 临时变量。
 %    \begin{macrocode}
+\bool_new:N  \l_@@_tmpa_bool
 \box_new:N   \l_@@_tmpa_box
 \clist_new:N \l_@@_tmpa_clist
 \clist_new:N \l_@@_tmpb_clist
@@ -2626,7 +2628,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \int_to_arabic:v,
 %   \keys_define:nx,
 %   \tl_map_inline:xn}
-% \begin{macro}[TF]{\tl_if_eq:Vn}
+% \begin{macro}[TF]{\tl_if_eq:Vn,\tl_if_in:nx}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
 \cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
@@ -2635,6 +2637,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_generate_variant:Nn \keys_define:nn         { nx }
 \cs_generate_variant:Nn \tl_map_inline:nn       { xn }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
+\prg_generate_conditional_variant:Nnn \tl_if_in:nn { nx } {    TF }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -3860,55 +3863,125 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         titleformat = \huge \bfseries,
         aftername   = \par \nobreak \vskip 10 pt,
 %</class-en>
-        beforeskip  =
-          \skip_eval:n
-            {
-                0.5 \use:c { c_@@_zihao_ 5 _base_line_skip }
-              - 0.5 \use:c { c_@@_zihao_ 3 _base_line_skip }
-            },
-        afterskip   =
-          \skip_eval:n
-            {
-                1.5 \use:c { c_@@_zihao_ 5 _base_line_skip }
-              - 0.5 \use:c { c_@@_zihao_ 3 _base_line_skip }
-            },
         number      = \@@_arabic:n { chapter },
-        % fixskip     = true
+        beforeskip  = \c_zero_skip,
+        afterskip   = \c_zero_skip,
+        fixskip     = true
       },
     section =
       {
 %<class>        format      = \zihao { -4 } \normalfont \bfseries \centering,
 %<class-en>        format      = \Large \bfseries \raggedright,
-        beforeskip  =
-          \skip_eval:n
-            {
-                    \use:c { c_@@_zihao_  5 _base_line_skip }
-              - 0.5 \use:c { c_@@_zihao_ -4 _base_line_skip }
-            },
-        afterskip   =
-          \skip_eval:n
-            {
-                    \use:c { c_@@_zihao_  5 _base_line_skip }
-              - 0.5 \use:c { c_@@_zihao_ -4 _base_line_skip }
-            },
-        % fixskip     = true
+        beforeskip  = \c_zero_skip,
+        afterskip   = \c_zero_skip,
+        fixskip     = true
       },
     subsection =
       {
 %<class>        format      = \normalfont \sffamily \raggedright,
 %<class-en>        format      = \large \bfseries \raggedright,
-        beforeskip  = 0.5 \use:c { c_@@_zihao_ 5 _base_line_skip },
-        afterskip   = 0.5 \use:c { c_@@_zihao_ 5 _base_line_skip },
-        % fixskip     = true
+        beforeskip  = \c_zero_skip,
+        afterskip   = \c_zero_skip,
+        fixskip     = true
       },
     subsubsection =
       {
         format      = \normalfont \fdu_cjk_font_kai: \raggedright,
+        number      = \@@_arabic:n { subsubsection },
+        indent      = 2 \ccwd,
         beforeskip  = \c_zero_skip,
         afterskip   = \c_zero_skip,
-        number      = \@@_arabic:n { subsubsection },
-        indent      = 2 \ccwd
+        fixskip     = true
       }
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+% 保留原始定义
+\cs_new_eq:NN \@@_std_chapter:w       \chapter
+\cs_new_eq:NN \@@_std_section:w       \section
+\cs_new_eq:NN \@@_std_subsection:w    \subsection
+% 重新定义
+\cs_new_protected:Npn \@@_define_chapters:nn #1#2
+  {
+    \exp_args:Nc \RenewDocumentCommand {#1} { s o m }
+      {
+        \IfBooleanTF {##1}
+          {
+            \IfNoValueTF {##2}
+              { \use:c { @@_std_ #1 :w } * {##3}       }
+              { \use:c { @@_std_ #1 :w } * [##2] {##3} }
+          }
+          {
+            \IfNoValueTF {##2}
+              { \use:c { @@_std_ #1 :w } {##3}       }
+              { \use:c { @@_std_ #1 :w } [##2] {##3} }
+          }
+        \fdu_collect_do:xn
+          { \exp_not:n { \c_space_token \par } \use:c {#2} }
+          { \use:c { @@_ #2 _aux:n } }
+      }
+  }
+\@@_define_chapters:nn { chapter    } { section       }
+\@@_define_chapters:nn { section    } { subsection    }
+\@@_define_chapters:nn { subsection } { subsubsection }
+% #1 = chapter/section ..., #2 = code between
+\cs_new_protected:Npn \@@_define_chapters_aux:nn #1#2
+  {
+    \cs_new_protected:cpn { @@_ #1 _aux:n } ##1
+      {
+        \tl_if_in:nxTF {##1} { \use:c {#1} }
+          { #2 \use:c {#1} }
+          { \use:n {##1} }
+      }
+  }
+\@@_define_chapters_aux:nn { section       } { XXXXXXX }
+\@@_define_chapters_aux:nn { subsection    } { XXXXXXX }
+\@@_define_chapters_aux:nn { subsubsection } { XXXXXXX }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+% 以下相当于 xpeek 宏包的重新实现。xpeek 宏包中提供的 \xpeek_collect_do:nn 函数
+% 不能正确处理 n 型参数，这里做了修改。
+\tl_new:N \l_@@_peek_code_tl
+\tl_new:N \l_@@_collected_tokens_tl
+\cs_new_protected:Npn \fdu_collect_do:nn #1#2
+  {
+    \tl_clear:N \l_@@_collected_tokens_tl
+    \@@_collect_do:nnn {#1} {#2} {}
+  }
+\cs_generate_variant:Nn \fdu_collect_do:nn { xn }
+\cs_new_protected:Npn \@@_collect_do:nnn #1#2#3
+  {
+    \@@_peek_after:nw
+      {
+        \@@_token_if_in_tl:nNTF {#1} \l_peek_token
+          {
+            \tl_put_right:Nn \l_@@_collected_tokens_tl {#3}
+            \@@_collect_do:nnn {#1} {#2}
+          }
+          { #2 { \l_@@_collected_tokens_tl #3 } }
+      }
+  }
+\cs_new_protected:Npn \@@_peek_after:nw #1
+  {
+    \tl_set:Nn \l_@@_peek_code_tl {#1}
+    \peek_after:Nw \l_@@_peek_code_tl
+  }
+% #1 = token list, #2 = token
+\prg_new_protected_conditional:Npnn \@@_token_if_in_tl:nN #1#2 { TF }
+  {
+    \bool_set_false:N \l_@@_tmpa_bool
+    \tl_map_inline:nn {#1}
+      {
+        \token_if_eq_meaning:NNT #2 ##1
+          {
+            \bool_set_true:N \l_@@_tmpa_bool
+            \tl_map_break:
+          }
+      }
+    \bool_if:NTF \l_@@_tmpa_bool
+      { \prg_return_true: } { \prg_return_false: }
   }
 %    \end{macrocode}
 %

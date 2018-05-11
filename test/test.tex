@@ -69,71 +69,93 @@
 \begin{document}
 
 \raggedbottom
-
-\frontmatter
-
-\tableofcontents
-
-\begin{abstract}
-\zhlipsum[1-10]
-\end{abstract}
-
-\begin{abstract*}
-\kant[1-10]
-\end{abstract*}
-
-\begin{notation}[lp{20em}]
-$\sin$      &  正弦 \\
-HPC         &  高性能计算 (High Performance Computing) \\
-cluster     &  集群 \\
-Itanium     &  安腾 \\
-SMP         &  对称多处理 \\
-API         &  应用程序编程接口 \\
-PI          &  聚酰亚胺 \\
-MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
-PBI         &  聚苯并咪唑 \\
-MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
-PY          &  聚吡咙 \\
-PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
-$\Delta G$  &  活化自由能 (Activation Free Energy) \\
-$\chi$      &  传输系数 (Transmission Coefficient) \\
-$E$         &  能量 \\
-$m$         &  质量 \\
-$c$         &  光速 \\
-$P$         &  概率 \\
-$T$         &  时间 \\
-$v$         &  速度
-\end{notation}
+%
+%\frontmatter
+%
+%\tableofcontents
+%
+%\begin{abstract}
+%\zhlipsum[1-10]
+%\end{abstract}
+%
+%\begin{abstract*}
+%\kant[1-10]
+%\end{abstract*}
+%
+%\begin{notation}[lp{20em}]
+%$\sin$      &  正弦 \\
+%HPC         &  高性能计算 (High Performance Computing) \\
+%cluster     &  集群 \\
+%Itanium     &  安腾 \\
+%SMP         &  对称多处理 \\
+%API         &  应用程序编程接口 \\
+%PI          &  聚酰亚胺 \\
+%MPI         &  聚酰亚胺模型化合物，N-苯基邻苯酰亚胺 \\
+%PBI         &  聚苯并咪唑 \\
+%MPBI        &  聚苯并咪唑模型化合物，N-苯基苯并咪唑 \\
+%PY          &  聚吡咙 \\
+%PMDA-BDA    &  均苯四酸二酐与联苯四胺合成的聚吡咙薄膜 \\
+%$\Delta G$  &  活化自由能 (Activation Free Energy) \\
+%$\chi$      &  传输系数 (Transmission Coefficient) \\
+%$E$         &  能量 \\
+%$m$         &  质量 \\
+%$c$         &  光速 \\
+%$P$         &  概率 \\
+%$T$         &  时间 \\
+%$v$         &  速度
+%\end{notation}
 
 \mainmatter
 
 \def\PLACEHOLDERi{————汉字————汉字————汉字————汉字————汉字————六七八九十}
-\def\PLACEHOLDER{\zhlipsum}%{\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi}
+\def\PLACEHOLDER{\zhlipsum[1]}%{\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi}
 
+%1
 \chapter{文本，字体，脚注 \quad Text, font and footnote}
-\PLACEHOLDER
+
+\zhlipsum[1]
 
 \section{文字与段落 Text and paragraph}
-\PLACEHOLDER
+\zhlipsum[1-2]
 
-\subsection{中文文本 Chinese}
-\PLACEHOLDER
+% 2
+\chapter{文本，字体，脚注 \quad Text, font and footnote}
+\section{文字与段落 Text and paragraph}
+\zhlipsum[1-2]
 
-\subsubsection{中文文本}
-\PLACEHOLDER
+% 3
+\chapter{文本，字体，脚注 \quad Text, font and footnote}
 
-\clearpage
+\section{文字与段落 Text and paragraph}
 
-\zhlipsum[-10]
+\subsection{文字与段落 Text and paragraph}
+\zhlipsum[1-2]
 
-\subsubsection{Chinese}
-\zhlipsum
+% 4
+\chapter{文本，字体，脚注 \quad Text, font and footnote}
 
-\subsection{英文文本 English}
-\kant
+{}
+\section{文字与段落 Text and paragraph}
+\zhlipsum[1-2]
 
-\clearpage
-
+%\subsection{中文文本 Chinese}
+%\PLACEHOLDER
+%
+%\subsubsection{中文文本}
+%\PLACEHOLDER
+%
+%\clearpage
+%
+%\zhlipsum[-10]
+%
+%\subsubsection{Chinese}
+%\zhlipsum
+%
+%\subsection{英文文本 English}
+%\kant
+%
+%\clearpage
+%
 %\section{字体 Font}
 %
 %\subsection{普通字体 Roman}
@@ -156,58 +178,58 @@ $v$         &  速度
 %\input{test-theorem}
 %
 %\input{test-figure-table}
-
-\chapter{文本}
-
-\section{文字与段落}
-
-\textbf{本段使用 \texttt{\string\cite}}
-Myriad，英语单词，意为「无数的」\cite{sunstein,gjhjbhjkjbzs,hblzsthjkjyxgs}。
-同时，「Myriad」也是一款字体的名字。
-由罗伯特·斯林巴赫（Robert Slimbach，1956年--）和卡罗·图温布利
-（Carol Twombly，1959年-）\cite{wyf,sunstein,zgtsgxh,lzp1}
-在1990年到1992年期间以 Frutiger 字体为蓝本为 Adobe 公司设计\cite{cdy}。
-Myriad 是早期数码字体时代的先驱，\cite{wfz,wfz1}
-伴随着技术的成长一路走来 \cite{hlswedl,zgdylsdag}。
-
-\textbf{本段使用 \texttt{\string\citep}}
-如今，它更多地和我们相见在显示屏幕上 \citep{wfz2}。当然，还有那著名的标榜设计的
-电子品牌 \citep{cgw,mks}。1992 年，耗时两年开发的 Myriad 终于发布了历史上第一个版本：
-Myriad MM \citep{wyf,hblzsthjkjyxgs,sunstein,zgtsgxh,aaas}。
-
-\section{title}
-
-\textbf{本段使用 \texttt{\string\citet}}
-这款温和且具有良好可读性的人文主义无衬线字体\citet{yjb}，集诸多当时最新的数字
-字体技术于一身。 后缀 MM，意为 Multiple Master，没有找到对应的中文
-译名\citet{lbm,calkin}，我们权且称之为「多母板技术」。Myriad 是最早采用 Multiple Master
-技术的无衬线字体之一。这项技术的原理是在坐标轴（Axis）的区间两端设计
-极限母板，中间的变量则采取线性或非线性变化，对于字体来说，字型的宽度、
-粗细甚至有无衬线\citet{xadzkjdx,yufin,cgw}，都可以在坐标轴上设置。此外，MM 技术还提供了在小字号
-下屏幕显示的视觉修正（Optical Adjustment），也就是说，同一款字体，在
-小字号时，其字间距和笔画粗细，会被适当地放大。而衬线字体，随着字号的
-变小，衬线会相对变粗。视觉修正可以提高小字号字体的识别性，对于远低于
-印刷分辨率的电脑屏幕来说，也具有重要意义。
-
-在 Multiple Master 的时代，字号是从6pt到72pt之间非线性设置的。这一传统
-保留到了今天 Truetype 和 Opentype 的 Single Master 时代。Adobe 软件的
-字体下拉菜单，仍然只显示6到72pt 的字号。
-
-% \chapter{假文}
-% 
-% \begin{definition}
-% 证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”
-% （这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei
-% deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以
-% 在证明的尾段写出，以显示证明所需的结论已经完整了。
-% \end{definition}
-% 
-% \zhlipsum[1-15]
-
+%
+%\chapter{文本}
+%
+%\section{文字与段落}
+%
+%\textbf{本段使用 \texttt{\string\cite}}
+%Myriad，英语单词，意为「无数的」\cite{sunstein,gjhjbhjkjbzs,hblzsthjkjyxgs}。
+%同时，「Myriad」也是一款字体的名字。
+%由罗伯特·斯林巴赫（Robert Slimbach，1956年--）和卡罗·图温布利
+%（Carol Twombly，1959年-）\cite{wyf,sunstein,zgtsgxh,lzp1}
+%在1990年到1992年期间以 Frutiger 字体为蓝本为 Adobe 公司设计\cite{cdy}。
+%Myriad 是早期数码字体时代的先驱，\cite{wfz,wfz1}
+%伴随着技术的成长一路走来 \cite{hlswedl,zgdylsdag}。
+%
+%\textbf{本段使用 \texttt{\string\citep}}
+%如今，它更多地和我们相见在显示屏幕上 \citep{wfz2}。当然，还有那著名的标榜设计的
+%电子品牌 \citep{cgw,mks}。1992 年，耗时两年开发的 Myriad 终于发布了历史上第一个版本：
+%Myriad MM \citep{wyf,hblzsthjkjyxgs,sunstein,zgtsgxh,aaas}。
+%
+%\section{title}
+%
+%\textbf{本段使用 \texttt{\string\citet}}
+%这款温和且具有良好可读性的人文主义无衬线字体\citet{yjb}，集诸多当时最新的数字
+%字体技术于一身。 后缀 MM，意为 Multiple Master，没有找到对应的中文
+%译名\citet{lbm,calkin}，我们权且称之为「多母板技术」。Myriad 是最早采用 Multiple Master
+%技术的无衬线字体之一。这项技术的原理是在坐标轴（Axis）的区间两端设计
+%极限母板，中间的变量则采取线性或非线性变化，对于字体来说，字型的宽度、
+%粗细甚至有无衬线\citet{xadzkjdx,yufin,cgw}，都可以在坐标轴上设置。此外，MM 技术还提供了在小字号
+%下屏幕显示的视觉修正（Optical Adjustment），也就是说，同一款字体，在
+%小字号时，其字间距和笔画粗细，会被适当地放大。而衬线字体，随着字号的
+%变小，衬线会相对变粗。视觉修正可以提高小字号字体的识别性，对于远低于
+%印刷分辨率的电脑屏幕来说，也具有重要意义。
+%
+%在 Multiple Master 的时代，字号是从6pt到72pt之间非线性设置的。这一传统
+%保留到了今天 Truetype 和 Opentype 的 Single Master 时代。Adobe 软件的
+%字体下拉菜单，仍然只显示6到72pt 的字号。
+%
+%\chapter{假文}
+%
+%\begin{definition}
+%证明完毕/证讫，又写作Q.E.D.。这是拉丁词组“quod erat demonstrandum”
+%（这就是所要证明的）的缩写，译自希腊语“ὅπερ ἔδει δεῖξαι”（hoper edei
+%deixai），很多早期数学家用过，包括欧几里得和阿基米德。“Q.E.D.”可以
+%在证明的尾段写出，以显示证明所需的结论已经完整了。
+%\end{definition}
+%
+%\zhlipsum[1-15]
+%
 %\nocite{*}
-
-\backmatter
-
+%
+%\backmatter
+%
 %\bibliography{test}
 %\printbibliography
 
