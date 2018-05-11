@@ -2851,7 +2851,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     heading    = true,
 %<class>    fontset    = none,
 %<class-en>    fontset    = fandol,
-    zihao      = -4,
+    zihao      = 5,
 %<class>    linespread = \c_@@_line_spread_fp,
     \g_@@_to_ctexbook_clist
   }
@@ -3935,37 +3935,39 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 在双面模式下，偶数页的中间页眉文字在左，奇数页则在右。单面模式下，
 % 左右页眉都要显示。
 %    \begin{macrocode}
-\bool_if:NTF \g_@@_twoside_bool
-%<*class>
-  {
-    \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
-    \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
-  }
-  {
-    \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
-    \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
-    \fancyhead [ C ]
-      {
-        \small \nouppercase
-          { \fdu@kai \l_@@_header_center_mark_tl }
-      }
-  }
-%</class>
-%<*class-en>
-  {
-    \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
-    \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
-  }
-  {
-    \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
-    \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
-    \fancyhead [ C ]
-      {
-        \small \nouppercase
-          { \itshape \l_@@_header_center_mark_tl }
-      }
-  }
-%</class-en>
+% 使用固定页眉。
+\fancyhead [ C ] { \small \c_@@_name_head_tl }
+% \bool_if:NTF \g_@@_twoside_bool
+% %<*class>
+%   {
+%     \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
+%     \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
+%   }
+%   {
+%     \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
+%     \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
+%     \fancyhead [ C ]
+%       {
+%         \small \nouppercase
+%           { \fdu@kai \l_@@_header_center_mark_tl }
+%       }
+%   }
+% %</class>
+% %<*class-en>
+%   {
+%     \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
+%     \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
+%   }
+%   {
+%     \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
+%     \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
+%     \fancyhead [ C ]
+%       {
+%         \small \nouppercase
+%           { \itshape \l_@@_header_center_mark_tl }
+%       }
+%   }
+% %</class-en>
 %    \end{macrocode}
 %
 % 构建页脚，用来显示页码。选项 \opt{C} 表示居中（center）。
@@ -6252,6 +6254,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { sign_date       } { 日期                          },
     { bib_en          } { Bibliography                  },
     { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
+    { head            } { 复旦大学本科生毕业论文（2018）             },
     { orig_decl       } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
     { auth_decl       } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
   }

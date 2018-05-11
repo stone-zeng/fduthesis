@@ -32,11 +32,11 @@ cd ../test/
 
 # Make test theses
 latexmk -xelatex  $LATEXMKOPT "test.tex"
-latexmk -xelatex  $LATEXMKOPT "test-en.tex"
+# latexmk -xelatex  $LATEXMKOPT "test-en.tex"
 source ../scripts/clean.sh
 
 latexmk -lualatex $LATEXMKOPT "test.tex"
-latexmk -lualatex $LATEXMKOPT "test-en.tex"
+# latexmk -lualatex $LATEXMKOPT "test-en.tex"
 source ../scripts/clean.sh
 
 latexmk -xelatex  $LATEXMKOPT "test-biblatex.tex"
