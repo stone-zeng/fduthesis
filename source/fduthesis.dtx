@@ -3394,16 +3394,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 根据 \opt{粗宋/黑} 选项来进行操作。目前暂未定义该选项，利用
 % \cs{use_ii:nn} 充当条件判断。使用黑体。
 %    \begin{macrocode}
-        \use_ii:nn
+% 使用粗宋。
+        \use_i:nn
           {
 %    \end{macrocode}
 % 粗宋。判断是否定义 \opt{BoldFont}，若未定义，则设置 \opt{BoldFont}
 % 为普通宋体。
 %    \begin{macrocode}
+% 若没有定义 BoldFont，则使用伪粗体。
             \tl_if_in:NnF \l_@@_font_options_clist { BoldFont = }
               {
                 \clist_put_right:Nx \l_@@_font_options_clist
-                  { BoldFont = \l_@@_font_name_tl }
+                  { AutoFakeBold = true }
+                  % { BoldFont = \l_@@_font_name_tl }
               }
           }
           {
