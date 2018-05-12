@@ -3832,17 +3832,16 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 设置标题编号深度（到 subsubsection）。
 \int_set:cn { c@secnumdepth } { 3 }
 % 固定的行距值。
-% #1 = 字号
-\cs_new_protected:Npn \@@_define_base_line_skip:n #1
+\clist_map_inline:nn { 5, -4, 3 }
   {
     \group_begin:
-      \zihao { #1 }
+      \zihao {#1}
       \skip_const:cn { c_@@_zihao_ #1 _base_line_skip } { \baselineskip }
     \group_end:
   }
-\@@_define_base_line_skip:n {  5 }
-\@@_define_base_line_skip:n { -4 }
-\@@_define_base_line_skip:n {  3 }
+% #1 = 字号
+\cs_new:Npn \@@_base_line_skip:n #1
+  { \use:c { c_@@_zihao_ #1 _base_line_skip } }
 %    \end{macrocode}
 %
 % |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
@@ -3852,7 +3851,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % 设置章（chapter）、节（section）与小节（sub-section）标题样式。
-% 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
+%^^A 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
 %    \begin{macrocode}
     chapter =
       {
@@ -3864,25 +3863,33 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         aftername   = \par \nobreak \vskip 10 pt,
 %</class-en>
         number      = \@@_arabic:n { chapter },
-        beforeskip  = \c_zero_skip,
-        afterskip   = \c_zero_skip,
-        fixskip     = true
+        beforeskip  =
+          \skip_eval:n
+            { 1.5 \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+        afterskip   =
+          \skip_eval:n
+            { 1.5 \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+%        fixskip     = true
       },
     section =
       {
 %<class>        format      = \zihao { -4 } \normalfont \bfseries \centering,
 %<class-en>        format      = \Large \bfseries \raggedright,
-        beforeskip  = \c_zero_skip,
-        afterskip   = \c_zero_skip,
-        fixskip     = true
+        beforeskip  =
+          \skip_eval:n
+            { \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+        afterskip   =
+          \skip_eval:n
+            { \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+%        fixskip     = true
       },
     subsection =
       {
 %<class>        format      = \normalfont \sffamily \raggedright,
 %<class-en>        format      = \large \bfseries \raggedright,
-        beforeskip  = \c_zero_skip,
-        afterskip   = \c_zero_skip,
-        fixskip     = true
+        beforeskip  = \skip_eval:n { 0.5 \@@_base_line_skip:n { 5 } },
+        afterskip   = \skip_eval:n { 0.5 \@@_base_line_skip:n { 5 } },
+%        fixskip     = true
       },
     subsubsection =
       {
@@ -3891,98 +3898,98 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         indent      = 2 \ccwd,
         beforeskip  = \c_zero_skip,
         afterskip   = \c_zero_skip,
-        fixskip     = true
+%        fixskip     = true
       }
   }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-% 保留原始定义
-\cs_new_eq:NN \@@_std_chapter:w       \chapter
-\cs_new_eq:NN \@@_std_section:w       \section
-\cs_new_eq:NN \@@_std_subsection:w    \subsection
-% 重新定义
-\cs_new_protected:Npn \@@_define_chapters:nn #1#2
-  {
-    \exp_args:Nc \RenewDocumentCommand {#1} { s o m }
-      {
-        \IfBooleanTF {##1}
-          {
-            \IfNoValueTF {##2}
-              { \use:c { @@_std_ #1 :w } * {##3}       }
-              { \use:c { @@_std_ #1 :w } * [##2] {##3} }
-          }
-          {
-            \IfNoValueTF {##2}
-              { \use:c { @@_std_ #1 :w } {##3}       }
-              { \use:c { @@_std_ #1 :w } [##2] {##3} }
-          }
-        \fdu_collect_do:xn
-          { \exp_not:n { \c_space_token \par } \use:c {#2} }
-          { \use:c { @@_ #2 _aux:n } }
-      }
-  }
-\@@_define_chapters:nn { chapter    } { section       }
-\@@_define_chapters:nn { section    } { subsection    }
-\@@_define_chapters:nn { subsection } { subsubsection }
-% #1 = chapter/section ..., #2 = code between
-\cs_new_protected:Npn \@@_define_chapters_aux:nn #1#2
-  {
-    \cs_new_protected:cpn { @@_ #1 _aux:n } ##1
-      {
-        \tl_if_in:nxTF {##1} { \use:c {#1} }
-          { #2 \use:c {#1} }
-          { \use:n {##1} }
-      }
-  }
-\@@_define_chapters_aux:nn { section       } { XXXXXXX }
-\@@_define_chapters_aux:nn { subsection    } { XXXXXXX }
-\@@_define_chapters_aux:nn { subsubsection } { XXXXXXX }
+% % 保留原始定义
+% \cs_new_eq:NN \@@_std_chapter:w       \chapter
+% \cs_new_eq:NN \@@_std_section:w       \section
+% \cs_new_eq:NN \@@_std_subsection:w    \subsection
+% % 重新定义
+% \cs_new_protected:Npn \@@_define_chapters:nn #1#2
+%   {
+%     \exp_args:Nc \RenewDocumentCommand {#1} { s o m }
+%       {
+%         \IfBooleanTF {##1}
+%           {
+%             \IfNoValueTF {##2}
+%               { \use:c { @@_std_ #1 :w } * {##3}       }
+%               { \use:c { @@_std_ #1 :w } * [##2] {##3} }
+%           }
+%           {
+%             \IfNoValueTF {##2}
+%               { \use:c { @@_std_ #1 :w } {##3}       }
+%               { \use:c { @@_std_ #1 :w } [##2] {##3} }
+%           }
+%         \fdu_collect_do:xn
+%           { \exp_not:n { \c_space_token \par } \use:c {#2} }
+%           { \use:c { @@_ #2 _aux:n } }
+%       }
+%   }
+% \@@_define_chapters:nn { chapter    } { section       }
+% \@@_define_chapters:nn { section    } { subsection    }
+% \@@_define_chapters:nn { subsection } { subsubsection }
+% % #1 = chapter/section ..., #2 = code between
+% \cs_new_protected:Npn \@@_define_chapters_aux:nn #1#2
+%   {
+%     \cs_new_protected:cpn { @@_ #1 _aux:n } ##1
+%       {
+%         \tl_if_in:nxTF {##1} { \use:c {#1} }
+%           { #2 \use:c {#1} }
+%           { \use:n {##1} }
+%       }
+%   }
+% \@@_define_chapters_aux:nn { section       } { XXXXXXX }
+% \@@_define_chapters_aux:nn { subsection    } { XXXXXXX }
+% \@@_define_chapters_aux:nn { subsubsection } { XXXXXXX }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-% 以下相当于 xpeek 宏包的重新实现。xpeek 宏包中提供的 \xpeek_collect_do:nn 函数
-% 不能正确处理 n 型参数，这里做了修改。
-\tl_new:N \l_@@_peek_code_tl
-\tl_new:N \l_@@_collected_tokens_tl
-\cs_new_protected:Npn \fdu_collect_do:nn #1#2
-  {
-    \tl_clear:N \l_@@_collected_tokens_tl
-    \@@_collect_do:nnn {#1} {#2} {}
-  }
-\cs_generate_variant:Nn \fdu_collect_do:nn { xn }
-\cs_new_protected:Npn \@@_collect_do:nnn #1#2#3
-  {
-    \@@_peek_after:nw
-      {
-        \@@_token_if_in_tl:nNTF {#1} \l_peek_token
-          {
-            \tl_put_right:Nn \l_@@_collected_tokens_tl {#3}
-            \@@_collect_do:nnn {#1} {#2}
-          }
-          { #2 { \l_@@_collected_tokens_tl #3 } }
-      }
-  }
-\cs_new_protected:Npn \@@_peek_after:nw #1
-  {
-    \tl_set:Nn \l_@@_peek_code_tl {#1}
-    \peek_after:Nw \l_@@_peek_code_tl
-  }
-% #1 = token list, #2 = token
-\prg_new_protected_conditional:Npnn \@@_token_if_in_tl:nN #1#2 { TF }
-  {
-    \bool_set_false:N \l_@@_tmpa_bool
-    \tl_map_inline:nn {#1}
-      {
-        \token_if_eq_meaning:NNT #2 ##1
-          {
-            \bool_set_true:N \l_@@_tmpa_bool
-            \tl_map_break:
-          }
-      }
-    \bool_if:NTF \l_@@_tmpa_bool
-      { \prg_return_true: } { \prg_return_false: }
-  }
+% % 以下相当于 xpeek 宏包的重新实现。xpeek 宏包中提供的 \xpeek_collect_do:nn 函数
+% % 不能正确处理 n 型参数，这里做了修改。
+% \tl_new:N \l_@@_peek_code_tl
+% \tl_new:N \l_@@_collected_tokens_tl
+% \cs_new_protected:Npn \fdu_collect_do:nn #1#2
+%   {
+%     \tl_clear:N \l_@@_collected_tokens_tl
+%     \@@_collect_do:nnn {#1} {#2} {}
+%   }
+% \cs_generate_variant:Nn \fdu_collect_do:nn { xn }
+% \cs_new_protected:Npn \@@_collect_do:nnn #1#2#3
+%   {
+%     \@@_peek_after:nw
+%       {
+%         \@@_token_if_in_tl:nNTF {#1} \l_peek_token
+%           {
+%             \tl_put_right:Nn \l_@@_collected_tokens_tl {#3}
+%             \@@_collect_do:nnn {#1} {#2}
+%           }
+%           { #2 { \l_@@_collected_tokens_tl #3 } }
+%       }
+%   }
+% \cs_new_protected:Npn \@@_peek_after:nw #1
+%   {
+%     \tl_set:Nn \l_@@_peek_code_tl {#1}
+%     \peek_after:Nw \l_@@_peek_code_tl
+%   }
+% % #1 = token list, #2 = token
+% \prg_new_protected_conditional:Npnn \@@_token_if_in_tl:nN #1#2 { TF }
+%   {
+%     \bool_set_false:N \l_@@_tmpa_bool
+%     \tl_map_inline:nn {#1}
+%       {
+%         \token_if_eq_meaning:NNT #2 ##1
+%           {
+%             \bool_set_true:N \l_@@_tmpa_bool
+%             \tl_map_break:
+%           }
+%       }
+%     \bool_if:NTF \l_@@_tmpa_bool
+%       { \prg_return_true: } { \prg_return_false: }
+%   }
 %    \end{macrocode}
 %
 % \subsection{页眉页脚}
@@ -6239,13 +6246,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{variable}{\c_@@_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
-%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
+%   \num{1.2} \times k \times \SI{10.5}{bp} = \SI{20}{pt}.
 % \end{equation*}
-% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
+% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{10.5}{bp} 是五号字
 % 的大小，\SI{20}{pt} 是行距固定值。
 %    \begin{macrocode}
 \fp_const:Nn \c_@@_line_spread_fp
-  { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
+  { \dim_ratio:nn { 20 pt } { 10.5 bp } / 1.2 }
 %    \end{macrocode}
 % \end{variable}
 %
