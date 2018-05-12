@@ -2639,6 +2639,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\c_zero_int,\c_one_int}
+% \cs{c_zero}、\cs{c_one} 等将在 \LaTeX3 的后续版本中移除。
+%    \begin{macrocode}
+% TODO: (2018-05-12) Update to LaTeX3 new version
+\cs_set_eq:NN \c_zero_int \c_zero
+\cs_set_eq:NN \c_one_int  \c_one
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_quad:,\@@_qquad:}
 % 等价于 \LaTeXe{} 中的 \tn{quad} 和 \tn{qquad}。
 %    \begin{macrocode}
@@ -2843,7 +2852,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
-% TODO: (2017/07/22) Chinese fonts in fduthesis-en
+% TODO: (2017-07-22) Chinese fonts in fduthesis-en
 \PassOptionsToClass
   {
     UTF8,
@@ -3410,7 +3419,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 黑体。注意右侧选项会覆盖左侧选项。
 %    \begin{macrocode}
-% TODO: (2017/09/18) `hei` or `sans`?
+% TODO: (2017-09-18) `hei` or `sans`?
             \prop_get:NnN \g_@@_cjk_font_name_prop { hei }
               \l_@@_tmpa_tl
             \clist_put_right:Nx \l_@@_font_options_clist
@@ -3705,7 +3714,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 表示变量的拉丁字母和希腊字母均应当使用斜体。
 % 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。
 %    \begin{macrocode}
-% TODO: (2018/01/19) do we need `mathrm=sym`?
+% TODO: (2018-01-19) Do we need `mathrm=sym`?
 \keys_set:nn { unicode-math }
   {
     math-style = ISO,
@@ -4315,7 +4324,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 设置默认样式为 \opt{plain}。
 %    \begin{macrocode}
-% TODO: (2017/12/07) move to interface
+% TODO: (2017-12-07) Move to interface
     \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
@@ -4683,8 +4692,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     secret-level .choices:nn  =
       { none, i, ii, iii }
       {
-        \int_compare:nTF
-          { \l_keys_choice_int >= 2 }
+        \int_compare:nTF { \l_keys_choice_int >= 2 }
           {
             \bool_set_true:N \l_@@_secret_bool
             \tl_set:Nn \l_@@_info_secret_level_tl
@@ -4904,7 +4912,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_degree:
   {
-    \int_compare:nNnT \g_@@_thesis_type_int = \c_two
+    \int_compare:nT { \g_@@_thesis_type_int = 2 }
       {
         \tl_set:Nx \l_@@_tmpa_tl
           {
@@ -4990,7 +4998,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 声明封面对象。不需要带参数。
 %    \begin{macrocode}
 %<@@=fdu_cover>
-\DeclareObjectType { fdu / cover } { \c_zero }
+\DeclareObjectType { fdu / cover } { \c_zero_int }
 %    \end{macrocode}
 %
 % \begin{macro}{\DeclareCoverTemplate,\fdu_cover_declare_template:nn}
@@ -5071,9 +5079,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_declare_template_interface:nn #1#2
-  { \DeclareTemplateInterface { fdu / cover } {#1} { \c_zero } {#2} }
+  { \DeclareTemplateInterface { fdu / cover } {#1} { \c_zero_int } {#2} }
 \cs_new_protected:Npn \@@_declare_template_code:nnn #1#2#3
-  { \DeclareTemplateCode { fdu / cover } {#1} { \c_zero } {#2} {#3} }
+  { \DeclareTemplateCode { fdu / cover } {#1} { \c_zero_int } {#2} {#3} }
 \cs_generate_variant:Nn \@@_declare_template_interface:nn { nx  }
 \cs_generate_variant:Nn \@@_declare_template_code:nnn     { nxn }
 %    \end{macrocode}
@@ -5738,9 +5746,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_biblatex_allow_url_break:
   {
-    \int_set_eq:NN \c@biburlucpenalty  \c_one
-    \int_set_eq:NN \c@biburlnumpenalty \c_one
-    \int_set_eq:NN \c@biburllcpenalty  \c_one
+    \int_set_eq:NN \c@biburlucpenalty  \c_one_int
+    \int_set_eq:NN \c@biburlnumpenalty \c_one_int
+    \int_set_eq:NN \c@biburllcpenalty  \c_one_int
   }
 %    \end{macrocode}
 % \end{macro}
