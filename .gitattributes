@@ -17,4 +17,5 @@
 *.doc  binary
 *.docx binary
 *.pdf  binary
+*.png  binary
 *.fmt  binary

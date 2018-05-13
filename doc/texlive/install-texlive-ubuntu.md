@@ -46,7 +46,7 @@ sudo ./install-tl -gui -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/sys
 
 如下图所示：
 
-![install-texlive-gui](install-texlive-gui.png)
+![install-texlive-ubuntu-gui](install-texlive-ubuntu-gui.png)
 
 注意此时终端不可以关闭。
 
