@@ -62,7 +62,7 @@ tools/
 # Other
 git-comment.md
 TODO.md
-doc/images/
+docs/tex/images/
 source/*.md
 source/*.tex
 test/dtxtest/
