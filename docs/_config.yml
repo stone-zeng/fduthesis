@@ -1,28 +1,20 @@
 # Site settings
 title: fduthesis
 description: LaTeX thesis template for Fudan University
+author: Xiangdong Zeng
 email: xdzeng96@gmail.com
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  Stone-Zeng
+language: zh-Hans
+timezone: Asia/Shanghai
+
+# URL
+url: ""
+baseurl: /fduthesis
 
 # Build settings
 markdown: kramdown
 theme: minima
 permalink: :year-:month-:day-:title/
-# images: /images
-
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
 exclude:
   - Gemfile
   - Gemfile.lock
