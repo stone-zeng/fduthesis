@@ -59,6 +59,11 @@ temp/
 thesis/
 tools/
 
+# GitHub Pages
+docs/_site
+docs/.sass-cache
+docs/.jekyll-metadata
+
 # Other
 git-comment.md
 TODO.md
