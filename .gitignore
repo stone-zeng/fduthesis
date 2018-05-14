@@ -63,6 +63,7 @@ tools/
 docs/_site
 docs/.sass-cache
 docs/.jekyll-metadata
+docs/Gemfile.lock
 
 # Other
 git-comment.md
