@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Begin Jekyll SEO tag v2.3.0 -->
+  <title>fduthesis | LaTeX Thesis Template for Fudan University</title>
+  <meta property="og:title" content="fduthesis" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="description" content="LaTeX Thesis Template for Fudan University" />
+  <meta property="og:description" content="LaTeX Thesis Template for Fudan University" />
+  <link rel="canonical" href="https://stone-zeng.github.io/fduthesis/" />
+  <meta property="og:url" content="https://stone-zeng.github.io/fduthesis/" />
+  <meta property="og:site_name" content="fduthesis" />
+  <script type="application/ld+json">
+{"name":"fduthesis","description":"LaTeX Thesis Template for Fudan University","author":null,"@type":"WebSite","url":"https://stone-zeng.github.io/fduthesis/","image":null,"publisher":null,"headline":"fduthesis","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+  <!-- End Jekyll SEO tag -->
+
+  <meta name="description" content="LaTeX Thesis Template for Fudan University" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="https://stone-zeng.github.io/fduthesis/css/style.css">
+</head>
+
+<body>
+  <section class="page-header">
+    <div align="center">
+      <img src="images/emblem-new-a-white.svg" alt="fudan-emblem-new-white" title="fudan-emblem-new-white" width="250px" />
+    </div>
+    <br>
+    <h1 class="project-name">fduthesis</h1>
+    <h2 class="project-tagline">LaTeX Thesis Template for Fudan University</h2>
+
+    <a href="https://github.com/Stone-Zeng/fduthesis" class="btn">View on GitHub</a>
+
+
+  </section>
+
+  <section class="main-content">
+    <h1 id="fduthesis">fduthesis</h1>
+
+    <p>
+      <a href="https://travis-ci.org/Stone-Zeng/fduthesis">
+        <img src="https://travis-ci.org/Stone-Zeng/fduthesis.svg?branch=master" alt="Build Status" />
+      </a>
+      <a href="https://github.com/Stone-Zeng/fduthesis/releases/latest">
+        <img src="https://img.shields.io/github/release/Stone-Zeng/fduthesis/all.svg" alt="GitHub release" />
+      </a>
+    </p>
+
+    <h2 id="欢迎使用-fduthesis---复旦大学论文模板">欢迎使用 fduthesis - 复旦大学论文模板！</h2>
+
+    <p>在您使用
+      <code class="highlighter-rouge">fduthesis</code> 之前，请务必仔细阅读模板文档
+      <a href="https://github.com/Stone-Zeng/fduthesis/releases/download/v0.4/fduthesis.pdf">fduthesis.pdf</a>。 该文档也可通过如下命令生成：
+    </p>
+
+    <div class="highlighter-rouge">
+      <pre class="highlight"><code>latexmk fduthesis.dtx
+</code></pre>
+    </div>
+
+    <p>若需要生成模板各部件，请执行如下命令：</p>
+
+    <div class="highlighter-rouge">
+      <pre class="highlight"><code>xetex fduthesis.dtx
+</code></pre>
+    </div>
+
+    <h3 id="模板组成">模板组成</h3>
+
+    <ul>
+      <li>
+        <code class="highlighter-rouge">source/</code> 源代码
+        <ul>
+          <li>
+            <code class="highlighter-rouge">fduthesis.dtx</code> 模板代码、注释及文档</li>
+          <li>
+            <code class="highlighter-rouge">fduthesis-doc.dtx</code>
+            <code class="highlighter-rouge">fdudoc</code> 文档类代码</li>
+          <li>
+            <code class="highlighter-rouge">fduthesis-logo.dtx</code>
+            <code class="highlighter-rouge">fdulogo</code> 宏包代码</li>
+        </ul>
+      </li>
+      <li>
+        <code class="highlighter-rouge">test/</code> 测试文件
+        <ul>
+          <li>
+            <code class="highlighter-rouge">test.tex</code> 测试论文</li>
+          <li>
+            <code class="highlighter-rouge">test-en.tex</code> 测试论文（英文版）</li>
+        </ul>
+      </li>
+      <li>
+        <code class="highlighter-rouge">support/</code> Travis CI 支持文件
+        <ul>
+          <li>
+            <code class="highlighter-rouge">texlive.sh</code> 安装最新版本 TeX Live</li>
+          <li>
+            <code class="highlighter-rouge">texlive.profile</code> TeX Live 环境变量配置</li>
+          <li>
+            <code class="highlighter-rouge">local.sh</code> 安装本地宏包及相关字体</li>
+          <li>
+            <code class="highlighter-rouge">run.sh</code> 执行测试命令</li>
+        </ul>
+      </li>
+      <li>
+        <p>
+          <code class="highlighter-rouge">.gitattributes</code> Git 属性文件</p>
+      </li>
+      <li>
+        <p>
+          <code class="highlighter-rouge">.gitignore</code> Git 忽略文件</p>
+      </li>
+      <li>
+        <p>
+          <code class="highlighter-rouge">.travis.yml</code> Travis CI 配置文件</p>
+      </li>
+      <li>
+        <code class="highlighter-rouge">README.md</code> 自述文件（本文档）</li>
+    </ul>
+
+    <h3 id="许可证">许可证</h3>
+
+    <p>本模板的发布遵守
+      <a href="http://www.latex-project.org/lppl.txt">LaTeX Project Public License</a>
+      (版本 1.3c 或更高)。</p>
+
+    <br>
+
+    <h2 id="welcome-to-fduthesis---latex-thesis-template-for-fudan-university">Welcome to fduthesis - LaTeX thesis template for Fudan University!</h2>
+
+    <p>Before you using
+      <code class="highlighter-rouge">fduthesis</code>, please read the document
+      <a href="https://github.com/Stone-Zeng/fduthesis/releases/download/v0.4/fduthesis.pdf">fduthesis.pdf</a>
+      carefully. This file can be generated with the following commands as well:</p>
+
+    <div class="highlighter-rouge">
+      <pre class="highlight"><code>latexmk fduthesis.dtx
+</code></pre>
+    </div>
+
+    <p>If you want to get all components of
+      <code class="highlighter-rouge">fduthesis</code>, please excute the following commands:</p>
+
+    <div class="highlighter-rouge">
+      <pre class="highlight"><code>xetex fduthesis.dtx
+</code></pre>
+    </div>
+
+    <h3 id="license">License</h3>
+
+    <p>This work may be distributed and/or modified under the conditions of the
+      <a href="http://www.latex-project.org/lppl.txt">LaTeX Project Public License</a>, either version 1.3c of this license or (at your option) any later version.
+    </p>
+
+
+    <footer class="site-footer">
+
+      <span class="site-footer-owner">
+        <a href="https://github.com/Stone-Zeng/fduthesis">fduthesis</a> is maintained by
+        <a href="https://github.com/Stone-Zeng">Stone-Zeng</a>.</span>
+
+      <span class="site-footer-credits">This page was generated by
+        <a href="https://pages.github.com">GitHub Pages</a>.</span>
+    </footer>
+  </section>
+
+
+</body>
+
+</html>
