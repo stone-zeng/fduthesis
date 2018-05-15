@@ -1,18 +1,18 @@
 \input fduthesis-test-toolkit
 
-\documentclass[draft,twoside]{fduthesis}
+\documentclass[twoside]{fduthesis}
 \usepackage{kantlipsum}
 \usepackage{zhlipsum}
 
 \fdusetup{
   style = {
     % font = none,
-    % cjk-font = none,
+    cjk-font = windows,
     % font-size = 5,
     fullwidth-stop = mapping,
-    footnote-style = pifont*,
+    % footnote-style = pifont*,
     % auto-make-cover = false
-    % logo = {../logo/pdf/fudan-name-black.pdf},
+    logo = {fudan-name.pdf, fudan-emblem-new.pdf},
     % logo-size = {2cm,2cm,2cm}
     hyperlink = color,
     hyperlink-color = default,
@@ -29,16 +29,11 @@
 %    date = {2017年2月10日},
     author = {某某某},
     author* = {Xiangdong Zeng},
-    supervisor = {陈丙丁 \quad 教授},
-    instructors = {
-      张五六 \quad 工程师,
-      赵\quad 甲 \quad 工程师,
-      王三四 \quad 讲\quad 师
-    },
+    supervisor = {S. Nawata},
+    supervisor-title = {青年副研究员},
     major = {物理学},
     department = {凝聚态物理系},
-    secret-level = ii,
-    secret-year = {三年},
+    affiliation = {复旦大学},
     student-id = {14307110000},
     keywords = {\LaTeX, hello, world, 物理, 中心法则, China, 为侨服务},
     keywords* = {\LaTeX, hello, world, physics, central rule, China},
@@ -66,7 +61,7 @@
 
 \begin{document}
 
-\raggedbottom
+%\raggedbottom
 %
 %\frontmatter
 %
@@ -105,36 +100,36 @@
 
 \mainmatter
 
-\def\PLACEHOLDERi{————汉字————汉字————汉字————汉字————汉字————六七八九十}
-\def\PLACEHOLDER{\zhlipsum[1]}%{\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi}
-
-%1
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
-\zhlipsum[1]
-\section{文字与段落 Text and paragraph}
-\zhlipsum[1]
-\clearpage
-\zhlipsum[1-2]
-
-% 2
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
-\section{文字与段落 Text and paragraph}
-\zhlipsum[1-4]
-
-% 3
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
-
-\section{文字与段落 Text and paragraph}
-
-\subsection{文字与段落 Text and paragraph}
-\zhlipsum[1-2]
-
-% 4
-\chapter{文本，字体，脚注 \quad Text, font and footnote}
-
-{}
-\section{文字与段落 Text and paragraph}
-\zhlipsum[1-2]
+%\def\PLACEHOLDERi{————汉字————汉字————汉字————汉字————汉字————六七八九十}
+%\def\PLACEHOLDER{\zhlipsum[1]}%{\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi\PLACEHOLDERi}
+%
+%%1
+%\chapter{文本，字体，脚注 \quad Text, font and footnote}
+%\zhlipsum[1]
+%\section{文字与段落 Text and paragraph}
+%\zhlipsum[1]
+%\clearpage
+%\zhlipsum[1-2]
+%
+%% 2
+%\chapter{文本，字体，脚注 \quad Text, font and footnote}
+%\section{文字与段落 Text and paragraph}
+%\zhlipsum[1-4]
+%
+%% 3
+%\chapter{文本，字体，脚注 \quad Text, font and footnote}
+%
+%\section{文字与段落 Text and paragraph}
+%
+%\subsection{文字与段落 Text and paragraph}
+%\zhlipsum[1-2]
+%
+%% 4
+%\chapter{文本，字体，脚注 \quad Text, font and footnote}
+%
+%{}
+%\section{文字与段落 Text and paragraph}
+%\zhlipsum[1-2]
 
 %\subsection{中文文本 Chinese}
 %\PLACEHOLDER

@@ -4617,7 +4617,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \l_@@_info_date_tl,
 %   \l_@@_info_author_tl,
 %   \l_@@_info_supervisor_tl,
+%   \l_@@_info_supervisor_title_tl,
 %   \l_@@_info_department_tl,
+%   \l_@@_info_affiliation_tl,
 %   \l_@@_info_major_tl,
 %   \l_@@_info_student_id_tl,
 %   \l_@@_info_school_id_tl,
@@ -4628,8 +4630,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    title, date, author, supervisor, department, major, student_id,
-    school_id, clc
+    title, date, author, supervisor, supervisor_title, department, affiliation,
+    major, student_id, school_id, clc
   }
   { \tl_new:c { l_@@_info_ #1 _tl } }
 \clist_new:N \l_@@_info_instructors_clist
@@ -4699,11 +4701,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{info/supervisor,info/supervisor*}
-% 导师姓名。
+% \begin{macro}{info/supervisor,info/supervisor*,info/supervisor-title}
+% 导师姓名、职称。
 %    \begin{macrocode}
     supervisor  .tl_set:N    = \l_@@_info_supervisor_tl,
 %   supervisor* .tl_set:N    = \l_@@_info_supervisor_en_tl,
+    supervisor-title .tl_set:N    = \l_@@_info_supervisor_title_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4715,10 +4718,11 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{info/department,info/department*}
-% 院系。
+% 院系、单位。
 %    \begin{macrocode}
     department  .tl_set:N    = \l_@@_info_department_tl,
 %   department* .tl_set:N    = \l_@@_info_department_en_tl,
+    affiliation .tl_set:N    = \l_@@_info_affiliation_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4763,9 +4767,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.4}{2017/08/10}{新增 \opt{style/logo} 与
 %   \opt{style/logo-size} 选项。}
 %
-% \begin{variable}{\l_@@_cover_logo_tl,\l_@@_cover_logo_size_clist}
+% \begin{variable}{\l_@@_cover_logo_clist,\l_@@_cover_logo_size_clist}
 %    \begin{macrocode}
-\tl_new:N    \l_@@_cover_logo_tl
+\tl_new:N    \l_@@_cover_logo_clist
 \clist_new:N \l_@@_cover_logo_size_clist
 %    \end{macrocode}
 % \end{variable}
@@ -4775,7 +4779,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
-    logo      .tl_set:N    = \l_@@_cover_logo_tl,
+    logo      .clist_set:N = \l_@@_cover_logo_clist,
     logo-size .clist_set:N = \l_@@_cover_logo_size_clist
   }
 %    \end{macrocode}
@@ -4875,7 +4879,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 限宽盒子（允许换行）。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fixed_width_box:nn #1#2
-  { \parbox {#1} {#2} }
+  { \parbox [t] {#1} {#2} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4883,7 +4887,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 居中对齐的限宽盒子（允许换行）。
 %    \begin{macrocode}
 \cs_new:Npn \@@_fixed_width_center_box:nn #1#2
-  { \parbox {#1} { \centering #2 } }
+  { \parbox [t] {#1} { \centering #2 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4961,34 +4965,34 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\@@_cover_id:,\@@_cover_id_aux:n}
 % 右上角的学校代码和学号。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_id:
-  {
-    \@@_fixed_width_box:nn { 120 pt }
-      {
-        \bool_if:NT \l_@@_secret_bool
-          {
-            \group_begin:
-              \sffamily
-              \@@_cover_id_aux:n { secret_level }
-              \c_@@_name_secret_star_tl
-              \l_@@_info_secret_year_tl
-            \group_end:
-            \par
-          }
-        \@@_cover_id_aux:n { school_id  } \par
-        \@@_cover_id_aux:n { student_id }
-      }
+% \cs_new_protected:Npn \@@_cover_id:
+%   {
+%     \@@_fixed_width_box:nn { 120 pt }
+%       {
+%         \bool_if:NT \l_@@_secret_bool
+%           {
+%             \group_begin:
+%               \sffamily
+%               \@@_cover_id_aux:n { secret_level }
+%               \c_@@_name_secret_star_tl
+%               \l_@@_info_secret_year_tl
+%             \group_end:
+%             \par
+%           }
+%         \@@_cover_id_aux:n { school_id  } \par
+%         \@@_cover_id_aux:n { student_id }
+%       }
 %    \end{macrocode}
 % 插入一个宽度为负的水平盒子以减少右侧边距。
 %    \begin{macrocode}
-    \hbox_to_wd:nn { -24 pt } { }
-  }
-\cs_new:Npn \@@_cover_id_aux:n #1
-  {
-    \tl_use:c { c_@@_name_ #1 _tl }
-    \c_@@_fullwidth_colon_tl
-    \tl_use:c { l_@@_info_ #1 _tl }
-  }
+%     \hbox_to_wd:nn { -24 pt } { }
+%   }
+% \cs_new:Npn \@@_cover_id_aux:n #1
+%   {
+%     \tl_use:c { c_@@_name_ #1 _tl }
+%     \c_@@_fullwidth_colon_tl
+%     \tl_use:c { l_@@_info_ #1 _tl }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4996,120 +5000,119 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
 % 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_logo:
-  {
-    \clist_pop:NN   \l_@@_cover_logo_size_clist \l_@@_tmpa_tl
-    \clist_pop:NNTF \l_@@_cover_logo_size_clist \l_@@_tmpb_tl
-      {
-        \tl_if_empty:NTF \l_@@_tmpa_tl
-          { \includegraphics [ height = \l_@@_tmpb_tl ] }
-          {
-            \includegraphics
-              [ width  = \l_@@_tmpa_tl, height = \l_@@_tmpb_tl ]
-          }
-      }
-      { \includegraphics [ width = \l_@@_tmpa_tl ] }
-    { \l_@@_cover_logo_tl }
-  }
+% \cs_new_protected:Npn \@@_cover_logo:
+%   {
+%     \clist_pop:NN   \l_@@_cover_logo_size_clist \l_@@_tmpa_tl
+%     \clist_pop:NNTF \l_@@_cover_logo_size_clist \l_@@_tmpb_tl
+%       {
+%         \tl_if_empty:NTF \l_@@_tmpa_tl
+%           { \includegraphics [ height = \l_@@_tmpb_tl ] }
+%           {
+%             \includegraphics
+%               [ width  = \l_@@_tmpa_tl, height = \l_@@_tmpb_tl ]
+%           }
+%       }
+%       { \includegraphics [ width = \l_@@_tmpa_tl ] }
+%     { \l_@@_cover_logo_tl }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_type:}
 % 论文类型。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_type:
-  {
-    \tl_set:Nx \l_@@_tmpa_tl
-      {
-        \clist_item:Nn \c_@@_thesis_type_clist
-          { \g_@@_thesis_type_int }
-      }
-    \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
-  }
+% \cs_new_protected:Npn \@@_cover_type:
+%   {
+%     \tl_set:Nx \l_@@_tmpa_tl
+%       {
+%         \clist_item:Nn \c_@@_thesis_type_clist
+%           { \g_@@_thesis_type_int }
+%       }
+%     \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_degree:}
 % 学位类型。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_degree:
-  {
-    \int_compare:nNnT \g_@@_thesis_type_int = \c_two
-      {
-        \tl_set:Nx \l_@@_tmpa_tl
-          {
-            \clist_item:Nn \c_@@_degree_type_clist
-              { \l_@@_info_degree_type_int }
-          }
-        \c_@@_fullwidth_left_paren_tl
-        \l_@@_tmpa_tl
-        \c_@@_fullwidth_right_paren_tl
-      }
-  }
+% \cs_new_protected:Npn \@@_cover_degree:
+%   {
+%     \int_compare:nNnT \g_@@_thesis_type_int = \c_two
+%       {
+%         \tl_set:Nx \l_@@_tmpa_tl
+%           {
+%             \clist_item:Nn \c_@@_degree_type_clist
+%               { \l_@@_info_degree_type_int }
+%           }
+%         \c_@@_fullwidth_left_paren_tl
+%         \l_@@_tmpa_tl
+%         \c_@@_fullwidth_right_paren_tl
+%       }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_info:}
 % 信息栏。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_info:
-  {
-    \begin{minipage} [ c ] { \textwidth }
-      \centering \zihao { 4 }
+% \cs_new_protected:Npn \@@_cover_info:
+%   {
+%     \begin{minipage} [ c ] { \textwidth }
+%       \centering \zihao { 4 }
+% %    \end{macrocode}
+% % 读取左侧名称字段。
+% %    \begin{macrocode}
+%       \clist_set:Nx \l_@@_tmpa_clist
+%         {
+%           \c_@@_name_department_tl,
+%           \c_@@_name_major_tl,
+%           \c_@@_name_author_tl,
+%           \c_@@_name_supervisor_tl,
+%           \c_@@_name_date_tl,
+%         }
 %    \end{macrocode}
-% 读取左侧名称字段。
+% 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给 \cs{l_@@_tmpb_dim}。
 %    \begin{macrocode}
-      \clist_set:Nx \l_@@_tmpa_clist
-        {
-          \c_@@_name_department_tl,
-          \c_@@_name_major_tl,
-          \c_@@_name_author_tl,
-          \c_@@_name_supervisor_tl,
-          \c_@@_name_date_tl,
-        }
-%    \end{macrocode}
-% 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
-% \cs{l_@@_tmpb_dim}。
-%    \begin{macrocode}
-      \clist_set:Nx \l_@@_tmpb_clist
-        {
-          { \l_@@_info_department_tl },
-          { \l_@@_info_major_tl      },
-          { \l_@@_info_author_tl     },
-          { \l_@@_info_supervisor_tl },
-          { \l_@@_info_date_tl       }
-        }
-      \@@_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
+%       \clist_set:Nx \l_@@_tmpb_clist
+%         {
+%           { \l_@@_info_department_tl },
+%           { \l_@@_info_major_tl      },
+%           { \l_@@_info_author_tl     },
+%           { \l_@@_info_supervisor_tl },
+%           { \l_@@_info_date_tl       }
+%         }
+%       \@@_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
 %    \end{macrocode}
 % 用循环输出各字段。
 %    \begin{macrocode}
-      \bool_until_do:nn
-        { \clist_if_empty_p:N \l_@@_tmpa_clist }
-        {
-          \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
-          \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
-          \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
-          \c_@@_fullwidth_colon_tl
-          \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
-          \skip_vertical:n { 1 ex }
-        }
-    \end{minipage}
-  }
+%       \bool_until_do:nn
+%         { \clist_if_empty_p:N \l_@@_tmpa_clist }
+%         {
+%           \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
+%           \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
+%           \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
+%           \c_@@_fullwidth_colon_tl
+%           \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
+%           \skip_vertical:n { 1 ex }
+%         }
+%     \end{minipage}
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_signature:N}
 % 签名行。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_signature:N #1
-  {
-    \clist_map_inline:Nn #1
-      {
-        ##1 \c_@@_fullwidth_colon_tl
-        \@@_blank_underline:n { 6 em }
-        \@@_quad:
-      }
-  }
+% \cs_new_protected:Npn \@@_cover_signature:N #1
+%   {
+%     \clist_map_inline:Nn #1
+%       {
+%         ##1 \c_@@_fullwidth_colon_tl
+%         \@@_blank_underline:n { 6 em }
+%         \@@_quad:
+%       }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5291,117 +5294,176 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \NewDocumentCommand \makecoveri { }
   {
     \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-i-default }
+    % \UseInstance { fdu / cover } { cover-i-default }
+    \UseInstance { fdu / cover } { cover-phys-default }
   }
-\NewDocumentCommand \makecoverii { }
-  {
-    \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-ii-default }
-  }
-\NewDocumentCommand \makecoveriii { }
-  {
-    \cleardoublepage
-    \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-iii-default }
-  }
+% \NewDocumentCommand \makecoverii { }
+%   {
+%     \thispagestyle { empty }
+%     \UseInstance { fdu / cover } { cover-ii-default }
+%   }
+% \NewDocumentCommand \makecoveriii { }
+%   {
+%     \cleardoublepage
+%     \thispagestyle { empty }
+%     \UseInstance { fdu / cover } { cover-iii-default }
+%   }
 %    \end{macrocode}
 % \end{macro}
 %
 % 声明各封面模板组成部分。
 %    \begin{macrocode}
-\DeclareCoverTemplate { cover-i   }
-  { id, logo, type, degree, title, title-en, info }
-\DeclareCoverTemplate { cover-ii  } { title, name-list }
-\DeclareCoverTemplate { cover-iii }
-  {
-    originality-decl-name,
-    originality-decl-text,
-    originality-decl-sig,
-    authorization-decl-name,
-    authorization-decl-text,
-    authorization-decl-sig
-  }
+% \DeclareCoverTemplate { cover-i   }
+%   { id, logo, type, degree, title, title-en, info }
+% \DeclareCoverTemplate { cover-ii  } { title, name-list }
+% \DeclareCoverTemplate { cover-iii }
+%   {
+%     originality-decl-name,
+%     originality-decl-text,
+%     originality-decl-sig,
+%     authorization-decl-name,
+%     authorization-decl-text,
+%     authorization-decl-sig
+%   }
 %    \end{macrocode}
 %
 % 定义封面的具体配置参数。
 %    \begin{macrocode}
-\DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
+% \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
+%   {
+% %<class-en>    format                 =
+% %<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
+%     bottom-skip            = 0 pt plus 1.5 fill,
+%     id       / content     = \@@_cover_id:,
+%     logo     / content     = \@@_cover_logo:,
+%     type     / content     = \@@_cover_type:,
+%     degree   / content     = \@@_cover_degree:,
+%     title    / content     =
+%       \@@_fixed_width_center_box:nn
+%         { 0.9 \textwidth } { \l_@@_info_title_tl },
+%     title-en / content     =
+%       \@@_fixed_width_center_box:nn
+%         { 0.9 \textwidth } { \l_@@_info_title_en_tl },
+%     info     / content     = \@@_cover_info:,
+%     id       / format      = \zihao { -5 },
+%     type     / format      = \zihao {  2 },
+%     degree   / format      = \zihao {  4 },
+%     title    / format      = \zihao { -2 } \sffamily,
+%     title-en / format      =
+%       \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
+%     id       / bottom-skip = 0 pt plus 1.6 fill,
+%     logo     / bottom-skip = 0 pt plus 0.3 fill,
+%     type     / bottom-skip = -18 pt,
+%     degree   / bottom-skip = 0 pt plus 0.8 fill,
+%     title-en / bottom-skip = 0 pt plus 2.5 fill,
+%     id       / align       = right,
+%     logo     / align       = center,
+%     type     / align       = center,
+%     degree   / align       = center,
+%     title    / align       = center,
+%     title-en / align       = center,
+%     info     / align       = center,
+%   }
+% \DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
+%   {
+% %<class-en>    format              =
+% %<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
+%     title     / content =
+%       \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
+%     name-list / content =
+%       \clist_use:Nn \l_@@_info_instructors_clist { \par },
+%     title     / format  = \zihao { 2 } \sffamily,
+%     name-list / format  = \large,
+%     title     / align   = center,
+%     name-list / align   = center,
+%   }
+% \DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
+%   {
+%     format                                =
+% %<class>      \@@_line_spread:n { 1.8 },
+% %<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
+%     top-skip                              = 0 pt plus 0.2 fill,
+%     bottom-skip                           = 0 pt plus 2.5 fill,
+%     originality-decl-name   / content     = \c_@@_name_orig_decl_tl,
+%     originality-decl-text   / content     = \c_@@_orig_decl_text_tl,
+%     originality-decl-sig    / content     =
+%       \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
+%     authorization-decl-name / content     = \c_@@_name_auth_decl_tl,
+%     authorization-decl-text / content     = \c_@@_auth_decl_text_tl,
+%     authorization-decl-sig  / content     =
+%       \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
+%     originality-decl-name   / format      =
+%       \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
+%     authorization-decl-name / format      =
+%       \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
+%     originality-decl-name   / bottom-skip = 0.4 cm,
+%     originality-decl-text   / bottom-skip = 0.4 cm,
+%     originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
+%     authorization-decl-name / bottom-skip = 0.4 cm,
+%     authorization-decl-text / bottom-skip = 0.4 cm,
+%     originality-decl-name   / align       = center,
+%     originality-decl-sig    / align       = right,
+%     authorization-decl-name / align       = center,
+%     authorization-decl-sig  / align       = right,
+%   }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+% 物理系毕业论文封面
+\DeclareCoverTemplate { cover-phys } { logo-i, title, logo-ii, info }
+\DeclareInstance { fdu / cover } { cover-phys-default } { cover-phys }
   {
-%<class-en>    format                 =
-%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
-    bottom-skip            = 0 pt plus 1.5 fill,
-    id       / content     = \@@_cover_id:,
-    logo     / content     = \@@_cover_logo:,
-    type     / content     = \@@_cover_type:,
-    degree   / content     = \@@_cover_degree:,
-    title    / content     =
-      \@@_fixed_width_center_box:nn
-        { 0.9 \textwidth } { \l_@@_info_title_tl },
-    title-en / content     =
-      \@@_fixed_width_center_box:nn
-        { 0.9 \textwidth } { \l_@@_info_title_en_tl },
-    info     / content     = \@@_cover_info:,
-    id       / format      = \zihao { -5 },
-    type     / format      = \zihao {  2 },
-    degree   / format      = \zihao {  4 },
-    title    / format      = \zihao { -2 } \sffamily,
-    title-en / format      =
-      \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
-    id       / bottom-skip = 0 pt plus 1.6 fill,
-    logo     / bottom-skip = 0 pt plus 0.3 fill,
-    type     / bottom-skip = -18 pt,
-    degree   / bottom-skip = 0 pt plus 0.8 fill,
-    title-en / bottom-skip = 0 pt plus 2.5 fill,
-    id       / align       = right,
-    logo     / align       = center,
-    type     / align       = center,
-    degree   / align       = center,
-    title    / align       = center,
-    title-en / align       = center,
-    info     / align       = center,
+    top-skip              = 0 pt plus 0.1fill,
+    bottom-skip           = 0 pt plus 0.4 fill,
+    logo-i  / content     = \@@_cover_logo_i:,
+    title   / content     = \c_@@_name_thesis_title_tl,
+    logo-ii / content     = \@@_cover_logo_ii:,
+    info    / content     = \@@_cover_info:,
+    title   / format      = \fontsize { 35 } { 35 } \selectfont \sffamily,
+    title   / bottom-skip = 0 pt plus 0.1 fill,
+    logo-ii / bottom-skip = 0 pt plus 0.2 fill,
+    logo-i  / align       = center,
+    title   / align       = center,
+    logo-ii / align       = center,
+    info    / align       = center,
   }
-\DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
+\cs_new_protected:Npn \@@_cover_logo_i:
   {
-%<class-en>    format              =
-%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
-    title     / content =
-      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
-    name-list / content =
-      \clist_use:Nn \l_@@_info_instructors_clist { \par },
-    title     / format  = \zihao { 2 } \sffamily,
-    name-list / format  = \large,
-    title     / align   = center,
-    name-list / align   = center,
+    \tl_set:Nx \l_@@_tmpa_tl
+      { \clist_item:Nn \l_@@_cover_logo_clist { 1 } }
+    \includegraphics [ width = 6.60 cm ] { \l_@@_tmpa_tl }
   }
-\DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
+\cs_new_protected:Npn \@@_cover_logo_ii:
   {
-    format                                =
-%<class>      \@@_line_spread:n { 1.8 },
-%<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
-    top-skip                              = 0 pt plus 0.2 fill,
-    bottom-skip                           = 0 pt plus 2.5 fill,
-    originality-decl-name   / content     = \c_@@_name_orig_decl_tl,
-    originality-decl-text   / content     = \c_@@_orig_decl_text_tl,
-    originality-decl-sig    / content     =
-      \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
-    authorization-decl-name / content     = \c_@@_name_auth_decl_tl,
-    authorization-decl-text / content     = \c_@@_auth_decl_text_tl,
-    authorization-decl-sig  / content     =
-      \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
-    originality-decl-name   / format      =
-      \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
-    authorization-decl-name / format      =
-      \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
-    originality-decl-name   / bottom-skip = 0.4 cm,
-    originality-decl-text   / bottom-skip = 0.4 cm,
-    originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
-    authorization-decl-name / bottom-skip = 0.4 cm,
-    authorization-decl-text / bottom-skip = 0.4 cm,
-    originality-decl-name   / align       = center,
-    originality-decl-sig    / align       = right,
-    authorization-decl-name / align       = center,
-    authorization-decl-sig  / align       = right,
+    \tl_set:Nx \l_@@_tmpa_tl
+      { \clist_item:Nn \l_@@_cover_logo_clist { 2 } }
+    \includegraphics [ width = 3.70 cm ] { \l_@@_tmpa_tl }
   }
+\cs_new_protected:Npn \@@_cover_info:
+  {
+    \@@_cover_info_aux:nn { 15 } { title            } \@@_cover_info_skip:
+    \@@_cover_info_aux:nn { 15 } { department       } \@@_cover_info_skip:
+    \@@_cover_info_aux:nn { 15 } { major            } \@@_cover_info_skip:
+    \@@_cover_info_aux:nn {  5 } { author           }
+    \@@_cover_info_aux:nn {  5 } { student_id       } \@@_cover_info_skip:
+    \@@_cover_info_aux:nn {  5 } { supervisor       }
+    \@@_cover_info_aux:nn {  5 } { supervisor_title } \@@_cover_info_skip:
+    \@@_cover_info_aux:nn { 15 } { affiliation      } \@@_cover_info_skip:
+    \@@_cover_info_aux:nn { 15 } { date             }
+  }
+% #1 = width, #2 = name
+\cs_new_protected:Npn \@@_cover_info_aux:nn #1#2
+  {
+    \@@_cover_info_format:
+    \@@_spread_box:nn { 4 \ccwd } { \tl_use:c { c_@@_name_ #2 _tl } }
+    \c_@@_fullwidth_colon_tl
+    \hbox_to_zero:n { \@@_blank_underline:n { #1 \ccwd } }
+    \@@_fixed_width_center_box:nn { #1 \ccwd } { \tl_use:c { l_@@_info_ #2 _tl } }
+  }
+\cs_new_protected:Npn \@@_cover_info_format:
+  { \zihao { -3 } \sffamily }
+\cs_new_protected:Npn \@@_cover_info_skip:
+  { \skip_vertical:n { 0.2 ex } }
 %    \end{macrocode}
 %
 % \begin{macro}{style/auto-make-cover}
@@ -5425,7 +5487,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \bool_if:NT \l_@@_auto_make_cover_bool
       {
         \begin{titlepage}
-          \makecoveri \newpage \makecoverii
+          % \makecoveri \newpage \makecoverii
+          \makecoveri
         \end{titlepage}
       }
   }
@@ -5433,8 +5496,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 在 \env{document} 结束位置添加声明页。
 %    \begin{macrocode}
-\AtEndDocument
-  { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
+% \AtEndDocument
+%   { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
 %    \end{macrocode}
 %
 % \subsection{目录}
@@ -6124,7 +6187,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     style   / font-size       = 5,
 %<class>    style   / fullwidth-stop  = mapping,
     style   / auto-make-cover = true,
-    style   / logo            = { fudan-name.pdf },
+    style   / logo            = { fudan-name.pdf, fudan-emblem.pdf },
     style   / logo-size       = { 0.5 \textwidth },
     style   / hyperlink       = color,
     style   / hyperlink-color = default,
@@ -6319,24 +6382,29 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { secret_level    } { 密 \qquad 级                  },
-    { secret_star     } { \textrm { \bigstar }          },
-    { school_id       } { 学校代码                      },
-    { student_id      } { 学 \qquad 号                  },
-    { department      } { 院系                          },
-    { major           } { 专业                          },
-    { author          } { 姓名                          },
-    { supervisor      } { 指导教师                      },
-    { date            } { 完成日期                      },
-    { instructors     } { 指导小组成员                  },
-    { author_sign     } { 作者签名                      },
-    { supervisor_sign } { 导师签名                      },
-    { sign_date       } { 日期                          },
-    { bib_en          } { Bibliography                  },
-    { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
-    { head            } { 复旦大学本科生毕业论文（2018）             },
-    { orig_decl       } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
-    { auth_decl       } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
+    % { secret_level    } { 密 \qquad 级                  },
+    % { secret_star     } { \textrm { \bigstar }          },
+    % { school_id       } { 学校代码                      },
+    % { student_id      } { 学 \qquad 号                  },
+    { thesis_title     } { 本科毕业论文（设计）          },
+    { title            } { 论文题目                      },
+    { department       } { 院系                          },
+    { major            } { 专业                          },
+    { author           } { 姓名                          },
+    { student_id       } { 学号                          },
+    { supervisor       } { 指导教师                      },
+    { supervisor_title } { 职称                          },
+    { affiliation      } { 单位                          },
+    { date             } { 日期                          },
+    % { instructors      } { 指导小组成员                  },
+    % { author_sign      } { 作者签名                      },
+    % { supervisor_sign  } { 导师签名                      },
+    % { sign_date        } { 日期                          },
+    % { bib_en           } { Bibliography                  },
+    { pdf_creator      } { LaTeX~ with~ fduthesis~ class },
+    { head             } { \c_@@_name_simp_tl 本科生毕业论文（2018）  }
+    % { orig_decl        } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
+    % { auth_decl        } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 },
   }
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn
