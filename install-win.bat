@@ -3,13 +3,13 @@
 mkdir "thesis"
 cd    "thesis"
 
-copy /Y "..\doc\fduthesis-template.tex"       .
-copy /Y "..\source\fduthesis.dtx"             .
-copy /Y "..\source\fduthesis-doc.dtx"         .
-copy /Y "..\source\fduthesis-logo.dtx"        .
-copy /Y "..\logo\pdf\fudan-emblem-a-black.pdf"     ".\fudan-emblem.pdf"
-copy /Y "..\logo\pdf\fudan-emblem-new-a-black.pdf" ".\fudan-emblem-new.pdf"
-copy /Y "..\logo\pdf\fudan-name-black.pdf"         ".\fudan-name.pdf"
+copy /Y "..\doc\fduthesis-template.tex"             .
+copy /Y "..\source\fduthesis.dtx"                   .
+copy /Y "..\source\fduthesis-doc.dtx"               .
+copy /Y "..\source\fduthesis-logo.dtx"              .
+copy /Y "..\testfiles\support\fudan-emblem.pdf"     .
+copy /Y "..\testfiles\support\fudan-emblem-new.pdf" .
+copy /Y "..\testfiles\support\fudan-name.pdf"       .
 
 xetex "fduthesis.dtx" > NUL
 

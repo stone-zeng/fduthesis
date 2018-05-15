@@ -21,9 +21,12 @@ cd ../logo/
 pdflatex $TEXOPT -shell-escape "fdulogo-example.tex"
 pdflatex $TEXOPT               "fduthesis-cover.tex"
 
-mkdir                   pdf/
-mv fudan-*.pdf          pdf/
-cp fudan-name-black.pdf ../testfiles/support/fudan-name.pdf
+# mkdir                   pdf/
+# mv fudan-*.pdf          pdf/
+# cp fudan-name-black.pdf         ../testfiles/support/fudan-name.pdf
+cp fudan-name-black.pdf         ../test/fudan-name.pdf
+cp fudan-emblem-a-black.pdf     ../test/fudan-emblem.pdf
+cp fudan-emblem-new-a-black.pdf ../test/fudan-emblem-new.pdf
 
 cd ../test/
 
