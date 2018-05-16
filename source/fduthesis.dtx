@@ -2530,7 +2530,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \RequirePackage { xparse, xtemplate, l3keys2e }
 \clist_map_inline:nn { expl3, xparse, xtemplate, l3keys2e }
   {
-    \@ifpackagelater {#1} { 2017/12/16 }
+    \@ifpackagelater {#1} { 2018/05/12 }
       { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
   }
 \msg_new:nnn { fduthesis } { l3-too-old }
@@ -2637,15 +2637,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
 % \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\c_zero_int,\c_one_int}
-% \cs{c_zero}、\cs{c_one} 等将在 \LaTeX3 的后续版本中移除。
-%    \begin{macrocode}
-% TODO: (2018-05-12) Update to LaTeX3 new version
-\cs_set_eq:NN \c_zero_int \c_zero
-\cs_set_eq:NN \c_one_int  \c_one
-%    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_quad:,\@@_qquad:}
