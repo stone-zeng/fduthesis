@@ -54,10 +54,7 @@
 % \url{http://www.fudan.edu.cn/2016/channels/view/74/}。
 %    \begin{macrocode}
 \NewDocumentCommand \fduname { O { } }
-  {
-    \@@_tikz:Nx \fdulogo@name
-      { \l_@@_default_arg_tl, #1 }
-  }
+  { \@@_tikz:nx { \fdulogo@name } { \c_@@_default_arg_tl, #1 } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -71,19 +68,19 @@
 %    \begin{macrocode}
 \NewDocumentCommand \fduemblem { t+ s O { } }
   {
-    \@@_tikz:cx
+    \@@_tikz:nx
       {
         \IfBooleanTF {#1}
           {
             \IfBooleanTF {#2}
-              { fdulogo@emblem@new@reversed } { fdulogo@emblem@new }
+              { \fdulogo@emblem@new@reversed } { \fdulogo@emblem@new }
           }
           {
             \IfBooleanTF {#2}
-              { fdulogo@emblem@reversed } { fdulogo@emblem }
+              { \fdulogo@emblem@reversed } { \fdulogo@emblem }
           }
       }
-      { \l_@@_default_arg_tl, #3 }
+      { \c_@@_default_arg_tl, #3 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -94,30 +91,27 @@
 % \url{http://www.fudan.edu.cn/2016/channels/view/74/}。
 %    \begin{macrocode}
 \NewDocumentCommand \fdumotto { O { } }
-  {
-    \@@_tikz:Nx \fdulogo@motto
-      { \l_@@_default_arg_tl, #1 }
-  }
+  { \@@_tikz:nx { \fdulogo@motto } { \c_@@_default_arg_tl, #1 } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}{\l_@@_default_arg_tl}
+% \begin{variable}{\c_@@_default_arg_tl}
 % 默认参数。
 %    \begin{macrocode}
-\tl_const:Nn \l_@@_default_arg_tl { x = 1 pt, y = 1 pt }
+\tl_const:Nn \c_@@_default_arg_tl { x = 1 pt, y = 1 pt }
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}{\@@_tikz:Nn,\@@_tikz:Nx,\@@_tikz:cx}
+% \begin{macro}{\@@_tikz:nn,\@@_tikz:nx}
 % 对 \env{tikzpicture} 环境的封装。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_tikz:Nn #1#2
+\cs_new_protected:Npn \@@_tikz:nn #1#2
   {
     \begin{tikzpicture} [#2]
       #1
     \end{tikzpicture}
   }
-\cs_generate_variant:Nn \@@_tikz:Nn { Nx, cx }
+\cs_generate_variant:Nn \@@_tikz:nn { nx }
 %    \end{macrocode}
 % \end{macro}
 %
