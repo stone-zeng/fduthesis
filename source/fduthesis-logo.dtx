@@ -53,8 +53,23 @@
 % 复旦大学校名（復旦大學），由毛泽东题写。原始图片来源：
 % \url{http://www.fudan.edu.cn/2016/channels/view/74/}。
 %    \begin{macrocode}
-\NewDocumentCommand \fduname { O { } }
-  { \@@_tikz:nx { \fdulogo@name } { \c_@@_default_arg_tl, #1 } }
+%\NewDocumentCommand \fduname { O { } }
+%  { \@@_tikz:nx { \fdulogo@name } { \c_@@_default_arg_tl, #1 } }
+% + new
+% - original
+\NewDocumentCommand \fduname { t+ t- O { } }
+  {
+    \@@_tikz:nx
+      {
+        \IfBooleanTF {#1}
+          { \fdulogo@name@new }
+          {
+            \IfBooleanTF {#2}
+              { \fdulogo@name@original } { \fdulogo@name }
+          }
+      }
+      { \c_@@_default_arg_tl, #3 }
+  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -137,14 +152,26 @@
 \ExplSyntaxOff
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\fdulogo@name}
-% 校名。
+% \begin{macro}[int]{\fdulogo@name,
+%   \fdulogo@name@original,
+%   \fdulogo@name@new}
+% 各版本校名。
 %    \begin{macrocode}
 \def\fdulogo@name{%
   \fill \fdulogo@name@fu
         \fdulogo@name@dan
         \fdulogo@name@da
         \fdulogo@name@xue;}
+\def\fdulogo@name@original{%
+  \fill \fdulogo@name@original@fu
+        \fdulogo@name@original@dan
+        \fdulogo@name@original@da
+        \fdulogo@name@original@xue;}
+\def\fdulogo@name@new{%
+  \fill \fdulogo@name@new@fu
+        \fdulogo@name@new@dan
+        \fdulogo@name@new@da
+        \fdulogo@name@new@xue;}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -377,7 +404,6 @@
 %
 % 复。
 %    \begin{macrocode}
-    .. controls (xxxx.yyyy, xxxx.yyyy) and (xxxx.yyyy, xxxx.yyyy) .. (xxxx.yyyy, xxxx.yyyy)
 %<*logo>
 \def\fdulogo@name@fu{%
   (  86.7942,  309.2300)
