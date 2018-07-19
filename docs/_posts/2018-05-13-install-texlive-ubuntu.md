@@ -102,13 +102,13 @@ sudo cp /usr/local/texlive/2018/texmf-var/fonts/conf/texlive-fontconfig.conf /et
 
 之后再执行
 
-```
+```sh
 sudo fc-cache -fv
 ```
 
 刷新字体数据库。
 
-## 安装 “dummy package”
+## 安装「dummy package」
 
 TODO
 
