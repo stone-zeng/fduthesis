@@ -34,7 +34,7 @@ fc-cache
 - 加上选项 `-f` 或 `-r` 来执行 `fc-cache`
 - 开启管理员权限，即在「命令提示符（管理员）」中执行上述命令
 - 删除字体缓存目录（`texlive/<年份>/texmf-var/fonts/cache/`）下的所有文件，并检查目录权限
-- 在 `xelatex.exe`（位于 `texlive/<年份>/bin/win32`）的属性中设置「以兼容性模式运行这个程序：Windows 7」<sup>[2](#2)</sup>
+- 在 `xelatex.exe`（位于 `texlive/<年份>/bin/win32/` 下）的属性中设置「以兼容性模式运行这个程序：Windows 7」<sup>[2](#2)</sup>
 - 设置兼容性模式后再取消 <sup>[2](#2)</sup>
 - 卸载并重新安装 TeX Live
 
