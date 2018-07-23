@@ -3115,18 +3115,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \fdu_choose_cjk_font:nn { kai  } { FZKai-Z03      }
       },
 %    \end{macrocode}
-% Mac （华文）系列。
+% Mac（华文）系列。
+% \changes{v0.8}{2018/07/23}{使用 macOS 下的新版字体。}
 %    \begin{macrocode}
     cjk-font / mac .code:n =
       {
         \fdu_choose_cjk_font_with_option:nnn { song }
-          { STSong } { BoldFont = STZhongsong }
-        \fdu_choose_cjk_font:nn { hei  } { STHeiti    }
+          { Songti~ SC~ Light } { BoldFont = Songti~ SC~ Bold }
+        \fdu_choose_cjk_font:nn { hei  } { Heiti~ SC  }
         \fdu_choose_cjk_font:nn { fang } { STFangsong }
-        \fdu_choose_cjk_font:nn { kai  } { STKaiti    }
+        \fdu_choose_cjk_font:nn { kai  } { Kaiti~ SC  }
       },
 %    \end{macrocode}
-% Windows （中易）系列。
+% Windows（中易）系列。
 %    \begin{macrocode}
     cjk-font / windows .code:n =
       {
