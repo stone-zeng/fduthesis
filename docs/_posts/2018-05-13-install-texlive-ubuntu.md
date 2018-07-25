@@ -4,6 +4,7 @@ title:  "在 Ubuntu 中安装 TeX Live 2018"
 date:   2018-05-13 18:06:00 +0800
 categories: TeX Live
 ---
+
 不建议安装源里面的 TeX Live，即避免通过 `apt-get` 安装。原因见 [[1](#1)]。
 
 ## 下载安装包
@@ -143,7 +144,7 @@ sudo tlmgr update --self --all
 
 可以编译一个简短的测试文件：
 
-```tex
+```latex
 % hello.tex
 \documentclass[UTF8]{ctexart}
 \begin{document}

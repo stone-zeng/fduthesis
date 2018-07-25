@@ -38,7 +38,7 @@
 
 ### 使用示例
 
-```tex
+```latex
 % !TeX program  = XeLaTeX
 % !TeX encoding = UTF-8
 
@@ -133,7 +133,7 @@ template author.
 
 ### Sample
 
-```tex
+```latex
 \documentclass{fduthesis-en}
 
 \fdusetup{
