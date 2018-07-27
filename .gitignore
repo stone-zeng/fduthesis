@@ -60,8 +60,9 @@ thesis/
 tools/
 
 # GitHub Pages
-docs/_site
-docs/.sass-cache
+docs/_site/
+docs/.sass-cache/
+docs/images/font-samples/
 docs/.jekyll-metadata
 docs/Gemfile.lock
 
