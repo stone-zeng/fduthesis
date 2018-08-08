@@ -286,12 +286,10 @@
   box-sizing: border-box;
 }
 
-/* body { padding: 0; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #606c71; } */
-
 body {
   padding: 0;
   margin: 0;
-  font-family: "Open Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "SF Text", Roboto, "Helvetica Neue", "Segoe UI", Arial, "Hiragino Sans GB", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #606c71;
@@ -480,7 +478,7 @@ a:hover {
 
 .main-content code {
   padding: 2px 4px;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family: "SF Mono", "Roboto Mono", Menlo, Inconsolata, Consolas, "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", monospace;
   font-size: 0.9rem;
   color: #567482;
   background-color: #f3f6fa;
@@ -491,7 +489,7 @@ a:hover {
   padding: 0.8rem;
   margin-top: 0;
   margin-bottom: 1rem;
-  font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font: 1rem "SF Mono", "Roboto Mono", Menlo, Inconsolata, Consolas, "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", monospace;
   color: #567482;
   word-wrap: normal;
   background-color: #f3f6fa;
@@ -570,8 +568,10 @@ a:hover {
 }
 
 .main-content table {
-  display: block;
-  width: 100%;
+  /* display: block; */
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
   overflow: auto;
   word-break: normal;
   word-break: keep-all;

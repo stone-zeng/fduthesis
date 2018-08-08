@@ -5,7 +5,7 @@ date:   2018-05-13 18:06:00 +0800
 categories: TeX Live
 ---
 
-不建议安装源里面的 TeX Live，即避免通过 `apt-get` 安装。原因见 [[1](#1)]。
+不建议安装源里面的 TeX Live，即避免通过 `apt-get` 安装。原因见&nbsp;[[1](#1)]。
 
 ## 下载安装包
 
@@ -35,7 +35,7 @@ sudo ./install-tl -repository https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/
 sudo apt-get install perl-tk perl-doc
 ```
 
-等待片刻后会进入选项菜单，根据需要酌情选取。也可以事先写好配置文件 `texlive.profile`。示例可以见 [[2](#2)]。
+等待片刻后会进入选项菜单，根据需要酌情选取。也可以事先写好配置文件 `texlive.profile`。示例可以见&nbsp;[[2](#2)]。
 
 没有特殊需要的话，collection 可以不必全部安装，尤其是很多小语种。不过后果是之后可能会缺包。不愿意之后手动安装，并且空间足够、网速足够，也可以全部安装。注意 TeX Live 完全安装后大约要占 6 GB 空间，安装前请务必做好准备。中途断网很可能导致安装失败。
 

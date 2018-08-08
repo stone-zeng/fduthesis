@@ -1,11 +1,12 @@
 ---
 layout: home
 ---
+
 [![Build Status](https://img.shields.io/travis/Stone-Zeng/fduthesis.svg)](https://travis-ci.org/Stone-Zeng/fduthesis)
 [![CTAN](https://img.shields.io/ctan/v/fduthesis.svg)](https://www.ctan.org/pkg/fduthesis)
 [![GitHub release](https://img.shields.io/github/release/Stone-Zeng/fduthesis/all.svg)](https://github.com/Stone-Zeng/fduthesis/releases/latest)
 
-## 欢迎使用 fduthesis （复旦大学论文模板）
+## 欢迎使用 fduthesis（复旦大学论文模板）
 
 本模板支持中英文的博士、硕士学位论文以及本科毕业论文撰写。借助现代 LaTeX 技术，希望达到用户接口简明、内容格式规范和模板样式可定制的统一。
 
