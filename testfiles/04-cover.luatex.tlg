@@ -54,7 +54,7 @@ Overfull \hbox (24.0pt too wide) detected at line 19
 []
 \hbox(0.0+0.0)x-24.0, direction TLT
 .\whatsit4=[]
-<fudan-name.pdf, id=26, 789.8137pt x 297.20033pt>
+<fudan-name.pdf, id=25, 789.8137pt x 297.20033pt>
 File: fudan-name.pdf Graphic file (type pdf)
 <use fudan-name.pdf>
 Package luatex.def Info: fudan-name.pdf  used on input line ....
@@ -473,7 +473,7 @@ Completed box being shipped out [1]
 ........\TU/XITS(0)/bx/n/14.05249 s
 ........\glue(\spaceskip) 3.51312 plus 1.75656 minus 1.17104
 ........\TU/XITS(0)/bx/n/14.05249 T
-........\kern-0.0281
+........\kern-0.0281 (font)
 ........\TU/XITS(0)/bx/n/14.05249 i
 ........\discretionary (penalty 50)
 .........< \TU/XITS(0)/bx/n/14.05249 -
@@ -719,7 +719,7 @@ Completed box being shipped out [1]
 .........\TU/XITS(0)/m/n/14.05249 2
 .........\TU/XITS(0)/m/n/14.05249 0
 .........\TU/XITS(0)/m/n/14.05249 1
-.........\TU/XITS(0)/m/n/14.05249 8
+.........\TU/XITS(0)/m/n/14.05249 9
 .........\glue(\spaceskip) 3.51312 plus 1.75656 minus 1.17104
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 年

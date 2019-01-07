@@ -55,7 +55,7 @@ Completed box being shipped out [1]
 ....\glue 40.0 plus -1.0
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\000A\000b\000s\000t\00\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\000A\000b\000s\000t\00\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
@@ -239,7 +239,7 @@ Completed box being shipped out [3]
 .....\glue 40.0 plus -1.0
 .....\mark{{List of Symbols}{List of Symbols}}
 .....\penalty 10000
-.....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t\00\ETC.}
+.....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t\00\ETC.}
 .....\penalty 10000
 .....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 .....\penalty 10000
@@ -560,7 +560,7 @@ Completed box being shipped out [1]
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\special{pdf:dest (chapter.1) [@thispage /XYZ @xpos @ypos null]}
-....\write5{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\000C\000h\000a\000p\000\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\000C\000h\000a\000p\000\ETC.}
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
 ....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
@@ -627,7 +627,7 @@ Completed box being shipped out [1]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\04\ETC.}
+....\write4{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\04\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
@@ -657,7 +657,7 @@ Completed box being shipped out [1]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\04\ETC.}
+....\write4{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\04\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
@@ -687,7 +687,7 @@ Completed box being shipped out [1]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\04\ETC.}
+....\write4{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\04\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
@@ -773,7 +773,7 @@ Completed box being shipped out [3]
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 551.40181fil
 ....\special{pdf:dest (chapter.2) [@thispage /XYZ @xpos @ypos null]}
-....\write5{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\000C\000h\000a\000p\000\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\000C\000h\000a\000p\000\ETC.}
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\mark{{\protect \MakeUppercase  {Chapter 2\hskip 1em\relax Second chapter}}\ETC.}
 ....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}

@@ -70,7 +70,7 @@ tlmgr install           \
   l3packages            \
   latex-bin             \
   latexmk               \
-  libertinus            \
+  libertinus-fonts      \
   lm                    \
   lm-math               \
   logreq                \

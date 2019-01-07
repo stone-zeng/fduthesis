@@ -70,7 +70,7 @@ Completed box being shipped out [1]
 ....\glue 40.0 plus -1.0
 ....\mark{{摘\hskip 1em\relax 要}{摘\hskip 1em\relax 要}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\
+....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\
 20\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -214,7 +214,7 @@ Completed box being shipped out [1]
 .....\kern0.0 (italic)
 .....\glue 6.0225 minus 6.0225
 .....\TU/XITS(0)/m/n/12.045 T
-.....\kern-0.1084
+.....\kern-0.1084 (font)
 .....\TU/XITS(0)/m/n/12.045 S
 .....\TU/XITS(0)/m/n/12.045 8
 .....\TU/XITS(0)/m/n/12.045 0
@@ -341,15 +341,15 @@ Completed box being shipped out [3]
 ......\localrightbox=null
 .....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/TeXGyreHeros(0)/m/n/24.09 A
-.....\kern0.12045
+.....\kern0.12045 (font)
 .....\TU/TeXGyreHeros(0)/m/n/24.09 b
 .....\discretionary (penalty 50)
 ......< \TU/TeXGyreHeros(0)/m/n/24.09 -
 .....\TU/TeXGyreHeros(0)/m/n/24.09 s
-.....\kern-0.12045
+.....\kern-0.12045 (font)
 .....\TU/TeXGyreHeros(0)/m/n/24.09 t
 .....\TU/TeXGyreHeros(0)/m/n/24.09 r
-.....\kern-0.12045
+.....\kern-0.12045 (font)
 .....\TU/TeXGyreHeros(0)/m/n/24.09 a
 .....\TU/TeXGyreHeros(0)/m/n/24.09 c
 .....\TU/TeXGyreHeros(0)/m/n/24.09 t
@@ -360,7 +360,7 @@ Completed box being shipped out [3]
 ....\glue 40.0 plus -1.0
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\
+....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\
 00\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -380,7 +380,7 @@ Completed box being shipped out [3]
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 g
-.....\kern-0.0241
+.....\kern-0.0241 (font)
 .....\TU/XITS(0)/m/n/12.045 l
 .....\TU/XITS(0)/m/n/12.045 i
 .....\TU/XITS(0)/m/n/12.045 s
@@ -391,10 +391,10 @@ Completed box being shipped out [3]
 .....\discretionary (penalty 50)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 s
-.....\kern-0.09636
+.....\kern-0.09636 (font)
 .....\TU/XITS(0)/m/n/12.045 t
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241
+.....\kern-0.0241 (font)
 .....\TU/XITS(0)/m/n/12.045 a
 .....\TU/XITS(0)/m/n/12.045 c
 .....\TU/XITS(0)/m/n/12.045 t
@@ -424,69 +424,69 @@ Completed box being shipped out [3]
 ......\localleftbox=null
 ......\localrightbox=null
 .....\TU/XITS(0)/bx/n/12.045 K
-.....\kern-0.20476
+.....\kern-0.20476 (font)
 .....\TU/XITS(0)/bx/n/12.045 e
-.....\kern-0.20476
+.....\kern-0.20476 (font)
 .....\TU/XITS(0)/bx/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern-0.30113
+......< \kern-0.30113 (font)
 ......< \TU/XITS(0)/bx/n/12.045 -
 .....\TU/XITS(0)/bx/n/12.045 w
-.....\kern-0.3734
+.....\kern-0.3734 (font)
 .....\TU/XITS(0)/bx/n/12.045 o
 .....\TU/XITS(0)/bx/n/12.045 r
-.....\kern-0.12045
+.....\kern-0.12045 (font)
 .....\TU/XITS(0)/bx/n/12.045 d
 .....\TU/XITS(0)/bx/n/12.045 s
 .....\TU/XITS(0)/bx/n/12.045 :
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 K
-.....\kern-0.18068
+.....\kern-0.18068 (font)
 .....\TU/XITS(0)/m/n/12.045 e
-.....\kern-0.25294
+.....\kern-0.25294 (font)
 .....\TU/XITS(0)/m/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern-0.21681
+......< \kern-0.21681 (font)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 w
-.....\kern-0.31317
+.....\kern-0.31317 (font)
 .....\TU/XITS(0)/m/n/12.045 o
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241
+.....\kern-0.0241 (font)
 .....\TU/XITS(0)/m/n/12.045 d
 .....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .....\TU/XITS(0)/m/n/12.045 1
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 k
-.....\kern-0.15659
+.....\kern-0.15659 (font)
 .....\TU/XITS(0)/m/n/12.045 e
-.....\kern-0.25294
+.....\kern-0.25294 (font)
 .....\TU/XITS(0)/m/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern-0.21681
+......< \kern-0.21681 (font)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 w
-.....\kern-0.31317
+.....\kern-0.31317 (font)
 .....\TU/XITS(0)/m/n/12.045 o
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241
+.....\kern-0.0241 (font)
 .....\TU/XITS(0)/m/n/12.045 d
 .....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .....\TU/XITS(0)/m/n/12.045 2
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 k
-.....\kern-0.15659
+.....\kern-0.15659 (font)
 .....\TU/XITS(0)/m/n/12.045 e
-.....\kern-0.25294
+.....\kern-0.25294 (font)
 .....\TU/XITS(0)/m/n/12.045 y
 .....\discretionary (penalty 50)
-......< \kern-0.21681
+......< \kern-0.21681 (font)
 ......< \TU/XITS(0)/m/n/12.045 -
 .....\TU/XITS(0)/m/n/12.045 w
-.....\kern-0.31317
+.....\kern-0.31317 (font)
 .....\TU/XITS(0)/m/n/12.045 o
 .....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241
+.....\kern-0.0241 (font)
 .....\TU/XITS(0)/m/n/12.045 d
 .....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
 .....\TU/XITS(0)/m/n/12.045 3
@@ -504,7 +504,7 @@ Completed box being shipped out [3]
 ......\localrightbox=null
 .....\TU/XITS(0)/bx/n/12.045 C
 .....\TU/XITS(0)/bx/n/12.045 L
-.....\kern-0.09636
+.....\kern-0.09636 (font)
 .....\TU/XITS(0)/bx/n/12.045 C
 .....\glue(\spaceskip) 3.01125 plus 1.50412 minus 1.00475
 .....\TU/XITS(0)/bx/n/12.045 n
@@ -515,11 +515,11 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/bx/n/12.045 b
 .....\TU/XITS(0)/bx/n/12.045 e
 .....\TU/XITS(0)/bx/n/12.045 r
-.....\kern-0.12045
+.....\kern-0.12045 (font)
 .....\TU/XITS(0)/bx/n/12.045 :
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 T
-.....\kern-0.1084
+.....\kern-0.1084 (font)
 .....\TU/XITS(0)/m/n/12.045 S
 .....\TU/XITS(0)/m/n/12.045 8
 .....\TU/XITS(0)/m/n/12.045 0
@@ -666,7 +666,7 @@ Completed box being shipped out [5]
 .....\glue 40.0 plus -1.0
 .....\mark{{符号表}{符号表}}
 .....\penalty 10000
-.....\write5{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210
+.....\write4{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210
 \15\ETC.}
 .....\penalty 10000
 .....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{to
@@ -855,7 +855,7 @@ c}{\ETC.}
 .........\glue 0.0
 .........\TU/XITS(0)/m/n/12.045 b
 .........\TU/XITS(0)/m/n/12.045 r
-.........\kern-0.0241
+.........\kern-0.0241 (font)
 .........\TU/XITS(0)/m/n/12.045 a
 .........\penalty 10000
 .........\glue 0.0
@@ -913,9 +913,9 @@ c}{\ETC.}
 .........\penalty 10000
 .........\glue 0.0
 .........\TU/XITS(0)/m/n/12.045 k
-.........\kern-0.15659
+.........\kern-0.15659 (font)
 .........\TU/XITS(0)/m/n/12.045 e
-.........\kern-0.1084
+.........\kern-0.1084 (font)
 .........\TU/XITS(0)/m/n/12.045 t
 .........\penalty 10000
 .........\glue 0.0
@@ -1086,7 +1086,7 @@ Completed box being shipped out [1]
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\pdfdest name{chapter.1} xyz
-....\write5{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\173\054\0001\172\340\
+....\write4{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\173\054\0001\172\340\
 00\ETC.}
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
 }{\ETC.}
@@ -1167,7 +1167,7 @@ Completed box being shipped out [1]
 ....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\prote
 ct \ETC.}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\
+....\write4{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\
 04\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -1210,7 +1210,7 @@ ct \ETC.}
 ....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\prote
 ct \ETC.}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\
+....\write4{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\
 04\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -1253,7 +1253,7 @@ ct \ETC.}
 ....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\prote
 ct \ETC.}
 ....\penalty 10000
-....\write5{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\
+....\write4{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\
 04\ETC.}
 ....\penalty 10000
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
@@ -1362,7 +1362,7 @@ Completed box being shipped out [3]
 ...\vbox(700.50723+0.0)x416.54877, glue set 586.41724fil, direction TLT
 ....\whatsit4=[]
 ....\pdfdest name{chapter.2} xyz
-....\write5{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\173\054\0002\172\340\
+....\write4{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\173\054\0002\172\340\
 00\ETC.}
 ....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
 }{\ETC.}
