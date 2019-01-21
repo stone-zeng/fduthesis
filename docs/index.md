@@ -2,9 +2,9 @@
 layout: home
 ---
 
-[![Build Status](https://img.shields.io/travis/Stone-Zeng/fduthesis.svg)](https://travis-ci.org/Stone-Zeng/fduthesis)
+[![Build Status](https://img.shields.io/travis/stone-zeng/fduthesis.svg)](https://travis-ci.org/stone-zeng/fduthesis)
 [![CTAN](https://img.shields.io/ctan/v/fduthesis.svg)](https://www.ctan.org/pkg/fduthesis)
-[![GitHub release](https://img.shields.io/github/release/Stone-Zeng/fduthesis/all.svg)](https://github.com/Stone-Zeng/fduthesis/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/stone-zeng/fduthesis/all.svg)](https://github.com/stone-zeng/fduthesis/releases/latest)
 
 ## 欢迎使用 fduthesis（复旦大学论文模板）
 
@@ -90,7 +90,7 @@ layout: home
 
 ### 贡献
 
-如果您有任何改进意见或者功能需求，欢迎提交 [issue](https://github.com/Stone-Zeng/fduthesis/issues) 或 [pull request](https://github.com/Stone-Zeng/fduthesis/pulls)。
+如果您有任何改进意见或者功能需求，欢迎提交 [issue](https://github.com/stone-zeng/fduthesis/issues) 或 [pull request](https://github.com/stone-zeng/fduthesis/pulls)。
 
 ### 许可证
 
@@ -168,7 +168,7 @@ Before you using `fduthesis`, please read the document [fduthesis-en.pdf](http:/
 
 ### Contributing
 
-[Issues](https://github.com/Stone-Zeng/fduthesis/issues) and [pull requests](https://github.com/Stone-Zeng/fduthesis/pulls) are always welcome.
+[Issues](https://github.com/stone-zeng/fduthesis/issues) and [pull requests](https://github.com/stone-zeng/fduthesis/pulls) are always welcome.
 
 ### License
 
