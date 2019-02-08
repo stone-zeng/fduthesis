@@ -258,7 +258,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install|ex-logo|cover)>
 %<*driver>
-%\PassOptionsToPackage{showframe}{geometry}
+\PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
 \usepackage{xpinyin}
 \hypersetup
@@ -665,7 +665,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \caption{\cls{fduthesis} 的主要组成部分}
 %   \label{tab:fduthesis-components}
 %   \centering
-%   \begin{tabular}{lp{24em}}
+%   \begin{tabular}{lp{20em}}
 %     \toprule
 %     \textbf{文件} & \textbf{功能说明} \\
 %     \midrule
@@ -926,16 +926,15 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 双面模式下，正文部分偶数页（在左）的左页眉显示章标题，奇数页
 % （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，但文字
-% 均为对应标题（如“{\kaishu 目\textvisiblespace{}录}”、
-% “{\kaishu 摘\textvisiblespace{}要}”等）。
+% 均为对应标题（如“目录”、“摘要”等）。
 % 而在单面模式下，正文部分则页面不分奇偶，均同时显示左、右页眉，
 % 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
 %^^A! At two-sided mode, left headers on the even pages (left hand)
 %^^A! in \emph{main body} will show the title of chapters, while the
 %^^A! right headers on the odd pages (right hand) will show the
 %^^A! title of sections. Headers in \emph{front matter} have the
-%^^A! same style, but they will only show the title as
-%^^A! ``\textit{Contents}'', ``\textit{Abstract}'', etc.
+%^^A! same style, but they will only show the title as ``Contents'',
+%^^A! ``Abstract'', etc.
 %^^A!
 %^^A! At one-sided mode, both left and right headers on \emph{all}
 %^^A! pages in main body will be shown. The text is the title of
@@ -1770,11 +1769,12 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsection{Writing your thesis}
 %^^A!
 %
-% \begin{quote*}[喬孟符][宋]
-%   作樂府亦有法，曰\CJKunderdot{鳳頭豬肚豹尾}六字是也。
-%   大概起要美麗，中要浩蕩，結要響亮。尤貴在首尾貫穿，意思清新。
-%   茍能若是，斯可以言樂府矣。
-% \end{quote*}
+% \begin{quotation}
+%   喬孟符（吉）博學多能，以樂府稱。嘗云：「作樂府亦有法，曰^^A
+%   \CJKunderdot{鳳頭、豬肚、豹尾}六字是也。」大概起要美麗，中要浩蕩，
+%   結要響亮。尤貴在首尾貫穿，意思清新。苟能若是，斯可以言樂府矣。
+% \end{quotation}
+% \hfill ——陶宗儀《南村輟耕錄·作今樂府法》
 %
 % \subsubsection{凤头}
 %^^A! \subsubsection{Front matter}
@@ -2328,8 +2328,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \textsc{Knuth D E}.
 % \newblock \textit{The \TeX book: Computers \& Typesetting, volume A} [M].
 % \newblock Boston: Addison--Wesley Publishing Company, 1986
-%   \urlprefix {\small {\kaishu 源代码
-%     \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：}
+%   \urlprefix {\small 源代码
+%     \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：
 %     \CTANurl{systems/knuth/dist/tex/texbook.tex}}
 %
 % \bibitem{interfaces3}
@@ -2507,16 +2507,14 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
 %
-% 以下代码中有一些形如 \textcolor[HTML]{2E3191}^^A
-% {\textsf{\textlangle *class\textrangle}} 的标记，这是
-% \pkg{DocStrip} 中的“guard”，用来选择性地提取文件。
+% 以下代码中有一些形如 \textcolor[HTML]{2E3191}{\textsf{<*class>}}
+% 的标记，这是 \pkg{DocStrip} 中的“guard”，用来选择性地提取文件。
 % “\textsf{*}”和“\textsf{/}”分别表示该部分的开始和结束。不含
 % “\textsf{*}”和“\textsf{/}”的 guard 出现在行号右侧，它们用来确定
 % 单独一行代码的归属。这些 guard 的颜色深浅不一，用以明确嵌套关系。
 %
-% 另有若干形如 \textcolor{MaterialPink}^^A
-% {\textsf{\textlangle @@=fdu\textrangle}} 的 guard ，它们由
-% \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
+% 另有若干形如 \textcolor{MaterialPink}{\textsf{<@@=fdu>}} 的 guard，
+% 它们由 \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
 %
 % \subsection{准备}
 %
@@ -2872,11 +2870,10 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 本模板会在 \pkg{ctexhook} 提供的钩子 \cs{ctex_at_end_preamble:n}
 % 中调用 \pkg{biblatex}，而 \pkg{biblatex} 自身又会使用 \pkg{etoolbox}
 % 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
-% \pkg{etoolbox}。
-%
-% 钩子的顺序为：$\text{\tn{CTEX@document@left@hook}} \prec
-% \text{\tn{@endpreamblehook}} \prec
-% \text{\texttt{\textbackslash begin\{document\}}}$。
+% \pkg{etoolbox}。钩子的顺序为：
+% \[ \text{\tn{CTEX@document@left@hook}}
+%    \prec \text{\tn{@endpreamblehook}}
+%    \prec \text{\texttt{\textbackslash begin\{document\}}}. \]
 %    \begin{macrocode}
 \RequirePackage { etoolbox }
 %    \end{macrocode}

@@ -918,13 +918,11 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_module_angle:n}
-% 输出“$\langle\cdots\rangle$”。^^A\\
-%^^A 注：原来所使用的 \tn{textlangle} 和 \tn{textrangle} 在
-%^^A Source Sans Pro 字体下不可用。
+% 输出“$\langle\cdots\rangle$”。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_module_angle:n #1
-  { \textlangle #1 \textrangle }
-%   { < #1 > }
+  { < #1 > }
+%   { \textlangle #1 \textrangle }
 %   { \ensuremath \langle #1 \ensuremath \rangle }
 %    \end{macrocode}
 % \end{macro}
@@ -1417,7 +1415,7 @@
 % 调整 \env{function} 环境的字体。
 %    \begin{macrocode}
 \__fdudoc_patch_cmd:Nnn \@@_typeset_functions:
-  { \small \ttfamily } { \footnotesize \CodeFont }
+  { \small \ttfamily } { \footnotesize \ttfamily }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1430,7 +1428,17 @@
 \__fdudoc_patch_cmd:Nnn \@@_macro_init:
   { \hbox:n } { \MacroFont \hbox:n }
 \__fdudoc_patch_cmd:Nnn \@@_macro_dump:
-  { \hbox_unpack_clear:N } { \MacroFont \hbox_unpack_clear:N }
+  { \hbox_unpack_drop:N } { \MacroFont \hbox_unpack_drop:N }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_meta_original:n}
+% 改用文本模式显示尖括号。
+%    \begin{macrocode}
+\__fdudoc_patch_cmd:Nnn \@@_meta_original:n
+  { \ensuremath \langle } { \textlangle }
+\__fdudoc_patch_cmd:Nnn \@@_meta_original:n
+  { \ensuremath \rangle } { \textrangle }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1615,14 +1623,13 @@
 % \end{macro}
 %
 % \begin{macro}{\meta}
-% 重定义 \cs{meta} 命令，需要禁用中文、西文之间的空格，
-% 并确保为罗马字体族。
+% 重定义 \cs{meta} 命令，需要禁用中文、西文之间的空格。
 %    \begin{macrocode}
 \RenewDocumentCommand \meta { m }
   {
     \group_begin:
       \sys_if_engine_xetex:T { \xeCJKsetup { CJKecglue = { } } }
-      \rmfamily \@@_meta:n {#1}
+      \@@_meta:n {#1}
     \group_end:
   }
 %    \end{macrocode}
@@ -1653,8 +1660,7 @@
 %    \begin{macrocode}
 \pdfstringdefDisableCommands{%
   \let\path\meta
-  \let\opt\@firstofone
-  \let\kaishu\relax}
+  \let\opt\@firstofone}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1715,73 +1721,32 @@
 %
 % 西文字体。
 %    \begin{macrocode}
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
-\setmathfont{TeX Gyre Pagella Math}
+\setmainfont{Libertinus Serif}[Scale = 1.1, BoldFont = * Bold]
+\setsansfont{IBM Plex Sans Condensed}
+\setmonofont{Iosevka Slab}%
+  [UprightFont = * Light, BoldFont = * Semibold, Scale = MatchLowercase]
+\setmathfont{Libertinus Math}
 %    \end{macrocode}
 %
-% \begin{macro}{\kaishu,\fangsong}
 % 中文字体。
 %    \begin{macrocode}
-\setCJKmainfont{FZShuSong-Z01}%
-  [
-    BoldFont       = FZHei-B01,
-    ItalicFont     = FZKai-Z03,
-    BoldItalicFont = FZKai-Z03
-  ]
-\setCJKsansfont{FZHei-B01}%
-  [
-    BoldFont       = FZHei-B01,
-    ItalicFont     = FZKai-Z03,
-    BoldItalicFont = FZKai-Z03
-  ]
-\setCJKmonofont{FZFangSong-Z02}%
-  [
-    BoldFont       = FZHei-B01,
-    ItalicFont     = FZKai-Z03,
-    BoldItalicFont = FZKai-Z03
-  ]
-\newCJKfontfamily\kaishu{FZKai-Z03}%
-  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
-\newCJKfontfamily\fangsong{FZFangSong-Z02}%
-  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
+\setCJKmainfont{Source Han Serif SC}[ItalicFont=*, RawFeature=+fwid]
+\setCJKsansfont{Source Han Sans SC}[ItalicFont=*, RawFeature=+fwid]
+\setCJKmonofont{Source Han Sans SC}%
+  [UprightFont=* Normal, BoldFont=* Bold,
+   AutoFakeSlant=0.1763, Scale=0.8903, RawFeature=+fwid]
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{\CodeFont}
-% \begin{macro}[int]{\fdudoc@code@font,\fdudoc@cjk@code@font}
-% 代码部分的字体，这里用了两种系列。
-%    \begin{macrocode}
-\setmonofont{CMU Typewriter Text}%
-  [
-    UprightFont = * Light,
-    BoldFont    = * Bold,
-    SlantedFont = * Light Oblique,
-    HyphenChar  = None
-  ]
-\newfontfamily\fdudoc@code@font{Source Code Pro}%
-  [BoldFont = * Semibold]
-\newCJKfontfamily\fdudoc@cjk@code@font{Source Han Sans SC}%
-  [BoldFont = * Bold, AutoFakeSlant = 0.22]
-\newcommand*\CodeFont{\fdudoc@code@font\fdudoc@cjk@code@font}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
-% 中文排版格式（\pkg{ctex} 宏包）。
+% 版式排版格式。
 %    \begin{macrocode}
 \ctexset
   {
     section = {name = {第,节}, format+ = \raggedright},
-    subsubsection/tocline = {\kaishu\CTEXnumberline{#1}#2},
     paragraph = {runin = false, numbering = false}
   }
-%    \end{macrocode}
-%
-% 设定章节标题、目录深度。
-%    \begin{macrocode}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{3}
+\pagestyle{plain}
 %    \end{macrocode}
 %
 % 单位设置（\pkg{siunitx} 宏包）。
@@ -2067,20 +2032,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{environment}{quote*}
-% 引述环境。
-% \begin{arguments}
-%   \item 作者
-%   \item 朝代
-% \end{arguments}
-%    \begin{macrocode}
-\DeclareDocumentEnvironment{quote*}{oo}
-  {\quote\fangsong\qquad}%
-  {\endquote\IfNoValueF{#1}{%
-    \hfill —— \IfNoValueF{#2}{〔#2〕}#1}}
-%    \end{macrocode}
-% \end{environment}
-%
 % \paragraph{示例代码环境}
 %
 % \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，
@@ -2099,14 +2050,14 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@base}
   {
-    extendedchars   = true,
+    basewidth       = 0.5 em,
     gobble          = 3,
     lineskip        = 2 pt,
     frame           = l,
     framerule       = 1 pt,
     framesep        = 0 pt,
     escapeinside    = {(*}{*)},
-    basicstyle      = \small\CodeFont\color{MaterialGrey900},
+    basicstyle      = \small\ttfamily\color{MaterialGrey900},
     keywordstyle    = \bfseries\color{MaterialIndigo},
     commentstyle    = \itshape\color{MaterialGrey600},
     stringstyle     = \color{MaterialRed},
@@ -2147,12 +2098,12 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@syntax}
   {
-    extendedchars = true,
+    basewidth     = 0.5 em,
     gobble        = 6,
     escapeinside  = {(*}{*)},
     language      = [LaTeX]TeX,
     alsoletter    = {*, -},
-    basicstyle    = \footnotesize\CodeFont\color{MaterialGrey900},
+    basicstyle    = \footnotesize\ttfamily\color{MaterialGrey900},
     keywordstyle  = \bfseries\color{MaterialIndigo},
     commentstyle  = \itshape\color{MaterialGrey600},
     texcsstyle    = *\color{MaterialDeepOrange},
