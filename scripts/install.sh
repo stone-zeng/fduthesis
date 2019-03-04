@@ -8,23 +8,24 @@
 # A minimal current TL is installed adding only the packages that are
 # required
 
+# export REPO=https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
+export REPO=http://ftp.math.utah.edu/pub/tlpretest
+
 # See if there is a cached version of TL available
 export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 if ! command -v texlua > /dev/null; then
   # Obtain TeX Live
-  wget https://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
+  wget $REPO/install-tl-unx.tar.gz
   tar -xzf install-tl-unx.tar.gz
   cd install-tl-20*
 
   # Install a minimal system
-  ./install-tl                                \
-    --profile     ../scripts/texlive.profile  \
-    --repository  https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
+  ./install-tl --profile ../scripts/texlive.profile --repository $REPO
   cd ..
 fi
 
 # Change default package repository
-tlmgr option repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
+tlmgr option repository $REPO
 
 # Packages
 tlmgr install           \

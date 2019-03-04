@@ -67,6 +67,7 @@ docs/.jekyll-metadata
 docs/Gemfile.lock
 
 # Other
+.DS_Store
 git-comment.md
 TODO.md
 docs/tex/images/
