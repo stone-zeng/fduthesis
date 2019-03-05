@@ -72,7 +72,9 @@ git-comment.md
 TODO.md
 docs/tex/images/
 source/*.md
+source/*.sh
 source/*.tex
+test/*.sh
 test/dtxtest/
 !install-win.bat
 !testfiles/support/
