@@ -38,7 +38,6 @@ latexmkrc-en
 *.dvi
 *.pdf
 *.xdv
-*.zip
 
 # Primitive files
 *.ai
@@ -53,6 +52,7 @@ latexmkrc-en
 .vscode/
 build/
 logo/
+release/
 support/
 TDS/
 temp/
