@@ -392,7 +392,7 @@
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
   {
-    \str_case_x:nnF
+    \str_case_e:nnF
       { \str_head:N \l_@@_macro_code_line_tl }
       {
 %    \end{macrocode}
@@ -489,7 +489,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_angle:n #1
   {
-    \str_if_eq_x:nnTF { \str_head:n {#1} } { < }
+    \str_if_eq:eeTF { \str_head:n {#1} } { < }
       { \@@_check_module:x { \tl_tail:n {#1} } }
       { \@@_output_comment_line: }
   }
@@ -510,7 +510,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
-    \str_case_x:nnF { \str_head:n {#1} }
+    \str_case_e:nnF { \str_head:n {#1} }
       {
         { * } { \@@_module_star:w }
         { / } { \@@_module_slash:w }
@@ -696,7 +696,7 @@
 %    \end{macrocode}
 % 检查开头是否为 |%|，据此分别处理。
 %    \begin{macrocode}
-        \str_if_eq_x:nnTF
+        \str_if_eq:eeTF
           { \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
           { \@@_output_comment_line: } { \@@_output_line: }
       }
@@ -1478,7 +1478,7 @@
     \vbox_set:Nn \l_@@_macro_box
       {
         \MacroFont
-        \vbox_unpack_clear:N \l_@@_macro_box
+        \vbox_unpack_drop:N \l_@@_macro_box
         \hbox_set:Nn \l_tmpa_box
           { \@@_print_macroname:nN {#1} #2 }
 %    \end{macrocode}
@@ -1545,7 +1545,7 @@
           \tl_if_empty:nTF {#3}
             { { } { } { } { } }
             {
-              \str_if_eq_x:nnTF {#3} { TeX }
+              \str_if_eq:eeTF {#3} { TeX }
                 {
                   { TeX~ and~ LaTeX2e }
                   { \string \TeX{}~ 和~ \string \LaTeXe{} }
