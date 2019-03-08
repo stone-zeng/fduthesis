@@ -340,19 +340,19 @@ Completed box being shipped out [3]
 ......\localleftbox=null
 ......\localrightbox=null
 .....\hbox(0.0+0.0)x0.0, direction TLT
-.....\TU/TeXGyreHeros(0)/m/n/24.09 A
+.....\TU/texgyreheros(0)/m/n/24.09 A
 .....\kern0.12045 (font)
-.....\TU/TeXGyreHeros(0)/m/n/24.09 b
+.....\TU/texgyreheros(0)/m/n/24.09 b
 .....\discretionary (penalty 50)
-......< \TU/TeXGyreHeros(0)/m/n/24.09 -
-.....\TU/TeXGyreHeros(0)/m/n/24.09 s
+......< \TU/texgyreheros(0)/m/n/24.09 -
+.....\TU/texgyreheros(0)/m/n/24.09 s
 .....\kern-0.12045 (font)
-.....\TU/TeXGyreHeros(0)/m/n/24.09 t
-.....\TU/TeXGyreHeros(0)/m/n/24.09 r
+.....\TU/texgyreheros(0)/m/n/24.09 t
+.....\TU/texgyreheros(0)/m/n/24.09 r
 .....\kern-0.12045 (font)
-.....\TU/TeXGyreHeros(0)/m/n/24.09 a
-.....\TU/TeXGyreHeros(0)/m/n/24.09 c
-.....\TU/TeXGyreHeros(0)/m/n/24.09 t
+.....\TU/texgyreheros(0)/m/n/24.09 a
+.....\TU/texgyreheros(0)/m/n/24.09 c
+.....\TU/texgyreheros(0)/m/n/24.09 t
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -685,7 +685,7 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -728,7 +728,7 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 𝑝
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑝
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -771,11 +771,11 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 𝜓
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝜓
 .......\kern1.08405 (italic)
-.......\TU/XITSMath(1)/m/n/12.045 (
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
-.......\TU/XITSMath(1)/m/n/12.045 )
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 (
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 )
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -821,9 +821,9 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 ⟨
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
-.......\TU/XITSMath(1)/m/n/12.045 |
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -880,9 +880,9 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 |
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
-.......\TU/XITSMath(1)/m/n/12.045 ⟩
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -940,13 +940,13 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 ⟨
-.......\TU/XITSMath(1)/m/n/12.045 𝛼
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛼
 .......\kern0.4818 (italic)
-.......\TU/XITSMath(1)/m/n/12.045 |
-.......\TU/XITSMath(1)/m/n/12.045 𝛽
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛽
 .......\kern0.78293 (italic)
-.......\TU/XITSMath(1)/m/n/12.045 ⟩
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -1113,7 +1113,7 @@ Completed box being shipped out [1]
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 第
 .....\glue 6.02249 plus 1.0 minus 1.0
-.....\TU/TeXGyreHeros(0)/m/n/24.09 1
+.....\TU/texgyreheros(0)/m/n/24.09 1
 .....\glue 6.02249 plus 1.0 minus 1.0
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 章
@@ -1147,9 +1147,9 @@ Completed box being shipped out [1]
 .....\hbox(12.80984+0.0)x43.18129, direction TLT
 ......\whatsit4=[]
 ......\glue 0.0
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1
-......\TU/TeXGyreHeros(0)/m/n/18.06749 .
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1
+......\TU/texgyreheros(0)/m/n/18.06749 1
+......\TU/texgyreheros(0)/m/n/18.06749 .
+......\TU/texgyreheros(0)/m/n/18.06749 1
 ......\glue 18.06749
 .....\penalty 0
 .....\hbox(15.89938+2.1681)x18.06749, direction TLT
@@ -1190,9 +1190,9 @@ ct \ETC.}
 .....\hbox(12.80984+0.0)x43.18129, direction TLT
 ......\whatsit4=[]
 ......\glue 0.0
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1
-......\TU/TeXGyreHeros(0)/m/n/18.06749 .
-......\TU/TeXGyreHeros(0)/m/n/18.06749 2
+......\TU/texgyreheros(0)/m/n/18.06749 1
+......\TU/texgyreheros(0)/m/n/18.06749 .
+......\TU/texgyreheros(0)/m/n/18.06749 2
 ......\glue 18.06749
 .....\penalty 0
 .....\hbox(15.89938+2.1681)x18.06749, direction TLT
@@ -1233,9 +1233,9 @@ ct \ETC.}
 .....\hbox(12.80984+0.27101)x43.18129, direction TLT
 ......\whatsit4=[]
 ......\glue 0.0
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1
-......\TU/TeXGyreHeros(0)/m/n/18.06749 .
-......\TU/TeXGyreHeros(0)/m/n/18.06749 3
+......\TU/texgyreheros(0)/m/n/18.06749 1
+......\TU/texgyreheros(0)/m/n/18.06749 .
+......\TU/texgyreheros(0)/m/n/18.06749 3
 ......\glue 18.06749
 .....\penalty 0
 .....\hbox(15.89938+2.1681)x18.06749, direction TLT
@@ -1389,7 +1389,7 @@ Completed box being shipped out [3]
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 第
 .....\glue 6.02249 plus 1.0 minus 1.0
-.....\TU/TeXGyreHeros(0)/m/n/24.09 2
+.....\TU/texgyreheros(0)/m/n/24.09 2
 .....\glue 6.02249 plus 1.0 minus 1.0
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 章

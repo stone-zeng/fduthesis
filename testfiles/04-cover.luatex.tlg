@@ -54,7 +54,7 @@ Overfull \hbox (24.0pt too wide) detected at line 19
 []
 \hbox(0.0+0.0)x-24.0, direction TLT
 .\whatsit4=[]
-<fudan-name.pdf, id=25, 789.8137pt x 297.20033pt>
+<fudan-name.pdf, id=25, 789.81374pt x 297.20033pt>
 File: fudan-name.pdf Graphic file (type pdf)
 <use fudan-name.pdf>
 Package luatex.def Info: fudan-name.pdf  used on input line ....
@@ -93,7 +93,7 @@ Completed box being shipped out [1]
 .....\pdfcolorstack 0 pop
 ...\glue 19.8738
 ...\glue(\lineskip) 0.0
-...\vbox(700.50723+0.0)x416.54877, glue set 27.01799fill, direction TLT
+...\vbox(700.50723+0.0)x416.54877, glue set 27.01791fill, direction TLT
 ....\whatsit4=[]
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
@@ -103,8 +103,8 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
-....\glue(\baselineskip) 0.7247
-....\hbox(14.27524+9.75844)x416.54877, glue set 320.54877fil, direction TLT
+....\glue(\baselineskip) 0.7249
+....\hbox(14.27504+9.75864)x416.54877, glue set 320.54877fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -124,7 +124,7 @@ Completed box being shipped out [1]
 ......\glue 6.0
 .....\penalty 0
 .....\mathon
-.....\vbox(14.27524+9.75844)x120.0, direction TLT
+.....\vbox(14.27504+9.75864)x120.0, direction TLT
 ......\whatsit4=[]
 ......\vbox(22.94963+1.08405)x120.0, direction TLT
 .......\whatsit4=[]
@@ -243,9 +243,9 @@ Completed box being shipped out [1]
 .........\pdfsetmatrix{.2637 0 0 .2637}
 .........\hbox(297.20033+0.0)x0.0, glue set - 789.81372fil, direction TLT
 ..........\whatsit4=[]
-..........\hbox(297.20033+0.0)x789.8137, direction TLT
+..........\hbox(297.20033+0.0)x789.81374, direction TLT
 ...........\whatsit4=[]
-...........\image(297.20033+0.0)x789.8137
+...........\image(297.20033+0.0)x789.81374
 ..........\glue 0.0 plus 1.0fil minus 1.0fil
 .........\pdfrestore
 ........\kern208.27576
@@ -345,8 +345,8 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
-....\glue(\baselineskip) 16.44937
-....\hbox(13.55055+4.51694)x416.54877, glue set 20.82872fil, direction TLT
+....\glue(\baselineskip) 16.44978
+....\hbox(13.55014+4.51735)x416.54877, glue set 20.82872fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -366,7 +366,7 @@ Completed box being shipped out [1]
 ......\glue 6.0
 .....\penalty 0
 .....\mathon
-.....\vbox(13.55055+4.51694)x374.89134, direction TLT
+.....\vbox(13.55014+4.51735)x374.89134, direction TLT
 ......\whatsit4=[]
 ......\vbox(15.89938+2.1681)x374.89134, direction TLT
 .......\whatsit4=[]
@@ -419,8 +419,8 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
-....\glue(\baselineskip) 7.25203
-....\hbox(8.46657+1.44043)x416.54877, glue set 20.82872fil, direction TLT
+....\glue(\baselineskip) 7.25194
+....\hbox(8.46625+1.44075)x416.54877, glue set 20.82872fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -440,7 +440,7 @@ Completed box being shipped out [1]
 ......\glue 6.0
 .....\penalty 0
 .....\mathon
-.....\vbox(8.46657+1.44043)x374.89134, direction TLT
+.....\vbox(8.46625+1.44075)x374.89134, direction TLT
 ......\whatsit4=[]
 ......\vbox(9.71027+0.19673)x374.89134, direction TLT
 .......\whatsit4=[]
@@ -497,7 +497,7 @@ Completed box being shipped out [1]
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\lineskip) 1.0
-....\hbox(69.35123+63.32883)x416.54877, direction TLT
+....\hbox(69.35095+63.3291)x416.54877, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -517,7 +517,7 @@ Completed box being shipped out [1]
 ......\glue 6.0
 .....\penalty 0
 .....\mathon
-.....\vbox(69.35123+63.32883)x416.54877, direction TLT
+.....\vbox(69.35095+63.3291)x416.54877, direction TLT
 ......\whatsit4=[]
 ......\vbox(130.99376+1.6863)x416.54877, direction TLT
 .......\whatsit4=[]

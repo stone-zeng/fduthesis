@@ -249,7 +249,7 @@ Completed box being shipped out [3]
 ....\hbox(17.56161+0.36133)x416.54877, glue set 164.15356fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\hbox(0.0+0.0)x0.0
-.....\TU/TeXGyreHeros(0)/m/n/24.09 Abstract
+.....\TU/texgyreheros(0)/m/n/24.09 Abstract
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -455,7 +455,7 @@ Completed box being shipped out [5]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -487,7 +487,7 @@ Completed box being shipped out [5]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 glyph#2512
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2512
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -519,11 +519,11 @@ Completed box being shipped out [5]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 glyph#3181
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3181
 .......\kern1.08405
-.......\TU/XITSMath(1)/m/n/12.045 glyph#41
-.......\TU/XITSMath(1)/m/n/12.045 glyph#2520
-.......\TU/XITSMath(1)/m/n/12.045 glyph#42
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#41
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#42
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -557,9 +557,9 @@ Completed box being shipped out [5]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 glyph#1813
-.......\TU/XITSMath(1)/m/n/12.045 glyph#2520
-.......\TU/XITSMath(1)/m/n/12.045 glyph#125
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1813
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -601,9 +601,9 @@ Completed box being shipped out [5]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 glyph#125
-.......\TU/XITSMath(1)/m/n/12.045 glyph#2520
-.......\TU/XITSMath(1)/m/n/12.045 glyph#1814
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1814
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -645,13 +645,13 @@ Completed box being shipped out [5]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 glyph#1813
-.......\TU/XITSMath(1)/m/n/12.045 glyph#3158
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1813
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3158
 .......\kern0.4818
-.......\TU/XITSMath(1)/m/n/12.045 glyph#125
-.......\TU/XITSMath(1)/m/n/12.045 glyph#3159
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3159
 .......\kern0.78293
-.......\TU/XITSMath(1)/m/n/12.045 glyph#1814
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1814
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -776,7 +776,7 @@ Completed box being shipped out [1]
 .....\hbox(0.0+0.0)x0.0
 .....\TU/FandolHei(0)/m/n/24.09 第
 .....\glue 6.69702 plus 3.34851 minus 2.23233
-.....\TU/TeXGyreHeros(0)/m/n/24.09 1
+.....\TU/texgyreheros(0)/m/n/24.09 1
 .....\glue 6.69702 plus 3.34851 minus 2.23233
 .....\TU/FandolHei(0)/m/n/24.09 章
 .....\kern -0.00017
@@ -802,7 +802,7 @@ Completed box being shipped out [1]
 ....\hbox(14.12878+3.19794)x416.54877, glue set 159.5825fil
 .....\hbox(12.80984+0.0)x43.1813
 ......\glue 0.0
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1.1
+......\TU/texgyreheros(0)/m/n/18.06749 1.1
 ......\kern -0.0002
 ......\kern 0.0002
 ......\glue 18.06749
@@ -832,7 +832,7 @@ Completed box being shipped out [1]
 ....\hbox(14.12878+3.19794)x416.54877, glue set 159.5825fil
 .....\hbox(12.80984+0.0)x43.1813
 ......\glue 0.0
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1.2
+......\TU/texgyreheros(0)/m/n/18.06749 1.2
 ......\kern -0.0002
 ......\kern 0.0002
 ......\glue 18.06749
@@ -862,7 +862,7 @@ Completed box being shipped out [1]
 ....\hbox(14.12878+3.19794)x416.54877, glue set 159.5825fil
 .....\hbox(12.80984+0.271)x43.1813
 ......\glue 0.0
-......\TU/TeXGyreHeros(0)/m/n/18.06749 1.3
+......\TU/texgyreheros(0)/m/n/18.06749 1.3
 ......\kern -0.0002
 ......\kern 0.0002
 ......\glue 18.06749
@@ -980,7 +980,7 @@ Completed box being shipped out [3]
 .....\hbox(0.0+0.0)x0.0
 .....\TU/FandolHei(0)/m/n/24.09 第
 .....\glue 6.69702 plus 3.34851 minus 2.23233
-.....\TU/TeXGyreHeros(0)/m/n/24.09 2
+.....\TU/texgyreheros(0)/m/n/24.09 2
 .....\glue 6.69702 plus 3.34851 minus 2.23233
 .....\TU/FandolHei(0)/m/n/24.09 章
 .....\kern -0.00017

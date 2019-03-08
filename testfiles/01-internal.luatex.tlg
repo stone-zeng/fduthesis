@@ -37,56 +37,56 @@ l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.14215, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif(0)/m/n/12.045 ①
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ①
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.13011, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif(0)/m/n/12.045 ⓐ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ⓐ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.14215, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif(0)/m/n/12.045 Ⓐ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 Ⓐ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.14215, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif(0)/m/n/12.045 ⓒ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ⓒ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16862)x8.23878, direction TLT
 .\whatsit4=[]
-.\TU/XITS(2)/m/n/12.045 ①
+.\TU/XITS-Regular.otf(0)/m/n/12.045 ①
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16862)x8.23878, direction TLT
 .\whatsit4=[]
-.\TU/XITS(2)/m/n/12.045 ⓐ
+.\TU/XITS-Regular.otf(0)/m/n/12.045 ⓐ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16862)x8.23878, direction TLT
 .\whatsit4=[]
-.\TU/XITS(2)/m/n/12.045 Ⓐ
+.\TU/XITS-Regular.otf(0)/m/n/12.045 Ⓐ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16862)x8.23878, direction TLT
 .\whatsit4=[]
-.\TU/XITS(2)/m/n/12.045 ⓒ
+.\TU/XITS-Regular.otf(0)/m/n/12.045 ⓒ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
@@ -213,10 +213,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.16673+1.14432)x142.26378, direction TLT
+\hbox(7.16646+1.14459)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(7.16673+1.14432)x142.26378, direction TLT
+.\vbox(7.16646+1.14459)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(8.14243+0.16862)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -240,10 +240,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(9.0337+3.01129)x142.26378, direction TLT
+\hbox(9.03343+3.01157)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(9.0337+3.01129)x142.26378, direction TLT
+.\vbox(9.03343+3.01157)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(10.5996+1.4454)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -275,10 +275,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(19.03368+13.01128)x56.9055, direction TLT
+\hbox(19.0334+13.01155)x56.9055, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(19.03368+13.01128)x56.9055, direction TLT
+.\vbox(19.0334+13.01155)x56.9055, direction TLT
 ..\whatsit4=[]
 ..\vbox(30.59955+1.4454)x56.9055, direction TLT
 ...\whatsit4=[]
@@ -320,10 +320,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.16673+1.14432)x142.26378, direction TLT
+\hbox(7.16646+1.14459)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(7.16673+1.14432)x142.26378, direction TLT
+.\vbox(7.16646+1.14459)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(8.14243+0.16862)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -348,10 +348,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(9.0337+3.01129)x142.26378, direction TLT
+\hbox(9.03343+3.01157)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(9.0337+3.01129)x142.26378, direction TLT
+.\vbox(9.03343+3.01157)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(10.5996+1.4454)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -384,10 +384,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(19.03368+13.01128)x56.9055, direction TLT
+\hbox(19.0334+13.01155)x56.9055, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(19.03368+13.01128)x56.9055, direction TLT
+.\vbox(19.0334+13.01155)x56.9055, direction TLT
 ..\whatsit4=[]
 ..\vbox(30.59955+1.4454)x56.9055, direction TLT
 ...\whatsit4=[]

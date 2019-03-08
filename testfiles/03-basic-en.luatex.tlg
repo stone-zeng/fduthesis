@@ -408,7 +408,7 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -462,7 +462,7 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 𝑝
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑝
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -510,11 +510,11 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 𝜓
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝜓
 .......\kern1.08405 (italic)
-.......\TU/XITSMath(1)/m/n/12.045 (
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
-.......\TU/XITSMath(1)/m/n/12.045 )
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 (
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 )
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -568,9 +568,9 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 ⟨
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
-.......\TU/XITSMath(1)/m/n/12.045 |
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -634,9 +634,9 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 |
-.......\TU/XITSMath(1)/m/n/12.045 𝑥
-.......\TU/XITSMath(1)/m/n/12.045 ⟩
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -701,13 +701,13 @@ c}{\ETC.}
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath(1)/m/n/12.045 ⟨
-.......\TU/XITSMath(1)/m/n/12.045 𝛼
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛼
 .......\kern0.4818 (italic)
-.......\TU/XITSMath(1)/m/n/12.045 |
-.......\TU/XITSMath(1)/m/n/12.045 𝛽
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛽
 .......\kern0.78293 (italic)
-.......\TU/XITSMath(1)/m/n/12.045 ⟩
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
