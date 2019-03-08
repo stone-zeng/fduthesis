@@ -1719,31 +1719,50 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 西文字体。
+% 西文字体。为兼容 macOS，系统字体需使用字体名，而 \TeXLive{}
+% 中的字体需使用文件名。
 %    \begin{macrocode}
-\setmainfont{Libertinus Serif}[Scale = 1.1, BoldFont = * Bold]
-\setsansfont{IBM Plex Sans Condensed}
-\setmonofont{Iosevka Slab}%
-  [UprightFont = * Light, BoldFont = * Semibold, Scale = MatchLowercase]
-\setmathfont{Libertinus Math}
+\setmainfont{libertinusserif}[%
+  Extension      = .otf,
+  UprightFont    = *-regular,
+  BoldFont       = *-bold,
+  ItalicFont     = *-italic,
+  BoldItalicFont = *-bolditalic,
+  Scale          = 1.1]
+\setsansfont{IBMPlexSansCondensed}[%
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic]
+\setmonofont{Iosevka Slab}[%
+  UprightFont    = * Light,
+  BoldFont       = * Semibold,
+  Scale          = MatchLowercase]
+\setmathfont{libertinusmath-regular.otf}
 %    \end{macrocode}
 %
 % 中文字体。
 %    \begin{macrocode}
-\setCJKmainfont{Source Han Serif SC}[ItalicFont=*, RawFeature=+fwid]
-\setCJKsansfont{Source Han Sans SC}[ItalicFont=*, RawFeature=+fwid]
-\setCJKmonofont{Source Han Sans SC}%
-  [UprightFont=* Normal, BoldFont=* Bold,
-   AutoFakeSlant=0.1763, Scale=0.8903, RawFeature=+fwid]
+\setCJKmainfont{Source Han Serif SC}[%
+  ItalicFont     = *,
+  RawFeature     = +fwid]
+\setCJKsansfont{Source Han Sans SC}[%
+  ItalicFont     = *,
+  RawFeature     = +fwid]
+\setCJKmonofont{Source Han Sans SC}[%
+  UprightFont    = * Normal,
+  BoldFont       = * Bold,
+  AutoFakeSlant  = 0.1763,  % = tan(10 deg)
+  Scale          = 0.8903,
+  RawFeature     = +fwid]
 %    \end{macrocode}
 %
 % 版式排版格式。
 %    \begin{macrocode}
-\ctexset
-  {
-    section = {name = {第,节}, format+ = \raggedright},
-    paragraph = {runin = false, numbering = false}
-  }
+\ctexset{%
+  section = {name = {第,节}, format+ = \raggedright},
+  paragraph = {runin = false, numbering = false}}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{3}
 \pagestyle{plain}
@@ -1751,29 +1770,25 @@
 %
 % 单位设置（\pkg{siunitx} 宏包）。
 %    \begin{macrocode}
-\sisetup
-  {
-    number-math-rm       = \ensuremath,
-    inter-unit-product   = \ensuremath{{}\cdot{}},
-    group-digits         = true,
-    group-minimum-digits = 4,
-    group-separator      = \text{~},
-    range-phrase         = \symbol{"FF5E},
-    separate-uncertainty = true
-  }
+\sisetup{%
+  number-math-rm       = \ensuremath,
+  inter-unit-product   = \ensuremath{{}\cdot{}},
+  group-digits         = true,
+  group-minimum-digits = 4,
+  group-separator      = \text{~},
+  range-phrase         = \symbol{"FF5E},
+  separate-uncertainty = true}
 %    \end{macrocode}
 %
 % 超链接设置（\pkg{hyperref} 宏包）。
 %    \begin{macrocode}
-\hypersetup
-  {
-    bookmarksdepth    = 4,
-    bookmarksnumbered = true,
-    colorlinks        = true,
-    citecolor         = MaterialGreen,
-    linkcolor         = MaterialPink,
-    urlcolor          = MaterialIndigo
-  }
+\hypersetup{%
+  bookmarksdepth    = 4,
+  bookmarksnumbered = true,
+  colorlinks        = true,
+  citecolor         = MaterialGreen,
+  linkcolor         = MaterialPink,
+  urlcolor          = MaterialIndigo}
 %    \end{macrocode}
 %
 % 浮动体标题设置（\pkg{caption} 宏包）。
@@ -2154,7 +2169,7 @@ $show_time = 1;
 # Process glossary (change history).
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
 sub makeglo2gls {
-    system("zhmakeindex -s gglo.ist -o \"$_[0].gls\"
+    system("zhmakeindex -s gglo.ist -o \"$_[0].gls\" \\
         -t \"$_[0].glg\" \"$_[0].glo\"");
 }
 %</latexmk>
