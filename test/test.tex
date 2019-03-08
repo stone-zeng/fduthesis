@@ -8,8 +8,8 @@
 
 \fdusetup{
   style = {
-    % font = none,
-    % cjk-font = none,
+    font = times,
+    cjk-font = fandol,
     % font-size = 5,
     fullwidth-stop = mapping,
     footnote-style = pifont*,
@@ -48,15 +48,15 @@
   }
 }
 
+\setCJKmainfont{Source Han Serif SC}
 
-% \setmainfont{Adobe Garamond Pro}[ItalicFont=Consolas,BoldFont=Candara]
 % \setsansfont{Calibri}
 % \setmonofont{Consolas}
 % \setmathfont{TeX Gyre Pagella Math}
 
 \def\WORLDb{你好，世界。}
 
-\newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world!}
+\newcommand{\fonttesttext}{你好，世界\symbol{12290}Hello, world! fi fl ff ffi ffl fff}
 \newcommand\fonttest{%
   正常：\qquad\fonttesttext \par
   粗体：\qquad\textbf{\fonttesttext} \par
@@ -132,7 +132,7 @@ $v$         &  速度
 
 \subsection{句号}
 如果\symbol{"002E}会突然：\textsc{Full Stop} \par
-如果\symbol{"3002}会突然：\textsc{Ideographic Full SStop} \par
+如果\symbol{"3002}会突然：\textsc{Ideographic Full Stop} \par
 如果\symbol{"FF0E}会突然：\textsc{Fullwidth Full Stop} \par
 如果\symbol{"FF61}会突然：\textsc{Halfwidth Ideographic Full Stop} \par
 
