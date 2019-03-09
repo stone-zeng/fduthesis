@@ -20,7 +20,7 @@ if ! command -v texlua > /dev/null; then
   cd install-tl-20*
 
   # Install a minimal system
-  ./install-tl --profile ../scripts/texlive.profile --repository $REPO
+  ./install-tl --profile ../.travis/texlive.profile --repository $REPO
   cd ..
 fi
 

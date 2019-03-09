@@ -41,15 +41,36 @@ function modified_check(names)
     names = names or { }
     -- No names passed: find all test files
     if not next(names) then
-      for _,i in pairs(filelist(testfiledir, "*" .. lvtext)) do
-        insert(names, jobname(i))
+      local excludenames = { }
+      for _,glob in pairs(excludetests) do
+        for _,name in pairs(filelist(testfiledir, glob .. lvtext)) do
+          excludenames[jobname(name)] = true
+        end
+        for _,name in pairs(filelist(unpackdir, glob .. lvtext)) do
+          excludenames[jobname(name)] = true
+        end
+        for _,name in pairs(filelist(testfiledir, glob .. pvtext)) do
+          excludenames[jobname(name)] = true
+        end
       end
-      for _,i in ipairs(filelist(unpackdir, "*" .. lvtext)) do
-        if fileexists(testfiledir .. "/" .. i) then
-          print("Duplicate test file: " .. i)
-          return 1
-        else
-          insert(names, jobname(i))
+      local function addname(name)
+        if not excludenames[jobname(name)] then
+          insert(names,jobname(name))
+        end
+      end
+      for _,glob in pairs(includetests) do
+        for _,name in pairs(filelist(testfiledir, glob .. lvtext)) do
+          addname(name)
+        end
+        for _,name in pairs(filelist(testfiledir, glob .. pvtext)) do
+          addname(name)
+        end
+        for _,name in pairs(filelist(unpackdir, glob .. lvtext)) do
+          if fileexists(testfiledir .. "/" .. name) then
+            print("Duplicate test file: " .. i)
+            return 1
+          end
+          addname(name)
         end
       end
       sort(names)
@@ -120,7 +141,7 @@ function modified_check(names)
 end
 
 function main(target, names)
-  check = modified_check
+  target_list["check"]["func"] = modified_check
   stdmain(target, names)
 end
 
