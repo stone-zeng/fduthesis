@@ -1538,13 +1538,13 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[added=2018-02-01]{info/degree}
+% \begin{function}[added=2018-02-01,updated=2019-03-12]{info/degree}
 %   \begin{fdusyntax}[emph={[1]degree}]
 %     degree = (*<(academic)|professional>*)
 %   \end{fdusyntax}
 %^^A-
-%   学位类型。本选项仅用于硕士学位论文，\opt{academic} 和
-%   \opt{professional} 分表表示学术学位和专业学位。
+%   学位类型，仅适用于博士和硕士学位论文。\opt{academic} 和 \opt{professional}
+%   分别表示学术学位和专业学位。
 % \end{function}
 %^^A!   Degree type. This option can only be used in master degree
 %^^A!   thesis.
@@ -4539,19 +4539,16 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_degree:}
+% \changes{v0.8}{2019/03/12}{允许博士学位论文使用学位类型。}
 % 学位类型。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_degree:
   {
-    \int_compare:nT { \g_@@_thesis_type_int = 2 }
+    \int_compare:nT { \g_@@_thesis_type_int != 3 }
       {
-        \tl_set:Nx \l_@@_tmpa_tl
-          {
-            \clist_item:Nn \c_@@_degree_type_clist
-              { \l_@@_info_degree_type_int }
-          }
         \c_@@_fullwidth_left_paren_tl
-        \l_@@_tmpa_tl
+        \clist_item:Nn \c_@@_degree_type_clist
+          { \l_@@_info_degree_type_int }
         \c_@@_fullwidth_right_paren_tl
       }
   }
