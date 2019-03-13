@@ -1890,17 +1890,14 @@
 %
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
 %   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
-% 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
+% 部分命令之后的特殊符号（$\symbol{"263B}$ 或 $\symbol{"263B}$），表明其不同用法。
 % 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
 % 和“restricted-expandable”。
 %    \begin{macrocode}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
-\newcommand*\expstar{\hyperlink{expstar}{$\star$}}
-\newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
-% TODO: (2017/08/12) 允许修改 exptstar 和 rexpstar
-\renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
-\renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+\newcommand*\expstar{\hyperlink{expstar}{$\symbol{"263B}$}}
+\newcommand*\rexpstar{\hyperlink{rexpstar}{$\symbol{"263A}$}}
 \ExplSyntaxOn
 \cs_set_eq:NN \__codedoc_typeset_exp:  \expstar
 \cs_set_eq:NN \__codedoc_typeset_rexp: \rexpstar

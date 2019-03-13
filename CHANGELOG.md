@@ -6,6 +6,8 @@
 
 - Fixed
   - 修复 macOS 下的字体调用问题 - [#36](https://github.com/stone-zeng/fduthesis/issues/36)、[#45](https://github.com/stone-zeng/fduthesis/issues/45)
+- Changed
+  - 允许博士学位论文使用学位类型信息 - [#56](https://github.com/stone-zeng/fduthesis/issues/56)
 - Improved
   - 重构字体配置
   - 在项目 wiki 中介绍使用技巧 - [#52](https://github.com/stone-zeng/fduthesis/issues/52)
