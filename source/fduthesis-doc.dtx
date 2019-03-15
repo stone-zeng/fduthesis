@@ -1655,14 +1655,12 @@
   \addtocontents{toc}{\StopSpecialIndexModule}}
 %    \end{macrocode}
 %
-% \begin{macro}{\path,\opt,\kaishu}
 % 设置 PDF 字符串中的命令替换。
 %    \begin{macrocode}
 \pdfstringdefDisableCommands{%
   \let\path\meta
   \let\opt\@firstofone}
 %    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}[int]{\@multitoc@starttoc,\@starttoc}
 % 目录分栏，相当于调用 \pkg{multitoc} 宏包。
@@ -1719,6 +1717,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7c}{2019/02/08}{修改宏包手册主要字体。}
+%
 % 西文字体。为兼容 macOS，系统字体需使用字体名，而 \TeXLive{}
 % 中的字体需使用文件名。
 %    \begin{macrocode}
@@ -1745,7 +1745,7 @@
 % 中文字体。
 %    \begin{macrocode}
 \setCJKmainfont{Source Han Serif SC}[%
-  ItalicFont     = *,
+  ItalicFont     = FZKai-Z03,
   RawFeature     = +fwid]
 \setCJKsansfont{Source Han Sans SC}[%
   ItalicFont     = *,
@@ -1761,8 +1761,10 @@
 % 版式排版格式。
 %    \begin{macrocode}
 \ctexset{%
-  section = {name = {第,节}, format+ = \raggedright},
-  paragraph = {runin = false, numbering = false}}
+  section/name        = {第,节},
+  section/format+     = \raggedright,
+  paragraph/runin     = false,
+  paragraph/numbering = false}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{3}
 \pagestyle{plain}
@@ -1890,7 +1892,7 @@
 %
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
 %   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
-% 部分命令之后的特殊符号（$\symbol{"263B}$ 或 $\symbol{"263B}$），表明其不同用法。
+% 部分命令之后的特殊符号（$\symbol{"263A}$ 或 $\symbol{"263B}$），表明其不同用法。
 % 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
 % 和“restricted-expandable”。
 %    \begin{macrocode}
@@ -2046,9 +2048,8 @@
 %
 % \paragraph{示例代码环境}
 %
-% \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，
-% 此处改为普通文本。
-% 见 \url{https://tex.stackexchange.com/a/33188/136923}。
+% \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，此处改为普通文本。
+% 见 \url{https://tex.stackexchange.com/a/33188}。
 %    \begin{macrocode}
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty

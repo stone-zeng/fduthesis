@@ -258,28 +258,57 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install|ex-logo|cover)>
 %<*driver>
-\PassOptionsToPackage{showframe}{geometry}
+% \PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
-\usepackage{xpinyin}
-\hypersetup
-  {
-    pdftitle  = {fduthesis: 复旦大学论文模板},
-    pdfauthor = {曾祥东}
-  }
+\usepackage{multirow,xpinyin}
+\hypersetup{
+  pdftitle  = {fduthesis: 复旦大学论文模板},
+  pdfauthor = {曾祥东}}
 % 全角标点放在引号中，需要改成半角式，否则间距过大，不好看
-\newcommand\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} ^^A U+3002
-\newcommand\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} ^^A U+FF0E
-\newcommand\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
-\newcommand\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
+\def\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} % U+3002
+\def\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} % U+FF0E
+\def\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} % U+FF1A
+\def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} % U+FF1B
+% Libertinus Math 字体不包含 `\QED`，暂时使用 `\blacksquare` 代替 
+\AtBeginDocument{\def\QED{\blacksquare}}
+%^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
+%^^A! \documentclass{fdudoc}
+%^^A! \hypersetup{
+%^^A!   pdftitle  = {fduthesis: LaTeX Thesis Template for Fudan University},
+%^^A!   pdfauthor = {Xiangdong Zeng}}
+%^^A! \ctexset{
+%^^A!   section = {name = {}, format+ = \raggedright},
+%^^A!   subsubsection/tocline = {\CTEXnumberline{#1}#2}}
+%^^A! \pagestyle{headings}
+%^^A! \def\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
+%^^A! \def\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
+%^^A! \AtBeginDocument{\def\QED{\blacksquare}}
+%^^A!
+
+\title{\textcolor{MaterialIndigo800}{%
+  \textbf{fduthesis: 复旦大学论文\xpinyin[font=\sffamily]{模}{mu2}板}}}
+\author{曾祥东}
+\date{\today \quad v0.7b%
+  \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
+%^^A! \title{\textcolor{MaterialIndigo800}{%
+%^^A!   \textbf{The \textsf{fduthesis} Class \\
+%^^A!     \LaTeX{} Thesis Template for Fudan University}}}
+%^^A! \author{Xiangdong Zeng}
+%^^A! \date{\today \quad v0.7b%
+%^^A!   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
+%^^A!
+
 \begin{document}
+%^^A! \begin{document}
+%^^A!
   \DisableImplementation
 %<!--CODEDOC-->  \EnableImplementation
 %<!--CODEDOC-->  \def\FDUCODEDOC{}
   \DocInput{fduthesis.dtx}
 %<!--CODEDOC-->  \DocInput{fduthesis-doc.dtx,fduthesis-logo.dtx}
-  \IndexLayout
-  \PrintChanges
-  \PrintIndex
+%<!--CODEDOC-->  \IndexLayout
+%<!--CODEDOC-->  \PrintChanges
+%<!--CODEDOC-->  \PrintIndex
 \end{document}
 %</driver>
 % \fi
@@ -324,46 +353,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-%^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
-%^^A! \documentclass{fdudoc}
-%^^A! \hypersetup
-%^^A!   {
-%^^A!     pdftitle  = {fduthesis: LaTeX Thesis Template for Fudan University},
-%^^A!     pdfauthor = {Xiangdong Zeng}
-%^^A!   }
-%^^A! \ctexset
-%^^A!   {
-%^^A!     section = {name = {}, format+ = \raggedright},
-%^^A!     subsubsection/tocline = {\CTEXnumberline{#1}#2}
-%^^A!   }
-%^^A! \pagestyle{headings}
-%^^A! \newcommand\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
-%^^A! \newcommand\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
-%^^A! \IndexPrologue{\section{Index}}
-%^^A! \def\IndexLayout{%
-%^^A!   \setlength\IndexMin{0.5\textheight}%
-%^^A!   \ctexset{section/numbering=false}%
-%^^A!   \StopSpecialIndexModule}
-%^^A! \def\indexname{Index}
-%^^A! \let\usage\relax
-%^^A!
-%
-% \title{\textcolor{MaterialIndigo800}{^^A
-%   \textbf{fduthesis: 复旦大学论文^^A
-%     \xpinyin[font=\sffamily]{模}{mu2}板}}}
-% \author{曾祥东}
-% \date{\today \quad v0.7b^^A
-%   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
-%^^A! \title{\textcolor{MaterialIndigo800}{%
-%^^A!   \textbf{The \textsf{fduthesis} Class \\
-%^^A!     \LaTeX{} Thesis Template for Fudan University}}}
-%^^A! \author{Xiangdong Zeng}
-%^^A! \date{\today \quad v0.7b%
-%^^A!   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
-%^^A!
-%^^A! \begin{document}
-%^^A!
-%
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
 %^^A! \DeleteShortVerb\"
@@ -399,8 +388,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A 用户手册的页边距
 %^^A+
 % \newgeometry{
-%   left   = 1.75 in,
-%   right  = 1.00 in,
+%   left   = 1.65 in,
+%   right  = 0.80 in,
 %   top    = 1.25 in,
 %   bottom = 1.00 in
 % }
@@ -1046,9 +1035,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \fdusetup{
 %     style = {cjk-font = adobe, font-size = -4},
 %     info  = {
-%       title      = {关于光产生和转变的一个启发性观点},
-%       title*     = {On a Heuristic Viewpoint Concerning the Production
-%         and Transformation of Light},
+%       title      = {论动体的电动力学},
+%       title*     = {On the Electrodynamics of Moving Bodies},
 %       author     = {阿尔伯特·爱因斯坦},
 %       author*    = {Albert Einstein},
 %       department = {物理学系}
@@ -1064,9 +1052,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \fdusetup{
 %     style/cjk-font  = adobe,
 %     style/font-size = -4,
-%     info/title      = {关于光产生和转变的一个启发性观点},
-%     info/title*     = {On a Heuristic Viewpoint Concerning the Production
-%       and Transformation of Light},
+%     info/title      = {论动体的电动力学},
+%     info/title*     = {On the Electrodynamics of Moving Bodies},
 %     info/author     = {阿尔伯特·爱因斯坦},
 %     info/author*    = {Albert Einstein},
 %     info/department = {物理学系}
@@ -1101,27 +1088,124 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[updated=2017-09-23]{style/font}
+% \begin{function}[updated=2019-03-05]{style/font}
 %   \begin{fdusyntax}[emph={[1]font}]
-%     font = (*<libertinus|lm|palatino|(times)|none>*)
+%     font = (*<garamond|libertinus|lm|palatino|(times)|times*|none>*)
 %   \end{fdusyntax}
 %^^A-
-%   设置西文字体（包括数学字体）。
+%   设置西文字体（包括数学字体）。具体配置见表~\ref{tab:font}。
 % \end{function}
-%^^A!   Set the western fonts (including math fonts).
+%^^A!   Set fonts (including math fonts). The details can be found in table~\ref{tab:font}.
 %^^A! \end{function}
 %^^A!
 %
+% \begin{table}[ht]
+% \begin{threeparttable}
+%   \caption{西文字体配置}
+%   \label{tab:font}
+%   \centering
+%   \begin{tabular}{ccccc}
+%     \toprule
+%       & \strong{正文字体} & \strong{无衬线字体} & \strong{等宽字体} & \strong{数学字体} \\
+%     \midrule
+%       |garamond|        & EB Garamond         & Libertinus Sans & LM Mono\tnote{a} & Garamond Math   \\
+%       |libertinus|      & Libertinus Serif    & Libertinus Sans & LM Mono          & Libertinus Math \\
+%       |lm|              & LM Roman            & LM Sans         & LM Mono          & LM Math         \\
+%       |palatino|        & TG Pagella\tnote{b} & Libertinus Sans & LM Mono          & TG Pagella Math \\
+%       |times|           & XITS                & TG Heros        & TG Cursor        & XITS Math       \\
+%       |times*|\tnote{c} & Times New Roman     & Arial           & Courier New      & XITS Math       \\
+%     \bottomrule
+%   \end{tabular}
+%   \begin{tablenotes}
+%     \item[a] “LM”是 Latin Modern 的缩写。
+%     \item[b] “TG”是 TeX Gyre 的缩写。
+%     \item[c] 本行中，Times New Roman、Arial 和 Courier New 是商业字体，
+%       在 Windows 和 macOS 系统上均默认安装。
+%   \end{tablenotes}
+% \end{threeparttable}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A! \begin{threeparttable}
+%^^A!   \caption{Font configuration}
+%^^A!   \label{tab:font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{ccccc}
+%^^A!     \toprule
+%^^A!       & \strong{Roman} & \strong{Sans-serif} & \strong{Monospaced} & \strong{Math} \\
+%^^A!     \midrule
+%^^A!       |garamond|        & EB Garamond         & Libertinus Sans & LM Mono\tnote{a} & Garamond Math   \\
+%^^A!       |libertinus|      & Libertinus Serif    & Libertinus Sans & LM Mono          & Libertinus Math \\
+%^^A!       |lm|              & LM Roman            & LM Sans         & LM Mono          & LM Math         \\
+%^^A!       |palatino|        & TG Pagella\tnote{b} & Libertinus Sans & LM Mono          & TG Pagella Math \\
+%^^A!       |times|           & XITS                & TG Heros        & TG Cursor        & XITS Math       \\
+%^^A!       |times*|\tnote{c} & Times New Roman     & Arial           & Courier New      & XITS Math       \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A!   \begin{tablenotes}
+%^^A!     \item[a] ``LM'' is the abbreviation of Latin Modern.
+%^^A!     \item[b] ``TG'' is the abbreviation of TeX Gyre.
+%^^A!     \item[c] Here, Times New Roman, Arial and Courier New are commercial fonts. They are
+%^^A!       installed on Windows and macOS by default.
+%^^A!   \end{tablenotes}
+%^^A! \end{threeparttable}
+%^^A! \end{table}
+%
 %^^A+
-% \begin{function}[rEXP,updated=2017-09-23]{style/cjk-font}
+% \begin{function}[rEXP,updated=2019-03-05]{style/cjk-font}
 %   \begin{fdusyntax}[emph={[1]cjk-font}]
-%     cjk-font = (*<adobe|(fandol)|founder|mac|windows|none>*)
+%     cjk-font = (*<adobe|(fandol)|founder|mac|sinotype|sourcehan|windows|none>*)
 %   \end{fdusyntax}
 %^^A-
-%   设置中文字体。
+%   设置中文字体。具体配置见表~\ref{tab:cjk-font}。
 % \end{function}
-%^^A!   Set CJK (Chinese, Japanese and Korean) fonts.
+%^^A!   Set CJK (Chinese, Japanese and Korean) fonts. The details can be found in
+%^^A!   table~\ref{tab:cjk-font}.
 %^^A! \end{function}
+%^^A!
+%
+% \begin{table}[ht]
+%   \caption{中文字体配置}
+%   \label{tab:cjk-font}
+%   \centering
+%   \begin{tabular}{cccc}
+%     \toprule
+%       & \strong{正文字体（宋体）} & \strong{无衬线字体（黑体）} & \strong{等宽字体（仿宋）} \\
+%     \midrule
+%       \multirow{2}*{|adobe|}     & Adobe 宋体          & Adobe  黑体        & Adobe  仿宋        \\
+%                                  & Adobe Song Std      & Adobe Heiti Std    & Adobe Fangsong Std \\
+%       \multirow{2}*{|fandol|}    & Fandol 宋体         & Fandol 黑体        & Fandol 仿宋        \\
+%                                  & FandolSong          & FandolHei          & FandolFang         \\
+%       \multirow{2}*{|founder|}   & 方正书宋            & 方正黑体           & 方正仿宋           \\
+%                                  & FZShuSong-Z01       & FZHei-B01          & FZFangSong-Z02     \\
+%       \multirow{2}*{|mac|}       & （华文）宋体-简     & （华文）黑体-简    & 华文仿宋           \\
+%                                  & Songti SC           & Heiti SC           & STFangsong         \\
+%       \multirow{2}*{|sinotype|}  & 华文宋体            & 华文黑体           & 华文仿宋           \\
+%                                  & STSong              & STHeiti            & STFangsong         \\
+%       \multirow{2}*{|sourcehan|} & 思源宋体            & 思源黑体           & ---                \\
+%                                  & Source Han Serif SC & Source Han Sans SC & ---                \\
+%       \multirow{2}*{|windows|}   & （中易）宋体        & （中易）黑体       & （中易）仿宋       \\
+%                                  & SimSun              & SimHei             & FangSong           \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{CJK font configuration}
+%^^A!   \label{tab:cjk-font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{cccc}
+%^^A!     \toprule
+%^^A!       & \strong{Roman (song)} & \strong{Sans-serif (hei)} & \strong{Monospaced (fang)} \\
+%^^A!     \midrule
+%^^A!       |adobe|     & Adobe Song Std      & Adobe Heiti Std    & Adobe Fangsong Std \\
+%^^A!       |fandol|    & FandolSong          & FandolHei          & FandolFang         \\
+%^^A!       |founder|   & FZShuSong-Z01       & FZHei-B01          & FZFangSong-Z02     \\
+%^^A!       |mac|       & Songti SC           & Heiti SC           & STFangsong         \\
+%^^A!       |sinotype|  & STSong              & STHeiti            & STFangsong         \\
+%^^A!       |sourcehan| & Source Han Serif SC & Source Han Sans SC & ---                \\
+%^^A!       |windows|   & SimSun              & SimHei             & FangSong           \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A! \end{table}
 %^^A!
 %
 % 启用 \kvopt{font}{none} 或 \kvopt{cjk-font}{none} 之后，模板将关闭
@@ -1163,7 +1247,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 选择 \kvopt{fullwidth-stop}{catcode} 或 \opt{mapping} 后，都会实现
 % 上述效果。有所不同的是，在选择 \opt{catcode} 后，只有^^A
-% \emph{显式的}\FSID 会被替换为\FSFW，但在选择 \opt{mapping} 后，
+% \emph{显式的}\FSID 会被替换为\FSFW；但在选择 \opt{mapping} 后，
 % \emph{所有的}\FSID 都会被替换。例如，如果您用宏保存了一些含有^^A
 % \FSID 的文字，那么在选择 \opt{catcode} 时，其中的\FSID 不会被
 % 替换为\FSFW。
@@ -1437,7 +1521,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{function}
 %^^A! \begin{function}[added=2018-01-25]{style/bib-resource}
 %^^A!   \begin{fdusyntax}[emph={[1]bib-resource}]
-%^^A!     bib-resource = (*\marg{bib file(s)}*)
+%^^A!     bib-resource = (*\marg{bib file\symbol{"28}s\symbol{"29}}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Specify the bibliography database (usually in \file{.bib}
 %^^A!   format). If using more than one files, the file names should
@@ -1863,7 +1947,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       (*\meta{符号\ \kern-0.1em$n$}*)  &  (*\meta{说明}*)
 %     \end{notation}
 %   \end{fdusyntax}
-%   符号表。可选参数\meta{列格式说明}与 \LaTeX{} 中标准表格的列格
+%   符号表。可选参数 \meta{列格式说明}与 \LaTeX{} 中标准表格的列格
 %   式说明语法一致，默认值为“|lp{7.5cm}|”，即第一列宽度自动调整，
 %   第二列限宽 \SI{7.5}{cm}，两列均为左对齐。
 % \end{function}
@@ -2479,9 +2563,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \end{documentation}
 %
-%^^A \EnableImplementation
-%^^A \DisableImplementation
-%
 % \begin{implementation}
 %
 %^^A 代码部分的页边距
@@ -2952,7 +3033,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{字体}
 %
-% \changes{v0.8}{2019/03/05}{TODO}
+% \changes{v0.7c}{2019/03/05}{重构字体配置，并兼容 macOS。}
 %
 % \begin{macro}{\g_@@_font_set_tl, \g_@@_cjk_font_set_tl}
 % 存放字体选项值。
@@ -2963,6 +3044,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{style/font}
+% \changes{v0.7c}{2019/03/05}{新增 \opt{garamond} 和 \opt{times*} 样式。}
 % 预定义西文字体。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -2975,6 +3057,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{style/cjk-font}
+% \changes{v0.7c}{2019/03/05}{新增 \opt{sinotype} 和 \opt{sourcehan} 样式。}
 % 预定义中文字体。
 %    \begin{macrocode}
 %<*class>
@@ -3584,8 +3667,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\cleardoublepage}
 % 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时也不显示
-% 页眉页脚。\\
-% 见 http://tex.stackexchange.com/q/1681 \\
+% 页眉页脚，见 \url{https://tex.stackexchange.com/a/1683}。 \\
 % 最后清空中间页眉，确保正文部分页眉显示正确。
 %    \begin{macrocode}
 \RenewDocumentCommand \cleardoublepage { }
@@ -4350,10 +4432,9 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item 宽度
 %   \item 内容
 % \end{arguments}
-% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的
-% \tn{unskip} 将会去掉最后一个 \tn{hfil}。见
-% \url{http://tex.stackexchange.com/q/169689}。|#2| 需要完全展开以
-% 避免 underfull 警告。
+% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的 \tn{unskip}
+% 将会去掉最后一个 \tn{hfil}。见 \url{https://tex.stackexchange.com/q/169689}。
+% |#2| 需要完全展开以避免 underfull 警告。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_spread_box:nn #1#2
   {
@@ -4535,7 +4616,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_cover_degree:}
-% \changes{v0.8}{2019/03/12}{允许博士学位论文使用学位类型。}
+% \changes{v0.7c}{2019/03/12}{允许博士学位论文使用学位类型。}
 % 学位类型。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_degree:
