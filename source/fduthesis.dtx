@@ -37,8 +37,6 @@
 %                                 fduthesis.pdf,
 %                                 fduthesis-en.pdf,
 %                                 fduthesis-code.pdf,
-%                                 latexmkrc,
-%                                 latexmkrc-en,
 %                             and README.md.
 %
 %<*internal>
@@ -179,8 +177,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
                                     fduthesis.pdf,
                                     fduthesis-en.pdf,
                                     fduthesis-code.pdf,
-                                    latexmkrc,
-                                    latexmkrc-en,
                                 and README.md.
 
 \endpreamble
@@ -207,10 +203,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   \usedir{doc/latex/fduthesis}
   \nopreamble\nopostamble
     \file{README.md}           {\from{\jobname.dtx}{readme}}
-    % ``.cfg'' is only for internal/temporal use.
-    % They will be renamed by external scripts.
-    \file{latexmkrc.cfg}       {\from{\jobname-doc.dtx}{latexmk}}
-    \file{latexmkrc-en.cfg}    {\from{\jobname-doc.dtx}{latexmk-en}}
 }
 
 \obeyspaces
@@ -707,21 +699,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{table}
 %^^A!
 %
-% 如需生成用户手册 \file{fduthesis.pdf}，可在命令行中执行
-% \begin{shellexample}[morekeywords={xelatex,makeindex},emph={-o,-s,-t}]
-%   xelatex fduthesis.dtx
-%   makeindex -s gind.ist -o fduthesis.ind fduthesis.idx
-%   makeindex -s gglo.ist -o fduthesis.gls -t fduthesis.glg fduthesis.glo
-%   xelatex fduthesis.dtx
-%   xelatex fduthesis.dtx
-% \end{shellexample}
-% 也可使用 \pkg{latexmk}：
-% \begin{shellexample}[morekeywords={latexmk}]
-%   latexmk fduthesis.dtx
-% \end{shellexample}
-% 本模板已经为编译用户手册提供了 \pkg{latexmk} 配置文件
-% \file{latexmkrc}。
-%
 % \section{使用说明}
 %^^A! \section{User's guide}
 %^^A!
@@ -832,13 +809,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
 %^^A!   latexmk -lualatex thesis
 %^^A! \end{shellexample}
-%^^A!
-%
-% 需要注意，请不要把模板中的配置文件 \file{latexmkrc} 放置在工作
-% 文件夹下。该配置文件仅适用于生成模板用户手册。
-%^^A! Note that you should not put the profile \file{latexmkrc} in
-%^^A! your working directory. This file is meant to generate the
-%^^A! user's guide.
 %^^A!
 %
 % \subsection{模板选项}

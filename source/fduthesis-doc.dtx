@@ -2147,32 +2147,6 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \subsubsection{\pkg{latexmk} 配置文件}
-%
-%    \begin{macrocode}
-%<*latexmk|latexmk-en>
-# Latexmk configuration file.
-
-# Use XeLaTeX to compile.
-$pdf_mode = 5;
-
-# Process index.
-$makeindex = 'zhmakeindex -s gind.ist %O -o %D %S';
-
-# Show CPU time used.
-$show_time = 1;
-%</latexmk|latexmk-en>
-%<*latexmk>
-
-# Process glossary (change history).
-add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
-sub makeglo2gls {
-    system("zhmakeindex -s gglo.ist -o \"$_[0].gls\" \\
-        -t \"$_[0].glg\" \"$_[0].glo\"");
-}
-%</latexmk>
-%    \end{macrocode}
-%
 % \clearpage
 %
 % \end{implementation}

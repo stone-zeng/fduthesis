@@ -15,21 +15,14 @@
 ### 模板组成
 
 - 核心文档类
-
   - `fduthesis.cls`
   - `fduthesis-en.cls`
-
 - 配置文件
-
   - `fduthesis.def`
-
 - 附属宏包
-
   - `fdulogo.sty`
   - `fdudoc.cls`
-
 - 使用示例
-
   - `fduthesis-template.tex`
 
 ### 使用示例
@@ -109,21 +102,14 @@ Before you using `fduthesis`, please read the document [fduthesis-en.pdf](http:/
 ### Components
 
 - Main template classes:
-
   - `fduthesis.cls`
   - `fduthesis-en.cls`
-
 - Configuration file:
-
   - `fduthesis.def`
-
 - Affiliated packages:
-
   - `fdulogo.sty`
   - `fdudoc.cls`
-
 - Demo:
-
   - `fduthesis-template.tex`
 
 ### Sample
