@@ -3003,6 +3003,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{字体}
 %
+% \subsubsection{预定义字体配置}
+%
 % \changes{v0.7c}{2019/03/05}{重构字体配置，并兼容 macOS。}
 %
 % \begin{macro}{\g_@@_font_set_tl, \g_@@_cjk_font_set_tl}
@@ -3045,13 +3047,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \@@_setmainfont:nn,
 %   \@@_setsansfont:nn,
 %   \@@_setmonofont:nn,
-%   \@@_setmathfont:nn,
-%   \@@_setCJKmainfont:nn,
-%   \@@_setCJKsansfont:nn,
-%   \@@_setCJKmonofont:nn,
-%   \@@_set_family:nnn}
-% 一些辅助函数，来源于 \pkg{fontspec}、\pkg{unicode-math}、\pkg{xeCJK} 和
-% \pkg{ctex} 宏包。
+%   \@@_setmathfont:nn}
+% 用于设置西文字体的辅助函数，来源于 \pkg{fontspec} 和 \pkg{unicode-math}。
 % \begin{arguments}
 %   \item 字体名
 %   \item 选项
@@ -3065,6 +3062,15 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \__fontspec_main_setmonofont:nn {#2} {#1} }
 \cs_new_protected:Npn \@@_setmathfont:nn #1#2
   { \__um_setmathfont:nn {#2} {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \@@_setCJKmainfont:nn,
+%   \@@_setCJKsansfont:nn,
+%   \@@_setCJKmonofont:nn}
+% 用于设置中文字体的辅助函数，来源于 \pkg{xeCJK} 和 \pkg{ctex} 宏包。
+%    \begin{macrocode}
 %<*class>
 \cs_new_protected:Npn \@@_setCJKmainfont:nn #1#2
   { \@@_set_family:nnn { \CJKrmdefault } {#2} {#1} }
@@ -3072,9 +3078,51 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \@@_set_family:nnn { \CJKsfdefault } {#2} {#1} }
 \cs_new_protected:Npn \@@_setCJKmonofont:nn #1#2
   { \@@_set_family:nnn { \CJKttdefault } {#2} {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_cjk_font_kai:nn,\fdu@kai}
+% 楷体需要单独设置。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_set_cjk_font_kai:nn #1#2
+  { \@@_set_family:nnn { fdu@kai } {#2} {#1} }
+\cs_new_protected:Npn \fdu@kai
+  { \@@_switch_family:n { fdu@kai } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\c_@@_cjk_font_options_tl,
+%   \@@_setCJKmainfont:n,
+%   \@@_setCJKsansfont:n,
+%   \@@_setCJKmonofont:n,
+%   \@@_set_cjk_font_kai:n}
+% 将 bold、italic 和 bold italic 统一按照 roman 设置。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_cjk_font_options_tl
+ { UprightFont = *, BoldFont = *, ItalicFont = *, BoldItalicFont = * }
+\cs_new_protected:Npx \@@_setCJKmainfont:n   #1
+  { \@@_setCJKmainfont:nn   {#1} { \c_@@_cjk_font_options_tl } }
+\cs_new_protected:Npx \@@_setCJKsansfont:n   #1
+  { \@@_setCJKsansfont:nn   {#1} { \c_@@_cjk_font_options_tl } }
+\cs_new_protected:Npx \@@_setCJKmonofont:n   #1
+  { \@@_setCJKmonofont:nn   {#1} { \c_@@_cjk_font_options_tl } }
+\cs_new_protected:Npx \@@_set_cjk_font_kai:n #1
+  { \@@_set_cjk_font_kai:nn {#1} { \c_@@_cjk_font_options_tl } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_family:nnn,\@@_switch_family:n}
+% 封装 CJK 字体族的设定和切换命令。
+%    \begin{macrocode}
 \sys_if_engine_xetex:TF
-  { \cs_new_eq:NN \@@_set_family:nnn \xeCJK_set_family:nnn    }
-  { \cs_new_eq:NN \@@_set_family:nnn \ctex_ltj_set_family:nnn }
+  {
+    \cs_new_eq:NN \@@_set_family:nnn  \xeCJK_set_family:nnn
+    \cs_new_eq:NN \@@_switch_family:n \xeCJK_switch_family:n
+  }
+  {
+    \cs_new_eq:NN \@@_set_family:nnn  \ctex_ltj_set_family:nnn
+    \cs_new_eq:NN \@@_switch_family:n \ctex_ltj_switch_family:n
+  }
 %</class>
 %    \end{macrocode}
 % \end{macro}
@@ -3273,40 +3321,65 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_adobe:
   {
-    \@@_setCJKmainfont:nn { AdobeSongStd-Light       } { }
-    \@@_setCJKsansfont:nn { AdobeHeitiStd-Regular    } { }
-    \@@_setCJKmonofont:nn { AdobeFangsongStd-Regular } { }
+    \@@_setCJKmainfont:n   { AdobeSongStd-Light       }
+    \@@_setCJKsansfont:n   { AdobeHeitiStd-Regular    }
+    \@@_setCJKmonofont:n   { AdobeFangsongStd-Regular }
+    \@@_set_cjk_font_kai:n { AdobeKaitiStd-Regular    }
   }
-% AdobeKaitiStd-Regular
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_load_cjk_font_fandol:}
-% Fandol 字库。
+% Fandol 字库。注意它是安装在 TeX 发行版中的，所以使用文件名调用。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_fandol:
   {
-    \@@_setCJKmainfont:nn { FandolSong }
-      { Extension = .otf, UprightFont = *-Regular, BoldFont = *-Bold }
-    \@@_setCJKsansfont:nn { FandolHei  }
-      { Extension = .otf, UprightFont = *-Regular, BoldFont = *-Bold }
-    \@@_setCJKmonofont:nn { FandolFang }
-      { Extension = .otf, UprightFont = *-Regular }
+    \@@_setCJKmainfont:nn   { FandolSong }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn   { FandolHei  }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKmonofont:nn   { FandolFang }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Regular,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Regular
+      }
+    \@@_set_cjk_font_kai:nn { FandolKai  }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Regular,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Regular
+      }
   }
-% FandolKai-Regular
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_load_cjk_font_founder:}
-% 方正字库。
+% 方正字库。虽然有粗体（方正小标宋）等，但并非免费，故这里不做处理。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_founder:
   {
-    \@@_setCJKmainfont:nn { FZShuSong-Z01  } { }
-    \@@_setCJKsansfont:nn { FZHei-B01      } { }
-    \@@_setCJKmonofont:nn { FZFangSong-Z02 } { }
+    \@@_setCJKmainfont:n   { FZShuSong-Z01  }
+    \@@_setCJKsansfont:n   { FZHei-B01      }
+    \@@_setCJKmonofont:n   { FZFangSong-Z02 }
+    \@@_set_cjk_font_kai:n { FZKai-Z03      }
   }
-% FZKai-Z03
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3315,13 +3388,29 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_mac:
   {
-    \@@_setCJKmainfont:nn { STSongti-SC }
-      { UprightFont = *-Regular, BoldFont = *-Black }
-    \@@_setCJKsansfont:nn { STHeitiSC   }
-      { UprightFont = *-Medium }
-    \@@_setCJKmonofont:nn { STFangsong  } { }
+    \@@_setCJKmainfont:nn   { STSongti-SC }
+      {
+        UprightFont    = *-Light,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Light,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn   { STHeitiSC   }
+      {
+        UprightFont    = *-Medium,
+        BoldFont       = *-Medium,
+        ItalicFont     = *-Medium,
+        BoldItalicFont = *-Medium
+      }
+    \@@_setCJKmonofont:n    { STFangsong  }
+    \@@_set_cjk_font_kai:nn { STKaitiSC   }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
   }
-%  { STKaitiSC } { UprightFont = *-Regular, BoldFont = *-Bold }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3330,24 +3419,37 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_sinotype:
   {
-    \@@_setCJKmainfont:nn { STSong     } { }
-    \@@_setCJKsansfont:nn { STHeiti    } { }
-    \@@_setCJKmonofont:nn { STFangsong } { }
+    \@@_setCJKmainfont:n   { STSong     }
+    \@@_setCJKsansfont:n   { STHeiti    }
+    \@@_setCJKmonofont:n   { STFangsong }
+    \@@_set_cjk_font_kai:n { STKaiti    }
   }
-% STKaiti
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_load_cjk_font_sourcehan:}
-% 思源宋体、思源黑体。
+% 思源宋体、思源黑体。由于没有对应的楷体和仿宋，这里直接给出警告。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_sourcehan:
   {
     \@@_setCJKmainfont:nn { SourceHanSerifSC }
-      { UprightFont = *-Regular, BoldFont = *-Bold }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
     \@@_setCJKsansfont:nn { SourceHanSansSC  }
-      { UprightFont = *-Regular, BoldFont = *-Bold }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_warning:n { source-han }
   }
+\@@_msg_new:nn { source-han }
+  { Font~ set~ `sourcehan'~ does~ not~ contain~ kaiti~ and~ fangsong. }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3356,11 +3458,11 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_cjk_font_windows:
   {
-    \@@_setCJKmainfont:nn { SimSun   } { }
-    \@@_setCJKsansfont:nn { SimHei   } { }
-    \@@_setCJKmonofont:nn { FangSong } { }
+    \@@_setCJKmainfont:n   { SimSun   }
+    \@@_setCJKsansfont:n   { SimHei   }
+    \@@_setCJKmonofont:n   { FangSong }
+    \@@_set_cjk_font_kai:n { KaiTi    }
   }
-% KaiTi
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3369,24 +3471,21 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_font:
   {
-    % TODO: warning
     \use:c { @@_load_font_     \tl_use:N \g_@@_font_set_tl     : }
 %<class>    \use:c { @@_load_cjk_font_ \tl_use:N \g_@@_cjk_font_set_tl : }
   }
 \ctex_at_end_preamble:n { \@@_load_font: }
 %    \end{macrocode}
 % \end{macro}
-%    \begin{macrocode}
-\cs_set_eq:NN \fdu@kai \relax
-%    \end{macrocode}
 %
-%^^A % \changes{v0.5}{2017/09/09}{重新实现字体调用。核心内容是分离
-%^^A %   字体的声明与设定，并按照宋、黑、仿、楷划分中文字体。}
-%^^A % \changes{v0.6}{2017/11/11}{额外处理 XITS 字体的小型大写字母。}
-%^^A % \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
-%^^A % \changes{v0.5}{2017/09/23}{新增 \kvopt{cjk-font}{none} 选项。}
-%^^A % \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
-%^^A % \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
+%^^A 以下相关代码已在 v0.7c 中移除。
+% \changes{v0.5}{2017/09/09}{重新实现字体调用。核心内容是分离字体的声明与设定，
+%   并按照宋、黑、仿、楷划分中文字体。}
+% \changes{v0.6}{2017/11/11}{额外处理 XITS 字体的小型大写字母。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjk-font}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
+% \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
 %
 % \subsubsection{数学字体设置}
 %
