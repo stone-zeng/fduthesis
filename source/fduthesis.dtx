@@ -403,18 +403,16 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \scite{pandoxie2014fduthesislatex}，基本满足了博士（硕士）
 %     毕业论文格式要求，使用人数较多；
 %   \item richarddzh 编写的硕士论文模板 \cls{fudan-thesis}
-%     \scite{richard2016fudanthesis}；
-%   \item hmshan 编写的博士论文模板 \cls{FDU_PhD_Thesis_Template}
-%     \scite{hmshan2017fduphdthesistemplate}。
+%     \scite{richard2016fudanthesis}。
 % \end{itemize}
 % 以上这些模板大都没有经过系统的设计，也鲜有后续维护。相比之下，
 % 清华大学 \scite{thuthesis}、重庆大学 \scite{cquthesis}、
-% 中国科学技术大学 \scite{zepinglee2017ustcthesis} 以及友校
-% 上海交通大学 \scite{weijianwen2017sjtuthesis}等，都有成熟、
+% 中国科学技术大学 \scite{ustcthesis} 中国科学院大学 \scite{ucasthesis}
+% 以及友校上海交通大学 \scite{sjtuthesis}等，都有成熟、
 % 稳定的解决方案，值得参考。
 %
 % 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
-% \scite{interfaces3,source3} 编写，以适应 \TeX{} 技术发展潮流；
+% \scite{source3} 编写，以适应 \TeX{} 技术发展潮流；
 % 同时还将构建一套简洁的接口，方便用户使用。
 %^^A! \cls{fduthesis} is a thesis template for Fudan University.
 %^^A! This template is mostly written in \LaTeX3 syntax, and
@@ -2260,7 +2258,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \begin{itemize}
 %       \item \pkg{expl3}、\pkg{xparse}、\pkg{xtemplate} 和
 %         \pkg{l3keys2e}，用于构建 \LaTeX3 编程环境
-%         \scite{interfaces3,source3}。它们分属 \pkg{l3kernel} 和
+%         \scite{source3}。它们分属 \pkg{l3kernel} 和
 %         \pkg{l3packages} 宏集。
 %       \item \cls{ctexbook}，提供中文排版的通用框架。属于 \CTeX{}
 %         宏集 \scite{CTeX}。
@@ -2275,7 +2273,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       \item \pkg{graphicx}，提供图形插入的接口。
 %       \item \pkg{longtable}，长表格（允许跨页）支持。
 %       \item \pkg{caption}，用于设置题注。
-%       \item \pkg{natbib}，提供增强的参考文献著录及引用支持。
 %       \item \pkg{xcolor}，提供彩色支持。
 %       \item \pkg{hyperref}，提供交叉引用、超链接、电子书签等功能。
 %     \end{itemize}
@@ -2308,7 +2305,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \item \pkg{graphicx}
 %^^A!       \item \pkg{longtable}
 %^^A!       \item \pkg{caption}
-%^^A!       \item \pkg{natbib}
 %^^A!       \item \pkg{xcolor}
 %^^A!       \item \pkg{hyperref}
 %^^A!     \end{itemize}
@@ -2337,69 +2333,19 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \newcommand\urlprefix{\newline\hspace*{\fill}}
 % \let\OldUrl=\url
-% \renewcommand\url[1]{{\small\OldUrl{#1}}}
-% \newcommand\CTANurl[1]{{\small\href{http://mirror.ctan.org/#1}^^A
-%   {\ttfamily CTAN://#1}}}
+% \renewcommand\url[2][]{{\small\textit{#1}~\OldUrl{#2}}}
+% \newcommand\CTANurl[2][]{{\small\textit{#1}~\href{http://mirror.ctan.org/#2}^^A
+%   {\ttfamily CTAN://#2}}}
 %
-% \bibitem{source2e}
-% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
-% \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
-% \newblock (2018-04-01) \urlprefix
-%   \CTANurl{macros/latex/base/source2e.pdf}
-%
-% \bibitem{CTeX}
-% \textsc{CTEX.ORG}.
-% \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
-% \newblock version 2.4.12,
-% \newblock (2018-01-28) \urlprefix
-%   \CTANurl{language/chinese/ctex/ctex.pdf}
-%
-% \bibitem{xeCJK}
-% \textsc{CTEX.ORG}.
-% \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
-% \newblock version 3.7.0,
-% \newblock (2018-04-07) \urlprefix
-%   \CTANurl{macros/xetex/latex/xecjk/xeCJK.pdf}
-%
-% \bibitem{natbib}
-% \textsc{Daly P W}.
-% \newblock \textit{Natural Sciences Citations and References} [EB/OL].
-% \newblock version 8.31b,
-% \newblock (2010-09-13) \urlprefix
-%   \CTANurl{macros/latex/contrib/natbib/natbib.pdf}
-%
-% \bibitem{hmshan2017fduphdthesistemplate}
-% \textsc{hmshan}.
-% \newblock \textit{复旦博士论文模板} [EB/OL].
-% \newblock (2017-04-04) \urlprefix
-%   \url{https://github.com/hmshan/FDU_PhD_Thesis_Template}
+% \subsection{图书}
 %
 % \bibitem{knuth1986texbook}
 % \textsc{Knuth D E}.
 % \newblock \textit{The \TeX book: Computers \& Typesetting, volume A} [M].
 % \newblock Boston: Addison--Wesley Publishing Company, 1986
-%   \urlprefix {\small 源代码
-%     \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：
-%     \CTANurl{systems/knuth/dist/tex/texbook.tex}}
-%
-% \bibitem{interfaces3}
-% \textsc{The \LaTeX3 Project}.
-% \newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
-% \newblock (2018-03-05) \urlprefix
-%   \CTANurl{macros/latex/contrib/l3kernel/interface3.pdf}
-%
-% \bibitem{source3}
-% \textsc{The \LaTeX3 Project}.
-% \newblock \textit{The \LaTeX3 Sources} [CP/OL].
-% \newblock (2018-03-05) \urlprefix
-%   \CTANurl{macros/latex/contrib/l3kernel/source3.pdf}
-%
-% \bibitem{biblatex}
-% \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
-% \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
-% \newblock version 3.11,
-% \newblock (2018-03-01) \urlprefix
-%   \CTANurl{macros/latex/contrib/biblatex/doc/biblatex.pdf}
+% \urlprefix \CTANurl[源代码^^A
+%   \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：]^^A
+%   {systems/knuth/dist/tex/texbook.tex}
 %
 % \bibitem{mittelbach2004latexcompanion}
 % \textsc{Mittelbach F} and \textsc{Goossens M}.
@@ -2407,123 +2353,203 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newblock 2nd ed.
 % \newblock Boston: Addison--Wesley Publishing Company, 2004
 %
-% \bibitem{lshort}
-% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
-% \newblock version 6.2,
-% \newblock (2018-02-28) \urlprefix
-%   \CTANurl{info/lshort/english/lshort.pdf}
-%
-% \bibitem{lshort-zh-cn}
-% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-% \newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 102 分钟了解 \LaTeXe{}} [EB/OL].
-% \newblock China\TeX{} 论坛, 译.
-% \newblock 原版版本 version 5.05, 中文版本 version 5.10,
-% \newblock (2017-03-26) \urlprefix
-%   \CTANurl{info/lshort/chinese/lshort-zh-cn.pdf}
-%
-% \bibitem{pandoxie2014fduthesislatex}
-% \textsc{Pandoxie}.
-% \newblock \textit{Fudan University-Latex Template} [EB/OL].
-% \newblock (2014-06-07) \urlprefix
-%   \url{https://github.com/Pandoxie/FDU-Thesis-Latex}
-%
-% \bibitem{richard2016fudanthesis}
-% \textsc{richard}.
-% \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
-% \newblock (2016-01-31) \urlprefix
-%   \url{https://github.com/richarddzh/fudan-thesis}
-%
-% \bibitem{weijianwen2017sjtuthesis}
-% \textsc{weijianwen}.
-% \newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis} [EB/OL].
-% \newblock version 0.10,
-% \newblock (2018-02-11) \urlprefix
-%   \url{https://github.com/weijianwen/SJTUThesis}
-%
-% \bibitem{wright2009dtxfile}
-% \textsc{Wright J}.
-% \newblock \textit{A model dtx file} [EB/OL].
-% \newblock (2009-10-06) \urlprefix
-%   \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
-%
-% \bibitem{gbt7714}
-% \textsc{Zeping Lee}.
-% \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
-% \newblock version 1.0.3,
-% \newblock (2018-03-16) \urlprefix
-%   \CTANurl{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
-%
-% \bibitem{zepinglee2017ustcthesis}
-% \textsc{Zeping Lee} and \textsc{seisman}.
-% \newblock \textit{\LaTeX{} template for USTC thesis v3.0} [EB/OL].
-% \newblock version 3.0.4,
-% \newblock (2018-04-03) \urlprefix
-%   \url{https://github.com/ustctug/ustcthesis}
-%
-% \bibitem{数院毕业论文格式}
-% 复旦大学数学科学学院.
-% \newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL]. \urlprefix
-%   \url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
-%
-% \bibitem{数院毕业论文格式更新}
-% 复旦大学数学科学学院.
-% \newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL]. \urlprefix
-%   \url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
-%
-% \bibitem{复旦大学论文规范}
-% 复旦大学图书馆, 复旦大学研究生院.
-% \newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
-% \newblock 2017 年 3 月修订版.
-% \newblock (2017-03-27) \urlprefix
-%   \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
-%
-% \bibitem{gb-t-7713.1-2006}
-% 国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
-% \newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
-% \newblock 北京: 中国标准出版社, 2007
-%
 % \bibitem{胡伟2017latex2e}
 % 胡伟.
 % \newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
 % \newblock 北京: 清华大学出版社, 2017
-%
-% \bibitem{biblatex-gb7714-2015}
-% 胡振震.
-% \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
-% \newblock version 1.0i,
-% \newblock (2018-01-14) \urlprefix
-% {\small\href{http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}^^A
-%   {\ttfamily CTAN://macros/latex/contrib/biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}}
-%
-% \bibitem{gb-t-15834-2011}
-% 教育部语言文字信息管理司.
-% \newblock \textit{标点符号用法: GB/T 15834--2011} [S].
-% \newblock 北京: 中国标准出版社, 2012
-%
-% \bibitem{cquthesis}
-% 李振楠.
-% \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
-% \newblock version 1.30,
-% \newblock (2018-02-23) \urlprefix
-%   \CTANurl{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
 % \bibitem{刘海洋2013latex入门}
 % 刘海洋.
 % \newblock \textit{\LaTeX{} 入门} [M].
 % \newblock 北京: 电子工业出版社, 2013
 %
+% \subsection{标准、规范}
+%
+% \bibitem{gb-t-7713.1-2006}
+% 国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
+% \newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
+% \newblock 北京: 中国标准出版社, 2007
+%
 % \bibitem{gb-t-7714-2015}
 % 全国信息与文献标准化技术委员会.
-% \newblock \textit{信息与文献 参考文献著录规则: GB/T 7714--2015} [S].
+% \newblock \textit{信息与文献\quad 参考文献著录规则: GB/T 7714--2015} [S].
 % \newblock 北京: 中国标准出版社, 2015
+%
+% \bibitem{gb-t-15834-2011}
+% 教育部语言文字信息管理司.
+% \newblock \textit{标点符号用法: GB/T 15834--2011} [S/OL].
+% \newblock 北京: 中国标准出版社, 2012
+% \urlprefix\url{http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091548267.pdf}
+%
+% \bibitem{clreq}
+% W3C.
+% \newblock \textit{中文排版需求（Requirements for Chinese Text Layout）} [EB/OL].
+% \newblock (2019-03-13) 
+% \urlprefix\url{https://w3c.github.io/clreq/}
+%
+% \bibitem{复旦大学论文规范}
+% 复旦大学图书馆, 复旦大学研究生院.
+% \newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
+% \newblock 2017 年 3 月修订版.
+% \newblock (2017-03-27) 
+% \urlprefix\url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
+%
+% \subsection{宏包、模版}
+%
+% \bibitem{source2e}
+% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
+% \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
+% \newblock (2018-12-01) 
+% \urlprefix\url{https://ctan.org/pkg/latex}
+% \urlprefix\CTANurl[源代码：]{macros/latex/base/source2e.pdf}
+%
+% \bibitem{CTeX}
+% \textsc{CTEX.ORG}.
+% \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
+% \newblock version 2.4.14,
+% \newblock (2018-05-02) 
+% \urlprefix\url{https://ctan.org/pkg/ctex}
+% \urlprefix\CTANurl[文档及源代码：]{language/chinese/ctex/ctex.pdf}
+%
+% \bibitem{xeCJK}
+% \textsc{CTEX.ORG}.
+% \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
+% \newblock version 3.7.1,
+% \newblock (2018-04-30) 
+% \urlprefix\url{https://ctan.org/pkg/xecjk}
+% \urlprefix\CTANurl[文档及源代码：]{macros/xetex/latex/xecjk/xeCJK.pdf}
+%
+% \bibitem{natbib}
+% \textsc{Daly P W}.
+% \newblock \textit{Natural Sciences Citations and References} [EB/OL].
+% \newblock version 8.31b,
+% \newblock (2010-09-13) 
+% \urlprefix\url{https://ctan.org/pkg/natbib}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/natbib/natbib.pdf}
+%
+% \bibitem{source3}
+% \textsc{The \LaTeX3 Project}.
+% \newblock \textit{The \LaTeX3 Sources} [CP/OL].
+% \newblock (2019-03-05) 
+% \urlprefix\url{https://ctan.org/pkg/l3kernel}
+% \urlprefix\CTANurl[源代码：]{macros/latex/contrib/l3kernel/source3.pdf}
+%
+% \bibitem{biblatex}
+% \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
+% \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
+% \newblock version 3.12,
+% \newblock (2018-10-18) 
+% \urlprefix\url{https://ctan.org/pkg/biblatex}
+% \urlprefix\CTANurl[文档：]{macros/latex/contrib/biblatex/doc/biblatex.pdf}
+%
+% \bibitem{lshort}
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
+% \newblock version 6.2,
+% \newblock (2018-02-28) 
+% \urlprefix\url{https://ctan.org/pkg/lshort-english}
+% \urlprefix\CTANurl[文档：]{info/lshort/english/lshort.pdf}
+%
+% \bibitem{lshort-zh-cn}
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 106 分钟了解 \LaTeXe{}} [EB/OL].
+% \newblock \CTeX{} 开发小组, 译.
+% \newblock 原版版本 version 6.2, 中文版本 version 6.0,
+% \newblock (2018-09-01) 
+% \urlprefix\url{https://ctan.org/pkg/lshort-zh-cn}
+% \urlprefix\CTANurl[文档：]{info/lshort/chinese/lshort-zh-cn.pdf}
+%
+% \bibitem{biblatex-gb7714-2015}
+% 胡振震.
+% \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
+% \newblock version 1.0q,
+% \newblock (2019-02-11) 
+% \urlprefix\url{https://ctan.org/pkg/biblatex-gb7714-2015}
+% \urlprefix\CTANurl[文档：]{biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}
+%
+% \bibitem{gbt7714}
+% 李泽平（\textsc{Zeping L}）.
+% \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
+% \newblock version 1.0.9,
+% \newblock (2018-08-05) 
+% \urlprefix\url{https://ctan.org/pkg/gbt7714}
+% \urlprefix\CTANurl[文档：]{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
+%
+% \bibitem{cquthesis}
+% 李振楠.
+% \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
+% \newblock version 1.30,
+% \newblock (2018-02-23) 
+% \urlprefix\url{https://ctan.org/pkg/cquthesis}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
 % \bibitem{thuthesis}
 % 薛瑞尼.
 % \newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
-% \newblock version 5.4.3,
-% \newblock (2017-12-24) \urlprefix
-%   \CTANurl{macros/latex/contrib/thuthesis/thuthesis.pdf}
+% \newblock version 5.4.5,
+% \newblock (2018-05-17) 
+% \urlprefix\url{https://ctan.org/pkg/thuthesis}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/thuthesis/thuthesis.pdf}
+%
+% \emph{以下模版未收录至 CTAN，但仍然保持活跃更新。}
+%
+% \bibitem{sjtuthesis}
+% \textsc{SJTUG}.
+% \newblock \textit{上海交通大学 \XeLaTeX{} 学位论文及课程论文模板} [EB/OL].
+% \newblock version 0.10.2,
+% \newblock (2018-11-05)
+% \urlprefix\url{https://github.com/sjtug/SJTUThesis}
+%
+% \bibitem{ustcthesis}
+% \textsc{USTC \TeX{} User Group}.
+% \newblock \textit{中国科学技术大学学位论文 \LaTeX{} 模板} [EB/OL].
+% \newblock version 3.1.03,
+% \newblock (2019-01-01)
+% \urlprefix\url{https://github.com/ustctug/ustcthesis}
+%
+% \bibitem{ucasthesis}
+% \textsc{mohuangrui}.
+% \newblock \textit{\pkg{ucasthesis} 国科大学位论文 \LaTeX{} 模板} [EB/OL].
+% \newblock (2019-03-14)
+% \urlprefix\url{https://github.com/mohuangrui/ucasthesis}
+%
+% \emph{以下模版现已停止更新。}
+%
+% \bibitem{pandoxie2014fduthesislatex}
+% \textsc{Pandoxie}.
+% \newblock \textit{Fudan University-Latex Template} [EB/OL].
+% \newblock (2014-06-07) 
+% \urlprefix\url{https://github.com/Pandoxie/FDU-Thesis-Latex}
+%
+% \bibitem{richard2016fudanthesis}
+% \textsc{richard}.
+% \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
+% \newblock (2016-01-31) 
+% \urlprefix\url{https://github.com/richarddzh/fudan-thesis}
+%
+% \bibitem{数院毕业论文格式}
+% 复旦大学数学科学学院.
+% \newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL].
+% \urlprefix\url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
+%
+% \bibitem{数院毕业论文格式更新}
+% 复旦大学数学科学学院.
+% \newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL].
+% \urlprefix\url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
+%
+% \subsection{其他}
+%
+% \bibitem{wright2009dtxfile}
+% \textsc{Wright J}.
+% \newblock \textit{A model dtx file} [EB/OL].
+% \newblock (2009-10-06) 
+% \urlprefix\url{https://www.texdev.net/2009/10/06/a-model-dtx-file/}
+%
+% \bibitem{孔雀计划}
+% 刘庆（\textsc{Eric Q L}）.
+% \newblock \textit{孔雀计划：中文字体排印的思路} [EB/OL].
+% \newblock (2009-10-06) 
+% \urlprefix\url{https://thetype.com/kongque/}
 %
 % \end{thebibliography}
 %
