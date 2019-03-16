@@ -4,16 +4,26 @@
 
 ## [未发布]
 
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
+
+## v0.7c (2019-03-17)
+
+- Added
+  - `style/font` 新增 `garamond` 和 `times*` 样式
+  - `style/cjk-font` 新增 `sinotype` 和 `sourcehan` 样式
 - Fixed
   - 修复 macOS 下的字体调用问题 - [#36](https://github.com/stone-zeng/fduthesis/issues/36)、[#45](https://github.com/stone-zeng/fduthesis/issues/45)
 - Changed
   - 允许博士学位论文使用学位类型信息 - [#56](https://github.com/stone-zeng/fduthesis/issues/56)
 - Improved
   - 重构字体配置
+  - 更换模版文档字体
   - 在项目 wiki 中介绍使用技巧 - [#52](https://github.com/stone-zeng/fduthesis/issues/52)
     - 感谢 [@jinyu121](https://github.com/jinyu121)、[@zepinglee](https://github.com/zepinglee)！
+- Removed
+  - 移除 latexmk 配置文件 `latexmkrc` 和 `latexmkrc-en`
 
-更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7b...master)。
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7b...v0.7c)。
 
 ## v0.7b (2018-05-06)
 

@@ -28,12 +28,12 @@ mkdir -p $SRC_DIR
 mkdir -p $TEX_DIR
 mkdir -p $DOC_DIR
 
-cp $WORKING_DIR/source/*.dtx               $TEMP_DIR
-cp $WORKING_DIR/source/*.pdf               $TEMP_DIR
-cp $WORKING_DIR/doc/$JOB_NAME-template.tex $TEMP_DIR
-cp $LOGO_DIR/fudan-emblem-a-black.pdf      $TEMP_DIR/fudan-emblem.pdf
-cp $LOGO_DIR/fudan-emblem-new-a-black.pdf  $TEMP_DIR/fudan-emblem-new.pdf
-cp $LOGO_DIR/fudan-name-black.pdf          $TEMP_DIR/fudan-name.pdf
+cp $WORKING_DIR/source/*.dtx                $TEMP_DIR
+cp $WORKING_DIR/source/*.pdf                $TEMP_DIR
+cp $WORKING_DIR/docs/$JOB_NAME-template.tex $TEMP_DIR
+cp $LOGO_DIR/fudan-emblem-a-black.pdf       $TEMP_DIR/fudan-emblem.pdf
+cp $LOGO_DIR/fudan-emblem-new-a-black.pdf   $TEMP_DIR/fudan-emblem-new.pdf
+cp $LOGO_DIR/fudan-name-black.pdf           $TEMP_DIR/fudan-name.pdf
 
 cd $TEMP_DIR
 xetex $JOB_NAME.dtx > /dev/null
@@ -57,8 +57,6 @@ cp $TEMP_DIR/fudan-name.pdf       $TEX_DIR
 cp $TEMP_DIR/*.md                 $DOC_DIR
 cp $TEMP_DIR/*.tex                $DOC_DIR
 cp $TEMP_DIR/$JOB_NAME*.pdf       $DOC_DIR
-cp $TEMP_DIR/latexmkrc.cfg        $DOC_DIR/latexmkrc
-cp $TEMP_DIR/latexmkrc-en.cfg     $DOC_DIR/latexmkrc-en
 
 # Make TDS zip
 cd $TDS_DIR
