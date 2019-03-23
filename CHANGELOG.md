@@ -4,6 +4,13 @@
 
 ## [未发布]
 
+- Fixed
+  - 修复参考文献不能在目录中显示的问题 - [#65](https://github.com/stone-zeng/fduthesis/issues/65)
+  - 修复 Unix 下的安装脚本 - [#64](https://github.com/stone-zeng/fduthesis/pull/64)
+    - 感谢 [@ShichaoSun](https://github.com/ShichaoSun)！
+- Improved
+  - 优化目录、摘要、参考文献等的标题实现。
+
 更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
 
 ## v0.7c (2019-03-17)
