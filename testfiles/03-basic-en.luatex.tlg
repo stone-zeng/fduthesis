@@ -42,6 +42,15 @@ Completed box being shipped out [1]
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\pdfdest name{chapter*.1} xyz
+....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\000A\000b\000s\000t\
+00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
+}{\ETC.}
+....\mark{{\protect \MakeUppercase  {Abstract}}{}}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
+}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
+}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -77,20 +86,15 @@ Completed box being shipped out [1]
 ....\glue 40.0 plus -1.0
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
-....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\000A\000b\000s\000t\
-00\ETC.}
-....\penalty 10000
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
-....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
-....\hbox(8.22673+2.62581)x416.54877, glue set 339.4126fil, direction TLT
+....\hbox(8.22673+2.62581)x416.54877, glue set 321.4126fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
+.....\hbox(0.0+0.0)x18.0, direction TLT
 .....\TU/XITS(0)/m/n/12.045 E
 .....\TU/XITS(0)/m/n/12.045 n
 .....\discretionary (penalty 50)
@@ -247,6 +251,7 @@ Completed box being shipped out [1]
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\write1{\protect \FN@pp@footnotehinttrue }
+....\penalty 10000
 ....\glue -0.22885
 ....\glue 0.0 plus 1.0fil
 ....\glue 0.0
@@ -349,6 +354,15 @@ Completed box being shipped out [3]
 ....\vbox(218.71286+5.6371)x416.54877, direction TLT
 .....\whatsit4=[]
 .....\pdfdest name{chapter*.2} xyz
+.....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t
+\00\ETC.}
+.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{to
+c}{\ETC.}
+.....\mark{{\protect \MakeUppercase  {List of Symbols}}{}}
+.....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lo
+f}{\ETC.}
+.....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lo
+t}{\ETC.}
 .....\glue(\topskip) 12.0
 .....\rule(0.0+0.0)x*
 .....\penalty 10000
@@ -388,12 +402,6 @@ Completed box being shipped out [3]
 .....\penalty 10000
 .....\glue 40.0 plus -1.0
 .....\mark{{List of Symbols}{List of Symbols}}
-.....\penalty 10000
-.....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t
-\00\ETC.}
-.....\penalty 10000
-.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{to
-c}{\ETC.}
 .....\penalty 10000
 .....\penalty 0
 .....\glue 0.0

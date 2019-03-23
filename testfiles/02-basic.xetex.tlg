@@ -36,6 +36,11 @@ Completed box being shipped out [1]
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\special{pdf:dest (chapter*.1) [@thispage /XYZ @xpos @ypos null]}
+....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\20\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
+....\mark{{\protect \MakeUppercase  {摘\hskip 1em\relax 要}}{}}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -58,10 +63,6 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue 40.0 plus -1.0
 ....\mark{{摘\hskip 1em\relax 要}{摘\hskip 1em\relax 要}}
-....\penalty 10000
-....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\20\ETC.}
-....\penalty 10000
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(9.371+2.1199)x416.54877, glue set 344.27878fil
@@ -161,6 +162,7 @@ Completed box being shipped out [1]
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\write1{\protect \FN@pp@footnotehinttrue }
+....\penalty 10000
 ....\glue -2.24036
 ....\glue 0.0 plus 1.0fil
 ....\glue 0.0
@@ -240,6 +242,11 @@ Completed box being shipped out [3]
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 524.3577fil
 ....\special{pdf:dest (chapter*.2) [@thispage /XYZ @xpos @ypos null]}
+....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
+....\mark{{\protect \MakeUppercase  {Abstract}}{}}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
@@ -258,10 +265,6 @@ Completed box being shipped out [3]
 ....\penalty 10000
 ....\glue 40.0 plus -1.0
 ....\mark{{Abstract}{Abstract}}
-....\penalty 10000
-....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\00\ETC.}
-....\penalty 10000
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(8.22673+2.6258)x416.54877, glue set 315.3226fil
@@ -336,6 +339,7 @@ Completed box being shipped out [3]
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\write1{\protect \FN@pp@footnotehinttrue }
+....\penalty 10000
 ....\glue -0.22884
 ....\glue 0.0 plus 1.0fil
 ....\glue 0.0
@@ -416,6 +420,11 @@ Completed box being shipped out [5]
 ....\glue(\topskip) 0.0
 ....\vbox(226.98143+6.00005)x416.54877
 .....\special{pdf:dest (chapter*.3) [@thispage /XYZ @xpos @ypos null]}
+.....\write4{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210\15\ETC.}
+.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
+.....\mark{{\protect \MakeUppercase  {符号表}}{}}
+.....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+.....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 .....\glue(\topskip) 12.0
 .....\rule(0.0+0.0)x*
 .....\penalty 10000
@@ -438,10 +447,6 @@ Completed box being shipped out [5]
 .....\penalty 10000
 .....\glue 40.0 plus -1.0
 .....\mark{{符号表}{符号表}}
-.....\penalty 10000
-.....\write4{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210\15\ETC.}
-.....\penalty 10000
-.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 .....\penalty 10000
 .....\penalty 0
 .....\glue 0.0
