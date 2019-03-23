@@ -3,7 +3,7 @@
 mkdir -p "thesis"
 cd "thesis"
 
-cp -f "../docs/tex/fduthesis-template.tex"        .
+cp -f "../docs/fduthesis-template.tex"        .
 cp -f "../source/fduthesis.dtx"                   .
 cp -f "../source/fduthesis-doc.dtx"               .
 cp -f "../source/fduthesis-logo.dtx"              .
@@ -13,7 +13,6 @@ cp -f "../testfiles/support/fudan-name.pdf"       .
 
 xetex "fduthesis.dtx" > /dev/null
 
-rm *.cfg
 rm *.dtx
 rm *.ins
 rm *.log
