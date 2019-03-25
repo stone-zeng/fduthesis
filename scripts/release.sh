@@ -11,6 +11,7 @@ TEMP_DIR=/tmp/$JOB_NAME
 
 TDS_DIR=$TEMP_DIR/TDS
 CTAN_DIR=$TEMP_DIR/$JOB_NAME
+OVERLEAF_DIR=$PWD/release/overleaf
 
 SRC_DIR=$TDS_DIR/source/latex/$JOB_NAME
 TEX_DIR=$TDS_DIR/tex/latex/$JOB_NAME
@@ -23,6 +24,7 @@ mkdir -p $TEMP_DIR
 
 mkdir -p $TDS_DIR
 mkdir -p $CTAN_DIR
+mkdir -p $OVERLEAF_DIR
 
 mkdir -p $SRC_DIR
 mkdir -p $TEX_DIR
@@ -57,6 +59,32 @@ cp $TEMP_DIR/fudan-name.pdf       $TEX_DIR
 cp $TEMP_DIR/*.md                 $DOC_DIR
 cp $TEMP_DIR/*.tex                $DOC_DIR
 cp $TEMP_DIR/$JOB_NAME*.pdf       $DOC_DIR
+
+# Overleaf
+cp $JOB_NAME.cls                   $OVERLEAF_DIR
+cp $JOB_NAME-en.cls                $OVERLEAF_DIR
+cp $JOB_NAME.def                   $OVERLEAF_DIR
+cp $JOB_NAME-template.tex          $OVERLEAF_DIR
+cp $TEMP_DIR/fudan-emblem.pdf      $OVERLEAF_DIR
+cp $TEMP_DIR/fudan-emblem-new.pdf  $OVERLEAF_DIR
+cp $TEMP_DIR/fudan-name.pdf        $OVERLEAF_DIR
+
+cp $(kpsewhich ctexbook.cls)                 $OVERLEAF_DIR
+cp $(kpsewhich ctex-scheme-chinese-book.def) $OVERLEAF_DIR
+cp $(kpsewhich ctex-scheme-plain-book.def)   $OVERLEAF_DIR
+cp $(kpsewhich ctex-engine-xetex.def)        $OVERLEAF_DIR
+cp $(kpsewhich xeCJK.sty)                    $OVERLEAF_DIR
+cp $(kpsewhich xeCJKfntef.sty)               $OVERLEAF_DIR
+cp $(kpsewhich zhnumber.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich fontspec.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich fontspec-xetex.sty)           $OVERLEAF_DIR
+cp $(kpsewhich unicode-math.sty)             $OVERLEAF_DIR
+cp $(kpsewhich unicode-math-xetex.sty)       $OVERLEAF_DIR
+cp $(kpsewhich expl3.sty)                    $OVERLEAF_DIR
+cp $(kpsewhich expl3-code.tex)               $OVERLEAF_DIR
+cp $(kpsewhich l3keys2e.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich xparse.sty)                   $OVERLEAF_DIR
+cp $(kpsewhich latexrelease.sty)             $OVERLEAF_DIR
 
 # Make TDS zip
 cd $TDS_DIR
