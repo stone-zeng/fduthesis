@@ -136,7 +136,7 @@ Completed box being shipped out [1]
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\baselineskip) 6.22726
-....\hbox(8.22673+2.62581)x416.54877, glue set 171.16798fil, direction TLT
+....\hbox(8.22673+2.62581)x416.54877, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
@@ -160,56 +160,71 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/bx/n/12.045 s
 .....\TU/XITS(0)/bx/n/12.045 :
 .....\glue 12.045
-.....\TU/XITS(0)/m/n/12.045 K
-.....\kern-0.18068 (font)
-.....\TU/XITS(0)/m/n/12.045 e
-.....\kern-0.25294 (font)
-.....\TU/XITS(0)/m/n/12.045 y
-.....\discretionary (penalty 50)
-......< \kern-0.21681 (font)
-......< \TU/XITS(0)/m/n/12.045 -
-.....\TU/XITS(0)/m/n/12.045 w
-.....\kern-0.31317 (font)
-.....\TU/XITS(0)/m/n/12.045 o
-.....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241 (font)
-.....\TU/XITS(0)/m/n/12.045 d
-.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
-.....\TU/XITS(0)/m/n/12.045 1
-.....\glue 12.045
-.....\TU/XITS(0)/m/n/12.045 k
-.....\kern-0.15659 (font)
-.....\TU/XITS(0)/m/n/12.045 e
-.....\kern-0.25294 (font)
-.....\TU/XITS(0)/m/n/12.045 y
-.....\discretionary (penalty 50)
-......< \kern-0.21681 (font)
-......< \TU/XITS(0)/m/n/12.045 -
-.....\TU/XITS(0)/m/n/12.045 w
-.....\kern-0.31317 (font)
-.....\TU/XITS(0)/m/n/12.045 o
-.....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241 (font)
-.....\TU/XITS(0)/m/n/12.045 d
-.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
-.....\TU/XITS(0)/m/n/12.045 2
-.....\glue 12.045
-.....\TU/XITS(0)/m/n/12.045 k
-.....\kern-0.15659 (font)
-.....\TU/XITS(0)/m/n/12.045 e
-.....\kern-0.25294 (font)
-.....\TU/XITS(0)/m/n/12.045 y
-.....\discretionary (penalty 50)
-......< \kern-0.21681 (font)
-......< \TU/XITS(0)/m/n/12.045 -
-.....\TU/XITS(0)/m/n/12.045 w
-.....\kern-0.31317 (font)
-.....\TU/XITS(0)/m/n/12.045 o
-.....\TU/XITS(0)/m/n/12.045 r
-.....\kern-0.0241 (font)
-.....\TU/XITS(0)/m/n/12.045 d
-.....\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
-.....\TU/XITS(0)/m/n/12.045 3
+.....\vbox(8.22673+2.62581)x349.20517, direction TLT
+......\hbox(8.22673+2.62581)x349.20517, glue set 182.53847fil, direction TLT
+.......\whatsit4=[]
+.......\localpar
+........\localinterlinepenalty=0
+........\localbrokenpenalty=0
+........\localleftbox=null
+........\localrightbox=null
+.......\hbox(0.0+0.0)x0.0, direction TLT
+.......\TU/XITS(0)/m/n/12.045 K
+.......\kern-0.18068 (font)
+.......\TU/XITS(0)/m/n/12.045 e
+.......\kern-0.25294 (font)
+.......\TU/XITS(0)/m/n/12.045 y
+.......\discretionary (penalty 50)
+........< \kern-0.21681 (font)
+........< \TU/XITS(0)/m/n/12.045 -
+.......\TU/XITS(0)/m/n/12.045 w
+.......\kern-0.31317 (font)
+.......\TU/XITS(0)/m/n/12.045 o
+.......\TU/XITS(0)/m/n/12.045 r
+.......\kern-0.0241 (font)
+.......\TU/XITS(0)/m/n/12.045 d
+.......\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.......\TU/XITS(0)/m/n/12.045 1
+.......\TU/XITS(0)/m/n/12.045 ;
+.......\glue(\spaceskip) 3.01125 plus 2.25844 minus 0.66916
+.......\TU/XITS(0)/m/n/12.045 k
+.......\kern-0.15659 (font)
+.......\TU/XITS(0)/m/n/12.045 e
+.......\kern-0.25294 (font)
+.......\TU/XITS(0)/m/n/12.045 y
+.......\discretionary (penalty 50)
+........< \kern-0.21681 (font)
+........< \TU/XITS(0)/m/n/12.045 -
+.......\TU/XITS(0)/m/n/12.045 w
+.......\kern-0.31317 (font)
+.......\TU/XITS(0)/m/n/12.045 o
+.......\TU/XITS(0)/m/n/12.045 r
+.......\kern-0.0241 (font)
+.......\TU/XITS(0)/m/n/12.045 d
+.......\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.......\TU/XITS(0)/m/n/12.045 2
+.......\TU/XITS(0)/m/n/12.045 ;
+.......\glue(\spaceskip) 3.01125 plus 2.25844 minus 0.66916
+.......\TU/XITS(0)/m/n/12.045 k
+.......\kern-0.15659 (font)
+.......\TU/XITS(0)/m/n/12.045 e
+.......\kern-0.25294 (font)
+.......\TU/XITS(0)/m/n/12.045 y
+.......\discretionary (penalty 50)
+........< \kern-0.21681 (font)
+........< \TU/XITS(0)/m/n/12.045 -
+.......\TU/XITS(0)/m/n/12.045 w
+.......\kern-0.31317 (font)
+.......\TU/XITS(0)/m/n/12.045 o
+.......\TU/XITS(0)/m/n/12.045 r
+.......\kern-0.0241 (font)
+.......\TU/XITS(0)/m/n/12.045 d
+.......\glue(\spaceskip) 3.01125 plus 1.50563 minus 1.00375
+.......\TU/XITS(0)/m/n/12.045 3
+.......\penalty 10000
+.......\glue(\parfillskip) 0.0 plus 1.0fil
+.......\glue(\rightskip) 0.0
+......\whatsit4=[]
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
