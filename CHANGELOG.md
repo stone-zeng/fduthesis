@@ -9,7 +9,8 @@
   - 修复 Unix 下的安装脚本 - [#64](https://github.com/stone-zeng/fduthesis/pull/64)
     - 感谢 [@ShichaoSun](https://github.com/ShichaoSun)！
 - Improved
-  - 优化目录、摘要、参考文献等的标题实现。
+  - 优化目录、摘要、参考文献等的标题实现
+  - 优化关键字列表的显示 - [#70](https://github.com/stone-zeng/fduthesis/issues/70)
 
 更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
 
