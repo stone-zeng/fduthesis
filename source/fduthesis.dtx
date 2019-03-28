@@ -3623,7 +3623,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_fullwidth_stop_catcode:
   {
-    \char_set_active_eq:nN { "3002 } \c_@@_fullwidth_full_stop_tl
+    \char_set_active_eq:nN { "3002 } \c_@@_fwid_full_stop_tl
     \char_set_catcode_active:n { "3002 }
   }
 %</class>
@@ -4693,7 +4693,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new:Npn \@@_cover_id_aux:n #1
   {
     \tl_use:c { c_@@_name_ #1 _tl }
-    \c_@@_fullwidth_colon_tl
+    \c_@@_fwid_colon_tl
     \tl_use:c { l_@@_info_ #1 _tl }
   }
 %    \end{macrocode}
@@ -4744,10 +4744,10 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \int_compare:nT { \g_@@_thesis_type_int != 3 }
       {
-        \c_@@_fullwidth_left_paren_tl
+        \c_@@_fwid_left_paren_tl
         \clist_item:Nn \c_@@_degree_type_clist
           { \l_@@_info_degree_type_int }
-        \c_@@_fullwidth_right_paren_tl
+        \c_@@_fwid_right_paren_tl
       }
   }
 %    \end{macrocode}
@@ -4793,7 +4793,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
           \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
           \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
           \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
-          \c_@@_fullwidth_colon_tl
+          \c_@@_fwid_colon_tl
           \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
           \skip_vertical:n { 1 ex }
         }
@@ -4809,7 +4809,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \clist_map_inline:Nn #1
       {
-        ##1 \c_@@_fullwidth_colon_tl
+        ##1 \c_@@_fwid_colon_tl
         \@@_blank_underline:n { 6 em }
         \@@_quad:
       }
@@ -5240,10 +5240,10 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new_protected:Npn \@@_abstract_end:
   {
     \@@_keywords:nNn
-      { \sffamily \c_@@_name_keywords_tl \c_@@_fullwidth_colon_tl }
-      \l_@@_info_keywords_clist { \c_@@_fullwidth_semicolon_tl }
+      { \sffamily \c_@@_name_keywords_tl \c_@@_fwid_colon_tl }
+      \l_@@_info_keywords_clist { \c_@@_fwid_semicolon_tl }
     \@@_clc:nn
-      { \sffamily \c_@@_name_clc_tl \c_@@_fullwidth_colon_tl }
+      { \sffamily \c_@@_name_clc_tl \c_@@_fwid_colon_tl }
       { \l_@@_info_clc_tl }
   }
 %</class>
@@ -5559,11 +5559,11 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \NAT@numbersfalse
 %<*class>
-    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_paren_tl
-    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_paren_tl
-    \cs_set_eq:NN \NAT@sep   \c_@@_fullwidth_semicolon_tl
-    \cs_set_eq:NN \NAT@aysep \c_@@_fullwidth_comma_tl
-    \cs_set_eq:NN \NAT@yrsep \c_@@_ideographic_comma_tl
+    \cs_set_eq:NN \NAT@open  \c_@@_fwid_left_paren_tl
+    \cs_set_eq:NN \NAT@close \c_@@_fwid_right_paren_tl
+    \cs_set_eq:NN \NAT@sep   \c_@@_fwid_semicolon_tl
+    \cs_set_eq:NN \NAT@aysep \c_@@_fwid_comma_tl
+    \cs_set_eq:NN \NAT@yrsep \c_@@_ideo_comma_tl
 %</class>
   }
 %    \end{macrocode}
@@ -5862,14 +5862,14 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { ideographic_comma     } { "3001 },
-    { ideographic_full_stop } { "3002 },
-    { fullwidth_comma       } { "FF0C },
-    { fullwidth_full_stop   } { "FF0E },
-    { fullwidth_colon       } { "FF1A },
-    { fullwidth_semicolon   } { "FF1B },
-    { fullwidth_left_paren  } { "FF08 },
-    { fullwidth_right_paren } { "FF09 }
+    { ideo_comma       } { "3001 },
+    { ideo_full_stop   } { "3002 },
+    { fwid_comma       } { "FF0C },
+    { fwid_full_stop   } { "FF0E },
+    { fwid_colon       } { "FF1A },
+    { fwid_semicolon   } { "FF1B },
+    { fwid_left_paren  } { "FF08 },
+    { fwid_right_paren } { "FF09 }
   }
   { \@@_define_punct:nn #1 }
 %    \end{macrocode}
