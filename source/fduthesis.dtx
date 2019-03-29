@@ -3116,6 +3116,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7d}{2019/03/29}{在字体未提供对应粗体的情况下，允许使用伪粗。}
+%
 % \begin{macro}{
 %   \@@_cjk_font_options:,
 %   \@@_setCJKmainfont:n,
@@ -3125,7 +3127,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 将 bold、italic 和 bold italic 统一按照 roman 设置。
 %    \begin{macrocode}
 \tl_const:Nn \@@_cjk_font_options:
- { UprightFont = *, BoldFont = *, ItalicFont = *, BoldItalicFont = * }
+ { UprightFont = *, ItalicFont = *, AutoFakeBold = true }
 \cs_new_protected:Npx \@@_setCJKmainfont:n   #1
   { \@@_setCJKmainfont:nn   {#1} { \@@_cjk_font_options: } }
 \cs_new_protected:Npx \@@_setCJKsansfont:n   #1
@@ -5027,12 +5029,13 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
+% \changes{v0.7d}{2019/03/29}{封面中文标题改为加粗宋体（可能使用伪粗）。}
+%
 % 定义封面的具体配置参数。
 %    \begin{macrocode}
 \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
   {
-%<class-en>    format                 =
-%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
+%<class-en>    format                 = \@@_line_spread:N \c_@@_line_spread_fp,
     bottom-skip            = 0 pt plus 1.5 fill,
     id       / content     = \@@_cover_id:,
     logo     / content     = \@@_cover_logo:,
@@ -5048,9 +5051,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     id       / format      = \zihao { -5 },
     type     / format      = \zihao {  2 },
     degree   / format      = \zihao {  4 },
-    title    / format      = \zihao { -2 } \sffamily,
-    title-en / format      =
-      \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
+    title    / format      = \zihao { -2 } \bfseries,
+    title-en / format      = \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
     id       / bottom-skip = 0 pt plus 1.6 fill,
     logo     / bottom-skip = 0 pt plus 0.3 fill,
     type     / bottom-skip = -18 pt,
@@ -5066,8 +5068,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 \DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
   {
-%<class-en>    format              =
-%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
+%<class-en>    format              = \@@_line_spread:N \c_@@_line_spread_fp,
     title     / content =
       \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
     name-list / content =

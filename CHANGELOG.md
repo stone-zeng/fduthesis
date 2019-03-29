@@ -4,6 +4,8 @@
 
 ## [未发布]
 
+- Changed
+  - 在（中文）字体未提供对应粗体的情况下，允许使用伪粗，并用于封面中文标题 - [#68](https://github.com/stone-zeng/fduthesis/issues/68)
 - Fixed
   - 修复参考文献不能在目录中显示的问题 - [#65](https://github.com/stone-zeng/fduthesis/issues/65)
   - 修复 Unix 下的安装脚本 - [#64](https://github.com/stone-zeng/fduthesis/pull/64)
