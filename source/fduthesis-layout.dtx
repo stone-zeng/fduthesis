@@ -1,0 +1,230 @@
+% \subsection{页面布局}
+%
+% 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。这里，
+% $\SI{2.54}{\centi\meter}=\SI{1}{in}$，
+% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
+%    \begin{macrocode}
+\geometry
+  {
+    paper      = a4paper,
+    vmargin    = 2.54 cm,
+    hmargin    = 3.18 cm,
+    headheight = 15 pt
+  }
+%    \end{macrocode}
+%
+% 草稿模式下显示页面边框及页眉、页脚线 。
+%    \begin{macrocode}
+\bool_if:NT \g_@@_draft_bool { \geometry { showframe } }
+%    \end{macrocode}
+%
+% \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母和带圈数字的
+%   显示（\pkg{ctex} v2.4.11 已默认进行处理）。}
+%
+% \subsection{页眉页脚}
+%
+% 清除默认页眉页脚格式。
+%    \begin{macrocode}
+\fancyhf { }
+%    \end{macrocode}
+%
+% \begin{variable}{\l_@@_header_center_mark_tl}
+% 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为相应标题。
+%    \begin{macrocode}
+\tl_new:N \l_@@_header_center_mark_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% 构建页眉，要在单面或双面下分别设置。
+%
+% \cs{fancyhead} 的选项中，\opt{E} 和 \opt{O} 分别表示偶数（even）
+% 和奇数（odd）， 而 \opt{L}、\opt{R} 和 \opt{C} 则分别表示左
+% （left）、右（right）和中间（center）。按照通常的排版规则，
+% 在双面模式下，偶数页的中间页眉文字在左，奇数页则在右。单面模式下，
+% 左右页眉都要显示。
+%    \begin{macrocode}
+\bool_if:NTF \g_@@_twoside_bool
+%<*class>
+  {
+    \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
+    \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
+  }
+  {
+    \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
+    \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
+    \fancyhead [ C ]
+      {
+        \small \nouppercase
+          { \fdu@kai \l_@@_header_center_mark_tl }
+      }
+  }
+%</class>
+%<*class-en>
+  {
+    \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
+    \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
+  }
+  {
+    \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
+    \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
+    \fancyhead [ C ]
+      {
+        \small \nouppercase
+          { \itshape \l_@@_header_center_mark_tl }
+      }
+  }
+%</class-en>
+%    \end{macrocode}
+%
+% 构建页脚，用来显示页码。选项 \opt{C} 表示居中（center）。
+%    \begin{macrocode}
+\fancyfoot [ C ] { \small \thepage }
+%    \end{macrocode}
+%
+% 关闭横线显示（未启用）。
+%    \begin{macrocode}
+% \RenewDocumentCommand \headrulewidth { } { 0 pt }
+%    \end{macrocode}
+%
+% \begin{macro}{\cleardoublepage}
+% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时也不显示页眉页脚，见
+% \url{https://tex.stackexchange.com/a/1683}。最后清空中间页眉，确保正文部分
+% 页眉显示正确。
+%    \begin{macrocode}
+\RenewDocumentCommand \cleardoublepage { }
+  {
+    \clearpage
+    \bool_if:NT \g_@@_twoside_bool
+      {
+        \int_if_odd:nF \c@page
+          { \hbox:n { } \thispagestyle { empty } \newpage }
+      }
+    \tl_gset:Nn \l_@@_header_center_mark_tl { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \pkg{ctex} 宏包使用 \opt{heading} 选项后，会把页面格式设置为 |headings|。
+% 因此必须在 \pkg{ctex} 调用之后重新设置 \cs{pagestyle} 为 |fancy|。
+%    \begin{macrocode}
+\pagestyle { fancy }
+%    \end{macrocode}
+%
+% \subsection{章节标题结构}
+%
+% |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
+%    \begin{macrocode}
+\keys_set:nn { ctex }
+  {
+%    \end{macrocode}
+% 设置章（chapter）、节（section）与小节（sub-section）标题样式。
+% 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
+%    \begin{macrocode}
+    chapter =
+      {
+%<class>        format      = \huge \normalfont \sffamily \centering,
+%<*class-en>
+        format      = \centering,
+        nameformat  = \LARGE \bfseries,
+        titleformat = \huge \bfseries,
+        aftername   = \par \nobreak \vskip 10 pt,
+%</class-en>
+        beforeskip  = 50 pt,
+        afterskip   = 40 pt,
+        number      = \@@_arabic:n { chapter },
+        fixskip     = true
+      },
+    section =
+      {
+%<class>        format      = \Large \normalfont \sffamily \raggedright,
+%<class-en>        format      = \Large \bfseries \raggedright,
+        beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
+        afterskip   = 2.7 ex plus 0.5 ex,
+        fixskip     = true
+      },
+    subsection =
+      {
+%<class>        format      = \large \normalfont \sffamily \raggedright,
+%<class-en>        format      = \large \bfseries \raggedright,
+        beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
+        afterskip   = 2.5  ex plus 0.3 ex,
+        fixskip     = true
+      }
+  }
+%    \end{macrocode}
+%
+% \changes{v0.7d}{2019/03/24}{优化目录、摘要、参考文献等的标题实现。}
+%
+% \begin{macro}{\@@_chapter:n,\@@_chapter:V}
+% 手动生成章的标题，用于摘要、参考文献等。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_chapter:n #1
+  {
+    \group_begin:
+      \ctexset { chapter / numbering = false }
+      \chapter {#1}
+      \@@_chapter_header:n {#1}
+    \group_end:
+  }
+\cs_generate_variant:Nn \@@_chapter:n { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_chapter_no_toc:n,\@@_chapter_no_toc:V}
+% 目录自身不出现在目录中，需特别处理。参考
+% \url{https://tex.stackexchange.com/a/1821}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_chapter_no_toc:n #1
+  {
+    \chapter *           {#1}
+    \@@_chapter_header:n {#1}
+    \pdfbookmark [0] {#1} { toc }
+  }
+\cs_generate_variant:Nn \@@_chapter_no_toc:n { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_chapter_header:n}
+% 单页模式下，目录、摘要、符号表等的页眉中间为相应标题，左右为空。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_chapter_header:n #1
+  {
+    \bool_if:NTF \g_@@_twoside_bool
+      { \markboth {#1} {#1} }
+      {
+        \markboth { } { }
+        \tl_gset:Nn \l_@@_header_center_mark_tl {#1}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{图表绘制；浮动体}
+%
+% \changes{v0.3}{2017/07/09}{支持浮动体。}
+%
+% 分别设置浮动体 \env{figure} 和 \env{table} 的标题样式。
+%    \begin{macrocode}
+\captionsetup [ figure ]
+  {
+    font     = small,
+    labelsep = quad
+  }
+\captionsetup [ table  ]
+  {
+    font     = { small, sf },
+    labelsep = quad
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\thefigure,\thetable}
+% \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
+% 重定义图表编号。
+%    \begin{macrocode}
+\cs_set:Npn \thefigure
+  { \@@_arabic:n { chapter } - \@@_arabic:n { figure } }
+\cs_set:Npn \thetable
+  { \@@_arabic:n { chapter } - \@@_arabic:n { table  } }
+%    \end{macrocode}
+% \end{macro}
+%

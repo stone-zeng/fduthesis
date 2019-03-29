@@ -1,0 +1,823 @@
+% \subsection{封面}
+%
+% \subsubsection{信息录入}
+%
+% \begin{variable}{\l_@@_info_title_tl,
+%   \l_@@_info_date_tl,
+%   \l_@@_info_author_tl,
+%   \l_@@_info_supervisor_tl,
+%   \l_@@_info_department_tl,
+%   \l_@@_info_major_tl,
+%   \l_@@_info_student_id_tl,
+%   \l_@@_info_school_id_tl,
+%   \l_@@_info_clc_tl,
+%   \l_@@_info_instructors_clist,
+%   \l_@@_info_keywords_clist}
+% 封面所需的一些字段。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    title, date, author, supervisor, department, major, student_id,
+    school_id, clc
+  }
+  { \tl_new:c { l_@@_info_ #1 _tl } }
+\clist_new:N \l_@@_info_instructors_clist
+\clist_new:N \l_@@_info_keywords_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_info_title_en_tl,
+%   \l_@@_info_author_en_tl,
+%   \l_@@_info_supervisor_en_tl,
+%   \l_@@_info_department_en_tl,
+%   \l_@@_info_major_en_tl,
+%   \l_@@_info_keywords_en_clist}
+% 对应的英文字段。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  { title, author, supervisor, department, major }
+  { \tl_new:c { l_@@_info_ #1 _en_tl } }
+\clist_new:N \l_@@_info_keywords_en_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_info_degree_type_int}
+% 学位类型。1 为学术学位，2 为专业学位。
+%    \begin{macrocode}
+\int_new:N \l_@@_info_degree_type_int
+%    \end{macrocode}
+% \end{variable}
+%
+% 定义 |fdu/info| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / info }
+  {
+%    \end{macrocode}
+%
+% \changes{v0.7}{2018/02/01}{新增 \opt{info/degree} 选项。}
+%
+% \begin{macro}{info/degree}
+% 学位类型。只对硕士论文有效。
+%    \begin{macrocode}
+    degree      .choices:nn  =
+      { academic, professional }
+      { \int_set_eq:NN \l_@@_info_degree_type_int \l_keys_choice_int },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/title,info/title*}
+% 论文题目。以下带星号的项目均表示相应的英文字段。
+%    \begin{macrocode}
+    title       .tl_set:N    = \l_@@_info_title_tl,
+    title*      .tl_set:N    = \l_@@_info_title_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/date}
+% 论文完成日期。
+%    \begin{macrocode}
+    date        .tl_set:N    = \l_@@_info_date_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/author,info/author*}
+% 作者姓名。
+%    \begin{macrocode}
+    author      .tl_set:N    = \l_@@_info_author_tl,
+    author*     .tl_set:N    = \l_@@_info_author_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/supervisor,info/supervisor*}
+% 导师姓名。
+%    \begin{macrocode}
+    supervisor  .tl_set:N    = \l_@@_info_supervisor_tl,
+%   supervisor* .tl_set:N    = \l_@@_info_supervisor_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/instructors}
+% 指导小组成员。
+%    \begin{macrocode}
+    instructors .clist_set:N = \l_@@_info_instructors_clist,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/department,info/department*}
+% 院系。
+%    \begin{macrocode}
+    department  .tl_set:N    = \l_@@_info_department_tl,
+%   department* .tl_set:N    = \l_@@_info_department_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/major,info/major*}
+% 专业。
+%    \begin{macrocode}
+    major       .tl_set:N    = \l_@@_info_major_tl,
+%   major*      .tl_set:N    = \l_@@_info_major_en_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/student-id}
+% 学号。
+%    \begin{macrocode}
+    student-id  .tl_set:N    = \l_@@_info_student_id_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/school-id}
+% 学校代码。
+%    \begin{macrocode}
+    school-id   .tl_set:N    = \l_@@_info_school_id_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/keywords,info/keywords*}
+% 论文关键字。
+%    \begin{macrocode}
+    keywords    .clist_set:N = \l_@@_info_keywords_clist,
+    keywords*   .clist_set:N = \l_@@_info_keywords_en_clist,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/clc}
+% 中图分类号。
+%    \begin{macrocode}
+    clc         .tl_set:N    = \l_@@_info_clc_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.4}{2017/08/10}{新增 \opt{style/logo} 与
+%   \opt{style/logo-size} 选项。}
+%
+% \begin{variable}{\l_@@_cover_logo_tl,\l_@@_cover_logo_size_clist}
+%    \begin{macrocode}
+\tl_new:N    \l_@@_cover_logo_tl
+\clist_new:N \l_@@_cover_logo_size_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{style/logo,style/logo-size}
+% 校名图片的文件名和尺寸。
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+    logo      .tl_set:N    = \l_@@_cover_logo_tl,
+    logo-size .clist_set:N = \l_@@_cover_logo_size_clist
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{密级}
+%
+% \changes{v0.3}{2017/07/04}{新增 \opt{info/secret-level} 与
+%   \opt{info/secret-year} 选项。}
+%
+% \begin{variable}{\l_@@_secret_bool}
+% 是否显示密级。
+%    \begin{macrocode}
+\bool_new:N \l_@@_secret_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_info_secret_level_tl}
+% 保存当前的密级。
+%    \begin{macrocode}
+\tl_new:N \l_@@_info_secret_level_tl
+%    \end{macrocode}
+% \end{variable}
+%
+%    \begin{macrocode}
+\keys_define:nn { fdu / info }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{info/secret-level}
+% \changes{v0.6}{2017/11/11}{不再依赖 XITS-Math 字体。}
+% 密级。\opt{none} 表示不涉密，\opt{i}、\opt{ii}、\opt{iii} 分别为
+% 秘密、机密、绝密。
+%    \begin{macrocode}
+    secret-level .choices:nn  =
+      { none, i, ii, iii }
+      {
+        \int_compare:nTF { \l_keys_choice_int >= 2 }
+          {
+            \bool_set_true:N \l_@@_secret_bool
+            \tl_set:Nn \l_@@_info_secret_level_tl
+              {
+                \clist_item:Nn \c_@@_secret_clist
+                  { \l_keys_choice_int - 1 }
+              }
+          }
+          { \bool_set_false:N \l_@@_secret_bool }
+      },
+    secret-level .value_required:n = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{info/secret-year}
+% 保密年限。
+%    \begin{macrocode}
+    secret-year  .tl_set:N = \l_@@_info_secret_year_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{定义内部函数}
+%
+% \begin{macro}{\@@_spread_box:nn}
+% 分散对齐的水平盒子。
+% \begin{arguments}
+%   \item 宽度
+%   \item 内容
+% \end{arguments}
+% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的 \tn{unskip}
+% 将会去掉最后一个 \tn{hfil}。见 \url{https://tex.stackexchange.com/q/169689}。
+% |#2| 需要完全展开以避免 underfull 警告。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_spread_box:nn #1#2
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1}
+      { \tl_map_inline:xn {#2} { ##1 \hfil } \unskip }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_center_box:nn,\@@_center_box:Vn}
+% 居中对齐的水平盒子。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_center_box:nn #1#2
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn {#1} { \hfil #2 \hfil }
+  }
+\cs_generate_variant:Nn \@@_center_box:nn  { Vn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fixed_width_box:nn}
+% 限宽盒子（允许换行）。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fixed_width_box:nn #1#2
+  { \parbox {#1} {#2} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fixed_width_center_box:nn}
+% 居中对齐的限宽盒子（允许换行）。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fixed_width_center_box:nn #1#2
+  { \parbox {#1} { \centering #2 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_get_text_width:Nn,\@@_get_text_width:NV}
+% 获取文本宽度，并存入 |dim| 型变量。
+% \begin{arguments}
+%   \item |dim| 型变量
+%   \item 内容
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_text_width:Nn #1#2
+  {
+    \hbox_set:Nn \l_@@_tmpa_box {#2}
+    \dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
+  }
+\cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_get_max_text_width:NN}
+% \changes{v0.6}{2017/11/24}{移除不必要的字号设置。}
+% 获取多个文本中的最大宽度，并存入 |dim| 型变量。
+% \begin{arguments}
+%   \item |dim| 型变量
+%   \item 文本 |clist|
+% \end{arguments}
+% 当 \cs{l_@@_tmpa_clist} 非空时，弹出最后一个元素
+% 赋给 \cs{l_@@_tmpa_tl}，获取其长度后与 |#1| 进行比较，
+% 二者中较大的那一个将成为 |#1| 的新值。
+% 不断循环，直至 \cs{l_@@_tmpa_clist} 为空。
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_max_text_width:NN #1#2
+  {
+%    \end{macrocode}
+% 这里用 |group| 确保局部变量不会被污染。
+%    \begin{macrocode}
+    \group_begin:
+      \clist_set_eq:NN \l_@@_tmpa_clist #2
+      \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
+        {
+          \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
+          \@@_get_text_width:NV \l_@@_tmpa_dim \l_@@_tmpa_tl
+          \dim_gset:Nn #1 { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
+        }
+    \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_blank_underline:n}
+% \changes{v0.4}{2017/08/14}{改用 \tn{rule} 绘制下划线，不再依赖
+%   \pkg{ulem} 宏包。}
+% 下划线占位符。|#1|: 长度。
+%    \begin{macrocode}
+\cs_new:Npn \@@_blank_underline:n #1
+  { \rule [ -0.5 ex ] {#1} { 0.4 pt } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_line_spread:N,\@@_line_spread:n}
+% 设置行距。|#1|: 行距倍数 |fp| 变量。
+%    \begin{macrocode}
+\cs_new:Npn \@@_line_spread:N #1
+  { \linespread { \fp_use:N #1 } \selectfont }
+\cs_new:Npn \@@_line_spread:n #1
+  { \linespread {#1} \selectfont }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{封面各部件}
+%
+% \changes{v0.5}{2017/09/19}{使用 \pkg{expl3} 以及内部函数改写
+%   封面，减少对 \LaTeXe{} 的依赖。}
+%
+% \begin{macro}{\@@_cover_id:,\@@_cover_id_aux:n}
+% 右上角的学校代码和学号。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_id:
+  {
+    \@@_fixed_width_box:nn { 120 pt }
+      {
+        \bool_if:NT \l_@@_secret_bool
+          {
+            \group_begin:
+              \sffamily
+              \@@_cover_id_aux:n { secret_level }
+              \c_@@_name_secret_star_tl
+              \l_@@_info_secret_year_tl
+            \group_end:
+            \par
+          }
+        \@@_cover_id_aux:n { school_id  } \par
+        \@@_cover_id_aux:n { student_id }
+      }
+%    \end{macrocode}
+% 插入一个宽度为负的水平盒子以减少右侧边距。
+%    \begin{macrocode}
+    \hbox_to_wd:nn { -24 pt } { }
+  }
+\cs_new:Npn \@@_cover_id_aux:n #1
+  {
+    \tl_use:c { c_@@_name_ #1 _tl }
+    \c_@@_fwid_colon_tl
+    \tl_use:c { l_@@_info_ #1 _tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_logo:}
+% 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
+% 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_logo:
+  {
+    \clist_pop:NN   \l_@@_cover_logo_size_clist \l_@@_tmpa_tl
+    \clist_pop:NNTF \l_@@_cover_logo_size_clist \l_@@_tmpb_tl
+      {
+        \tl_if_empty:NTF \l_@@_tmpa_tl
+          { \includegraphics [ height = \l_@@_tmpb_tl ] }
+          {
+            \includegraphics
+              [ width  = \l_@@_tmpa_tl, height = \l_@@_tmpb_tl ]
+          }
+      }
+      { \includegraphics [ width = \l_@@_tmpa_tl ] }
+    { \l_@@_cover_logo_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_type:}
+% 论文类型。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_type:
+  {
+    \tl_set:Nx \l_@@_tmpa_tl
+      {
+        \clist_item:Nn \c_@@_thesis_type_clist
+          { \g_@@_thesis_type_int }
+      }
+    \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_degree:}
+% \changes{v0.7c}{2019/03/12}{允许博士学位论文使用学位类型。}
+% 学位类型。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_degree:
+  {
+    \int_compare:nT { \g_@@_thesis_type_int != 3 }
+      {
+        \c_@@_fwid_left_paren_tl
+        \clist_item:Nn \c_@@_degree_type_clist
+          { \l_@@_info_degree_type_int }
+        \c_@@_fwid_right_paren_tl
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_info:}
+% 信息栏。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_info:
+  {
+    \begin{minipage} [ c ] { \textwidth }
+      \centering \zihao { 4 }
+%    \end{macrocode}
+% 读取左侧名称字段。
+%    \begin{macrocode}
+      \clist_set:Nx \l_@@_tmpa_clist
+        {
+          \c_@@_name_department_tl,
+          \c_@@_name_major_tl,
+          \c_@@_name_author_tl,
+          \c_@@_name_supervisor_tl,
+          \c_@@_name_date_tl,
+        }
+%    \end{macrocode}
+% 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
+% \cs{l_@@_tmpb_dim}。
+%    \begin{macrocode}
+      \clist_set:Nx \l_@@_tmpb_clist
+        {
+          { \l_@@_info_department_tl },
+          { \l_@@_info_major_tl      },
+          { \l_@@_info_author_tl     },
+          { \l_@@_info_supervisor_tl },
+          { \l_@@_info_date_tl       }
+        }
+      \@@_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
+%    \end{macrocode}
+% 用循环输出各字段。
+%    \begin{macrocode}
+      \bool_until_do:nn
+        { \clist_if_empty_p:N \l_@@_tmpa_clist }
+        {
+          \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
+          \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
+          \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
+          \c_@@_fwid_colon_tl
+          \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
+          \skip_vertical:n { 1 ex }
+        }
+    \end{minipage}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_signature:N}
+% 签名行。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_signature:N #1
+  {
+    \clist_map_inline:Nn #1
+      {
+        ##1 \c_@@_fwid_colon_tl
+        \@@_blank_underline:n { 6 em }
+        \@@_quad:
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{封面模板}
+%
+% \changes{v0.7}{2018/02/27}{使用 \pkg{xtemplate} 重构封面布局。}
+%
+% 声明封面对象。不需要带参数。
+%    \begin{macrocode}
+%<@@=fdu_cover>
+\DeclareObjectType { fdu / cover } { \c_zero_int }
+%    \end{macrocode}
+%
+% \begin{macro}{\DeclareCoverTemplate,\fdu_cover_declare_template:nn}
+% 声明封面模板。
+% \begin{arguments}
+%   \item 模板名称
+%   \item 封面部件列表，以逗号分隔
+% \end{arguments}
+%    \begin{macrocode}
+\NewDocumentCommand \DeclareCoverTemplate { m m }
+  { \fdu_cover_declare_template:nn {#1} {#2} }
+\cs_new_protected:Npn \fdu_cover_declare_template:nn #1#2
+  {
+    \tl_set:Nn \l_@@_template_tl {#1}
+%    \end{macrocode}
+% 构建模板接口。
+%    \begin{macrocode}
+    \@@_declare_template_interface:nx {#1}
+      {
+        format      : tokenlist,
+        top-skip    : skip,
+        bottom-skip : skip,
+        \clist_map_function:nN {#2} \@@_key_type:n
+      }
+%    \end{macrocode}
+% 声明所用变量。
+%    \begin{macrocode}
+    \tl_new:c   { l_@@ / #1 / format_tl   }
+    \skip_new:c { l_@@ / #1 / top_skip    }
+    \skip_new:c { l_@@ / #1 / bottom_skip }
+    \clist_map_inline:nn {#2}
+      {
+        \tl_new:c   { l_@@ / #1 / ##1 / content_tl  }
+        \tl_new:c   { l_@@ / #1 / ##1 / format_tl   }
+        \skip_new:c { l_@@ / #1 / ##1 / bottom_skip }
+      }
+%    \end{macrocode}
+% 声明模板代码。^^A 以下名字空间为 `fdu_cover' 而非 `fdu'
+%    \begin{macrocode}
+    \@@_declare_template_code:nxn {#1}
+      {
+        format      = \exp_not:c { l_@@ / #1 / format_tl   },
+        top-skip    = \use:c     { l_@@ / #1 / top_skip    },
+        bottom-skip = \use:c     { l_@@ / #1 / bottom_skip },
+        \clist_map_function:nN {#2} \@@_key_binding:n
+      }
+      {
+        \AssignTemplateKeys
+        \tl_use:c       { l_@@ / #1 / format_tl }
+        \__fdu_vspace:c { l_@@ / #1 / top_skip  }
+        \clist_map_inline:nn {#2}
+          {
+            \use:c { @@ / #1 / ####1 / align:n }
+              {
+                \tl_use:c { l_@@ / #1 / ####1 / format_tl  }
+                \tl_use:c { l_@@ / #1 / ####1 / content_tl }
+                \par
+              }
+            \__fdu_vspace:c { l_@@ / #1 / ####1 / bottom_skip }
+          }
+        \__fdu_vspace:c { l_@@ / #1 / bottom_skip }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\l_@@_template_tl}
+% 保存模板名称。
+%    \begin{macrocode}
+\tl_new:N \l_@@_template_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_declare_template_interface:nn,
+%   \@@_declare_template_code:nnn,
+%   \@@_declare_template_interface:nx,
+%   \@@_declare_template_code:nxn}
+% 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_declare_template_interface:nn #1#2
+  { \DeclareTemplateInterface { fdu / cover } {#1} { \c_zero_int } {#2} }
+\cs_new_protected:Npn \@@_declare_template_code:nnn #1#2#3
+  { \DeclareTemplateCode { fdu / cover } {#1} { \c_zero_int } {#2} {#3} }
+\cs_generate_variant:Nn \@@_declare_template_interface:nn { nx  }
+\cs_generate_variant:Nn \@@_declare_template_code:nnn     { nxn }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_key_type:n}
+%    \begin{macrocode}
+\cs_new:Npn \@@_key_type:n #1
+  {
+    #1 / content     : tokenlist,
+    #1 / format      : tokenlist,
+    #1 / bottom-skip : skip,
+    #1 / align       : choice { left, right, center, normal } = normal,
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_key_binding:n}
+%    \begin{macrocode}
+\cs_new:Npn \@@_key_binding:n #1
+  {
+    #1 / content     =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / content_tl  },
+    #1 / format      =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / format_tl   },
+    #1 / bottom-skip =
+      \exp_not:c
+        { l_@@ / \l_@@_template_tl / #1 / bottom_skip },
+    #1 / align       =
+      {
+        left   =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \flushleft ##1 \endflushleft
+                  \group_end:
+                }
+            },
+        right  =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \flushright ##1 \endflushright
+                  \group_end:
+                }
+            },
+        center =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            {
+              \exp_not:n
+                {
+                  \group_begin:
+                    \center ##1 \endcenter
+                  \group_end:
+                }
+            },
+        normal =
+          \exp_not:N \cs_set_protected:cpn
+            { @@ / \l_@@_template_tl / #1 / align:n }
+            \exp_not:n {##1}
+            { \exp_not:n { \group_begin: ##1 \group_end: } }
+      },
+  }
+%<@@=fdu>
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{绘制封面}
+%
+% \begin{macro}{\makecoveri,\makecoverii,\makecoveriii}
+% 使用实例（instance）构建封一、封二、封三。
+%    \begin{macrocode}
+\NewDocumentCommand \makecoveri { }
+  {
+    \thispagestyle { empty }
+    \UseInstance { fdu / cover } { cover-i-default }
+  }
+\NewDocumentCommand \makecoverii { }
+  {
+    \thispagestyle { empty }
+    \UseInstance { fdu / cover } { cover-ii-default }
+  }
+\NewDocumentCommand \makecoveriii { }
+  {
+    \cleardoublepage
+    \thispagestyle { empty }
+    \UseInstance { fdu / cover } { cover-iii-default }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 声明各封面模板组成部分。
+%    \begin{macrocode}
+\DeclareCoverTemplate { cover-i   }
+  { id, logo, type, degree, title, title-en, info }
+\DeclareCoverTemplate { cover-ii  } { title, name-list }
+\DeclareCoverTemplate { cover-iii }
+  {
+    originality-decl-name,
+    originality-decl-text,
+    originality-decl-sig,
+    authorization-decl-name,
+    authorization-decl-text,
+    authorization-decl-sig
+  }
+%    \end{macrocode}
+%
+% 定义封面的具体配置参数。
+%    \begin{macrocode}
+\DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
+  {
+%<class-en>    format                 =
+%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
+    bottom-skip            = 0 pt plus 1.5 fill,
+    id       / content     = \@@_cover_id:,
+    logo     / content     = \@@_cover_logo:,
+    type     / content     = \@@_cover_type:,
+    degree   / content     = \@@_cover_degree:,
+    title    / content     =
+      \@@_fixed_width_center_box:nn
+        { 0.9 \textwidth } { \l_@@_info_title_tl },
+    title-en / content     =
+      \@@_fixed_width_center_box:nn
+        { 0.9 \textwidth } { \l_@@_info_title_en_tl },
+    info     / content     = \@@_cover_info:,
+    id       / format      = \zihao { -5 },
+    type     / format      = \zihao {  2 },
+    degree   / format      = \zihao {  4 },
+    title    / format      = \zihao { -2 } \sffamily,
+    title-en / format      =
+      \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
+    id       / bottom-skip = 0 pt plus 1.6 fill,
+    logo     / bottom-skip = 0 pt plus 0.3 fill,
+    type     / bottom-skip = -18 pt,
+    degree   / bottom-skip = 0 pt plus 0.8 fill,
+    title-en / bottom-skip = 0 pt plus 2.5 fill,
+    id       / align       = right,
+    logo     / align       = center,
+    type     / align       = center,
+    degree   / align       = center,
+    title    / align       = center,
+    title-en / align       = center,
+    info     / align       = center,
+  }
+\DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
+  {
+%<class-en>    format              =
+%<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
+    title     / content =
+      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
+    name-list / content =
+      \clist_use:Nn \l_@@_info_instructors_clist { \par },
+    title     / format  = \zihao { 2 } \sffamily,
+    name-list / format  = \large,
+    title     / align   = center,
+    name-list / align   = center,
+  }
+\DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
+  {
+    format                                =
+%<class>      \@@_line_spread:n { 1.8 },
+%<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
+    top-skip                              = 0 pt plus 0.2 fill,
+    bottom-skip                           = 0 pt plus 2.5 fill,
+    originality-decl-name   / content     = \c_@@_name_orig_decl_tl,
+    originality-decl-text   / content     = \c_@@_orig_decl_text_tl,
+    originality-decl-sig    / content     =
+      \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
+    authorization-decl-name / content     = \c_@@_name_auth_decl_tl,
+    authorization-decl-text / content     = \c_@@_auth_decl_text_tl,
+    authorization-decl-sig  / content     =
+      \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
+    originality-decl-name   / format      =
+      \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
+    authorization-decl-name / format      =
+      \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
+    originality-decl-name   / bottom-skip = 0.4 cm,
+    originality-decl-text   / bottom-skip = 0.4 cm,
+    originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
+    authorization-decl-name / bottom-skip = 0.4 cm,
+    authorization-decl-text / bottom-skip = 0.4 cm,
+    originality-decl-name   / align       = center,
+    originality-decl-sig    / align       = right,
+    authorization-decl-name / align       = center,
+    authorization-decl-sig  / align       = right,
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{style/auto-make-cover}
+% \begin{variable}{\l_@@_auto_make_cover_bool}
+% 是否自动生成封面。
+%    \begin{macrocode}
+\bool_new:N \l_@@_auto_make_cover_bool
+\keys_define:nn { fdu / style }
+  {
+    auto-make-cover .bool_set:N = \l_@@_auto_make_cover_bool,
+    auto-make-cover .default:n  = true
+  }
+%    \end{macrocode}
+% \end{variable}
+% \end{macro}
+%
+% 在 \env{document} 开始位置添加封面以及指导小组成员名单。
+%    \begin{macrocode}
+\AtBeginDocument
+  {
+    \bool_if:NT \l_@@_auto_make_cover_bool
+      {
+        \begin{titlepage}
+          \makecoveri \newpage \makecoverii
+        \end{titlepage}
+      }
+  }
+%    \end{macrocode}
+%
+% 在 \env{document} 结束位置添加声明页。
+%    \begin{macrocode}
+\AtEndDocument
+  { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
+%    \end{macrocode}
+%

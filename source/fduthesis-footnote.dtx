@@ -1,0 +1,268 @@
+% \subsection{脚注}
+%
+% \changes{v0.3}{2017/02/21}{支持脚注。}
+%
+% \subsubsection{编号样式}
+%
+% 各种脚注编号样式的名称。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { plain           } { plain           },
+    { libertinus      } { libertinus      },
+    { libertinus_neg  } { libertinus*     },
+    { libertinus_sans } { libertinus-sans },
+    { pifont          } { pifont          },
+    { pifont_neg      } { pifont*         },
+    { pifont_sans     } { pifont-sans     },
+    { pifont_sans_neg } { pifont-sans*    },
+    { xits            } { xits            },
+    { xits_sans       } { xits-sans       },
+    { xits_sans_neg   } { xits-sans*      }
+  }
+  { \@@_define_fn_style:nn #1 }
+%    \end{macrocode}
+%
+% \begin{variable}{\l_@@_fn_style_tl}
+% 保存当前使用的脚注编号样式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_fn_style_tl
+%    \end{macrocode}
+% \end{variable}
+%
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{style/footnote-style}
+% 脚注类型共分四大类：
+% \begin{itemize}
+%   \item \opt{plain}：使用当前字体；
+%   \item \opt{libertinus}：取自 Libertinus Serif 和 Libertinus Sans
+%     字体；
+%   \item \opt{pifont}：使用 \pkg{pifont} 宏包；
+%   \item \opt{xits}：取自 XITS 字体。
+% \end{itemize}
+% 不带任何修饰的为衬线阳文符号，带“|sans|”的为无衬线符号，带“|*|”的
+% 为阴文版本。
+%    \begin{macrocode}
+    footnote-style .choices:nn =
+      {
+        plain,
+        libertinus, libertinus*, libertinus-sans,
+        pifont,     pifont*,     pifont-sans,     pifont-sans*,
+        xits,                    xits-sans,       xits-sans*
+      }
+%    \end{macrocode}
+% \changes{v0.6}{2017/11/12}{不再依赖 XITS-Math 字体。}
+% 若使用 \opt{pifont} 类型，则需引入 \pkg{pifont} 宏包。
+%    \begin{macrocode}
+      {
+        \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
+        \int_compare:nT { 5 <= \l_keys_choice_int <= 8 }
+          { \RequirePackage { pifont } }
+      },
+    footnote-style .value_required:n = true
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_libertinus:n}
+% \opt{libertinus} 普通版。\numrange{1}{20} 为数字，\numrange{21}{46}
+% 为小写英文字母，\numrange{47}{72} 为大写英文字母。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_libertinus:n #1
+  {
+    \int_compare:nTF { #1 >= 21 }
+      {
+        \int_compare:nTF { #1 >= 47 }
+          { \@@_symbol:n { \int_eval:n { "24B6 - 47 + #1 } } }
+          { \@@_symbol:n { \int_eval:n { "24D0 - 21 + #1 } } }
+      }
+      { \@@_symbol:n { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_libertinus_neg:n}
+% \opt{libertinus} 阴文衬线版。只含 \numrange{1}{20}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_libertinus_neg:n #1
+  {
+    \int_compare:nTF { #1 >= 11 }
+      { \@@_symbol:n { \int_eval:n { "24EB - 11 + #1 } } }
+      { \@@_symbol:n { \int_eval:n { "2776 -  1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_libertinus_sans:n}
+% \opt{libertinus} 阳文无衬线版。符号排列与普通版相同。
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n
+  \@@_fn_symbol_libertinus:n
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_pifont:n}
+% \opt{pifont} 普通版。以下四种都只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_pifont:n #1
+  { \ding { \int_eval:n { 171 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_pifont_neg:n}
+% \opt{pifont} 阴文衬线版。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_pifont_neg:n #1
+  { \ding { \int_eval:n { 181 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_pifont_sans:n}
+% \opt{pifont} 阳文无衬线版。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_pifont_sans:n #1
+  { \ding { \int_eval:n { 191 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_pifont_sans_neg:n}
+% \opt{pifont} 阴文无衬线版。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_pifont_sans_neg:n #1
+  { \ding { \int_eval:n { 201 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_xits:n}
+% \opt{xits} 普通版。\numrange{1}{9} 为数字，\numrange{10}{35}
+% 为小写英文字母，\numrange{36}{61} 为大写英文字母。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_xits:n #1
+  {
+    \int_compare:nTF { #1 >= 10 }
+      {
+        \int_compare:nTF { #1 >= 36 }
+          { \@@_symbol:n { \int_eval:n { "24B6 - 36 + #1 } } }
+          { \@@_symbol:n { \int_eval:n { "24D0 - 10 + #1 } } }
+      }
+      { \@@_symbol:n { \int_eval:n { "2460 - 1 + #1 } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_xits_sans:n}
+% \opt{xits} 阳文无衬线版。只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_xits_sans:n #1
+  { \@@_symbol:n { \int_eval:n { "2780 - 1 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_fn_symbol_xits_sans_neg:n}
+% \opt{xits} 阴文无衬线版。也只包含 \numrange{1}{10}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_fn_symbol_xits_sans_neg:n #1
+  { \@@_symbol:n { \int_eval:n { "278A - 1 + #1 } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\thefootnote}
+% \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
+% 重定义脚注编号。
+%    \begin{macrocode}
+\cs_set:Npn \thefootnote { \fdu_footnote_number:N \c@footnote }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_footnote_number:N}
+% 脚注编号样式。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_footnote_number:N #1
+  {
+    \tl_case:NnF \l_@@_fn_style_tl
+      {
+%    \end{macrocode}
+% \opt{plain} 类型直接使用计数器 |footnote| 的值。
+%    \begin{macrocode}
+        \c_@@_fn_style_plain_tl
+          { \int_use:N #1 }
+%    \end{macrocode}
+% \opt{libertinus} 类型需要使用 Libertinus Serif 或
+% Libertinus Sans 字体。
+%    \begin{macrocode}
+        \c_@@_fn_style_libertinus_tl
+          {
+            \fontspec { libertinusserif-regular.otf }
+            \@@_fn_symbol_libertinus:n {#1}
+          }
+        \c_@@_fn_style_libertinus_neg_tl
+          {
+            \fontspec { libertinusserif-regular.otf }
+            \@@_fn_symbol_libertinus_neg:n {#1}
+          }
+        \c_@@_fn_style_libertinus_sans_tl
+          {
+            \fontspec { libertinussans-regular.otf }
+            \@@_fn_symbol_libertinus_sans:n {#1}
+          }
+%    \end{macrocode}
+% \opt{pifont} 类型无需进行额外的操作。
+%    \begin{macrocode}
+        \c_@@_fn_style_pifont_tl
+          { \@@_fn_symbol_pifont:n {#1} }
+        \c_@@_fn_style_pifont_neg_tl
+          { \@@_fn_symbol_pifont_neg:n {#1} }
+        \c_@@_fn_style_pifont_sans_tl
+          { \@@_fn_symbol_pifont_sans:n {#1} }
+        \c_@@_fn_style_pifont_sans_neg_tl
+          { \@@_fn_symbol_pifont_sans_neg:n {#1} }
+%    \end{macrocode}
+% \opt{xits} 类型需要临时切换数学字体。
+%    \begin{macrocode}
+        \c_@@_fn_style_xits_tl
+          {
+            \fontspec { XITS-Regular.otf }
+            \@@_fn_symbol_xits:n {#1}
+          }
+        \c_@@_fn_style_xits_sans_tl
+          {
+            \fontspec { XITS-Regular.otf }
+            \@@_fn_symbol_xits_sans:n {#1}
+          }
+        \c_@@_fn_style_xits_sans_neg_tl
+          {
+            \fontspec { XITS-Regular.otf }
+            \@@_fn_symbol_xits_sans_neg:n {#1}
+          }
+      }
+%    \end{macrocode}
+% 变量 \cs{l_@@_fn_style_tl} 保存的类型未知时，默认使用 \opt{plain}
+% 类型。
+%    \begin{macrocode}
+      { \int_use:N #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{整体样式}
+%
+% \begin{macro}[int]{\@makefntext}
+% \changes{v0.7}{2018/01/18}{简化实现，兼容 \pkg{fancyvrb} 宏包。
+%   不再使用悬挂缩进。}
+% 重定义内部脚注文字命令，使脚注编号不使用上标，宽度为 \SI{1.5}{em}。
+% 见 \url{http://tex.stackexchange.com/q/19844} 和
+% \url{https://www.zhihu.com/question/53030087}。
+%    \begin{macrocode}
+\cs_set:Npn \@makefntext #1
+  {
+    \mode_leave_vertical:
+    \hbox_to_wd:nn { 1.5 em } { \@thefnmark \hfil }
+    #1
+  }
+%    \end{macrocode}
+% \end{macro}
+%

@@ -1,0 +1,244 @@
+% \subsection{参考文献著录与引用}
+%
+% \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
+%   与引用。}
+% \changes{v0.7}{2018/01/25}{支持 \biber{} 与 \pkg{biblatex}。}
+%
+% \begin{variable}{\l_@@_bibtex_bool}
+% 是否使用 \BibTeX{} 作为参考文献处理程序。若为否，则使用
+% \pkg{biblatex}/\biber{}。
+%    \begin{macrocode}
+\bool_new:N \l_@@_bibtex_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_bib_style_tl,\l_@@_bib_gb_style_tl,
+%   \l_@@_cite_style_tl}
+% 保存参考文献及引用样式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_bib_style_tl
+\tl_new:N \l_@@_bib_gb_style_tl
+\tl_new:N \l_@@_cite_style_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_bib_resource_tl}
+% 保存参考文献数据库列表。
+%    \begin{macrocode}
+\tl_new:N \l_@@_bib_resource_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \changes{v0.6}{2017/10/28}{新增 \opt{style/bib-style} 选项。}
+% \changes{v0.7}{2018/01/25}{新增 \opt{style/bib-backend}、\opt{style/cite-style}
+%   和 \opt{style/bib-resource} 选项。}
+%
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%    \end{macrocode}
+% \begin{macro}{style/bib-backend}
+% 参考文献后端。
+%    \begin{macrocode}
+    bib-backend .choice:,
+    bib-backend .value_required:n = true,
+    bib-backend / bibtex   .code:n =
+      { \bool_set_true:N  \l_@@_bibtex_bool },
+    bib-backend / biblatex .code:n =
+      { \bool_set_false:N \l_@@_bibtex_bool },
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{style/bib-style}
+% 参考文献样式。
+%    \begin{macrocode}
+    bib-style .choice:,
+    bib-style .value_required:n = true,
+    bib-style / numerical    .code:n =
+      {
+        \tl_set:Nn  \l_@@_bib_gb_style_tl { numerical  }
+        \tl_clear:N \l_@@_bib_style_tl
+      },
+    bib-style / author-year .code:n =
+      {
+        \tl_set:Nn  \l_@@_bib_gb_style_tl { author-year }
+        \tl_clear:N \l_@@_bib_style_tl
+      },
+    bib-style / unknown     .code:n =
+      { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl },
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{style/cite-style}
+% 引用样式。
+%    \begin{macrocode}
+    cite-style .code:n =
+      {
+        \bool_if:NTF \l_@@_bibtex_bool
+          { \@@_warning:n { cite-style-not-available } }
+          { \tl_set:Nn \l_@@_cite_style_tl {#1} }
+      },
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{style/bib-resource}
+% 参考文献数据源。
+%    \begin{macrocode}
+    bib-resource .tl_set:N = \l_@@_bib_resource_tl
+  }
+\@@_msg_new:nn { cite-style-not-available }
+  { Option~ "cite-style"~ is~ not~ available~ in~ BibTeX. }
+%    \end{macrocode}
+% \end{macro}
+%
+% 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包均需要在
+% 导言区末尾载入（仍在 \pkg{hyperref} 之前），并做相关设置。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \bool_if:NTF \l_@@_bibtex_bool
+      {
+        \RequirePackage [ sort & compress ] { natbib }
+        \@@_bibtex_setup:
+      }
+      {
+        \@@_biblatex_pre_setup:
+        \RequirePackage { biblatex }
+        \@@_biblatex_post_setup:
+      }
+  }
+%    \end{macrocode}
+%
+% \changes{v0.7}{2018/01/25}{统一使用 \cs{printbibliography} 命令
+%   生成参考文献列表。}
+% \changes{v0.7d}{2019/03/23}{使参考文献在目录中正常显示。}
+%
+% \begin{macro}{\@@_bibtex_setup:,\bibsection,\printbibliography}
+% \BibTeX{} 相关设置。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_bibtex_setup:
+  {
+    \tl_if_empty:NTF \l_@@_bib_style_tl
+      {
+        \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
+          {
+            \bibliographystyle { gbt7714-unsrt }
+            \@@_set_cite_style_numerical:
+          }
+          {
+            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
+              {
+                \bibliographystyle { gbt7714-plain }
+                \@@_set_cite_style_author_year:
+                \cs_set_eq:NN \cite \citep
+              }
+          }
+      }
+      { \exp_args:NV \bibliographystyle \l_@@_bib_style_tl }
+%    \end{macrocode}
+% 修改参考文献标题。
+%    \begin{macrocode}
+    \cs_set:Npn \bibsection { \@@_chapter:V \bibname }
+%    \end{macrocode}
+% \BibTeX{} 下接口与 \pkg{biblatex} 保持统一。
+%    \begin{macrocode}
+    \NewDocumentCommand \printbibliography { o }
+      {
+        \exp_args:NV \bibliography \l_@@_bib_resource_tl
+        \IfValueT {##1}
+          { \@@_warning:nn { invalid-option-in-bibtex } {##1} }
+      }
+  }
+\@@_msg_new:nn { invalid-option-in-bibtex }
+  { Option(s)~ "#1"~ are~ invalid~ in~ BibTeX. }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \@@_biblatex_pre_setup:,
+%   \@@_biblatex_post_setup:,
+%   \@@_pass_options_to_biblatex:n}
+% \pkg{biblatex} 相关设置。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_biblatex_pre_setup:
+  {
+%    \end{macrocode}
+% 参考文献样式。
+%    \begin{macrocode}
+    \tl_if_empty:NTF \l_@@_bib_style_tl
+      {
+        \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
+          { \@@_pass_options_to_biblatex:n { style = gb7714-2015 } }
+          {
+            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
+              { \@@_pass_options_to_biblatex:n { style = gb7714-2015ay } }
+          }
+      }
+      { \@@_pass_options_to_biblatex:n { style = \l_@@_bib_style_tl } }
+%    \end{macrocode}
+% 引用样式。
+%    \begin{macrocode}
+    \tl_if_empty:NF \l_@@_cite_style_tl
+      { \@@_pass_options_to_biblatex:n { citestyle = \l_@@_bib_style_tl } }
+    \@@_pass_options_to_biblatex:n { backend = biber, hyperref = manual, natbib }
+  }
+\cs_new_protected:Npn \@@_biblatex_post_setup:
+  {
+    \exp_args:NV \addbibresource \l_@@_bib_resource_tl
+    \@@_biblatex_allow_url_break:
+%    \end{macrocode}
+% 修改参考文献标题。
+%    \begin{macrocode}
+    \defbibheading { bibliography } [ \bibname ] { \@@_chapter:n {##1} }
+%<*class-en>
+    \exp_args:Nnx \DefineBibliographyStrings { english }
+      { bibliography = { \c_@@_name_bib_en_tl } }
+%</class-en>
+  }
+\cs_new_protected:Npn \@@_pass_options_to_biblatex:n #1
+  { \PassOptionsToPackage {#1} { biblatex } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_biblatex_allow_url_break:}
+% \pkg{biblatex} 下允许 URL 在字母、数字和一些特殊符号处断行。
+%    \begin{macrocode}
+\cs_new:Npn \@@_biblatex_allow_url_break:
+  {
+    \int_set_eq:NN \c@biburlucpenalty  \c_one_int
+    \int_set_eq:NN \c@biburlnumpenalty \c_one_int
+    \int_set_eq:NN \c@biburllcpenalty  \c_one_int
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_cite_style_numerical:}
+% 顺序编码制下的引用样式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_cite_style_numerical:
+  {
+    \NAT@numberstrue \NAT@supertrue
+    \cs_set:Npn \NAT@open  { [  }
+    \cs_set:Npn \NAT@close { ]  }
+    \cs_set:Npn \NAT@sep   { ,~ }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_cite_style_author_year:}
+% 著者—出版年制下的引用样式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_cite_style_author_year:
+  {
+    \NAT@numbersfalse
+%<*class>
+    \cs_set_eq:NN \NAT@open  \c_@@_fwid_left_paren_tl
+    \cs_set_eq:NN \NAT@close \c_@@_fwid_right_paren_tl
+    \cs_set_eq:NN \NAT@sep   \c_@@_fwid_semicolon_tl
+    \cs_set_eq:NN \NAT@aysep \c_@@_fwid_comma_tl
+    \cs_set_eq:NN \NAT@yrsep \c_@@_ideo_comma_tl
+%</class>
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7}{2018/01/25}{同步 \pkg{gbt7714} v1.0，移除有关超链接
+%   的额外设置。}
+%

@@ -1,0 +1,604 @@
+% \subsection{字体}
+%
+% \subsubsection{预定义字体配置}
+%
+% \changes{v0.7c}{2019/03/05}{重构字体配置，并兼容 macOS。}
+%
+% \begin{variable}{\g_@@_font_set_tl, \g_@@_cjk_font_set_tl}
+% 存放字体选项值。
+%    \begin{macrocode}
+\tl_new:N \g_@@_font_set_tl
+%<class>\tl_new:N \g_@@_cjk_font_set_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{style/font}
+% \changes{v0.7c}{2019/03/05}{新增 \opt{garamond} 和 \opt{times*} 样式。}
+% 预定义西文字体。
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+    font .choices:nn =
+      { garamond, libertinus, lm, palatino, times, times*, none }
+      { \tl_set_eq:NN \g_@@_font_set_tl \l_keys_choice_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{style/cjk-font}
+% \changes{v0.7c}{2019/03/05}{新增 \opt{sinotype} 和 \opt{sourcehan} 样式。}
+% 预定义中文字体。
+%    \begin{macrocode}
+%<*class>
+\keys_define:nn { fdu / style }
+  {
+    cjk-font .choices:nn =
+      { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
+      { \tl_set_eq:NN \g_@@_cjk_font_set_tl \l_keys_choice_tl }
+  }
+%    \end{macrocode}
+%</class>
+% \end{macro}
+%
+% \begin{macro}{
+%   \@@_setmainfont:nn,
+%   \@@_setsansfont:nn,
+%   \@@_setmonofont:nn,
+%   \@@_setmathfont:nn}
+% 用于设置西文字体的辅助函数，来源于 \pkg{fontspec} 和 \pkg{unicode-math}。
+% \begin{arguments}
+%   \item 字体名
+%   \item 选项
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_setmainfont:nn #1#2
+  { \__fontspec_main_setmainfont:nn {#2} {#1} }
+\cs_new_protected:Npn \@@_setsansfont:nn #1#2
+  { \__fontspec_main_setsansfont:nn {#2} {#1} }
+\cs_new_protected:Npn \@@_setmonofont:nn #1#2
+  { \__fontspec_main_setmonofont:nn {#2} {#1} }
+\cs_new_protected:Npn \@@_setmathfont:nn #1#2
+  { \__um_setmathfont:nn {#2} {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \@@_setCJKmainfont:nn,
+%   \@@_setCJKsansfont:nn,
+%   \@@_setCJKmonofont:nn}
+% 用于设置中文字体的辅助函数，来源于 \pkg{xeCJK} 和 \pkg{ctex} 宏包。
+%    \begin{macrocode}
+%<*class>
+\cs_new_protected:Npn \@@_setCJKmainfont:nn #1#2
+  { \@@_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+\cs_new_protected:Npn \@@_setCJKsansfont:nn #1#2
+  { \@@_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+\cs_new_protected:Npn \@@_setCJKmonofont:nn #1#2
+  { \@@_set_family:nnn { \CJKttdefault } {#2} {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_cjk_font_kai:nn,\fdu@kai}
+% 楷体需要单独设置。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_set_cjk_font_kai:nn #1#2
+  { \@@_set_family:nnn { fdu@kai } {#2} {#1} }
+\cs_new_protected:Npn \fdu@kai
+  { \@@_switch_family:n { fdu@kai } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \@@_cjk_font_options:,
+%   \@@_setCJKmainfont:n,
+%   \@@_setCJKsansfont:n,
+%   \@@_setCJKmonofont:n,
+%   \@@_set_cjk_font_kai:n}
+% 将 bold、italic 和 bold italic 统一按照 roman 设置。
+%    \begin{macrocode}
+\tl_const:Nn \@@_cjk_font_options:
+ { UprightFont = *, BoldFont = *, ItalicFont = *, BoldItalicFont = * }
+\cs_new_protected:Npx \@@_setCJKmainfont:n   #1
+  { \@@_setCJKmainfont:nn   {#1} { \@@_cjk_font_options: } }
+\cs_new_protected:Npx \@@_setCJKsansfont:n   #1
+  { \@@_setCJKsansfont:nn   {#1} { \@@_cjk_font_options: } }
+\cs_new_protected:Npx \@@_setCJKmonofont:n   #1
+  { \@@_setCJKmonofont:nn   {#1} { \@@_cjk_font_options: } }
+\cs_new_protected:Npx \@@_set_cjk_font_kai:n #1
+  { \@@_set_cjk_font_kai:nn {#1} { \@@_cjk_font_options: } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_set_family:nnn,\@@_switch_family:n}
+% 封装 CJK 字体族的设定和切换命令。
+%    \begin{macrocode}
+\sys_if_engine_xetex:TF
+  {
+    \cs_new_eq:NN \@@_set_family:nnn  \xeCJK_set_family:nnn
+    \cs_new_eq:NN \@@_switch_family:n \xeCJK_switch_family:n
+  }
+  {
+    \cs_new_eq:NN \@@_set_family:nnn  \ctex_ltj_set_family:nnn
+    \cs_new_eq:NN \@@_switch_family:n \ctex_ltj_switch_family:n
+  }
+%</class>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \setmainfont,
+%   \setsansfont,
+%   \setmonofont,
+%   \setmathfont,
+%   \setCJKmainfont,
+%   \setCJKsansfont,
+%   \setCJKmonofont,
+%   \@@_set_font:n}
+% 重新定义以上宏包提供的字体选择命令。我们把它放在导言区末尾，使得用户配置不被
+% 模板配置覆盖。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_set_font_helper:n #1
+  {
+    \exp_args:Nc \RenewDocumentCommand { set #1 font } { O { } m O { } }
+      {
+        \ctex_at_end_preamble:n
+          { \use:c { @@_set #1 font:nn } {##2} { ##1, ##3 } }
+      }
+  }
+\clist_map_inline:nn { main, sans, mono, math    } { \@@_set_font_helper:n {#1} }
+%<class>\clist_map_inline:nn { CJKmain, CJKsans, CJKmono } { \@@_set_font_helper:n {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_garamond:}
+% EB Garamond 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_garamond:
+  {
+    \@@_setmainfont:nn { EBGaramond }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        BoldItalicFont = *-BoldItalic
+      }
+    \@@_setsansfont:nn { libertinussans }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setmonofont:nn { lmmonolt10 }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-oblique,
+        BoldItalicFont = *-boldoblique
+      }
+    \@@_setmathfont:nn { Garamond-Math.otf } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_libertinus:}
+% Libertinus 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_libertinus:
+  {
+    \@@_setmainfont:nn { libertinusserif }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setsansfont:nn { libertinussans }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setmonofont:nn { lmmonolt10 }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-oblique,
+        BoldItalicFont = *-boldoblique
+      }
+    \@@_setmathfont:nn { libertinusmath-regular.otf } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_lm:}
+% Latin Modern 系列。在 \XeLaTeX{} 和 \LuaLaTeX{} 中已作为默认字体，所以仅需
+% 额外处理数学部分。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_lm:
+  { \@@_setmathfont:nn { latinmodern-math.otf } { } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_palatino:}
+% Palatino 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_palatino:
+  {
+    \@@_setmainfont:nn { texgyrepagella }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setsansfont:nn { libertinussans }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic,
+        Scale          = MatchUppercase
+      }
+    \@@_setmonofont:nn { lmmonolt10 }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-oblique,
+        BoldItalicFont = *-boldoblique
+      }
+    \@@_setmathfont:nn { texgyrepagella-math.otf } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_times:}
+% Times 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_times:
+  {
+    \@@_setmainfont:nn { XITS }
+      {
+        Extension          = .otf,
+        UprightFont        = *-Regular,
+        BoldFont           = *-Bold,
+        ItalicFont         = *-Italic,
+        BoldItalicFont     = *-BoldItalic,
+        UprightFeatures    = { SmallCapsFont = *-Regular    },
+        BoldFeatures       = { SmallCapsFont = *-Bold       },
+        ItalicFeatures     = { SmallCapsFont = *-Italic     },
+        BoldItalicFeatures = { SmallCapsFont = *-BoldItalic }
+      }
+    \@@_setsansfont:nn { texgyreheros }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setmonofont:nn { texgyrecursor }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic,
+        Ligatures      = CommonOff
+      }
+    \@@_setmathfont:nn { XITSMath-Regular.otf }{ BoldFont = XITSMath-Bold.otf }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_times*:}
+% Times* 系列，出数学部分外采用系统字体。
+%    \begin{macrocode}
+\cs_new_protected:cpn { @@_load_font_ times* : }
+  {
+    \@@_setmainfont:nn { Times~ New~ Roman    } { }
+    \@@_setsansfont:nn { Arial                } { }
+    \@@_setmonofont:nn { Courier~ New         } { }
+    \@@_setmathfont:nn { XITSMath-Regular.otf }{ BoldFont = XITSMath-Bold.otf }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_adobe:}
+% Adobe 字库。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_adobe:
+  {
+    \@@_setCJKmainfont:n   { AdobeSongStd-Light       }
+    \@@_setCJKsansfont:n   { AdobeHeitiStd-Regular    }
+    \@@_setCJKmonofont:n   { AdobeFangsongStd-Regular }
+    \@@_set_cjk_font_kai:n { AdobeKaitiStd-Regular    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_fandol:}
+% Fandol 字库。注意它是安装在 TeX 发行版中的，所以使用文件名调用。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_fandol:
+  {
+    \@@_setCJKmainfont:nn   { FandolSong }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn   { FandolHei  }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKmonofont:nn   { FandolFang }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Regular,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Regular
+      }
+    \@@_set_cjk_font_kai:nn { FandolKai  }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Regular,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Regular
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_founder:}
+% 方正字库。虽然有粗体（方正小标宋）等，但并非免费，故这里不做处理。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_founder:
+  {
+    \@@_setCJKmainfont:n   { FZShuSong-Z01  }
+    \@@_setCJKsansfont:n   { FZHei-B01      }
+    \@@_setCJKmonofont:n   { FZFangSong-Z02 }
+    \@@_set_cjk_font_kai:n { FZKai-Z03      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_mac:}
+% macOS 自带中文字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_mac:
+  {
+    \@@_setCJKmainfont:nn   { STSongti-SC }
+      {
+        UprightFont    = *-Light,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Light,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn   { STHeitiSC   }
+      {
+        UprightFont    = *-Medium,
+        BoldFont       = *-Medium,
+        ItalicFont     = *-Medium,
+        BoldItalicFont = *-Medium
+      }
+    \@@_setCJKmonofont:n    { STFangsong  }
+    \@@_set_cjk_font_kai:nn { STKaitiSC   }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_sinotype:}
+% 华文字库。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_sinotype:
+  {
+    \@@_setCJKmainfont:n   { STSong     }
+    \@@_setCJKsansfont:n   { STHeiti    }
+    \@@_setCJKmonofont:n   { STFangsong }
+    \@@_set_cjk_font_kai:n { STKaiti    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_sourcehan:}
+% 思源宋体、思源黑体。由于没有对应的楷体和仿宋，这里直接给出警告。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_sourcehan:
+  {
+    \@@_setCJKmainfont:nn { SourceHanSerifSC }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn { SourceHanSansSC  }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_warning:n { source-han }
+  }
+\@@_msg_new:nn { source-han }
+  { Font~ set~ `sourcehan'~ does~ not~ contain~ kaiti~ and~ fangsong. }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_windows:}
+% Windows 自带中文字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_windows:
+  {
+    \@@_setCJKmainfont:n   { SimSun   }
+    \@@_setCJKsansfont:n   { SimHei   }
+    \@@_setCJKmonofont:n   { FangSong }
+    \@@_set_cjk_font_kai:n { KaiTi    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font:}
+% 字体加载命令。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font:
+  {
+    \use:c { @@_load_font_     \g_@@_font_set_tl     : }
+%<class>    \use:c { @@_load_cjk_font_ \g_@@_cjk_font_set_tl : }
+  }
+\ctex_at_end_preamble:n { \@@_load_font: }
+%    \end{macrocode}
+% \end{macro}
+%
+%^^A 以下相关代码已在 v0.7c 中移除。
+% \changes{v0.5}{2017/09/09}{重新实现字体调用。核心内容是分离字体的声明与设定，
+%   并按照宋、黑、仿、楷划分中文字体。}
+% \changes{v0.6}{2017/11/11}{额外处理 XITS 字体的小型大写字母。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjk-font}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
+% \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
+%
+% \subsubsection{数学字体设置}
+%
+% 根据 GB 3102.11--93 以及 ISO 80000-2:2009 的规定，数学表达式中
+% 表示变量的拉丁字母和希腊字母均应当使用斜体。
+% 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。
+%    \begin{macrocode}
+% TODO: (2018-01-19) Do we need `mathrm=sym`?
+\keys_set:nn { unicode-math }
+  {
+    math-style = ISO,
+    bold-style = ISO,
+%   mathrm     = sym
+  }
+%    \end{macrocode}
+%
+% \subsubsection{字号}
+%
+%    \begin{macrocode}
+\keys_define:nn { fdu / style }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{style/font-size}
+% |font-size| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
+% 只能手动重定义字号命令。
+%    \begin{macrocode}
+    font-size .choice:,
+    font-size .value_required:n = true,
+    font-size / -4 .code:n = { },
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tiny,\scriptsize,\footnotesize,\small,
+%   \normalsize,\large,\Large,\LARGE,\huge,\Huge}
+% 默认使用小四号字，所以只有五号字需要重新设置。
+%    \begin{macrocode}
+    font-size /  5 .code:n =
+      {
+        \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
+        \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
+        \RenewDocumentCommand \footnotesize { } { \zihao {  6 } }
+        \RenewDocumentCommand \small        { } { \zihao { -5 } }
+        \RenewDocumentCommand \normalsize   { } { \zihao {  5 } }
+        \RenewDocumentCommand \large        { } { \zihao { -4 } }
+        \RenewDocumentCommand \Large        { } { \zihao { -3 } }
+        \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
+        \RenewDocumentCommand \huge         { } { \zihao {  2 } }
+        \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
+%<class-en>      }
+%<class-en>  }
+%<*class>
+      },
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{句号}
+%
+% \begin{macro}{style/fullwidth-stop}
+% \changes{v0.6}{2017/10/14}{支持类别码和 TECKit 映射两种机制。}
+% 设置句号形状（圆圈或是圆点）。
+%    \begin{macrocode}
+    fullwidth-stop .choice:,
+    fullwidth-stop .value_required:n = true,
+%    \end{macrocode}
+% 利用类别码机制切换，只有显式的\FSID 会被替换。
+%    \begin{macrocode}
+    fullwidth-stop / catcode .code:n =
+      { \@@_set_fullwidth_stop_catcode: },
+%    \end{macrocode}
+% 利用 TECKit 映射机制切换，相当于设置了 \tn{defaultCJKfontfeatures}
+% |{|\kvopt{Map\-ping}{fullwidth-stop}|}|。这种手段会替换所有出现的\FSID，
+% 并且将影响所有字体。只在 \XeTeX{} 下可用。
+%    \begin{macrocode}
+    fullwidth-stop / mapping .code:n =
+      {
+        \sys_if_engine_xetex:TF
+          {
+            \clist_gset:Nn \g__xeCJK_default_features_clist
+              { Mapping = fullwidth-stop }
+          }
+          {
+%    \end{macrocode}
+% \LuaTeX{} 下改用类别码机制代替，并给出警告。
+%    \begin{macrocode}
+            \sys_if_engine_luatex:T
+              {
+                \@@_warning:n { mapping-not-available }
+                \@@_set_fullwidth_stop_catcode:
+              }
+          }
+      },
+    fullwidth-stop / false .code:n = { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 提示信息。
+%    \begin{macrocode}
+\@@_msg_new:nn { mapping-not-available }
+  {
+    Option~ "fullwidth-stop = mapping"~ is~ not~ available~ in~ LuaTeX. \\
+    "fullwidth-stop = catcode"~ will~ be~ set~ instead.
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_set_fullwidth_stop_catcode:}
+% 将\FSID 设置为活动符，并定义为句点\FSFW。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_fullwidth_stop_catcode:
+  {
+    \char_set_active_eq:nN { "3002 } \c_@@_fwid_full_stop_tl
+    \char_set_catcode_active:n { "3002 }
+  }
+%</class>
+%    \end{macrocode}
+% \end{macro}
+%

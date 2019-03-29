@@ -1,0 +1,2182 @@
+% \begin{documentation}
+%
+%^^A 用户手册的页边距
+%^^A+
+% \newgeometry{
+%   left   = 1.65 in,
+%   right  = 0.80 in,
+%   top    = 1.25 in,
+%   bottom = 1.00 in
+% }
+%
+%^^A-
+%
+% \section{介绍}
+%^^A! \section{Introduction}
+%^^A!
+%
+% 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板主要有以下这些：
+% \begin{itemize}
+%   \item 数学科学学院 2001 级的何力同学和李湛同学在 2005 年根据
+%     学校要求所设计的 \cls{毕业论文格式 tex04 版}，以及 2008 年
+%     张越同学修改之后的 \cls{毕业论文格式 tex08 版}，这是专为
+%     数院本科生撰写毕业论文而设计的
+%     \scite{数院毕业论文格式,数院毕业论文格式更新}；
+%   \item Pandoxie 编写的 \cls{FDU-Thesis-Latex}
+%     \scite{pandoxie2014fduthesislatex}，基本满足了博士（硕士）
+%     毕业论文格式要求，使用人数较多；
+%   \item richarddzh 编写的硕士论文模板 \cls{fudan-thesis}
+%     \scite{richard2016fudanthesis}。
+% \end{itemize}
+% 以上这些模板大都没有经过系统的设计，也鲜有后续维护。相比之下，
+% 清华大学 \scite{thuthesis}、重庆大学 \scite{cquthesis}、
+% 中国科学技术大学 \scite{ustcthesis} 中国科学院大学 \scite{ucasthesis}
+% 以及友校上海交通大学 \scite{sjtuthesis}等，都有成熟、
+% 稳定的解决方案，值得参考。
+%
+% 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
+% \scite{source3} 编写，以适应 \TeX{} 技术发展潮流；
+% 同时还将构建一套简洁的接口，方便用户使用。
+%^^A! \cls{fduthesis} is a thesis template for Fudan University.
+%^^A! This template is mostly written in \LaTeX3 syntax, and
+%^^A! provides a simple interface for users.
+%^^A!
+%
+% \subsection*{\LaTeX{} 入门}
+%^^A! \subsection*{Getting started with \LaTeX{}}
+%^^A!
+%
+% 本文档并非是一份 \LaTeX{} 零基础教程。如果您是完完全全的新手，
+% 建议先阅读相关入门文档，如刘海洋编著的《\LaTeX{} 入门》
+% \scite{刘海洋2013latex入门} 第一章，或大名鼎鼎的“\pkg{lshort}”
+% \scite{lshort} 及其中文翻译版 \scite{lshort-zh-cn}。当然，
+% 网络上的入门教程多如牛毛，您可以自行选取。
+%^^A! This documentation is \emph{not} a \LaTeX{} tutorial at
+%^^A! starter's level. If you are totally a newbie, please read some
+%^^A! introductions like the famous \pkg{lshort}. Of course, there
+%^^A! are countless \LaTeX{} tutorials on the Internet. You can
+%^^A! choose whatever you like.
+%^^A!
+%
+% \subsection*{关于本文档}
+%^^A! \subsection*{About this documentation}
+%^^A!
+%
+% 本文采用不同字体表示不同内容。无衬线字体表示宏包名称，如
+% \pkg{xeCJK} 宏包、\cls{fduthesis} 文档类等；等宽字体表示代码或
+% 文件名，如 \cs{fdusetup} 命令、\env{abstract} 环境、\TeX{} 文档
+% \file{thesis.tex} 等；带有尖括号的楷体（或西文斜体）表示命令参数，
+% 如 \meta{模板选项}、\meta{English title} 等。在使用时，参数两侧
+% 的尖括号不必输入。示例代码进行了语法高亮处理，以方便阅读。
+%^^A! In this documentation, different typefaces are used to
+%^^A! represent different contents. Packages and classes are shown
+%^^A! in sans-serif font, e.g.\ \pkg{xeCJK} package and
+%^^A! \cls{fduthesis} class. Commands and file names are shown in
+%^^A! monospaced font, e.g.\ command \cs{fdusetup}, environment
+%^^A! \env{abstract} and \TeX{} document \file{thesis.tex}.
+%^^A! Italic-shaped font with angle brackets outside means arguments,
+%^^A! e.g.\ \meta{English title}. However, you do not need to type
+%^^A! the brackets when using these commands. The example code has
+%^^A! proper syntax highlighting so it will be much easier to read.
+%^^A!
+%
+% 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线
+% 的则为命令行代码，请注意区分。模板提供的选项、命令、环境等，
+% 均用横线框起，同时给出使用语法和相关说明。
+%^^A! \LaTeX{} code lines will have a blue line on their left, while
+%^^A! for command lines there will be a pink line. The options,
+%^^A! commands and environments in \cls{fduthesis} will be surrounded
+%^^A! by two horizontal lines. Their usages and descriptions are
+%^^A! provided at the same time.
+%^^A!
+%
+% 本模板中的选项、命令或环境可以分为以下三类：
+% \begin{itemize}
+%   \item 名字后面带有 \rexptarget\rexpstar{} 的，表示只能在^^A
+%     \emph{中文模板}中使用；
+%   \item 名字后面带有 \exptarget\expstar{} 的，表示只能在^^A
+%     \emph{英文模板}中使用；
+%   \item 名字后面不带有特殊符号的，表示既可以在中文模板中使用，
+%     也可以在英文模板中使用。
+% \end{itemize}
+%^^A! The options, commands and environments in \cls{fduthesis} can be
+%^^A! divided into the following three types:
+%^^A! \begin{itemize}
+%^^A!   \item Those can be only used in \emph{Chinese templates} are
+%^^A!     indicated by \rexptarget\rexpstar{}.
+%^^A!   \item Those can be only used in \emph{English templates} are
+%^^A!     indicated by \rexptarget\expstar{}.
+%^^A!   \item If they do not have special characters afterwards, then
+%^^A!     you can use them in both Chinese and English templates.
+%^^A! \end{itemize}
+%^^A!
+%
+% 代码实现主要面向对 \LaTeX{} 宏包开发感兴趣的用户。如果您有任何改进
+% 意见或者功能需求，欢迎前往 GitHub 仓库
+% \href{https://github.com/stone-zeng/fduthesis/issues}{提交 issue}。
+%^^A! If you want to read the implementation part, please turn to the
+%^^A! Chinese version. Any issues or feature requests can be submitted
+%^^A! in the \href{https://github.com/stone-zeng/fduthesis/issues}%
+%^^A! {GitHub repository}.
+%^^A!
+%
+% 文档的最后还提供了版本历史和代码索引，以供查阅。
+%
+% \section{安装}
+%^^A! \section{Installation}
+%^^A!
+%
+% \subsection{获取 \cls{fduthesis}}
+%^^A! \subsection{Obtaining \cls{fduthesis}}
+%^^A!
+%
+% \subsubsection{标准安装}
+%^^A! \subsubsection{Standard installation}
+%^^A!
+%
+% 如果没有特殊理由，始终建议您使用宏包管理器安装 \cls{fduthesis}。
+% 例如在 \TeXLive{} 中，执行（可能需要管理员权限）
+% \begin{shellexample}[morekeywords={tlmgr,install}]
+%   tlmgr install fduthesis
+% \end{shellexample}
+% 即可完成安装。
+%^^A! If there are no special reasons, it is always recommended to
+%^^A! install \cls{fduthesis} with a package manager. For example,
+%^^A! the following command will install the package in \TeXLive{}
+%^^A! (administrator permission may be required):
+%^^A! \begin{shellexample}[morekeywords={tlmgr,install}]
+%^^A!   tlmgr install fduthesis
+%^^A! \end{shellexample}
+%^^A!
+%
+% 在 \TeXLive{} 和 \MiKTeX{} 中，您还可以通过图形界面进行安装，
+% 此处不再赘述。
+%^^A! In \TeXLive{} and \MiKTeX{}, you can also install \cls{fduthesis}
+%^^A! through a graphical interface. It's rather simple and will not be
+%^^A! described here.
+%^^A!
+%
+% \subsubsection{手动安装}
+%^^A! \subsubsection{Install manually}
+%^^A!
+%
+% 如果您需要从 CTAN 上自行下载并手动安装，较好的方法是使用 TDS
+% 安装包：
+% \begin{itemize}
+%   \item 从 CTAN 上下载 \cls{fduthesis} 的
+%     \href{http://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip}{TDS 安装包}；
+%   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
+%     发行版的本地 TDS 根目录；
+%   \item 执行 \bashcmd{mktexlsr} 刷新文件名数据库以完成安装。
+% \end{itemize}
+%^^A! If you want to download the template from CTAN and install it
+%^^A! manually, the recommended way is to use the TDS ZIP file:
+%^^A! \begin{itemize}
+%^^A!   \item Download the \href{http://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip}%
+%^^A!     {TDS ZIP file} for \cls{fduthesis};
+%^^A!   \item Copy all the files in \file{fduthesis.tds.zip} into the
+%^^A!     local TDS directory of \TeX{} distribution.
+%^^A!   \item Run \bashcmd{mktexlsr} to update the ls-R database.
+%^^A! \end{itemize}
+%^^A
+% 您也可以从源代码直接生成模板（不推荐）：
+% \begin{itemize}
+%   \item 打开 \href{https://github.com/stone-zeng/fduthesis}^^A
+%     {项目主页}，点击“Clone or download”，并选择“Download ZIP”，
+%     下载 \file{fduthesis-master.zip}；如果您的电脑中安装有 git
+%     程序，也可通过以下命令直接克隆代码仓库：
+%     \begin{shellexample}[gobble=7,alsoletter={.},^^A
+%         morekeywords={git,clone}]
+%       git clone https://github.com/stone-zeng/fduthesis.git
+%     \end{shellexample}
+%   \item 解压并进入到 \file{source} 文件夹，执行以下命令以生成
+%     模板的各组件：
+%     \begin{shellexample}[gobble=7,morekeywords={xetex}]
+%       xetex fduthesis.dtx
+%     \end{shellexample}
+%   \item 将生成的文档类（\file{.cls}）、宏包（\file{.sty}）以及
+%     参数配置文件（\file{.def}）复制到 \TeX{} 发行版本地 TDS 树
+%     的 \path{texmf-local/tex/latex/fduthesis/} 目录下，并执行
+%     \bashcmd{mktexlsr} 刷新文件名数据库，方可完成安装。
+%   \item 使用 \cls{fduthesis} 撰写论文时，您还需要从代码仓库下的
+%     \file{testfiles/support} 目录中复制 \file{fudan-name.pdf}
+%     文件至工作目录，以确保封面中的校名图片可以正确显示。
+% \end{itemize}
+%^^A! Although not recommended, you may generate the whole template
+%^^A! from source code as well:
+%^^A! \begin{itemize}
+%^^A!   \item Open the project's \href{https://github.com/stone-zeng/fduthesis}%
+%^^A!     {homepage}, click ``Clone or download'' and choose
+%^^A!     ``Download ZIP'' to download \file{fduthesis-master.zip}.
+%^^A!     If you have git program on your computer, you can also
+%^^A!     clone the repository directly:
+%^^A!     \begin{shellexample}[gobble=5,alsoletter={.},%
+%^^A!         morekeywords={git,clone}]
+%^^A!       git clone https://github.com/stone-zeng/fduthesis.git
+%^^A!     \end{shellexample}
+%^^A!   \item Extract files, and get into the \file{source} directory.
+%^^A!     Run the following command to generate all the components:
+%^^A!     \begin{shellexample}[gobble=5,morekeywords={xetex}]
+%^^A!       xetex fduthesis.dtx
+%^^A!     \end{shellexample}
+%^^A!   \item Copy the generated document classes (\file{.cls}),
+%^^A!     packages (\file{.sty}) and configuration files (\file{.def})
+%^^A!     into \path{texmf-local/tex/latex/fduthesis/} under the local
+%^^A!     TDS tree of \TeX{} distribution. Then run \bashcmd{mktexlsr}
+%^^A!     to update the ls-R database.
+%^^A!   \item When writing your thesis with \cls{fduthesis}, you need
+%^^A!     to copy the file \file{fudan-name.pdf} (can be found in the
+%^^A!     \file{testfiles/support} directory of the Git repository) to
+%^^A!     your working directory, to make sure that the logo in the
+%^^A!     cover can be displayed correctly.
+%^^A! \end{itemize}
+%^^A!
+%
+% \subsubsection{扁平化安装}
+%^^A! \subsubsection{\cls{fduthesis} on the fly}
+%^^A!
+%
+% 如果您不希望安装本模板，但需要立刻使用，也可以使用模板提供的安装脚本。
+% 从 GitHub 上获取代码仓库后，执行 \file{install-win.bat}（Windows 系统）
+% 或 \file{install-linux.sh}（Linux 系统），所有需要的文件便会在
+% \file{thesis} 文件夹中生成。
+%^^A! If you don't want to install \cls{fduthesis} but need to use it
+%^^A! at once, you can try the installation scripts. Download the
+%^^A! repository from GitHub, run \file{install-win.bat} (on Windows)
+%^^A! or \file{install-linux.sh} (on Linux), then all the necessary
+%^^A! files will be found in the \file{thesis} folder.
+%^^A!
+%
+% \subsection{模板组成}
+%^^A! \subsection{Composition of the template}
+%^^A!
+%
+% 本模板主要包含核心文档类、配置文件、附属宏包以及用户文档等几个
+% 部分，其具体组成见表~\ref{tab:fduthesis-components}。
+%^^A! There are several parts in \cls{fduthesis}, including kernel
+%^^A! template classes, configuration files, affiliated packages and
+%^^A! user's guides. More details are listed in table~%
+%^^A! \ref{tab:fduthesis-components}.
+%^^A!
+%
+% \begin{table}[ht]
+%   \caption{\cls{fduthesis} 的主要组成部分}
+%   \label{tab:fduthesis-components}
+%   \centering
+%   \begin{tabular}{lp{20em}}
+%     \toprule
+%     \textbf{文件} & \textbf{功能说明} \\
+%     \midrule
+%     \file{fduthesis.cls}          & 中文模板文档类 \\
+%     \file{fduthesis-en.cls}       & 英文模板文档类 \\
+%     \file{fduthesis.def}          & 参数配置文件，用于设定
+%       \cls{fduthesis} 的初始参数，不建议您自行改动 \\
+%     \file{fdudoc.cls}             & 用户手册文档类 \\
+%     \file{fdulogo.sty}            & 复旦大学视觉识别系统 \\
+%     \file{fudan-emblem.pdf}       & 校徽 \\
+%     \file{fudan-emblem-new.pdf}   & 校徽（重修版） \\
+%     \file{fudan-name.pdf}         & 校名图片 \\
+%     \file{README.md}              & 简要自述 \\
+%     \ifdefined\FDUCODEDOC
+%       \file{fduthesis.pdf}        & 中文用户手册 \\
+%       \file{fduthesis-en.pdf}     & 英文用户手册 \\
+%       \file{fduthesis-code.pdf}   & 模板实现代码（本文档） \\
+%     \else
+%       \file{fduthesis.pdf}        & 中文用户手册（本文档） \\
+%       \file{fduthesis-en.pdf}     & 英文用户手册 \\
+%       \file{fduthesis-code.pdf}   & 模板实现代码 \\
+%     \fi
+%     \file{fduthesis-template.tex} & 空白模板，可据此为基础完成论文
+%       撰写 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{The main components of \cls{fduthesis}}
+%^^A!   \label{tab:fduthesis-components}
+%^^A!   \centering
+%^^A!   \begin{tabular}{lp{24em}}
+%^^A!     \toprule
+%^^A!     \textbf{Files} & \textbf{Descriptions} \\
+%^^A!     \midrule
+%^^A!     \file{fduthesis.cls}          & Document class for Chinese thesis. \\
+%^^A!     \file{fduthesis-en.cls}       & Document class for English thesis.\\
+%^^A!     \file{fduthesis.def}          & Configuration parameters file
+%^^A!       for \cls{fduthesis}. Please do \emph{not} modify it. \\
+%^^A!     \file{fdudoc.cls}             & Document class for user guides. \\
+%^^A!     \file{fdulogo.sty}            & Fudan University's visual identity. \\
+%^^A!     \file{fudan-emblem.pdf}       & University emblem. \\
+%^^A!     \file{fudan-emblem-new.pdf}   & University emblem (revised version). \\
+%^^A!     \file{fudan-name.pdf}         & Figure of university name. \\
+%^^A!     \file{README.md}              & The brief introduction. \\
+%^^A!     \file{fduthesis.pdf}          & User's guide in Chinese. \\
+%^^A!     \file{fduthesis-en.pdf}       & User's guide in English (this
+%^^A!       document). \\
+%^^A!     \file{fduthesis-code.pdf}     & Code implementation. \\
+%^^A!     \file{fduthesis-template.tex} & An empty thesis template, and you can
+%^^A!       write your thesis based on it. \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A! \end{table}
+%^^A!
+%
+% \section{使用说明}
+%^^A! \section{User's guide}
+%^^A!
+%
+% \subsection{基本用法}
+%^^A! \subsection{Getting started}
+%^^A!
+%
+% 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis}
+% 的最基本用法：
+%^^A! Here is a minimal \TeX{} file for \cls{fduthesis}:
+%^^A+
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     moretexcs={\chapter},morekeywords={\documentclass},%
+%     emph={[2]document}]
+%   % thesis.tex
+%   \documentclass{fduthesis}
+%   \begin{document}
+%     \chapter{欢迎}
+%     \section{Welcome to fduthesis!}
+%     你好，\LaTeX{}！
+%   \end{document}
+% \end{latexexample}
+%^^A-
+%^^A!
+%
+% 按照 \ref{subsec:编译方式}~小节中的方式编译该文档，您应当得到
+% 一篇 5 页的文章。当然，这篇文章的绝大部分都是空白的。
+%^^A! Compile this file under the instructions in subsection~%
+%^^A! \ref{subsec:compilation}, you will get a 5-page article.
+%^^A! Of course, most of it will be blank, as you may predicate.
+%^^A!
+%
+% 英文模板可以用类似的方式使用：
+%^^A! The English version can be used in the same way:
+%^^A+
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     moretexcs={\chapter},morekeywords={\documentclass},%
+%     emph={[2]document}]
+%   % thesis-en.tex
+%   \documentclass{fduthesis-en}
+%   \begin{document}
+%     \chapter{Welcome}
+%     \section{Welcome to fduthesis!}
+%     Hello, \LaTeX{}!
+%   \end{document}
+% \end{latexexample}
+%^^A-
+% 英文模板只对正文部分进行了改动，封面、指导小组成员以及声明页仍将
+% 显示为中文。
+%^^A! The differences between English and Chinese version only
+%^^A! live in the main body. Thesis cover, instructors list and
+%^^A! declaration page are still printed in Chinese.
+%^^A!
+%
+% \subsection{编译方式} \label{subsec:编译方式}
+%^^A! \subsection{Compilation} \label{subsec:compilation}
+%^^A!
+%
+% 本模板不支持 \pdfTeX{} 引擎，请使用 \XeLaTeX{} 或 \LuaLaTeX{}
+% 编译。推荐使用 \XeLaTeX{}。为了生成正确的目录、脚注以及交叉引用，
+% 您至少需要连续编译两次。
+%^^A! \cls{fduthesis} does NOT support \pdfTeX{}. Please use
+%^^A! \XeLaTeX{} or \LuaLaTeX{} to compile, and \XeLaTeX{} is
+%^^A! recommended. To get the correct table of contents, footnotes
+%^^A! and cross-references, you need to compile the source file at
+%^^A! least twice.
+%^^A!
+%
+% 以下代码中，假设您的 \TeX{} 源文件名为 \file{thesis.tex}。
+% 使用 \XeLaTeX{} 编译论文，请在命令行中执行
+% \begin{shellexample}[morekeywords={xelatex}]
+%   xelatex thesis
+%   xelatex thesis
+% \end{shellexample}
+% 或使用 \pkg{latexmk}：
+% \begin{shellexample}[morekeywords={latexmk},emph={-xelatex}]
+%   latexmk -xelatex thesis
+% \end{shellexample}
+%^^A! In the following example, suppose your \TeX{} source file is
+%^^A! \file{thesis.tex}. Please execute the following commands if
+%^^A! you want to use \XeLaTeX{}:
+%^^A! \begin{shellexample}[morekeywords={xelatex}]
+%^^A!   xelatex thesis
+%^^A!   xelatex thesis
+%^^A! \end{shellexample}
+%^^A! You can use \pkg{latexmk} as well:
+%^^A! \begin{shellexample}[morekeywords={latexmk},emph={-xelatex}]
+%^^A!   latexmk -xelatex thesis
+%^^A! \end{shellexample}
+%^^A!
+%
+% 使用 \LuaLaTeX{} 编译论文，请在命令行中执行
+% \begin{shellexample}[morekeywords={lualatex}]
+%   lualatex thesis
+%   lualatex thesis
+% \end{shellexample}
+% 或者
+% \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
+%   latexmk -lualatex thesis
+% \end{shellexample}
+%^^A! \LuaLaTeX{} can be used in a similar way:
+%^^A! \begin{shellexample}[morekeywords={lualatex}]
+%^^A!   lualatex thesis
+%^^A!   lualatex thesis
+%^^A! \end{shellexample}
+%^^A! or
+%^^A! \begin{shellexample}[morekeywords={latexmk},emph={-lualatex}]
+%^^A!   latexmk -lualatex thesis
+%^^A! \end{shellexample}
+%^^A!
+%
+% \subsection{模板选项}
+%^^A! \subsection{Options of the template}
+%^^A!
+%
+% 所谓“模板选项”，指需要在引入文档类的时候指定的选项：
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     morekeywords={\documentclass}]
+%   \documentclass(*\oarg{模板选项}*){fduthesis}
+%   \documentclass(*\oarg{模板选项}*){fduthesis-en}
+% \end{latexexample}
+%^^A! You can specify some \emph{template options} when loading
+%^^A! \cls{fduthesis}:
+%^^A! \begin{latexexample}[deletetexcs={\documentclass},%
+%^^A!     morekeywords={\documentclass}]
+%^^A!   \documentclass(*\oarg{options}*){fduthesis}
+%^^A!   \documentclass(*\oarg{options}*){fduthesis-en}
+%^^A! \end{latexexample}
+%^^A!
+%
+% 有些模板选项为布尔型，它们只能在 \opt{true} 和 \opt{false}
+% 中取值。对于这些选项，\kvopt{\meta{选项}}{true} 中的“|= true|”
+% 可以省略。
+%^^A! Some options are \emph{boolean} --- they only take the value
+%^^A! \opt{true} or \opt{false}. For these options, you can
+%^^A! abbreviate ``\kvopt{\meta{option}}{true}'' simply to
+%^^A! ``\opt{\meta{option}}''.
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2018-02-01]{type}
+%   \begin{fdusyntax}[emph={[1]type}]
+%     type = (*<doctor|master|(bachelor)>*)
+%   \end{fdusyntax}
+%^^A-
+%   选择论文类型。三种选项分别代表博士学位论文、硕士学位论文和本科
+%   毕业论文。
+% \end{function}
+%^^A!   Choose the type of your thesis. The three options represent
+%^^A!   doctoral dissertation, master degree thesis and undergraduate
+%^^A!   thesis, respectively.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{oneside,twoside}
+%   指明论文的单双面模式，默认为 \opt{twoside}。该选项会影响每章
+%   的开始位置，还会影响页眉样式。
+% \end{function}
+%^^A! \begin{function}{oneside,twoside}
+%^^A!   Specify whether single or double sided output should be
+%^^A!   generated. \opt{twoside} will be chosen by default. These
+%^^A!   option will determine where the new chapters begin and how
+%^^A!   the headers display. The option \opt{twoside} does
+%^^A!   \emph{not} tell the printer to actually make a two-sided
+%^^A!   printout.
+%^^A! \end{function}
+%^^A!
+%
+% 在双面模式（\opt{twoside}）下，按照通常的排版惯例，每章应只从
+% 奇数页（在右）开始；而在单页模式（\opt{oneside}）下，则可以从
+% 任意页面开始。本模板中，目录、摘要、符号表等均视作章，也按相同
+% 方式排版。
+%^^A! If choosing \opt{twoside}, chapters will begin at the odd pages
+%^^A! (right hand). However, they will begin at arbitrary pages
+%^^A! available when choosing \opt{oneside}. Table of contents,
+%^^A! abstract and the list of symbols are considered as chapters and
+%^^A! processed in the same way.
+%^^A!
+%
+% 双面模式下，正文部分偶数页（在左）的左页眉显示章标题，奇数页
+% （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，但文字
+% 均为对应标题（如“目录”、“摘要”等）。
+% 而在单面模式下，正文部分则页面不分奇偶，均同时显示左、右页眉，
+% 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
+%^^A! At two-sided mode, left headers on the even pages (left hand)
+%^^A! in \emph{main body} will show the title of chapters, while the
+%^^A! right headers on the odd pages (right hand) will show the
+%^^A! title of sections. Headers in \emph{front matter} have the
+%^^A! same style, but they will only show the title as ``Contents'',
+%^^A! ``Abstract'', etc.
+%^^A!
+%^^A! At one-sided mode, both left and right headers on \emph{all}
+%^^A! pages in main body will be shown. The text is the title of
+%^^A! chapters and sections, respectively. In front matter, there
+%^^A! are only middle headers, which show the corresponding titles.
+%^^A!
+%
+% \begin{function}{draft}
+%   \begin{fdusyntax}[emph={[1]draft}]
+%     draft = (*<\TFF>*)
+%   \end{fdusyntax}
+%   选择是否开启草稿模式，默认关闭。
+% \end{function}
+%^^A! \begin{function}{draft}
+%^^A!   \begin{fdusyntax}[emph={[1]draft}]
+%^^A!     draft = (*<\TFF>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Enable draft mode. Default off.
+%^^A! \end{function}
+%^^A!
+%
+% 草稿模式为全局选项，会影响到很多宏包的工作方式。
+% 开启之后，主要的变化有：
+% \begin{itemize}
+%   \item 把行溢出的盒子显示为黑色方块；
+%   \item 不实际插入图片，只输出一个占位方框；
+%   \item 关闭超链接渲染，也不再生成 PDF 书签；
+%   \item 显示页面边框。
+% \end{itemize}
+%^^A! \opt{draft} is a global option and will affect many packages.
+%^^A! You may notice the following changes when using \opt{draft}:
+%^^A! \begin{itemize}
+%^^A!   \item Lines with overfull \tn{hbox}'s will be marked with
+%^^A!     a thick black square on the right margin.
+%^^A!   \item Will not include graphics files actually, but instead
+%^^A!     print a box of the size the graphic would take up, as well
+%^^A!     as the file name.
+%^^A!   \item Will not make hyperlinks and PDF bookmarks.
+%^^A!   \item Show the page frames.
+%^^A! \end{itemize}
+%^^A!
+%
+% \begin{function}[added=2018-01-31]{config}
+%   \begin{fdusyntax}[emph={[1]config}]
+%     config = (*\marg{文件}*)
+%   \end{fdusyntax}
+%   用户配置文件的文件名。默认为空，即不载入用户配置文件。
+% \end{function}
+%^^A! \begin{function}[added=2018-01-31]{config}
+%^^A!   \begin{fdusyntax}[emph={[1]config}]
+%^^A!     config = (*\marg{file}*)
+%^^A!   \end{fdusyntax}
+%^^A!   File name of user profile. Default value is empty, so no
+%^^A!   profile is loaded automatically.
+%^^A! \end{function}
+%^^A!
+%
+% \subsection{参数设置}
+%^^A! \subsection{More options}
+%^^A!
+%
+% \begin{function}{\fdusetup}
+%   \begin{fdusyntax}[morekeywords={\fdusetup}]
+%     \fdusetup(*\marg{键值列表}*)
+%   \end{fdusyntax}
+%   本模板提供了一系列选项，可由您自行配置。载入文档类之后，以下
+%   所有选项均可通过统一的命令 \cs{fdusetup} 来设置。
+% \end{function}
+%^^A! \begin{function}{\fdusetup}
+%^^A!   \begin{fdusyntax}[morekeywords={\fdusetup}]
+%^^A!     \fdusetup(*\marg{key-value list}*)
+%^^A!   \end{fdusyntax}
+%^^A!   \cls{fduthesis} has provided a number of options, which
+%^^A!   can be given via the general command \cs{fdusetup}.
+%^^A! \end{function}
+%^^A!
+%
+% \cs{fdusetup} 的参数是一组由（英文）逗号隔开的选项列表，列表中的
+% 选项通常是 \kvopt{\meta{key}}{\meta{value}} 的形式。部分选项的
+% \meta{value} 可以省略。对于同一项，后面的设置将会覆盖前面的设置。
+% 在下文的说明中，将用\textbf{粗体}表示默认值。
+%^^A! The argument of \cs{fdusetup} is a set of comma-separated option
+%^^A! list. The options usually have the form of \kvopt{\meta{key}}%
+%^^A! {\meta{value}} and in some cases \meta{value} can be omitted.
+%^^A! For the same option, the values given later will override the
+%^^A! the previous ones. Default values are indicated in
+%^^A! \textbf{boldface} in the following descriptions.
+%^^A!
+%
+% \cs{fdusetup} 采用 \LaTeX3 风格的键值设置，支持不同类型以及多种
+% 层次的选项设定。键值列表中，“|=|”左右的空格不影响设置；但需注意，
+% 参数列表中不可以出现空行。
+%^^A! \cs{fdusetup} follows \LaTeX3 key-value style, and different
+%^^A! types as well as various levels options are supported. In the
+%^^A! key-value list, spaces around ``|=|'' will be trimmed; however,
+%^^A! blank lines should never appear in the argument.
+%^^A!
+%
+% 与模板选项相同，布尔型的参数可以省略 \kvopt{\meta{选项}}{true}
+% 中的“|= true|”。
+%^^A! Similar with template options, ``\kvopt{\meta{option}}{true}''
+%^^A! can be abbreviated to \opt{\meta{option}} for boolean type.
+%^^A!
+%
+% 另有一些选项包含子选项，如 \opt{style} 和 \opt{info} 等。它们可以
+% 按如下两种等价方式来设定：
+%^^A! Some options, such as \opt{style} and \opt{info}, may have
+%^^A! sub-options. They can be set by the following two equivalent
+%^^A! methods:
+%^^A+
+% \begin{latexexample}[morekeywords={\fdusetup},%
+%     emph={[1]style,cjk-font,font-size,info,title,title*,author,author*,department}]
+%   \fdusetup{
+%     style = {cjk-font = adobe, font-size = -4},
+%     info  = {
+%       title      = {论动体的电动力学},
+%       title*     = {On the Electrodynamics of Moving Bodies},
+%       author     = {阿尔伯特·爱因斯坦},
+%       author*    = {Albert Einstein},
+%       department = {物理学系}
+%     }
+%   }
+% \end{latexexample}
+%^^A-
+% 或者
+%^^A! or
+%^^A+
+% \begin{latexexample}[morekeywords={\fdusetup},%
+%     emph={[1]style,cjk-font,font-size,info,title,title*,author,author*,department}]
+%   \fdusetup{
+%     style/cjk-font  = adobe,
+%     style/font-size = -4,
+%     info/title      = {论动体的电动力学},
+%     info/title*     = {On the Electrodynamics of Moving Bodies},
+%     info/author     = {阿尔伯特·爱因斯坦},
+%     info/author*    = {Albert Einstein},
+%     info/department = {物理学系}
+%   }
+% \end{latexexample}
+%^^A-
+%^^A!
+%
+% 注意 “|/|” 的前后均不可以出现空白字符。
+%^^A! Note that you may \emph{not} put spaces around ``|/|''.
+%^^A!
+%
+% \subsubsection{论文格式} \label{subsubsec:论文格式}
+%^^A! \subsubsection{Style and format} \label{subsubsec:style-and-format}
+%^^A!
+%
+% \begin{function}{style}
+%   \begin{fdusyntax}[emph={[1]style}]
+%     style = (*\marg{键值列表}*)
+%     style/(*\meta{key}*) = (*\meta{value}*)
+%   \end{fdusyntax}
+%   该选项包含许多子项目，用于设置论文格式。具体内容见下。
+% \end{function}
+%^^A! \begin{function}{style}
+%^^A!   \begin{fdusyntax}[emph={[1]style}]
+%^^A!     style = (*\marg{key-value list}*)
+%^^A!     style/(*\meta{key}*) = (*\meta{value}*)
+%^^A!   \end{fdusyntax}
+%^^A!   This general option is for setting the thesis style and format.
+%^^A!   See the following details.
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{function}[updated=2019-03-05]{style/font}
+%   \begin{fdusyntax}[emph={[1]font}]
+%     font = (*<garamond|libertinus|lm|palatino|(times)|times*|none>*)
+%   \end{fdusyntax}
+%^^A-
+%   设置西文字体（包括数学字体）。具体配置见表~\ref{tab:font}。
+% \end{function}
+%^^A!   Set fonts (including math fonts). The details can be found in table~\ref{tab:font}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{table}[ht]
+% \begin{threeparttable}
+%   \caption{西文字体配置}
+%   \label{tab:font}
+%   \centering
+%   \begin{tabular}{ccccc}
+%     \toprule
+%       & \strong{正文字体} & \strong{无衬线字体} & \strong{等宽字体} & \strong{数学字体} \\
+%     \midrule
+%       |garamond|        & EB Garamond         & Libertinus Sans & LM Mono\tnote{a} & Garamond Math   \\
+%       |libertinus|      & Libertinus Serif    & Libertinus Sans & LM Mono          & Libertinus Math \\
+%       |lm|              & LM Roman            & LM Sans         & LM Mono          & LM Math         \\
+%       |palatino|        & TG Pagella\tnote{b} & Libertinus Sans & LM Mono          & TG Pagella Math \\
+%       |times|           & XITS                & TG Heros        & TG Cursor        & XITS Math       \\
+%       |times*|\tnote{c} & Times New Roman     & Arial           & Courier New      & XITS Math       \\
+%     \bottomrule
+%   \end{tabular}
+%   \begin{tablenotes}
+%     \item[a] “LM”是 Latin Modern 的缩写。
+%     \item[b] “TG”是 TeX Gyre 的缩写。
+%     \item[c] 本行中，Times New Roman、Arial 和 Courier New 是商业字体，
+%       在 Windows 和 macOS 系统上均默认安装。
+%   \end{tablenotes}
+% \end{threeparttable}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A! \begin{threeparttable}
+%^^A!   \caption{Font configuration}
+%^^A!   \label{tab:font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{ccccc}
+%^^A!     \toprule
+%^^A!       & \strong{Roman} & \strong{Sans-serif} & \strong{Monospaced} & \strong{Math} \\
+%^^A!     \midrule
+%^^A!       |garamond|        & EB Garamond         & Libertinus Sans & LM Mono\tnote{a} & Garamond Math   \\
+%^^A!       |libertinus|      & Libertinus Serif    & Libertinus Sans & LM Mono          & Libertinus Math \\
+%^^A!       |lm|              & LM Roman            & LM Sans         & LM Mono          & LM Math         \\
+%^^A!       |palatino|        & TG Pagella\tnote{b} & Libertinus Sans & LM Mono          & TG Pagella Math \\
+%^^A!       |times|           & XITS                & TG Heros        & TG Cursor        & XITS Math       \\
+%^^A!       |times*|\tnote{c} & Times New Roman     & Arial           & Courier New      & XITS Math       \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A!   \begin{tablenotes}
+%^^A!     \item[a] ``LM'' is the abbreviation of Latin Modern.
+%^^A!     \item[b] ``TG'' is the abbreviation of TeX Gyre.
+%^^A!     \item[c] Here, Times New Roman, Arial and Courier New are commercial fonts. They are
+%^^A!       installed on Windows and macOS by default.
+%^^A!   \end{tablenotes}
+%^^A! \end{threeparttable}
+%^^A! \end{table}
+%
+%^^A+
+% \begin{function}[rEXP,updated=2019-03-05]{style/cjk-font}
+%   \begin{fdusyntax}[emph={[1]cjk-font}]
+%     cjk-font = (*<adobe|(fandol)|founder|mac|sinotype|sourcehan|windows|none>*)
+%   \end{fdusyntax}
+%^^A-
+%   设置中文字体。具体配置见表~\ref{tab:cjk-font}。
+% \end{function}
+%^^A!   Set CJK (Chinese, Japanese and Korean) fonts. The details can be found in
+%^^A!   table~\ref{tab:cjk-font}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{table}[ht]
+%   \caption{中文字体配置}
+%   \label{tab:cjk-font}
+%   \centering
+%   \begin{tabular}{cccc}
+%     \toprule
+%       & \strong{正文字体（宋体）} & \strong{无衬线字体（黑体）} & \strong{等宽字体（仿宋）} \\
+%     \midrule
+%       \multirow{2}*{|adobe|}     & Adobe 宋体          & Adobe  黑体        & Adobe  仿宋        \\
+%                                  & Adobe Song Std      & Adobe Heiti Std    & Adobe Fangsong Std \\
+%       \multirow{2}*{|fandol|}    & Fandol 宋体         & Fandol 黑体        & Fandol 仿宋        \\
+%                                  & FandolSong          & FandolHei          & FandolFang         \\
+%       \multirow{2}*{|founder|}   & 方正书宋            & 方正黑体           & 方正仿宋           \\
+%                                  & FZShuSong-Z01       & FZHei-B01          & FZFangSong-Z02     \\
+%       \multirow{2}*{|mac|}       & （华文）宋体-简     & （华文）黑体-简    & 华文仿宋           \\
+%                                  & Songti SC           & Heiti SC           & STFangsong         \\
+%       \multirow{2}*{|sinotype|}  & 华文宋体            & 华文黑体           & 华文仿宋           \\
+%                                  & STSong              & STHeiti            & STFangsong         \\
+%       \multirow{2}*{|sourcehan|} & 思源宋体            & 思源黑体           & ---                \\
+%                                  & Source Han Serif SC & Source Han Sans SC & ---                \\
+%       \multirow{2}*{|windows|}   & （中易）宋体        & （中易）黑体       & （中易）仿宋       \\
+%                                  & SimSun              & SimHei             & FangSong           \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{CJK font configuration}
+%^^A!   \label{tab:cjk-font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{cccc}
+%^^A!     \toprule
+%^^A!       & \strong{Roman (song)} & \strong{Sans-serif (hei)} & \strong{Monospaced (fang)} \\
+%^^A!     \midrule
+%^^A!       |adobe|     & Adobe Song Std      & Adobe Heiti Std    & Adobe Fangsong Std \\
+%^^A!       |fandol|    & FandolSong          & FandolHei          & FandolFang         \\
+%^^A!       |founder|   & FZShuSong-Z01       & FZHei-B01          & FZFangSong-Z02     \\
+%^^A!       |mac|       & Songti SC           & Heiti SC           & STFangsong         \\
+%^^A!       |sinotype|  & STSong              & STHeiti            & STFangsong         \\
+%^^A!       |sourcehan| & Source Han Serif SC & Source Han Sans SC & ---                \\
+%^^A!       |windows|   & SimSun              & SimHei             & FangSong           \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A! \end{table}
+%^^A!
+%
+% 启用 \kvopt{font}{none} 或 \kvopt{cjk-font}{none} 之后，模板将关闭
+% 默认西文 / 中文字体设置。此时，您需要自行使用 \cs{setmainfont}、
+% \cs{setCJKmainfont}、\cs{setmathfont} 等命令来配置字体。
+%^^A! When you choose \kvopt{font}{none} or \kvopt{cjk-font}{none},
+%^^A! \cls{fduthesis} will disable the default western/CJK font
+%^^A! settings. You may use \cs{setmainfont}, \cs{setCJKmainfont}
+%^^A! and \cs{set\-math\-font}, etc.\ to configure the fonts manually.
+%^^A!
+%
+%^^A+
+% \begin{function}{style/font-size}
+%   \begin{fdusyntax}[emph={[1]font-size}]
+%     font-size = (*<(-4)|5>*)
+%   \end{fdusyntax}
+%^^A-
+%   设置论文的基础字号。
+% \end{function}
+%^^A!   Specify the basic font size in your thesis.
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{function}[rEXP,updated=2017-10-14]{style/fullwidth-stop}
+%   \begin{fdusyntax}[emph={[1]fullwidth-stop}]
+%     fullwidth-stop = (*<catcode|mapping|(false)>*)
+%   \end{fdusyntax}
+%^^A-
+%   选择是否把全角实心句点\FSFW 作为默认的句号形状。
+%   这种句号一般用于科技类文章，以避免与下标“$_o$”或“$_0$”混淆。
+% \end{function}
+%^^A!   Let full-width full stop ``\FSFW'' as the default full stop.
+%^^A!   Generally, this punctuation is used for scientific articles,
+%^^A!   where ``\FSID'' is easily to be confused with subscript
+%^^A!   ``$_o$'' or ``$_0$''.
+%^^A! \end{function}
+%^^A!
+%
+% 选择 \kvopt{fullwidth-stop}{catcode} 或 \opt{mapping} 后，都会实现
+% 上述效果。有所不同的是，在选择 \opt{catcode} 后，只有^^A
+% \emph{显式的}\FSID 会被替换为\FSFW；但在选择 \opt{mapping} 后，
+% \emph{所有的}\FSID 都会被替换。例如，如果您用宏保存了一些含有^^A
+% \FSID 的文字，那么在选择 \opt{catcode} 时，其中的\FSID 不会被
+% 替换为\FSFW。
+%^^A! If you choose \kvopt{fullwidth-stop}{catcode}, only
+%^^A! \emph{explicit} ``\FSID'' will be replaced by ``\FSFW''; when
+%^^A! choosing \kvopt{fullwidth-stop}{mapping}, however, \emph{all}
+%^^A! the ``\FSID'' will be replaced.
+%^^A!
+%
+% 选项 \kvopt{fullwidth-stop}{mapping} 只在 \XeTeX{} 下有效。使用
+% \LuaTeX{} 编译时，该选项相当于 \kvopt{fullwidth-stop}{catcode}。
+%^^A! \opt{mapping} is valid only under \XeTeX{}. When compiling
+%^^A! with \LuaTeX{}, it is equivalent to \opt{catcode}.
+%^^A!
+%
+% 如果您在选择 \kvopt{fullwidth-stop}{mapping} 后仍需要临时显示^^A
+% \FSID，可以按如下方法操作：
+% \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
+%   % 请使用 XeTeX 编译
+%   % 外侧的花括号表示分组
+%   这是一个句号{\CJKfontspec{(*\meta{字体名}*)}[Mapping=full-stop]。}
+% \end{latexexample}
+%^^A! If you want to display ``\FSID'' temporarily after setting
+%^^A! \kvopt{fullwidth-stop}{mapping}, the following code snippet
+%^^A! will be helpful:
+%^^A! \begin{latexexample}[moretexcs={\CJKfontspec},emph={[1]Mapping}]
+%^^A!   % Compiled with XeTeX
+%^^A!   % The outside braces is used for group
+%^^A!   这是一个句号{\CJKfontspec{(*\meta{font name}*)}[Mapping=full-stop]。}
+%^^A! \end{latexexample}
+%^^A!
+%
+% \begin{function}{style/footnote-style}
+%^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
+%^^A 空格，因此这里用 X 来占位。
+%   \begin{fdusyntax}[emph={[1]footnote-style}]
+%     footnote-style = (*<plain|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%   \end{fdusyntax}
+%   设置脚注编号样式。西文字体设置会影响其默认取值（见
+%   表~\ref{tab:footnote-font}）。因此，要使得该选项生效，需将其
+%   放置在 \opt{font} 选项之后。带有 |sans| 的为相应的无衬线字体
+%   版本；带有 |*| 的为阴文样式（即黑底白字）。
+% \end{function}
+%^^A! \begin{function}{style/footnote-style}
+%^^A!   \begin{fdusyntax}[emph={[1]footnote-style}]
+%^^A!     footnote-style = (*<plain|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Set the style of footnote numbers. Note that western fonts
+%^^A!   will affect its default value (see table~\ref{tab:footnote-font}),
+%^^A!   so you may put it after |font| option. The one with |sans|
+%^^A!   is for the corresponding sans-serif version, while |*|
+%^^A!   for white on black version.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{table}[ht]
+%   \caption{西文字体与脚注编号样式默认值的对应关系}
+%   \label{tab:footnote-font}
+%   \centering
+%   \begin{tabular}{ccccc}
+%     \toprule
+%     \textbf{西文字体设置} &
+%       |libertinus| & |lm|     & |palatino| & |times| \\
+%     \midrule
+%     \textbf{脚注编号样式默认值} &
+%       |libertinus| & |pifont| & |pifont|   & |xits|  \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{Relationship between option \opt{font} and the
+%^^A!     default value of \opt{footnote-style}}
+%^^A!   \label{tab:footnote-font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{ccccc}
+%^^A!     \toprule
+%^^A!     \textbf{Western fonts settings} &
+%^^A!       |libertinus| & |lm|     & |palatino| & |times| \\
+%^^A!     \midrule
+%^^A!     \textbf{Default value of footnote number style} &
+%^^A!       |libertinus| & |pifont| & |pifont|   & |xits|  \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A! \end{table}
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2017-08-13]{style/hyperlink}
+%   \begin{fdusyntax}[emph={[1]hyperlink}]
+%     hyperlink = (*<border|(color)|none>*)
+%   \end{fdusyntax}
+%^^A-
+%   设置超链接样式。\opt{border} 表示在超链接四周绘制方框；
+%   \opt{color} 表示用彩色显示超链接；\opt{none} 表示没有特殊装饰，
+%   可用于生成最终的打印版文稿。
+% \end{function}
+%^^A!   Set the style of hyperlinks. \opt{border} draws borders around
+%^^A!   hyperlinks; \opt{color} displays hyperlinks in colorful text;
+%^^A!   \opt{none} leads to plain text, which is useful when printing
+%^^A!   the final document.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlink-color}
+%   \begin{fdusyntax}[emph={[1]hyperlink-color}]
+%     hyperlink-color = (*<(default)|classic|elegant|fantasy|material|\\
+%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%   \end{fdusyntax}
+%   设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
+%   各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
+% \end{function}
+%^^A! \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlink-color}
+%^^A!   \begin{fdusyntax}[emph={[1]hyperlink-color}]
+%^^A!     hyperlink-color = (*<(default)|classic|elegant|fantasy|material|\\
+%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Set the color of hyperlinks. It is invalid if
+%^^A!   \kvopt{hyperlink}{none}. The related colors can be found
+%^^A!   in table~\ref{tab:hyperlink-color}.
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{table}[ht]
+% \centering
+%^^A-
+% \newcommand\linkcolorexam[3]{^^A
+%   {\small 图~\textcolor[HTML]{#1}{1-2}，
+%     (\textcolor[HTML]{#1}{3.4})~式} &
+%   {\small \textcolor[HTML]{#2}{\texttt{http://g.cn}}} &
+%   {\small 文献~[\textcolor[HTML]{#3}{1}]，
+%     (\textcolor[HTML]{#3}{Knuth~1986})}}
+%^^A! \newcommand\linkcolorexam[3]{%
+%^^A!   {\small Fig.~\textcolor[HTML]{#1}{1-2}，
+%^^A!     Eq.~(\textcolor[HTML]{#1}{3.4})} &
+%^^A!   {\small \textcolor[HTML]{#2}{\texttt{http://g.cn}}} &
+%^^A!   {\small Ref.~[\textcolor[HTML]{#3}{1}]，
+%^^A!     (\textcolor[HTML]{#3}{Knuth~1986})}}
+% \begin{threeparttable}
+% \caption{预定义的超链接颜色方案}
+% \label{tab:hyperlink-color}
+%^^A! \begin{threeparttable}
+%^^A! \caption{Pre-defined hyperlink color schemes}
+%^^A! \label{tab:hyperlink-color}
+% \begin{tabular}{c*{3}{>{\hspace{0.2cm}}c<{\hspace{0.2cm}}}}
+%   \toprule
+%   \textsf{选项} & \textsf{链接} & \textsf{URL} & \textsf{引用} \\
+%^^A! \begin{tabular}{c*{3}{>{\hspace{0.2cm}}c<{\hspace{0.2cm}}}}
+%^^A!   \toprule
+%^^A!   \textsf{Options} & \textsf{Cross references} & \textsf{URL} & \textsf{Citation} \\
+%^^A+
+%   \midrule
+%   \opt{default}            & \linkcolorexam{990000}{0000B2}{007F00} \\
+%   \opt{classic}            & \linkcolorexam{FF0000}{0000FF}{00FF00} \\
+%   \opt{elegant}\tnote{a}   & \linkcolorexam{961212}{C31818}{9B764F} \\
+%   \opt{fantasy}\tnote{b}   & \linkcolorexam{FF4A19}{FF3F94}{934BA1} \\
+%   \opt{material}\tnote{c}  & \linkcolorexam{E91E63}{009688}{4CAF50} \\
+%   \opt{business}\tnote{d}  & \linkcolorexam{D14542}{295497}{1F6E43} \\
+%   \opt{science}\tnote{e}   & \linkcolorexam{CA0619}{389F9D}{FF8920} \\
+%   \opt{summer}\tnote{f}    & \linkcolorexam{00AFAF}{5F5FAF}{5F8700} \\
+%   \opt{autumn}\tnote{f}    & \linkcolorexam{D70000}{D75F00}{AF8700} \\
+%   \opt{graylevel}\tnote{c} & \linkcolorexam{616161}{616161}{616161} \\
+%   \opt{prl}\tnote{g}       & \linkcolorexam{2D3092}{2D3092}{2D3092} \\
+%   \bottomrule
+% \end{tabular}
+% \begin{tablenotes}
+%^^A-
+%   \item[a] 来自 \href{https://tex.stackexchange.com/}^^A
+%     {\TeX{} - \LaTeX{} Stack Exchange 网站}。
+%   \item[b] Adobe CC 产品配色。
+%   \item[c] 取自 Material 色彩方案
+%     （见 \url{https://material.io/guidelines/style/color.html}）。
+%   \item[d] Microsoft Office 2016 产品配色。
+%   \item[e] 来自 \href{https://www.wolfram.com/}{Wolfram Research 网站}。
+%   \item[f] 均取自 Solarized 色彩方案
+%     （见 \url{http://ethanschoonover.com/solarized}）。
+%   \item[g] \textit{Physical Review Letter} 杂志配色。
+%^^A!   \item[a] From \href{https://tex.stackexchange.com/}%
+%^^A!     {\TeX{} - \LaTeX{} Stack Exchange}.
+%^^A!   \item[b] Adobe CC.
+%^^A!   \item[c] Material Design color palette
+%^^A!     (See \url{https://material.io/guidelines/style/color.html}).
+%^^A!   \item[d] Microsoft Office 2016.
+%^^A!   \item[e] From \href{https://www.wolfram.com/}{Wolfram Research website}.
+%^^A!   \item[f] Solarized color palette
+%^^A!     (See \url{http://ethanschoonover.com/solarized}).
+%^^A!   \item[g] \textit{Physical Review Letter} magazine.
+%^^A+
+% \end{tablenotes}
+% \end{threeparttable}
+% \end{table}
+%^^A-
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2018-01-25]{style/bib-backend}
+%   \begin{fdusyntax}[emph={[1]bib-backend}]
+%     bib-backend = (*<bibtex|biblatex>*)
+%   \end{fdusyntax}
+%^^A-
+%   选择参考文献的支持方式。选择 \opt{bibtex} 后，将使用 \BibTeX{}
+%   处理文献，样式由 \pkg{natbib} 宏包负责；选择 \opt{biblatex} 后，
+%   将使用 \biber{} 处理文献，样式则由 \pkg{biblatex} 宏包负责。
+% \end{function}
+%^^A!   Specify the backend or driver of bibliography processing.
+%^^A!   \BibTeX{} and \pkg{natbib} package will be used if you choose
+%^^A!   \opt{bibtex}, while \biber{} and \pkg{biblatex} will be used
+%^^A!   if you choose \opt{biblatex}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2017-10-28,updated=2018-01-25]^^A
+%     {style/bib-style}
+%   \begin{fdusyntax}[emph={[1]bib-style}]
+%     bib-style = (*<author-year|(numerical)|\meta{其他样式}>*)
+%   \end{fdusyntax}
+%   设置参考文献样式。\opt{author-year} 和 \opt{numerical} 分别对应
+%   国家标准 GB/T 7714--2015 \scite{gb-t-7714-2015} 中的著者—出版年制
+%   和顺序编码制。选择 \meta{其他样式} 时，如果 \kvopt{bib-backend}^^A
+%   {bibtex}，需保证相应的 \file{.bst} 格式文件能被调用；而如果
+%   \kvopt{bib-backend}{biblatex}，则需保证相应的 \file{.bbx} 格式文件
+%   能被调用。
+% \end{function}
+%^^A! \begin{function}[added=2017-10-28,updated=2018-01-25]%
+%^^A!     {style/bib-style}
+%^^A!   \begin{fdusyntax}[emph={[1]bib-style}]
+%^^A!     bib-style = (*<author-year|(numerical)|\meta{other style}>*)
+%^^A!   \end{fdusyntax}
+%^^A!   Set the style of bibliography. \opt{author-year} and
+%^^A!   \opt{numerical} will follow the standard GB/T 7714--2015.
+%^^A!   By setting \kvopt{bib-style}{\meta{other style}}, you can use
+%^^A!   other bibliography style (\file{.bst} file for
+%^^A!   \kvopt{bib-backend}{bibtex} and \file{.bbx} file for
+%^^A!   \kvopt{bib-backend}{biblatex}). Suffix is not needed.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2018-01-25]{style/cite-style}
+%   \begin{fdusyntax}[emph={[1]cite-style}]
+%     cite-style = (*\marg{引用样式}*)
+%   \end{fdusyntax}
+%   选择引用格式。默认为空，即与参考文献样式（著者—出版年制或顺序
+%   编码制）保持一致。如果手动填写，需保证相应的 \file{.cbx} 格式文件
+%   能被调用。该选项在 \kvopt{bib-backend}{bibtex} 时无效。
+% \end{function}
+%^^A! \begin{function}[added=2018-01-25]{style/cite-style}
+%^^A!   \begin{fdusyntax}[emph={[1]cite-style}]
+%^^A!     cite-style = (*\marg{style}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Select citation style. Default value is empty, which means
+%^^A!   the citation style will follow your bibliography style
+%^^A!   (author-year or numeric). If you want change the citation
+%^^A!   style, the corresponding \file{.cbx} file must be available.
+%^^A!   This option is invalid when \kvopt{bib-backend}{bibtex}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2018-01-25]{style/bib-resource}
+%   \begin{fdusyntax}[emph={[1]bib-resource}]
+%     bib-resource = (*\marg{文件}*)
+%   \end{fdusyntax}
+%   参考文献数据源。可以是单个文件，也可以是用英文逗号隔开的一组文件。
+%   如果 \kvopt{bib-backend}{biblatex}，则必须明确给出 \file{.bib}
+%   后缀名。
+% \end{function}
+%^^A! \begin{function}[added=2018-01-25]{style/bib-resource}
+%^^A!   \begin{fdusyntax}[emph={[1]bib-resource}]
+%^^A!     bib-resource = (*\marg{bib file\symbol{"28}s\symbol{"29}}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Specify the bibliography database (usually in \file{.bib}
+%^^A!   format). If using more than one files, the file names should
+%^^A!   be separated with comma. When \kvopt{bib-backend}{biblatex},
+%^^A!   you must type in the ``\file{.bib}'' suffix.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2017-08-10]{style/logo}
+%   \begin{fdusyntax}[emph={[1]logo}]
+%     logo = (*\marg{文件}*)
+%   \end{fdusyntax}
+%   封面中校名图片的文件名。默认值为 \file{fudan-name.pdf}。
+% \end{function}
+%^^A! \begin{function}[added=2017-08-10]{style/logo}
+%^^A!   \begin{fdusyntax}[emph={[1]logo}]
+%^^A!     logo = (*\marg{file}*)
+%^^A!   \end{fdusyntax}
+%^^A!   File name of the logo in thesis cover. Default value is
+%^^A!   \file{fudan-name.pdf}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2017-08-10]{style/logo-size}
+%   \begin{fdusyntax}[emph={[1]logo-size}]
+%     logo-size = (*\marg{宽度}*)
+%     logo-size = {(*\meta{宽度}*), (*\meta{高度}*)}
+%   \end{fdusyntax}
+%   校名图片的大小。默认仅指定了宽度，为 |0.5\textwidth|\/。
+%   如果仅需指定高度，可在 \meta{宽度} 处填入一个空的分组 |{}|。
+% \end{function}
+%^^A! \begin{function}[added=2017-08-10]{style/logo-size}
+%^^A!   \begin{fdusyntax}[emph={[1]logo-size}]
+%^^A!     logo-size = (*\marg{width}*)
+%^^A!     logo-size = {(*\meta{width}*), (*\meta{height}*)}
+%^^A!   \end{fdusyntax}
+%^^A!   Size of the logo. By default, only width is set to
+%^^A!   |0.5\textwidth|. To set height only, you can put an
+%^^A!   empty group ``|{}|'' at \meta{width}.
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2017-07-06]{style/auto-make-cover}
+%   \begin{fdusyntax}[emph={[1]auto-make-cover}]
+%     auto-make-cover = (*<\TTF>*)
+%   \end{fdusyntax}
+%^^A-
+%   是否自动生成论文封面（封一）、指导小组成员名单（封二）和
+%   声明页（封三）。封面中的各项信息，可通过 \cs{fdusetup} 录入，
+%   具体请参阅 \ref{subsubsec:信息录入}~节。
+% \end{function}
+%^^A!   Whether generate thesis cover, list of instructors (inside
+%^^A!   front cover) and declaration page (inside back cover)
+%^^A!   automatically. Entries in the cover can be specified also
+%^^A!   via \cs{fdusetup}, and you can find more details in
+%^^A!   subsubsection~\ref{subsubsec:information}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
+%   用于手动生成论文封面、指导小组成员名单和声明页。这几个命令不能
+%   确保页码的正确编排，因此除非必要，您应当始终使用自动生成的封面。
+% \end{function}
+%^^A! \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
+%^^A!   For generating thesis cover, list of instructors and
+%^^A!   declaration page manually. These commands cannot ensure
+%^^A!   the correct page numbers, hence you should always use the
+%^^A!   auto-generated thesis cover unless necessary.
+%^^A! \end{function}
+%^^A!
+%
+% \subsubsection{信息录入} \label{subsubsec:信息录入}
+%^^A! \subsubsection{Personal information} \label{subsubsec:information}
+%^^A!
+%
+% \begin{function}{info}
+%   \begin{fdusyntax}[emph={[1]info}]
+%     info = (*\marg{键值列表}*)
+%     info/(*\meta{key}*) = (*\meta{value}*)
+%   \end{fdusyntax}
+%   该选项包含许多子项目，用于录入论文信息。具体内容见下。以下带“|*|”
+%   的项目表示对应的英文字段。
+% \end{function}
+%^^A! \begin{function}{info}
+%^^A!   \begin{fdusyntax}[emph={[1]info}]
+%^^A!     info = (*\marg{key-value list}*)
+%^^A!     info/(*\meta{key}*) = (*\meta{value}*)
+%^^A!   \end{fdusyntax}
+%^^A!   This general option is for entering your personal information.
+%^^A!   See the following details. Note that options with ``|*|'' are
+%^^A!   the corresponding English items.
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2018-02-01,updated=2019-03-12]{info/degree}
+%   \begin{fdusyntax}[emph={[1]degree}]
+%     degree = (*<(academic)|professional>*)
+%   \end{fdusyntax}
+%^^A-
+%   学位类型，仅适用于博士和硕士学位论文。\opt{academic} 和 \opt{professional}
+%   分别表示学术学位和专业学位。
+% \end{function}
+%^^A!   Degree type. This option can only be used in master degree
+%^^A!   thesis.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/title,info/title*}
+%   \begin{fdusyntax}[emph={[1]title,title*}]
+%     title  = (*\marg{中文标题}*)
+%     title* = (*\marg{英文标题}*)
+%   \end{fdusyntax}
+%   论文标题。默认会在约 20 个汉字字宽处强制断行，但为了语义的
+%   连贯以及排版的美观，如果您的标题长于一行，建议使用“|\\|”
+%   手动断行。
+% \end{function}
+%^^A! \begin{function}{info/title,info/title*}
+%^^A!   \begin{fdusyntax}[emph={[1]title,title*}]
+%^^A!     title  = (*\marg{title in Chinese}*)
+%^^A!     title* = (*\marg{title in English}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Title of your thesis. The line width is about \SI{30}{em} by
+%^^A!   default, but you may break it with |\\| manually.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/author,info/author*}
+%   \begin{fdusyntax}[emph={[1]author,author*}]
+%     author  = (*\marg{姓名}*)
+%     author* = (*\marg{英文姓名（或拼音）}*)
+%   \end{fdusyntax}
+%   作者姓名。
+% \end{function}
+%^^A! \begin{function}{info/author,info/author*}
+%^^A!   \begin{fdusyntax}[emph={[1]author,author*}]
+%^^A!     author  = (*\marg{name in Chinese}*)
+%^^A!     author* = (*\marg{name in English \lparen or Pinyin\rparen}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Author's name.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/supervisor}
+%   \begin{fdusyntax}[emph={[1]supervisor}]
+%     supervisor = (*\marg{姓名}*)
+%   \end{fdusyntax}
+%   导师姓名。
+% \end{function}
+%^^A! \begin{function}{info/supervisor}
+%^^A!   \begin{fdusyntax}[emph={[1]supervisor}]
+%^^A!     supervisor = (*\marg{name}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Supervisor's name.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/department}
+%   \begin{fdusyntax}[emph={[1]department}]
+%     department = (*\marg{名称}*)
+%   \end{fdusyntax}
+%   院系名称。
+% \end{function}
+%^^A! \begin{function}{info/department}
+%^^A!   \begin{fdusyntax}[emph={[1]department}]
+%^^A!     department = (*\marg{name}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Name of the department.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/major}
+%   \begin{fdusyntax}[emph={[1]major}]
+%     major = (*\marg{名称}*)
+%   \end{fdusyntax}
+%   专业名称。
+% \end{function}
+%^^A! \begin{function}{info/major}
+%^^A!   \begin{fdusyntax}[emph={[1]major}]
+%^^A!     major = (*\marg{name}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Name of the major.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/student-id}
+%   \begin{fdusyntax}[emph={[1]student-id}]
+%     student-id = (*\marg{数字}*)
+%   \end{fdusyntax}
+%   作者学号。
+% \end{function}
+%^^A! \begin{function}{info/student-id}
+%^^A!   \begin{fdusyntax}[emph={[1]student-id}]
+%^^A!     student-id = (*\marg{number}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Author's student ID.
+%^^A! \end{function}
+%^^A!
+%
+% 复旦大学学号共 11 位，前两位为入学年份，之后一位为学生类型
+% 代码（博士生为 1，硕士生为 2，本科生为 3），接下来的五位为
+% 专业代码，最后三位为顺序号。
+%^^A! In Fudan University, student ID has 11 digits. The first two
+%^^A! are the year of attendance; next one represents the student's
+%^^A! type (1 for doctor, 2 for master and 3 for bachelor); the
+%^^A! following five digits are major ID while the last three are
+%^^A! serial number.
+%^^A!
+%
+% \begin{function}{info/school-id}
+%   \begin{fdusyntax}[emph={[1]school-id}]
+%     school-id = (*\marg{数字}*)
+%   \end{fdusyntax}
+%   学校代码。默认值为 10246（这是复旦大学的学校代码）。
+% \end{function}
+%^^A! \begin{function}{info/school-id}
+%^^A!   \begin{fdusyntax}[emph={[1]school-id}]
+%^^A!     school-id = (*\marg{number}*)
+%^^A!   \end{fdusyntax}
+%^^A!   School ID. Default value is 10246 (school ID of Fudan University).
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/date}
+%   \begin{fdusyntax}[emph={[1]date}]
+%     date = (*\marg{日期}*)
+%   \end{fdusyntax}
+%   论文完成日期。默认值为文档编译日期（\tn{today}）。
+% \end{function}
+%^^A! \begin{function}{info/date}
+%^^A!   \begin{fdusyntax}[emph={[1]date}]
+%^^A!     date = (*\marg{date}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Finish date of your thesis. Default value is the compilation
+%^^A!   date (\tn{today}).
+%^^A! \end{function}
+%^^A!
+%
+%^^A+
+% \begin{function}[added=2017-07-04]{info/secret-level}
+%   \begin{fdusyntax}[emph={[1]secret-level}]
+%     secret-level = (*<(none)|i|ii|iii>*)
+%   \end{fdusyntax}
+%^^A-
+%   密级。\opt{i}、\opt{ii}、\opt{iii} 分别表示秘密、机密、绝密；
+%   \opt{none} 表示论文不涉密，即不显示密级与保密年限。
+% \end{function}
+%^^A!   Secret level. \opt{i}, \opt{ii} and \opt{iii} means
+%^^A!   ``秘密'' (secret), ``机密'' (confidential) and ``绝密''
+%^^A!   (top secret) respectively. \opt{none} means your thesis is
+%^^A!   not secret-related and secret level and year will not be
+%^^A!   shown.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2017-07-04]{info/secret-year}
+%   \begin{fdusyntax}[emph={[1]secret-year}]
+%     secret-year = (*\marg{年限}*)
+%   \end{fdusyntax}
+%   保密年限。建议您使用中文，如“五年”。该选项在设置
+%   \kvopt{secret-level}{none} 时无效。
+% \end{function}
+%^^A! \begin{function}[added=2017-07-04]{info/secret-year}
+%^^A!   \begin{fdusyntax}[emph={[1]secret-year}]
+%^^A!     secret-year = (*\marg{year}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Secret year. It's recommended to use Chinese word as ``五年''
+%^^A!   (5 years) here. This option is invalid if you have set
+%^^A!   \kvopt{secret-level}{none}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/instructors}
+%   \begin{fdusyntax}[emph={[1]instructors}]
+%     instructors = (*\marg{成员 1, 成员 2, ...}*)
+%   \end{fdusyntax}
+%   指导小组成员。各成员之间需使用英文逗号隔开。为防止歧义，
+%   可以用分组括号“|{...}|”把各成员字段括起来。
+% \end{function}
+%^^A! \begin{function}{info/instructors}
+%^^A!   \begin{fdusyntax}[emph={[1]instructors}]
+%^^A!     instructors = (*\marg{member 1, member 2, ...}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Instructors' name. Each name should be separated with
+%^^A!   comma. To disambiguate, you may put text containing comma
+%^^A!   into a group ``|{...}|''.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/keywords,info/keywords*}
+%   \begin{fdusyntax}[emph={[1]keywords,keywords*}]
+%     keywords  = (*\marg{中文关键字}*)
+%     keywords* = (*\marg{英文关键字}*)
+%   \end{fdusyntax}
+%   关键字列表。各关键字之间需使用英文逗号隔开。为防止歧义，
+%   可以用分组括号“|{...}|”把各字段括起来。
+% \end{function}
+%^^A! \begin{function}{info/keywords,info/keywords*}
+%^^A!   \begin{fdusyntax}[emph={[1]keywords,keywords*}]
+%^^A!     keywords  = (*\marg{keywords in Chinese}*)
+%^^A!     keywords* = (*\marg{keywords in English}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Keywords list. Each keyword should be separated with comma.
+%^^A!   To disambiguate, you may put text containing comma into a
+%^^A!   group ``|{...}|''.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{info/clc}
+%   \begin{fdusyntax}[emph={[1]clc}]
+%     clc = (*\marg{分类号}*)
+%   \end{fdusyntax}
+%   中图分类号（CLC）。
+% \end{function}
+%^^A! \begin{function}{info/clc}
+%^^A!   \begin{fdusyntax}[emph={[1]clc}]
+%^^A!     clc = (*\marg{classification codes}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Chinese Library Classification (CLC).
+%^^A! \end{function}
+%^^A!
+%
+% \subsection{正文编写}
+%^^A! \subsection{Writing your thesis}
+%^^A!
+%
+% \begin{quotation}
+%   喬孟符（吉）博學多能，以樂府稱。嘗云：「作樂府亦有法，曰^^A
+%   \CJKunderdot{鳳頭、豬肚、豹尾}六字是也。」大概起要美麗，中要浩蕩，
+%   結要響亮。尤貴在首尾貫穿，意思清新。苟能若是，斯可以言樂府矣。
+% \end{quotation}
+% \hfill ——陶宗儀《南村輟耕錄·作今樂府法》
+%
+% \subsubsection{凤头}
+%^^A! \subsubsection{Front matter}
+%^^A!
+%
+% \begin{function}{\frontmatter}
+%   声明前置部分开始。
+% \end{function}
+%^^A! \begin{function}{\frontmatter}
+%^^A!   Declare the beginning of front matter.
+%^^A! \end{function}
+%^^A!
+%
+% 在本模板中，前置部分包含目录、中英文摘要以及符号表等。
+% 前置部分的页码采用小写罗马字母，并且与正文分开计数。
+%^^A! Front matter contains table of contents, abstracts and notation
+%^^A! list. The page numbers in front matter will be shown in
+%^^A! lowercase Roman numerals, and will be counted separately with
+%^^A! main matter.
+%^^A!
+%
+% \begin{function}{\tableofcontents}
+%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
+% \end{function}
+%^^A! \begin{function}{\tableofcontents}
+%^^A!   Generate the table of contents (TOC). You need to compile
+%^^A!   the source file at least \emph{twice} to get the correct TOC.
+%^^A! \end{function}
+%^^A!
+%
+%^^A TODO: \DescribeEnv{abstract}
+%^^A TODO: \DescribeEnv{abstract*}
+% \begin{function}{abstract}
+%   \begin{fdusyntax}[emph={[2]abstract}]
+%     % 中文论文模板 (fduthesis)      % 英文论文模板 (fduthesis-en)
+%     \begin{abstract}                \begin{abstract}
+%       (*\meta{中文摘要} \hspace{3.52cm} \meta{英文摘要}*)
+%     \end{abstract}                  \end{abstract}
+%   \end{fdusyntax}
+% \end{function}
+% \begin{function}[rEXP]{abstract*}
+%   \begin{fdusyntax}[emph={[2]abstract*}]
+%     % 中文论文模板 (fduthesis)
+%     \begin{abstract*}
+%       (*\meta{英文摘要}*)
+%     \end{abstract*}
+%   \end{fdusyntax}
+%   摘要。中文模板中，不带星号和带星号的版本分别用来输入中文摘要
+%   和英文摘要；英文模板中没有带星号的版本，您只需输入英文摘要。
+% \end{function}
+%^^A! \begin{function}{abstract}
+%^^A!   \begin{fdusyntax}[emph={[2]abstract}]
+%^^A!     % fduthesis (Chinese thesis)    % fduthesis-en (English thesis)
+%^^A!     \begin{abstract}                \begin{abstract}
+%^^A!       (*\meta{Chinese abstract} \hspace{3cm} \meta{English abstract}*)
+%^^A!     \end{abstract}                  \end{abstract}
+%^^A!   \end{fdusyntax}
+%^^A! \end{function}
+%^^A! \begin{function}[rEXP]{abstract*}
+%^^A!   \begin{fdusyntax}[emph={[2]abstract*}]
+%^^A!     % Only for fduthesis
+%^^A!     \begin{abstract*}
+%^^A!       (*\meta{English abstract}*)
+%^^A!     \end{abstract*}
+%^^A!   \end{fdusyntax}
+%^^A!   Abstract environment. In \cls{fduthesis}, \env{abstract} and
+%^^A!   \env{abstract*} are used for Chinese and English abstract,
+%^^A!   respectively; while in \cls{fduthesis-en}, there is no
+%^^A!   \env{abstract*} environment and you need to write the English
+%^^A!   abstract merely.
+%^^A! \end{function}
+%^^A!
+%
+% 摘要的最后，会显示关键字列表以及中图分类号（CLC）。
+% 这两项可通过 \cs{fdusetup} 录入，具体
+% 请参阅 \ref{subsubsec:信息录入}~节。
+%^^A! At the end of abstract (both Chinese and English, if available),
+%^^A! keywords list and CLC number will be shown. They can be
+%^^A! specified via command \cs{fdusetup} and you may refer to
+%^^A! subsubsection~\ref{subsubsec:information} for more details.
+%^^A!
+%
+%^^A TODO: \DescribeEnv{notation}
+% \begin{function}{notation}
+%   \begin{fdusyntax}[emph={[2]notation}]
+%     \begin{notation}(*\oarg{列格式说明}*)
+%       (*\meta{符号 1}*)  &  (*\meta{说明}*)  \\
+%       (*\meta{符号 2}*)  &  (*\meta{说明}*)  \\
+%       (*\phantom{\meta{符号 $n$}}*)  (*$\vdots$*)
+%       (*\meta{符号\ \kern-0.1em$n$}*)  &  (*\meta{说明}*)
+%     \end{notation}
+%   \end{fdusyntax}
+%   符号表。可选参数 \meta{列格式说明}与 \LaTeX{} 中标准表格的列格
+%   式说明语法一致，默认值为“|lp{7.5cm}|”，即第一列宽度自动调整，
+%   第二列限宽 \SI{7.5}{cm}，两列均为左对齐。
+% \end{function}
+%^^A! \begin{function}{notation}
+%^^A!   \begin{fdusyntax}[emph={[2]notation}]
+%^^A!     \begin{notation}(*\oarg{column format}*)
+%^^A!       (*\meta{symbol 1}*)  &  (*\meta{description}*)  \\
+%^^A!       (*\meta{symbol 2}*)  &  (*\meta{description}*)  \\
+%^^A!       (*\phantom{\meta{symbol $n$}}*)  (*$\vdots$*)
+%^^A!       (*\meta{symbol \kern-0.1em$n$}*)  &  (*\meta{description}*)
+%^^A!     \end{notation}
+%^^A!   \end{fdusyntax}
+%^^A!   Notation list (or symbol list, nomenclature) environment.
+%^^A!   The optional argument \meta{column format} is the same as
+%^^A!   in a standard \LaTeX{} table. The default value is
+%^^A!   ``|lp{7.5cm}|'', which means auto-width for the first column
+%^^A!   and fix-width (\SI{7.5}{cm}) for the second; both columns will
+%^^A!   be left-aligned.
+%^^A! \end{function}
+%^^A!
+%
+% \subsubsection{猪肚}
+%^^A! \subsubsection{Main matter}
+%^^A!
+%
+% \begin{function}{\mainmatter}
+%   声明主体部分开始。
+% \end{function}
+%^^A! \begin{function}{\mainmatter}
+%^^A!   Declare the beginning of main matter.
+%^^A! \end{function}
+%^^A!
+%
+% 主体部分是论文的核心，您可以分章节撰写。如有需求，也可以采用
+% 多文件编译的方式。主体部分的页码采用阿拉伯数字。
+%^^A! As the name suggests, ``main matter'' is the main body of your
+%^^A! thesis. When working on a big projects, it's usually a good
+%^^A! idea to split the source file into several parts. The page
+%^^A! numbers in main matter are shown in arabic numerals.
+%^^A!
+%
+% \begin{function}[updated=2018-01-15]{\footnote}
+%   \begin{fdusyntax}[deletetexcs={\footnote},%
+%       morekeywords={\footnote}]
+%     \footnote(*\marg{脚注文字}*)
+%   \end{fdusyntax}
+%   插入脚注。脚注编号样式可利用 \opt{style/footnote-style} 选项控制，
+%   具体见 \ref{subsubsec:论文格式}~小节。
+% \end{function}
+%^^A! \begin{function}[updated=2018-01-15]{\footnote}
+%^^A!   \begin{fdusyntax}[deletetexcs={\footnote},%
+%^^A!       morekeywords={\footnote}]
+%^^A!     \footnote(*\marg{text}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Insert a footnote. The style of footnote numbers can be set
+%^^A!   with option \opt{style/foot\-note\-style}. See subsubsection~%
+%^^A!   \ref{subsubsec:style-and-format} for more details.
+%^^A! \end{function}
+%^^A!
+%
+%^^A TODO: \DescribeEnv{proof}
+% \begin{function}{axiom,corollary,definition,example,lemma,
+%   proof,theorem}
+%   \begin{fdusyntax}[emph={[2]proof}]
+%     \begin{proof}(*\oarg{小标题}*)
+%       (*\meta{证明过程}*)
+%     \end{proof}
+%   \end{fdusyntax}
+%   一系列预定义的数学环境。具体含义见表~\ref{tab:theorem}。
+% \end{function}
+%^^A! \begin{function}{axiom,corollary,definition,example,lemma,
+%^^A!   proof,theorem}
+%^^A!   \begin{fdusyntax}[emph={[2]proof}]
+%^^A!     \begin{proof}(*\oarg{subheading}*)
+%^^A!       (*\meta{procedure of proof}*)
+%^^A!     \end{proof}
+%^^A!   \end{fdusyntax}
+%^^A!   A series of pre-defined math environments.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{table}[ht]
+%   \caption{预定义的数学环境} \label{tab:theorem}
+%   \centering
+%   \begin{tabular}{cccccccc}
+%     \toprule
+%     \textbf{名称} &
+%       \env{axiom}   & \env{corollary} & \env{definition} &
+%       \env{example} & \env{lemma}     & \env{proof}      &
+%       \env{theorem} \\
+%     \midrule
+%     \textbf{含义} &
+%       公理 & 推论 & 定义 & 例 & 引理 & 证明 & 定理 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% 证明环境（\env{proof}）的最后会添加证毕符号“$\QED$”。要确保
+% 该符号在正确的位置显示，您需要按照 \ref{subsec:编译方式}~节
+% 中的有关说明编译\emph{两次}。
+%^^A! A QED\footnote{Abbreviation of Latin phrase \emph{quod erat
+%^^A!   demonstrandum}, means ``what was to be demonstrated''.}
+%^^A! symbol ``$\QED$'' will be added at the end of \env{proof}
+%^^A! environment. You need to compile the source file \emph{twice}
+%^^A! as in subsection~\ref{subsec:compilation} in order to make
+%^^A! the position of QED symbol correct.
+%^^A!
+%
+% \begin{function}[updated=2017-12-12]{\newtheorem}
+%   \begin{fdusyntax}[deletetexcs={\newtheorem},
+%       morekeywords={\newtheorem,\newtheorem*}]
+%     \newtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
+%     \newtheorem*(*\oarg{选项}\marg{环境名}\marg{标题}*)
+%     \begin(*\marg{环境名}\oarg{小标题}*)
+%       (*\meta{内容}*)
+%     \end(*\marg{环境名}*)
+%   \end{fdusyntax}
+%   声明新的定理类环境（数学环境）。带星号的版本表示不进行编号，
+%   并且会默认添加证毕符号“$\QED$”。声明后，即可同预定义的数学环境
+%   一样使用。
+% \end{function}
+%^^A! \begin{function}[updated=2017-12-12]{\newtheorem}
+%^^A!   \begin{fdusyntax}[deletetexcs={\newtheorem},
+%^^A!       morekeywords={\newtheorem,\newtheorem*}]
+%^^A!     \newtheorem(*\oarg{options}\marg{environment}\marg{title}*)
+%^^A!     \newtheorem*(*\oarg{options}\marg{environment}\marg{title}*)
+%^^A!     \begin(*\marg{environment}\oarg{subheading}*)
+%^^A!       (*\meta{contents}*)
+%^^A!     \end(*\marg{environment}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Declare new math environments (theorems). If you use
+%^^A!   \cs{newtheorem*}, then the theorem will not be numbered, and
+%^^A!   a QED symbol ``$\QED$'' will be added at the end of the
+%^^A!   environment. All the theorem environments defined by yourself
+%^^A!   can be used as the pre-defined ones.
+%^^A! \end{function}
+%^^A!
+%
+% 事实上，表~\ref{tab:theorem} 中预定义的环境正是通过以下方式定义的：
+% \begin{latexexample}[deletetexcs={\newtheorem},
+%     morekeywords={\newtheorem,\newtheorem*}]
+%   \newtheorem*{proof}{证明}
+%   \newtheorem{axiom}{公理}
+%   \newtheorem{corollary}{定理}
+%   ...
+% \end{latexexample}
+%^^A! Actually, the pre-defined math environments are just defined
+%^^A! with \cs{new\-the\-o\-rem} and \cs{new\-the\-o\-rem*}:
+%^^A! \begin{latexexample}[deletetexcs={\newtheorem},
+%^^A!     morekeywords={\newtheorem,\newtheorem*}]
+%^^A!   \newtheorem*{proof}{proof}
+%^^A!   \newtheorem{axiom}{axiom}
+%^^A!   \newtheorem{corollary}{corollary}
+%^^A!   ...
+%^^A! \end{latexexample}
+%^^A!
+%
+% 与 \cs{fdusetup} 相同，\cs{newtheorem} 的可选参数 \meta{选项}
+% 也为一组键值列表。可用的选项见下。注意您无需输入“|theorem/|”。
+%^^A! Similar with \cs{fdusetup}, the optional argument \meta{options}
+%^^A! of \cs{newtheorem} is a key-value list as well. The available
+%^^A! are described below. Note that you don't need to type in the
+%^^A! ``|theorem/|'' prefix.
+%^^A!
+%
+% \begin{function}{theorem/style}
+%   \begin{fdusyntax}[emph={[1]style}]
+%     style = (*<(plain)|margin|change|\\
+%       XXXXXX\mbox{}~~~~~~~~break|marginbreak|changebreak>*)
+%   \end{fdusyntax}
+%   定理类环境的总体样式。
+% \end{function}
+%^^A! \begin{function}{theorem/style}
+%^^A!   \begin{fdusyntax}[emph={[1]style}]
+%^^A!     style = (*<(plain)|margin|change|\\
+%^^A!       XXXX\mbox{}~~~~~~~~break|marginbreak|changebreak>*)
+%^^A!   \end{fdusyntax}
+%^^A!   The overall style of the theorem environment.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{theorem/header-font}
+%   \begin{fdusyntax}[emph={[1]header-font}]
+%     header-font = (*\marg{字体}*)
+%   \end{fdusyntax}
+%   定理头（即标题）的字体。中文模板默认为 \tn{sffamily}，即无衬线体
+%   （黑体）；英文模板默认为 |\bfseries\upshape|，即加粗直立体。
+% \end{function}
+%^^A! \begin{function}{theorem/header-font}
+%^^A!   \begin{fdusyntax}[emph={[1]header-font}]
+%^^A!     header-font = (*\marg{font}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Font of the theorem header. Default value is \tn{sffamily}
+%^^A!   and |\bfseries\upshape| for Chinese and English template,
+%^^A!   respectively.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{theorem/body-font}
+%   \begin{fdusyntax}[emph={[1]body-font}]
+%     body-font = (*\marg{字体}*)
+%   \end{fdusyntax}
+%   定理内容的字体。中文模板默认为 \tn{fdu@kai}，即楷体；英文模板
+%   默认为 \tn{itshape}，即斜体。
+% \end{function}
+%^^A! \begin{function}{theorem/body-font}
+%^^A!   \begin{fdusyntax}[emph={[1]body-font}]
+%^^A!     body-font = (*\marg{font}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Font of the theorem body. Default value is \tn{fdu@kai}
+%^^A!   (\textit{楷体}) and \tn{itshape} for Chinese and English
+%^^A!   template, respectively.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{theorem/qed}
+%   \begin{fdusyntax}[emph={[1]qed}]
+%     qed = (*\marg{符号}*)
+%   \end{fdusyntax}
+%   定理结束标记（即证毕符号）。如果用 \cs{newtheorem} 声明定理，
+%   则默认为空；用 \cs{newtheorem*} 声明，则默认为
+%   |\ensuremath{\QED}|，即“$\QED$”。
+% \end{function}
+%^^A! \begin{function}{theorem/qed}
+%^^A!   \begin{fdusyntax}[emph={[1]qed}]
+%^^A!     qed = (*\marg{symbol}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Theorem end mark. For \cs{newtheorem}, default value is
+%^^A!   empty; for \cs{newtheorem*}, default value is
+%^^A!   |\ensuremath{\QED}| (i.e.\ ``$\QED$'').
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{theorem/counter}
+%   \begin{fdusyntax}[emph={[1]counter}]
+%     counter = (*\marg{计数器}*)
+%   \end{fdusyntax}
+%   定理计数器，表示定理编号在 \meta{计数器} 的下一级，并会随
+%   \meta{计数器} 的变化而清零。\scite{刘海洋2013latex入门}
+%   默认为 |chapter|，表示按章编号。使用 \cs{newtheorem*} 时，
+%   该选项无效。
+% \end{function}
+%^^A! \begin{function}{theorem/counter}
+%^^A!   \begin{fdusyntax}[emph={[1]counter}]
+%^^A!     counter = (*\marg{counter}*)
+%^^A!   \end{fdusyntax}
+%^^A!   The theorem will be enumerated within \meta{counter}. For
+%^^A!   example, the default value is |chapter|, which means with
+%^^A!   each new \tn{chapter}, the enumeration begins again with 1.
+%^^A!   This option is invalid for \cs{newtheorem*}.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}{\caption}
+%   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
+%     \caption(*\marg{图表标题}*)
+%     \caption(*\oarg{短标题}\marg{长标题}*)
+%   \end{fdusyntax}
+%   插入图表标题。可选参数 \meta{短标题} 用于图表目录。在
+%   \meta{长标题} 中，您可以进行长达多段的叙述；但 \meta{短标题}
+%   和单独的 \meta{图表标题} 中则不允许分段。
+%   \scite{刘海洋2013latex入门}
+% \end{function}
+%^^A! \begin{function}{\caption}
+%^^A!   \begin{fdusyntax}[deletetexcs={\caption},morekeywords={\caption}]
+%^^A!     \caption(*\marg{caption}*)
+%^^A!     \caption(*\oarg{short caption}\marg{long caption}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Insert the caption of figure or table. The optional argument
+%^^A!   \meta{short caption} will be shown in the list of figures/tables.
+%^^A!   In \meta{long caption}, you can write descriptions for several
+%^^A!   paragraphs, but \meta{short caption} and the single
+%^^A!   \meta{caption} will not allow multi-paragraph text (i.e.\
+%^^A!   text containing \tn{par}) inside.
+%^^A! \end{function}
+%^^A!
+%
+% 按照排版惯例，建议您将表格的标题放置在绘制表格的命令之前，
+% 而将图片的标题放置在绘图或插图的命令之后。另需注意，
+% \tn{caption} 命令必须放置在浮动体环境（如 \env{table} 和
+% \env{figure}）中。
+%^^A! By convention, caption of a table is usually put \emph{before}
+%^^A! the table itself, while for figure it's the opposite.
+%^^A! In addition, command \tn{caption} must be put inside float
+%^^A! environments (e.g.\ \env{table} and \env{figure}).
+%^^A!
+%
+% \subsubsection{豹尾}
+%^^A! \subsubsection{Back matter}
+%^^A!
+%
+% \begin{function}{\backmatter}
+%   声明后置部分开始。
+% \end{function}
+%^^A! \begin{function}{\backmatter}
+%^^A!   Declare the beginning of back matter.
+%^^A! \end{function}
+%^^A!
+%
+% 后置部分包含参考文献、声明页等。
+%^^A! Back matter contains bibliography, declaration page, etc.
+%^^A!
+%
+% \begin{function}[updated=2018-01-25]{\printbibliography}
+%   \begin{fdusyntax}[morekeywords={\printbibliography}]
+%     \printbibliography(*\oarg{选项}*)
+%   \end{fdusyntax}
+%   打印参考文献列表。如果 \kvopt{bib-backend}{bibtex}，则 \meta{选项}
+%   无效，相当于 \tn{bibliography} \texttt{\marg{文献数据库}}，其中的
+%   \meta{文献数据库} 可利用 \opt{style/bib-resource} 选项指定，具体见
+%   \ref{subsubsec:论文格式}~小节；而如果 \kvopt{bib-backend}^^A
+%   {biblatex}，则该命令由 \pkg{biblatex} 宏包直接提供，可用选项请
+%   参阅其文档 \cite{biblatex}。
+% \end{function}
+%^^A! \begin{function}[updated=2018-01-25]{\printbibliography}
+%^^A!   \begin{fdusyntax}[morekeywords={\printbibliography}]
+%^^A!     \printbibliography(*\oarg{options}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Print the bibliography. When \kvopt{bib-backend}{bibtex}, then
+%^^A!   \meta{options} is invalid and this command is equivalent to
+%^^A!   \tn{bibliography} \texttt{\marg{bib files}}, where
+%^^A!   \meta{bib files} should be specified with option
+%^^A!   \opt{style/bib-resource} (see subsubsection~%
+%^^A!   \ref{subsubsec:style-and-format}). When \kvopt{bib-backend}%
+%^^A!   {bibtex}, then \tn{printbibliography} is provided by
+%^^A!   \pkg{biblatex} and the available options can be found in its
+%^^A!   documentation.
+%^^A! \end{function}
+%^^A!
+%
+% \section{宏包依赖情况}
+%^^A! \section{Packages dependencies}
+%^^A!
+%
+% 使用不同编译方式、指定不同选项，会导致宏包依赖情况有所不同。
+% 具体如下：
+% \begin{itemize}
+%   \item 在任何情况下，本模板都会\emph{显式}调用以下宏包
+%     （或文档类）：
+%     \begin{itemize}
+%       \item \pkg{expl3}、\pkg{xparse}、\pkg{xtemplate} 和
+%         \pkg{l3keys2e}，用于构建 \LaTeX3 编程环境
+%         \scite{source3}。它们分属 \pkg{l3kernel} 和
+%         \pkg{l3packages} 宏集。
+%       \item \cls{ctexbook}，提供中文排版的通用框架。属于 \CTeX{}
+%         宏集 \scite{CTeX}。
+%       \item \pkg{amsmath}，对 \LaTeX{} 的数学排版功能进行了
+%         全面扩展。属于 \AmSLaTeX{} 套件。
+%       \item \pkg{unicode-math}，负责处理 Unicode 编码的
+%         OpenType 数学字体。
+%       \item \pkg{geometry}，用于调整页面尺寸。
+%       \item \pkg{fancyhdr}，处理页眉页脚。
+%       \item \pkg{footmisc}，处理脚注。
+%       \item \pkg{ntheorem}，提供增强版的定理类环境。
+%       \item \pkg{graphicx}，提供图形插入的接口。
+%       \item \pkg{longtable}，长表格（允许跨页）支持。
+%       \item \pkg{caption}，用于设置题注。
+%       \item \pkg{xcolor}，提供彩色支持。
+%       \item \pkg{hyperref}，提供交叉引用、超链接、电子书签等功能。
+%     \end{itemize}
+%   \item 开启 \kvopt{style/footnote-style}{pifont} 后，会调用
+%     \pkg{pifont} 宏包。它属于 \pkg{psnfss} 套件。
+%   \item 开启 \kvopt{style/bib-backend}{bibtex} 后，会调用
+%     \pkg{natbib} 宏包，并依赖 \BibTeX{} 程序。参考文献样式由
+%     \pkg{gbt7714} 宏包提供 \scite{natbib,gbt7714}。
+%   \item 开启 \kvopt{style/bib-backend}{biblatex} 后，会调用
+%     \pkg{biblatex} 宏包，并依赖 \biber{} 程序。参考文献样式由
+%     \pkg{biblatex-gb7714-2015} 宏包提供
+%     \scite{biblatex,biblatex-gb7714-2015}。
+% \end{itemize}
+%^^A! Different compilation methods and options will result in a
+%^^A! different packages dependency. Details are as follows:
+%^^A! \begin{itemize}
+%^^A!   \item In any case, \cls{fduthesis} will load the following
+%^^A!     packages \emph{explicitly}:
+%^^A!     \begin{itemize}
+%^^A!       \item \pkg{expl3}, \pkg{xparse}, \pkg{xtemplate} and
+%^^A!         \pkg{l3keys2e}, belong to \pkg{l3kernel} and
+%^^A!         \pkg{l3packages} bundles
+%^^A!       \item \cls{ctexbook}, belongs to \CTeX{} bundle
+%^^A!       \item \pkg{amsmath}, belongs to \AmSLaTeX{} bundle
+%^^A!       \item \pkg{unicode-math}
+%^^A!       \item \pkg{geometry}
+%^^A!       \item \pkg{fancyhdr}
+%^^A!       \item \pkg{footmisc}
+%^^A!       \item \pkg{ntheorem}
+%^^A!       \item \pkg{graphicx}
+%^^A!       \item \pkg{longtable}
+%^^A!       \item \pkg{caption}
+%^^A!       \item \pkg{xcolor}
+%^^A!       \item \pkg{hyperref}
+%^^A!     \end{itemize}
+%^^A!   \item When chosen \kvopt{style/footnote-style}{pifont},
+%^^A!     package \pkg{pifont} will be loaded. It belongs to
+%^^A!     \pkg{psnfss} bundle.
+%^^A!   \item When chosen \kvopt{style/bib-backend}{bibtex},
+%^^A!     package \pkg{natbib} will be loaded. Meanwhile, program
+%^^A!     \BibTeX{} will be required for compilation. The
+%^^A!     bibliography style is provided by \pkg{gbt7714}.
+%^^A!   \item When chosen \kvopt{style/bib-backend}{biblatex},
+%^^A!     package \pkg{biblatex} will be loaded. Program \biber{}
+%^^A!     will be required then. The bibliography style is provided
+%^^A!     by \pkg{biblatex-gb7714-2015}.
+%^^A! \end{itemize}
+%^^A!
+%
+% 这里只列出了本模板直接调用的宏包。这些宏包自身的调用情况，
+% 此处不再具体展开。如有需要，请参阅相关文档。
+%^^A! Only the packages loaded directly by \cls{fduthesis} are listed
+%^^A! here. If you need to know the dependencies of the packages
+%^^A! themselves, please refer to the corresponding manuals.
+%^^A!
+%
+% \begin{thebibliography}{99}
+%
+% \newcommand\urlprefix{\newline\hspace*{\fill}}
+% \let\OldUrl=\url
+% \renewcommand\url[2][]{{\small\textit{#1}~\OldUrl{#2}}}
+% \newcommand\CTANurl[2][]{{\small\textit{#1}~\href{http://mirror.ctan.org/#2}^^A
+%   {\ttfamily CTAN://#2}}}
+%
+% \subsection{图书}
+%
+% \bibitem{knuth1986texbook}
+% \textsc{Knuth D E}.
+% \newblock \textit{The \TeX book: Computers \& Typesetting, volume A} [M].
+% \newblock Boston: Addison--Wesley Publishing Company, 1986
+% \urlprefix \CTANurl[源代码^^A
+%   \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：]^^A
+%   {systems/knuth/dist/tex/texbook.tex}
+%
+% \bibitem{mittelbach2004latexcompanion}
+% \textsc{Mittelbach F} and \textsc{Goossens M}.
+% \newblock \textit{The \LaTeX{} Companion} [M].
+% \newblock 2nd ed.
+% \newblock Boston: Addison--Wesley Publishing Company, 2004
+%
+% \bibitem{胡伟2017latex2e}
+% 胡伟.
+% \newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
+% \newblock 北京: 清华大学出版社, 2017
+%
+% \bibitem{刘海洋2013latex入门}
+% 刘海洋.
+% \newblock \textit{\LaTeX{} 入门} [M].
+% \newblock 北京: 电子工业出版社, 2013
+%
+% \subsection{标准、规范}
+%
+% \bibitem{gb-t-7713.1-2006}
+% 国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
+% \newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
+% \newblock 北京: 中国标准出版社, 2007
+%
+% \bibitem{gb-t-7714-2015}
+% 全国信息与文献标准化技术委员会.
+% \newblock \textit{信息与文献\quad 参考文献著录规则: GB/T 7714--2015} [S].
+% \newblock 北京: 中国标准出版社, 2015
+%
+% \bibitem{gb-t-15834-2011}
+% 教育部语言文字信息管理司.
+% \newblock \textit{标点符号用法: GB/T 15834--2011} [S/OL].
+% \newblock 北京: 中国标准出版社, 2012
+% \urlprefix\url{http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091548267.pdf}
+%
+% \bibitem{clreq}
+% W3C.
+% \newblock \textit{中文排版需求（Requirements for Chinese Text Layout）} [EB/OL].
+% \newblock (2019-03-13) 
+% \urlprefix\url{https://w3c.github.io/clreq/}
+%
+% \bibitem{复旦大学论文规范}
+% 复旦大学图书馆, 复旦大学研究生院.
+% \newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
+% \newblock 2017 年 3 月修订版.
+% \newblock (2017-03-27) 
+% \urlprefix\url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
+%
+% \subsection{宏包、模版}
+%
+% \bibitem{source2e}
+% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
+% \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
+% \newblock (2018-12-01) 
+% \urlprefix\url{https://ctan.org/pkg/latex}
+% \urlprefix\CTANurl[源代码：]{macros/latex/base/source2e.pdf}
+%
+% \bibitem{CTeX}
+% \textsc{CTEX.ORG}.
+% \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
+% \newblock version 2.4.14,
+% \newblock (2018-05-02) 
+% \urlprefix\url{https://ctan.org/pkg/ctex}
+% \urlprefix\CTANurl[文档及源代码：]{language/chinese/ctex/ctex.pdf}
+%
+% \bibitem{xeCJK}
+% \textsc{CTEX.ORG}.
+% \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
+% \newblock version 3.7.1,
+% \newblock (2018-04-30) 
+% \urlprefix\url{https://ctan.org/pkg/xecjk}
+% \urlprefix\CTANurl[文档及源代码：]{macros/xetex/latex/xecjk/xeCJK.pdf}
+%
+% \bibitem{natbib}
+% \textsc{Daly P W}.
+% \newblock \textit{Natural Sciences Citations and References} [EB/OL].
+% \newblock version 8.31b,
+% \newblock (2010-09-13) 
+% \urlprefix\url{https://ctan.org/pkg/natbib}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/natbib/natbib.pdf}
+%
+% \bibitem{source3}
+% \textsc{The \LaTeX3 Project}.
+% \newblock \textit{The \LaTeX3 Sources} [CP/OL].
+% \newblock (2019-03-05) 
+% \urlprefix\url{https://ctan.org/pkg/l3kernel}
+% \urlprefix\CTANurl[源代码：]{macros/latex/contrib/l3kernel/source3.pdf}
+%
+% \bibitem{biblatex}
+% \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
+% \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
+% \newblock version 3.12,
+% \newblock (2018-10-18) 
+% \urlprefix\url{https://ctan.org/pkg/biblatex}
+% \urlprefix\CTANurl[文档：]{macros/latex/contrib/biblatex/doc/biblatex.pdf}
+%
+% \bibitem{lshort}
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
+% \newblock version 6.2,
+% \newblock (2018-02-28) 
+% \urlprefix\url{https://ctan.org/pkg/lshort-english}
+% \urlprefix\CTANurl[文档：]{info/lshort/english/lshort.pdf}
+%
+% \bibitem{lshort-zh-cn}
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 106 分钟了解 \LaTeXe{}} [EB/OL].
+% \newblock \CTeX{} 开发小组, 译.
+% \newblock 原版版本 version 6.2, 中文版本 version 6.0,
+% \newblock (2018-09-01) 
+% \urlprefix\url{https://ctan.org/pkg/lshort-zh-cn}
+% \urlprefix\CTANurl[文档：]{info/lshort/chinese/lshort-zh-cn.pdf}
+%
+% \bibitem{biblatex-gb7714-2015}
+% 胡振震.
+% \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
+% \newblock version 1.0q,
+% \newblock (2019-02-11) 
+% \urlprefix\url{https://ctan.org/pkg/biblatex-gb7714-2015}
+% \urlprefix\CTANurl[文档：]{biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}
+%
+% \bibitem{gbt7714}
+% 李泽平（\textsc{Zeping L}）.
+% \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
+% \newblock version 1.0.9,
+% \newblock (2018-08-05) 
+% \urlprefix\url{https://ctan.org/pkg/gbt7714}
+% \urlprefix\CTANurl[文档：]{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
+%
+% \bibitem{cquthesis}
+% 李振楠.
+% \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
+% \newblock version 1.30,
+% \newblock (2018-02-23) 
+% \urlprefix\url{https://ctan.org/pkg/cquthesis}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/cquthesis/cquthesis.pdf}
+%
+% \bibitem{thuthesis}
+% 薛瑞尼.
+% \newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
+% \newblock version 5.4.5,
+% \newblock (2018-05-17) 
+% \urlprefix\url{https://ctan.org/pkg/thuthesis}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/thuthesis/thuthesis.pdf}
+%
+% \emph{以下模版未收录至 CTAN，但仍然保持活跃更新。}
+%
+% \bibitem{sjtuthesis}
+% \textsc{SJTUG}.
+% \newblock \textit{上海交通大学 \XeLaTeX{} 学位论文及课程论文模板} [EB/OL].
+% \newblock version 0.10.2,
+% \newblock (2018-11-05)
+% \urlprefix\url{https://github.com/sjtug/SJTUThesis}
+%
+% \bibitem{ustcthesis}
+% \textsc{USTC \TeX{} User Group}.
+% \newblock \textit{中国科学技术大学学位论文 \LaTeX{} 模板} [EB/OL].
+% \newblock version 3.1.03,
+% \newblock (2019-01-01)
+% \urlprefix\url{https://github.com/ustctug/ustcthesis}
+%
+% \bibitem{ucasthesis}
+% \textsc{mohuangrui}.
+% \newblock \textit{\pkg{ucasthesis} 国科大学位论文 \LaTeX{} 模板} [EB/OL].
+% \newblock (2019-03-14)
+% \urlprefix\url{https://github.com/mohuangrui/ucasthesis}
+%
+% \emph{以下模版现已停止更新。}
+%
+% \bibitem{pandoxie2014fduthesislatex}
+% \textsc{Pandoxie}.
+% \newblock \textit{Fudan University-Latex Template} [EB/OL].
+% \newblock (2014-06-07) 
+% \urlprefix\url{https://github.com/Pandoxie/FDU-Thesis-Latex}
+%
+% \bibitem{richard2016fudanthesis}
+% \textsc{richard}.
+% \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
+% \newblock (2016-01-31) 
+% \urlprefix\url{https://github.com/richarddzh/fudan-thesis}
+%
+% \bibitem{数院毕业论文格式}
+% 复旦大学数学科学学院.
+% \newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL].
+% \urlprefix\url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
+%
+% \bibitem{数院毕业论文格式更新}
+% 复旦大学数学科学学院.
+% \newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL].
+% \urlprefix\url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
+%
+% \subsection{其他}
+%
+% \bibitem{wright2009dtxfile}
+% \textsc{Wright J}.
+% \newblock \textit{A model dtx file} [EB/OL].
+% \newblock (2009-10-06) 
+% \urlprefix\url{https://www.texdev.net/2009/10/06/a-model-dtx-file/}
+%
+% \bibitem{孔雀计划}
+% 刘庆（\textsc{Eric Q L}）.
+% \newblock \textit{孔雀计划：中文字体排印的思路} [EB/OL].
+% \urlprefix\url{https://thetype.com/kongque/}
+%
+% \end{thebibliography}
+%
+% \clearpage
+%
+%^^A! \end{document}
+%
+% \end{documentation}
