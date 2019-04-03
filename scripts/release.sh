@@ -71,6 +71,15 @@ cp $TEMP_DIR/fudan-emblem.pdf      $OVERLEAF_DIR
 cp $TEMP_DIR/fudan-emblem-new.pdf  $OVERLEAF_DIR
 cp $TEMP_DIR/fudan-name.pdf        $OVERLEAF_DIR
 
+cp $(kpsewhich expl3.sty)                    $OVERLEAF_DIR
+cp $(kpsewhich expl3-code.tex)               $OVERLEAF_DIR
+cp $(kpsewhich l3keys2e.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich xparse.sty)                   $OVERLEAF_DIR
+cp $(kpsewhich xtemplate.sty)                $OVERLEAF_DIR
+cp $(kpsewhich fontspec.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich fontspec-xetex.sty)           $OVERLEAF_DIR
+cp $(kpsewhich unicode-math.sty)             $OVERLEAF_DIR
+cp $(kpsewhich unicode-math-xetex.sty)       $OVERLEAF_DIR
 cp $(kpsewhich ctexbook.cls)                 $OVERLEAF_DIR
 cp $(kpsewhich ctex-scheme-chinese-book.def) $OVERLEAF_DIR
 cp $(kpsewhich ctex-scheme-plain-book.def)   $OVERLEAF_DIR
@@ -78,15 +87,6 @@ cp $(kpsewhich ctex-engine-xetex.def)        $OVERLEAF_DIR
 cp $(kpsewhich xeCJK.sty)                    $OVERLEAF_DIR
 cp $(kpsewhich xeCJKfntef.sty)               $OVERLEAF_DIR
 cp $(kpsewhich zhnumber.sty)                 $OVERLEAF_DIR
-cp $(kpsewhich fontspec.sty)                 $OVERLEAF_DIR
-cp $(kpsewhich fontspec-xetex.sty)           $OVERLEAF_DIR
-cp $(kpsewhich unicode-math.sty)             $OVERLEAF_DIR
-cp $(kpsewhich unicode-math-xetex.sty)       $OVERLEAF_DIR
-cp $(kpsewhich expl3.sty)                    $OVERLEAF_DIR
-cp $(kpsewhich expl3-code.tex)               $OVERLEAF_DIR
-cp $(kpsewhich l3keys2e.sty)                 $OVERLEAF_DIR
-cp $(kpsewhich xparse.sty)                   $OVERLEAF_DIR
-cp $(kpsewhich latexrelease.sty)             $OVERLEAF_DIR
 
 # Make TDS zip
 cd $TDS_DIR
@@ -105,7 +105,7 @@ cd $TEMP_DIR
 zip -q -r -9 $JOB_NAME.zip .
 
 cd $WORKING_DIR
-cp -f $TEMP_DIR/$JOB_NAME.zip     $RELEASE_DIR
-cp -f $TEMP_DIR/$JOB_NAME.tds.zip $RELEASE_DIR
+# cp -f $TEMP_DIR/$JOB_NAME.zip     $RELEASE_DIR
+# cp -f $TEMP_DIR/$JOB_NAME.tds.zip $RELEASE_DIR
 
 rm -r $TEMP_DIR
