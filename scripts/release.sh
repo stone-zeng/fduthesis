@@ -11,7 +11,9 @@ TEMP_DIR=/tmp/$JOB_NAME
 
 TDS_DIR=$TEMP_DIR/TDS
 CTAN_DIR=$TEMP_DIR/$JOB_NAME
-OVERLEAF_DIR=$PWD/release/overleaf
+
+RELEASE_DIR=$PWD/release
+OVERLEAF_DIR=$RELEASE_DIR/overleaf
 
 SRC_DIR=$TDS_DIR/source/latex/$JOB_NAME
 TEX_DIR=$TDS_DIR/tex/latex/$JOB_NAME
@@ -103,7 +105,7 @@ cd $TEMP_DIR
 zip -q -r -9 $JOB_NAME.zip .
 
 cd $WORKING_DIR
-cp -f $TEMP_DIR/$JOB_NAME.zip     .
-cp -f $TEMP_DIR/$JOB_NAME.tds.zip .
+cp -f $TEMP_DIR/$JOB_NAME.zip     $RELEASE_DIR
+cp -f $TEMP_DIR/$JOB_NAME.tds.zip $RELEASE_DIR
 
 rm -r $TEMP_DIR

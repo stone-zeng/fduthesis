@@ -4,6 +4,10 @@
 
 ## [未发布]
 
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
+
+## v0.7d (2019-04-03)
+
 - Changed
   - 在（中文）字体未提供对应粗体的情况下，允许使用伪粗，并用于封面中文标题 - [#68](https://github.com/stone-zeng/fduthesis/issues/68)
 - Fixed
@@ -14,7 +18,7 @@
   - 优化目录、摘要、参考文献等的标题实现
   - 优化关键字列表的显示 - [#70](https://github.com/stone-zeng/fduthesis/issues/70)
 
-更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d)。
 
 ## v0.7c (2019-03-17)
 
