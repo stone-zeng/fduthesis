@@ -12,14 +12,13 @@ TEMP_DIR=/tmp/$JOB_NAME
 TDS_DIR=$TEMP_DIR/TDS
 CTAN_DIR=$TEMP_DIR/$JOB_NAME
 
-RELEASE_DIR=$PWD/release
-OVERLEAF_DIR=$RELEASE_DIR/overleaf
-
 SRC_DIR=$TDS_DIR/source/latex/$JOB_NAME
 TEX_DIR=$TDS_DIR/tex/latex/$JOB_NAME
 DOC_DIR=$TDS_DIR/doc/latex/$JOB_NAME
 
 LOGO_DIR=$WORKING_DIR/logo/pdf
+RELEASE_DIR=$WORKING_DIR/release
+OVERLEAF_DIR=$RELEASE_DIR/overleaf
 DOC_EN_SCRIPT=$WORKING_DIR/scripts/get-doc-en.lua
 
 mkdir -p $TEMP_DIR
@@ -104,8 +103,13 @@ rm -r $TDS_DIR
 cd $TEMP_DIR
 zip -q -r -9 $JOB_NAME.zip .
 
+# Make Overleaf zip
+cd $OVERLEAF_DIR
+zip -q -r -9 $JOB_NAME-overleaf.zip .
+
 cd $WORKING_DIR
-# cp -f $TEMP_DIR/$JOB_NAME.zip     $RELEASE_DIR
-# cp -f $TEMP_DIR/$JOB_NAME.tds.zip $RELEASE_DIR
+cp -f $TEMP_DIR/*.zip     $RELEASE_DIR
+cp -f $OVERLEAF_DIR/*.zip $RELEASE_DIR
 
 rm -r $TEMP_DIR
+rm -r $OVERLEAF_DIR
