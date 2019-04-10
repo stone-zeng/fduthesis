@@ -65,7 +65,6 @@ Completed box being shipped out [1]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 摘
 .....\glue 24.09
@@ -364,7 +363,6 @@ Completed box being shipped out [3]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/texgyreheros(0)/m/n/24.09 A
 .....\kern0.12045 (font)
 .....\TU/texgyreheros(0)/m/n/24.09 b
@@ -693,7 +691,6 @@ t}{\ETC.}
 .......\localbrokenpenalty=0
 .......\localleftbox=null
 .......\localrightbox=null
-......\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(21.1992+2.8908)x24.09, direction TLT
 .......\LTJY3/FandolHei(0)/m/n/24.09 符
 ......\glue 0.0 plus 2.07393
@@ -1147,7 +1144,6 @@ Completed box being shipped out [1]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 第
 .....\glue 6.02249 plus 1.0 minus 1.0
@@ -1423,7 +1419,6 @@ Completed box being shipped out [3]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\hbox(21.1992+2.8908)x24.09, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/24.09 第
 .....\glue 6.02249 plus 1.0 minus 1.0
