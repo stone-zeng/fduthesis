@@ -4,7 +4,10 @@
 
 ## [未发布]
 
-更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
+- Fixed
+  - 兼容 Libertinus 和 XITS 字体的文件名变动
+
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7d...master)。
 
 ## v0.7d (2019-04-03)
 
