@@ -6,6 +6,7 @@
 
 - Fixed
   - 兼容 Libertinus 和 XITS 字体的文件名变动
+  - 处理 `hyperref` 与 `unicode-math` 的兼容性问题 - [ustctug/ustcthesis#223](https://github.com/ustctug/ustcthesis/issues/223)
 
 更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7d...master)。
 

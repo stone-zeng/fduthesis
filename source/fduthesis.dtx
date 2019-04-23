@@ -5786,6 +5786,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v0.7e}{2019/04/23}{处理 \pkg{hyperref} 与 \pkg{unicode-math} 的兼容性问题。} 
+%
 % 在导言区末尾引入 \pkg{hyperref} 宏包。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
@@ -5797,6 +5799,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \hypersetup
       {
         bookmarksnumbered = true,
+        psdextra          = true,
+        unicode           = true,
 %    \end{macrocode}
 % 填写 PDF 元信息。
 %    \begin{macrocode}
