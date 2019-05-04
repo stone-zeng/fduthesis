@@ -3,7 +3,7 @@
 export PATH=/Library/TeX/texbin:$PATH
 
 # Change default package repository
-# sudo tlmgr option repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
+sudo tlmgr option repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
 
 # Keep no backups (not required, simply makes cache bigger)
 sudo tlmgr option -- autobackup 0
