@@ -11,7 +11,7 @@ matrix:
         homebrew:
           casks:
             - basictex
-          update: false
+          update: true
       install: source .travis/install-macos-basictex.sh
 
 script:
