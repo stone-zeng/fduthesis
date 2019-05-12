@@ -15,7 +15,9 @@
 *.idx
 *.ilg
 *.ind
+*.lof
 *.log
+*.lot
 *.md5
 *.out
 *.run.xml

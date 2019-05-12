@@ -15,7 +15,9 @@ rm -f *.hd
 rm -f *.idx
 rm -f *.ilg
 rm -f *.ind
+rm -f *.lof
 rm -f *.log
+rm -f *.lot
 rm -f *.out
 rm -f *.run.xml
 rm -f *.sav

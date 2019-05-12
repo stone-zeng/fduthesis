@@ -4,6 +4,8 @@
 
 ## [未发布]
 
+- Added
+  - 增加对插图、表格目录的处理 - [#72](https://github.com/stone-zeng/fduthesis/issues/72)
 - Fixed
   - 兼容 Libertinus 和 XITS 字体的文件名变动
   - 处理 `hyperref` 与 `unicode-math` 的兼容性问题 - [ustctug/ustcthesis#223](https://github.com/ustctug/ustcthesis/issues/223)

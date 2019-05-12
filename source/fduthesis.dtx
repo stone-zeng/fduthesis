@@ -1844,12 +1844,17 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! main matter.
 %^^A!
 %
-% \begin{function}{\tableofcontents}
-%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
+% \begin{function}{\tableofcontents,\listoffigures,\listoftables}
+%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。对于图表
+%   较多的论文，也可以使用 \cs{listoffigures} 和 \cs{listoftables} 生成单独的
+%   插图、表格目录。
 % \end{function}
 %^^A! \begin{function}{\tableofcontents}
 %^^A!   Generate the table of contents (TOC). You need to compile
 %^^A!   the source file at least \emph{twice} to get the correct TOC.
+%^^A!   If your thesis contains many figures or tables, you may also
+%^^A!   use \cs{listoffigures} or \cs{listoftables} to generate a list
+%^^A!   of them.
 %^^A! \end{function}
 %^^A!
 %
@@ -4097,7 +4102,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \opt{libertinus} 类型需要使用 Libertinus Serif 或
 % Libertinus Sans 字体。
 %    \begin{macrocode}
-%TODO
         \c_@@_fn_style_libertinus_tl
           {
             \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
@@ -5237,8 +5241,9 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-%<class>    contentsname = \c_@@_name_toc_tl,
-%<class-en>    contentsname = \c_@@_name_toc_en_tl,
+%<class>    contentsname   = \c_@@_name_toc_tl,
+%<class>    listfigurename = \c_@@_name_lof_tl,
+%<class>    listtablename  = \c_@@_name_lot_tl,
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
@@ -5262,17 +5267,36 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \begin{macro}{\tableofcontents}
-% 修改 \cs{tableofcontents} 的定义，使得页眉正确显示，并出现在目录中。原代码
-% 来自于 \LaTeXe{} 标准文档类 \file{book.cls}。
+% \changes{v0.7e}{2019/05/12}{增加对插图、表格目录的处理。}
+%
+% \begin{macro}{\tableofcontents,\listoffigures,\listoftables}
+% 修改 \cs{tableofcontents}、\cs{listoffigures} 和 \cs{listoftables} 的定义，
+% 使得页眉正确显示，并出现在目录及 PDF 书签中。来自于 \LaTeXe{} 标准文档类
+% \file{book.cls}
+% \footnote{原代码中只有 \cs{tableofcontents} 的 \cs{@mkboth} 出现在
+% \cs{chapter*} 内部，这是出于兼容性的考虑而非 typo。}。
 %    \begin{macrocode}
 \@@_patch_cmd:Nnn \tableofcontents
   {
     \chapter*{\contentsname
-      \@mkboth{%
-        \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+      \@mkboth{\MakeUppercase\contentsname}
+              {\MakeUppercase\contentsname}}
   }
   { \@@_chapter_no_toc:V \contentsname }
+\@@_patch_cmd:Nnn \listoffigures
+  {
+    \chapter*{\listfigurename}
+    \@mkboth{\MakeUppercase\listfigurename}
+            {\MakeUppercase\listfigurename}
+  }
+  { \@@_chapter:V \listfigurename }
+\@@_patch_cmd:Nnn \listoftables
+  {
+    \chapter*{\listtablename}
+    \@mkboth{\MakeUppercase\listtablename}
+            {\MakeUppercase\listtablename}
+  }
+  { \@@_chapter:V \listtablename }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -6077,6 +6101,9 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { author_sign     } { 作者签名                      },
     { supervisor_sign } { 导师签名                      },
     { sign_date       } { 日期                          },
+    { toc             } { 目 \quad 录                   },
+    { lof             } { 插图目录                      },
+    { lot             } { 表格目录                      },
     { bib_en          } { Bibliography                  },
     { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
     { orig_decl       } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
@@ -6088,7 +6115,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { abstract } { 摘 \quad 要 } { Abstract          },
     { keywords } { 关键字      } { Keywords:         },
     { clc      } { 中图分类号  } { CLC~ number:      },
-    { toc      } { 目 \quad 录 } { Contents          },
     { notation } { 符号表      } { List~ of~ Symbols }
   }
   { \@@_define_name:nnn #1 }
