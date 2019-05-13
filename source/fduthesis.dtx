@@ -5011,24 +5011,52 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \includegraphics [ width = 3.70 cm ] { \l_@@_logo_emblem_tl } }
 \cs_new_protected:Npn \@@_cover_info:
   {
-    \@@_cover_info_aux:nn { 15 } { title            } \@@_cover_info_skip:
-    \@@_cover_info_aux:nn { 15 } { department       } \@@_cover_info_skip:
-    \@@_cover_info_aux:nn { 15 } { major            } \@@_cover_info_skip:
-    \@@_cover_info_aux:nn {  5 } { author           }
-    \@@_cover_info_aux:nn {  5 } { student_id       } \@@_cover_info_skip:
-    \@@_cover_info_aux:nn {  5 } { supervisor       }
-    \@@_cover_info_aux:nn {  5 } { supervisor_title } \@@_cover_info_skip:
-    \@@_cover_info_aux:nn { 15 } { affiliation      } \@@_cover_info_skip:
-    \@@_cover_info_aux:nn { 15 } { date             }
+    \@@_cover_title:n       {  20 }
+    \@@_cover_info_aux_i:nn {  20 } { department       } \@@_cover_info_skip:
+    \@@_cover_info_aux_i:nn {  20 } { major            } \@@_cover_info_skip:
+    \@@_cover_info_aux_i:nn { 7.5 } { author           }
+    \@@_cover_info_aux_i:nn { 7.5 } { student_id       } \@@_cover_info_skip:
+    \@@_cover_info_aux_i:nn { 7.5 } { supervisor       }
+    \@@_cover_info_aux_i:nn { 7.5 } { supervisor_title } \@@_cover_info_skip:
+    \@@_cover_info_aux_i:nn {  20 } { affiliation      } \@@_cover_info_skip:
+    \@@_cover_info_aux_i:nn {  20 } { date             }
+  }
+\cs_new_protected:Npn \@@_cover_title:n #1
+  {
+    \exp_args:NNV \clist_set:Nn \l_@@_tmpa_clist \l_@@_info_title_tl
+    \clist_pop:NN  \l_@@_tmpa_clist \l_@@_tmpa_tl
+    \clist_pop:NNF \l_@@_tmpa_clist \l_@@_tmpb_tl
+      { \tl_set_eq:NN \l_@@_tmpb_tl \c_empty_tl }
+    \tl_if_empty:NTF \l_@@_tmpb_tl
+      {
+        \@@_cover_info_aux_ii:nnnn {#1}
+          { \c_@@_name_title_tl } { \l_@@_tmpa_tl } { \c_@@_fwid_colon_tl }
+        \@@_cover_info_skip:
+      }
+      {
+        \@@_cover_info_aux_ii:nnnn {#1}
+          { \c_@@_name_title_tl } { \l_@@_tmpa_tl } { \c_@@_fwid_colon_tl }
+        \@@_cover_info_skip:
+        \@@_cover_info_aux_ii:nnnn {#1}
+          { } { \l_@@_tmpb_tl } { \phantom { \c_@@_fwid_colon_tl } }
+        \@@_cover_info_skip:
+      }
   }
 % #1 = width, #2 = name
-\cs_new_protected:Npn \@@_cover_info_aux:nn #1#2
+\cs_new_protected:Npn \@@_cover_info_aux_i:nn #1#2
+  {
+    \@@_cover_info_aux_ii:nnnn {#1}
+      { \tl_use:c { c_@@_name_ #2 _tl } }
+      { \tl_use:c { l_@@_info_ #2 _tl } }
+      { \c_@@_fwid_colon_tl }
+  }
+\cs_new_protected:Npn \@@_cover_info_aux_ii:nnnn #1#2#3#4
   {
     \@@_cover_info_format:
-    \@@_spread_box:nn { 4 \ccwd } { \tl_use:c { c_@@_name_ #2 _tl } }
-    \c_@@_fwid_colon_tl
-    \hbox_to_zero:n { \@@_blank_underline:n { #1 \ccwd } }
-    \@@_fixed_width_center_box:nn { #1 \ccwd } { \tl_use:c { l_@@_info_ #2 _tl } }
+    \@@_spread_box:nn { 4 \ccwd } {#2}
+    #4
+    \hbox_overlap_right:n { \@@_blank_underline:n { #1 \ccwd } }
+    \@@_fixed_width_center_box:nn { #1 \ccwd } {#3}
   }
 \cs_new_protected:Npn \@@_cover_info_format:
   { \zihao { -3 } \sffamily }
@@ -5913,7 +5941,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { thesis_title     } { 本科毕业论文（设计）               },
+    { thesis_title     } { 本科毕业论文                       },
     { title            } { 论文题目                           },
     { department       } { 院系                               },
     { major            } { 专业                               },
@@ -5922,7 +5950,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { supervisor       } { 指导教师                           },
     { supervisor_title } { 职称                               },
     { affiliation      } { 单位                               },
-    { date             } { 日期                               },
+    { date             } { 完成日期                           },
     { pdf_creator      } { LaTeX~ with~ fduthesis~ class      },
     { head             } { 复旦大学本科生毕业论文（物理学系） },
     { toc              } { 目 \quad 录                        },
