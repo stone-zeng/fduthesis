@@ -17,4 +17,8 @@
 *.doc  binary
 *.docx binary
 *.pdf  binary
+*.png  binary
 *.fmt  binary
+
+# Mark documentation
+docs/* linguist-documentation=false

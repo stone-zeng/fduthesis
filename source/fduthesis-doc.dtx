@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+% Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -392,7 +392,7 @@
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_process_normal_line:
   {
-    \str_case_x:nnF
+    \str_case_e:nnF
       { \str_head:N \l_@@_macro_code_line_tl }
       {
 %    \end{macrocode}
@@ -489,7 +489,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_angle:n #1
   {
-    \str_if_eq_x:nnTF { \str_head:n {#1} } { < }
+    \str_if_eq:eeTF { \str_head:n {#1} } { < }
       { \@@_check_module:x { \tl_tail:n {#1} } }
       { \@@_output_comment_line: }
   }
@@ -510,7 +510,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
-    \str_case_x:nnF { \str_head:n {#1} }
+    \str_case_e:nnF { \str_head:n {#1} }
       {
         { * } { \@@_module_star:w }
         { / } { \@@_module_slash:w }
@@ -696,7 +696,7 @@
 %    \end{macrocode}
 % 检查开头是否为 |%|，据此分别处理。
 %    \begin{macrocode}
-        \str_if_eq_x:nnTF
+        \str_if_eq:eeTF
           { \str_head:N \l_@@_macro_code_line_tl } { \c_percent_str }
           { \@@_output_comment_line: } { \@@_output_line: }
       }
@@ -918,13 +918,11 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_module_angle:n}
-% 输出“$\langle\cdots\rangle$”。^^A\\
-%^^A 注：原来所使用的 \tn{textlangle} 和 \tn{textrangle} 在
-%^^A Source Sans Pro 字体下不可用。
+% 输出“$\langle\cdots\rangle$”。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_module_angle:n #1
-  { \textlangle #1 \textrangle }
-%   { < #1 > }
+  { < #1 > }
+%   { \textlangle #1 \textrangle }
 %   { \ensuremath \langle #1 \ensuremath \rangle }
 %    \end{macrocode}
 % \end{macro}
@@ -1417,7 +1415,7 @@
 % 调整 \env{function} 环境的字体。
 %    \begin{macrocode}
 \__fdudoc_patch_cmd:Nnn \@@_typeset_functions:
-  { \small \ttfamily } { \footnotesize \CodeFont }
+  { \small \ttfamily } { \footnotesize \ttfamily }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1430,7 +1428,17 @@
 \__fdudoc_patch_cmd:Nnn \@@_macro_init:
   { \hbox:n } { \MacroFont \hbox:n }
 \__fdudoc_patch_cmd:Nnn \@@_macro_dump:
-  { \hbox_unpack_clear:N } { \MacroFont \hbox_unpack_clear:N }
+  { \hbox_unpack_drop:N } { \MacroFont \hbox_unpack_drop:N }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_meta_original:n}
+% 改用文本模式显示尖括号。
+%    \begin{macrocode}
+\__fdudoc_patch_cmd:Nnn \@@_meta_original:n
+  { \ensuremath \langle } { \textlangle }
+\__fdudoc_patch_cmd:Nnn \@@_meta_original:n
+  { \ensuremath \rangle } { \textrangle }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1470,7 +1478,7 @@
     \vbox_set:Nn \l_@@_macro_box
       {
         \MacroFont
-        \vbox_unpack_clear:N \l_@@_macro_box
+        \vbox_unpack_drop:N \l_@@_macro_box
         \hbox_set:Nn \l_tmpa_box
           { \@@_print_macroname:nN {#1} #2 }
 %    \end{macrocode}
@@ -1537,7 +1545,7 @@
           \tl_if_empty:nTF {#3}
             { { } { } { } { } }
             {
-              \str_if_eq_x:nnTF {#3} { TeX }
+              \str_if_eq:eeTF {#3} { TeX }
                 {
                   { TeX~ and~ LaTeX2e }
                   { \string \TeX{}~ 和~ \string \LaTeXe{} }
@@ -1615,14 +1623,13 @@
 % \end{macro}
 %
 % \begin{macro}{\meta}
-% 重定义 \cs{meta} 命令，需要禁用中文、西文之间的空格，
-% 并确保为罗马字体族。
+% 重定义 \cs{meta} 命令，需要禁用中文、西文之间的空格。
 %    \begin{macrocode}
 \RenewDocumentCommand \meta { m }
   {
     \group_begin:
       \sys_if_engine_xetex:T { \xeCJKsetup { CJKecglue = { } } }
-      \rmfamily \@@_meta:n {#1}
+      \@@_meta:n {#1}
     \group_end:
   }
 %    \end{macrocode}
@@ -1648,15 +1655,12 @@
   \addtocontents{toc}{\StopSpecialIndexModule}}
 %    \end{macrocode}
 %
-% \begin{macro}{\path,\opt,\kaishu}
 % 设置 PDF 字符串中的命令替换。
 %    \begin{macrocode}
 \pdfstringdefDisableCommands{%
   \let\path\meta
-  \let\opt\@firstofone
-  \let\kaishu\relax}
+  \let\opt\@firstofone}
 %    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}[int]{\@multitoc@starttoc,\@starttoc}
 % 目录分栏，相当于调用 \pkg{multitoc} 宏包。
@@ -1681,9 +1685,9 @@
 %    \begin{macrocode}
 \IndexPrologue{%
   \section{\indexname}%
-  \textit{无衬线字体的数字表示对应索引项出现的页码；
+  \textit{意大利体的数字表示对应索引项出现的页码；
     带下划线的数字表示定义对应索引项的代码行号；
-    其他普通数字则表示使用对应索引项的代码行号．}}
+    其他则表示使用对应索引项的代码行号．}}
 \def\IndexLayout{%
   \newgeometry{%
     left   = 0.85 in,
@@ -1701,7 +1705,7 @@
 % 控制“描述对应索引项的页码”样式。在 \pkg{doc} 宏包中的定义为
 % \tn{textit}。
 %    \begin{macrocode}
-\def\usage#1{\textsf{#1}}
+% \def\usage#1{\textsf{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1713,102 +1717,81 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 西文字体。
+% \changes{v0.7c}{2019/02/08}{修改宏包手册主要字体。}
+%
+% 西文字体。为兼容 macOS，系统字体需使用字体名，而 \TeXLive{}
+% 中的字体需使用文件名。
 %    \begin{macrocode}
-\setmainfont{TeX Gyre Pagella}
-\setsansfont{TeX Gyre Heros}
-\setmathfont{TeX Gyre Pagella Math}
+\setmainfont{LibertinusSerif}[%
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic,
+  Scale          = 1.1]
+\setsansfont{IBMPlexSansCondensed}[%
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic]
+\setmonofont{Iosevka Slab}[%
+  UprightFont    = * Light,
+  BoldFont       = * Semibold,
+  Scale          = MatchLowercase]
+\setmathfont{LibertinusMath-Regular.otf}
 %    \end{macrocode}
 %
-% \begin{macro}{\kaishu,\fangsong}
 % 中文字体。
 %    \begin{macrocode}
-\setCJKmainfont{FZShuSong-Z01}%
-  [
-    BoldFont       = FZHei-B01,
-    ItalicFont     = FZKai-Z03,
-    BoldItalicFont = FZKai-Z03
-  ]
-\setCJKsansfont{FZHei-B01}%
-  [
-    BoldFont       = FZHei-B01,
-    ItalicFont     = FZKai-Z03,
-    BoldItalicFont = FZKai-Z03
-  ]
-\setCJKmonofont{FZFangSong-Z02}%
-  [
-    BoldFont       = FZHei-B01,
-    ItalicFont     = FZKai-Z03,
-    BoldItalicFont = FZKai-Z03
-  ]
-\newCJKfontfamily\kaishu{FZKai-Z03}%
-  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
-\newCJKfontfamily\fangsong{FZFangSong-Z02}%
-  [BoldFont = *, ItalicFont = *, BoldItalicFont = *]
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\CodeFont}
-% \begin{macro}[int]{\fdudoc@code@font,\fdudoc@cjk@code@font}
-% 代码部分的字体，这里用了两种系列。
-%    \begin{macrocode}
-\setmonofont{CMU Typewriter Text}%
-  [
-    UprightFont = * Light,
-    BoldFont    = * Bold,
-    SlantedFont = * Light Oblique,
-    HyphenChar  = None
-  ]
-\newfontfamily\fdudoc@code@font{Source Code Pro}%
-  [BoldFont = * Semibold]
-\newCJKfontfamily\fdudoc@cjk@code@font{Source Han Sans SC}%
-  [BoldFont = * Bold, AutoFakeSlant = 0.22]
-\newcommand*\CodeFont{\fdudoc@code@font\fdudoc@cjk@code@font}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
-% 中文排版格式（\pkg{ctex} 宏包）。
-%    \begin{macrocode}
-\ctexset
-  {
-    section = {name = {第,节}, format+ = \raggedright},
-    subsubsection/tocline = {\kaishu\CTEXnumberline{#1}#2},
-    paragraph = {runin = false, numbering = false}
-  }
+\setCJKmainfont{Source Han Serif SC}[%
+  ItalicFont     = FZKai-Z03,
+  RawFeature     = +fwid]
+\setCJKsansfont{Source Han Sans SC}[%
+  ItalicFont     = *,
+  RawFeature     = +fwid]
+\setCJKmonofont{Source Han Sans SC}[%
+  UprightFont    = * Normal,
+  BoldFont       = * Bold,
+  AutoFakeSlant  = 0.1763,  % = tan(10 deg)
+  Scale          = 0.8903,
+  RawFeature     = +fwid]
 %    \end{macrocode}
 %
-% 设定章节标题、目录深度。
+% 版式排版格式。
 %    \begin{macrocode}
+\ctexset{%
+  section/name        = {第,节},
+  section/format+     = \raggedright,
+  paragraph/runin     = false,
+  paragraph/numbering = false,
+  punct               = kaiming}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{3}
+\pagestyle{plain}
 %    \end{macrocode}
 %
 % 单位设置（\pkg{siunitx} 宏包）。
 %    \begin{macrocode}
-\sisetup
-  {
-    number-math-rm       = \ensuremath,
-    inter-unit-product   = \ensuremath{{}\cdot{}},
-    group-digits         = true,
-    group-minimum-digits = 4,
-    group-separator      = \text{~},
-    range-phrase         = \symbol{"FF5E},
-    separate-uncertainty = true
-  }
+\sisetup{%
+  number-math-rm       = \ensuremath,
+  inter-unit-product   = \ensuremath{{}\cdot{}},
+  group-digits         = true,
+  group-minimum-digits = 4,
+  group-separator      = \text{~},
+  range-phrase         = \symbol{"FF5E},
+  separate-uncertainty = true}
 %    \end{macrocode}
 %
 % 超链接设置（\pkg{hyperref} 宏包）。
 %    \begin{macrocode}
-\hypersetup
-  {
-    bookmarksdepth    = 4,
-    bookmarksnumbered = true,
-    colorlinks        = true,
-    citecolor         = MaterialGreen,
-    linkcolor         = MaterialPink,
-    urlcolor          = MaterialIndigo
-  }
+\hypersetup{%
+  bookmarksdepth    = 4,
+  bookmarksnumbered = true,
+  colorlinks        = true,
+  citecolor         = MaterialGreen,
+  linkcolor         = MaterialPink,
+  urlcolor          = MaterialIndigo}
 %    \end{macrocode}
 %
 % 浮动体标题设置（\pkg{caption} 宏包）。
@@ -1910,17 +1893,14 @@
 %
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
 %   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
-% 部分命令之后的星号（$\star$ 或 \ding{73}），表明其不同用法。
+% 部分命令之后的特殊符号（$\symbol{"263A}$ 或 $\symbol{"263B}$），表明其不同用法。
 % 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
 % 和“restricted-expandable”。
 %    \begin{macrocode}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
-\newcommand*\expstar{\hyperlink{expstar}{$\star$}}
-\newcommand*\rexpstar{\hyperlink{rexpstar}{\ding{73}}}
-% TODO: (2017/08/12) 允许修改 exptstar 和 rexpstar
-\renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
-\renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+\newcommand*\expstar{\hyperlink{expstar}{$\symbol{"263B}$}}
+\newcommand*\rexpstar{\hyperlink{rexpstar}{$\symbol{"263A}$}}
 \ExplSyntaxOn
 \cs_set_eq:NN \__codedoc_typeset_exp:  \expstar
 \cs_set_eq:NN \__codedoc_typeset_rexp: \rexpstar
@@ -2067,25 +2047,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{environment}{quote*}
-% 引述环境。
-% \begin{arguments}
-%   \item 作者
-%   \item 朝代
-% \end{arguments}
-%    \begin{macrocode}
-\DeclareDocumentEnvironment{quote*}{oo}
-  {\quote\fangsong\qquad}%
-  {\endquote\IfNoValueF{#1}{%
-    \hfill —— \IfNoValueF{#2}{〔#2〕}#1}}
-%    \end{macrocode}
-% \end{environment}
-%
 % \paragraph{示例代码环境}
 %
-% \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，
-% 此处改为普通文本。
-% 见 \url{https://tex.stackexchange.com/a/33188/136923}。
+% \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，此处改为普通文本。
+% 见 \url{https://tex.stackexchange.com/a/33188}。
 %    \begin{macrocode}
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
@@ -2099,14 +2064,14 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@base}
   {
-    extendedchars   = true,
+    basewidth       = 0.5 em,
     gobble          = 3,
     lineskip        = 2 pt,
     frame           = l,
     framerule       = 1 pt,
     framesep        = 0 pt,
     escapeinside    = {(*}{*)},
-    basicstyle      = \small\CodeFont\color{MaterialGrey900},
+    basicstyle      = \small\ttfamily\color{MaterialGrey900},
     keywordstyle    = \bfseries\color{MaterialIndigo},
     commentstyle    = \itshape\color{MaterialGrey600},
     stringstyle     = \color{MaterialRed},
@@ -2147,12 +2112,12 @@
 %    \begin{macrocode}
 \lstdefinestyle{style@syntax}
   {
-    extendedchars = true,
+    basewidth     = 0.5 em,
     gobble        = 6,
     escapeinside  = {(*}{*)},
     language      = [LaTeX]TeX,
     alsoletter    = {*, -},
-    basicstyle    = \footnotesize\CodeFont\color{MaterialGrey900},
+    basicstyle    = \footnotesize\ttfamily\color{MaterialGrey900},
     keywordstyle  = \bfseries\color{MaterialIndigo},
     commentstyle  = \itshape\color{MaterialGrey600},
     texcsstyle    = *\color{MaterialDeepOrange},
@@ -2183,31 +2148,7 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \subsubsection{\pkg{latexmk} 配置文件}
-%
-%    \begin{macrocode}
-%<*latexmk|latexmk-en>
-# Latexmk configuration file.
-
-# Use XeLaTeX to compile.
-$pdf_mode = 5;
-
-# Process index.
-$makeindex = 'zhmakeindex -s gind.ist %O -o %D %S';
-
-# Show CPU time used.
-$show_time = 1;
-%</latexmk|latexmk-en>
-%<*latexmk>
-
-# Process glossary (change history).
-add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
-sub makeglo2gls {
-    system("zhmakeindex -s gglo.ist -o \"$_[0].gls\"
-        -t \"$_[0].glg\" \"$_[0].glo\"");
-}
-%</latexmk>
-%    \end{macrocode}
+% \changes{v0.7c}{2019/03/15}{不再附带 \pkg{latexmk} 配置文件。}
 %
 % \clearpage
 %

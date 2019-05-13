@@ -2,7 +2,7 @@
 % !TeX program  = XeLaTeX
 % !TeX encoding = UTF-8
 %
-% Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+% Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -37,8 +37,6 @@
 %                                 fduthesis.pdf,
 %                                 fduthesis-en.pdf,
 %                                 fduthesis-code.pdf,
-%                                 latexmkrc,
-%                                 latexmkrc-en,
 %                             and README.md.
 %
 %<*internal>
@@ -49,7 +47,7 @@
 The `fduthesis` Class
 =====================
 
-*LaTeX thesis template for Fudan University, v0.7b*
+*LaTeX thesis template for Fudan University, v0.7d*
 
 Overview
 --------
@@ -69,7 +67,7 @@ The documentation can be found in
 [fduthesis-en.pdf](http://mirrors.ctan.org/macros/latex/contrib/fduthesis/fduthesis-en.pdf)
 (in English).
 
-GitHub re­pos­i­tory: <https://github.com/Stone-Zeng/fduthesis>.
+GitHub re­pos­i­tory: <https://github.com/stone-zeng/fduthesis>.
 
 Installation
 ------------
@@ -87,7 +85,7 @@ To install `fduthesis`, you can use one of the following methods:
 
 - Get the source from GitHub:
 
-      git clone https://github.com/Stone-Zeng/fduthesis.git
+      git clone https://github.com/stone-zeng/fduthesis.git
 
   Run `install-win.bat` (on Windows) or `install-linux.sh` (on Linux)
   to generate the templates and configuration files. These files would
@@ -112,8 +110,8 @@ To install `fduthesis`, you can use one of the following methods:
 Contributing
 ------------
 
-[Issues](https://github.com/Stone-Zeng/fduthesis/issues) and
-[pull requests](https://github.com/Stone-Zeng/fduthesis/pulls)
+[Issues](https://github.com/stone-zeng/fduthesis/issues) and
+[pull requests](https://github.com/stone-zeng/fduthesis/pulls)
 are always welcome.
 
 License
@@ -126,7 +124,7 @@ version.
 
 -----
 
-Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
+Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %</readme>
 %
 %<*internal>
@@ -144,7 +142,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 
 \preamble
 
-    Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+    Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
 
     This work may be distributed and/or modified under the
     conditions of the LaTeX Project Public License, either
@@ -179,8 +177,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
                                     fduthesis.pdf,
                                     fduthesis-en.pdf,
                                     fduthesis-code.pdf,
-                                    latexmkrc,
-                                    latexmkrc-en,
                                 and README.md.
 
 \endpreamble
@@ -207,10 +203,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   \usedir{doc/latex/fduthesis}
   \nopreamble\nopostamble
     \file{README.md}           {\from{\jobname.dtx}{readme}}
-    % ``.cfg'' is only for internal/temporal use.
-    % They will be renamed by external scripts.
-    \file{latexmkrc.cfg}       {\from{\jobname-doc.dtx}{latexmk}}
-    \file{latexmkrc-en.cfg}    {\from{\jobname-doc.dtx}{latexmk-en}}
 }
 
 \obeyspaces
@@ -244,7 +236,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
 %<class|class-en|doc|logo>\RequirePackage{expl3}
 %<*!(driver|install|ex-logo|cover)>
-%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7b 2018-05-06 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
+%<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7d 2019-04-03 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
 %<class>  {Thesis template for Fudan University}
 %<class>\ProvidesExplClass{\ExplFileName}
 %<class-en>  {Thesis template for Fudan University (English version)}
@@ -258,30 +250,57 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<!readme>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %</!(driver|install|ex-logo|cover)>
 %<*driver>
-%\PassOptionsToPackage{showframe}{geometry}
+% \PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
-\usepackage{xpinyin}
-\hypersetup
-  {
-    pdftitle  = {fduthesis: 复旦大学论文模板},
-    pdfauthor = {曾祥东}
-  }
-\renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
-\renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+\usepackage{multirow,xpinyin}
+\hypersetup{
+  pdftitle  = {fduthesis: 复旦大学论文模板},
+  pdfauthor = {曾祥东}}
 % 全角标点放在引号中，需要改成半角式，否则间距过大，不好看
-\newcommand\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} ^^A U+3002
-\newcommand\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} ^^A U+FF0E
-\newcommand\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} ^^A U+FF1A
-\newcommand\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} ^^A U+FF1B
+\def\FSID{“{\xeCJKsetup{PunctStyle=banjiao}。}”} % U+3002
+\def\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} % U+FF0E
+\def\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} % U+FF1A
+\def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} % U+FF1B
+% Libertinus Math 字体不包含 `\QED`，暂时使用 `\blacksquare` 代替 
+\AtBeginDocument{\def\QED{\blacksquare}}
+%^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
+%^^A! \documentclass{fdudoc}
+%^^A! \hypersetup{
+%^^A!   pdftitle  = {fduthesis: LaTeX Thesis Template for Fudan University},
+%^^A!   pdfauthor = {Xiangdong Zeng}}
+%^^A! \ctexset{
+%^^A!   section = {name = {}, format+ = \raggedright},
+%^^A!   subsubsection/tocline = {\CTEXnumberline{#1}#2}}
+%^^A! \pagestyle{headings}
+%^^A! \def\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
+%^^A! \def\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
+%^^A! \AtBeginDocument{\def\QED{\blacksquare}}
+%^^A!
+
+\title{\textcolor{MaterialIndigo800}{%
+  \textbf{fduthesis: 复旦大学论文\xpinyin[font=\sffamily]{模}{mu2}板}}}
+\author{曾祥东}
+\date{2019/04/03\quad v0.7d%
+  \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
+%^^A! \title{\textcolor{MaterialIndigo800}{%
+%^^A!   \textbf{The \textsf{fduthesis} Class \\
+%^^A!     \LaTeX{} Thesis Template for Fudan University}}}
+%^^A! \author{Xiangdong Zeng}
+%^^A! \date{2019/04/03\quad v0.7d%
+%^^A!   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
+%^^A!
+
 \begin{document}
+%^^A! \begin{document}
+%^^A!
   \DisableImplementation
 %<!--CODEDOC-->  \EnableImplementation
 %<!--CODEDOC-->  \def\FDUCODEDOC{}
   \DocInput{fduthesis.dtx}
 %<!--CODEDOC-->  \DocInput{fduthesis-doc.dtx,fduthesis-logo.dtx}
-  \IndexLayout
-  \PrintChanges
-  \PrintIndex
+%<!--CODEDOC-->  \IndexLayout
+%<!--CODEDOC-->  \PrintChanges
+%<!--CODEDOC-->  \PrintIndex
 \end{document}
 %</driver>
 % \fi
@@ -297,7 +316,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.3}{2017/07/10}{添加英文模板。}
 % \changes{v0.3}{2017/07/19}{使用 \pkg{l3docstrip} 管理名字空间。}
 % \changes{v0.3}{2017/07/28}{整理代码，编写用户文档。}
-% \changes{v0.4}{2017/08/03}{拆分 \file{dtx} 文件。}
+% \changes{v0.4}{2017/08/03}{拆分 \file{.dtx} 文件。}
 % \changes{v0.4}{2017/08/11}{添加错误信息提示。}
 % \changes{v0.6}{2017/11/23}{同步 \pkg{ctex} v2.4.11。}
 % \changes{v0.6}{2017/11/29}{添加英文版用户文档。}
@@ -325,48 +344,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   Right bracket \]     Circumflex    \^     Underscore    \_
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
-%
-%^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
-%^^A! \documentclass{fdudoc}
-%^^A! \hypersetup
-%^^A!   {
-%^^A!     pdftitle  = {fduthesis: LaTeX Thesis Template for Fudan University},
-%^^A!     pdfauthor = {Xiangdong Zeng}
-%^^A!   }
-%^^A! \ctexset
-%^^A!   {
-%^^A!     section = {name = {}, format+ = \raggedright},
-%^^A!     subsubsection/tocline = {\CTEXnumberline{#1}#2}
-%^^A!   }
-%^^A! \pagestyle{headings}
-%^^A! \renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
-%^^A! \renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
-%^^A! \newcommand\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
-%^^A! \newcommand\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
-%^^A! \IndexPrologue{\section{Index}}
-%^^A! \def\IndexLayout{%
-%^^A!   \setlength\IndexMin{0.5\textheight}%
-%^^A!   \ctexset{section/numbering=false}%
-%^^A!   \StopSpecialIndexModule}
-%^^A! \def\indexname{Index}
-%^^A! \let\usage\relax
-%^^A!
-%
-% \title{\textcolor{MaterialIndigo800}{^^A
-%   \textbf{fduthesis: 复旦大学论文^^A
-%     \xpinyin[font=\sffamily]{模}{mu2}板}}}
-% \author{曾祥东}
-% \date{\today \quad v0.7b^^A
-%   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
-%^^A! \title{\textcolor{MaterialIndigo800}{%
-%^^A!   \textbf{The \textsf{fduthesis} Class \\
-%^^A!     \LaTeX{} Thesis Template for Fudan University}}}
-%^^A! \author{Xiangdong Zeng}
-%^^A! \date{\today \quad v0.7b%
-%^^A!   \thanks{\url{https://github.com/Stone-Zeng/fduthesis}.}}
-%^^A!
-%^^A! \begin{document}
-%^^A!
 %
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
@@ -403,8 +380,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A 用户手册的页边距
 %^^A+
 % \newgeometry{
-%   left   = 1.75 in,
-%   right  = 1.00 in,
+%   left   = 1.65 in,
+%   right  = 0.80 in,
 %   top    = 1.25 in,
 %   bottom = 1.00 in
 % }
@@ -426,18 +403,16 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \scite{pandoxie2014fduthesislatex}，基本满足了博士（硕士）
 %     毕业论文格式要求，使用人数较多；
 %   \item richarddzh 编写的硕士论文模板 \cls{fudan-thesis}
-%     \scite{richard2016fudanthesis}；
-%   \item hmshan 编写的博士论文模板 \cls{FDU_PhD_Thesis_Template}
-%     \scite{hmshan2017fduphdthesistemplate}。
+%     \scite{richard2016fudanthesis}。
 % \end{itemize}
 % 以上这些模板大都没有经过系统的设计，也鲜有后续维护。相比之下，
 % 清华大学 \scite{thuthesis}、重庆大学 \scite{cquthesis}、
-% 中国科学技术大学 \scite{zepinglee2017ustcthesis} 以及友校
-% 上海交通大学 \scite{weijianwen2017sjtuthesis}等，都有成熟、
+% 中国科学技术大学 \scite{ustcthesis} 中国科学院大学 \scite{ucasthesis}
+% 以及友校上海交通大学 \scite{sjtuthesis}等，都有成熟、
 % 稳定的解决方案，值得参考。
 %
 % 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
-% \scite{interfaces3,source3} 编写，以适应 \TeX{} 技术发展潮流；
+% \scite{source3} 编写，以适应 \TeX{} 技术发展潮流；
 % 同时还将构建一套简洁的接口，方便用户使用。
 %^^A! \cls{fduthesis} is a thesis template for Fudan University.
 %^^A! This template is mostly written in \LaTeX3 syntax, and
@@ -515,10 +490,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 代码实现主要面向对 \LaTeX{} 宏包开发感兴趣的用户。如果您有任何改进
 % 意见或者功能需求，欢迎前往 GitHub 仓库
-% \href{https://github.com/Stone-Zeng/fduthesis/issues}{提交 issue}。
+% \href{https://github.com/stone-zeng/fduthesis/issues}{提交 issue}。
 %^^A! If you want to read the implementation part, please turn to the
 %^^A! Chinese version. Any issues or feature requests can be submitted
-%^^A! in the \href{https://github.com/Stone-Zeng/fduthesis/issues}%
+%^^A! in the \href{https://github.com/stone-zeng/fduthesis/issues}%
 %^^A! {GitHub repository}.
 %^^A!
 %
@@ -583,13 +558,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A
 % 您也可以从源代码直接生成模板（不推荐）：
 % \begin{itemize}
-%   \item 打开 \href{https://github.com/Stone-Zeng/fduthesis}^^A
+%   \item 打开 \href{https://github.com/stone-zeng/fduthesis}^^A
 %     {项目主页}，点击“Clone or download”，并选择“Download ZIP”，
 %     下载 \file{fduthesis-master.zip}；如果您的电脑中安装有 git
 %     程序，也可通过以下命令直接克隆代码仓库：
 %     \begin{shellexample}[gobble=7,alsoletter={.},^^A
 %         morekeywords={git,clone}]
-%       git clone https://github.com/Stone-Zeng/fduthesis.git
+%       git clone https://github.com/stone-zeng/fduthesis.git
 %     \end{shellexample}
 %   \item 解压并进入到 \file{source} 文件夹，执行以下命令以生成
 %     模板的各组件：
@@ -607,14 +582,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! Although not recommended, you may generate the whole template
 %^^A! from source code as well:
 %^^A! \begin{itemize}
-%^^A!   \item Open the project's \href{https://github.com/Stone-Zeng/fduthesis}%
+%^^A!   \item Open the project's \href{https://github.com/stone-zeng/fduthesis}%
 %^^A!     {homepage}, click ``Clone or download'' and choose
 %^^A!     ``Download ZIP'' to download \file{fduthesis-master.zip}.
 %^^A!     If you have git program on your computer, you can also
 %^^A!     clone the repository directly:
 %^^A!     \begin{shellexample}[gobble=5,alsoletter={.},%
 %^^A!         morekeywords={git,clone}]
-%^^A!       git clone https://github.com/Stone-Zeng/fduthesis.git
+%^^A!       git clone https://github.com/stone-zeng/fduthesis.git
 %^^A!     \end{shellexample}
 %^^A!   \item Extract files, and get into the \file{source} directory.
 %^^A!     Run the following command to generate all the components:
@@ -665,7 +640,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \caption{\cls{fduthesis} 的主要组成部分}
 %   \label{tab:fduthesis-components}
 %   \centering
-%   \begin{tabular}{lp{24em}}
+%   \begin{tabular}{lp{20em}}
 %     \toprule
 %     \textbf{文件} & \textbf{功能说明} \\
 %     \midrule
@@ -721,21 +696,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   \end{tabular}
 %^^A! \end{table}
 %^^A!
-%
-% 如需生成用户手册 \file{fduthesis.pdf}，可在命令行中执行
-% \begin{shellexample}[morekeywords={xelatex,makeindex},emph={-o,-s,-t}]
-%   xelatex fduthesis.dtx
-%   makeindex -s gind.ist -o fduthesis.ind fduthesis.idx
-%   makeindex -s gglo.ist -o fduthesis.gls -t fduthesis.glg fduthesis.glo
-%   xelatex fduthesis.dtx
-%   xelatex fduthesis.dtx
-% \end{shellexample}
-% 也可使用 \pkg{latexmk}：
-% \begin{shellexample}[morekeywords={latexmk}]
-%   latexmk fduthesis.dtx
-% \end{shellexample}
-% 本模板已经为编译用户手册提供了 \pkg{latexmk} 配置文件
-% \file{latexmkrc}。
 %
 % \section{使用说明}
 %^^A! \section{User's guide}
@@ -849,13 +809,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{shellexample}
 %^^A!
 %
-% 需要注意，请不要把模板中的配置文件 \file{latexmkrc} 放置在工作
-% 文件夹下。该配置文件仅适用于生成模板用户手册。
-%^^A! Note that you should not put the profile \file{latexmkrc} in
-%^^A! your working directory. This file is meant to generate the
-%^^A! user's guide.
-%^^A!
-%
 % \subsection{模板选项}
 %^^A! \subsection{Options of the template}
 %^^A!
@@ -926,16 +879,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 双面模式下，正文部分偶数页（在左）的左页眉显示章标题，奇数页
 % （在右）的右页眉显示节标题；前置部分的页眉按同样格式显示，但文字
-% 均为对应标题（如“{\kaishu 目\textvisiblespace{}录}”、
-% “{\kaishu 摘\textvisiblespace{}要}”等）。
+% 均为对应标题（如“目录”、“摘要”等）。
 % 而在单面模式下，正文部分则页面不分奇偶，均同时显示左、右页眉，
 % 文字分别为章标题和节标题；前置部分只有中间页眉，显示对应标题。
 %^^A! At two-sided mode, left headers on the even pages (left hand)
 %^^A! in \emph{main body} will show the title of chapters, while the
 %^^A! right headers on the odd pages (right hand) will show the
 %^^A! title of sections. Headers in \emph{front matter} have the
-%^^A! same style, but they will only show the title as
-%^^A! ``\textit{Contents}'', ``\textit{Abstract}'', etc.
+%^^A! same style, but they will only show the title as ``Contents'',
+%^^A! ``Abstract'', etc.
 %^^A!
 %^^A! At one-sided mode, both left and right headers on \emph{all}
 %^^A! pages in main body will be shown. The text is the title of
@@ -1051,9 +1003,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \fdusetup{
 %     style = {cjk-font = adobe, font-size = -4},
 %     info  = {
-%       title      = {关于光产生和转变的一个启发性观点},
-%       title*     = {On a Heuristic Viewpoint Concerning the Production
-%         and Transformation of Light},
+%       title      = {论动体的电动力学},
+%       title*     = {On the Electrodynamics of Moving Bodies},
 %       author     = {阿尔伯特·爱因斯坦},
 %       author*    = {Albert Einstein},
 %       department = {物理学系}
@@ -1069,9 +1020,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \fdusetup{
 %     style/cjk-font  = adobe,
 %     style/font-size = -4,
-%     info/title      = {关于光产生和转变的一个启发性观点},
-%     info/title*     = {On a Heuristic Viewpoint Concerning the Production
-%       and Transformation of Light},
+%     info/title      = {论动体的电动力学},
+%     info/title*     = {On the Electrodynamics of Moving Bodies},
 %     info/author     = {阿尔伯特·爱因斯坦},
 %     info/author*    = {Albert Einstein},
 %     info/department = {物理学系}
@@ -1106,27 +1056,124 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[updated=2017-09-23]{style/font}
+% \begin{function}[updated=2019-03-05]{style/font}
 %   \begin{fdusyntax}[emph={[1]font}]
-%     font = (*<libertinus|lm|palatino|(times)|none>*)
+%     font = (*<garamond|libertinus|lm|palatino|(times)|times*|none>*)
 %   \end{fdusyntax}
 %^^A-
-%   设置西文字体（包括数学字体）。
+%   设置西文字体（包括数学字体）。具体配置见表~\ref{tab:font}。
 % \end{function}
-%^^A!   Set the western fonts (including math fonts).
+%^^A!   Set fonts (including math fonts). The details can be found in table~\ref{tab:font}.
 %^^A! \end{function}
 %^^A!
 %
+% \begin{table}[ht]
+% \begin{threeparttable}
+%   \caption{西文字体配置}
+%   \label{tab:font}
+%   \centering
+%   \begin{tabular}{ccccc}
+%     \toprule
+%       & \strong{正文字体} & \strong{无衬线字体} & \strong{等宽字体} & \strong{数学字体} \\
+%     \midrule
+%       |garamond|        & EB Garamond         & Libertinus Sans & LM Mono\tnote{a} & Garamond Math   \\
+%       |libertinus|      & Libertinus Serif    & Libertinus Sans & LM Mono          & Libertinus Math \\
+%       |lm|              & LM Roman            & LM Sans         & LM Mono          & LM Math         \\
+%       |palatino|        & TG Pagella\tnote{b} & Libertinus Sans & LM Mono          & TG Pagella Math \\
+%       |times|           & XITS                & TG Heros        & TG Cursor        & XITS Math       \\
+%       |times*|\tnote{c} & Times New Roman     & Arial           & Courier New      & XITS Math       \\
+%     \bottomrule
+%   \end{tabular}
+%   \begin{tablenotes}
+%     \item[a] “LM”是 Latin Modern 的缩写。
+%     \item[b] “TG”是 TeX Gyre 的缩写。
+%     \item[c] 本行中，Times New Roman、Arial 和 Courier New 是商业字体，
+%       在 Windows 和 macOS 系统上均默认安装。
+%   \end{tablenotes}
+% \end{threeparttable}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A! \begin{threeparttable}
+%^^A!   \caption{Font configuration}
+%^^A!   \label{tab:font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{ccccc}
+%^^A!     \toprule
+%^^A!       & \strong{Roman} & \strong{Sans-serif} & \strong{Monospaced} & \strong{Math} \\
+%^^A!     \midrule
+%^^A!       |garamond|        & EB Garamond         & Libertinus Sans & LM Mono\tnote{a} & Garamond Math   \\
+%^^A!       |libertinus|      & Libertinus Serif    & Libertinus Sans & LM Mono          & Libertinus Math \\
+%^^A!       |lm|              & LM Roman            & LM Sans         & LM Mono          & LM Math         \\
+%^^A!       |palatino|        & TG Pagella\tnote{b} & Libertinus Sans & LM Mono          & TG Pagella Math \\
+%^^A!       |times|           & XITS                & TG Heros        & TG Cursor        & XITS Math       \\
+%^^A!       |times*|\tnote{c} & Times New Roman     & Arial           & Courier New      & XITS Math       \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A!   \begin{tablenotes}
+%^^A!     \item[a] ``LM'' is the abbreviation of Latin Modern.
+%^^A!     \item[b] ``TG'' is the abbreviation of TeX Gyre.
+%^^A!     \item[c] Here, Times New Roman, Arial and Courier New are commercial fonts. They are
+%^^A!       installed on Windows and macOS by default.
+%^^A!   \end{tablenotes}
+%^^A! \end{threeparttable}
+%^^A! \end{table}
+%
 %^^A+
-% \begin{function}[rEXP,updated=2017-09-23]{style/cjk-font}
+% \begin{function}[rEXP,updated=2019-03-05]{style/cjk-font}
 %   \begin{fdusyntax}[emph={[1]cjk-font}]
-%     cjk-font = (*<adobe|(fandol)|founder|mac|windows|none>*)
+%     cjk-font = (*<adobe|(fandol)|founder|mac|sinotype|sourcehan|windows|none>*)
 %   \end{fdusyntax}
 %^^A-
-%   设置中文字体。
+%   设置中文字体。具体配置见表~\ref{tab:cjk-font}。
 % \end{function}
-%^^A!   Set CJK (Chinese, Japanese and Korean) fonts.
+%^^A!   Set CJK (Chinese, Japanese and Korean) fonts. The details can be found in
+%^^A!   table~\ref{tab:cjk-font}.
 %^^A! \end{function}
+%^^A!
+%
+% \begin{table}[ht]
+%   \caption{中文字体配置}
+%   \label{tab:cjk-font}
+%   \centering
+%   \begin{tabular}{cccc}
+%     \toprule
+%       & \strong{正文字体（宋体）} & \strong{无衬线字体（黑体）} & \strong{等宽字体（仿宋）} \\
+%     \midrule
+%       \multirow{2}*{|adobe|}     & Adobe 宋体          & Adobe  黑体        & Adobe  仿宋        \\
+%                                  & Adobe Song Std      & Adobe Heiti Std    & Adobe Fangsong Std \\
+%       \multirow{2}*{|fandol|}    & Fandol 宋体         & Fandol 黑体        & Fandol 仿宋        \\
+%                                  & FandolSong          & FandolHei          & FandolFang         \\
+%       \multirow{2}*{|founder|}   & 方正书宋            & 方正黑体           & 方正仿宋           \\
+%                                  & FZShuSong-Z01       & FZHei-B01          & FZFangSong-Z02     \\
+%       \multirow{2}*{|mac|}       & （华文）宋体-简     & （华文）黑体-简    & 华文仿宋           \\
+%                                  & Songti SC           & Heiti SC           & STFangsong         \\
+%       \multirow{2}*{|sinotype|}  & 华文宋体            & 华文黑体           & 华文仿宋           \\
+%                                  & STSong              & STHeiti            & STFangsong         \\
+%       \multirow{2}*{|sourcehan|} & 思源宋体            & 思源黑体           & ---                \\
+%                                  & Source Han Serif SC & Source Han Sans SC & ---                \\
+%       \multirow{2}*{|windows|}   & （中易）宋体        & （中易）黑体       & （中易）仿宋       \\
+%                                  & SimSun              & SimHei             & FangSong           \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{CJK font configuration}
+%^^A!   \label{tab:cjk-font}
+%^^A!   \centering
+%^^A!   \begin{tabular}{cccc}
+%^^A!     \toprule
+%^^A!       & \strong{Roman (song)} & \strong{Sans-serif (hei)} & \strong{Monospaced (fang)} \\
+%^^A!     \midrule
+%^^A!       |adobe|     & Adobe Song Std      & Adobe Heiti Std    & Adobe Fangsong Std \\
+%^^A!       |fandol|    & FandolSong          & FandolHei          & FandolFang         \\
+%^^A!       |founder|   & FZShuSong-Z01       & FZHei-B01          & FZFangSong-Z02     \\
+%^^A!       |mac|       & Songti SC           & Heiti SC           & STFangsong         \\
+%^^A!       |sinotype|  & STSong              & STHeiti            & STFangsong         \\
+%^^A!       |sourcehan| & Source Han Serif SC & Source Han Sans SC & ---                \\
+%^^A!       |windows|   & SimSun              & SimHei             & FangSong           \\
+%^^A!     \bottomrule
+%^^A!   \end{tabular}
+%^^A! \end{table}
 %^^A!
 %
 % 启用 \kvopt{font}{none} 或 \kvopt{cjk-font}{none} 之后，模板将关闭
@@ -1168,7 +1215,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 选择 \kvopt{fullwidth-stop}{catcode} 或 \opt{mapping} 后，都会实现
 % 上述效果。有所不同的是，在选择 \opt{catcode} 后，只有^^A
-% \emph{显式的}\FSID 会被替换为\FSFW，但在选择 \opt{mapping} 后，
+% \emph{显式的}\FSID 会被替换为\FSFW；但在选择 \opt{mapping} 后，
 % \emph{所有的}\FSID 都会被替换。例如，如果您用宏保存了一些含有^^A
 % \FSID 的文字，那么在选择 \opt{catcode} 时，其中的\FSID 不会被
 % 替换为\FSFW。
@@ -1442,7 +1489,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{function}
 %^^A! \begin{function}[added=2018-01-25]{style/bib-resource}
 %^^A!   \begin{fdusyntax}[emph={[1]bib-resource}]
-%^^A!     bib-resource = (*\marg{bib file(s)}*)
+%^^A!     bib-resource = (*\marg{bib file\symbol{"28}s\symbol{"29}}*)
 %^^A!   \end{fdusyntax}
 %^^A!   Specify the bibliography database (usually in \file{.bib}
 %^^A!   format). If using more than one files, the file names should
@@ -1539,13 +1586,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!
 %
 %^^A+
-% \begin{function}[added=2018-02-01]{info/degree}
+% \begin{function}[added=2018-02-01,updated=2019-03-12]{info/degree}
 %   \begin{fdusyntax}[emph={[1]degree}]
 %     degree = (*<(academic)|professional>*)
 %   \end{fdusyntax}
 %^^A-
-%   学位类型。本选项仅用于硕士学位论文，\opt{academic} 和
-%   \opt{professional} 分表表示学术学位和专业学位。
+%   学位类型，仅适用于博士和硕士学位论文。\opt{academic} 和 \opt{professional}
+%   分别表示学术学位和专业学位。
 % \end{function}
 %^^A!   Degree type. This option can only be used in master degree
 %^^A!   thesis.
@@ -1770,11 +1817,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsection{Writing your thesis}
 %^^A!
 %
-% \begin{quote*}[喬孟符][宋]
-%   作樂府亦有法，曰\CJKunderdot{鳳頭豬肚豹尾}六字是也。
-%   大概起要美麗，中要浩蕩，結要響亮。尤貴在首尾貫穿，意思清新。
-%   茍能若是，斯可以言樂府矣。
-% \end{quote*}
+% \begin{quotation}
+%   喬孟符（吉）博學多能，以樂府稱。嘗云：「作樂府亦有法，曰^^A
+%   \CJKunderdot{鳳頭、豬肚、豹尾}六字是也。」大概起要美麗，中要浩蕩，
+%   結要響亮。尤貴在首尾貫穿，意思清新。苟能若是，斯可以言樂府矣。
+% \end{quotation}
+% \hfill ——陶宗儀《南村輟耕錄·作今樂府法》
 %
 % \subsubsection{凤头}
 %^^A! \subsubsection{Front matter}
@@ -1796,12 +1844,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! main matter.
 %^^A!
 %
-% \begin{function}{\tableofcontents}
-%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
+% \begin{function}{\tableofcontents,\listoffigures,\listoftables}
+%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。对于图表
+%   较多的论文，也可以使用 \cs{listoffigures} 和 \cs{listoftables} 生成单独的
+%   插图、表格目录。
 % \end{function}
 %^^A! \begin{function}{\tableofcontents}
 %^^A!   Generate the table of contents (TOC). You need to compile
 %^^A!   the source file at least \emph{twice} to get the correct TOC.
+%^^A!   If your thesis contains many figures or tables, you may also
+%^^A!   use \cs{listoffigures} or \cs{listoftables} to generate a list
+%^^A!   of them.
 %^^A! \end{function}
 %^^A!
 %
@@ -1867,7 +1920,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       (*\meta{符号\ \kern-0.1em$n$}*)  &  (*\meta{说明}*)
 %     \end{notation}
 %   \end{fdusyntax}
-%   符号表。可选参数\meta{列格式说明}与 \LaTeX{} 中标准表格的列格
+%   符号表。可选参数 \meta{列格式说明}与 \LaTeX{} 中标准表格的列格
 %   式说明语法一致，默认值为“|lp{7.5cm}|”，即第一列宽度自动调整，
 %   第二列限宽 \SI{7.5}{cm}，两列均为左对齐。
 % \end{function}
@@ -2015,7 +2068,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   ...
 % \end{latexexample}
 %^^A! Actually, the pre-defined math environments are just defined
-%^^A! with \cs{newtheorem} and \cs{newtheorem*}:
+%^^A! with \cs{new\-the\-o\-rem} and \cs{new\-the\-o\-rem*}:
 %^^A! \begin{latexexample}[deletetexcs={\newtheorem},
 %^^A!     morekeywords={\newtheorem,\newtheorem*}]
 %^^A!   \newtheorem*{proof}{proof}
@@ -2210,7 +2263,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \begin{itemize}
 %       \item \pkg{expl3}、\pkg{xparse}、\pkg{xtemplate} 和
 %         \pkg{l3keys2e}，用于构建 \LaTeX3 编程环境
-%         \scite{interfaces3,source3}。它们分属 \pkg{l3kernel} 和
+%         \scite{source3}。它们分属 \pkg{l3kernel} 和
 %         \pkg{l3packages} 宏集。
 %       \item \cls{ctexbook}，提供中文排版的通用框架。属于 \CTeX{}
 %         宏集 \scite{CTeX}。
@@ -2225,7 +2278,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %       \item \pkg{graphicx}，提供图形插入的接口。
 %       \item \pkg{longtable}，长表格（允许跨页）支持。
 %       \item \pkg{caption}，用于设置题注。
-%       \item \pkg{natbib}，提供增强的参考文献著录及引用支持。
 %       \item \pkg{xcolor}，提供彩色支持。
 %       \item \pkg{hyperref}，提供交叉引用、超链接、电子书签等功能。
 %     \end{itemize}
@@ -2258,7 +2310,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \item \pkg{graphicx}
 %^^A!       \item \pkg{longtable}
 %^^A!       \item \pkg{caption}
-%^^A!       \item \pkg{natbib}
 %^^A!       \item \pkg{xcolor}
 %^^A!       \item \pkg{hyperref}
 %^^A!     \end{itemize}
@@ -2287,69 +2338,19 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \newcommand\urlprefix{\newline\hspace*{\fill}}
 % \let\OldUrl=\url
-% \renewcommand\url[1]{{\small\OldUrl{#1}}}
-% \newcommand\CTANurl[1]{{\small\href{http://mirror.ctan.org/#1}^^A
-%   {\ttfamily CTAN://#1}}}
+% \renewcommand\url[2][]{{\small\textit{#1}~\OldUrl{#2}}}
+% \newcommand\CTANurl[2][]{{\small\textit{#1}~\href{http://mirror.ctan.org/#2}^^A
+%   {\ttfamily CTAN://#2}}}
 %
-% \bibitem{source2e}
-% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
-% \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
-% \newblock (2018-04-01) \urlprefix
-%   \CTANurl{macros/latex/base/source2e.pdf}
-%
-% \bibitem{CTeX}
-% \textsc{CTEX.ORG}.
-% \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
-% \newblock version 2.4.12,
-% \newblock (2018-01-28) \urlprefix
-%   \CTANurl{language/chinese/ctex/ctex.pdf}
-%
-% \bibitem{xeCJK}
-% \textsc{CTEX.ORG}.
-% \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
-% \newblock version 3.7.0,
-% \newblock (2018-04-07) \urlprefix
-%   \CTANurl{macros/xetex/latex/xecjk/xeCJK.pdf}
-%
-% \bibitem{natbib}
-% \textsc{Daly P W}.
-% \newblock \textit{Natural Sciences Citations and References} [EB/OL].
-% \newblock version 8.31b,
-% \newblock (2010-09-13) \urlprefix
-%   \CTANurl{macros/latex/contrib/natbib/natbib.pdf}
-%
-% \bibitem{hmshan2017fduphdthesistemplate}
-% \textsc{hmshan}.
-% \newblock \textit{复旦博士论文模板} [EB/OL].
-% \newblock (2017-04-04) \urlprefix
-%   \url{https://github.com/hmshan/FDU_PhD_Thesis_Template}
+% \subsection{图书}
 %
 % \bibitem{knuth1986texbook}
 % \textsc{Knuth D E}.
-% \newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
+% \newblock \textit{The \TeX book: Computers \& Typesetting, volume A} [M].
 % \newblock Boston: Addison--Wesley Publishing Company, 1986
-%   \urlprefix {\small {\kaishu 源代码
-%     \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：}
-%     \CTANurl{systems/knuth/dist/tex/texbook.tex}}
-%
-% \bibitem{interfaces3}
-% \textsc{The \LaTeX3 Project}.
-% \newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
-% \newblock (2018-03-05) \urlprefix
-%   \CTANurl{macros/latex/contrib/l3kernel/interface3.pdf}
-%
-% \bibitem{source3}
-% \textsc{The \LaTeX3 Project}.
-% \newblock \textit{The \LaTeX3 Sources} [CP/OL].
-% \newblock (2018-03-05) \urlprefix
-%   \CTANurl{macros/latex/contrib/l3kernel/source3.pdf}
-%
-% \bibitem{biblatex}
-% \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
-% \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
-% \newblock version 3.11,
-% \newblock (2018-03-01) \urlprefix
-%   \CTANurl{macros/latex/contrib/biblatex/doc/biblatex.pdf}
+% \urlprefix \CTANurl[源代码^^A
+%   \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：]^^A
+%   {systems/knuth/dist/tex/texbook.tex}
 %
 % \bibitem{mittelbach2004latexcompanion}
 % \textsc{Mittelbach F} and \textsc{Goossens M}.
@@ -2357,123 +2358,202 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newblock 2nd ed.
 % \newblock Boston: Addison--Wesley Publishing Company, 2004
 %
-% \bibitem{lshort}
-% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
-% \newblock version 6.2,
-% \newblock (2018-02-28) \urlprefix
-%   \CTANurl{info/lshort/english/lshort.pdf}
-%
-% \bibitem{lshort-zh-cn}
-% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-% \newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 102 分钟了解 \LaTeXe{}} [EB/OL].
-% \newblock China\TeX{} 论坛, 译.
-% \newblock 原版版本 version 5.05, 中文版本 version 5.10,
-% \newblock (2017-03-26) \urlprefix
-%   \CTANurl{info/lshort/chinese/lshort-zh-cn.pdf}
-%
-% \bibitem{pandoxie2014fduthesislatex}
-% \textsc{Pandoxie}.
-% \newblock \textit{Fudan University-Latex Template} [EB/OL].
-% \newblock (2014-06-07) \urlprefix
-%   \url{https://github.com/Pandoxie/FDU-Thesis-Latex}
-%
-% \bibitem{richard2016fudanthesis}
-% \textsc{richard}.
-% \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
-% \newblock (2016-01-31) \urlprefix
-%   \url{https://github.com/richarddzh/fudan-thesis}
-%
-% \bibitem{weijianwen2017sjtuthesis}
-% \textsc{weijianwen}.
-% \newblock \textit{A \XeLaTeX{} template for Shanghai Jiao Tong University (SJTU) thesis} [EB/OL].
-% \newblock version 0.10,
-% \newblock (2018-02-11) \urlprefix
-%   \url{https://github.com/weijianwen/SJTUThesis}
-%
-% \bibitem{wright2009dtxfile}
-% \textsc{Wright J}.
-% \newblock \textit{A model dtx file} [EB/OL].
-% \newblock (2009-10-06) \urlprefix
-%   \url{http://www.texdev.net/2009/10/06/a-model-dtx-file}
-%
-% \bibitem{gbt7714}
-% \textsc{Zeping Lee}.
-% \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
-% \newblock version 1.0.3,
-% \newblock (2018-03-16) \urlprefix
-%   \CTANurl{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
-%
-% \bibitem{zepinglee2017ustcthesis}
-% \textsc{Zeping Lee} and \textsc{seisman}.
-% \newblock \textit{\LaTeX{} template for USTC thesis v3.0} [EB/OL].
-% \newblock version 3.0.4,
-% \newblock (2018-04-03) \urlprefix
-%   \url{https://github.com/ustctug/ustcthesis}
-%
-% \bibitem{数院毕业论文格式}
-% 复旦大学数学科学学院.
-% \newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL]. \urlprefix
-%   \url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
-%
-% \bibitem{数院毕业论文格式更新}
-% 复旦大学数学科学学院.
-% \newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL]. \urlprefix
-%   \url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
-%
-% \bibitem{复旦大学论文规范}
-% 复旦大学图书馆, 复旦大学研究生院.
-% \newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
-% \newblock 2017 年 3 月修订版.
-% \newblock (2017-03-27) \urlprefix
-%   \url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
-%
-% \bibitem{gb-t-7713.1-2006}
-% 国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
-% \newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
-% \newblock 北京: 中国标准出版社, 2007
-%
 % \bibitem{胡伟2017latex2e}
 % 胡伟.
 % \newblock \textit{\LaTeXe{} 文类和宏包学习手册} [M].
 % \newblock 北京: 清华大学出版社, 2017
-%
-% \bibitem{biblatex-gb7714-2015}
-% 胡振震.
-% \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
-% \newblock version 1.0i,
-% \newblock (2018-01-14) \urlprefix
-% {\small\href{http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}^^A
-%   {\ttfamily CTAN://macros/latex/contrib/biblatex-contrib/biblatex-gb7714-2015/biblatex-gb77 14-2015.pdf}}
-%
-% \bibitem{gb-t-15834-2011}
-% 教育部语言文字信息管理司.
-% \newblock \textit{标点符号用法: GB/T 15834--2011} [S].
-% \newblock 北京: 中国标准出版社, 2012
-%
-% \bibitem{cquthesis}
-% 李振楠.
-% \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
-% \newblock version 1.30,
-% \newblock (2018-02-23) \urlprefix
-%   \CTANurl{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
 % \bibitem{刘海洋2013latex入门}
 % 刘海洋.
 % \newblock \textit{\LaTeX{} 入门} [M].
 % \newblock 北京: 电子工业出版社, 2013
 %
+% \subsection{标准、规范}
+%
+% \bibitem{gb-t-7713.1-2006}
+% 国务院学位委员会办公室, 全国信息与文献标准化技术委员会.
+% \newblock \textit{学位论文编写规则: GB/T 7713.1--2006} [S].
+% \newblock 北京: 中国标准出版社, 2007
+%
 % \bibitem{gb-t-7714-2015}
 % 全国信息与文献标准化技术委员会.
-% \newblock \textit{信息与文献 参考文献著录规则: GB/T 7714--2015} [S].
+% \newblock \textit{信息与文献\quad 参考文献著录规则: GB/T 7714--2015} [S].
 % \newblock 北京: 中国标准出版社, 2015
+%
+% \bibitem{gb-t-15834-2011}
+% 教育部语言文字信息管理司.
+% \newblock \textit{标点符号用法: GB/T 15834--2011} [S/OL].
+% \newblock 北京: 中国标准出版社, 2012
+% \urlprefix\url{http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091548267.pdf}
+%
+% \bibitem{clreq}
+% W3C.
+% \newblock \textit{中文排版需求（Requirements for Chinese Text Layout）} [EB/OL].
+% \newblock (2019-03-13) 
+% \urlprefix\url{https://w3c.github.io/clreq/}
+%
+% \bibitem{复旦大学论文规范}
+% 复旦大学图书馆, 复旦大学研究生院.
+% \newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
+% \newblock 2017 年 3 月修订版.
+% \newblock (2017-03-27) 
+% \urlprefix\url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
+%
+% \subsection{宏包、模版}
+%
+% \bibitem{source2e}
+% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
+% \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
+% \newblock (2018-12-01) 
+% \urlprefix\url{https://ctan.org/pkg/latex}
+% \urlprefix\CTANurl[源代码：]{macros/latex/base/source2e.pdf}
+%
+% \bibitem{CTeX}
+% \textsc{CTEX.ORG}.
+% \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
+% \newblock version 2.4.14,
+% \newblock (2018-05-02) 
+% \urlprefix\url{https://ctan.org/pkg/ctex}
+% \urlprefix\CTANurl[文档及源代码：]{language/chinese/ctex/ctex.pdf}
+%
+% \bibitem{xeCJK}
+% \textsc{CTEX.ORG}.
+% \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
+% \newblock version 3.7.1,
+% \newblock (2018-04-30) 
+% \urlprefix\url{https://ctan.org/pkg/xecjk}
+% \urlprefix\CTANurl[文档及源代码：]{macros/xetex/latex/xecjk/xeCJK.pdf}
+%
+% \bibitem{natbib}
+% \textsc{Daly P W}.
+% \newblock \textit{Natural Sciences Citations and References} [EB/OL].
+% \newblock version 8.31b,
+% \newblock (2010-09-13) 
+% \urlprefix\url{https://ctan.org/pkg/natbib}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/natbib/natbib.pdf}
+%
+% \bibitem{source3}
+% \textsc{The \LaTeX3 Project}.
+% \newblock \textit{The \LaTeX3 Sources} [CP/OL].
+% \newblock (2019-03-05) 
+% \urlprefix\url{https://ctan.org/pkg/l3kernel}
+% \urlprefix\CTANurl[源代码：]{macros/latex/contrib/l3kernel/source3.pdf}
+%
+% \bibitem{biblatex}
+% \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
+% \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
+% \newblock version 3.12,
+% \newblock (2018-10-18) 
+% \urlprefix\url{https://ctan.org/pkg/biblatex}
+% \urlprefix\CTANurl[文档：]{macros/latex/contrib/biblatex/doc/biblatex.pdf}
+%
+% \bibitem{lshort}
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
+% \newblock version 6.2,
+% \newblock (2018-02-28) 
+% \urlprefix\url{https://ctan.org/pkg/lshort-english}
+% \urlprefix\CTANurl[文档：]{info/lshort/english/lshort.pdf}
+%
+% \bibitem{lshort-zh-cn}
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 106 分钟了解 \LaTeXe{}} [EB/OL].
+% \newblock \CTeX{} 开发小组, 译.
+% \newblock 原版版本 version 6.2, 中文版本 version 6.0,
+% \newblock (2018-09-01) 
+% \urlprefix\url{https://ctan.org/pkg/lshort-zh-cn}
+% \urlprefix\CTANurl[文档：]{info/lshort/chinese/lshort-zh-cn.pdf}
+%
+% \bibitem{biblatex-gb7714-2015}
+% 胡振震.
+% \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
+% \newblock version 1.0q,
+% \newblock (2019-02-11) 
+% \urlprefix\url{https://ctan.org/pkg/biblatex-gb7714-2015}
+% \urlprefix\CTANurl[文档：]{biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}
+%
+% \bibitem{gbt7714}
+% 李泽平（\textsc{Zeping L}）.
+% \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
+% \newblock version 1.0.9,
+% \newblock (2018-08-05) 
+% \urlprefix\url{https://ctan.org/pkg/gbt7714}
+% \urlprefix\CTANurl[文档：]{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
+%
+% \bibitem{cquthesis}
+% 李振楠.
+% \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
+% \newblock version 1.30,
+% \newblock (2018-02-23) 
+% \urlprefix\url{https://ctan.org/pkg/cquthesis}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
 % \bibitem{thuthesis}
 % 薛瑞尼.
 % \newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
-% \newblock version 5.4.3,
-% \newblock (2017-12-24) \urlprefix
-%   \CTANurl{macros/latex/contrib/thuthesis/thuthesis.pdf}
+% \newblock version 5.4.5,
+% \newblock (2018-05-17) 
+% \urlprefix\url{https://ctan.org/pkg/thuthesis}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/thuthesis/thuthesis.pdf}
+%
+% \emph{以下模版未收录至 CTAN，但仍然保持活跃更新。}
+%
+% \bibitem{sjtuthesis}
+% \textsc{SJTUG}.
+% \newblock \textit{上海交通大学 \XeLaTeX{} 学位论文及课程论文模板} [EB/OL].
+% \newblock version 0.10.2,
+% \newblock (2018-11-05)
+% \urlprefix\url{https://github.com/sjtug/SJTUThesis}
+%
+% \bibitem{ustcthesis}
+% \textsc{USTC \TeX{} User Group}.
+% \newblock \textit{中国科学技术大学学位论文 \LaTeX{} 模板} [EB/OL].
+% \newblock version 3.1.03,
+% \newblock (2019-01-01)
+% \urlprefix\url{https://github.com/ustctug/ustcthesis}
+%
+% \bibitem{ucasthesis}
+% \textsc{mohuangrui}.
+% \newblock \textit{\pkg{ucasthesis} 国科大学位论文 \LaTeX{} 模板} [EB/OL].
+% \newblock (2019-03-14)
+% \urlprefix\url{https://github.com/mohuangrui/ucasthesis}
+%
+% \emph{以下模版现已停止更新。}
+%
+% \bibitem{pandoxie2014fduthesislatex}
+% \textsc{Pandoxie}.
+% \newblock \textit{Fudan University-Latex Template} [EB/OL].
+% \newblock (2014-06-07) 
+% \urlprefix\url{https://github.com/Pandoxie/FDU-Thesis-Latex}
+%
+% \bibitem{richard2016fudanthesis}
+% \textsc{richard}.
+% \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
+% \newblock (2016-01-31) 
+% \urlprefix\url{https://github.com/richarddzh/fudan-thesis}
+%
+% \bibitem{数院毕业论文格式}
+% 复旦大学数学科学学院.
+% \newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL].
+% \urlprefix\url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
+%
+% \bibitem{数院毕业论文格式更新}
+% 复旦大学数学科学学院.
+% \newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL].
+% \urlprefix\url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
+%
+% \subsection{其他}
+%
+% \bibitem{wright2009dtxfile}
+% \textsc{Wright J}.
+% \newblock \textit{A model dtx file} [EB/OL].
+% \newblock (2009-10-06) 
+% \urlprefix\url{https://www.texdev.net/2009/10/06/a-model-dtx-file/}
+%
+% \bibitem{孔雀计划}
+% 刘庆（\textsc{Eric Q L}）.
+% \newblock \textit{孔雀计划：中文字体排印的思路} [EB/OL].
+% \urlprefix\url{https://thetype.com/kongque/}
 %
 % \end{thebibliography}
 %
@@ -2482,9 +2562,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{document}
 %
 % \end{documentation}
-%
-%^^A \EnableImplementation
-%^^A \DisableImplementation
 %
 % \begin{implementation}
 %
@@ -2507,16 +2584,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
 % 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
 %
-% 以下代码中有一些形如 \textcolor[HTML]{2E3191}^^A
-% {\textsf{\textlangle *class\textrangle}} 的标记，这是
-% \pkg{DocStrip} 中的“guard”，用来选择性地提取文件。
+% 以下代码中有一些形如 \textcolor[HTML]{2E3191}{\textsf{<*class>}}
+% 的标记，这是 \pkg{DocStrip} 中的“guard”，用来选择性地提取文件。
 % “\textsf{*}”和“\textsf{/}”分别表示该部分的开始和结束。不含
 % “\textsf{*}”和“\textsf{/}”的 guard 出现在行号右侧，它们用来确定
 % 单独一行代码的归属。这些 guard 的颜色深浅不一，用以明确嵌套关系。
 %
-% 另有若干形如 \textcolor{MaterialPink}^^A
-% {\textsf{\textlangle @@=fdu\textrangle}} 的 guard ，它们由
-% \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
+% 另有若干形如 \textcolor{MaterialPink}{\textsf{<@@=fdu>}} 的 guard，
+% 它们由 \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
 %
 % \subsection{准备}
 %
@@ -2530,7 +2605,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \RequirePackage { xparse, xtemplate, l3keys2e }
 \clist_map_inline:nn { expl3, xparse, xtemplate, l3keys2e }
   {
-    \@ifpackagelater {#1} { 2017/12/16 }
+    \@ifpackagelater {#1} { 2018/05/12 }
       { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
   }
 \msg_new:nnn { fduthesis } { l3-too-old }
@@ -2846,7 +2921,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 将选项传入 \cls{ctexbook} 文档类。
 %    \begin{macrocode}
-% TODO: (2017/07/22) Chinese fonts in fduthesis-en
+% TODO: (2017-07-22) Chinese fonts in fduthesis-en
 \PassOptionsToClass
   {
     UTF8,
@@ -2875,11 +2950,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 本模板会在 \pkg{ctexhook} 提供的钩子 \cs{ctex_at_end_preamble:n}
 % 中调用 \pkg{biblatex}，而 \pkg{biblatex} 自身又会使用 \pkg{etoolbox}
 % 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
-% \pkg{etoolbox}。
-%
-% 钩子的顺序为：$\text{\tn{CTEX@document@left@hook}} \prec
-% \text{\tn{@endpreamblehook}} \prec
-% \text{\texttt{\textbackslash begin\{document\}}}$。
+% \pkg{etoolbox}。钩子的顺序为：
+% \[ \text{\tn{CTEX@document@left@hook}}
+%    \prec \text{\tn{@endpreamblehook}}
+%    \prec \text{\texttt{\textbackslash begin\{document\}}}. \]
 %    \begin{macrocode}
 \RequirePackage { etoolbox }
 %    \end{macrocode}
@@ -2962,748 +3036,581 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{字体}
 %
-% \changes{v0.5}{2017/09/09}{重新实现字体调用。核心内容是分离
-%   字体的声明与设定，并按照宋、黑、仿、楷划分中文字体。}
+% \subsubsection{预定义字体配置}
 %
-% 为了避免不必要的字体调用开销
-% \footnote{事实上，此处的修正对性能的提升并不大。}，
-% 本模板把字体的\emph{声明}与\emph{设定}分离了开来。使用
-% \cs{fdusetup} 设置的字体选项，以及导言区中通过 \cs{setmainfont}、
-% \cs{setCJKmainfont} 等命令设置的字体，均按照字体\emph{声明}处理。
-% 此时，字体名及其选项被存入相关变量中，但不进行实际调用。导言区
-% 末尾，再进行统一调用。本模板将重新定义 \cs{setmainfont}、
-% \cs{setCJKmainfont} 等命令。
+% \changes{v0.7c}{2019/03/05}{重构字体配置，并兼容 macOS。}
 %
-% 对于中文字体，\pkg{ctex} 宏包及其底层 \pkg{xeCJK} 和
-% \pkg{LuaTeX-ja}，均与 \pkg{fontspec} 保持一致，以
-% |main|、|sans|、|mono| 三类进行划分；而本模板则按照
-% 宋、黑、仿、楷等进行划分。为此，需要额外建立二者之间的对应关系。
-%
-% \begin{variable}{\g_@@_font_name_prop,\g_@@_font_options_prop}
-% 存放西文字体名称及选项。
+% \begin{variable}{\g_@@_fontset_tl, \g_@@_cjk_fontset_tl}
+% 存放字体选项值。
 %    \begin{macrocode}
-\prop_new:N \g_@@_font_name_prop
-\prop_new:N \g_@@_font_options_prop
+\tl_new:N \g_@@_fontset_tl
+%<class>\tl_new:N \g_@@_cjk_fontset_tl
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_cjk_font_name_prop,
-%   \g_@@_cjk_font_options_prop}
-% 存放中文字体及选项。
-%    \begin{macrocode}
-\prop_new:N \g_@@_cjk_font_name_prop
-\prop_new:N \g_@@_cjk_font_options_prop
-%    \end{macrocode}
-% \end{variable}
-%
-% \subsubsection{选项处理}
-%
-% 定义 |fdu/style| 键值类。
+% \begin{macro}{style/font}
+% \changes{v0.7c}{2019/03/05}{新增 \opt{garamond} 和 \opt{times*} 样式。}
+% 预定义西文字体。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
-%    \end{macrocode}
-%
-% \begin{macro}{style/font}
-% 预定义西文字体。部分等宽字体（TeX Gyre Cursor）使用
-% \kvopt{Ligatures}{Common\-Off} 选项以禁用连字。
-%    \begin{macrocode}
-    font .choice:,
-    font .value_required:n = true,
-%    \end{macrocode}
-% Libertinus 系列。
-%    \begin{macrocode}
-    font / libertinus .code:n =
-      {
-        \fdu_choose_font:nn { main } { Libertinus~ Serif }
-        \fdu_choose_font:nn { sans } { Libertinus~ Sans  }
-        \fdu_choose_font_with_option:nnn { mono }
-          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math } { Libertinus~ Math  }
-        \keys_set:nn { fdu / style } { footnote-style = libertinus }
-      },
-%    \end{macrocode}
-% Latin Modern 系列。
-%    \begin{macrocode}
-    font / lm .code:n =
-      {
-        \fdu_choose_font:nn { main } { Latin~ Modern~ Roman }
-        \fdu_choose_font:nn { sans } { Latin~ Modern~ Sans  }
-        \fdu_choose_font:nn { mono } { Latin~ Modern~ Mono  }
-        \fdu_choose_font:nn { math } { Latin~ Modern~ Math  }
-        \keys_set:nn { fdu / style } { footnote-style = pifont }
-      },
-%    \end{macrocode}
-% Palatino 系列。
-%    \begin{macrocode}
-    font / palatino .code:n =
-      {
-        \fdu_choose_font:nn { main } { TeX~ Gyre~ Pagella }
-        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros   }
-        \fdu_choose_font_with_option:nnn { mono }
-          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math } { TeX~ Gyre~ Pagella~ Math }
-        \keys_set:nn { fdu / style } { footnote-style = pifont }
-      },
-%    \end{macrocode}
-% \changes{v0.6}{2017/11/11}{额外处理 XITS 字体的小型大写字母。}
-% Times Roman 系列。XITS 字体没有小型大写字母，因此使用普通字体代替。
-%    \begin{macrocode}
-    font / times .code:n =
-      {
-        \fdu_choose_font_with_option:nnn { main } { XITS }
-          {
-            UprightFeatures    = { SmallCapsFont = *               },
-            BoldFeatures       = { SmallCapsFont = *~ Bold         },
-            ItalicFeatures     = { SmallCapsFont = *~ Italic       },
-            BoldItalicFeatures = { SmallCapsFont = *~ Bold~ Italic },
-          }
-        \fdu_choose_font:nn { sans } { TeX~ Gyre~ Heros  }
-        \fdu_choose_font_with_option:nnn { mono }
-          { TeX~ Gyre~ Cursor } { Ligatures = Common Off }
-        \fdu_choose_font:nn { math } { XITS~ Math        }
-        \keys_set:nn { fdu / style } { footnote-style = xits }
-      },
-%    \end{macrocode}
-% \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
-% 不设置西文字体。
-%    \begin{macrocode}
-    font / none .code:n =
-      {
-        \@@_initialize_prop:Nn \g_@@_font_name_prop
-          { main, sans, mono, math }
-        \@@_initialize_prop:Nn \g_@@_font_options_prop
-          { main, sans, mono, math }
-        \keys_set:nn { fdu / style } { footnote-style = plain }
-%<*class>
-      },
+    font .choices:nn =
+      { garamond, libertinus, lm, palatino, times, times*, none }
+      { \tl_set_eq:NN \g_@@_fontset_tl \l_keys_choice_tl }
+  }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{style/cjk-font}
-% 预定义中文（CJK）字体。Adobe 和中易系列没有粗宋体。
-%    \begin{macrocode}
-    cjk-font .choice:,
-    cjk-font .value_required:n = true,
-%    \end{macrocode}
-% Adobe 系列。
-%    \begin{macrocode}
-    cjk-font / adobe .code:n =
-      {
-        \fdu_choose_cjk_font:nn { song } { Adobe~ Song~     Std }
-        \fdu_choose_cjk_font:nn { hei  } { Adobe~ Heiti~    Std }
-        \fdu_choose_cjk_font:nn { fang } { Adobe~ Fangsong~ Std }
-        \fdu_choose_cjk_font:nn { kai  } { Adobe~ Kaiti~    Std }
-      },
-%    \end{macrocode}
-% Fandol 系列。
-%    \begin{macrocode}
-    cjk-font / fandol .code:n =
-      {
-        \fdu_choose_cjk_font_with_option:nnn { song }
-          { FandolSong } { BoldFont = FandolSong~ Bold }
-        \fdu_choose_cjk_font:nn { hei  } { FandolHei  }
-        \fdu_choose_cjk_font:nn { fang } { FandolFang }
-        \fdu_choose_cjk_font:nn { kai  } { FandolKai  }
-      },
-%    \end{macrocode}
-% 方正系列。
-%    \begin{macrocode}
-    cjk-font / founder .code:n =
-      {
-        \fdu_choose_cjk_font_with_option:nnn { song }
-          { FZShuSong-Z01 } { BoldFont = FZXiaoBiaoSong-B05 }
-        \fdu_choose_cjk_font:nn { hei  } { FZHei-B01      }
-        \fdu_choose_cjk_font:nn { fang } { FZFangSong-Z02 }
-        \fdu_choose_cjk_font:nn { kai  } { FZKai-Z03      }
-      },
-%    \end{macrocode}
-% Mac （华文）系列。
-%    \begin{macrocode}
-    cjk-font / mac .code:n =
-      {
-        \fdu_choose_cjk_font_with_option:nnn { song }
-          { STSong } { BoldFont = STZhongsong }
-        \fdu_choose_cjk_font:nn { hei  } { STHeiti    }
-        \fdu_choose_cjk_font:nn { fang } { STFangsong }
-        \fdu_choose_cjk_font:nn { kai  } { STKaiti    }
-      },
-%    \end{macrocode}
-% Windows （中易）系列。
-%    \begin{macrocode}
-    cjk-font / windows .code:n =
-      {
-        \fdu_choose_cjk_font:nn { song } { SimSun   }
-        \fdu_choose_cjk_font:nn { hei  } { SimHei   }
-        \fdu_choose_cjk_font:nn { fang } { FangSong }
-        \fdu_choose_cjk_font:nn { kai  } { KaiTi    }
-      },
-%    \end{macrocode}
-% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjk-font}{none} 选项。}
-% 不设置中文字体。
-%    \begin{macrocode}
-    cjk-font / none .code:n =
-      {
-        \@@_initialize_prop:Nn \g_@@_cjk_font_name_prop
-          { rm, sf, tt, kai }
-        \@@_initialize_prop:Nn \g_@@_cjk_font_options_prop
-          { rm, sf, tt, kai }
-%</class>
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_initialize_prop:Nn}
-% 把 |prop-list| 清空，将其并设置为 |main={},| |sans={}| 等。
-% \begin{arguments}
-%   \item |prop-list|
-%   \item {\meta{family 1}, \meta{family 2}, \ldots}，如
-%     |{main,| |sans,| |mono,| |math}|
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_initialize_prop:Nn #1#2
-  {
-    \prop_gclear:N #1
-    \clist_map_inline:nn {#2} { \prop_gput:Nnn #1 {##1} { } }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsubsection{字体声明}
-%
-% 重定义文档命令，使其只声明字体，而不进行实际调用。
-%
-% \begin{macro}{\setmainfont,\setsansfont,\setmonofont,\setmathfont}
-% 声明西文字体。参数按照 \pkg{fontspec} 的风格，字体选项
-% 在前在后均可。
-%    \begin{macrocode}
-\clist_map_inline:nn
-  { main, sans, mono, math }
-  {
-    \exp_args:Nc \RenewDocumentCommand { set #1 font } { O { } m O { } }
-      { \fdu_choose_font_with_option:nnn { #1 } {##2} { ##1, ##3 } }
-  }
-% \RenewDocumentCommand \setmainfont { O { } m O { } }
-%   { \fdu_choose_font_with_option:nnn { main } {#2} { #1, #3 } }
-% \RenewDocumentCommand \setsansfont { O { } m O { } }
-%   { \fdu_choose_font_with_option:nnn { sans } {#2} { #1, #3 } }
-% \RenewDocumentCommand \setmonofont { O { } m O { } }
-%   { \fdu_choose_font_with_option:nnn { mono } {#2} { #1, #3 } }
-% \RenewDocumentCommand \setmathfont { O { } m O { } }
-%   { \fdu_choose_font_with_option:nnn { math } {#2} { #1, #3 } }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\setCJKmainfont,\setCJKsansfont,\setCJKmonofont,
-%   \setCJKfamilyfont}
-% 声明中文字体。参数同样按照 \pkg{fontspec} 的风格
-% \footnote{\pkg{xeCJK} 和 \pkg{ctex} 与之稍有区别，它们要求字体
-% 选项只能位于字体名的\emph{前或后}，而不能同时出现（即不允许形如
-% \cs{setCJKmainfont}\texttt{\oarg{选项 1}\marg{字体}\oarg{选项 2}}
-% 这样的语句）。}。
+% \changes{v0.7c}{2019/03/05}{新增 \opt{sinotype} 和 \opt{sourcehan} 样式。}
+% 预定义中文字体。
 %    \begin{macrocode}
 %<*class>
-\RenewDocumentCommand \setCJKmainfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { rm } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKsansfont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { sf } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKmonofont { O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn { tt } {#2} { #1, #3 } }
-\RenewDocumentCommand \setCJKfamilyfont { m O { } m O { } }
-  { \fdu_choose_cjk_font_with_option:nnn {#1} {#3} { #2, #4 } }
+\keys_define:nn { fdu / style }
+  {
+    cjk-font .choices:nn =
+      { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
+      { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl }
+  }
 %    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\setCJKsongfont,\setCJKheifont,
-%   \setCJKfangfont,\setCJKkaifont}
-% 声明中文宋、黑、仿、楷字体，暂时不用。
-%    \begin{macrocode}
-% \DeclareDocumentCommand \setCJKsongfont { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { song } {#2} { #1, #3 } }
-% \DeclareDocumentCommand \setCJKheifont  { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { hei  } {#2} { #1, #3 } }
-% \DeclareDocumentCommand \setCJKfangfont { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { fang } {#2} { #1, #3 } }
-% \DeclareDocumentCommand \setCJKkaifont  { O { } m O { } }
-%   { \fdu_choose_cjk_font_with_option:nnn { kai  } {#2} { #1, #3 } }
 %</class>
-%    \end{macrocode}
 % \end{macro}
 %
-% 字体选择只需将字体名及选项存入相应变量即可。
-%
-% \begin{macro}{\fdu_choose_font_with_option:nnn,\fdu_choose_font:nn}
-% 选择西文字体。
-% \begin{arguments}
-%   \item |main| / |sans| / |mono| / |math|
-%   \item 字体名
-%   \item 选项
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new_protected:Npn \fdu_choose_font_with_option:nnn #1#2#3
-  {
-    \prop_gput:Nnn \g_@@_font_name_prop    {#1} {#2}
-    \prop_gput:Nnn \g_@@_font_options_prop {#1} {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_font:nn #1#2
-  {
-    \prop_gput:Nnn \g_@@_font_name_prop    {#1} {#2}
-    \prop_gput:Nnn \g_@@_font_options_prop {#1} {  }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_choose_cjk_font_with_option:nnn,
-%   \fdu_choose_cjk_font:nn}
-% 选择中文字体。
-% \begin{arguments}
-%   \item |rm| / |sf| / |tt| 或 |song| / |hei| / |fang| / |kai|
-%   \item 字体名
-%   \item 选项
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new_protected:Npn \fdu_choose_cjk_font_with_option:nnn #1#2#3
-  {
-    \prop_gput:Nnn \g_@@_cjk_font_name_prop    {#1} {#2}
-    \prop_gput:Nnn \g_@@_cjk_font_options_prop {#1} {#3}
-  }
-\cs_new_protected:Npn \fdu_choose_cjk_font:nn #1#2
-  {
-    \prop_gput:Nnn \g_@@_cjk_font_name_prop    {#1} {#2}
-    \prop_gput:Nnn \g_@@_cjk_font_options_prop {#1} {  }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsubsection{字体设定}
-%
-% 此时需要利用 \pkg{fontspec}、\pkg{unicode-math}、\pkg{xeCJK}、
-% \pkg{ctex} 等宏包完成实际的字体调用。会在导言区末尾统一进行。
-%
-% \begin{macro}{\@@_set_font:}
-% 设定西文字体。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_set_font:
-  {
-    \clist_map_inline:nn { main, sans, mono, math }
-      {
-        \prop_get:NnN \g_@@_font_name_prop    {##1} \l_@@_tmpa_tl
-        \prop_get:NnN \g_@@_font_options_prop {##1} \l_@@_tmpb_tl
-        \tl_if_empty:NT \l_@@_tmpa_tl
-          { \@@_error:nn { font-not-defined } {##1} }
-        \use:c { @@_set_ ##1 _font:VV } \l_@@_tmpa_tl \l_@@_tmpb_tl
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
-%
-% \begin{macro}{\@@_set_main_font:nn,
-%   \@@_set_sans_font:nn,
-%   \@@_set_mono_font:nn}
-% 拷贝 \cs{__fontspec_main_setmainfont:nn} 等命令。注意参数顺序
-% 是相反的。
+% \begin{macro}{
+%   \@@_setmainfont:nn,
+%   \@@_setsansfont:nn,
+%   \@@_setmonofont:nn,
+%   \@@_setmathfont:nn}
+% 用于设置西文字体的辅助函数，来源于 \pkg{fontspec} 和 \pkg{unicode-math}。
 % \begin{arguments}
 %   \item 字体名
 %   \item 选项
 % \end{arguments}
 %    \begin{macrocode}
-\clist_map_inline:nn { main, sans, mono }
-  {
-    \cs_new_protected:cpx { @@_set_ #1 _font:nn } ##1 ##2
-      { \exp_not:c { __fontspec_main_set #1 font:nn } {##2} {##1} }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
-%
-% \begin{macro}{\@@_set_math_font:nn}
-% 拷贝 \pkg{unicode-math} 中的 \cs{setmathfont} 命令。参数同上。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_set_math_font:nn #1#2
+\cs_new_protected:Npn \@@_setmainfont:nn #1#2
+  { \__fontspec_main_setmainfont:nn {#2} {#1} }
+\cs_new_protected:Npn \@@_setsansfont:nn #1#2
+  { \__fontspec_main_setsansfont:nn {#2} {#1} }
+\cs_new_protected:Npn \@@_setmonofont:nn #1#2
+  { \__fontspec_main_setmonofont:nn {#2} {#1} }
+\cs_new_protected:Npn \@@_setmathfont:nn #1#2
   { \__um_setmathfont:nn {#2} {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
-% 生成字体设定函数的变体。
-%    \begin{macrocode}
-\clist_map_inline:nn { main, sans, mono, math }
-  { \cs_generate_variant:cn { @@_set_ #1 _font:nn } { VV } }
-%    \end{macrocode}
-%
-% \begin{macro}{\@@_set_cjk_font:}
-% 设定中文字体。复杂之处在于需要建立宋、黑、仿、楷到
-% |rm| / |sf| / |tt| 的映照，如表~\ref{tab:cjk-font} 所示。
-% \begin{table}[ht]
-%   \caption{宋、黑、仿、楷到 \texttt{rm} / \texttt{sf} /
-%     \texttt{tt} 的映照}
-%   \label{tab:cjk-font}
-%   \centering
-%   \begin{tabular}{ccccc}
-%     \toprule
-%        & Normal & Bold & Italic & Bold-italic \\
-%     \midrule
-%       |rm| & 宋体 & [粗宋] /  \textsf{黑体}  & \textit{楷体} & (\textit{粗楷}) \\
-%       |sf| & \textsf{黑体} & (\textsf{粗黑}) & \textsf{黑体} &  \textsf{黑体}  \\
-%       |tt| & \texttt{仿体} & (\texttt{粗仿}) & \textit{楷体} & (\textit{粗楷}) \\
-%     \bottomrule
-%   \end{tabular}
-% \end{table}
+% \begin{macro}{
+%   \@@_setCJKmainfont:nn,
+%   \@@_setCJKsansfont:nn,
+%   \@@_setCJKmonofont:nn}
+% 用于设置中文字体的辅助函数，来源于 \pkg{xeCJK} 和 \pkg{ctex} 宏包。
 %    \begin{macrocode}
 %<*class>
-\cs_new_protected:Npn \@@_set_cjk_font:
-  {
-    \clist_map_inline:nn { rm, sf, tt, kai }
-      {
-        \use:c { @@_parse_cjk_ ##1 _font: }
-        \@@_check_cjk_font:n   {##1}
-        \@@_set_cjk_font_aux:n {##1}
-      }
-%    \end{macrocode}
-% 清除冗余键值对。
-%    \begin{macrocode}
-    \clist_map_inline:nn { song, hei, fang }
-      {
-        \prop_gremove:Nn \g_@@_cjk_font_name_prop    {##1}
-        \prop_gremove:Nn \g_@@_cjk_font_options_prop {##1}
-      }
-  }
+\cs_new_protected:Npn \@@_setCJKmainfont:nn #1#2
+  { \@@_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+\cs_new_protected:Npn \@@_setCJKsansfont:nn #1#2
+  { \@@_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+\cs_new_protected:Npn \@@_setCJKmonofont:nn #1#2
+  { \@@_set_family:nnn { \CJKttdefault } {#2} {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}{\l_@@_font_name_tl,\l_@@_font_options_clist}
-% 临时存放字体名称和选项。
+% \begin{macro}{\@@_set_cjk_font_kai:nn,\fdu@kai}
+% 楷体需要单独设置。
 %    \begin{macrocode}
-\tl_new:N    \l_@@_font_name_tl
-\clist_new:N \l_@@_font_options_clist
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{macro}{\@@_parse_cjk_rm_font:}
-% 解析 |rm| 字体族。未设置 |rm| 字体族（即未调用 \cs{setmainfont}）
-% 时，传入 |song| 对应的字体名和选项。|sf| 和 |tt| 字体族的解析
-% 基本类似。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_parse_cjk_rm_font:
-  {
-    \prop_get:NnNF \g_@@_cjk_font_name_prop
-      { rm } \l_@@_font_name_tl
-      {
-        \@@_get_cjk_font_name_options:nn { rm } { song }
-%    \end{macrocode}
-% 根据 \opt{粗宋/黑} 选项来进行操作。目前暂未定义该选项，利用
-% \cs{use_ii:nn} 充当条件判断。使用黑体。
-%    \begin{macrocode}
-% 使用粗宋。
-        \use_i:nn
-          {
-%    \end{macrocode}
-% 粗宋。判断是否定义 \opt{BoldFont}，若未定义，则设置 \opt{BoldFont}
-% 为普通宋体。
-%    \begin{macrocode}
-% 若没有定义 BoldFont，则使用伪粗体。
-            \tl_if_in:NnF \l_@@_font_options_clist { BoldFont = }
-              {
-                \clist_put_right:Nx \l_@@_font_options_clist
-                  { AutoFakeBold = true }
-                  % { BoldFont = \l_@@_font_name_tl }
-              }
-          }
-          {
-%    \end{macrocode}
-% 黑体。注意右侧选项会覆盖左侧选项。
-%    \begin{macrocode}
-% TODO: (2017/09/18) `hei` or `sans`?
-            \prop_get:NnN \g_@@_cjk_font_name_prop { hei }
-              \l_@@_tmpa_tl
-            \clist_put_right:Nx \l_@@_font_options_clist
-              { BoldFont = \l_@@_tmpa_tl }
-          }
-        \@@_get_cjk_kai_font:
-        \@@_set_cjk_font_options:n { rm }
-      }
-  }
+\cs_new_protected:Npn \@@_set_cjk_font_kai:nn #1#2
+  { \@@_set_family:nnn { fdu@kai } {#2} {#1} }
+\cs_new_protected:Npn \fdu@kai
+  { \@@_switch_family:n { fdu@kai } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_parse_cjk_sf_font:}
-% 解析 |sf| 字体族。未设置 |sf| 字体族（即未调用 \cs{setsansfont}）
-% 时，传入 |hei| 对应的字体名和选项。
+% \changes{v0.7d}{2019/03/29}{在字体未提供对应粗体的情况下，允许使用伪粗。}
+%
+% \begin{macro}{
+%   \@@_cjk_font_options:,
+%   \@@_setCJKmainfont:n,
+%   \@@_setCJKsansfont:n,
+%   \@@_setCJKmonofont:n,
+%   \@@_set_cjk_font_kai:n}
+% 将 bold、italic 和 bold italic 统一按照 roman 设置。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_parse_cjk_sf_font:
-  {
-    \prop_get:NnNF \g_@@_cjk_font_name_prop
-      { sf } \l_@@_font_name_tl
-      {
-        \@@_get_cjk_font_name_options:nn { sf } { hei }
-%    \end{macrocode}
-% 黑体的 \opt{BoldFont}、\opt{ItalicFont}、\opt{BoldItalicFont}
-% 都使用普通字体。不需要载入楷体。
-%    \begin{macrocode}
-        \clist_put_right:Nx \l_@@_font_options_clist
-          {
-            BoldFont       = \l_@@_font_name_tl,
-            ItalicFont     = \l_@@_font_name_tl,
-            BoldItalicFont = \l_@@_font_name_tl
-          }
-        \@@_set_cjk_font_options:n { sf }
-      }
-  }
+\tl_const:Nn \@@_cjk_font_options:
+ { UprightFont = *, ItalicFont = *, AutoFakeBold = true }
+\cs_new_protected:Npx \@@_setCJKmainfont:n   #1
+  { \@@_setCJKmainfont:nn   {#1} { \@@_cjk_font_options: } }
+\cs_new_protected:Npx \@@_setCJKsansfont:n   #1
+  { \@@_setCJKsansfont:nn   {#1} { \@@_cjk_font_options: } }
+\cs_new_protected:Npx \@@_setCJKmonofont:n   #1
+  { \@@_setCJKmonofont:nn   {#1} { \@@_cjk_font_options: } }
+\cs_new_protected:Npx \@@_set_cjk_font_kai:n #1
+  { \@@_set_cjk_font_kai:nn {#1} { \@@_cjk_font_options: } }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_parse_cjk_tt_font:}
-% 解析 |tt| 字体族。未设置 |tt| 字体族（即未调用 \cs{setmonofont}）
-% 时，传入 |fang| 对应的字体名和选项。
+% \begin{macro}{\@@_set_family:nnn,\@@_switch_family:n}
+% 封装 CJK 字体族的设定和切换命令。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_parse_cjk_tt_font:
-  {
-    \prop_get:NnNF \g_@@_cjk_font_name_prop
-      { tt } \l_@@_font_name_tl
-      {
-        \@@_get_cjk_font_name_options:nn { tt } { fang }
-        \clist_put_right:Nx \l_@@_font_options_clist
-          { BoldFont = \l_@@_font_name_tl }
-        \@@_get_cjk_kai_font:
-        \@@_set_cjk_font_options:n { tt }
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_parse_cjk_kai_font:}
-% 解析 |kai| 字体族。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_parse_cjk_kai_font:
-  {
-    \prop_get:NnN \g_@@_cjk_font_name_prop { kai }
-      \l_@@_font_name_tl
-%    \end{macrocode}
-% 与黑体类似，楷体的 \opt{BoldFont}、\opt{ItalicFont}、
-% \opt{BoldItalicFont} 也都使用普通字体。
-%    \begin{macrocode}
-    \clist_set:Nx \l_@@_font_options_clist
-      {
-        BoldFont       = \l_@@_font_name_tl,
-        ItalicFont     = \l_@@_font_name_tl,
-        BoldItalicFont = \l_@@_font_name_tl
-      }
-    \@@_set_cjk_font_options:n { kai }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_get_cjk_font_name_options:nn}
-% 处理字体名称和选项。字体名存入 \cs{l_@@_font_name_tl}，字体
-% 选项存入 \cs{l_@@_font_options_clist}。注意字体名还被存入了
-% |prop-list| 中（对应的 \meta{key} = |#1|），但选项则在
-% |\__fdu_parse_cjk_..._font:| 的最后才会被存入 |prop-list| 中。
-% 因此还需要有 \cs{@@_set_cjk_font_options:n} 来设置选项。
-% \begin{arguments}
-%   \item |rm| / |sf| / |tt|
-%   \item |song| / |hei| / |fang|
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_get_cjk_font_name_options:nn #1#2
-  {
-    \prop_get:NnN  \g_@@_cjk_font_name_prop    {#2} \l_@@_font_name_tl
-    \prop_gput:NnV \g_@@_cjk_font_name_prop    {#1} \l_@@_font_name_tl
-    \prop_get:NnN  \g_@@_cjk_font_options_prop {#2} \l_@@_tmpa_tl
-    \clist_set:NV  \l_@@_font_options_clist \l_@@_tmpa_tl
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_get_cjk_kai_font:}
-% 补齐斜体、粗斜体（都设置为楷体）。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_get_cjk_kai_font:
-  {
-    \prop_get:NnN \g_@@_cjk_font_name_prop { kai }
-      \l_@@_tmpa_tl
-    \clist_put_right:Nx \l_@@_font_options_clist
-      {
-        ItalicFont     = \l_@@_tmpa_tl,
-        BoldItalicFont = \l_@@_tmpa_tl
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_set_cjk_font_options:n}
-%    \begin{macrocode}
-% 设置选项，即把选项存入 |prop-list|，对应 \meta{key} = |#1|。
-% |#1| = |rm| / |sf| / |tt|。
-\cs_new_protected:Npn \@@_set_cjk_font_options:n #1
-  {
-    \prop_put:NnV \g_@@_cjk_font_options_prop {#1}
-      \l_@@_font_options_clist
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_check_cjk_font:n}
-% 检查 CJK 字体族是否已定义。
-% |#1| = |rm| / |sf| / |tt|。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_check_cjk_font:n #1
-  {
-    \prop_get:NnN \g_@@_cjk_font_name_prop {#1}
-      \l_@@_font_name_tl
-    \tl_if_empty:NT \l_@@_font_name_tl
-      { \@@_error:nn { cjk-font-not-defined } {#1} }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\xeCJK_set_family:nVV,\ctex_ltj_set_family:nVV}
-% 生成 \pkg{xeCJK} 和 \pkg{ctex} 中字体族设定函数的变体。
-% 由于 \cs{@@_set_cjk_font_aux:nnnn} 使用了
-% \cs{cs_new_protected:Npx} 定义，因此必须在它之前给出变体形式。
-%    \begin{macrocode}
-\cs_generate_variant:Nn \xeCJK_set_family:nnn    { nVV }
-\cs_generate_variant:Nn \ctex_ltj_set_family:nnn { nVV }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_set_cjk_font_aux:n}
-% 利用 \pkg{xeCJK} 或 \pkg{ctex-ltj} 调用字体，需按照引擎的不同
-% 分别处理。使用 |Npx| 型来定义是为了在定义时直接确定引擎，以避开
-% 调用时的判断。
-% |#1| = |rm| / |sf| / |tt|。
-%    \begin{macrocode}
-\cs_new_protected:Npx \@@_set_cjk_font_aux:n #1
-  {
-    \prop_get:NnN \exp_not:N \g_@@_cjk_font_name_prop    {#1}
-      \exp_not:N \l_@@_tmpa_tl
-    \prop_get:NnN \exp_not:N \g_@@_cjk_font_options_prop {#1}
-      \exp_not:N \l_@@_tmpb_tl
-    \sys_if_engine_xetex:TF
-      { \xeCJK_set_family:nVV }
-      { \sys_if_engine_luatex:T { \ctex_ltj_set_family:nVV } }
-    {#1} \exp_not:n { \l_@@_tmpb_tl \l_@@_tmpa_tl }
-  }
-%</class>
-%    \end{macrocode}
-% \end{macro}
-%
-% 字体族未定义信息。
-%    \begin{macrocode}
-\@@_msg_new:nn { font-not-defined }
-  {
-    \str_upper_case:f { \tl_head:n {#1} } \tl_tail:n {#1} ~
-    font~ is~ not~ defined. \\\\
-    You~ can~ set~ option~ "font"~ via~ "\string\fdusetup",~
-    or~ use~ command~ \\
-    "\string\set #1 font"~ to~ define~ new~ font~ families.
-  }
-%<*class>
-\@@_msg_new:nn { cjk-font-not-defined }
-  {
-    CJK~ font~ family~ "#1"~ is~ not~ defined. \\\\
-    You~ can~ set~ option~ "cjk-font"~ via~ "\string\fdusetup",~
-    or~ use~ commands~ \\
-    "\string\setCJKmainfont",~ "\string\setCJKsansfont"~ or~
-    "\string\setCJKmonofont",~ etc~ \\
-    to~ define~ new~ CJK~ font~ families.
-  }
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\sys_if_engine_xetex:T
-  {
-%    \end{macrocode}
-% 这里给这两个 |prop-list| 变量赋一个空值，使得 \pkg{xeCJK} 认为
-% |rm| 字体族已定义，从而避免警告。\LuaTeX{} 引擎下，
-% \pkg{ctex-ltj} 不会给出警告，暂且不管。
-%    \begin{macrocode}
-    \prop_gput:Nnn \g__xeCJK_family_font_name_prop { rm } { }
-    \prop_gput:Nnn \g__xeCJK_family_name_prop      { rm } { }
-%    \end{macrocode}
-% 关闭 \pkg{xeCJK} 中重定义字体族的警告。
-%    \begin{macrocode}
-    \msg_redirect_name:nnn { xeCJK } { CJKfamily-redef } { none }
-  }
-%</class>
-%    \end{macrocode}
-%
-% 在导言区末尾载入字体。
-%    \begin{macrocode}
-\ctex_at_end_preamble:n
-  {
-    \@@_set_font:
-%<class>    \@@_set_cjk_font:
-  }
-%    \end{macrocode}
-%
-% \subsubsection{字体切换（楷体）}
-%
-% 一般情况下，楷体被用作中文斜体。但有时需要保持西文部分不被倾斜，
-% 因此需要额外定义楷体切换命令。
-%
-% \begin{macro}[TF]{\fdu_family_if_exist:n}
-% \changes{v0.4}{2017/08/10}{修复 \LuaTeX{} 下的展开错误。}
-% 判断字体族是否存在。
-% \XeTeX{} 引擎下直接利用 \pkg{xeCJK} 宏包提供的函数。
-%    \begin{macrocode}
-%<*class>
 \sys_if_engine_xetex:TF
   {
-    \prg_new_protected_conditional:Npnn
-      \fdu_family_if_exist:n #1 { TF }
-      {
-        \xeCJK_family_if_exist:nTF {#1}
-          { \prg_return_true: } { \prg_return_false: }
-      }
+    \cs_new_eq:NN \@@_set_family:nnn  \xeCJK_set_family:nnn
+    \cs_new_eq:NN \@@_switch_family:n \xeCJK_switch_family:n
   }
   {
-%    \end{macrocode}
-% \LuaTeX{} 引擎下需要利用 \pkg{ctex} 宏包提供的函数。这两个函数
-% 的参数略有不同。
-%    \begin{macrocode}
-    \sys_if_engine_luatex:T
-      {
-        \prg_new_protected_conditional:Npnn
-          \fdu_family_if_exist:n #1 { TF }
-          {
-            \ctex_ltj_family_if_exist:nNTF {#1} \l_@@_tmpa_tl
-              { \prg_return_true: } { \prg_return_false: }
-          }
-      }
+    \cs_new_eq:NN \@@_set_family:nnn  \ctex_ltj_set_family:nnn
+    \cs_new_eq:NN \@@_switch_family:n \ctex_ltj_switch_family:n
   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fdu_cjk_font_kai:}
-% 楷体切换命令。
-%    \begin{macrocode}
-\cs_new_protected:Npx \fdu_cjk_font_kai:
-  {
-    \fdu_family_if_exist:nTF { kai }
-      {
-        \sys_if_engine_xetex:TF
-          { \xeCJK_switch_family:n { kai } }
-          {
-            \sys_if_engine_luatex:T
-              { \ctex_ltj_switch_family:n { kai } }
-          }
-      }
-      { \exp_not:n { \rmfamily \itshape } }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}[int]{\fdu@kai}
-% 命令 \cs{fdu_cjk_font_kai:} 采用 \LaTeX3 风格，在 \file{.toc}
-% 文件里无法正常使用，因此重新定义为 \LaTeXe{} 风格的命令。
-%    \begin{macrocode}
-\cs_new_eq:NN \fdu@kai \fdu_cjk_font_kai:
 %</class>
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{
+%   \setmainfont,
+%   \setsansfont,
+%   \setmonofont,
+%   \setmathfont,
+%   \setCJKmainfont,
+%   \setCJKsansfont,
+%   \setCJKmonofont,
+%   \@@_set_font:n}
+% 重新定义以上宏包提供的字体选择命令。我们把它放在导言区末尾，使得用户配置不被
+% 模板配置覆盖。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_set_font_helper:n #1
+  {
+    \exp_args:Nc \RenewDocumentCommand { set #1 font } { O { } m O { } }
+      {
+        \ctex_at_end_preamble:n
+          { \use:c { @@_set #1 font:nn } {##2} { ##1, ##3 } }
+      }
+  }
+\clist_map_inline:nn { main, sans, mono, math    } { \@@_set_font_helper:n {#1} }
+%<class>\clist_map_inline:nn { CJKmain, CJKsans, CJKmono } { \@@_set_font_helper:n {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
+% \begin{macro}{
+%   \g_@@_font_family_libertinus_serif_tl,
+%   \g_@@_font_family_libertinus_sans_tl,
+%   \g_@@_font_style_libertinus_rm_tl,
+%   \g_@@_font_style_libertinus_bf_tl,
+%   \g_@@_font_style_libertinus_it_tl,
+%   \g_@@_font_style_libertinus_bfit_tl,
+%   \g_@@_font_style_libertinus_bfsl_tl,
+%   \g_@@_font_family_xits_tl,
+%   \g_@@_font_style_xits_rm_tl,
+%   \g_@@_font_style_xits_bf_tl,
+%   \g_@@_font_style_xits_it_tl,
+%   \g_@@_font_style_xits_bfit_tl,
+%   \g_@@_font_name_libertinus_serif_tl,
+%   \g_@@_font_name_libertinus_sans_tl,
+%   \g_@@_font_name_libertinus_math_tl,
+%   \g_@@_font_name_xits_tl,
+%   \g_@@_font_name_xits_math_rm_tl,
+%   \g_@@_font_name_xits_math_bf_tl}
+% Libertinus 和 XITS 字体的文件名做过变动，需要特殊处理。
+%    \begin{macrocode}
+\tl_new:N \g_@@_font_family_libertinus_serif_tl
+\tl_new:N \g_@@_font_family_libertinus_sans_tl
+\tl_new:N \g_@@_font_style_libertinus_rm_tl
+\tl_new:N \g_@@_font_style_libertinus_bf_tl
+\tl_new:N \g_@@_font_style_libertinus_it_tl
+\tl_new:N \g_@@_font_style_libertinus_bfit_tl
+\tl_new:N \g_@@_font_style_libertinus_bfsl_tl
+\tl_new:N \g_@@_font_family_xits_tl
+\tl_new:N \g_@@_font_style_xits_rm_tl
+\tl_new:N \g_@@_font_style_xits_bf_tl
+\tl_new:N \g_@@_font_style_xits_it_tl
+\tl_new:N \g_@@_font_style_xits_bfit_tl
+\tl_new:N \g_@@_font_name_libertinus_serif_tl
+\tl_new:N \g_@@_font_name_libertinus_sans_tl
+\tl_new:N \g_@@_font_name_libertinus_math_tl
+\tl_new:N \g_@@_font_name_xits_tl
+\tl_new:N \g_@@_font_name_xits_math_rm_tl
+\tl_new:N \g_@@_font_name_xits_math_bf_tl
+\fontspec_font_if_exist:nTF { LibertinusSerif-Regular.otf }
+  {
+    \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { LibertinusSerif }
+    \tl_set:Nn \g_@@_font_family_libertinus_sans_tl  { LibertinusSans  }
+    \tl_set:Nn \g_@@_font_family_libertinus_math_tl  { LibertinusMath  }
+    \tl_set:Nn \g_@@_font_style_libertinus_rm_tl     { Regular         }
+    \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { Bold            }
+    \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { Italic          }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { BoldItalic      }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl   { BoldOblique     }
+  }
+  {
+    \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { libertinusserif }
+    \tl_set:Nn \g_@@_font_family_libertinus_sans_tl  { libertinussans  }
+    \tl_set:Nn \g_@@_font_family_libertinus_math_tl  { libertinusmath  }
+    \tl_set:Nn \g_@@_font_style_libertinus_rm_tl     { regular         }
+    \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { bold            }
+    \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { italic          }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { bolditalic      }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl   { bolditalic      }
+  }
+\fontspec_font_if_exist:nTF { XITS-Regular.otf }
+  {
+    \tl_set:Nn \g_@@_font_family_xits_tl        { XITS             }
+    \tl_set:Nn \g_@@_font_style_xits_rm_tl      { Regular          }
+    \tl_set:Nn \g_@@_font_style_xits_bf_tl      { Bold             }
+    \tl_set:Nn \g_@@_font_style_xits_it_tl      { Italic           }
+    \tl_set:Nn \g_@@_font_style_xits_bfit_tl    { BoldItalic       }
+    \tl_set:Nn \g_@@_font_name_xits_math_rm_tl  { XITSMath-Regular }
+    \tl_set:Nn \g_@@_font_name_xits_math_bf_tl  { XITSMath-Bold    }
+  }
+  {
+    \tl_set:Nn \g_@@_font_family_xits_tl        { xits          }
+    \tl_set:Nn \g_@@_font_style_xits_rm_tl      { regular       }
+    \tl_set:Nn \g_@@_font_style_xits_bf_tl      { bold          }
+    \tl_set:Nn \g_@@_font_style_xits_it_tl      { italic        }
+    \tl_set:Nn \g_@@_font_style_xits_bfit_tl    { bolditalic    }
+    \tl_set:Nn \g_@@_font_name_xits_math_rm_tl  { xits-math     }
+    \tl_set:Nn \g_@@_font_name_xits_math_bf_tl  { xits-mathbold }
+  }
+\tl_set:Nx \g_@@_font_name_libertinus_serif_tl
+  { \g_@@_font_family_libertinus_serif_tl - \g_@@_font_style_libertinus_rm_tl }
+\tl_set:Nx \g_@@_font_name_libertinus_sans_tl
+  { \g_@@_font_family_libertinus_sans_tl  - \g_@@_font_style_libertinus_rm_tl }
+\tl_set:Nx \g_@@_font_name_libertinus_math_tl
+  { \g_@@_font_family_libertinus_math_tl  - \g_@@_font_style_libertinus_rm_tl }
+\tl_set:Nx \g_@@_font_name_xits_tl
+  { \g_@@_font_family_xits_tl - \g_@@_font_style_xits_rm_tl }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_garamond:}
+% EB Garamond 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_garamond:
+  {
+    \@@_setmainfont:nn { EBGaramond }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        BoldItalicFont = *-BoldItalic
+      }
+    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
+      {
+        Extension      = .otf,
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl
+      }
+    \@@_setmonofont:nn { lmmonolt10 }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-oblique,
+        BoldItalicFont = *-boldoblique
+      }
+    \@@_setmathfont:nn { Garamond-Math.otf } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_libertinus:}
+% Libertinus 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_libertinus:
+  {
+    \@@_setmainfont:nn { \g_@@_font_family_libertinus_serif_tl }
+      {
+        Extension      = .otf,
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfit_tl
+      }
+    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
+      {
+        Extension      = .otf,
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl
+      }
+    \@@_setmonofont:nn { lmmonolt10 }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-oblique,
+        BoldItalicFont = *-boldoblique
+      }
+    \@@_setmathfont:nn { \g_@@_font_name_libertinus_math_tl .otf } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_lm:}
+% Latin Modern 系列。在 \XeLaTeX{} 和 \LuaLaTeX{} 中已作为默认字体，所以仅需
+% 额外处理数学部分。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_lm:
+  { \@@_setmathfont:nn { latinmodern-math.otf } { } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_palatino:}
+% Palatino 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_palatino:
+  {
+    \@@_setmainfont:nn { texgyrepagella }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
+      {
+        Extension      = .otf,
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl,
+        Scale          = MatchUppercase
+      }
+    \@@_setmonofont:nn { lmmonolt10 }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-oblique,
+        BoldItalicFont = *-boldoblique
+      }
+    \@@_setmathfont:nn { texgyrepagella-math.otf } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_times:}
+% Times 系列。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font_times:
+  {
+    \@@_setmainfont:nn { \g_@@_font_family_xits_tl }
+      {
+        Extension          = .otf,
+        UprightFont        = *-\g_@@_font_style_xits_rm_tl,
+        BoldFont           = *-\g_@@_font_style_xits_bf_tl,
+        ItalicFont         = *-\g_@@_font_style_xits_it_tl,
+        BoldItalicFont     = *-\g_@@_font_style_xits_bfit_tl
+      }
+    \@@_setsansfont:nn { texgyreheros }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic
+      }
+    \@@_setmonofont:nn { texgyrecursor }
+      {
+        Extension      = .otf,
+        UprightFont    = *-regular,
+        BoldFont       = *-bold,
+        ItalicFont     = *-italic,
+        BoldItalicFont = *-bolditalic,
+        Ligatures      = CommonOff
+      }
+    \@@_setmathfont:nn { \g_@@_font_name_xits_math_rm_tl .otf }
+      { BoldFont = \g_@@_font_name_xits_math_bf_tl .otf }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font_times*:}
+% Times* 系列，出数学部分外采用系统字体。
+%    \begin{macrocode}
+\cs_new_protected:cpn { @@_load_font_ times* : }
+  {
+    \@@_setmainfont:nn { Times~ New~ Roman    } { }
+    \@@_setsansfont:nn { Arial                } { }
+    \@@_setmonofont:nn { Courier~ New         } { }
+    \@@_setmathfont:nn { \g_@@_font_name_xits_math_rm_tl .otf }
+      { BoldFont = \g_@@_font_name_xits_math_bf_tl .otf }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_adobe:}
+% Adobe 字库。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_adobe:
+  {
+    \@@_setCJKmainfont:n   { AdobeSongStd-Light       }
+    \@@_setCJKsansfont:n   { AdobeHeitiStd-Regular    }
+    \@@_setCJKmonofont:n   { AdobeFangsongStd-Regular }
+    \@@_set_cjk_font_kai:n { AdobeKaitiStd-Regular    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_fandol:}
+% Fandol 字库。注意它是安装在 TeX 发行版中的，所以使用文件名调用。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_fandol:
+  {
+    \@@_setCJKmainfont:nn   { FandolSong }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn   { FandolHei  }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKmonofont:nn   { FandolFang }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Regular,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Regular
+      }
+    \@@_set_cjk_font_kai:nn { FandolKai  }
+      {
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Regular,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Regular
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_founder:}
+% 方正字库。虽然有粗体（方正小标宋）等，但并非免费，故这里不做处理。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_founder:
+  {
+    \@@_setCJKmainfont:n   { FZShuSong-Z01  }
+    \@@_setCJKsansfont:n   { FZHei-B01      }
+    \@@_setCJKmonofont:n   { FZFangSong-Z02 }
+    \@@_set_cjk_font_kai:n { FZKai-Z03      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_mac:}
+% macOS 自带中文字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_mac:
+  {
+    \@@_setCJKmainfont:nn   { STSongti-SC }
+      {
+        UprightFont    = *-Light,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Light,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn   { STHeitiSC   }
+      {
+        UprightFont    = *-Medium,
+        BoldFont       = *-Medium,
+        ItalicFont     = *-Medium,
+        BoldItalicFont = *-Medium
+      }
+    \@@_setCJKmonofont:n    { STFangsong  }
+    \@@_set_cjk_font_kai:nn { STKaitiSC   }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_sinotype:}
+% 华文字库。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_sinotype:
+  {
+    \@@_setCJKmainfont:n   { STSong     }
+    \@@_setCJKsansfont:n   { STHeiti    }
+    \@@_setCJKmonofont:n   { STFangsong }
+    \@@_set_cjk_font_kai:n { STKaiti    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_sourcehan:}
+% 思源宋体、思源黑体。由于没有对应的楷体和仿宋，这里直接给出警告。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_sourcehan:
+  {
+    \@@_setCJKmainfont:nn { SourceHanSerifSC }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_setCJKsansfont:nn { SourceHanSansSC  }
+      {
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Regular,
+        BoldItalicFont = *-Bold
+      }
+    \@@_warning:n { source-han }
+  }
+\@@_msg_new:nn { source-han }
+  { Font~ set~ `sourcehan'~ does~ not~ contain~ kaiti~ and~ fangsong. }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_cjk_font_windows:}
+% Windows 自带中文字体。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_cjk_font_windows:
+  {
+    \@@_setCJKmainfont:n   { SimSun   }
+    \@@_setCJKsansfont:n   { SimHei   }
+    \@@_setCJKmonofont:n   { FangSong }
+    \@@_set_cjk_font_kai:n { KaiTi    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_load_font:}
+% 字体加载命令。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_load_font:
+  {
+    \use:c { @@_load_font_     \g_@@_fontset_tl     : }
+%<class>    \use:c { @@_load_cjk_font_ \g_@@_cjk_fontset_tl : }
+  }
+\ctex_at_end_preamble:n { \@@_load_font: }
+%    \end{macrocode}
+% \end{macro}
+%
+%^^A 以下相关代码已在 v0.7c 中移除。
+% \changes{v0.5}{2017/09/09}{重新实现字体调用。核心内容是分离字体的声明与设定，
+%   并按照宋、黑、仿、楷划分中文字体。}
+% \changes{v0.6}{2017/11/11}{额外处理 XITS 字体的小型大写字母。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{font}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{新增 \kvopt{cjk-font}{none} 选项。}
+% \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
+% \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
 %
 % \subsubsection{数学字体设置}
 %
@@ -3711,7 +3618,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 表示变量的拉丁字母和希腊字母均应当使用斜体。
 % 这里的 |\keys_set:nn{unicode-math}| 实际相当于 \cs{unimathsetup}。
 %    \begin{macrocode}
-% TODO: (2018/01/19) do we need `mathrm=sym`?
+% TODO: (2018-01-19) Do we need `mathrm=sym`?
 \keys_set:nn { unicode-math }
   {
     math-style = ISO,
@@ -3775,9 +3682,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \@@_set_fullwidth_stop_catcode: },
 %    \end{macrocode}
 % 利用 TECKit 映射机制切换，相当于设置了 \tn{defaultCJKfontfeatures}
-% |{|\kvopt{Map\-ping}{fullwidth-stop}|}|。这种手段会
-% 替换所有出现的\FSID，并且将影响所有字体。只在 \XeTeX{}
-% 下可用。
+% |{|\kvopt{Map\-ping}{fullwidth-stop}|}|。这种手段会替换所有出现的\FSID，
+% 并且将影响所有字体。只在 \XeTeX{} 下可用。
 %    \begin{macrocode}
     fullwidth-stop / mapping .code:n =
       {
@@ -3816,15 +3722,15 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_fullwidth_stop_catcode:
   {
-    \char_set_active_eq:nN { "3002 } \c_@@_fullwidth_full_stop_tl
+    \char_set_active_eq:nN { "3002 } \c_@@_fwid_full_stop_tl
     \char_set_catcode_active:n { "3002 }
   }
 %</class>
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母
-%   和带圈数字的显示（\pkg{ctex} v2.4.11 已默认进行处理）。}
+% \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母和带圈数字的
+%   显示（\pkg{ctex} v2.4.11 已默认进行处理）。}
 %
 % \subsection{章节标题结构}
 %
@@ -3903,95 +3809,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-% % 保留原始定义
-% \cs_new_eq:NN \@@_std_chapter:w       \chapter
-% \cs_new_eq:NN \@@_std_section:w       \section
-% \cs_new_eq:NN \@@_std_subsection:w    \subsection
-% % 重新定义
-% \cs_new_protected:Npn \@@_define_chapters:nn #1#2
-%   {
-%     \exp_args:Nc \RenewDocumentCommand {#1} { s o m }
-%       {
-%         \IfBooleanTF {##1}
-%           {
-%             \IfNoValueTF {##2}
-%               { \use:c { @@_std_ #1 :w } * {##3}       }
-%               { \use:c { @@_std_ #1 :w } * [##2] {##3} }
-%           }
-%           {
-%             \IfNoValueTF {##2}
-%               { \use:c { @@_std_ #1 :w } {##3}       }
-%               { \use:c { @@_std_ #1 :w } [##2] {##3} }
-%           }
-%         \fdu_collect_do:xn
-%           { \exp_not:n { \c_space_token \par } \use:c {#2} }
-%           { \use:c { @@_ #2 _aux:n } }
-%       }
-%   }
-% \@@_define_chapters:nn { chapter    } { section       }
-% \@@_define_chapters:nn { section    } { subsection    }
-% \@@_define_chapters:nn { subsection } { subsubsection }
-% % #1 = chapter/section ..., #2 = code between
-% \cs_new_protected:Npn \@@_define_chapters_aux:nn #1#2
-%   {
-%     \cs_new_protected:cpn { @@_ #1 _aux:n } ##1
-%       {
-%         \tl_if_in:nxTF {##1} { \use:c {#1} }
-%           { #2 \use:c {#1} }
-%           { \use:n {##1} }
-%       }
-%   }
-% \@@_define_chapters_aux:nn { section       } { XXXXXXX }
-% \@@_define_chapters_aux:nn { subsection    } { XXXXXXX }
-% \@@_define_chapters_aux:nn { subsubsection } { XXXXXXX }
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-% % 以下相当于 xpeek 宏包的重新实现。xpeek 宏包中提供的 \xpeek_collect_do:nn 函数
-% % 不能正确处理 n 型参数，这里做了修改。
-% \tl_new:N \l_@@_peek_code_tl
-% \tl_new:N \l_@@_collected_tokens_tl
-% \cs_new_protected:Npn \fdu_collect_do:nn #1#2
-%   {
-%     \tl_clear:N \l_@@_collected_tokens_tl
-%     \@@_collect_do:nnn {#1} {#2} {}
-%   }
-% \cs_generate_variant:Nn \fdu_collect_do:nn { xn }
-% \cs_new_protected:Npn \@@_collect_do:nnn #1#2#3
-%   {
-%     \@@_peek_after:nw
-%       {
-%         \@@_token_if_in_tl:nNTF {#1} \l_peek_token
-%           {
-%             \tl_put_right:Nn \l_@@_collected_tokens_tl {#3}
-%             \@@_collect_do:nnn {#1} {#2}
-%           }
-%           { #2 { \l_@@_collected_tokens_tl #3 } }
-%       }
-%   }
-% \cs_new_protected:Npn \@@_peek_after:nw #1
-%   {
-%     \tl_set:Nn \l_@@_peek_code_tl {#1}
-%     \peek_after:Nw \l_@@_peek_code_tl
-%   }
-% % #1 = token list, #2 = token
-% \prg_new_protected_conditional:Npnn \@@_token_if_in_tl:nN #1#2 { TF }
-%   {
-%     \bool_set_false:N \l_@@_tmpa_bool
-%     \tl_map_inline:nn {#1}
-%       {
-%         \token_if_eq_meaning:NNT #2 ##1
-%           {
-%             \bool_set_true:N \l_@@_tmpa_bool
-%             \tl_map_break:
-%           }
-%       }
-%     \bool_if:NTF \l_@@_tmpa_bool
-%       { \prg_return_true: } { \prg_return_false: }
-%   }
-%    \end{macrocode}
-%
 % \subsection{页眉页脚}
 %
 % 清除默认页眉页脚格式。
@@ -4000,8 +3817,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \begin{variable}{\l_@@_header_center_mark_tl}
-% 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为
-% 相应标题。
+% 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为相应标题。
 %    \begin{macrocode}
 \tl_new:N \l_@@_header_center_mark_tl
 %    \end{macrocode}
@@ -4017,37 +3833,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 % 使用固定页眉。
 \fancyhead [ C ] { \small \c_@@_name_head_tl }
-% \bool_if:NTF \g_@@_twoside_bool
-% %<*class>
-%   {
-%     \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
-%     \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
-%   }
-%   {
-%     \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
-%     \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
-%     \fancyhead [ C ]
-%       {
-%         \small \nouppercase
-%           { \fdu@kai \l_@@_header_center_mark_tl }
-%       }
-%   }
-% %</class>
-% %<*class-en>
-%   {
-%     \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
-%     \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
-%   }
-%   {
-%     \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
-%     \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
-%     \fancyhead [ C ]
-%       {
-%         \small \nouppercase
-%           { \itshape \l_@@_header_center_mark_tl }
-%       }
-%   }
-% %</class-en>
 %    \end{macrocode}
 %
 % 构建页脚，用来显示页码。选项 \opt{C} 表示居中（center）。
@@ -4055,32 +3840,10 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \fancyfoot [ C ] { \small \thepage }
 %    \end{macrocode}
 %
-% 关闭横线显示（未启用）。
-%    \begin{macrocode}
-% \RenewDocumentCommand \headrulewidth { } { 0 pt }
-%    \end{macrocode}
-%
-% \begin{macro}{\fdu_front_matter_header:n}
-% 在单页模式下，设置前导部分（包括目录、摘要、符号表等）的页眉中间
-% 为相应标题，左右为空。
-%    \begin{macrocode}
-\cs_new:Npn \fdu_front_matter_header:n #1
-  {
-    \bool_if:NTF \g_@@_twoside_bool
-      { \markboth {#1} {#1} }
-      {
-        \markboth { } { }
-        \tl_gset:Nn \l_@@_header_center_mark_tl {#1}
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\cleardoublepage}
-% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时也不显示
-% 页眉页脚。\\
-% 见 http://tex.stackexchange.com/q/1681 \\
-% 最后清空中间页眉，确保正文部分页眉显示正确。
+% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时也不显示页眉页脚，见
+% \url{https://tex.stackexchange.com/a/1683}。最后清空中间页眉，确保正文部分
+% 页眉显示正确。
 %    \begin{macrocode}
 \RenewDocumentCommand \cleardoublepage { }
   {
@@ -4095,12 +3858,100 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \pkg{ctex} 宏包使用 \opt{heading} 选项后，会把页面格式设置为
-% |headings|。因此必须在 \pkg{ctex} 调用之后重新设置 \cs{pagestyle}
-% 为 |fancy|。
+% \pkg{ctex} 宏包使用 \opt{heading} 选项后，会把页面格式设置为 |headings|。
+% 因此必须在 \pkg{ctex} 调用之后重新设置 \cs{pagestyle} 为 |fancy|。
 %    \begin{macrocode}
 \pagestyle { fancy }
 %    \end{macrocode}
+%
+% \subsection{章节标题结构}
+%
+% |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
+%    \begin{macrocode}
+\keys_set:nn { ctex }
+  {
+%    \end{macrocode}
+% 设置章（chapter）、节（section）与小节（sub-section）标题样式。
+% 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
+%    \begin{macrocode}
+    chapter =
+      {
+%<class>        format      = \huge \normalfont \sffamily \centering,
+%<*class-en>
+        format      = \centering,
+        nameformat  = \LARGE \bfseries,
+        titleformat = \huge \bfseries,
+        aftername   = \par \nobreak \vskip 10 pt,
+%</class-en>
+        beforeskip  = 50 pt,
+        afterskip   = 40 pt,
+        number      = \@@_arabic:n { chapter },
+        fixskip     = true
+      },
+    section =
+      {
+%<class>        format      = \Large \normalfont \sffamily \raggedright,
+%<class-en>        format      = \Large \bfseries \raggedright,
+        beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
+        afterskip   = 2.7 ex plus 0.5 ex,
+        fixskip     = true
+      },
+    subsection =
+      {
+%<class>        format      = \large \normalfont \sffamily \raggedright,
+%<class-en>        format      = \large \bfseries \raggedright,
+        beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
+        afterskip   = 2.5  ex plus 0.3 ex,
+        fixskip     = true
+      }
+  }
+%    \end{macrocode}
+%
+% \changes{v0.7d}{2019/03/24}{优化目录、摘要、参考文献等的标题实现。}
+%
+% \begin{macro}{\@@_chapter:n,\@@_chapter:V}
+% 手动生成章的标题，用于摘要、参考文献等。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_chapter:n #1
+  {
+    \group_begin:
+      \ctexset { chapter / numbering = false }
+      \chapter {#1}
+      \@@_chapter_header:n {#1}
+    \group_end:
+  }
+\cs_generate_variant:Nn \@@_chapter:n { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_chapter_no_toc:n,\@@_chapter_no_toc:V}
+% 目录自身不出现在目录中，需特别处理。参考
+% \url{https://tex.stackexchange.com/a/1821}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_chapter_no_toc:n #1
+  {
+    \chapter *           {#1}
+    \@@_chapter_header:n {#1}
+    \pdfbookmark [0] {#1} { toc }
+  }
+\cs_generate_variant:Nn \@@_chapter_no_toc:n { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_chapter_header:n}
+% 单页模式下，目录、摘要、符号表等的页眉中间为相应标题，左右为空。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_chapter_header:n #1
+  {
+    \bool_if:NTF \g_@@_twoside_bool
+      { \markboth {#1} {#1} }
+      {
+        \markboth { } { }
+        \tl_gset:Nn \l_@@_header_center_mark_tl {#1}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{脚注}
 %
@@ -4204,8 +4055,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\@@_fn_symbol_libertinus_sans:n}
 % \opt{libertinus} 阳文无衬线版。符号排列与普通版相同。
 %    \begin{macrocode}
-\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n
-  \@@_fn_symbol_libertinus:n
+\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n \@@_fn_symbol_libertinus:n
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4300,17 +4150,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
         \c_@@_fn_style_libertinus_tl
           {
-            \fontspec { Libertinus~ Serif }
+            \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
             \@@_fn_symbol_libertinus:n {#1}
           }
         \c_@@_fn_style_libertinus_neg_tl
           {
-            \fontspec { Libertinus~ Serif }
+            \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
             \@@_fn_symbol_libertinus_neg:n {#1}
           }
         \c_@@_fn_style_libertinus_sans_tl
           {
-            \fontspec { Libertinus~ Sans }
+            \fontspec { \g_@@_font_name_libertinus_sans_tl .otf }
             \@@_fn_symbol_libertinus_sans:n {#1}
           }
 %    \end{macrocode}
@@ -4329,17 +4179,17 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
         \c_@@_fn_style_xits_tl
           {
-            \fontspec { XITS }
+            \fontspec { \g_@@_font_name_xits_tl .otf }
             \@@_fn_symbol_xits:n {#1}
           }
         \c_@@_fn_style_xits_sans_tl
           {
-            \fontspec { XITS }
+            \fontspec { \g_@@_font_name_xits_tl .otf }
             \@@_fn_symbol_xits_sans:n {#1}
           }
         \c_@@_fn_style_xits_sans_neg_tl
           {
-            \fontspec { XITS }
+            \fontspec { \g_@@_font_name_xits_tl .otf }
             \@@_fn_symbol_xits_sans_neg:n {#1}
           }
       }
@@ -4445,7 +4295,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 设置默认样式为 \opt{plain}。
 %    \begin{macrocode}
-% TODO: (2017/12/07) move to interface
+% TODO: (2017-12-07) Move to interface
     \tl_set:Nn \l_@@_thm_style_tl { plain }
 %    \end{macrocode}
 % 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
@@ -4817,8 +4667,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     secret-level .choices:nn  =
       { none, i, ii, iii }
       {
-        \int_compare:nTF
-          { \l_keys_choice_int >= 2 }
+        \int_compare:nTF { \l_keys_choice_int >= 2 }
           {
             \bool_set_true:N \l_@@_secret_bool
             \tl_set:Nn \l_@@_info_secret_level_tl
@@ -4849,10 +4698,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item 宽度
 %   \item 内容
 % \end{arguments}
-% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的
-% \tn{unskip} 将会去掉最后一个 \tn{hfil}。见
-% \url{http://tex.stackexchange.com/q/169689}。|#2| 需要完全展开以
-% 避免 underfull 警告。
+% 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的 \tn{unskip}
+% 将会去掉最后一个 \tn{hfil}。见 \url{https://tex.stackexchange.com/q/169689}。
+% |#2| 需要完全展开以避免 underfull 警告。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_spread_box:nn #1#2
   {
@@ -4959,163 +4807,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{封面各部件}
 %
-% \changes{v0.5}{2017/09/19}{使用 \pkg{expl3} 以及内部函数改写
-%   封面，减少对 \LaTeXe{} 的依赖。}
-%
-% \begin{macro}{\@@_cover_id:,\@@_cover_id_aux:n}
-% 右上角的学校代码和学号。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_cover_id:
-%   {
-%     \@@_fixed_width_box:nn { 120 pt }
-%       {
-%         \bool_if:NT \l_@@_secret_bool
-%           {
-%             \group_begin:
-%               \sffamily
-%               \@@_cover_id_aux:n { secret_level }
-%               \c_@@_name_secret_star_tl
-%               \l_@@_info_secret_year_tl
-%             \group_end:
-%             \par
-%           }
-%         \@@_cover_id_aux:n { school_id  } \par
-%         \@@_cover_id_aux:n { student_id }
-%       }
-%    \end{macrocode}
-% 插入一个宽度为负的水平盒子以减少右侧边距。
-%    \begin{macrocode}
-%     \hbox_to_wd:nn { -24 pt } { }
-%   }
-% \cs_new:Npn \@@_cover_id_aux:n #1
-%   {
-%     \tl_use:c { c_@@_name_ #1 _tl }
-%     \c_@@_fullwidth_colon_tl
-%     \tl_use:c { l_@@_info_ #1 _tl }
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_cover_logo:}
-% 插入校名图片。根据参数 \opt{width} 和 \opt{height} 是否为空依次
-% 判断。\cs{l_@@_cover_logo_size_clist} 中超过两个的参数将被忽略。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_cover_logo:
-%   {
-%     \clist_pop:NN   \l_@@_cover_logo_size_clist \l_@@_tmpa_tl
-%     \clist_pop:NNTF \l_@@_cover_logo_size_clist \l_@@_tmpb_tl
-%       {
-%         \tl_if_empty:NTF \l_@@_tmpa_tl
-%           { \includegraphics [ height = \l_@@_tmpb_tl ] }
-%           {
-%             \includegraphics
-%               [ width  = \l_@@_tmpa_tl, height = \l_@@_tmpb_tl ]
-%           }
-%       }
-%       { \includegraphics [ width = \l_@@_tmpa_tl ] }
-%     { \l_@@_cover_logo_tl }
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_cover_type:}
-% 论文类型。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_cover_type:
-%   {
-%     \tl_set:Nx \l_@@_tmpa_tl
-%       {
-%         \clist_item:Nn \c_@@_thesis_type_clist
-%           { \g_@@_thesis_type_int }
-%       }
-%     \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_cover_degree:}
-% 学位类型。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_cover_degree:
-%   {
-%     \int_compare:nNnT \g_@@_thesis_type_int = \c_two
-%       {
-%         \tl_set:Nx \l_@@_tmpa_tl
-%           {
-%             \clist_item:Nn \c_@@_degree_type_clist
-%               { \l_@@_info_degree_type_int }
-%           }
-%         \c_@@_fullwidth_left_paren_tl
-%         \l_@@_tmpa_tl
-%         \c_@@_fullwidth_right_paren_tl
-%       }
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_cover_info:}
-% 信息栏。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_cover_info:
-%   {
-%     \begin{minipage} [ c ] { \textwidth }
-%       \centering \zihao { 4 }
-% %    \end{macrocode}
-% % 读取左侧名称字段。
-% %    \begin{macrocode}
-%       \clist_set:Nx \l_@@_tmpa_clist
-%         {
-%           \c_@@_name_department_tl,
-%           \c_@@_name_major_tl,
-%           \c_@@_name_author_tl,
-%           \c_@@_name_supervisor_tl,
-%           \c_@@_name_date_tl,
-%         }
-%    \end{macrocode}
-% 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给 \cs{l_@@_tmpb_dim}。
-%    \begin{macrocode}
-%       \clist_set:Nx \l_@@_tmpb_clist
-%         {
-%           { \l_@@_info_department_tl },
-%           { \l_@@_info_major_tl      },
-%           { \l_@@_info_author_tl     },
-%           { \l_@@_info_supervisor_tl },
-%           { \l_@@_info_date_tl       }
-%         }
-%       \@@_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
-%    \end{macrocode}
-% 用循环输出各字段。
-%    \begin{macrocode}
-%       \bool_until_do:nn
-%         { \clist_if_empty_p:N \l_@@_tmpa_clist }
-%         {
-%           \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
-%           \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
-%           \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
-%           \c_@@_fullwidth_colon_tl
-%           \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
-%           \skip_vertical:n { 1 ex }
-%         }
-%     \end{minipage}
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_cover_signature:N}
-% 签名行。
-%    \begin{macrocode}
-% \cs_new_protected:Npn \@@_cover_signature:N #1
-%   {
-%     \clist_map_inline:Nn #1
-%       {
-%         ##1 \c_@@_fullwidth_colon_tl
-%         \@@_blank_underline:n { 6 em }
-%         \@@_quad:
-%       }
-%   }
-%    \end{macrocode}
-% \end{macro}
-%
 % \subsubsection{封面模板}
 %
 % \changes{v0.7}{2018/02/27}{使用 \pkg{xtemplate} 重构封面布局。}
@@ -5123,7 +4814,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 声明封面对象。不需要带参数。
 %    \begin{macrocode}
 %<@@=fdu_cover>
-\DeclareObjectType { fdu / cover } { \c_zero }
+\DeclareObjectType { fdu / cover } { \c_zero_int }
 %    \end{macrocode}
 %
 % \begin{macro}{\DeclareCoverTemplate,\fdu_cover_declare_template:nn}
@@ -5161,7 +4852,7 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \skip_new:c { l_@@ / #1 / ##1 / bottom_skip }
       }
 %    \end{macrocode}
-% 声明模板代码。
+% 声明模板代码。^^A 以下名字空间为 `fdu_cover' 而非 `fdu'
 %    \begin{macrocode}
     \@@_declare_template_code:nxn {#1}
       {
@@ -5204,9 +4895,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_declare_template_interface:nn #1#2
-  { \DeclareTemplateInterface { fdu / cover } {#1} { \c_zero } {#2} }
+  { \DeclareTemplateInterface { fdu / cover } {#1} { \c_zero_int } {#2} }
 \cs_new_protected:Npn \@@_declare_template_code:nnn #1#2#3
-  { \DeclareTemplateCode { fdu / cover } {#1} { \c_zero } {#2} {#3} }
+  { \DeclareTemplateCode { fdu / cover } {#1} { \c_zero_int } {#2} {#3} }
 \cs_generate_variant:Nn \@@_declare_template_interface:nn { nx  }
 \cs_generate_variant:Nn \@@_declare_template_code:nnn     { nxn }
 %    \end{macrocode}
@@ -5294,119 +4985,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \NewDocumentCommand \makecoveri { }
   {
     \thispagestyle { empty }
-    % \UseInstance { fdu / cover } { cover-i-default }
     \UseInstance { fdu / cover } { cover-phys-default }
   }
-% \NewDocumentCommand \makecoverii { }
-%   {
-%     \thispagestyle { empty }
-%     \UseInstance { fdu / cover } { cover-ii-default }
-%   }
-% \NewDocumentCommand \makecoveriii { }
-%   {
-%     \cleardoublepage
-%     \thispagestyle { empty }
-%     \UseInstance { fdu / cover } { cover-iii-default }
-%   }
 %    \end{macrocode}
 % \end{macro}
 %
-% 声明各封面模板组成部分。
-%    \begin{macrocode}
-% \DeclareCoverTemplate { cover-i   }
-%   { id, logo, type, degree, title, title-en, info }
-% \DeclareCoverTemplate { cover-ii  } { title, name-list }
-% \DeclareCoverTemplate { cover-iii }
-%   {
-%     originality-decl-name,
-%     originality-decl-text,
-%     originality-decl-sig,
-%     authorization-decl-name,
-%     authorization-decl-text,
-%     authorization-decl-sig
-%   }
-%    \end{macrocode}
-%
-% 定义封面的具体配置参数。
-%    \begin{macrocode}
-% \DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
-%   {
-% %<class-en>    format                 =
-% %<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
-%     bottom-skip            = 0 pt plus 1.5 fill,
-%     id       / content     = \@@_cover_id:,
-%     logo     / content     = \@@_cover_logo:,
-%     type     / content     = \@@_cover_type:,
-%     degree   / content     = \@@_cover_degree:,
-%     title    / content     =
-%       \@@_fixed_width_center_box:nn
-%         { 0.9 \textwidth } { \l_@@_info_title_tl },
-%     title-en / content     =
-%       \@@_fixed_width_center_box:nn
-%         { 0.9 \textwidth } { \l_@@_info_title_en_tl },
-%     info     / content     = \@@_cover_info:,
-%     id       / format      = \zihao { -5 },
-%     type     / format      = \zihao {  2 },
-%     degree   / format      = \zihao {  4 },
-%     title    / format      = \zihao { -2 } \sffamily,
-%     title-en / format      =
-%       \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
-%     id       / bottom-skip = 0 pt plus 1.6 fill,
-%     logo     / bottom-skip = 0 pt plus 0.3 fill,
-%     type     / bottom-skip = -18 pt,
-%     degree   / bottom-skip = 0 pt plus 0.8 fill,
-%     title-en / bottom-skip = 0 pt plus 2.5 fill,
-%     id       / align       = right,
-%     logo     / align       = center,
-%     type     / align       = center,
-%     degree   / align       = center,
-%     title    / align       = center,
-%     title-en / align       = center,
-%     info     / align       = center,
-%   }
-% \DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
-%   {
-% %<class-en>    format              =
-% %<class-en>      \@@_line_spread:N \c_@@_line_spread_fp,
-%     title     / content =
-%       \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
-%     name-list / content =
-%       \clist_use:Nn \l_@@_info_instructors_clist { \par },
-%     title     / format  = \zihao { 2 } \sffamily,
-%     name-list / format  = \large,
-%     title     / align   = center,
-%     name-list / align   = center,
-%   }
-% \DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
-%   {
-%     format                                =
-% %<class>      \@@_line_spread:n { 1.8 },
-% %<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
-%     top-skip                              = 0 pt plus 0.2 fill,
-%     bottom-skip                           = 0 pt plus 2.5 fill,
-%     originality-decl-name   / content     = \c_@@_name_orig_decl_tl,
-%     originality-decl-text   / content     = \c_@@_orig_decl_text_tl,
-%     originality-decl-sig    / content     =
-%       \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
-%     authorization-decl-name / content     = \c_@@_name_auth_decl_tl,
-%     authorization-decl-text / content     = \c_@@_auth_decl_text_tl,
-%     authorization-decl-sig  / content     =
-%       \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
-%     originality-decl-name   / format      =
-%       \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
-%     authorization-decl-name / format      =
-%       \@@_line_spread:n { 1.2 } \zihao { -2 } \sffamily,
-%     originality-decl-name   / bottom-skip = 0.4 cm,
-%     originality-decl-text   / bottom-skip = 0.4 cm,
-%     originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
-%     authorization-decl-name / bottom-skip = 0.4 cm,
-%     authorization-decl-text / bottom-skip = 0.4 cm,
-%     originality-decl-name   / align       = center,
-%     originality-decl-sig    / align       = right,
-%     authorization-decl-name / align       = center,
-%     authorization-decl-sig  / align       = right,
-%   }
-%    \end{macrocode}
+% \changes{v0.7d}{2019/03/29}{封面中文标题改为加粗宋体（可能使用伪粗）。}
 %
 %    \begin{macrocode}
 % 物理系毕业论文封面
@@ -5502,29 +5086,21 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{目录}
 %
-% \begin{variable}{\@@_chapter_toc_format:,\@@_chapter_toc_en_format:}
-% 目录中章标题的样式还要用在摘要、符号表中。因为摘要分中英文，所以这里
-% 需要分别定义其样式。
-%    \begin{macrocode}
-\tl_const:Nn \@@_chapter_toc_format:    { \normalfont \sffamily }
-\tl_const:Nn \@@_chapter_toc_en_format: { \bfseries }
-%    \end{macrocode}
-% \end{variable}
-%
 % 设置目录标题。
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-%<class>    contentsname = \c_@@_name_toc_tl,
-%<class-en>    contentsname = \c_@@_name_toc_en_tl,
+%<class>    contentsname   = \c_@@_name_toc_tl,
+%<class>    listfigurename = \c_@@_name_lof_tl,
+%<class>    listtablename  = \c_@@_name_lot_tl,
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
 %    \begin{macrocode}
     chapter / tocline =
       {
-%<class>        \@@_chapter_toc_format:
-%<class-en>        \@@_chapter_toc_en_format:
+%<class>        \normalfont \sffamily
+%<class-en>        \bfseries
         \CTEXnumberline {#1} #2
       },
     section / tocline =
@@ -5540,21 +5116,36 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \begin{macro}{\tableofcontents}
-% 修改 \tn{tableofcontents} 的定义，使得页眉正确显示。第二个参数中的
-% 代码来源于 \LaTeXe{} 标准文档类 \file{book.cls}。
+% \changes{v0.7e}{2019/05/12}{增加对插图、表格目录的处理。}
+%
+% \begin{macro}{\tableofcontents,\listoffigures,\listoftables}
+% 修改 \cs{tableofcontents}、\cs{listoffigures} 和 \cs{listoftables} 的定义，
+% 使得页眉正确显示，并出现在目录及 PDF 书签中。来自于 \LaTeXe{} 标准文档类
+% \file{book.cls}
+% \footnote{原代码中只有 \cs{tableofcontents} 的 \cs{@mkboth} 出现在
+% \cs{chapter*} 内部，这是出于兼容性的考虑而非 typo。}。
 %    \begin{macrocode}
 \@@_patch_cmd:Nnn \tableofcontents
   {
     \chapter*{\contentsname
-      \@mkboth{%
-        \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+      \@mkboth{\MakeUppercase\contentsname}
+              {\MakeUppercase\contentsname}}
   }
+  { \@@_chapter_no_toc:V \contentsname }
+\@@_patch_cmd:Nnn \listoffigures
   {
-    \chapter* { \contentsname }
-%<class>    \fdu_front_matter_header:n { \c_@@_name_toc_tl }
-%<class-en>    \fdu_front_matter_header:n { \c_@@_name_toc_en_tl }
+    \chapter*{\listfigurename}
+    \@mkboth{\MakeUppercase\listfigurename}
+            {\MakeUppercase\listfigurename}
   }
+  { \@@_chapter:V \listfigurename }
+\@@_patch_cmd:Nnn \listoftables
+  {
+    \chapter*{\listtablename}
+    \@mkboth{\MakeUppercase\listtablename}
+            {\MakeUppercase\listtablename}
+  }
+  { \@@_chapter:V \listtablename }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5592,33 +5183,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{environment}
 %
 % \begin{macro}{\@@_abstract_begin:,\@@_abstract_en_begin:}
-% 摘要页需要修改页眉，并添加到目录。
+% 摘要页标题。
 %    \begin{macrocode}
 %<*class>
 \cs_new_protected:Npn \@@_abstract_begin:
-  {
-    \chapter* { \c_@@_name_abstract_tl }
-    \fdu_front_matter_header:n { \c_@@_name_abstract_tl }
-    \addcontentsline { toc } { chapter }
-      {
-        \@@_chapter_toc_format:
-        \c_@@_name_abstract_tl
-      }
-  }
+  { \@@_chapter:V \c_@@_name_abstract_tl    }
 %</class>
 \cs_new_protected:Npn \@@_abstract_en_begin:
-  {
-    \chapter* { \c_@@_name_abstract_en_tl }
-    \fdu_front_matter_header:n { \c_@@_name_abstract_en_tl }
-    \addcontentsline { toc } { chapter }
-      {
-%<class>        \@@_chapter_toc_format:
-%<class-en>        \@@_chapter_toc_en_format:
-        \c_@@_name_abstract_en_tl
-      }
-  }
+  { \@@_chapter:V \c_@@_name_abstract_en_tl }
 %    \end{macrocode}
 % \end{macro}
+%
+% \changes{v0.7d}{2019/03/28}{优化关键字列表的显示。}
 %
 % \begin{macro}{\@@_abstract_end:,\@@_abstract_en_end:}
 % 摘要正文完成后，输出关键字列表和中图分类号（CLC）。
@@ -5626,37 +5202,47 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<*class>
 \cs_new_protected:Npn \@@_abstract_end:
   {
-    \@@_keywords_par:
-    \textsf { \c_@@_name_keywords_tl \c_@@_fullwidth_colon_tl }
-    \clist_use:Nn \l_@@_info_keywords_clist
-      { \c_@@_fullwidth_semicolon_tl }
-    \@@_clc_par:
-    \textsf { \c_@@_name_clc_tl \c_@@_fullwidth_colon_tl }
-    \l_@@_info_clc_tl
+    \@@_keywords:nNn
+      { \sffamily \c_@@_name_keywords_tl \c_@@_fwid_colon_tl }
+      \l_@@_info_keywords_clist { \c_@@_fwid_semicolon_tl }
+    \@@_clc:nn
+      { \sffamily \c_@@_name_clc_tl \c_@@_fwid_colon_tl }
+      { \l_@@_info_clc_tl }
   }
 %</class>
 \cs_new_protected:Npn \@@_abstract_en_end:
   {
-    \@@_keywords_par:
-    \textbf { \c_@@_name_keywords_en_tl } \@@_quad:
-    \clist_use:Nn \l_@@_info_keywords_en_clist { \@@_quad: }
-    \@@_clc_par:
-    \textbf { \c_@@_name_clc_en_tl } \@@_quad:
-    \l_@@_info_clc_tl
+    \@@_keywords:nNn
+      { \bfseries \c_@@_name_keywords_en_tl \@@_quad: }
+      \l_@@_info_keywords_en_clist { ; ~ }
+    \@@_clc:nn
+      { \bfseries \c_@@_name_clc_en_tl \@@_quad: }
+      { \l_@@_info_clc_tl }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_keywords_par:,\@@_clc_par:}
-% 关键字列表前要空一行，使用悬挂缩进；中图分类号不缩进。
+% \begin{macro}{\@@_keywords:nNn,\@@_keywords_prevdepth:,\@@_clc:nn}
+% 关键字列表前要空一行，使用悬挂缩进；中图分类号不缩进。|\parbox| 之后的间距
+% 需要调整，见 \url{https://tex.stackexchange.com/a/34982}。
 %    \begin{macrocode}
-\cs_new:Npn \@@_keywords_par:
+\cs_new_protected:Npn \@@_keywords:nNn #1#2#3
   {
-    \par \mode_leave_vertical: \par
-    \noindent \hangindent = 4 em  \hangafter = 1
+    \par \mode_leave_vertical: \par \noindent
+    \@@_get_text_width:Nn \l_@@_tmpa_dim {#1}
+    \group_begin: #1 \group_end:
+    \parbox [t] { \dim_eval:n { \textwidth - \l_@@_tmpa_dim } }
+      {
+        \clist_use:Nn #2 {#3} \par
+        \cs_gset:Npx \@@_keywords_prevdepth: { \dim_use:N \tex_prevdepth:D }
+      }
   }
-\cs_new:Npn \@@_clc_par:
-  { \par \noindent }
+\cs_new_protected:Npn \@@_clc:nn #1#2
+  {
+    \par \tex_prevdepth:D \@@_keywords_prevdepth: \noindent
+    \group_begin: #1 \group_end:
+    #2
+  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5681,28 +5267,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{environment}
 %
 % \begin{macro}{\@@_notation_begin:}
-% 与摘要类似，符号表页需要修改页眉，并添加到目录。
+% 符号表页标题。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_notation_begin:
   {
-%<*class>
-    \chapter* { \c_@@_name_notation_tl }
-    \fdu_front_matter_header:n { \c_@@_name_notation_tl }
-    \addcontentsline { toc } { chapter }
-      {
-        \@@_chapter_toc_format:
-        \c_@@_name_notation_tl
-      }
-%</class>
-%<*class-en>
-    \chapter* { \c_@@_name_notation_en_tl }
-    \fdu_front_matter_header:n { \c_@@_name_notation_en_tl }
-    \addcontentsline { toc } { chapter }
-      {
-        \@@_chapter_toc_en_format:
-        \c_@@_name_notation_en_tl
-      }
-%</class-en>
+%<class>    \@@_chapter:V \c_@@_name_notation_tl
+%<class-en>    \@@_chapter:V \c_@@_name_notation_en_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5714,9 +5284,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_notation_long_table_setup:
   {
-%<class-en>      \tl_set:Nn \arraystretch { 1.3 }
-      \dim_set_eq:NN \LTpre  \c_zero_dim
-      \dim_set_eq:NN \LTpost \c_zero_dim
+%<class-en>    \tl_set:Nn \arraystretch { 1.3 }
+    \dim_set_eq:NN \LTpre  \c_zero_dim
+    \dim_set_eq:NN \LTpost \c_zero_dim
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5753,14 +5323,13 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{variable}
 %
 % \changes{v0.6}{2017/10/28}{新增 \opt{style/bib-style} 选项。}
-% \changes{v0.7}{2018/01/25}{新增 \opt{style/bib-backend}、
-%   \opt{style/cite-style} 和 \opt{style/bib-resource} 选项。}
+% \changes{v0.7}{2018/01/25}{新增 \opt{style/bib-backend}、\opt{style/cite-style}
+%   和 \opt{style/bib-resource} 选项。}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
 %    \end{macrocode}
-%
 % \begin{macro}{style/bib-backend}
 % 参考文献后端。
 %    \begin{macrocode}
@@ -5772,7 +5341,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \bool_set_false:N \l_@@_bibtex_bool },
 %    \end{macrocode}
 % \end{macro}
-%
 % \begin{macro}{style/bib-style}
 % 参考文献样式。
 %    \begin{macrocode}
@@ -5792,7 +5360,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl },
 %    \end{macrocode}
 % \end{macro}
-%
 % \begin{macro}{style/cite-style}
 % 引用样式。
 %    \begin{macrocode}
@@ -5804,7 +5371,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
       },
 %    \end{macrocode}
 % \end{macro}
-%
 % \begin{macro}{style/bib-resource}
 % 参考文献数据源。
 %    \begin{macrocode}
@@ -5815,64 +5381,32 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包
-% 均需要在导言区末尾载入（仍在 \pkg{hyperref} 之前）。
+% 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包均需要在
+% 导言区末尾载入（仍在 \pkg{hyperref} 之前），并做相关设置。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-%    \end{macrocode}
-%
-% 调用 \pkg{natbib} 宏包并进行配置。
-%    \begin{macrocode}
     \bool_if:NTF \l_@@_bibtex_bool
       {
         \RequirePackage [ sort & compress ] { natbib }
         \@@_bibtex_setup:
+      }
+      {
+        \@@_biblatex_pre_setup:
+        \RequirePackage { biblatex }
+        \@@_biblatex_post_setup:
+      }
+  }
 %    \end{macrocode}
 %
 % \changes{v0.7}{2018/01/25}{统一使用 \cs{printbibliography} 命令
 %   生成参考文献列表。}
+% \changes{v0.7d}{2019/03/23}{使参考文献在目录中正常显示。}
 %
-% \begin{macro}{\printbibliography}
-% \BibTeX{} 下接口与 \pkg{biblatex} 统一。
+% \begin{macro}{\@@_bibtex_setup:,\bibsection,\printbibliography}
+% \BibTeX{} 相关设置。
 %    \begin{macrocode}
-        \NewDocumentCommand \printbibliography { o }
-          {
-            \exp_args:NV \bibliography \l_@@_bib_resource_tl
-            \IfValueT {#1}
-              { \@@_warning:nn { invalid-option-in-bibtex } {#1} }
-          }
-      }
-%    \end{macrocode}
-% \end{macro}
-%
-% 调用 \pkg{biblatex} 宏包，并载入参考文献数据库。
-% \cs{@@_biblatex_setup:} 依靠传入宏包选项，因此要放在
-% \tn{RequirePackage} 之前。
-%    \begin{macrocode}
-      {
-        \@@_biblatex_setup:
-        \RequirePackage [ backend = biber, hyperref = manual, natbib ]
-          { biblatex }
-        \exp_args:NV \addbibresource \l_@@_bib_resource_tl
-        \@@_biblatex_allow_url_break:
-%    \end{macrocode}
-% 英文模板需要重定义参考文献标题。
-%    \begin{macrocode}
-%<*class-en>
-        \exp_args:Nnx \DefineBibliographyStrings { english }
-          { bibliography = { \c_@@_name_bib_en_tl } }
-%</class-en>
-      }
-  }
-\@@_msg_new:nn { invalid-option-in-bibtex }
-  { Option(s)~ "#1"~ are~ invalid~ in~ BibTeX. }
-%    \end{macrocode}
-%
-% \begin{macro}{\@@_bibtex_setup:}
-% \BibTeX{} 设置。
-%    \begin{macrocode}
-\cs_new:Npn \@@_bibtex_setup:
+\cs_new_protected:Npn \@@_bibtex_setup:
   {
     \tl_if_empty:NTF \l_@@_bib_style_tl
       {
@@ -5891,14 +5425,32 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
           }
       }
       { \exp_args:NV \bibliographystyle \l_@@_bib_style_tl }
+%    \end{macrocode}
+% 修改参考文献标题。
+%    \begin{macrocode}
+    \cs_set:Npn \bibsection { \@@_chapter:V \bibname }
+%    \end{macrocode}
+% \BibTeX{} 下接口与 \pkg{biblatex} 保持统一。
+%    \begin{macrocode}
+    \NewDocumentCommand \printbibliography { o }
+      {
+        \exp_args:NV \bibliography \l_@@_bib_resource_tl
+        \IfValueT {##1}
+          { \@@_warning:nn { invalid-option-in-bibtex } {##1} }
+      }
   }
+\@@_msg_new:nn { invalid-option-in-bibtex }
+  { Option(s)~ "#1"~ are~ invalid~ in~ BibTeX. }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_biblatex_setup:}
-% \pkg{biblatex} 设置。
+% \begin{macro}{
+%   \@@_biblatex_pre_setup:,
+%   \@@_biblatex_post_setup:,
+%   \@@_pass_options_to_biblatex:n}
+% \pkg{biblatex} 相关设置。
 %    \begin{macrocode}
-\cs_new:Npn \@@_biblatex_setup:
+\cs_new_protected:Npn \@@_biblatex_pre_setup:
   {
 %    \end{macrocode}
 % 参考文献样式。
@@ -5906,23 +5458,35 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \tl_if_empty:NTF \l_@@_bib_style_tl
       {
         \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
-          { \PassOptionsToPackage { style = gb7714-2015 } }
+          { \@@_pass_options_to_biblatex:n { style = gb7714-2015 } }
           {
             \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
-              { \PassOptionsToPackage { style = gb7714-2015ay } }
+              { \@@_pass_options_to_biblatex:n { style = gb7714-2015ay } }
           }
       }
-      { \PassOptionsToPackage { style = \l_@@_bib_style_tl } }
-    { biblatex }
+      { \@@_pass_options_to_biblatex:n { style = \l_@@_bib_style_tl } }
 %    \end{macrocode}
 % 引用样式。
 %    \begin{macrocode}
     \tl_if_empty:NF \l_@@_cite_style_tl
-      {
-        \PassOptionsToPackage { citestyle = \l_@@_bib_style_tl }
-          { biblatex }
-      }
+      { \@@_pass_options_to_biblatex:n { citestyle = \l_@@_bib_style_tl } }
+    \@@_pass_options_to_biblatex:n { backend = biber, hyperref = manual, natbib }
   }
+\cs_new_protected:Npn \@@_biblatex_post_setup:
+  {
+    \exp_args:NV \addbibresource \l_@@_bib_resource_tl
+    \@@_biblatex_allow_url_break:
+%    \end{macrocode}
+% 修改参考文献标题。
+%    \begin{macrocode}
+    \defbibheading { bibliography } [ \bibname ] { \@@_chapter:n {##1} }
+%<*class-en>
+    \exp_args:Nnx \DefineBibliographyStrings { english }
+      { bibliography = { \c_@@_name_bib_en_tl } }
+%</class-en>
+  }
+\cs_new_protected:Npn \@@_pass_options_to_biblatex:n #1
+  { \PassOptionsToPackage {#1} { biblatex } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5931,9 +5495,9 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new:Npn \@@_biblatex_allow_url_break:
   {
-    \int_set_eq:NN \c@biburlucpenalty  \c_one
-    \int_set_eq:NN \c@biburlnumpenalty \c_one
-    \int_set_eq:NN \c@biburllcpenalty  \c_one
+    \int_set_eq:NN \c@biburlucpenalty  \c_one_int
+    \int_set_eq:NN \c@biburlnumpenalty \c_one_int
+    \int_set_eq:NN \c@biburllcpenalty  \c_one_int
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5958,25 +5522,12 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \NAT@numbersfalse
 %<*class>
-    \cs_set_eq:NN \NAT@open  \c_@@_fullwidth_left_paren_tl
-    \cs_set_eq:NN \NAT@close \c_@@_fullwidth_right_paren_tl
-    \cs_set_eq:NN \NAT@sep   \c_@@_fullwidth_semicolon_tl
-    \cs_set_eq:NN \NAT@aysep \c_@@_fullwidth_comma_tl
-    \cs_set_eq:NN \NAT@yrsep \c_@@_ideographic_comma_tl
+    \cs_set_eq:NN \NAT@open  \c_@@_fwid_left_paren_tl
+    \cs_set_eq:NN \NAT@close \c_@@_fwid_right_paren_tl
+    \cs_set_eq:NN \NAT@sep   \c_@@_fwid_semicolon_tl
+    \cs_set_eq:NN \NAT@aysep \c_@@_fwid_comma_tl
+    \cs_set_eq:NN \NAT@yrsep \c_@@_ideo_comma_tl
 %</class>
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\bibsection}
-% 修改参考文献部分的页眉，并将其添加到目录。
-%    \begin{macrocode}
-\cs_set:Npn \bibsection
-  {
-    \chapter* { \bibname }
-    \fdu_front_matter_header:n { \bibname }
-    \addcontentsline { toc } { chapter }
-      { \@@_chapter_toc_format: \bibname }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -6108,6 +5659,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v0.7e}{2019/04/23}{处理 \pkg{hyperref} 与 \pkg{unicode-math} 的兼容性问题。} 
+%
 % 在导言区末尾引入 \pkg{hyperref} 宏包。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
@@ -6119,6 +5672,8 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \hypersetup
       {
         bookmarksnumbered = true,
+        psdextra          = true,
+        unicode           = true,
 %    \end{macrocode}
 % 填写 PDF 元信息。
 %    \begin{macrocode}
@@ -6274,14 +5829,14 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { ideographic_comma     } { "3001 },
-    { ideographic_full_stop } { "3002 },
-    { fullwidth_comma       } { "FF0C },
-    { fullwidth_full_stop   } { "FF0E },
-    { fullwidth_colon       } { "FF1A },
-    { fullwidth_semicolon   } { "FF1B },
-    { fullwidth_left_paren  } { "FF08 },
-    { fullwidth_right_paren } { "FF09 }
+    { ideo_comma       } { "3001 },
+    { ideo_full_stop   } { "3002 },
+    { fwid_comma       } { "FF0C },
+    { fwid_full_stop   } { "FF0E },
+    { fwid_colon       } { "FF1A },
+    { fwid_semicolon   } { "FF1B },
+    { fwid_left_paren  } { "FF08 },
+    { fwid_right_paren } { "FF09 }
   }
   { \@@_define_punct:nn #1 }
 %    \end{macrocode}
@@ -6382,29 +5937,18 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    % { secret_level    } { 密 \qquad 级                  },
-    % { secret_star     } { \textrm { \bigstar }          },
-    % { school_id       } { 学校代码                      },
-    % { student_id      } { 学 \qquad 号                  },
-    { thesis_title     } { 本科毕业论文（设计）          },
-    { title            } { 论文题目                      },
-    { department       } { 院系                          },
-    { major            } { 专业                          },
-    { author           } { 姓名                          },
-    { student_id       } { 学号                          },
-    { supervisor       } { 指导教师                      },
-    { supervisor_title } { 职称                          },
-    { affiliation      } { 单位                          },
-    { date             } { 日期                          },
-    % { instructors      } { 指导小组成员                  },
-    % { author_sign      } { 作者签名                      },
-    % { supervisor_sign  } { 导师签名                      },
-    % { sign_date        } { 日期                          },
-    % { bib_en           } { Bibliography                  },
-    { pdf_creator      } { LaTeX~ with~ fduthesis~ class },
-    { head             } { \c_@@_name_simp_tl 本科生毕业论文（2018）  }
-    % { orig_decl        } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
-    % { auth_decl        } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 },
+    { thesis_title     } { 本科毕业论文（设计）               },
+    { title            } { 论文题目                           },
+    { department       } { 院系                               },
+    { major            } { 专业                               },
+    { author           } { 姓名                               },
+    { student_id       } { 学号                               },
+    { supervisor       } { 指导教师                           },
+    { supervisor_title } { 职称                               },
+    { affiliation      } { 单位                               },
+    { date             } { 日期                               },
+    { pdf_creator      } { LaTeX~ with~ fduthesis~ class      },
+    { head             } { 复旦大学本科生毕业论文（物理学系） },
   }
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn
@@ -6412,7 +5956,6 @@ Copyright (C) 2017, 2018 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { abstract } { 摘 \quad 要 } { Abstract          },
     { keywords } { 关键字      } { Keywords:         },
     { clc      } { 中图分类号  } { CLC~ number:      },
-    { toc      } { 目 \quad 录 } { Contents          },
     { notation } { 符号表      } { List~ of~ Symbols }
   }
   { \@@_define_name:nnn #1 }

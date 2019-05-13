@@ -10,7 +10,7 @@
     info = {
       title = {这是一个论文标题},
       title* = {This is a Thesis Title},
-      date = {2018 年 1 月 1 日},
+      date = {2019 年 1 月 1 日},
       author = {某某},
       supervisor = {某某某\quad 教授},
       major = {物理学},
@@ -34,13 +34,13 @@
 {
   \clist_map_inline:nn
     { \normalfont, \sffamily, \ttfamily, \bfseries, \itshape }
-    { \mbox { ##1 X ~ 字} }
+    { \mbox { ##1 X ~ 字} ~ }
   \clist_map_inline:nn
     {
       \tiny, \scriptsize, \footnotesize, \small, \normalsize,
       \large, \Large, \LARGE, \huge, \HUGE
     }
-    { \mbox { ##1 $\sin x^{x^x}$ } }
+    { \mbox { ##1 $\sin x^{x^x}$ } ~ }
   \newpage
 }
 \ExplSyntaxOff

@@ -37,7 +37,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.14215
-.\TU/LibertinusSerif(0)/m/n/12.045 ①
+.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ①
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -45,7 +45,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.13011
-.\TU/LibertinusSerif(0)/m/n/12.045 ⓐ
+.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓐ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -53,7 +53,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.14215
-.\TU/LibertinusSerif(0)/m/n/12.045 Ⓐ
+.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 Ⓐ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -61,7 +61,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.14215
-.\TU/LibertinusSerif(0)/m/n/12.045 ⓒ
+.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓒ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -69,7 +69,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16861)x8.23878
-.\TU/XITS(2)/m/n/12.045 ①
+.\TU/XITS-Regular.otf(0)/m/n/12.045 ①
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -77,7 +77,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16861)x8.23878
-.\TU/XITS(2)/m/n/12.045 ⓐ
+.\TU/XITS-Regular.otf(0)/m/n/12.045 ⓐ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -85,7 +85,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16861)x8.23878
-.\TU/XITS(2)/m/n/12.045 Ⓐ
+.\TU/XITS-Regular.otf(0)/m/n/12.045 Ⓐ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -93,7 +93,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(8.14243+0.16861)x8.23878
-.\TU/XITS(2)/m/n/12.045 ⓒ
+.\TU/XITS-Regular.otf(0)/m/n/12.045 ⓒ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -216,22 +216,22 @@ l. ...  }
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
-LaTeX Font Info:    Font shape `TU/XITSMath(2)/m/n' will be
-(Font)              scaled to size 12.04518pt on input line ....
-LaTeX Font Info:    Font shape `TU/XITSMath(2)/m/n' will be
-(Font)              scaled to size 8.99907pt on input line ....
-LaTeX Font Info:    Font shape `TU/XITSMath(2)/m/n' will be
-(Font)              scaled to size 7.26242pt on input line ....
-LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
-(Font)              scaled to size 12.0448pt on input line ....
-LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
-(Font)              scaled to size 8.99881pt on input line ....
-LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
-(Font)              scaled to size 7.26219pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(2)/m/n' will be
+(Font)              scaled to size 12.04628pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(2)/m/n' will be
+(Font)              scaled to size 9.03471pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(2)/m/n' will be
+(Font)              scaled to size 7.22777pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(3)/m/n' will be
+(Font)              scaled to size 12.0437pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(3)/m/n' will be
+(Font)              scaled to size 9.03278pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(3)/m/n' will be
+(Font)              scaled to size 7.22623pt on input line ....
 > \box...=
-\hbox(7.16681+1.14423)x142.26378
+\hbox(7.16708+1.14395)x142.26378
 .\mathon
-.\vbox(7.16681+1.14423)x142.26378
+.\vbox(7.16708+1.14395)x142.26378
 ..\hbox(8.14243+0.16861)x142.26378, glue set 108.80278fil
 ...\hbox(0.0+0.0)x0.0
 ...\TU/XITS(0)/m/n/12.045 ABCD
@@ -245,9 +245,9 @@ LaTeX Font Info:    Font shape `TU/XITSMath(3)/m/n' will be
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(8.66039+2.6378)x142.26378
+\hbox(8.66066+2.63753)x142.26378
 .\mathon
-.\vbox(8.66039+2.6378)x142.26378
+.\vbox(8.66066+2.63753)x142.26378
 ..\hbox(9.33487+1.96332)x142.26378, glue set 94.08379fil
 ...\hbox(0.0+0.0)x0.0
 ...\TU/FandolSong(0)/m/n/12.045 复
@@ -279,9 +279,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--74
 .\TU/FandolSong(0)/m/n/12.045 学
 .\glue(\rightskip) 0.0
 > \box...=
-\hbox(18.59412+12.57153)x56.9055
+\hbox(18.59439+12.57126)x56.9055
 .\mathon
-.\vbox(18.59412+12.57153)x56.9055
+.\vbox(18.59439+12.57126)x56.9055
 ..\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
 ...\hbox(0.0+0.0)x0.0
 ...\TU/FandolSong(0)/m/n/12.045 复
@@ -308,9 +308,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--74
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.16681+1.14423)x142.26378
+\hbox(7.16708+1.14395)x142.26378
 .\mathon
-.\vbox(7.16681+1.14423)x142.26378
+.\vbox(7.16708+1.14395)x142.26378
 ..\hbox(8.14243+0.16861)x142.26378, glue set 54.4014fil
 ...\glue(\leftskip) 0.0 plus 1.0fil
 ...\hbox(0.0+0.0)x0.0
@@ -325,9 +325,9 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(8.66039+2.6378)x142.26378
+\hbox(8.66066+2.63753)x142.26378
 .\mathon
-.\vbox(8.66039+2.6378)x142.26378
+.\vbox(8.66066+2.63753)x142.26378
 ..\hbox(9.33487+1.96332)x142.26378, glue set 47.0419fil
 ...\glue(\leftskip) 0.0 plus 1.0fil
 ...\hbox(0.0+0.0)x0.0
@@ -348,9 +348,9 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(18.59412+12.57153)x56.9055
+\hbox(18.59439+12.57126)x56.9055
 .\mathon
-.\vbox(18.59412+12.57153)x56.9055
+.\vbox(18.59439+12.57126)x56.9055
 ..\hbox(9.33487+1.96332)x56.9055, glue set 4.36276fil
 ...\glue(\leftskip) 0.0 plus 1.0fil
 ...\hbox(0.0+0.0)x0.0

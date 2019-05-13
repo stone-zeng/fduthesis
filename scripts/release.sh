@@ -17,23 +17,26 @@ TEX_DIR=$TDS_DIR/tex/latex/$JOB_NAME
 DOC_DIR=$TDS_DIR/doc/latex/$JOB_NAME
 
 LOGO_DIR=$WORKING_DIR/logo/pdf
+RELEASE_DIR=$WORKING_DIR/release
+OVERLEAF_DIR=$RELEASE_DIR/overleaf
 DOC_EN_SCRIPT=$WORKING_DIR/scripts/get-doc-en.lua
 
 mkdir -p $TEMP_DIR
 
 mkdir -p $TDS_DIR
 mkdir -p $CTAN_DIR
+mkdir -p $OVERLEAF_DIR
 
 mkdir -p $SRC_DIR
 mkdir -p $TEX_DIR
 mkdir -p $DOC_DIR
 
-cp $WORKING_DIR/source/*.dtx               $TEMP_DIR
-cp $WORKING_DIR/source/*.pdf               $TEMP_DIR
-cp $WORKING_DIR/doc/$JOB_NAME-template.tex $TEMP_DIR
-cp $LOGO_DIR/fudan-emblem-a-black.pdf      $TEMP_DIR/fudan-emblem.pdf
-cp $LOGO_DIR/fudan-emblem-new-a-black.pdf  $TEMP_DIR/fudan-emblem-new.pdf
-cp $LOGO_DIR/fudan-name-black.pdf          $TEMP_DIR/fudan-name.pdf
+cp $WORKING_DIR/source/*.dtx                $TEMP_DIR
+cp $WORKING_DIR/source/*.pdf                $TEMP_DIR
+cp $WORKING_DIR/docs/$JOB_NAME-template.tex $TEMP_DIR
+cp $LOGO_DIR/fudan-emblem-a-black.pdf       $TEMP_DIR/fudan-emblem.pdf
+cp $LOGO_DIR/fudan-emblem-new-a-black.pdf   $TEMP_DIR/fudan-emblem-new.pdf
+cp $LOGO_DIR/fudan-name-black.pdf           $TEMP_DIR/fudan-name.pdf
 
 cd $TEMP_DIR
 xetex $JOB_NAME.dtx > /dev/null
@@ -57,8 +60,32 @@ cp $TEMP_DIR/fudan-name.pdf       $TEX_DIR
 cp $TEMP_DIR/*.md                 $DOC_DIR
 cp $TEMP_DIR/*.tex                $DOC_DIR
 cp $TEMP_DIR/$JOB_NAME*.pdf       $DOC_DIR
-cp $TEMP_DIR/latexmkrc.cfg        $DOC_DIR/latexmkrc
-cp $TEMP_DIR/latexmkrc-en.cfg     $DOC_DIR/latexmkrc-en
+
+# Overleaf
+cp $JOB_NAME.cls                   $OVERLEAF_DIR
+cp $JOB_NAME-en.cls                $OVERLEAF_DIR
+cp $JOB_NAME.def                   $OVERLEAF_DIR
+cp $JOB_NAME-template.tex          $OVERLEAF_DIR
+cp $TEMP_DIR/fudan-emblem.pdf      $OVERLEAF_DIR
+cp $TEMP_DIR/fudan-emblem-new.pdf  $OVERLEAF_DIR
+cp $TEMP_DIR/fudan-name.pdf        $OVERLEAF_DIR
+
+cp $(kpsewhich expl3.sty)                    $OVERLEAF_DIR
+cp $(kpsewhich expl3-code.tex)               $OVERLEAF_DIR
+cp $(kpsewhich l3keys2e.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich xparse.sty)                   $OVERLEAF_DIR
+cp $(kpsewhich xtemplate.sty)                $OVERLEAF_DIR
+cp $(kpsewhich fontspec.sty)                 $OVERLEAF_DIR
+cp $(kpsewhich fontspec-xetex.sty)           $OVERLEAF_DIR
+cp $(kpsewhich unicode-math.sty)             $OVERLEAF_DIR
+cp $(kpsewhich unicode-math-xetex.sty)       $OVERLEAF_DIR
+cp $(kpsewhich ctexbook.cls)                 $OVERLEAF_DIR
+cp $(kpsewhich ctex-scheme-chinese-book.def) $OVERLEAF_DIR
+cp $(kpsewhich ctex-scheme-plain-book.def)   $OVERLEAF_DIR
+cp $(kpsewhich ctex-engine-xetex.def)        $OVERLEAF_DIR
+cp $(kpsewhich xeCJK.sty)                    $OVERLEAF_DIR
+cp $(kpsewhich xeCJKfntef.sty)               $OVERLEAF_DIR
+cp $(kpsewhich zhnumber.sty)                 $OVERLEAF_DIR
 
 # Make TDS zip
 cd $TDS_DIR
@@ -76,8 +103,13 @@ rm -r $TDS_DIR
 cd $TEMP_DIR
 zip -q -r -9 $JOB_NAME.zip .
 
+# Make Overleaf zip
+cd $OVERLEAF_DIR
+zip -q -r -9 $JOB_NAME-overleaf.zip .
+
 cd $WORKING_DIR
-cp -f $TEMP_DIR/$JOB_NAME.zip     .
-cp -f $TEMP_DIR/$JOB_NAME.tds.zip .
+cp -f $TEMP_DIR/*.zip     $RELEASE_DIR
+cp -f $OVERLEAF_DIR/*.zip $RELEASE_DIR
 
 rm -r $TEMP_DIR
+rm -r $OVERLEAF_DIR

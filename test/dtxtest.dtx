@@ -1,0 +1,467 @@
+% \iffalse meta-comment
+% !TeX program  = XeLaTeX
+% !TeX encoding = UTF-8
+%
+%<*internal>
+\iffalse
+%</internal>
+%
+%<*internal>
+\fi
+\begingroup
+  \def\NameOfLaTeXe{LaTeX2e}
+\expandafter\endgroup\ifx\NameOfLaTeXe\fmtname\else
+\csname fi\endcsname
+%</internal>
+%
+%<*internal>
+\fi
+%</internal>
+%
+%<*driver>
+\PassOptionsToPackage{showframe}{geometry}
+\documentclass{fdudoc}
+\hypersetup
+  {
+    pdftitle  = {fduthesis: 复旦大学论文模板},
+    pdfauthor = {曾祥东}
+  }
+\renewcommand*\expstar{\hyperlink{expstar}{$\mfrake$}}
+\renewcommand*\rexpstar{\hyperlink{rexpstar}{$\mfrakc$}}
+\begin{document}
+  % \DisableImplementation
+  \EnableImplementation
+  \DocInput{dtxtest.dtx}
+  \IndexLayout
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \changes{v0.1}{2017/02/15}{开始编写模板。}
+% \changes{v0.2}{2017/02/19}{使用 Git 进行版本控制，并发布至 GitHub。}
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \title{\textcolor{MaterialIndigo800}{^^A
+%   \textbf{fduthesis: 复旦大学论文模板}}}
+% \author{曾祥东}
+% \date{\today \quad v0.6^^A
+%   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
+%
+%^^A 禁止使用 " 符号作为抄录文本缩略符
+% \DeleteShortVerb\"
+%
+%^^A 封面与目录的页边距
+% \newgeometry{
+%   left   = 1.25 in,
+%   right  = 1.25 in,
+%   top    = 1.25 in,
+%   bottom = 1.00 in
+% }
+%
+% \maketitle
+% \tableofcontents
+%
+% \EnableDocumentation
+%
+% \begin{documentation}
+%
+%^^A 用户手册的页边距
+% \newgeometry{
+%   left   = 1.75 in,
+%   right  = 1.00 in,
+%   top    = 1.25 in,
+%   bottom = 1.00 in
+% }
+%
+% \section{介绍}
+%
+% 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
+% \scite{interfaces3} 编写，以适应 \TeX{} 技术发展潮流；
+% 同时还将构建一套简洁的接口，方便用户使用。
+%
+% 本模板中的选项、命令或环境可以分为以下三类：
+% \scite{knuth1986texbook,interfaces3,richard2016fudanthesis}
+% \begin{itemize}
+%   \item 名字后面带有 \rexptarget\rexpstar{} 的，表示只能在^^A
+%     \emph{中文模板}中使用；
+%   \item 名字后面带有 \exptarget\expstar{} 的，表示只能在^^A
+%     \emph{英文模板}中使用；
+%   \item 名字后面不带有特殊符号的，表示既可以在中文模板中使用，
+%     也可以在英文模板中使用。
+% \end{itemize}
+%
+% \subsection{模板组成}
+%
+% 如需生成用户手册 \file{fduthesis.pdf}，可在命令行中执行
+% \begin{shellexample}[morekeywords={xelatex,makeindex},emph={-o,-s,-t}]
+%   xelatex fduthesis.dtx
+%   makeindex -s gind.ist -o fduthesis.ind fduthesis.idx
+%   makeindex -s gglo.ist -o fduthesis.gls -t fduthesis.glg fduthesis.glo
+%   xelatex fduthesis.dtx
+%   xelatex fduthesis.dtx
+% \end{shellexample}
+% 也可使用 \pkg{latexmk}：
+% \begin{shellexample}[morekeywords={latexmk}]
+%   latexmk fduthesis.dtx
+% \end{shellexample}
+% 本模板已经为编译用户手册提供了 \pkg{latexmk} 配置文件
+% \file{latexmkrc}。
+%
+% \section{使用说明}
+%
+% \subsection{基本用法}
+%
+% 以下是一份简单的 \TeX{} 文档，它演示了 \cls{fduthesis}
+% 的最基本用法：
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     moretexcs={\chapter},morekeywords={\documentclass},%
+%     emph={[2]document}]
+%   % thesis.tex
+%   \documentclass{fduthesis}
+%   \begin{document}
+%     \chapter{您好}
+%     \section{Welcome to fduthesis!}
+%     你好，\LaTeX{}！
+%   \end{document}
+% \end{latexexample}
+%
+% \subsection{模板选项}
+%
+% 所谓“模板选项”，指需要在引入文档类的时候指定的选项：
+% \begin{latexexample}[deletetexcs={\documentclass},%
+%     morekeywords={\documentclass}]
+%   \documentclass(*\oarg{模板选项}*){fduthesis}
+%   \documentclass(*\oarg{模板选项}*){fduthesis-en}
+% \end{latexexample}
+%
+% 有些模板选项为布尔型，它们只能在 \opt{true} 和 \opt{false}
+% 中取值。对于这些选项，\kvopt{\meta{选项}}{true} 中的“|= true|”
+% 可以省略。
+%
+% \begin{function}[added=2018-02-01]{type}
+%   \begin{fdusyntax}[emph={[1]type}]
+%     type = (*<doctor|master|(bachelor)>*)
+%   \end{fdusyntax}
+%   选择论文类型。三种选项分别代表博士学位论文、硕士学位论文和本科
+%   毕业论文。
+% \end{function}
+%
+% \begin{function}{oneside,twoside}
+%   指明论文的单双面模式，默认为 \opt{twoside}。该选项会影响每章
+%   的开始位置，还会影响页眉样式。
+% \end{function}
+%
+% 在双面模式（\opt{twoside}）下，按照通常的排版惯例，每章应只从
+% 奇数页（在右）开始；而在单页模式（\opt{oneside}）下，则可以从
+% 任意页面开始。本模板中，目录、摘要、符号表等均视作章，也按相同
+% 方式排版。
+%
+% \subsection{参数设置}
+%
+% \begin{function}{\fdusetup}
+%   \begin{fdusyntax}[morekeywords={\fdusetup}]
+%     \fdusetup(*\marg{键值列表}*)
+%   \end{fdusyntax}
+%   本模板提供了一系列选项，可由您自行配置。载入文档类之后，以下
+%   所有选项均可通过统一的命令 \cs{fdusetup} 来设置。
+% \end{function}
+%
+% \cs{fdusetup} 的参数是一组由（英文）逗号隔开的选项列表，列表中的
+% 选项通常是 \kvopt{\meta{key}}{\meta{value}} 的形式。部分选项的
+% \meta{value} 可以省略。对于同一项，后面的设置将会覆盖前面的设置。
+% 在下文的说明中，将用\textbf{粗体}表示默认值。
+%
+% 另有一些选项包含子选项，如 \opt{style} 和 \opt{info} 等。它们可以
+% 按如下两种等价方式来设定：
+% \begin{latexexample}[morekeywords={\fdusetup},%
+%     emph={[1]style,cjkfont,fontsize,info,title,title*,author,author*,department}]
+%   \fdusetup{
+%     style = {cjkfont = adobe, fontsize = -4},
+%     info  = {
+%       title      = {关于光产生和转变的一个启发性观点},
+%       title*     = {On a Heuristic Viewpoint Concerning the Production
+%         and Transformation of Light},
+%       author     = {阿尔伯特·爱因斯坦},
+%       author*    = {Albert Einstein},
+%       department = {物理学系}
+%     }
+%   }
+% \end{latexexample}
+% 或者
+% \begin{latexexample}[morekeywords={\fdusetup},%
+%     emph={[1]style,cjkfont,fontsize,info,title,title*,author,author*,department}]
+%   \fdusetup{
+%     style/cjkfont   = adobe,
+%     style/fontsize  = -4,
+%     info/title      = {关于光产生和转变的一个启发性观点},
+%     info/title*     = {On a Heuristic Viewpoint Concerning the Production
+%       and Transformation of Light},
+%     info/author     = {阿尔伯特·爱因斯坦},
+%     info/author*    = {Albert Einstein},
+%     info/department = {物理学系}
+%   }
+% \end{latexexample}
+%
+% 注意 “|/|” 的前后均不可以出现空白字符。
+%
+% \subsection{正文编写}
+%
+% \begin{quotation*}[喬孟符][宋]
+%   作樂府亦有法，曰\CJKunderdot{鳳頭豬肚豹尾}六字是也。
+%   大概起要美麗，中要浩蕩，結要響亮。尤貴在首尾貫穿，意思清新。
+%   茍能若是，斯可以言樂府矣。
+% \end{quotation*}
+%
+% \subsubsection{凤头}
+%
+% \begin{function}{\frontmatter}
+%   声明前置部分开始。
+% \end{function}
+%
+% 在本模板中，前置部分包含目录、中英文摘要以及符号表等。
+% 前置部分的页码采用小写罗马字母，并且与正文分开计数。
+%
+% \begin{function}{\tableofcontents}
+%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
+% \end{function}
+%
+%^^A TODO: \DescribeEnv{abstract}
+%^^A TODO: \DescribeEnv{abstract*}
+% \begin{function}{abstract}
+%   \begin{fdusyntax}[emph={[2]abstract}]
+%     % 中文论文模板 (fduthesis)      % 英文论文模板 (fduthesis-en)
+%     \begin{abstract}                \begin{abstract}
+%       (*\meta{中文摘要} \hspace{3.52cm} \meta{英文摘要}*)
+%     \end{abstract}                  \end{abstract}
+%   \end{fdusyntax}
+% \end{function}
+% \begin{function}[rEXP]{abstract*}
+%   \begin{fdusyntax}[emph={[2]abstract*}]
+%     % 中文论文模板 (fduthesis)
+%     \begin{abstract*}
+%       (*\meta{英文摘要}*)
+%     \end{abstract*}
+%   \end{fdusyntax}
+%   摘要。中文模板中，不带星号和带星号的版本分别用来输入中文摘要
+%   和英文摘要；英文模板中没有带星号的版本，您只需输入英文摘要。
+% \end{function}
+%
+% 摘要的最后，会显示关键字列表以及中图分类号（CLC）。
+% 这两项可通过 \cs{fdusetup} 录入。
+%
+% \begin{thebibliography}{9}
+%
+% \providecommand{\urlprefix}{\newline\hspace*{\fill}}
+% \let\OldUrl=\url
+% \renewcommand\url[1]{{\small\OldUrl{#1}}}
+% \newcommand\sourceurl[1]{{\small{\kaishu 源代码：}
+%   \href{https://www.ctan.org/tex-archive/#1}{\ttfamily CTAN://#1}}}
+% \newcommand\CTANurl[1]{{\small\href{https://www.ctan.org/tex-archive/#1}^^A
+%   {\ttfamily CTAN://#1}}}
+%
+% \bibitem{knuth1986texbook}
+% \textsc{Knuth D E}.
+% \newblock \textit{The \TeX book: Computers \& Typesetting, volumn A} [M].
+% \newblock Boston: Addison--Wesley Publishing Company, 1986
+%   \urlprefix {\small {\kaishu 源代码
+%     \footnote{此代码只可作为学习之用。未经 Knuth 本人同意，您不应当编译此文档。}：}
+%     \CTANurl{systems/knuth/dist/tex/texbook.tex}}
+%
+% \bibitem{interfaces3}
+% \textsc{The \LaTeX3 Project}.
+% \newblock \textit{The \LaTeX3 Interfaces} [EB/OL].
+% \newblock (2017-11-14) \urlprefix
+%   \CTANurl{macros/latex/contrib/l3kernel/interface3.pdf}
+%
+% \bibitem{richard2016fudanthesis}
+% \textsc{richard}.
+% \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
+% \newblock (2016-01-31) \urlprefix
+%   \url{https://github.com/richarddzh/fudan-thesis}
+%
+% \end{thebibliography}
+%
+% \clearpage
+%
+% \end{documentation}
+%
+% \begin{implementation}
+%
+% \newgeometry{
+%   left      = 2.25 in,
+%   right     = 1.00 in,
+%   top       = 1.25 in,
+%   bottom    = 1.00 in,
+%   marginpar = 2.25 in
+% }
+%
+% \section{实现细节}
+%
+% 本模板使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境，
+% 并需调用 \pkg{l3packages} 中的相关宏包。
+%
+% \subsection{准备}
+%
+% \subsubsection{内部变量声明}
+%
+%    \begin{macrocode}
+%<@@=fdu>
+%<*class|class-en>
+%    \end{macrocode}
+%
+% \begin{variable}{\l_@@_tmpa_box,
+%   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
+%   \l_@@_tmpa_tl,\l_@@_tmpb_tl,
+%   \l_@@_tmpa_clist,\l_@@_tmpb_clist}
+% 临时变量。
+%    \begin{macrocode}
+\box_new:N   \l_@@_tmpa_box
+\dim_new:N   \l_@@_tmpa_dim
+\dim_new:N   \l_@@_tmpb_dim
+\tl_new:N    \l_@@_tmpa_tl
+\tl_new:N    \l_@@_tmpb_tl
+\clist_new:N \l_@@_tmpa_clist
+\clist_new:N \l_@@_tmpb_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_thesis_type_int}
+% 论文类型。取值 1、2、3 分别对应博士、硕士、本科（学士），这与学号
+% 第三位是一致的。
+%    \begin{macrocode}
+\int_new:N \g_@@_thesis_type_int
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsubsection{内部函数}
+%
+% \begin{macro}{\cs_generate_variant:cn,
+%   \file_input:V,
+%   \int_to_arabic:v,
+%   \keys_define:nx}
+% \begin{macro}[TF]{\tl_if_eq:Vn}
+% \LaTeX3{} 函数变体。
+%    \begin{macrocode}
+\cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
+\cs_generate_variant:Nn \file_input:n           { V  }
+\cs_generate_variant:Nn \int_to_arabic:n        { v  }
+\cs_generate_variant:Nn \keys_define:nn         { nx }
+\prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@@_quad:,\@@_qquad:}
+% 等价于 \LaTeXe{} 中的 \tn{quad} 和 \tn{qquad}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_quad:  { \skip_horizontal:n { 1 em } }
+\cs_new:Npn \@@_qquad: { \skip_horizontal:n { 2 em } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{选项处理}
+%
+% 定义 |fdu/option| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / option }
+  {
+%    \end{macrocode}
+%
+% \changes{v0.7}{2018/02/01}{新增 \opt{type} 选项。}
+%
+% \begin{macro}{type}
+% 设置论文类型。设为模板选项主要是为了以后的兼容性。论文类型可能会
+% 影响很多设置，只是暂时还不考虑。默认为本科毕业论文。
+%    \begin{macrocode}
+    type .choice:,
+    type .value_required:n = true,
+    type .choices:nn = 
+      { doctor, master, bachelor }
+      { \int_set_eq:NN \g_@@_thesis_type_int \l_keys_choice_int },
+    type .initial:n = bachelor,
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7}{2018/01/31}{新增 \opt{config} 选项。}
+%
+% \begin{macro}{config}
+% 配置文件名。
+%    \begin{macrocode}
+    config .tl_set:N = \g_@@_config_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% 处理未知选项。
+%    \begin{macrocode}
+    unknown .code:n = { \@@_error:n { unknown-option } }
+  }
+\@@_msg_new:nn { unknown-option }
+  { Class~ option~ "\l_keys_key_tl"~ is~ unknown. }
+%    \end{macrocode}
+%
+% 将文档类选项传给 |fdu/option|。
+%    \begin{macrocode}
+\ProcessKeysOptions { fdu / option }
+%</class|class-en>
+%    \end{macrocode}
+%
+% \subsection{摘要}
+%
+% \begin{environment}{abstract}
+% \begin{environment}{abstract*}
+% \changes{v0.7}{2018/03/05}{整理代码。}
+% 摘要环境。在中文模板定义了中英文双语摘要，但在英文模板中则没有
+% 定义中文摘要。
+%    \begin{macrocode}
+\NewDocumentEnvironment { abstract  } { }
+%<class>  { \@@_abstract_begin:    } { \@@_abstract_end:      }
+%<class-en>  { \@@_abstract_en_begin: } { \@@_abstract_en_end:   }
+%<*class>
+\NewDocumentEnvironment { abstract* } { }
+  { \@@_abstract_en_begin: } { \@@_abstract_en_end:   }
+%</class>
+%    \end{macrocode}
+% \end{environment}
+% \end{environment}
+%
+% \begin{environment}{function}
+% \begin{macro}{\@@_fix_previous_depth:}
+% 调整 \env{function} 环境前后间距。
+%    \begin{macrocode}
+\BeforeBeginEnvironment { function }
+  { \par \nointerlineskip }
+\AtEndEnvironment { function }
+  {
+    \par
+    \cs_gset:Nx \@@_fix_previous_depth:
+      { \prevdepth = \the \prevdepth \space }
+  }
+\AfterEndEnvironment { function }
+  { \@@_fix_previous_depth: }
+%    \end{macrocode}
+% \end{macro}
+% \end{environment}
+%
+% \clearpage
+%
+% \end{implementation}
+%

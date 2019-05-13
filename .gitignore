@@ -15,7 +15,9 @@
 *.idx
 *.ilg
 *.ind
+*.lof
 *.log
+*.lot
 *.md5
 *.out
 *.run.xml
@@ -26,33 +28,29 @@
 *.toc
 
 # Generated files (plain text)
-*.bst
 *.cls
 *.def
 *.ins
 *.sty
-latexmkrc
-latexmkrc-en
 
 # Generated files (binary)
 *.dvi
 *.pdf
 *.xdv
-*.zip
 
-# Primitive files
-*.ai
-
-# Tools
-*.bat
-*.json
-*.txt
+# GitHub Pages
+docs/_site/
+docs/.sass-cache/
+docs/images/font-samples/
+docs/.jekyll-metadata
+docs/Gemfile.lock
 
 # Folders
 .vs/
 .vscode/
 build/
 logo/
+release/
 support/
 TDS/
 temp/
@@ -60,12 +58,14 @@ thesis/
 tools/
 
 # Other
-git-comment.md
-TODO.md
-doc/images/
+.DS_Store
+*.bat
+*.json
+*.txt
+docs/tex/images/
 source/*.md
+source/*.sh
 source/*.tex
+test/*.sh
+test/latexmkrc
 test/dtxtest/
-!install-win.bat
-!testfiles/support/
-!testfiles/support/*

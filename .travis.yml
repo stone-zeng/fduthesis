@@ -1,15 +1,30 @@
-install:
-  - source ./scripts/install.sh
-
-cache:
-  directories:
-    - /tmp/texlive
-    - $HOME/.texlive
+matrix:
+  include:
+    - os: linux
+      install: source .travis/install-ubuntu-texlive.sh
+      cache:
+        directories:
+          - /tmp/texlive
+          - $HOME/.texlive
+    - os: osx
+      addons:
+        homebrew:
+          casks:
+            - basictex
+          update: true
+      install: source .travis/install-macos-basictex.sh
 
 script:
-  - source ./scripts/run.sh
-#  - texlua build.lua check --halt-on-error --quiet
-#  - texlua build.lua check --halt-on-error --quiet --force --engine pdftex "06-logo"
+  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-xetex          test/test.tex
+  - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test/test.tex
+  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test/test-en.tex
+  - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test/test-en.tex
+  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
+  - texlua build.lua check --quiet --halt-on-error
+  - texlua build.lua check --quiet --halt-on-error --force --engine pdftex 06-logo
+
+before_script:
+  - source .travis/unpack.sh
 
 after_failure:
-  - cat ./build/test/*.diff
+  - cat build/test/*.diff

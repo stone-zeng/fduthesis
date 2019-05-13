@@ -1,26 +1,25 @@
-@echo off
+@ECHO OFF
 
-mkdir "thesis"
-cd    "thesis"
+MKDIR "thesis"
+CD    "thesis"
 
-copy /Y "..\doc\fduthesis-template.tex"             .
-copy /Y "..\source\fduthesis.dtx"                   .
-copy /Y "..\source\fduthesis-doc.dtx"               .
-copy /Y "..\source\fduthesis-logo.dtx"              .
-copy /Y "..\testfiles\support\fudan-emblem.pdf"     .
-copy /Y "..\testfiles\support\fudan-emblem-new.pdf" .
-copy /Y "..\testfiles\support\fudan-name.pdf"       .
+COPY /Y "..\docs\fduthesis-template.tex"            .
+COPY /Y "..\source\fduthesis.dtx"                   .
+COPY /Y "..\source\fduthesis-doc.dtx"               .
+COPY /Y "..\source\fduthesis-logo.dtx"              .
+COPY /Y "..\testfiles\support\fudan-emblem.pdf"     .
+COPY /Y "..\testfiles\support\fudan-emblem-new.pdf" .
+COPY /Y "..\testfiles\support\fudan-name.pdf"       .
 
 xetex "fduthesis.dtx" > NUL
 
-del "*.cfg"
-del "*.dtx"
-del "*.ins"
-del "*.log"
-del "*.md"
+DEL "*.dtx"
+DEL "*.ins"
+DEL "*.log"
+DEL "*.md"
 
-del "fdudoc.cls"
-del "fdulogo-example.tex"
-del "fduthesis-cover.tex"
+DEL "fdudoc.cls"
+DEL "fdulogo-example.tex"
+DEL "fduthesis-cover.tex"
 
-cd ..
+CD ..
