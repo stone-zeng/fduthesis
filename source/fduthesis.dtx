@@ -2637,15 +2637,13 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{内部变量声明}
 %
-% \begin{variable}{\l_@@_tmpa_bool,
-%   \l_@@_tmpa_box,
+% \begin{variable}{\l_@@_tmpa_box,
 %   \l_@@_tmpa_clist,\l_@@_tmpb_clist,
 %   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
 %   \l_@@_tmpa_skip,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl}
 % 临时变量。
 %    \begin{macrocode}
-\bool_new:N  \l_@@_tmpa_bool
 \box_new:N   \l_@@_tmpa_box
 \clist_new:N \l_@@_tmpa_clist
 \clist_new:N \l_@@_tmpb_clist
@@ -2703,7 +2701,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \int_to_arabic:v,
 %   \keys_define:nx,
 %   \tl_map_inline:xn}
-% \begin{macro}[TF]{\tl_if_eq:Vn,\tl_if_in:nx}
+% \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
 \cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
@@ -2712,7 +2710,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_generate_variant:Nn \keys_define:nn         { nx }
 \cs_generate_variant:Nn \tl_map_inline:nn       { xn }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
-\prg_generate_conditional_variant:Nnn \tl_if_in:nn { nx } {    TF }
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -4555,7 +4552,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 导师姓名、职称。
 %    \begin{macrocode}
     supervisor  .tl_set:N    = \l_@@_info_supervisor_tl,
-%   supervisor* .tl_set:N    = \l_@@_info_supervisor_en_tl,
     supervisor-title .tl_set:N    = \l_@@_info_supervisor_title_tl,
 %    \end{macrocode}
 % \end{macro}
@@ -4571,7 +4567,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 院系、单位。
 %    \begin{macrocode}
     department  .tl_set:N    = \l_@@_info_department_tl,
-%   department* .tl_set:N    = \l_@@_info_department_en_tl,
     affiliation .tl_set:N    = \l_@@_info_affiliation_tl,
 %    \end{macrocode}
 % \end{macro}
@@ -4580,7 +4575,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 专业。
 %    \begin{macrocode}
     major       .tl_set:N    = \l_@@_info_major_tl,
-%   major*      .tl_set:N    = \l_@@_info_major_en_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4617,10 +4611,10 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.4}{2017/08/10}{新增 \opt{style/logo} 与
 %   \opt{style/logo-size} 选项。}
 %
-% \begin{variable}{\l_@@_cover_logo_clist,\l_@@_cover_logo_size_clist}
+% \begin{variable}{\l_@@_logo_name_tl,\l_@@_logo_emblem_tl}
 %    \begin{macrocode}
-\tl_new:N    \l_@@_cover_logo_clist
-\clist_new:N \l_@@_cover_logo_size_clist
+\tl_new:N \l_@@_logo_name_tl
+\tl_new:N \l_@@_logo_emblem_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -4629,8 +4623,8 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
-    logo      .clist_set:N = \l_@@_cover_logo_clist,
-    logo-size .clist_set:N = \l_@@_cover_logo_size_clist
+    logo-name   .tl_set:N = \l_@@_logo_name_tl,
+    logo-emblem .tl_set:N = \l_@@_logo_emblem_tl,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5012,17 +5006,9 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     info    / align       = center,
   }
 \cs_new_protected:Npn \@@_cover_logo_i:
-  {
-    \tl_set:Nx \l_@@_tmpa_tl
-      { \clist_item:Nn \l_@@_cover_logo_clist { 1 } }
-    \includegraphics [ width = 6.60 cm ] { \l_@@_tmpa_tl }
-  }
+  { \includegraphics [ width = 6.60 cm ] { \l_@@_logo_name_tl   } }
 \cs_new_protected:Npn \@@_cover_logo_ii:
-  {
-    \tl_set:Nx \l_@@_tmpa_tl
-      { \clist_item:Nn \l_@@_cover_logo_clist { 2 } }
-    \includegraphics [ width = 3.70 cm ] { \l_@@_tmpa_tl }
-  }
+  { \includegraphics [ width = 3.70 cm ] { \l_@@_logo_emblem_tl } }
 \cs_new_protected:Npn \@@_cover_info:
   {
     \@@_cover_info_aux:nn { 15 } { title            } \@@_cover_info_skip:
@@ -5040,7 +5026,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \@@_cover_info_format:
     \@@_spread_box:nn { 4 \ccwd } { \tl_use:c { c_@@_name_ #2 _tl } }
-    \c_@@_fullwidth_colon_tl
+    \c_@@_fwid_colon_tl
     \hbox_to_zero:n { \@@_blank_underline:n { #1 \ccwd } }
     \@@_fixed_width_center_box:nn { #1 \ccwd } { \tl_use:c { l_@@_info_ #2 _tl } }
   }
@@ -5071,17 +5057,10 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \bool_if:NT \l_@@_auto_make_cover_bool
       {
         \begin{titlepage}
-          % \makecoveri \newpage \makecoverii
           \makecoveri
         \end{titlepage}
       }
   }
-%    \end{macrocode}
-%
-% 在 \env{document} 结束位置添加声明页。
-%    \begin{macrocode}
-% \AtEndDocument
-%   { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
 %    \end{macrocode}
 %
 % \subsection{目录}
@@ -5742,14 +5721,11 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     style   / font-size       = 5,
 %<class>    style   / fullwidth-stop  = mapping,
     style   / auto-make-cover = true,
-    style   / logo            = { fudan-name.pdf, fudan-emblem.pdf },
-    style   / logo-size       = { 0.5 \textwidth },
+    style   / logo-name       = { fudan-name.pdf   },
+    style   / logo-emblem     = { fudan-emblem.pdf },
     style   / hyperlink       = color,
     style   / hyperlink-color = default,
     style   / bib-style       = numerical,
-    info    / degree          = academic,
-    info    / secret-level    = none,
-    info    / school-id       = { 10246 },
     info    / date            = { \zhtoday },
 %<class>    theorem / header-font     = { \sffamily },
 %<class-en>    theorem / header-font     = { \bfseries \upshape },
@@ -5949,6 +5925,9 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { date             } { 日期                               },
     { pdf_creator      } { LaTeX~ with~ fduthesis~ class      },
     { head             } { 复旦大学本科生毕业论文（物理学系） },
+    { toc              } { 目 \quad 录                        },
+    { lof              } { 插图目录                           },
+    { lot              } { 表格目录                           },
   }
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn

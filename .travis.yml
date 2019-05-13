@@ -19,9 +19,9 @@ script:
   - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test/test.tex
   - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test/test-en.tex
   - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test/test-en.tex
-  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
-  - texlua build.lua check --quiet --halt-on-error
-  - texlua build.lua check --quiet --halt-on-error --force --engine pdftex 06-logo
+  # - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
+  # - texlua build.lua check --quiet --halt-on-error
+  # - texlua build.lua check --quiet --halt-on-error --force --engine pdftex 06-logo
 
 before_script:
   - source .travis/unpack.sh
