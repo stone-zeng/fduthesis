@@ -2926,7 +2926,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     heading    = true,
 %<class>    fontset    = none,
 %<class-en>    fontset    = fandol,
-    zihao      = 5,
+    zihao      = -4,
 %<class>    linespread = \c_@@_line_spread_fp,
     \g_@@_to_ctexbook_clist
   }
@@ -3731,24 +3731,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母和带圈数字的
 %   显示（\pkg{ctex} v2.4.11 已默认进行处理）。}
 %
-% \subsection{章节标题结构}
-%
-%    \begin{macrocode}
-% 设置标题编号深度（到 subsubsection）。
-\int_set:cn { c@secnumdepth } { 3 }
-% 固定的行距值。
-\clist_map_inline:nn { 5, -4, 3 }
-  {
-    \group_begin:
-      \zihao {#1}
-      \skip_const:cn { c_@@_zihao_ #1 _base_line_skip } { \baselineskip }
-    \group_end:
-  }
-% #1 = 字号
-\cs_new:Npn \@@_base_line_skip:n #1
-  { \use:c { c_@@_zihao_ #1 _base_line_skip } }
-%    \end{macrocode}
-%
 % \subsection{页眉页脚}
 %
 % 清除默认页眉页脚格式。
@@ -3805,6 +3787,22 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \subsection{章节标题结构}
+%
+%    \begin{macrocode}
+% 设置标题编号深度（到 subsubsection）。
+\int_set:cn { c@secnumdepth } { 3 }
+% 固定的行距值。
+\clist_map_inline:nn { 5, -4, 3 }
+  {
+    \group_begin:
+      \zihao {#1}
+      \skip_const:cn { c_@@_zihao_ #1 _base_line_skip } { \baselineskip }
+    \group_end:
+  }
+% #1 = 字号
+\cs_new:Npn \@@_base_line_skip:n #1
+  { \use:c { c_@@_zihao_ #1 _base_line_skip } }
+%    \end{macrocode}
 %
 % |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
 %    \begin{macrocode}
@@ -5705,7 +5703,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     style   / font            = times,
 %<class>    style   / cjk-font        = fandol,
-    style   / font-size       = 5,
+    style   / font-size       = -4,
 %<class>    style   / fullwidth-stop  = mapping,
     style   / auto-make-cover = true,
     style   / logo-name       = { fudan-name.pdf   },
