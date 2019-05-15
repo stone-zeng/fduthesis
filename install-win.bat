@@ -3,7 +3,7 @@
 MKDIR "thesis"
 CD    "thesis"
 
-COPY /Y "..\docs\fduthesis-template.tex"        .
+COPY /Y "..\docs\fduthesis-template.tex"            .
 COPY /Y "..\source\fduthesis.dtx"                   .
 COPY /Y "..\source\fduthesis-doc.dtx"               .
 COPY /Y "..\source\fduthesis-logo.dtx"              .
