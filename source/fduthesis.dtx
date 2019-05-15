@@ -3596,7 +3596,9 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \use:c { @@_load_font_     \g_@@_fontset_tl     : }
 %<class>    \use:c { @@_load_cjk_font_ \g_@@_cjk_fontset_tl : }
   }
-\ctex_at_end_preamble:n { \@@_load_font: }
+% \ctex_at_end_preamble:n { \@@_load_font: }
+\tl_gput_left:Nn \g__xeCJK_at_end_preamble_hook_tl
+  { \__fdu_load_font: }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3747,65 +3749,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \use:c { c_@@_zihao_ #1 _base_line_skip } }
 %    \end{macrocode}
 %
-% |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
-%    \begin{macrocode}
-\keys_set:nn { ctex }
-  {
-%    \end{macrocode}
-%
-% 设置章（chapter）、节（section）与小节（sub-section）标题样式。
-%^^A 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
-%    \begin{macrocode}
-    chapter =
-      {
-%<class>        format      = \zihao { 3 } \normalfont \sffamily \centering,
-%<*class-en>
-        format      = \centering,
-        nameformat  = \LARGE \bfseries,
-        titleformat = \huge \bfseries,
-        aftername   = \par \nobreak \vskip 10 pt,
-%</class-en>
-        number      = \@@_arabic:n { chapter },
-        beforeskip  =
-          \skip_eval:n
-            { 1.5 \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
-        afterskip   =
-          \skip_eval:n
-            { 1.5 \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
-%        fixskip     = true
-      },
-    section =
-      {
-%<class>        format      = \zihao { -4 } \normalfont \bfseries \centering,
-%<class-en>        format      = \Large \bfseries \raggedright,
-        beforeskip  =
-          \skip_eval:n
-            { \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
-        afterskip   =
-          \skip_eval:n
-            { \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
-%        fixskip     = true
-      },
-    subsection =
-      {
-%<class>        format      = \normalfont \sffamily \raggedright,
-%<class-en>        format      = \large \bfseries \raggedright,
-        beforeskip  = \skip_eval:n { 0.5 \@@_base_line_skip:n { 5 } },
-        afterskip   = \skip_eval:n { 0.5 \@@_base_line_skip:n { 5 } },
-%        fixskip     = true
-      },
-    subsubsection =
-      {
-        format      = \normalfont \fdu_cjk_font_kai: \raggedright,
-        number      = \@@_arabic:n { subsubsection },
-        indent      = 2 \ccwd,
-        beforeskip  = \c_zero_skip,
-        afterskip   = \c_zero_skip,
-%        fixskip     = true
-      }
-  }
-%    \end{macrocode}
-%
 % \subsection{页眉页脚}
 %
 % 清除默认页眉页脚格式。
@@ -3869,37 +3812,53 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %    \end{macrocode}
 % 设置章（chapter）、节（section）与小节（sub-section）标题样式。
-% 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
 %    \begin{macrocode}
     chapter =
       {
-%<class>        format      = \huge \normalfont \sffamily \centering,
+%<class>        format      = \zihao { 3 } \normalfont \sffamily \centering,
 %<*class-en>
         format      = \centering,
         nameformat  = \LARGE \bfseries,
         titleformat = \huge \bfseries,
         aftername   = \par \nobreak \vskip 10 pt,
 %</class-en>
-        beforeskip  = 50 pt,
-        afterskip   = 40 pt,
         number      = \@@_arabic:n { chapter },
-        fixskip     = true
+        beforeskip  =
+          \skip_eval:n
+            { 1.5 \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+        afterskip   =
+          \skip_eval:n
+            { 1.5 \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+%        fixskip     = true
       },
     section =
       {
-%<class>        format      = \Large \normalfont \sffamily \raggedright,
+%<class>        format      = \zihao { 4 } \normalfont \bfseries \raggedright,
 %<class-en>        format      = \Large \bfseries \raggedright,
-        beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
-        afterskip   = 2.7 ex plus 0.5 ex,
-        fixskip     = true
+        beforeskip  =
+          \skip_eval:n
+            { \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+        afterskip   =
+          \skip_eval:n
+            { \@@_base_line_skip:n { 5 } - 0.5 \@@_base_line_skip:n { 3 } },
+%        fixskip     = true
       },
     subsection =
       {
-%<class>        format      = \large \normalfont \sffamily \raggedright,
+%<class>        format      = \normalfont \sffamily \raggedright,
 %<class-en>        format      = \large \bfseries \raggedright,
-        beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
-        afterskip   = 2.5  ex plus 0.3 ex,
-        fixskip     = true
+        beforeskip  = \skip_eval:n { 0.5 \@@_base_line_skip:n { 5 } },
+        afterskip   = \skip_eval:n { 0.5 \@@_base_line_skip:n { 5 } },
+%        fixskip     = true
+      },
+    subsubsection =
+      {
+        format      = \normalfont \fdu_cjk_font_kai: \raggedright,
+        number      = \@@_arabic:n { subsubsection },
+        indent      = 2 \ccwd,
+        beforeskip  = \c_zero_skip,
+        afterskip   = \c_zero_skip,
+%        fixskip     = true
       }
   }
 %    \end{macrocode}
@@ -5868,13 +5827,13 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{variable}{\c_@@_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
-%   \num{1.2} \times k \times \SI{10.5}{bp} = \SI{20}{pt}.
+%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
 % \end{equation*}
-% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{10.5}{bp} 是五号字
+% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
 % 的大小，\SI{20}{pt} 是行距固定值。
 %    \begin{macrocode}
 \fp_const:Nn \c_@@_line_spread_fp
-  { \dim_ratio:nn { 20 pt } { 10.5 bp } / 1.2 }
+  { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
 %    \end{macrocode}
 % \end{variable}
 %
