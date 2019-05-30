@@ -263,32 +263,12 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} % U+FF1B
 % Libertinus Math 字体不包含 `\QED`，暂时使用 `\blacksquare` 代替 
 \AtBeginDocument{\def\QED{\blacksquare}}
-%^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
-%^^A! \documentclass{fdudoc}
-%^^A! \hypersetup{
-%^^A!   pdftitle  = {fduthesis: LaTeX Thesis Template for Fudan University},
-%^^A!   pdfauthor = {Xiangdong Zeng}}
-%^^A! \ctexset{
-%^^A!   section = {name = {}, format+ = \raggedright},
-%^^A!   subsubsection/tocline = {\CTEXnumberline{#1}#2}}
-%^^A! \pagestyle{headings}
-%^^A! \def\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
-%^^A! \def\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
-%^^A! \AtBeginDocument{\def\QED{\blacksquare}}
-%^^A!
 
 \title{\textcolor{MaterialIndigo800}{%
   \textbf{fduthesis: 复旦大学论文\xpinyin[font=\sffamily]{模}{mu2}板}}}
 \author{曾祥东}
 \date{2019/04/03\quad v0.7d%
   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
-%^^A! \title{\textcolor{MaterialIndigo800}{%
-%^^A!   \textbf{The \textsf{fduthesis} Class \\
-%^^A!     \LaTeX{} Thesis Template for Fudan University}}}
-%^^A! \author{Xiangdong Zeng}
-%^^A! \date{2019/04/03\quad v0.7d%
-%^^A!   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
-%^^A!
 
 \begin{document}
 %^^A! \begin{document}
@@ -344,33 +324,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   Right bracket \]     Circumflex    \^     Underscore    \_
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
-%
-%^^A 禁止使用 " 符号作为抄录文本缩略符
-% \DeleteShortVerb\"
-%^^A! \DeleteShortVerb\"
-%^^A!
-%
-%^^A 封面与目录的页边距
-%^^A+
-% \newgeometry{
-%   left   = 1.25 in,
-%   right  = 1.25 in,
-%   top    = 1.25 in,
-%   bottom = 1.00 in
-% }
-%
-% \maketitle
-% \vfill
-% \begin{center}
-%   \includegraphics[width=8cm]{../logo/fduthesis-cover.pdf}
-% \end{center}
-% \vfill
-% \thispagestyle{plain}
-% \clearpage
-%
-% \tableofcontents
-%
-%^^A-
 %
 % \EnableDocumentation
 %^^A \DisableDocumentation
