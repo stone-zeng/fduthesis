@@ -1,6 +1,27 @@
-% \subsection{字体}
+% \iffalse meta-comment
 %
-% \subsubsection{预定义字体配置}
+% Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
+%
+% This work may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License, either version 1.3c of this license or (at
+% your option) any later version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Xiangdong Zeng.
+%
+% \fi
+%
+% \begin{implementation}
+%
+% \section{字体}
+%
+% \subsection{预定义字体配置}
 %
 % \changes{v0.7c}{2019/03/05}{重构字体配置，并兼容 macOS。}
 %
@@ -36,8 +57,8 @@
       { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
       { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl }
   }
-%    \end{macrocode}
 %</class>
+%    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{
@@ -576,7 +597,7 @@
 % \changes{v0.5}{2017/09/23}{同步 \pkg{fontspec} v2.6e。}
 % \changes{v0.6}{2017/10/11}{同步 \pkg{unicode-math} v0.8h。}
 %
-% \subsubsection{数学字体设置}
+% \subsection{数学字体设置}
 %
 % 根据 GB 3102.11--93 以及 ISO 80000-2:2009 的规定，数学表达式中
 % 表示变量的拉丁字母和希腊字母均应当使用斜体。
@@ -591,7 +612,7 @@
   }
 %    \end{macrocode}
 %
-% \subsubsection{字号}
+% \subsection{字号}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -631,7 +652,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{句号}
+% \subsection{句号}
 %
 % \begin{macro}{style/fullwidth-stop}
 % \changes{v0.6}{2017/10/14}{支持类别码和 TECKit 映射两种机制。}
@@ -695,4 +716,6 @@
 %
 % \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母和带圈数字的
 %   显示（\pkg{ctex} v2.4.11 已默认进行处理）。}
+%
+% \end{implementation}
 %
