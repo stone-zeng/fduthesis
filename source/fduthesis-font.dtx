@@ -4,11 +4,11 @@
 %
 % \changes{v0.7c}{2019/03/05}{重构字体配置，并兼容 macOS。}
 %
-% \begin{variable}{\g_@@_font_set_tl, \g_@@_cjk_font_set_tl}
+% \begin{variable}{\g_@@_fontset_tl, \g_@@_cjk_fontset_tl}
 % 存放字体选项值。
 %    \begin{macrocode}
-\tl_new:N \g_@@_font_set_tl
-%<class>\tl_new:N \g_@@_cjk_font_set_tl
+\tl_new:N \g_@@_fontset_tl
+%<class>\tl_new:N \g_@@_cjk_fontset_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -20,7 +20,7 @@
   {
     font .choices:nn =
       { garamond, libertinus, lm, palatino, times, times*, none }
-      { \tl_set_eq:NN \g_@@_font_set_tl \l_keys_choice_tl }
+      { \tl_set_eq:NN \g_@@_fontset_tl \l_keys_choice_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -34,7 +34,7 @@
   {
     cjk-font .choices:nn =
       { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
-      { \tl_set_eq:NN \g_@@_cjk_font_set_tl \l_keys_choice_tl }
+      { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl }
   }
 %    \end{macrocode}
 %</class>
@@ -88,6 +88,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7d}{2019/03/29}{在字体未提供对应粗体的情况下，允许使用伪粗。}
+%
 % \begin{macro}{
 %   \@@_cjk_font_options:,
 %   \@@_setCJKmainfont:n,
@@ -97,7 +99,7 @@
 % 将 bold、italic 和 bold italic 统一按照 roman 设置。
 %    \begin{macrocode}
 \tl_const:Nn \@@_cjk_font_options:
- { UprightFont = *, BoldFont = *, ItalicFont = *, BoldItalicFont = * }
+ { UprightFont = *, ItalicFont = *, AutoFakeBold = true }
 \cs_new_protected:Npx \@@_setCJKmainfont:n   #1
   { \@@_setCJKmainfont:nn   {#1} { \@@_cjk_font_options: } }
 \cs_new_protected:Npx \@@_setCJKsansfont:n   #1
@@ -150,6 +152,97 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
+% \begin{macro}{
+%   \g_@@_font_family_libertinus_serif_tl,
+%   \g_@@_font_family_libertinus_sans_tl,
+%   \g_@@_font_style_libertinus_rm_tl,
+%   \g_@@_font_style_libertinus_bf_tl,
+%   \g_@@_font_style_libertinus_it_tl,
+%   \g_@@_font_style_libertinus_bfit_tl,
+%   \g_@@_font_style_libertinus_bfsl_tl,
+%   \g_@@_font_family_xits_tl,
+%   \g_@@_font_style_xits_rm_tl,
+%   \g_@@_font_style_xits_bf_tl,
+%   \g_@@_font_style_xits_it_tl,
+%   \g_@@_font_style_xits_bfit_tl,
+%   \g_@@_font_name_libertinus_serif_tl,
+%   \g_@@_font_name_libertinus_sans_tl,
+%   \g_@@_font_name_libertinus_math_tl,
+%   \g_@@_font_name_xits_tl,
+%   \g_@@_font_name_xits_math_rm_tl,
+%   \g_@@_font_name_xits_math_bf_tl}
+% Libertinus 和 XITS 字体的文件名做过变动，需要特殊处理。
+%    \begin{macrocode}
+\tl_new:N \g_@@_font_family_libertinus_serif_tl
+\tl_new:N \g_@@_font_family_libertinus_sans_tl
+\tl_new:N \g_@@_font_style_libertinus_rm_tl
+\tl_new:N \g_@@_font_style_libertinus_bf_tl
+\tl_new:N \g_@@_font_style_libertinus_it_tl
+\tl_new:N \g_@@_font_style_libertinus_bfit_tl
+\tl_new:N \g_@@_font_style_libertinus_bfsl_tl
+\tl_new:N \g_@@_font_family_xits_tl
+\tl_new:N \g_@@_font_style_xits_rm_tl
+\tl_new:N \g_@@_font_style_xits_bf_tl
+\tl_new:N \g_@@_font_style_xits_it_tl
+\tl_new:N \g_@@_font_style_xits_bfit_tl
+\tl_new:N \g_@@_font_name_libertinus_serif_tl
+\tl_new:N \g_@@_font_name_libertinus_sans_tl
+\tl_new:N \g_@@_font_name_libertinus_math_tl
+\tl_new:N \g_@@_font_name_xits_tl
+\tl_new:N \g_@@_font_name_xits_math_rm_tl
+\tl_new:N \g_@@_font_name_xits_math_bf_tl
+\fontspec_font_if_exist:nTF { LibertinusSerif-Regular.otf }
+  {
+    \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { LibertinusSerif }
+    \tl_set:Nn \g_@@_font_family_libertinus_sans_tl  { LibertinusSans  }
+    \tl_set:Nn \g_@@_font_family_libertinus_math_tl  { LibertinusMath  }
+    \tl_set:Nn \g_@@_font_style_libertinus_rm_tl     { Regular         }
+    \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { Bold            }
+    \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { Italic          }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { BoldItalic      }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl   { BoldOblique     }
+  }
+  {
+    \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { libertinusserif }
+    \tl_set:Nn \g_@@_font_family_libertinus_sans_tl  { libertinussans  }
+    \tl_set:Nn \g_@@_font_family_libertinus_math_tl  { libertinusmath  }
+    \tl_set:Nn \g_@@_font_style_libertinus_rm_tl     { regular         }
+    \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { bold            }
+    \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { italic          }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { bolditalic      }
+    \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl   { bolditalic      }
+  }
+\fontspec_font_if_exist:nTF { XITS-Regular.otf }
+  {
+    \tl_set:Nn \g_@@_font_family_xits_tl        { XITS             }
+    \tl_set:Nn \g_@@_font_style_xits_rm_tl      { Regular          }
+    \tl_set:Nn \g_@@_font_style_xits_bf_tl      { Bold             }
+    \tl_set:Nn \g_@@_font_style_xits_it_tl      { Italic           }
+    \tl_set:Nn \g_@@_font_style_xits_bfit_tl    { BoldItalic       }
+    \tl_set:Nn \g_@@_font_name_xits_math_rm_tl  { XITSMath-Regular }
+    \tl_set:Nn \g_@@_font_name_xits_math_bf_tl  { XITSMath-Bold    }
+  }
+  {
+    \tl_set:Nn \g_@@_font_family_xits_tl        { xits          }
+    \tl_set:Nn \g_@@_font_style_xits_rm_tl      { regular       }
+    \tl_set:Nn \g_@@_font_style_xits_bf_tl      { bold          }
+    \tl_set:Nn \g_@@_font_style_xits_it_tl      { italic        }
+    \tl_set:Nn \g_@@_font_style_xits_bfit_tl    { bolditalic    }
+    \tl_set:Nn \g_@@_font_name_xits_math_rm_tl  { xits-math     }
+    \tl_set:Nn \g_@@_font_name_xits_math_bf_tl  { xits-mathbold }
+  }
+\tl_set:Nx \g_@@_font_name_libertinus_serif_tl
+  { \g_@@_font_family_libertinus_serif_tl - \g_@@_font_style_libertinus_rm_tl }
+\tl_set:Nx \g_@@_font_name_libertinus_sans_tl
+  { \g_@@_font_family_libertinus_sans_tl  - \g_@@_font_style_libertinus_rm_tl }
+\tl_set:Nx \g_@@_font_name_libertinus_math_tl
+  { \g_@@_font_family_libertinus_math_tl  - \g_@@_font_style_libertinus_rm_tl }
+\tl_set:Nx \g_@@_font_name_xits_tl
+  { \g_@@_font_family_xits_tl - \g_@@_font_style_xits_rm_tl }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_load_font_garamond:}
 % EB Garamond 系列。
 %    \begin{macrocode}
@@ -163,13 +256,13 @@
         ItalicFont     = *-Italic,
         BoldItalicFont = *-BoldItalic
       }
-    \@@_setsansfont:nn { libertinussans }
+    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
       {
         Extension      = .otf,
-        UprightFont    = *-regular,
-        BoldFont       = *-bold,
-        ItalicFont     = *-italic,
-        BoldItalicFont = *-bolditalic
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl
       }
     \@@_setmonofont:nn { lmmonolt10 }
       {
@@ -189,21 +282,21 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_font_libertinus:
   {
-    \@@_setmainfont:nn { libertinusserif }
+    \@@_setmainfont:nn { \g_@@_font_family_libertinus_serif_tl }
       {
         Extension      = .otf,
-        UprightFont    = *-regular,
-        BoldFont       = *-bold,
-        ItalicFont     = *-italic,
-        BoldItalicFont = *-bolditalic
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfit_tl
       }
-    \@@_setsansfont:nn { libertinussans }
+    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
       {
         Extension      = .otf,
-        UprightFont    = *-regular,
-        BoldFont       = *-bold,
-        ItalicFont     = *-italic,
-        BoldItalicFont = *-bolditalic
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl
       }
     \@@_setmonofont:nn { lmmonolt10 }
       {
@@ -213,7 +306,7 @@
         ItalicFont     = *-oblique,
         BoldItalicFont = *-boldoblique
       }
-    \@@_setmathfont:nn { libertinusmath-regular.otf } { }
+    \@@_setmathfont:nn { \g_@@_font_name_libertinus_math_tl .otf } { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -240,13 +333,13 @@
         ItalicFont     = *-italic,
         BoldItalicFont = *-bolditalic
       }
-    \@@_setsansfont:nn { libertinussans }
+    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
       {
         Extension      = .otf,
-        UprightFont    = *-regular,
-        BoldFont       = *-bold,
-        ItalicFont     = *-italic,
-        BoldItalicFont = *-bolditalic,
+        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
+        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
+        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
+        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl,
         Scale          = MatchUppercase
       }
     \@@_setmonofont:nn { lmmonolt10 }
@@ -267,17 +360,13 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_font_times:
   {
-    \@@_setmainfont:nn { XITS }
+    \@@_setmainfont:nn { \g_@@_font_family_xits_tl }
       {
         Extension          = .otf,
-        UprightFont        = *-Regular,
-        BoldFont           = *-Bold,
-        ItalicFont         = *-Italic,
-        BoldItalicFont     = *-BoldItalic,
-        UprightFeatures    = { SmallCapsFont = *-Regular    },
-        BoldFeatures       = { SmallCapsFont = *-Bold       },
-        ItalicFeatures     = { SmallCapsFont = *-Italic     },
-        BoldItalicFeatures = { SmallCapsFont = *-BoldItalic }
+        UprightFont        = *-\g_@@_font_style_xits_rm_tl,
+        BoldFont           = *-\g_@@_font_style_xits_bf_tl,
+        ItalicFont         = *-\g_@@_font_style_xits_it_tl,
+        BoldItalicFont     = *-\g_@@_font_style_xits_bfit_tl
       }
     \@@_setsansfont:nn { texgyreheros }
       {
@@ -296,7 +385,8 @@
         BoldItalicFont = *-bolditalic,
         Ligatures      = CommonOff
       }
-    \@@_setmathfont:nn { XITSMath-Regular.otf }{ BoldFont = XITSMath-Bold.otf }
+    \@@_setmathfont:nn { \g_@@_font_name_xits_math_rm_tl .otf }
+      { BoldFont = \g_@@_font_name_xits_math_bf_tl .otf }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -309,7 +399,8 @@
     \@@_setmainfont:nn { Times~ New~ Roman    } { }
     \@@_setsansfont:nn { Arial                } { }
     \@@_setmonofont:nn { Courier~ New         } { }
-    \@@_setmathfont:nn { XITSMath-Regular.otf }{ BoldFont = XITSMath-Bold.otf }
+    \@@_setmathfont:nn { \g_@@_font_name_xits_math_rm_tl .otf }
+      { BoldFont = \g_@@_font_name_xits_math_bf_tl .otf }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -469,8 +560,8 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_font:
   {
-    \use:c { @@_load_font_     \g_@@_font_set_tl     : }
-%<class>    \use:c { @@_load_cjk_font_ \g_@@_cjk_font_set_tl : }
+    \use:c { @@_load_font_     \g_@@_fontset_tl     : }
+%<class>    \use:c { @@_load_cjk_font_ \g_@@_cjk_fontset_tl : }
   }
 \ctex_at_end_preamble:n { \@@_load_font: }
 %    \end{macrocode}
@@ -601,4 +692,7 @@
 %</class>
 %    \end{macrocode}
 % \end{macro}
+%
+% \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母和带圈数字的
+%   显示（\pkg{ctex} v2.4.11 已默认进行处理）。}
 %

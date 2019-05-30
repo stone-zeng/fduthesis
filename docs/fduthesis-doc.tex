@@ -1467,12 +1467,17 @@
 %^^A! main matter.
 %^^A!
 %
-% \begin{function}{\tableofcontents}
-%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。
+% \begin{function}{\tableofcontents,\listoffigures,\listoftables}
+%   生成目录。为了生成完整、正确的目录，您至少需要编译\emph{两次}。对于图表
+%   较多的论文，也可以使用 \cs{listoffigures} 和 \cs{listoftables} 生成单独的
+%   插图、表格目录。
 % \end{function}
 %^^A! \begin{function}{\tableofcontents}
 %^^A!   Generate the table of contents (TOC). You need to compile
 %^^A!   the source file at least \emph{twice} to get the correct TOC.
+%^^A!   If your thesis contains many figures or tables, you may also
+%^^A!   use \cs{listoffigures} or \cs{listoftables} to generate a list
+%^^A!   of them.
 %^^A! \end{function}
 %^^A!
 %

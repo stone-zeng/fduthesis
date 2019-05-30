@@ -4,15 +4,29 @@
 
 ## [未发布]
 
+- Added
+  - 增加对插图、表格目录的处理 - [#72](https://github.com/stone-zeng/fduthesis/issues/72)
 - Fixed
-  - 修复参考文献不能在目录中显示的问题 - [#65](https://github.com/stone-zeng/fduthesis/issues/65)
+  - 兼容 Libertinus 和 XITS 字体的文件名变动
+  - 处理 `hyperref` 与 `unicode-math` 的兼容性问题 - [ustctug/ustcthesis#223](https://github.com/ustctug/ustcthesis/issues/223)
+- Improved
+  - 同步 TeX Live 2019
+
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7d...master)。
+
+## v0.7d (2019-04-03)
+
+- Changed
+  - 在（中文）字体未提供对应粗体的情况下，允许使用伪粗，并用于封面中文标题 - [#68](https://github.com/stone-zeng/fduthesis/issues/68)
+- Fixed
+  - 修复参考文献不能在目录中显示的问题 - [#65](https://github.com/stone-zeng/fduthesis/issues/65)、[#69](https://github.com/stone-zeng/fduthesis/issues/69)
   - 修复 Unix 下的安装脚本 - [#64](https://github.com/stone-zeng/fduthesis/pull/64)
     - 感谢 [@ShichaoSun](https://github.com/ShichaoSun)！
 - Improved
   - 优化目录、摘要、参考文献等的标题实现
   - 优化关键字列表的显示 - [#70](https://github.com/stone-zeng/fduthesis/issues/70)
 
-更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...master)。
+更多细节请参考 [GitHub 提交记录](https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d)。
 
 ## v0.7c (2019-03-17)
 

@@ -4,8 +4,9 @@
 %    \begin{macrocode}
 \keys_set:nn { ctex }
   {
-%<class>    contentsname = \c_@@_name_toc_tl,
-%<class-en>    contentsname = \c_@@_name_toc_en_tl,
+%<class>    contentsname   = \c_@@_name_toc_tl,
+%<class>    listfigurename = \c_@@_name_lof_tl,
+%<class>    listtablename  = \c_@@_name_lot_tl,
 %    \end{macrocode}
 %
 % 设置目录中章节标题的样式。
@@ -29,17 +30,36 @@
   }
 %    \end{macrocode}
 %
-% \begin{macro}{\tableofcontents}
-% 修改 \cs{tableofcontents} 的定义，使得页眉正确显示，并出现在目录中。原代码
-% 来自于 \LaTeXe{} 标准文档类 \file{book.cls}。
+% \changes{v0.7e}{2019/05/12}{增加对插图、表格目录的处理。}
+%
+% \begin{macro}{\tableofcontents,\listoffigures,\listoftables}
+% 修改 \cs{tableofcontents}、\cs{listoffigures} 和 \cs{listoftables} 的定义，
+% 使得页眉正确显示，并出现在目录及 PDF 书签中。来自于 \LaTeXe{} 标准文档类
+% \file{book.cls}
+% \footnote{原代码中只有 \cs{tableofcontents} 的 \cs{@mkboth} 出现在
+% \cs{chapter*} 内部，这是出于兼容性的考虑而非 typo。}。
 %    \begin{macrocode}
 \@@_patch_cmd:Nnn \tableofcontents
   {
     \chapter*{\contentsname
-      \@mkboth{%
-        \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+      \@mkboth{\MakeUppercase\contentsname}
+              {\MakeUppercase\contentsname}}
   }
   { \@@_chapter_no_toc:V \contentsname }
+\@@_patch_cmd:Nnn \listoffigures
+  {
+    \chapter*{\listfigurename}
+    \@mkboth{\MakeUppercase\listfigurename}
+            {\MakeUppercase\listfigurename}
+  }
+  { \@@_chapter:V \listfigurename }
+\@@_patch_cmd:Nnn \listoftables
+  {
+    \chapter*{\listtablename}
+    \@mkboth{\MakeUppercase\listtablename}
+            {\MakeUppercase\listtablename}
+  }
+  { \@@_chapter:V \listtablename }
 %    \end{macrocode}
 % \end{macro}
 %

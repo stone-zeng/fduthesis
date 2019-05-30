@@ -100,8 +100,7 @@
 % \begin{macro}{\@@_fn_symbol_libertinus_sans:n}
 % \opt{libertinus} 阳文无衬线版。符号排列与普通版相同。
 %    \begin{macrocode}
-\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n
-  \@@_fn_symbol_libertinus:n
+\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n \@@_fn_symbol_libertinus:n
 %    \end{macrocode}
 % \end{macro}
 %
@@ -196,17 +195,17 @@
 %    \begin{macrocode}
         \c_@@_fn_style_libertinus_tl
           {
-            \fontspec { libertinusserif-regular.otf }
+            \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
             \@@_fn_symbol_libertinus:n {#1}
           }
         \c_@@_fn_style_libertinus_neg_tl
           {
-            \fontspec { libertinusserif-regular.otf }
+            \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
             \@@_fn_symbol_libertinus_neg:n {#1}
           }
         \c_@@_fn_style_libertinus_sans_tl
           {
-            \fontspec { libertinussans-regular.otf }
+            \fontspec { \g_@@_font_name_libertinus_sans_tl .otf }
             \@@_fn_symbol_libertinus_sans:n {#1}
           }
 %    \end{macrocode}
@@ -225,17 +224,17 @@
 %    \begin{macrocode}
         \c_@@_fn_style_xits_tl
           {
-            \fontspec { XITS-Regular.otf }
+            \fontspec { \g_@@_font_name_xits_tl .otf }
             \@@_fn_symbol_xits:n {#1}
           }
         \c_@@_fn_style_xits_sans_tl
           {
-            \fontspec { XITS-Regular.otf }
+            \fontspec { \g_@@_font_name_xits_tl .otf }
             \@@_fn_symbol_xits_sans:n {#1}
           }
         \c_@@_fn_style_xits_sans_neg_tl
           {
-            \fontspec { XITS-Regular.otf }
+            \fontspec { \g_@@_font_name_xits_tl .otf }
             \@@_fn_symbol_xits_sans_neg:n {#1}
           }
       }

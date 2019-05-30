@@ -6,30 +6,22 @@ matrix:
         directories:
           - /tmp/texlive
           - $HOME/.texlive
-      script:
-        - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-xetex          test/test.tex
-        - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test/test.tex
-        - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test/test-en.tex
-        - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test/test-en.tex
-        - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
-        - texlua build.lua check --quiet --halt-on-error
-        - texlua build.lua check --quiet --halt-on-error --force --engine pdftex 06-logo
     - os: osx
       addons:
         homebrew:
           casks:
             - basictex
-          update: false
+          update: true
       install: source .travis/install-macos-basictex.sh
-      script:
-        - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-xetex          test/test.tex
-        - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test/test.tex
-        - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test/test-en.tex
-        - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test/test-en.tex
-        - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
-        # Not available at present since we are still using basictex 2018
-        # - texlua build.lua check --quiet --halt-on-error
-        - texlua build.lua check --quiet --halt-on-error --force --engine pdftex 06-logo
+
+script:
+  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-xetex          test/test.tex
+  - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test/test.tex
+  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test/test-en.tex
+  - latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test/test-en.tex
+  - latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
+  - texlua build.lua check --quiet --halt-on-error
+  - texlua build.lua check --quiet --halt-on-error --force --engine pdftex 06-logo
 
 before_script:
   - source .travis/unpack.sh
