@@ -1380,10 +1380,11 @@
 %    \begin{macrocode}
 \cs_set_protected:Npn \@@_input:n #1
   {
+    \part{#1}
     \MakePercentIgnore
     \input{#1}
     \MakePercentComment
-    \__fdudoc_end_input:n {#1}
+    % \__fdudoc_end_input:n {#1}
   }
 %    \end{macrocode}
 % \end{macro}

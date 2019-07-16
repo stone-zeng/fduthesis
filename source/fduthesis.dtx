@@ -234,7 +234,7 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %</internal>
 %
 %<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
-%<class|class-en|doc|logo>\RequirePackage{expl3}
+%<class|class-en|doc|logo>\RequirePackage[enable-debug]{expl3}
 %<*!(driver|install|ex-logo|cover)>
 %<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7d 2019-04-03 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
 %<class>  {Thesis template for Fudan University}
@@ -264,8 +264,12 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 
 \ExplSyntaxOn
 \cs_new:Npn \__fdudoc_end_input:n #1
-  { \noindent \textit { \small （以上代码位于~ \file {#1}） } }
+  { \noindent \textit { \small （以上代码位于~ \file {#1}）} }
+\tl_clear:c { cl@part }
 \ExplSyntaxOff
+
+\ctexset{part={name={}, number= \Roman{part}}}
+\def\ApTeX{Ap\TeX}
 
 \AtBeginDocument{\DeleteShortVerb\"}
 
@@ -276,26 +280,50 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
 
 \begin{document}
-  \EnableImplementation
-  \DocInput{fduthesis.dtx,
-            fduthesis-opening.dtx,
-            fduthesis-layout.dtx,
-            fduthesis-font.dtx,
-            fduthesis-cover.dtx,
-            fduthesis-front.dtx,
-            fduthesis-footnote.dtx,
-            fduthesis-theorem.dtx,
-            fduthesis-bib.dtx,
-            fduthesis-hyperref.dtx,
-            fduthesis-interface.dtx,
-            fduthesis-fdudoc.dtx,
-            fduthesis-fdulogo.dtx}
-  \IndexLayout
-  \PrintChanges
-  \PrintIndex
+
+\maketitle
+\vfill
+\begin{center}
+  \includegraphics[width=8cm]{../logo/fduthesis-cover.pdf}
+\end{center}
+\vfill
+\thispagestyle{plain}
+\clearpage
+
+\tableofcontents
+
+\EnableImplementation
+% 代码部分的页边距
+\newgeometry{
+  left      = 2.00 in,
+  right     = 1.25 in,
+  top       = 1.25 in,
+  bottom    = 1.00 in,
+  marginpar = 2.00 in,
+  showframe = true
+}
+\DocInput{fduthesis.dtx,
+          fduthesis-opening.dtx,
+          fduthesis-layout.dtx,
+          fduthesis-font.dtx,
+          fduthesis-cover.dtx,
+          fduthesis-front.dtx,
+          fduthesis-footnote.dtx,
+          fduthesis-theorem.dtx,
+          fduthesis-bib.dtx,
+          fduthesis-hyperref.dtx,
+          fduthesis-interface.dtx,
+          fduthesis-fdudoc.dtx,
+          fduthesis-fdulogo.dtx}
+\IndexLayout
+\PrintChanges
+\PrintIndex
+
 \end{document}
 %</driver>
 % \fi
+%
+% \begin{implementation}
 %
 % \changes{v0.1}{2017/02/15}{开始编写模板。}
 % \changes{v0.2}{2017/02/19}{使用 Git 进行版本控制，并发布至 GitHub。}
@@ -318,31 +346,6 @@ Copyright (C) 2017&ndash;2019 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7a}{2018/04/09}{更新文档，发布至 CTAN。}
 % \changes{v0.7b}{2018/04/29}{支持 \TeXLive{} 2018。}
 % \changes{v0.7b}{2018/05/06}{将校名、校徽图片添加至发行版。}
-%
-% \CheckSum{0}
-%
-% \maketitle
-% \vfill
-% \begin{center}
-%   \includegraphics[width=8cm]{../logo/fduthesis-cover.pdf}
-% \end{center}
-% \vfill
-% \thispagestyle{plain}
-% \clearpage
-%
-% \tableofcontents
-%
-%^^A 代码部分的页边距
-% \newgeometry{
-%   left      = 2.00 in,
-%   right     = 1.25 in,
-%   top       = 1.25 in,
-%   bottom    = 1.00 in,
-%   marginpar = 2.00 in,
-%   showframe = true
-% }
-%
-% \begin{implementation}
 %
 % \section{概要}
 %
