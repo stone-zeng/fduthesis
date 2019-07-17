@@ -19,134 +19,109 @@
 %
 % \begin{implementation}
 %
-% \section{页面布局}
-%
-% 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。这里，
-% $\SI{2.54}{\centi\meter}=\SI{1}{in}$，
-% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
 %    \begin{macrocode}
-\geometry
+% Template
+\DeclareObjectType { fduthesis } { \c_zero_int }
+
+\DeclareTemplateInterface { fduthesis } { main } { \c_zero_int }
   {
-    paper      = a4paper,
-    vmargin    = 2.54 cm,
-    hmargin    = 3.18 cm,
-    headheight = 15 pt
+    geometry          : commalist,
+
+    page-style        : tokenlist,
+    page-style*       : tokenlist,
+
+    chapter           : commalist,
+    section           : commalist,
+    subsection        : commalist,
+    subsubsection     : commalist,
+    paragraph         : commalist,
+    subparagraph      : commalist,
+
+    figure-caption    : commalist,
+    table-caption     : commalist,
+    algorithm-caption : commalist,
+    figure-number     : tokenlist,
+    table-number      : tokenlist,
+    algorithm-number  : tokenlist,
   }
-%    \end{macrocode}
-%
-% 草稿模式下显示页面边框及页眉、页脚线 。
-%    \begin{macrocode}
-\bool_if:NT \g_@@_draft_bool { \geometry { showframe } }
-%    \end{macrocode}
-%
-% \section{页眉页脚}
-%
-% 清除默认页眉页脚格式。
-%    \begin{macrocode}
-\fancyhf { }
-%    \end{macrocode}
-%
-% \begin{variable}{\l_@@_header_center_mark_tl}
-% 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为相应标题。
-%    \begin{macrocode}
-\tl_new:N \l_@@_header_center_mark_tl
-%    \end{macrocode}
-% \end{variable}
-%
-% 构建页眉，要在单面或双面下分别设置。
-%
-% \cs{fancyhead} 的选项中，\opt{E} 和 \opt{O} 分别表示偶数（even）
-% 和奇数（odd）， 而 \opt{L}、\opt{R} 和 \opt{C} 则分别表示左
-% （left）、右（right）和中间（center）。按照通常的排版规则，
-% 在双面模式下，偶数页的中间页眉文字在左，奇数页则在右。单面模式下，
-% 左右页眉都要显示。
-%    \begin{macrocode}
-\bool_if:NTF \g_@@_twoside_bool
-%<*class>
+
+\DeclareTemplateCode { fduthesis } { main } { \c_zero_int }
   {
-    \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
-    \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
+    geometry          = \l_@@_geometry_clist,
+    page-style        = \l_@@_page_style_tl,
+    page-style*       = \l_@@_page_style_at_chapter_tl,
+    chapter           = \l_@@_chapter_style_clist,
+    section           = \l_@@_section_style_clist,
+    subsection        = \l_@@_subsection_style_clist,
+    subsubsection     = \l_@@_subsubsection_style_clist,
+    paragraph         = \l_@@_paragraph_style_clist,
+    subparagraph      = \l_@@_subparagraph_style_clist,
+    figure-caption    = \l_@@_figure_caption_clist,
+    table-caption     = \l_@@_table_caption_clist,
+    algorithm-caption = \l_@@_algorithm_caption_clist,
+    figure-number     = \l_@@_figure_number_tl,
+    table-number      = \l_@@_table_number_tl,
+    algorithm-number  = \l_@@_algorithm_number_tl,
   }
   {
-    \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
-    \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
-    \fancyhead [ C ]
+    \AssignTemplateKeys
+
+    \exp_args:No \geometry { \l_@@_geometry_clist }
+
+    \exp_args:Nno \fancypagestyle { fdu-page-style            } { \l_@@_page_style_tl }
+    \exp_args:Nno \fancypagestyle { fdu-page-style-at-chapter } { \l_@@_page_style_at_chapter_tl }
+    \pagestyle { fdu-page-style }
+    \keys_set:nx { ctex } { chapter / pagestyle = fdu-page-style-at-chapter }
+
+    \keys_set:nx { ctex }
       {
-        \small \nouppercase
-          { \fdu@kai \l_@@_header_center_mark_tl }
+        chapter       = { \exp_not:o { \l_@@_chapter_style_clist       } },
+        section       = { \exp_not:o { \l_@@_section_style_clist       } },
+        subsection    = { \exp_not:o { \l_@@_subsection_style_clist    } },
+        subsubsection = { \exp_not:o { \l_@@_subsubsection_style_clist } },
+        paragraph     = { \exp_not:o { \l_@@_paragraph_style_clist     } },
+        subparagraph  = { \exp_not:o { \l_@@_subparagraph_style_clist  } },
       }
+
+      \@@_caption_setup:no { figure    } { \l_@@_figure_caption_clist    }
+      \@@_caption_setup:no { table     } { \l_@@_table_caption_clist     }
+      \@@_caption_setup:no { algorithm } { \l_@@_algorithm_caption_clist }
+
+      \cs_set_eq:NN \thefigure    \l_@@_figure_number_tl
+      \cs_set_eq:NN \thetable     \l_@@_table_number_tl
+      \cs_set_eq:NN \thealgorithm \l_@@_algorithm_number_tl  % TODO: if exist
   }
-%</class>
-%<*class-en>
+
+\cs_new:Npn \@@_geometry_setup:n #1   { \geometry {#1} }
+\cs_new:Npn \@@_page_style:n     #1   { \pagestyle {#1} }
+\cs_new:Npn \@@_caption_setup:nn #1#2 { \captionsetup [#1] {#2} }
+\cs_generate_variant:Nn \@@_geometry_setup:n { o  }
+\cs_generate_variant:Nn \@@_caption_setup:nn { no }
+
+\DeclareInstance { fduthesis } { default } { main }
   {
-    \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
-    \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
-  }
-  {
-    \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
-    \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
-    \fancyhead [ C ]
+    geometry =
       {
-        \small \nouppercase
-          { \itshape \l_@@_header_center_mark_tl }
-      }
-  }
-%</class-en>
-%    \end{macrocode}
-%
-% 构建页脚，用来显示页码。选项 \opt{C} 表示居中（center）。
-%    \begin{macrocode}
-\fancyfoot [ C ] { \small \thepage }
-%    \end{macrocode}
-%
-% 关闭横线显示（未启用）。
-%    \begin{macrocode}
-% \RenewDocumentCommand \headrulewidth { } { 0 pt }
-%    \end{macrocode}
-%
-% \begin{macro}{\cleardoublepage}
-% 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时也不显示页眉页脚，见
-% \url{https://tex.stackexchange.com/a/1683}。最后清空中间页眉，确保正文部分
-% 页眉显示正确。
-%    \begin{macrocode}
-\RenewDocumentCommand \cleardoublepage { }
-  {
-    \clearpage
-    \bool_if:NT \g_@@_twoside_bool
+        paper      = a4paper,
+        vmargin    = 2.54 cm,
+        hmargin    = 3.18 cm,
+        headheight = 15 pt
+      },
+    page-style =
       {
-        \int_if_odd:nF \c@page
-          { \hbox:n { } \thispagestyle { empty } \newpage }
-      }
-    \tl_gset:Nn \l_@@_header_center_mark_tl { }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \pkg{ctex} 宏包使用 \opt{heading} 选项后，会把页面格式设置为 |headings|。
-% 因此必须在 \pkg{ctex} 调用之后重新设置 \cs{pagestyle} 为 |fancy|。
-%    \begin{macrocode}
-\pagestyle { fancy }
-%    \end{macrocode}
-%
-% \section{章节标题结构}
-%
-% |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
-%    \begin{macrocode}
-\keys_set:nn { ctex }
-  {
-%    \end{macrocode}
-% 设置章（chapter）、节（section）与小节（sub-section）标题样式。
-% 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
-%    \begin{macrocode}
+        \fancyhf { }
+        \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
+        \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
+        \fancyfoot [ C ] { \small \thepage }
+      },
+    page-style* =
+      {
+        \fancyfoot [ C ] { \small \thepage }
+        \cs_set:Npn \headrulewidth { 0 pt }
+      },
     chapter =
       {
-%<class>        format      = \huge \normalfont \sffamily \centering,
-%<*class-en>
-        format      = \centering,
-        nameformat  = \LARGE \bfseries,
-        titleformat = \huge \bfseries,
-        aftername   = \par \nobreak \vskip 10 pt,
-%</class-en>
+        format      = \huge \normalfont \sffamily \centering,
         beforeskip  = 50 pt,
         afterskip   = 40 pt,
         number      = \@@_arabic:n { chapter },
@@ -154,23 +129,190 @@
       },
     section =
       {
-%<class>        format      = \Large \normalfont \sffamily \raggedright,
-%<class-en>        format      = \Large \bfseries \raggedright,
+        format      = \Large \normalfont \sffamily \raggedright,
         beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
         afterskip   = 2.7 ex plus 0.5 ex,
         fixskip     = true
       },
     subsection =
       {
-%<class>        format      = \large \normalfont \sffamily \raggedright,
-%<class-en>        format      = \large \bfseries \raggedright,
+        format      = \large \normalfont \sffamily \raggedright,
         beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
         afterskip   = 2.5  ex plus 0.3 ex,
         fixskip     = true
-      }
+      },
+
+      figure-caption =
+        {
+          font     = small,
+          labelsep = quad
+        },
+      table-caption =
+        {
+          font     = { small, sf },
+          labelsep = quad
+        },
+      figure-number = { \@@_arabic:n { chapter } - \@@_arabic:n { figure } },
+      table-number  = { \@@_arabic:n { chapter } - \@@_arabic:n { table  } },
   }
+
+\UseInstance { fduthesis } { default }
+\debug_off:n { all }
+
 %    \end{macrocode}
 %
+%^^A % \section{页面布局}
+%^^A %
+%^^A % 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。这里，
+%^^A % $\SI{2.54}{\centi\meter}=\SI{1}{in}$，
+%^^A % $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
+%^^A %    \begin{macrocode}
+%^^A \geometry
+%^^A   {
+%^^A     paper      = a4paper,
+%^^A     vmargin    = 2.54 cm,
+%^^A     hmargin    = 3.18 cm,
+%^^A     headheight = 15 pt
+%^^A   }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % 草稿模式下显示页面边框及页眉、页脚线 。
+%^^A %    \begin{macrocode}
+%^^A \bool_if:NT \g_@@_draft_bool { \geometry { showframe } }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % \section{页眉页脚}
+%^^A %
+%^^A % 清除默认页眉页脚格式。
+%^^A %    \begin{macrocode}
+%^^A \fancyhf { }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % \begin{variable}{\l_@@_header_center_mark_tl}
+%^^A % 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为相应标题。
+%^^A %    \begin{macrocode}
+%^^A \tl_new:N \l_@@_header_center_mark_tl
+%^^A %    \end{macrocode}
+%^^A % \end{variable}
+%^^A %
+%^^A % 构建页眉，要在单面或双面下分别设置。
+%^^A %
+%^^A % \cs{fancyhead} 的选项中，\opt{E} 和 \opt{O} 分别表示偶数（even）
+%^^A % 和奇数（odd）， 而 \opt{L}、\opt{R} 和 \opt{C} 则分别表示左
+%^^A % （left）、右（right）和中间（center）。按照通常的排版规则，
+%^^A % 在双面模式下，偶数页的中间页眉文字在左，奇数页则在右。单面模式下，
+%^^A % 左右页眉都要显示。
+%^^A %    \begin{macrocode}
+%^^A \bool_if:NTF \g_@@_twoside_bool
+%^^A %<*class>
+%^^A   {
+%^^A     \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
+%^^A     \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
+%^^A   }
+%^^A   {
+%^^A     \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
+%^^A     \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
+%^^A     \fancyhead [ C ]
+%^^A       {
+%^^A         \small \nouppercase
+%^^A           { \fdu@kai \l_@@_header_center_mark_tl }
+%^^A       }
+%^^A   }
+%^^A %</class>
+%^^A %<*class-en>
+%^^A   {
+%^^A     \fancyhead [ EL ] { \small \nouppercase { \itshape \leftmark  } }
+%^^A     \fancyhead [ OR ] { \small \nouppercase { \itshape \rightmark } }
+%^^A   }
+%^^A   {
+%^^A     \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
+%^^A     \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
+%^^A     \fancyhead [ C ]
+%^^A       {
+%^^A         \small \nouppercase
+%^^A           { \itshape \l_@@_header_center_mark_tl }
+%^^A       }
+%^^A   }
+%^^A %</class-en>
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % 构建页脚，用来显示页码。选项 \opt{C} 表示居中（center）。
+%^^A %    \begin{macrocode}
+%^^A \fancyfoot [ C ] { \small \thepage }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % 关闭横线显示（未启用）。
+%^^A %    \begin{macrocode}
+%^^A % \RenewDocumentCommand \headrulewidth { } { 0 pt }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % \begin{macro}{\cleardoublepage}
+%^^A % 重定义 \tn{cleardoublepage}，使得偶数页面在没有内容时也不显示页眉页脚，见
+%^^A % \url{https://tex.stackexchange.com/a/1683}。最后清空中间页眉，确保正文部分
+%^^A % 页眉显示正确。
+%^^A %    \begin{macrocode}
+%^^A \RenewDocumentCommand \cleardoublepage { }
+%^^A   {
+%^^A     \clearpage
+%^^A     \bool_if:NT \g_@@_twoside_bool
+%^^A       {
+%^^A         \int_if_odd:nF \c@page
+%^^A           { \hbox:n { } \thispagestyle { empty } \newpage }
+%^^A       }
+%^^A     \tl_gset:Nn \l_@@_header_center_mark_tl { }
+%^^A   }
+%^^A %    \end{macrocode}
+%^^A % \end{macro}
+%^^A %
+%^^A % \pkg{ctex} 宏包使用 \opt{heading} 选项后，会把页面格式设置为 |headings|。
+%^^A % 因此必须在 \pkg{ctex} 调用之后重新设置 \cs{pagestyle} 为 |fancy|。
+%^^A %    \begin{macrocode}
+%^^A \pagestyle { fancy }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % \section{章节标题结构}
+%^^A %
+%^^A % |\keys_set:nn{ctex}| 实际相当于 \cs{ctexset}。
+%^^A %    \begin{macrocode}
+%^^A \keys_set:nn { ctex }
+%^^A   {
+%^^A %    \end{macrocode}
+%^^A % 设置章（chapter）、节（section）与小节（sub-section）标题样式。
+%^^A % 此处使用 \kvopt{fixskip}{true} 选项来抑制前后的多余间距。
+%^^A %    \begin{macrocode}
+%^^A     chapter =
+%^^A       {
+%^^A %<class>        format      = \huge \normalfont \sffamily \centering,
+%^^A %<*class-en>
+%^^A         format      = \centering,
+%^^A         nameformat  = \LARGE \bfseries,
+%^^A         titleformat = \huge \bfseries,
+%^^A         aftername   = \par \nobreak \vskip 10 pt,
+%^^A %</class-en>
+%^^A         beforeskip  = 50 pt,
+%^^A         afterskip   = 40 pt,
+%^^A         number      = \@@_arabic:n { chapter },
+%^^A         fixskip     = true
+%^^A       },
+%^^A     section =
+%^^A       {
+%^^A %<class>        format      = \Large \normalfont \sffamily \raggedright,
+%^^A %<class-en>        format      = \Large \bfseries \raggedright,
+%^^A         beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
+%^^A         afterskip   = 2.7 ex plus 0.5 ex,
+%^^A         fixskip     = true
+%^^A       },
+%^^A     subsection =
+%^^A       {
+%^^A %<class>        format      = \large \normalfont \sffamily \raggedright,
+%^^A %<class-en>        format      = \large \bfseries \raggedright,
+%^^A         beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
+%^^A         afterskip   = 2.5  ex plus 0.3 ex,
+%^^A         fixskip     = true
+%^^A       }
+%^^A   }
+%^^A %    \end{macrocode}
+%^^A %
 % \changes{v0.7d}{2019/03/24}{优化目录、摘要、参考文献等的标题实现。}
 %
 % \begin{macro}{\@@_chapter:n,\@@_chapter:V}
@@ -216,35 +358,35 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%
-% \section{图表绘制；浮动体}
-%
-% \changes{v0.3}{2017/07/09}{支持浮动体。}
-%
-% 分别设置浮动体 \env{figure} 和 \env{table} 的标题样式。
-%    \begin{macrocode}
-\captionsetup [ figure ]
-  {
-    font     = small,
-    labelsep = quad
-  }
-\captionsetup [ table  ]
-  {
-    font     = { small, sf },
-    labelsep = quad
-  }
-%    \end{macrocode}
-%
-% \begin{macro}{\thefigure,\thetable}
-% \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
-% 重定义图表编号。
-%    \begin{macrocode}
-\cs_set:Npn \thefigure
-  { \@@_arabic:n { chapter } - \@@_arabic:n { figure } }
-\cs_set:Npn \thetable
-  { \@@_arabic:n { chapter } - \@@_arabic:n { table  } }
-%    \end{macrocode}
-% \end{macro}
+%^^A %
+%^^A % \section{图表绘制；浮动体}
+%^^A %
+%^^A % \changes{v0.3}{2017/07/09}{支持浮动体。}
+%^^A %
+%^^A % 分别设置浮动体 \env{figure} 和 \env{table} 的标题样式。
+%^^A %    \begin{macrocode}
+%^^A \captionsetup [ figure ]
+%^^A   {
+%^^A     font     = small,
+%^^A     labelsep = quad
+%^^A   }
+%^^A \captionsetup [ table  ]
+%^^A   {
+%^^A     font     = { small, sf },
+%^^A     labelsep = quad
+%^^A   }
+%^^A %    \end{macrocode}
+%^^A %
+%^^A % \begin{macro}{\thefigure,\thetable}
+%^^A % \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
+%^^A % 重定义图表编号。
+%^^A %    \begin{macrocode}
+%^^A \cs_set:Npn \thefigure
+%^^A   { \@@_arabic:n { chapter } - \@@_arabic:n { figure } }
+%^^A \cs_set:Npn \thetable
+%^^A   { \@@_arabic:n { chapter } - \@@_arabic:n { table  } }
+%^^A %    \end{macrocode}
+%^^A % \end{macro}
 %
 % \end{implementation}
 %
