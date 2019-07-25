@@ -89,7 +89,7 @@
     %   mapping   所有的 “。” 会被替换为 “．”（使用 LuaLaTeX 编译则无效）
     %   false     不进行替换
     %
-    % footnote-style = pifont,
+    footnote-style = xits,
     % 脚注编号样式
     % 允许选项：
     %   footnote-style = plain|libertinus|libertinus*|libertinus-sans|
@@ -108,7 +108,7 @@
     %                     business|science|summer|autumn|graylevel|prl
     % 默认与西文字体保持一致
     %
-    bib-backend = bibtex,
+    bib-backend = biblatex,
     % 参考文献支持方式
     % 允许选项：
     %   bib-backend = bibtex|biblatex
@@ -127,7 +127,7 @@
     % 默认为空，即与参考文献样式保持一致
     % 仅适用于 biblatex；如要填写，需保证相应的 .cbx 格式文件能被调用
     %
-    % bib-resource = {<文件>},
+    bib-resource = {fduthesis-template.bib},
     % 参考文献数据源
     % 可以是单个文件，也可以是用英文逗号 “,” 隔开的一组文件
     % 如果使用 biblatex，则必须明确给出 .bib 后缀名
@@ -228,16 +228,28 @@
   }
 }
 
+% 需要的宏包可以自行调用
+\usepackage{physics}
+
+% 需要的命令可以自行定义
+\newcommand{\hilbertH}{\symcal{H}}
+\newcommand{\ee}{\symrm{e}}
+\newcommand{\ii}{\symrm{i}}
+
 \begin{document}
 
-% \raggedbottom
 % 这个命令用来关闭版心底部强制对齐，可以减少不必要的 underfull \vbox 提示，但会影响排版效果
+% \raggedbottom
 
-\frontmatter
 % 前置部分包含目录、中英文摘要以及符号表等
+\frontmatter
 
-\tableofcontents
 % 目录
+\tableofcontents
+% 插图目录
+\listoffigures
+% 表格目录
+% \listoftables
 
 \begin{abstract}
   中文摘要
@@ -247,14 +259,6 @@
   English abstract
 \end{abstract*}
 
-\begin{notation}
-  $x$                          & 坐标        \\
-  $p$                          & 动量        \\
-  $\psi(x)$                    & 波函数      \\
-  $\langle x |$                & 左矢（bra） \\
-  $| x \rangle$                & 右矢（ket） \\
-  $\langle\alpha|\beta\rangle$ & 内积        \\
-\end{notation}
 % 符号表
 % 语法与 LaTeX 表格一致：列用 & 区分，行用 \\ 区分
 % 如需修改格式，可以使用可选参数：
@@ -264,9 +268,18 @@
 %   \end{notation}
 % 可选参数与 LaTeX 标准表格的列格式说明语法一致
 % 这里的 “ll” 表示两列均为自动宽度，并且左对齐
+\begin{notation}[ll]
+  $x$                  & 坐标        \\
+  $p$                  & 动量        \\
+  $\psi(x)$            & 波函数      \\
+  $\bra{x}$            & 左矢（bra） \\
+  $\ket{x}$            & 右矢（ket） \\
+  $\ip{\alpha}{\beta}$ & 内积        \\
+\end{notation}
 
-\mainmatter
 % 主体部分是论文的核心
+\mainmatter
+
 % 建议采用多文件编译的方式
 % 比较好的做法是把每一章放进一个单独的 tex 文件里，并在这里用 \include 导入，例如
 %   \include{chapter1}
@@ -275,20 +288,95 @@
 
 \chapter{介绍}
 
+\strong{量子力学}是物理学的分支学科。它主要描写微观的事物，与相对论一起被认为是现代物理学的两大
+基本支柱，许多物理学理论和科学，如原子物理学、固体物理学、核物理学和粒子物理学以及其它相关的学科，
+都是以其为基础\cite{曾谨言2013量子力学,feynman2011feynman}。
+
 \section{量子力学历史概要}
 
 \section{研究对象}
 
 \section{研究方法}
 
-\chapter{核心定理证明}
+\chapter{数学基础}
+
+\section{基础公设}
+
+整个量子力学的数学理论可以建立于五个基础公设。这些公设不能被严格推导出来的，而是从实验结果仔细分析
+归纳总结而得到的。从这五个公设，可以推导出整个量子力学。假若量子力学的理论结果不符合实验结果，
+则必须将这些基础公设加以修改，直到没有任何不符合之处。至今为止，量子力学已被实验核对至极高准确度，
+还没有找到任何与理论不符合的实验结果，虽然有些理论很难直觉地用经典物理的概念来理解，例如，波粒
+二象性、量子纠缠等等\cite{zurek2014quantum,cohen2013claude,zettili2003quantum}。
+
+\begin{enumerate}
+  \item 量子态公设：量子系统在任意时刻的状态（量子态）可以由希尔伯特空间 $\hilbertH$ 中的态矢量
+    $\ket{\psi}$ 来设定，这态矢量完备地给出了这量子系统的所有信息。这公设意味着量子系统遵守%
+    \emph{态叠加原理}，假若 $\ket*{\psi_1}$、$\ket*{\psi_2}$ 属于希尔伯特空间 $\hilbertH$，则
+    $c_1\ket*{\psi_1} + c_2\ket*{\psi_2}$ 也属于希尔伯特空间 $\hilbertH$。
+  \item 时间演化公设： 态矢量为 $\ket{\psi(t)}$ 的量子系统，其动力学演化可以用薛定谔方程表示：
+    \begin{equation}
+      \ii\hbar \pdv{t} \ket{\psi(t)} = \hat{H} \ket{\psi(t)}.
+    \end{equation}
+    其中，哈密顿算符 $\hat{H}$ 对应于量子系统的总能量，$\hbar$ 是约化普朗克常数。根据薛定谔方程，
+    假设时间从 $t_0$ 变化到 $t$，则态矢量从 $\ket*{\psi(t_0)}$ 演化到 $\ket{\psi(t)}$，该过程以
+    方程表示为
+    \begin{equation}
+      \ket{\psi(t)} = \hat{U}(t,\,t_0) \ket*{\psi(t_0)}.
+    \end{equation}
+    其中 $\hat{U}(t,\,t_0) = \ee^{-\ii\hat{H}(t-t_0) / \hbar}$ 是时间演化算符。
+  \item 可观察量公设：每个可观察量 $A$ 都有其对应的厄米算符 $\hat{A}$，而算符 $\hat{A}$ 的所有
+    本征矢量共同组成一个完备基底。
+  \item 坍缩公设：对于量子系统测量某个可观察量 $A$ 的过程，可以数学表示为将对应的厄米算符
+    $\hat{A}$ 作用于量子系统的态矢量 $\ket{\psi}$，测量值只能为厄米算符 $\hat{A}$ 的本征值。
+    在测量后，假设测量值为 $a_i$，则量子系统的量子态立刻会坍缩为对应于本征值 $a_i$ 的本征态
+    $\ket*{e_i}$。
+  \item 波恩公设：对于这测量，获得本征值 $a_i$ 的概率为量子态 $\ket{\psi}$ 处于本征态 $\ket*{e_i}$
+    的概率幅的绝对值平方。\footnote{%
+      使用可观察量 $A$ 的基底 $\qty{e_1,\,e_2,\,\ldots,\,e_n}$，量子态 $\ket{\psi}$ 可以表示为
+      $\ket{\psi} = \sum_j c_j \ket*{e_j}$，其中 $c_j$ 是量子态 $\ket{\psi}$ 处于本征态
+      $\ket*{e_j}$ 的概率幅。根据波恩定则，对于此次测量，获得本征值 $a_i$ 的概率为
+      $\abs*{\ip*{e_i}{\psi}}^2 = \abs*{c_i}^2$。}
+\end{enumerate}
+
+\section{量子态与量子算符}
+
+量子态指的是量子系统的状态，态矢量可以用来抽象地表现量子态。采用狄拉克标记，态矢量表示为右矢
+$\ket{\psi}$；其中，在符号内部的希腊字母 $\psi$ 可以是任何符号、字母、数字，或单字。例如，
+沿着磁场方向测量电子的自旋，得到的结果可以是上旋或是下旋，分别标记为 $\ket{\uparrow}$ 和
+$\ket{\downarrow}$。
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.5\textwidth]{stern-gerlach-experiment.png}
+  \caption[施特恩—格拉赫实验]{%
+    设定施特恩—格拉赫实验仪器的磁场方向为 $z$-轴，入射的银原子束可以被分裂成两道银原子束，每一道
+    银原子束代表一种量子态，上旋 $\ket{\uparrow}$ 或下旋 $\ket{\downarrow}$%
+    \cite{wikimedia:stern-gerlach-experiment}。}
+  \label{fig:stern-gerlach-experiment}
+\end{figure}
+
+对量子态做操作定义，量子态可以从一系列制备程序来辨认，即这程序所制成的量子系统拥有这量子态。例如，
+使用施特恩—格拉赫实验仪器，设定磁场朝着 $z$-轴方向，如图~\ref{fig:stern-gerlach-experiment} 所示，
+可以将入射的银原子束，依照自旋的 $z$-分量分裂成两道，一道为上旋，量子态为 $\ket{\uparrow}$；另一道
+为下旋，量子态为 $\ket{\downarrow}$，这样，可以制备成量子态为 $\ket{\uparrow}$ 的银原子束，或量子态
+为 $\ket{\downarrow}$ 的银原子束。原本银原子束的态矢量可以按照态叠加原理表示为
+\begin{equation}
+  \ket{\psi} = \alpha \ket{\uparrow} + \beta \ket{\downarrow}.
+\end{equation}
+其中，$\alpha$、$\beta$ 是复值系数，$\abs{\alpha}^2$、$\abs{\beta}^2$ 分别为入射银原子束处于上旋、
+下旋的概率，且有
+\begin{equation}
+  \abs{\alpha}^2 + \abs{\beta}^2 = 1.
+\end{equation}
+
+\section{动力学演化}
 
 \chapter{总结与展望}
 
-\backmatter
 % 后置部分包含参考文献、声明页（自动生成）等
+\backmatter
 
-% \printbibliography
 % 打印参考文献列表
+\printbibliography
 
 \end{document}
