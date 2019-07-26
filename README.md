@@ -1,7 +1,7 @@
 # fduthesis
 
 [![Build Status](https://img.shields.io/travis/stone-zeng/fduthesis.svg)](https://travis-ci.org/stone-zeng/fduthesis)
-[![Overleaf](https://img.shields.io/badge/overleaf-fduthesis-blue.svg)](https://www.overleaf.com/latex/templates/fduthesis-latex-thesis-template-for-fudan-university/myqcrkbxcvmj)
+[![Overleaf](https://img.shields.io/badge/overleaf-fduthesis-blue.svg)](https://www.overleaf.com/latex/templates/fduthesis-latex-thesis-template-for-fudan-university/mdqpbbqhndnb)
 [![CTAN](https://img.shields.io/ctan/v/fduthesis.svg)](https://www.ctan.org/pkg/fduthesis)
 [![GitHub release](https://img.shields.io/github/release/stone-zeng/fduthesis/all.svg)](https://github.com/stone-zeng/fduthesis/releases/latest)
 
