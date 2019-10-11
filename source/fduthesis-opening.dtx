@@ -405,18 +405,47 @@
     \bool_gset_false:N \g_@@_text_fonts_bool
     \bool_gset_false:N \g_@@_math_fonts_bool
   }
-\exp_args:NNnx \prg_new_conditional:Npnn \@@_if_set_text_fonts: { T, F, TF }
+% \exp_args:NNnx \prg_new_conditional:Npnn \fdu_if_set_text_fonts: { T, F, TF }
+%   {
+%     \bool_if:NTF \g_@@_text_fonts_bool
+%       { \exp_not:N \prg_return_true:  }
+%       { \exp_not:N \prg_return_false: }
+%   }
+% \exp_args:NNnx \prg_new_conditional:Npnn \fdu_if_set_math_fonts: { T, F, TF }
+%   {
+%     \bool_if:NTF \g_@@_math_fonts_bool
+%       { \exp_not:N \prg_return_true:  }
+%       { \exp_not:N \prg_return_false: }
+%   }
+%    \end{macrocode}
+%
+% Define:
+% - \fdu_if_twoside:TF
+% - \fdu_if_draft:TF
+% - \fdu_if_print:TF
+% - \fdu_if_set_text_fonts:TF
+% - \fdu_if_set_math_fonts:TF
+% etc.
+%    \begin{macrocode}
+\cs_set:Npn \@@_tmp:w #1#2
   {
-    \bool_if:NTF \g_@@_text_fonts_bool
-      { \exp_not:N \prg_return_true:  }
-      { \exp_not:N \prg_return_false: }
+    \exp_args:NNnx \prg_new_conditional:Npnn #1 { T, F, TF }
+      {
+        \bool_if:NTF #2
+          { \exp_not:N \prg_return_true:  }
+          { \exp_not:N \prg_return_false: }
+      }
   }
-\exp_args:NNnx \prg_new_conditional:Npnn \@@_if_set_math_fonts: { T, F, TF }
+\clist_map_inline:nn
   {
-    \bool_if:NTF \g_@@_math_fonts_bool
-      { \exp_not:N \prg_return_true:  }
-      { \exp_not:N \prg_return_false: }
+    \fdu_if_twoside:        \g_@@_twoside_bool    ,
+    \fdu_if_draft:          \g_@@_draft_bool      ,
+    \fdu_if_print:          \g_@@_print_bool      ,
+    \fdu_if_set_text_fonts: \g_@@_text_fonts_bool ,
+    \fdu_if_set_math_fonts: \g_@@_math_fonts_bool ,
   }
+  { \@@_tmp:w #1 }
+\cs_undefine:N \@@_tmp:w
 %    \end{macrocode}
 %
 % \section{载入宏包、文档类}

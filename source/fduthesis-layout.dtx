@@ -21,105 +21,42 @@
 %
 %    \begin{macrocode}
 % Template
-\DeclareObjectType { fduthesis } { \c_zero_int }
+\DeclareObjectType { fdu / layout } { \c_zero_int }
 
-\DeclareTemplateInterface { fduthesis } { main } { \c_zero_int }
+\DeclareTemplateInterface { fdu / layout } { main } { \c_zero_int }
   {
-    geometry          : commalist,
-
-    page-style        : tokenlist,
-    page-style*       : tokenlist,
-
-    chapter           : commalist,
-    section           : commalist,
-    subsection        : commalist,
-    subsubsection     : commalist,
-    paragraph         : commalist,
-    subparagraph      : commalist,
-
-    figure-caption    : commalist,
-    table-caption     : commalist,
-    algorithm-caption : commalist,
-    figure-number     : tokenlist,
-    table-number      : tokenlist,
-    algorithm-number  : tokenlist,
-  }
-
-\DeclareTemplateCode { fduthesis } { main } { \c_zero_int }
-  {
-    geometry          = \l_@@_geometry_clist,
-    page-style        = \l_@@_page_style_tl,
-    page-style*       = \l_@@_page_style_at_chapter_tl,
-    chapter           = \l_@@_chapter_style_clist,
-    section           = \l_@@_section_style_clist,
-    subsection        = \l_@@_subsection_style_clist,
-    subsubsection     = \l_@@_subsubsection_style_clist,
-    paragraph         = \l_@@_paragraph_style_clist,
-    subparagraph      = \l_@@_subparagraph_style_clist,
-    figure-caption    = \l_@@_figure_caption_clist,
-    table-caption     = \l_@@_table_caption_clist,
-    algorithm-caption = \l_@@_algorithm_caption_clist,
-    figure-number     = \l_@@_figure_number_tl,
-    table-number      = \l_@@_table_number_tl,
-    algorithm-number  = \l_@@_algorithm_number_tl,
-  }
-  {
-    \AssignTemplateKeys
-
-    \exp_args:No \geometry { \l_@@_geometry_clist }
-
-    \exp_args:Nno \fancypagestyle { fdu-page-style            } { \l_@@_page_style_tl }
-    \exp_args:Nno \fancypagestyle { fdu-page-style-at-chapter } { \l_@@_page_style_at_chapter_tl }
-    \pagestyle { fdu-page-style }
-    \keys_set:nx { ctex } { chapter / pagestyle = fdu-page-style-at-chapter }
-
-    \keys_set:nx { ctex }
-      {
-        chapter       = { \exp_not:o { \l_@@_chapter_style_clist       } },
-        section       = { \exp_not:o { \l_@@_section_style_clist       } },
-        subsection    = { \exp_not:o { \l_@@_subsection_style_clist    } },
-        subsubsection = { \exp_not:o { \l_@@_subsubsection_style_clist } },
-        paragraph     = { \exp_not:o { \l_@@_paragraph_style_clist     } },
-        subparagraph  = { \exp_not:o { \l_@@_subparagraph_style_clist  } },
-      }
-
-      \@@_caption_setup:no { figure    } { \l_@@_figure_caption_clist    }
-      \@@_caption_setup:no { table     } { \l_@@_table_caption_clist     }
-      \@@_caption_setup:no { algorithm } { \l_@@_algorithm_caption_clist }
-
-      \cs_set_eq:NN \thefigure    \l_@@_figure_number_tl
-      \cs_set_eq:NN \thetable     \l_@@_table_number_tl
-      \cs_set_eq:NN \thealgorithm \l_@@_algorithm_number_tl  % TODO: if exist
-  }
-
-\cs_new:Npn \@@_geometry_setup:n #1   { \geometry {#1} }
-\cs_new:Npn \@@_page_style:n     #1   { \pagestyle {#1} }
-\cs_new:Npn \@@_caption_setup:nn #1#2 { \captionsetup [#1] {#2} }
-\cs_generate_variant:Nn \@@_geometry_setup:n { o  }
-\cs_generate_variant:Nn \@@_caption_setup:nn { no }
-
-\DeclareInstance { fduthesis } { default } { main }
-  {
-    geometry =
+    geometry : code =
       {
         paper      = a4paper,
         vmargin    = 2.54 cm,
         hmargin    = 3.18 cm,
-        headheight = 15 pt
+        headheight = 15 pt,
+        % showframe  = true,
       },
-    page-style =
+
+    page-style-twoside : code =
       {
         \fancyhf { }
         \fancyhead [ EL ] { \small \nouppercase { \fdu@kai \leftmark  } }
         \fancyhead [ OR ] { \small \nouppercase { \fdu@kai \rightmark } }
+        \fancyfoot [ C  ] { \small \thepage }
+      },
+    page-style-oneside : code =
+      {
+        \fancyhf { }
+        \fancyhead [ C ] { \small \nouppercase { \fdu@kai \leftmark } }
         \fancyfoot [ C ] { \small \thepage }
       },
-    page-style* =
+    page-style-chapter-twoside : code =
       {
+        \fancyhf { }
         \fancyfoot [ C ] { \small \thepage }
         \cs_set:Npn \headrulewidth { 0 pt }
       },
-    chapter =
+    page-style-chapter-oneside : code =
+      \KeyValue { page-style-chapter-twoside },
+
+    chapter : code =
       {
         format      = \huge \normalfont \sffamily \centering,
         beforeskip  = 50 pt,
@@ -127,36 +64,74 @@
         number      = \@@_arabic:n { chapter },
         fixskip     = true
       },
-    section =
+    section : code =
       {
         format      = \Large \normalfont \sffamily \raggedright,
         beforeskip  = 3.5 ex plus 1.0 ex minus 0.2 ex,
         afterskip   = 2.7 ex plus 0.5 ex,
         fixskip     = true
       },
-    subsection =
+    subsection : code =
       {
         format      = \large \normalfont \sffamily \raggedright,
         beforeskip  = 3.25 ex plus 1.0 ex minus 0.2 ex,
         afterskip   = 2.5  ex plus 0.3 ex,
         fixskip     = true
       },
+    subsubsection : code,
+    paragraph : code,
+    subparagraph : code,
 
-      figure-caption =
-        {
-          font     = small,
-          labelsep = quad
-        },
-      table-caption =
-        {
-          font     = { small, sf },
-          labelsep = quad
-        },
-      figure-number = { \@@_arabic:n { chapter } - \@@_arabic:n { figure } },
-      table-number  = { \@@_arabic:n { chapter } - \@@_arabic:n { table  } },
+    figure-caption : code =
+      {
+        font     = small,
+        labelsep = quad
+      },
+    table-caption : code =
+      {
+        font     = { small, sf },
+        labelsep = quad
+      },
+    algorithm-caption : code,
+    figure-number : code =
+      { \@@_arabic:n { chapter } - \@@_arabic:n { figure } },
+    table-number  : code =
+      { \@@_arabic:n { chapter } - \@@_arabic:n { table  } },
+    algorithm-number  : code,
   }
 
-\UseInstance { fduthesis } { default }
+\cs_new_protected:Npn \@@_def_page_style:nn #1#2
+  { \fancypagestyle { fdu-page-style-#1 } {#2} }
+
+\DeclareTemplateCode { fdu / layout } { main } { \c_zero_int }
+  {
+    geometry                   = \geometry {#1},
+    page-style-twoside         = \@@_def_page_style:nn { twoside         } {#1},
+    page-style-oneside         = \@@_def_page_style:nn { oneside         } {#1},
+    page-style-chapter-twoside = \@@_def_page_style:nn { chapter-twoside } {#1},
+    page-style-chapter-oneside = \@@_def_page_style:nn { chapter-oneside } {#1},
+    chapter                    = \ctexset { chapter       = {#1} },
+    section                    = \ctexset { section       = {#1} },
+    subsection                 = \ctexset { subsection    = {#1} },
+    subsubsection              = \ctexset { subsubsection = {#1} },
+    paragraph                  = \ctexset { paragraph     = {#1} },
+    subparagraph               = \ctexset { subparagraph  = {#1} },
+    figure-caption             = \captionsetup {#1},
+    table-caption              = \captionsetup {#1},
+    algorithm-caption          = \captionsetup {#1},
+    figure-number              = \cs_set:Npn \thefigure    {#1},
+    table-number               = \cs_set:Npn \thetable     {#1},
+    algorithm-number           = \cs_set:Npn \thealgorithm {#1},
+  }
+  {
+    \AssignTemplateKeys
+    \cs_show:N \fdu_if_draft:TF
+    \pagestyle { fdu-page-style-twoside }
+    \keys_set:nn { ctex } { chapter / pagestyle = fdu-page-style-chapter-twoside }
+  }
+
+\DeclareInstance { fdu / layout } { default } { main } { }
+\UseInstance { fdu / layout } { default }
 \debug_off:n { all }
 
 %    \end{macrocode}
