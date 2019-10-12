@@ -65,6 +65,7 @@ Completed box being shipped out [1]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/XITS(0)/bx/n/24.09 A
 .....\kern-0.4818 (font)
 .....\TU/XITS(0)/bx/n/24.09 b
@@ -391,6 +392,7 @@ t}{\ETC.}
 .......\localbrokenpenalty=0
 .......\localleftbox=null
 .......\localrightbox=null
+......\hbox(0.0+0.0)x0.0, direction TLT
 ......\TU/XITS(0)/bx/n/24.09 L
 ......\TU/XITS(0)/bx/n/24.09 i
 ......\TU/XITS(0)/bx/n/24.09 s
@@ -905,6 +907,7 @@ Completed box being shipped out [1]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/XITS(0)/bx/n/22.08249 C
 .....\TU/XITS(0)/bx/n/22.08249 h
 .....\TU/XITS(0)/bx/n/22.08249 a
@@ -1234,6 +1237,7 @@ Completed box being shipped out [3]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
+.....\hbox(0.0+0.0)x0.0, direction TLT
 .....\TU/XITS(0)/bx/n/22.08249 C
 .....\TU/XITS(0)/bx/n/22.08249 h
 .....\TU/XITS(0)/bx/n/22.08249 a

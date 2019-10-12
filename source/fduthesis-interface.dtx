@@ -1,0 +1,294 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
+%
+% This work may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License, either version 1.3c of this license or (at
+% your option) any later version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Xiangdong Zeng.
+%
+% \fi
+%
+% \begin{implementation}
+%
+%    \begin{macrocode}
+%<@@=fdu>
+%<*class|class-en>
+%    \end{macrocode}
+%
+% \section{用户接口}
+%
+% \begin{macro}{info,style}
+% 定义元（meta）键值对。
+%    \begin{macrocode}
+\keys_define:nn { fdu }
+  {
+    info  .meta:nn = { fdu / info  } {#1},
+    style .meta:nn = { fdu / style } {#1}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 文档类初始设置。
+%    \begin{macrocode}
+\keys_set:nn { fdu }
+  {
+    style   / font            = times,
+%<class>    style   / cjk-font        = fandol,
+    style   / font-size       = -4,
+%<class>    style   / fullwidth-stop  = false,
+    style   / auto-make-cover = true,
+    style   / logo            = { fudan-name.pdf },
+    style   / logo-size       = { 0.5 \textwidth },
+    style   / hyperlink       = color,
+    style   / hyperlink-color = default,
+    style   / bib-style       = numerical,
+    info    / degree          = academic,
+    info    / secret-level    = none,
+    info    / school-id       = { 10246 },
+    info    / date            = { \zhtoday },
+%<class>    theorem / header-font     = { \sffamily },
+%<class-en>    theorem / header-font     = { \bfseries \upshape },
+%<class>    theorem / body-font       = { \fdu@kai },
+%<class-en>    theorem / body-font       = { \itshape },
+    theorem / counter         = { chapter }
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\fdusetup}
+% 用户设置接口。
+%    \begin{macrocode}
+\NewDocumentCommand \fdusetup { m }
+  { \keys_set:nn { fdu } {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{proof}
+% \begin{environment}{axiom}
+% \begin{environment}{corollary}
+% \begin{environment}{definition}
+% \begin{environment}{example}
+% \begin{environment}{lemma}
+% \begin{environment}{theorem}
+% 模板预定义的常用数学环境。
+% 其中的“证明”比较特殊，它不编号，但会添加证毕符号。
+%    \begin{macrocode}
+%<*class>
+\newtheorem* { proof       } { \c_@@_name_proof_tl      }
+\newtheorem  { axiom       } { \c_@@_name_axiom_tl      }
+\newtheorem  { corollary   } { \c_@@_name_corollary_tl  }
+\newtheorem  { definition  } { \c_@@_name_definition_tl }
+\newtheorem  { example     } { \c_@@_name_example_tl    }
+\newtheorem  { lemma       } { \c_@@_name_lemma_tl      }
+\newtheorem  { theorem     } { \c_@@_name_theorem_tl    }
+%</class>
+%<*class-en>
+\newtheorem* { proof       } { \c_@@_name_proof_en_tl      }
+\newtheorem  { axiom       } { \c_@@_name_axiom_en_tl      }
+\newtheorem  { corollary   } { \c_@@_name_corollary_en_tl  }
+\newtheorem  { definition  } { \c_@@_name_definition_en_tl }
+\newtheorem  { example     } { \c_@@_name_example_en_tl    }
+\newtheorem  { lemma       } { \c_@@_name_lemma_en_tl      }
+\newtheorem  { theorem     } { \c_@@_name_theorem_en_tl    }
+%</class-en>
+%</class|class-en>
+%    \end{macrocode}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+% \end{environment}
+%
+% \section{模板参数配置文件}
+%
+% \changes{v0.3}{2017/06/27}{分离文档类与参数配置文件。}
+%
+%    \begin{macrocode}
+%<*definition>
+%    \end{macrocode}
+%
+% \subsection{通用配置}
+%
+% \begin{variable}{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
+%   \c_@@_name_en_tl}
+% 学校名称。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_name_simp_tl { 复旦大学          }
+\tl_const:Nn \c_@@_name_trad_tl { 復旦大學          }
+\tl_const:Nn \c_@@_name_en_tl   { Fudan~ University }
+%    \end{macrocode}
+% \end{variable}
+%
+% 常用标点符号，见表~\ref{tab:punctuations}。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { ideo_comma       } { "3001 },
+    { ideo_full_stop   } { "3002 },
+    { fwid_comma       } { "FF0C },
+    { fwid_full_stop   } { "FF0E },
+    { fwid_colon       } { "FF1A },
+    { fwid_semicolon   } { "FF1B },
+    { fwid_left_paren  } { "FF08 },
+    { fwid_right_paren } { "FF09 }
+  }
+  { \@@_define_punct:nn #1 }
+%    \end{macrocode}
+%
+% \begin{table}[ht]
+%   \caption{常用标点符号}
+%   \label{tab:punctuations}
+%   \centering
+%   \begin{tabular}{cccc}
+%     \toprule
+%       \textbf{中文名称} & \textbf{英文名称} & \textbf{符号} & \textbf{Unicode} \\
+%     \midrule
+%       中文顿号     & Ideographic comma           & \symbol{"3001} & U+3001 \\
+%       中文句号     & Ideographic full stop       & \symbol{"3002} & U+3002 \\
+%       中文逗号     & Fullwidth comma             & \symbol{"FF0C} & U+FF0C \\
+%       全角西文句点 & Fullwidth full stop         & \symbol{"FF0E} & U+FF0E \\
+%       中文冒号     & Fullwidth colon             & \symbol{"FF1A} & U+FF1A \\
+%       中文分号     & Fullwidth semicolon         & \symbol{"FF1B} & U+FF1B \\
+%       中文左圆括号 & Fullwidth left parenthesis  & \symbol{"FF08} & U+FF08 \\
+%       中文右圆括号 & Fullwidth right parenthesis & \symbol{"FF09} & U+FF09 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% \begin{variable}{\c_@@_line_spread_fp}
+% 行距倍数。行距倍数 $k$ 由下式确定：
+% \begin{equation*}
+%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
+% \end{equation*}
+% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
+% 的大小，\SI{20}{pt} 是行距固定值。
+%    \begin{macrocode}
+\fp_const:Nn \c_@@_line_spread_fp
+  { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{声明页}
+%
+% \begin{variable}{\c_@@_orig_decl_text_tl}
+% 论文独创性声明。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_orig_decl_text_tl
+  {
+    本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究
+    工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人或机
+    构已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集体，均
+    已在论文中作了明确的声明并表示了谢意。本声明的法律结果由本人承担。
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_auth_decl_text_tl}
+% 论文使用授权声明。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_auth_decl_text_tl
+  {
+    本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，即：学
+    校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和电子版本；
+    允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影
+    印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此规定。
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_orig_decl_sign_clist,
+%   \c_@@_auth_decl_sign_clist}
+% 声明页签名项目。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_orig_decl_sign_clist
+  { 作者签名, 日期 }
+\clist_const:Nn \c_@@_auth_decl_sign_clist
+  { 作者签名, 导师签名, 日期 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{杂项}
+%
+% \begin{variable}{\c_@@_thesis_type_clist,
+%   \c_@@_degree_type_clist}
+% 论文类型与学位类型。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_thesis_type_clist
+  { 博士学位论文, 硕士学位论文, 本科毕业论文 }
+\clist_const:Nn \c_@@_degree_type_clist
+  { 学术学位, 专业学位 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_secret_clist}
+% 三种密级。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_secret_clist { 秘密, 机密, 绝密 }
+%    \end{macrocode}
+% \end{variable}
+%
+% 默认名称。注意空格是忽略掉的。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { secret_level    } { 密 \qquad 级                  },
+    { secret_star     } { \textrm { \bigstar }          },
+    { school_id       } { 学校代码                      },
+    { student_id      } { 学 \qquad 号                  },
+    { department      } { 院系                          },
+    { major           } { 专业                          },
+    { author          } { 姓名                          },
+    { supervisor      } { 指导教师                      },
+    { date            } { 完成日期                      },
+    { instructors     } { 指导小组成员                  },
+    { author_sign     } { 作者签名                      },
+    { supervisor_sign } { 导师签名                      },
+    { sign_date       } { 日期                          },
+    { toc             } { 目 \quad 录                   },
+    { lof             } { 插图目录                      },
+    { lot             } { 表格目录                      },
+    { bib_en          } { Bibliography                  },
+    { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
+    { orig_decl       } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
+    { auth_decl       } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
+  }
+  { \@@_define_name:nn #1 }
+\clist_map_inline:nn
+  {
+    { abstract } { 摘 \quad 要 } { Abstract          },
+    { keywords } { 关键字      } { Keywords:         },
+    { clc      } { 中图分类号  } { CLC~ number:      },
+    { notation } { 符号表      } { List~ of~ Symbols }
+  }
+  { \@@_define_name:nnn #1 }
+%    \end{macrocode}
+%
+% 默认定理头名称。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    { proof      } { 证明 } { Proof      },
+    { axiom      } { 公理 } { Axiom      },
+    { corollary  } { 推论 } { Corollary  },
+    { definition } { 定义 } { Definition },
+    { example    } { 例   } { Example    },
+    { lemma      } { 引理 } { Lemma      },
+    { theorem    } { 定理 } { Theorem    }
+  }
+  { \@@_define_name:nnn #1 }
+%</definition>
+%<@@=>
+%    \end{macrocode}
+%
+% \end{implementation}
+%

@@ -2,23 +2,20 @@
 %
 % Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
 %
-% This work may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either
-% version 1.3c of this license or (at your option) any later
-% version. The latest version of this license is in:
+% This work may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License, either version 1.3c of this license or (at
+% your option) any later version. The latest version of this license is in:
 %
 %   http://www.latex-project.org/lppl.txt
 %
-% and version 1.3 or later is part of all distributions of
-% LaTeX version 2005/12/01 or later.
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2005/12/01 or later.
 %
 % This work has the LPPL maintenance status `maintained'.
 %
 % The Current Maintainer of this work is Xiangdong Zeng.
 %
 % \fi
-%
-% \EnableImplementation
 %
 % \begin{implementation}
 %
@@ -31,7 +28,7 @@
 %   marginpar = 2.25 in
 % }
 %
-% \subsection{模板文档样式 \cls{fdudoc}}
+% \section{模板文档样式 \cls{fdudoc}}
 %
 % \changes{v0.4}{2017/07/29}{在 \cls{ctxdoc} 的基础上完成
 %   \cls{fdudoc} 文档类，用于模板手册的编写。}
@@ -73,7 +70,7 @@
 %
 % 以下为 \cls{fdudoc} 的具体实现。
 %
-% \subsubsection{载入宏包、文档类}
+% \subsection{载入宏包、文档类}
 %
 %    \begin{macrocode}
 %<*doc>
@@ -116,9 +113,9 @@
 }
 %    \end{macrocode}
 %
-% \subsubsection{\env{macrocode} 环境}
+% \subsection{\env{macrocode} 环境}
 %
-% \paragraph{继承的代码}
+% \subsubsection{继承的代码}
 %
 % \begin{macro}[int]{\macro@code}
 % 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由命令
@@ -211,7 +208,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \paragraph{代码行处理}
+% \subsubsection{代码行处理}
 %
 % \begin{macro}[int]{\xmacro@code,\sxmacro@code}
 % 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，
@@ -464,7 +461,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \paragraph{模块标记处理}
+% \subsubsection{模块标记处理}
 %
 % \begin{macro}{\CheckModules,\DontCheckModules}
 % 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，
@@ -809,7 +806,7 @@
 \zref@addprop { fdudoc } { guard@end }
 %    \end{macrocode}
 %
-% \paragraph{格式处理}
+% \subsubsection{格式处理}
 %
 % \begin{macro}{\MacroFont}
 % 代码部分的字体。
@@ -976,7 +973,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{\env{function} 环境}
+% \subsection{\env{function} 环境}
 %
 % \begin{macro}{\@@_verb_addon:,
 %   \@@_disable_ecglue:,
@@ -1057,7 +1054,7 @@
 % \end{environment}
 % \end{environment}
 %
-% \subsubsection{修订记录索引项}
+% \subsection{修订记录索引项}
 %
 % \begin{macro}{\@@_ltx_changes:nnn}
 % 保存 \pkg{doc} 中 \tn{changes@} 的定义。
@@ -1240,9 +1237,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{命令补丁}
+% \subsection{命令补丁}
 %
-% \paragraph{\LaTeXe{} 补丁}
+% \subsubsection{\LaTeXe{} 补丁}
 %
 % \begin{macro}[int]{\@addtocurcol}
 % 调整浮动体、代码等与文字的间距。
@@ -1372,11 +1369,25 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \paragraph{\cls{l3doc} 补丁}
+% \subsubsection{\cls{l3doc} 补丁}
 %
 %    \begin{macrocode}
 %<@@=codedoc>
 %    \end{macrocode}
+%
+% \begin{macro}{\@@_input:n}
+% 不再清空 \cs{g_@@_module_name_tl}。
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_input:n #1
+  {
+    \part{#1}
+    \MakePercentIgnore
+    \input{#1}
+    \MakePercentComment
+    % \__fdudoc_end_input:n {#1}
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\list}
 % \cls{l3doc} 会设置列表环境中 \tn{listparindent} |=| \tn{z@}，
@@ -1435,10 +1446,10 @@
 % \begin{macro}{\@@_meta_original:n}
 % 改用文本模式显示尖括号。
 %    \begin{macrocode}
-\__fdudoc_patch_cmd:Nnn \@@_meta_original:n
-  { \ensuremath \langle } { \textlangle }
-\__fdudoc_patch_cmd:Nnn \@@_meta_original:n
-  { \ensuremath \rangle } { \textrangle }
+% \__fdudoc_patch_cmd:Nnn \@@_meta_original:n
+%   { \ensuremath \langle } { \textlangle }
+% \__fdudoc_patch_cmd:Nnn \@@_meta_original:n
+%   { \ensuremath \rangle } { \textrangle }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1606,7 +1617,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{杂项}
+% \subsection{杂项}
 %
 % \begin{macro}{\StopSpecialIndexModule,
 %   \@@_special_index_module:nnnnN}
@@ -1647,7 +1658,7 @@
 \ExplSyntaxOff
 %    \end{macrocode}
 %
-% \subsubsection{排版样式设置}
+% \subsection{排版样式设置}
 %
 % 目录中禁止对 \cs{cs} 和 \cs{tn} 等的索引。
 %    \begin{macrocode}
@@ -1761,7 +1772,6 @@
 % 版式排版格式。
 %    \begin{macrocode}
 \ctexset{%
-  section/name        = {第,节},
   section/format+     = \raggedright,
   paragraph/runin     = false,
   paragraph/numbering = false,
@@ -1889,7 +1899,7 @@
 \RecordChanges
 %    \end{macrocode}
 %
-% \subsubsection{文档层命令}
+% \subsection{文档层命令}
 %
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
 %   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
@@ -2047,7 +2057,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \paragraph{示例代码环境}
+% \subsubsection{示例代码环境}
 %
 % \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，此处改为普通文本。
 % 见 \url{https://tex.stackexchange.com/a/33188}。
@@ -2149,8 +2159,6 @@
 % \end{environment}
 %
 % \changes{v0.7c}{2019/03/15}{不再附带 \pkg{latexmk} 配置文件。}
-%
-% \clearpage
 %
 % \end{implementation}
 %

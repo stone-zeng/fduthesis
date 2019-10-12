@@ -49,6 +49,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(16.6221+0.33725)x416.54877, glue set 163.82834fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
+.....\hbox(0.0+0.0)x0.0
 .....\TU/XITS(0)/bx/n/24.09 Abstract
 .....\kern -0.0002
 .....\kern 0.0002
@@ -231,6 +232,7 @@ Completed box being shipped out [3]
 .....\glue(\parskip) 0.0 plus 1.0
 .....\hbox(16.67027+4.93843)x416.54877, glue set 128.71716fil
 ......\glue(\leftskip) 0.0 plus 1.0fil
+......\hbox(0.0+0.0)x0.0
 ......\TU/XITS(0)/bx/n/24.09 List
 ......\kern -0.00021
 ......\kern 0.00021
@@ -579,6 +581,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
+.....\hbox(0.0+0.0)x0.0
 .....\TU/XITS(0)/bx/n/22.08249 Chapter
 .....\kern -0.00021
 .....\kern 0.00021
@@ -791,6 +794,7 @@ Completed box being shipped out [3]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
+.....\hbox(0.0+0.0)x0.0
 .....\TU/XITS(0)/bx/n/22.08249 Chapter
 .....\kern -0.00021
 .....\kern 0.00021

@@ -1,0 +1,549 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
+%
+% This work may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License, either version 1.3c of this license or (at
+% your option) any later version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Xiangdong Zeng.
+%
+% \fi
+%
+% \begin{implementation}
+%
+% \section{准备}
+%
+%    \begin{macrocode}
+%<@@=fdu>
+%<*class|class-en>
+%    \end{macrocode}
+%
+% \subsection{环境检查}
+%
+% 检查 \LaTeX3 编程环境。
+%    \begin{macrocode}
+\debug_on:n { all }
+\RequirePackage { xparse, xtemplate, l3keys2e }
+\msg_new:nnn { fduthesis } { l3-too-old }
+  {
+    Package~ "#1"~ is~ too~ old. \\\\
+    Please~ update~ an~ up-to-date~ version~ of~ the~ bundles~ "l3kernel"~ and~
+    "l3packages"~ using~ your~ TeX~ package~ manager~ or~ from~ CTAN.
+  }
+\clist_map_inline:nn { expl3, xparse, xtemplate, l3keys2e }
+  {
+    \@ifpackagelater {#1} { 2018/05/12 }
+      { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
+  }
+%    \end{macrocode}
+%
+% \begin{macro}[TF]{\@@_if_engine_xetex_luatex:}
+% 检测是否为 \XeTeX{} 或 \LuaTeX{}。
+%    \begin{macrocode}
+\exp_args:NNnx \prg_new_conditional:Npnn \@@_if_engine_xetex_luatex: { T, F, TF }
+  {
+    \bool_lazy_or:nnTF { \sys_if_engine_xetex_p: } { \sys_if_engine_luatex_p: }
+      { \exp_not:N \prg_return_true:  }
+      { \exp_not:N \prg_return_false: }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}[int]{\c_sys_engine_str}
+% \LaTeX3 不检测 \ApTeX{}，因此需更新引擎名称。
+%    \begin{macrocode}
+\cs_if_exist:NT \ngostype
+  { \str_set:Nn \c_sys_engine_str { aptex } }
+%    \end{macrocode}
+% \end{variable}
+%
+% 目前 \cls{fduthesis} 仅支持 \XeTeX{} 和 \LuaTeX{}。
+%    \begin{macrocode}
+\msg_new:nnn { fduthesis } { unsupported-engine }
+  {
+    The~ fduthesis~ class~ requires~ either~ XeTeX~ or~ LuaTeX. \\\\
+    "#1"~ is~ not~ supported~ at~ present.~ You~ must~ change~ your~
+    typesetting~ engine~ to~ "xelatex"~ or~ "lualatex".
+  }
+\@@_if_engine_xetex_luatex:F
+ { \msg_warning:nnx { fduthesis } { unsupported-engine } { \c_sys_engine_str } }
+%    \end{macrocode}
+%
+% \subsection{内部变量声明}
+%
+% \begin{variable}
+%   {
+%     \l_@@_tmpa_box,
+%     \l_@@_tmpa_clist,
+%     \l_@@_tmpb_clist,
+%     \l_@@_tmpa_dim,
+%     \l_@@_tmpb_dim,
+%     \l_@@_tmpa_skip,
+%     \l_@@_tmpa_tl,
+%     \l_@@_tmpb_tl
+%   }
+% 临时变量。
+%    \begin{macrocode}
+\box_new:N   \l_@@_tmpa_box
+\clist_new:N \l_@@_tmpa_clist
+\clist_new:N \l_@@_tmpb_clist
+\dim_new:N   \l_@@_tmpa_dim
+\dim_new:N   \l_@@_tmpb_dim
+\skip_new:N  \l_@@_tmpa_skip
+\tl_new:N    \l_@@_tmpa_tl
+\tl_new:N    \l_@@_tmpb_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_thesis_type_int}
+% 论文类型。取值 1、2、3 分别对应博士、硕士、本科（学士），这与学号
+% 第三位是一致的。
+%    \begin{macrocode}
+\int_new:N \g_@@_thesis_type_int
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_to_ctex_clist,\g_@@_to_hyperref_clist}
+% 分别保存由 \cls{fduthesis} 传入 \cls{ctexbook} 文档类和
+% \pkg{hyperref} 宏包的选项列表。
+%    \begin{macrocode}
+\clist_new:N \g_@@_to_ctex_clist
+\clist_new:N \g_@@_to_hyperref_clist
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_twoside_bool}
+%    \begin{macrocode}
+\bool_new:N \g_@@_twoside_bool
+\bool_new:N \g_@@_draft_bool
+\bool_new:N \g_@@_print_bool
+\bool_new:N \g_@@_text_fonts_bool
+\bool_new:N \g_@@_math_fonts_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_config_file_tl}
+% 保存配置文件名称。默认为空。
+%    \begin{macrocode}
+\tl_new:N \g_@@_config_file_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{内部函数}
+%
+% \begin{macro}[int]{\cs_generate_variant:cn,
+%   \file_input:V,
+%   \int_to_arabic:v,
+%   \keys_define:nx,
+%   \tl_map_inline:xn}
+% \begin{macro}[int,TF]{\tl_if_eq:Vn}
+% \LaTeX3{} 函数变体。
+%    \begin{macrocode}
+\cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
+\cs_generate_variant:Nn \file_input:n           { V  }
+\cs_generate_variant:Nn \int_to_arabic:n        { v  }
+\cs_generate_variant:Nn \keys_define:nn         { nx }
+\cs_generate_variant:Nn \tl_map_inline:nn       { xn }
+\prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@@_quad:,\@@_qquad:}
+% 等价于 \LaTeXe{} 中的 \tn{quad} 和 \tn{qquad}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_quad:  { \skip_horizontal:n { 1 em } }
+\cs_new:Npn \@@_qquad: { \skip_horizontal:n { 2 em } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_vspace:N,\@@_vspace:n,\@@_vspace:c}
+% 类似 \LaTeXe{} 中的 \tn{vspace*}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_vspace:N #1
+  {
+    \dim_set_eq:NN \l_@@_tmpa_dim \prevdepth
+    \tex_hrule:D height \c_zero_dim
+    \nobreak
+    \skip_vertical:N #1
+    \skip_vertical:N \c_zero_skip
+    \dim_set_eq:NN \prevdepth \l_@@_tmpa_dim
+  }
+\cs_new_protected:Npn \@@_vspace:n #1
+  {
+    \skip_set:Nn \l_@@_tmpa_skip {#1}
+    \@@_vspace:N \l_@@_tmpa_skip
+  }
+\cs_generate_variant:Nn \@@_vspace:N { c }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_symbol:n}
+% 等价于 \LaTeXe{} 中的 \tn{symbol}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_symbol:n #1 { \tex_char:D #1 \scan_stop: }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_arabic:n}
+% 等价于 \LaTeXe{} 中的 \tn{arabic}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_arabic:n #1 { \int_to_arabic:v { c@ #1 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
+% 补丁工具，来自 \pkg{ctexpatch} 宏包。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_patch_cmd:Nnn #1#2#3
+  {
+    \ctex_patch_cmd_once:NnnnTF #1 { } {#2} {#3}
+      { } { \ctex_patch_failure:N #1 }
+  }
+\cs_new_protected:Npn \@@_appto_cmd:Nn #1#2
+  {
+    \ctex_appto_cmd:NnnTF #1 { } {#2}
+      { } { \ctex_patch_failure:N #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_define_fn_style:nn,
+%   \@@_define_punct:nn,
+%   \@@_define_sep:nn,
+%   \@@_define_format:nn,
+%   \@@_define_name:nn,
+%   \@@_define_name:nnn}
+% 用来定义脚注样式、标点、默认名称的辅助函数。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_define_fn_style:nn #1#2
+  { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
+\cs_new_protected:Npn \@@_define_punct:nn #1#2
+  { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
+% \cs_new_protected:Npn \@@_define_sep:nn #1#2
+%   { \tl_const:cn { c_@@_ #1 _sep_tl } {#2} }
+% \cs_new_protected:Npn \@@_define_format:nn #1#2
+%   { \tl_const:cn { c_@@_ #1 _format_tl } {#2} }
+\cs_new_protected:Npn \@@_define_name:nn #1#2
+  { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
+\cs_new_protected:Npn \@@_define_name:nnn #1#2#3
+  {
+    \tl_const:cn { c_@@_name_ #1    _tl } {#2}
+    \tl_const:cn { c_@@_name_ #1 _en_tl } {#3}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_msg_new:nn,
+%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,
+%   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx,
+%   \@@_info:nx}
+% 各种信息函数的缩略形式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_msg_new:nn  { \msg_new:nnn      { fduthesis } }
+\cs_new:Npn \@@_error:n     { \msg_error:nn     { fduthesis } }
+\cs_new:Npn \@@_error:nn    { \msg_error:nnn    { fduthesis } }
+\cs_new:Npn \@@_error:nx    { \msg_error:nnx    { fduthesis } }
+\cs_new:Npn \@@_error:nnn   { \msg_error:nnnn   { fduthesis } }
+\cs_new:Npn \@@_warning:n   { \msg_warning:nn   { fduthesis } }
+\cs_new:Npn \@@_warning:nn  { \msg_warning:nnn  { fduthesis } }
+\cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { fduthesis } }
+\cs_new:Npn \@@_info:nx     { \msg_info:nnx     { fduthesis } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{选项处理}
+%
+% 定义 |fdu/option| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / option }
+  {
+%    \end{macrocode}
+%
+% \changes{v0.7}{2018/02/01}{新增 \opt{type} 选项。}
+%
+% \begin{macro}{type}
+% 设置论文类型。设为模板选项主要是为了以后的兼容性。论文类型可能会
+% 影响很多设置，只是暂时还不考虑。默认为本科毕业论文。
+%    \begin{macrocode}
+    type .tl_gset:N = \g_@@_thesis_type_tl,
+    % TODO: remove the following
+    % type .choice:,
+    % type .value_required:n = true,
+    % type .choices:nn = 
+    %   { doctor, master, bachelor }
+    %   { \int_set_eq:NN \g_@@_thesis_type_int \l_keys_choice_int },
+    % type .initial:n = bachelor,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{oneside,twoside}
+% 设置页面类型为单面或双面。
+%    \begin{macrocode}
+    oneside .value_forbidden:n = true,
+    twoside .value_forbidden:n = true,
+    oneside .code:n =
+      {
+        \bool_gset_false:N \g_@@_twoside_bool
+        \@@_appto_ctex_options:n { oneside, openany }
+      },
+    twoside .code:n =
+      {
+        \bool_gset_true:N \g_@@_twoside_bool
+        \@@_appto_ctex_options:n { twoside, openright }
+      },
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.5}{2017/09/23}{移除 \opt{nofonts} 选项。}
+%
+% \begin{macro}{draft}
+% 是否开启草稿模式（默认关闭）。
+%    \begin{macrocode}
+    draft .choice:,
+    draft / true  .code:n =
+      {
+        \bool_gset_true:N \g_@@_draft_bool
+        \@@_appto_ctex_options:n { draft }
+      },
+    draft / false .code:n =
+      { \bool_gset_false:N \g_@@_draft_bool },
+    draft .default:n = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{print}
+% 是否开启打印模式（默认关闭）。
+%    \begin{macrocode}
+    print .bool_gset:N = \g_@@_print_bool,
+    print .default:n = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7}{2019/06/01}{新增 \opt{config} 选项。}
+%
+% \begin{macro}{config}
+%    \begin{macrocode}
+    set-fonts .choice:,
+    set-fonts / true  .code:n =
+      {
+        \bool_gset_true:N \g_@@_text_fonts_bool
+        \bool_gset_true:N \g_@@_math_fonts_bool
+      },
+    set-fonts / false .code:n =
+      {
+        \bool_gset_false:N \g_@@_text_fonts_bool
+        \bool_gset_false:N \g_@@_math_fonts_bool
+      },
+    set-fonts .default:n = true,
+    set-text-fonts .bool_gset:N = \g_@@_text_fonts_bool,
+    set-text-fonts .default:n = true,
+    set-math-fonts .bool_gset:N = \g_@@_math_fonts_bool,
+    set-math-fonts .default:n = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7}{2018/01/31}{新增 \opt{config} 选项。}
+%
+% \begin{macro}{config}
+% 配置文件名。
+%    \begin{macrocode}
+    config .tl_gset:N = \g_@@_config_file_tl,
+%    \end{macrocode}
+% \end{macro}
+%
+% 处理未知选项。
+%    \begin{macrocode}
+    unknown .code:n = { \@@_error:n { unknown-option } }
+  }
+\cs_new_protected:Npn \@@_appto_ctex_options:n #1
+  { \clist_gput_right:Nn \g_@@_to_ctex_clist {#1} }
+\@@_msg_new:nn { unknown-option }
+  { Class~ option~ "\l_keys_key_tl"~ is~ unknown. }
+%    \end{macrocode}
+%
+% 模版初始选项。
+%    \begin{macrocode}
+\keys_set:nn { fdu / option }
+  {
+    oneside,
+    draft     = false,
+    print     = false,
+    set-fonts = true
+  }
+%    \end{macrocode}
+%
+% 将选项传给 |fdu/option|。
+%    \begin{macrocode}
+\ProcessKeysOptions { fdu / option }
+%    \end{macrocode}
+%
+% 载入参数配置文件。
+%    \begin{macrocode}
+\file_input:n { fduthesis.def }
+\tl_if_empty:NF \g_@@_config_file_tl
+  {
+    \file_input:n { \g_@@_config_file_tl }
+    \@@_info:nx { load-config-file } { \g_@@_config_file_tl }
+  }
+\@@_msg_new:nn { load-config-file }
+  { You~ are~ loading~ config~ file~ '#1'. }
+%    \end{macrocode}
+%
+% 在 \XeTeX{}、\LuaTeX{} 之外的引擎下关闭字体配置。
+%    \begin{macrocode}
+\@@_if_engine_xetex_luatex:F
+  {
+    \bool_gset_false:N \g_@@_text_fonts_bool
+    \bool_gset_false:N \g_@@_math_fonts_bool
+  }
+% \exp_args:NNnx \prg_new_conditional:Npnn \fdu_if_set_text_fonts: { T, F, TF }
+%   {
+%     \bool_if:NTF \g_@@_text_fonts_bool
+%       { \exp_not:N \prg_return_true:  }
+%       { \exp_not:N \prg_return_false: }
+%   }
+% \exp_args:NNnx \prg_new_conditional:Npnn \fdu_if_set_math_fonts: { T, F, TF }
+%   {
+%     \bool_if:NTF \g_@@_math_fonts_bool
+%       { \exp_not:N \prg_return_true:  }
+%       { \exp_not:N \prg_return_false: }
+%   }
+%    \end{macrocode}
+%
+% Define:
+% - \fdu_if_twoside:TF
+% - \fdu_if_draft:TF
+% - \fdu_if_print:TF
+% - \fdu_if_set_text_fonts:TF
+% - \fdu_if_set_math_fonts:TF
+% etc.
+%    \begin{macrocode}
+\cs_set:Npn \@@_tmp:w #1#2
+  {
+    \exp_args:NNnx \prg_new_conditional:Npnn #1 { T, F, TF }
+      {
+        \bool_if:NTF #2
+          { \exp_not:N \prg_return_true:  }
+          { \exp_not:N \prg_return_false: }
+      }
+  }
+\clist_map_inline:nn
+  {
+    \fdu_if_twoside:        \g_@@_twoside_bool    ,
+    \fdu_if_draft:          \g_@@_draft_bool      ,
+    \fdu_if_print:          \g_@@_print_bool      ,
+    \fdu_if_set_text_fonts: \g_@@_text_fonts_bool ,
+    \fdu_if_set_math_fonts: \g_@@_math_fonts_bool ,
+  }
+  { \@@_tmp:w #1 }
+\cs_undefine:N \@@_tmp:w
+%    \end{macrocode}
+%
+% \section{载入宏包、文档类}
+%
+% \changes{v0.7}{2018/01/19}{使用 \cls{ctexbook} 文档类，而非直接使用
+%   标准文档类 \cls{book}。}
+%
+% 将选项传入 \cls{ctexbook} 文档类。
+%    \begin{macrocode}
+\PassOptionsToClass
+  {
+    UTF8,
+%<class-en>    scheme     = plain,
+    heading    = true,
+%<class>    fontset    = none,
+%<class-en>    fontset    = fandol,
+    \g_@@_to_ctex_clist
+  }
+  { ctexbook }
+%    \end{macrocode}
+%
+% 传入各宏包选项。
+%    \begin{macrocode}
+\PassOptionsToPackage { no-math           } { fontspec }
+\PassOptionsToPackage { perpage           } { footmisc }
+\PassOptionsToPackage { amsmath, thmmarks } { ntheorem }
+%    \end{macrocode}
+%
+% 本模板会在 \pkg{ctexhook} 提供的钩子 \cs{ctex_at_end_preamble:n}
+% 中调用 \pkg{biblatex}，而 \pkg{biblatex} 自身又会使用 \pkg{etoolbox}
+% 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
+% \pkg{etoolbox}。钩子的顺序为：
+% \[ \text{\tn{CTEX@document@left@hook}}
+%    \prec \text{\tn{@endpreamblehook}}
+%    \prec \text{\texttt{\textbackslash begin\{document\}}}. \]
+%    \begin{macrocode}
+\debug_off:n { all }
+\RequirePackage { etoolbox }
+%    \end{macrocode}
+%
+% 载入 \cls{ctexbook} 文档类。
+% 在使用 \XeLaTeX{} 编译时，\cls{ctexbook} 的底层将调用 \pkg{xeCJK}
+% 宏包；而在使用 \LuaLaTeX{} 编译时，则将调用 \pkg{LuaTeX-ja} 宏包。
+% 两种情况下 \cls{ctexbook} 均会调用 \pkg{fontspec} 宏包。
+%    \begin{macrocode}
+\LoadClass { ctexbook }
+%    \end{macrocode}
+%
+% \changes{v0.4}{2017/08/13}{提供彩色支持。}
+%
+% 载入各宏包。其中，\pkg{amsmath} 必须在 \pkg{unicode-math} 之前引入。
+%    \begin{macrocode}
+\RequirePackage
+  {
+    amsmath,
+    caption,
+    fancyhdr,
+    footmisc,
+    geometry,
+    graphicx,
+    ntheorem,
+    unicode-math,  % TODO
+    xcolor
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_check_package:nnn}
+% 检查过时宏包。
+%    \begin{macrocode}
+\debug_on:n { all }
+\cs_new_protected:Npn \@@_check_package:nnn #1#2#3
+  {
+    \@ifpackageloaded {#1}
+      {
+        \@ifpackagelater {#1} {#2}
+          { } { \@@_error:nnn { package-too-old } {#1} {#3} }
+      }
+      { }
+  }
+\@@_msg_new:nn { package-too-old }
+  {
+    Package~ "#1"~ is~ too~ old. \\\\
+    The~ fduthesis~ class~ only~ supports~ "#1"~ with~ a~ version~ higher~
+    than~ v#2. Please~ update~ an~ up-to-date~ version~ of~ it~ using~ your~
+    TeX~ package~ manager~ or~ from~ CTAN.
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
+\@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
+\@@_check_package:nnn { unicode-math } { 2017/11/18 } { 0.8i   }
+\sys_if_engine_xetex:T
+  { \@@_check_package:nnn { xeCJK          } { 2017/08/07 } { 3.5.0 } }
+\sys_if_engine_luatex:T
+  { \@@_check_package:nnn { xunicode-addon } { 2018/04/30 } { 3.7.1 } }
+%    \end{macrocode}
+%
+% \end{implementation}
+%

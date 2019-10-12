@@ -37,7 +37,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.14215
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ①
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ①
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -45,7 +45,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.13011
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓐ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ⓐ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -53,7 +53,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.14215
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 Ⓐ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 Ⓐ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.
@@ -61,7 +61,7 @@ l. ...  }
 l. ...  }
 > \box...=
 \hbox(7.76903+0.1927)x9.14215
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓒ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ⓒ
 .\kern -0.0002
 .\kern 0.0002
 ! OK.

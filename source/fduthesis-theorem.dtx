@@ -1,0 +1,233 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2017--2019 by Xiangdong Zeng <xdzeng96@gmail.com>
+%
+% This work may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License, either version 1.3c of this license or (at
+% your option) any later version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Xiangdong Zeng.
+%
+% \fi
+%
+% \begin{implementation}
+%
+% \section{定理环境}
+%
+% \changes{v0.3}{2017/05/07}{新增定理环境。}
+%
+% \begin{variable}{\c_@@_thm_style_plain_clist,
+%   \c_@@_thm_style_break_clist}
+% 保存 \opt{plain}、\opt{break} 两种类型的定理样式名称。
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_thm_style_plain_clist
+  { plain, margin, change }
+\clist_const:Nn \c_@@_thm_style_break_clist
+  { break, marginbreak, changebreak }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_thm_style_tl,
+%   \l_@@_thm_header_font_tl,
+%   \l_@@_thm_body_font_tl,
+%   \l_@@_thm_qed_tl,
+%   \l_@@_thm_counter_tl}
+% 定理所需的一些字段。
+%    \begin{macrocode}
+\tl_new:N \l_@@_thm_style_tl
+\tl_new:N \l_@@_thm_header_font_tl
+\tl_new:N \l_@@_thm_body_font_tl
+\tl_new:N \l_@@_thm_qed_tl
+\tl_new:N \l_@@_thm_counter_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{theorem/style,
+%   theorem/header-font,
+%   theorem/body-font,
+%   theorem/qed,
+%   theorem/counter}
+% 定义 |fdu/theorem| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { fdu / theorem }
+  {
+    style       .tl_set:N  = \l_@@_thm_style_tl,
+    header-font .tl_set:N  = \l_@@_thm_header_font_tl,
+    body-font   .tl_set:N  = \l_@@_thm_body_font_tl,
+    qed         .tl_set:N  = \l_@@_thm_qed_tl,
+    counter     .tl_set:N  = \l_@@_thm_counter_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_thm_ntheorem_style:n,\@@_thm_ntheorem_new:w}
+% 拷贝 \pkg{ntheorem} 命令。
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_thm_ntheorem_style:n \theoremstyle
+\cs_new_eq:NN \@@_thm_ntheorem_new:w   \newtheorem
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.7}{2017/12/12}{原 \cs{fdunewtheorem} 命令更名为
+%   \cs{new\-the\-orem}。}
+%
+% \begin{macro}{\newtheorem}
+% 定义新的定理环境。
+%    \begin{macrocode}
+\RenewDocumentCommand \newtheorem { s o m m }
+  {
+%    \end{macrocode}
+% 默认情况下，由 \cs{newtheorem*} 创建的定理其证毕符号为 \cs{QED}，
+% 而由 \cs{new\-the\-orem} 创建的则不带证毕符号。符号 \cs{QED} 由
+% \pkg{unicode-math} 宏包提供。
+%    \begin{macrocode}
+    \IfBooleanTF {#1}
+      { \tl_set:Nn \l_@@_thm_qed_tl { \ensuremath { \QED } } }
+      { \tl_set:Nn \l_@@_thm_qed_tl { } }
+%    \end{macrocode}
+% 设置默认样式为 \opt{plain}。
+%    \begin{macrocode}
+% TODO: (2017-12-07) Move to interface
+    \tl_set:Nn \l_@@_thm_style_tl { plain }
+%    \end{macrocode}
+% 处理可选参数。利用 |fdu/theorem| 键值对设置，并按此修改证毕符号、
+% 定理头字体和定理正文字体。
+%    \begin{macrocode}
+    \IfValueT {#2} { \keys_set:nn { fdu / theorem } {#2} }
+    \fdu_thm_set_header_font:V \l_@@_thm_header_font_tl
+    \fdu_thm_set_body_font:V   \l_@@_thm_body_font_tl
+    \fdu_thm_set_qed:V         \l_@@_thm_qed_tl
+%    \end{macrocode}
+% \cs{newtheorem} 负责创建编号定理，而 \cs{newtheorem*}
+% 则负责创建无编号定理。以下分这两种情况处理。
+%    \begin{macrocode}
+    \IfBooleanTF {#1}
+      {
+%    \end{macrocode}
+% 带 |*| 的版本原则上只接受 \opt{plain} 和 \opt{break} 两种样式，
+% 其余样式将被转换成这两者其中之一。
+%    \begin{macrocode}
+        \clist_if_in:nVF { plain, break } \l_@@_thm_style_tl
+          {
+            \clist_if_in:NVTF
+              \c_@@_thm_style_plain_clist \l_@@_thm_style_tl
+              { \@@_thm_redefine_style:n { plain } }
+              {
+                \clist_if_in:NVTF
+                  \c_@@_thm_style_break_clist \l_@@_thm_style_tl
+                  { \@@_thm_redefine_style:n { break } }
+                  {
+                    \@@_error:nx { unknown-theorem-style }
+                      { \l_@@_thm_style_tl }
+                  }
+              }
+          }
+%    \end{macrocode}
+% \pkg{ntheorem} 宏包提供的无编号定理带有 |nonumber| 前缀，
+% 这里将其加上。
+%    \begin{macrocode}
+        \tl_put_left:Nn \l_@@_thm_style_tl { nonumber }
+        \fdu_thm_new_no_number:Vxx \l_@@_thm_style_tl {#3} {#4}
+      }
+      {
+%    \end{macrocode}
+% 不带 |*| 的版本支持不含“|nonumber|”的所有定理样式。
+%    \begin{macrocode}
+        \clist_clear:N \l_@@_tmpa_clist
+        \clist_concat:NNN \l_@@_tmpa_clist
+          \c_@@_thm_style_plain_clist \c_@@_thm_style_break_clist
+        \clist_if_in:NVF \l_@@_tmpa_clist \l_@@_thm_style_tl
+          {
+            \@@_error:nx { unknown-theorem-style }
+              { \l_@@_thm_style_tl }
+          }
+        \fdu_thm_new:VVxx \l_@@_thm_style_tl \l_@@_thm_counter_tl
+          {#3} {#4}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_thm_redefine_style:n}
+% 重定义定理样式，并给出警告。
+%    \begin{macrocode}
+\cs_new:Npn \@@_thm_redefine_style:n #1
+  {
+    \@@_warning:nxx { redefine-theorem-style }
+      {#1} { \l_@@_thm_style_tl }
+    \tl_set:Nn \l_@@_thm_style_tl {#1}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 提示信息。
+%    \begin{macrocode}
+\@@_msg_new:nn { redefine-theorem-style }
+  { Theorem~ style~ "#2"~ will~ be~ redefined~ as~ "#1". }
+\@@_msg_new:nn { unknown-theorem-style }
+  { Theorem~ style~ "#1"~ is~ unknown. }
+%    \end{macrocode}
+%
+% \begin{macro}{\fdu_thm_new:nnnn,\fdu_thm_new:VVxx}
+% 带编号的定理环境。
+% \begin{arguments}
+%   \item 样式
+%   \item 计数器
+%   \item 定理环境名称
+%   \item 定理头文字
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_new:nnnn #1#2#3#4
+  {
+    \@@_thm_ntheorem_style:n {#1}
+    \@@_thm_ntheorem_new:w   {#3} {#4} [#2]
+  }
+\cs_generate_variant:Nn \fdu_thm_new:nnnn { VVxx }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_new_no_number:nnn,
+%   \fdu_thm_new_no_number:Vxx}
+% 不带编号的定理环境。
+% \begin{arguments}
+%   \item 样式
+%   \item 定理环境名称
+%   \item 定理头文字
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_new_no_number:nnn #1#2#3
+  {
+    \@@_thm_ntheorem_style:n {#1}
+    \@@_thm_ntheorem_new:w   {#2} {#3}
+  }
+\cs_generate_variant:Nn \fdu_thm_new_no_number:nnn { Vxx }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fdu_thm_set_qed:n,
+%   \fdu_thm_set_header_font:n,
+%   \fdu_thm_set_body_font:n,
+%   \fdu_thm_set_qed:V,
+%   \fdu_thm_set_header_font:V,
+%   \fdu_thm_set_body_font:V}
+% 封装 \pkg{ntheorem} 宏包提供的若干命令，分别用以设置证毕符号、
+% 定理头字体和定理正文字体。
+%    \begin{macrocode}
+\cs_new:Npn \fdu_thm_set_qed:n         #1 { \theoremsymbol     {#1} }
+\cs_new:Npn \fdu_thm_set_header_font:n #1 { \theoremheaderfont {#1} }
+\cs_new:Npn \fdu_thm_set_body_font:n   #1 { \theorembodyfont   {#1} }
+\cs_generate_variant:Nn \fdu_thm_set_qed:n         { V }
+\cs_generate_variant:Nn \fdu_thm_set_header_font:n { V }
+\cs_generate_variant:Nn \fdu_thm_set_body_font:n   { V }
+%    \end{macrocode}
+% \end{macro}
+%
+% \end{implementation}
+%

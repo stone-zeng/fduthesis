@@ -37,28 +37,28 @@ l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.14215, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ①
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ①
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.13011, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓐ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ⓐ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.14215, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 Ⓐ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 Ⓐ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
 \hbox(7.76903+0.18068)x9.14215, direction TLT
 .\whatsit4=[]
-.\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓒ
+.\TU/libertinusserif-regular.otf(0)/m/n/12.045 ⓒ
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
