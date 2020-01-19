@@ -19,7 +19,7 @@ jobs:
       uses: fudan-mse/latex-action@master
       with:
         # The root LaTeX file to be compiled
-        root_file: test.tex
+        root_file: test-with-arara.tex
         # The working directory for the LaTeX engine
         working_directory: test
         # The LaTeX engine to be invoked
@@ -28,3 +28,26 @@ jobs:
         args: "--verbose"
         # Install extra packages by tlmgr
         extra_packages: fduthesis
+
+    - name: Check pdf files
+      run: |
+        file test/test-with-arara.pdf | grep -q ' PDF '
+    - name: Make changes
+      run: |
+        touch test/.gitignore
+    - name: Deploy
+      uses: docker://peaceiris/gh-pages:v2.3.1
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./test
+      with:
+        emptyCommits: true
+        keepFiles: true
+        commitMessage: ${{ github.event.head_commit.message }}
+    - name: Upload
+      uses: actions/upload-artifact@master
+      with:
+        name: test
+        path: test
+      if: always()
