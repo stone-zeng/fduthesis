@@ -1,0 +1,30 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+    - name: LaTeX Action
+      uses: fudan-mse/latex-action@master
+      with:
+        # The root LaTeX file to be compiled
+        root_file: test.tex
+        # The working directory for the LaTeX engine
+        working_directory: test
+        # The LaTeX engine to be invoked
+        compiler: arara
+        # Extra arguments to be passed to the LaTeX engine
+        args: "--verbose"
+        # Install extra packages by tlmgr
+        extra_packages: fduthesis
