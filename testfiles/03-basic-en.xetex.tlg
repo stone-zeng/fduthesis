@@ -49,7 +49,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(16.6221+0.33725)x416.54877, glue set 163.82834fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
-.....\TU/XITS(0)/bx/n/24.09 Abstract
+.....\TU/XITS(0)/b/n/24.09 Abstract
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -82,7 +82,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\baselineskip) 6.22726
 ....\hbox(8.22673+2.6258)x416.54877
-.....\TU/XITS(0)/bx/n/12.045 Keywords:
+.....\TU/XITS(0)/b/n/12.045 Keywords:
 .....\kern -0.0002
 .....\kern 0.0002
 .....\glue 12.045
@@ -121,11 +121,11 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\baselineskip) 3.50511
 ....\hbox(8.32309+0.22884)x416.54877, glue set 284.37901fil
-.....\TU/XITS(0)/bx/n/12.045 CLC
+.....\TU/XITS(0)/b/n/12.045 CLC
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 3.01125 plus 1.5041 minus 1.00473
-.....\TU/XITS(0)/bx/n/12.045 number:
+.....\TU/XITS(0)/b/n/12.045 number:
 .....\kern -0.0002
 .....\kern 0.0002
 .....\glue 12.045
@@ -231,15 +231,15 @@ Completed box being shipped out [3]
 .....\glue(\parskip) 0.0 plus 1.0
 .....\hbox(16.67027+4.93843)x416.54877, glue set 128.71716fil
 ......\glue(\leftskip) 0.0 plus 1.0fil
-......\TU/XITS(0)/bx/n/24.09 List
+......\TU/XITS(0)/b/n/24.09 List
 ......\kern -0.00021
 ......\kern 0.00021
 ......\glue 6.0225 plus 3.01125 minus 2.00749
-......\TU/XITS(0)/bx/n/24.09 of
+......\TU/XITS(0)/b/n/24.09 of
 ......\kern -0.00021
 ......\kern 0.00021
 ......\glue 6.0225 plus 3.01125 minus 2.00749
-......\TU/XITS(0)/bx/n/24.09 Symbols
+......\TU/XITS(0)/b/n/24.09 Symbols
 ......\kern -0.0002
 ......\kern 0.0002
 ......\penalty 10000
@@ -261,7 +261,7 @@ Completed box being shipped out [3]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -291,7 +291,7 @@ Completed box being shipped out [3]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2512
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2516
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -321,10 +321,10 @@ Completed box being shipped out [3]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3181
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3185
 .......\kern1.08405
 .......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#41
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
 .......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#42
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
@@ -359,8 +359,8 @@ Completed box being shipped out [3]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1813
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1817
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
 .......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
@@ -405,8 +405,8 @@ Completed box being shipped out [3]
 .......\glue 0.00002
 .......\mathon
 .......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2520
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1814
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1818
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -449,13 +449,13 @@ Completed box being shipped out [3]
 .......\glue 6.0
 .......\glue 0.00002
 .......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1813
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3158
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1817
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3162
 .......\kern0.4818
 .......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3159
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3163
 .......\kern0.78293
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1814
+.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1818
 .......\mathoff
 .......\glue 0.0 plus 1.0fil
 .......\glue 6.0
@@ -579,11 +579,11 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
-.....\TU/XITS(0)/bx/n/22.08249 Chapter
+.....\TU/XITS(0)/b/n/22.08249 Chapter
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 5.52063 plus 2.76031 minus 1.84021
-.....\TU/XITS(0)/bx/n/22.08249 1
+.....\TU/XITS(0)/b/n/22.08249 1
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -596,11 +596,11 @@ Completed box being shipped out [1]
 ....\hbox(16.6462+4.93843)x416.54877, glue set 141.37646fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\hbox(0.0+0.0)x0.0
-.....\TU/XITS(0)/bx/n/24.09 First
+.....\TU/XITS(0)/b/n/24.09 First
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 6.0225 plus 3.01125 minus 2.00749
-.....\TU/XITS(0)/bx/n/24.09 chapter
+.....\TU/XITS(0)/b/n/24.09 chapter
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -615,16 +615,15 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(12.48463+0.25293)x416.54877, glue set 140.6026fil
 .....\hbox(12.43044+0.23486)x40.65186
-......\glue 0.0
-......\TU/XITS(0)/bx/n/18.06749 1.1
+......\TU/XITS(0)/b/n/18.06749 1.1
 ......\kern -0.0002
 ......\kern 0.0002
 ......\glue 18.06749
-.....\TU/XITS(0)/bx/n/18.06749 First
+.....\TU/XITS(0)/b/n/18.06749 First
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 4.51688 plus 2.25844 minus 1.50562
-.....\TU/XITS(0)/bx/n/18.06749 section
+.....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -645,16 +644,15 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(12.5027+0.34326)x416.54877, glue set 131.48755fil
 .....\hbox(12.43044+0.23486)x40.65186
-......\glue 0.0
-......\TU/XITS(0)/bx/n/18.06749 1.2
+......\TU/XITS(0)/b/n/18.06749 1.2
 ......\kern -0.0002
 ......\kern 0.0002
 ......\glue 18.06749
-.....\TU/XITS(0)/bx/n/18.06749 Second
+.....\TU/XITS(0)/b/n/18.06749 Second
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 4.51688 plus 2.25844 minus 1.50562
-.....\TU/XITS(0)/bx/n/18.06749 section
+.....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -675,16 +673,15 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(12.48463+0.25293)x416.54877, glue set 136.59161fil
 .....\hbox(12.43044+0.25293)x40.65186
-......\glue 0.0
-......\TU/XITS(0)/bx/n/18.06749 1.3
+......\TU/XITS(0)/b/n/18.06749 1.3
 ......\kern -0.0002
 ......\kern 0.0002
 ......\glue 18.06749
-.....\TU/XITS(0)/bx/n/18.06749 Third
+.....\TU/XITS(0)/b/n/18.06749 Third
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 4.51688 plus 2.25844 minus 1.50562
-.....\TU/XITS(0)/bx/n/18.06749 section
+.....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -791,11 +788,11 @@ Completed box being shipped out [3]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
-.....\TU/XITS(0)/bx/n/22.08249 Chapter
+.....\TU/XITS(0)/b/n/22.08249 Chapter
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 5.52063 plus 2.76031 minus 1.84021
-.....\TU/XITS(0)/bx/n/22.08249 2
+.....\TU/XITS(0)/b/n/22.08249 2
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000
@@ -808,11 +805,11 @@ Completed box being shipped out [3]
 ....\hbox(16.67027+4.93843)x416.54877, glue set 129.22305fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\hbox(0.0+0.0)x0.0
-.....\TU/XITS(0)/bx/n/24.09 Second
+.....\TU/XITS(0)/b/n/24.09 Second
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 6.0225 plus 3.01125 minus 2.00749
-.....\TU/XITS(0)/bx/n/24.09 chapter
+.....\TU/XITS(0)/b/n/24.09 chapter
 .....\kern -0.0002
 .....\kern 0.0002
 .....\penalty 10000

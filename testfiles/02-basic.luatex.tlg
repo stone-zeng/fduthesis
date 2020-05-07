@@ -79,24 +79,24 @@ Completed box being shipped out [1]
 ....\mark{{摘\hskip 1em\relax 要}{摘\hskip 1em\relax 要}}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
-....\hbox(10.5996+1.4454)x416.54877, glue set 344.27878fil, direction TLT
+....\hbox(10.5996+1.4454)x416.54877, glue set 344.36877fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.09, direction TLT
+.....\hbox(0.0+0.0)x24.0, direction TLT
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 中
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 文
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 摘
 .....\penalty 500
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 要
 .....\penalty 10000
@@ -104,14 +104,14 @@ Completed box being shipped out [1]
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\baselineskip) 18.55455
-....\hbox(0.0+0.0)x416.54877, glue set 392.45877fil, direction TLT
+....\hbox(0.0+0.0)x416.54877, glue set 392.54877fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.09, direction TLT
+.....\hbox(0.0+0.0)x24.0, direction TLT
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -126,15 +126,15 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 关
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 键
 .....\penalty 500
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 字
 .....\penalty 10000
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 ：
 .....\glue 6.0225 minus 6.0225
@@ -149,46 +149,46 @@ Completed box being shipped out [1]
 .......\hbox(0.0+0.0)x0.0, direction TLT
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 关
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 键
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 字
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\norule(10.5996+1.4454)x0.0
 .......\LTJY3/FandolSong(0)/m/n/12.045 一
 .......\penalty 10000
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x6.0225, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 ；
 .......\glue 6.0225 minus 6.0225
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 关
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 键
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 字
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\norule(10.5996+1.4454)x0.0
 .......\LTJY3/FandolSong(0)/m/n/12.045 二
 .......\penalty 10000
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x6.0225, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 ；
 .......\glue 6.0225 minus 6.0225
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 关
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 键
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 字
 .......\penalty 500
-.......\glue 0.0 plus 0.59575
+.......\glue 0.0 plus 0.64215
 .......\norule(10.5996+1.4454)x0.0
 .......\LTJY3/FandolSong(0)/m/n/12.045 三
 .......\penalty 10000
@@ -209,21 +209,21 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 中
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 图
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 分
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 类
 .....\penalty 500
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 号
 .....\penalty 10000
-.....\glue 0.0 plus 0.59575
+.....\glue 0.0 plus 0.64215
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 ：
 .....\glue 6.0225 minus 6.0225
@@ -384,14 +384,14 @@ Completed box being shipped out [3]
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
-....\hbox(8.22673+2.62581)x416.54877, glue set 315.32257fil, direction TLT
+....\hbox(8.22673+2.62581)x416.54877, glue set 315.4126fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.09, direction TLT
+.....\hbox(0.0+0.0)x24.0, direction TLT
 .....\TU/XITS(0)/m/n/12.045 E
 .....\TU/XITS(0)/m/n/12.045 n
 .....\discretionary (penalty 50)
@@ -420,14 +420,14 @@ Completed box being shipped out [3]
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\baselineskip) 17.37415
-....\hbox(0.0+0.0)x416.54877, glue set 392.45877fil, direction TLT
+....\hbox(0.0+0.0)x416.54877, glue set 392.54877fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.09, direction TLT
+.....\hbox(0.0+0.0)x24.0, direction TLT
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -440,22 +440,22 @@ Completed box being shipped out [3]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\TU/XITS(0)/bx/n/12.045 K
+.....\TU/XITS(0)/b/n/12.045 K
 .....\kern-0.20476 (font)
-.....\TU/XITS(0)/bx/n/12.045 e
+.....\TU/XITS(0)/b/n/12.045 e
 .....\kern-0.20476 (font)
-.....\TU/XITS(0)/bx/n/12.045 y
+.....\TU/XITS(0)/b/n/12.045 y
 .....\discretionary (penalty 50)
 ......< \kern-0.30113 (font)
-......< \TU/XITS(0)/bx/n/12.045 -
-.....\TU/XITS(0)/bx/n/12.045 w
+......< \TU/XITS(0)/b/n/12.045 -
+.....\TU/XITS(0)/b/n/12.045 w
 .....\kern-0.3734 (font)
-.....\TU/XITS(0)/bx/n/12.045 o
-.....\TU/XITS(0)/bx/n/12.045 r
+.....\TU/XITS(0)/b/n/12.045 o
+.....\TU/XITS(0)/b/n/12.045 r
 .....\kern-0.12045 (font)
-.....\TU/XITS(0)/bx/n/12.045 d
-.....\TU/XITS(0)/bx/n/12.045 s
-.....\TU/XITS(0)/bx/n/12.045 :
+.....\TU/XITS(0)/b/n/12.045 d
+.....\TU/XITS(0)/b/n/12.045 s
+.....\TU/XITS(0)/b/n/12.045 :
 .....\glue 12.045
 .....\vbox(8.22673+2.62581)x349.20517, direction TLT
 ......\hbox(8.22673+2.62581)x349.20517, glue set 182.53847fil, direction TLT
@@ -534,21 +534,21 @@ Completed box being shipped out [3]
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\TU/XITS(0)/bx/n/12.045 C
-.....\TU/XITS(0)/bx/n/12.045 L
+.....\TU/XITS(0)/b/n/12.045 C
+.....\TU/XITS(0)/b/n/12.045 L
 .....\kern-0.09636 (font)
-.....\TU/XITS(0)/bx/n/12.045 C
+.....\TU/XITS(0)/b/n/12.045 C
 .....\glue(\spaceskip) 3.01125 plus 1.50412 minus 1.00475
-.....\TU/XITS(0)/bx/n/12.045 n
-.....\TU/XITS(0)/bx/n/12.045 u
-.....\TU/XITS(0)/bx/n/12.045 m
+.....\TU/XITS(0)/b/n/12.045 n
+.....\TU/XITS(0)/b/n/12.045 u
+.....\TU/XITS(0)/b/n/12.045 m
 .....\discretionary (penalty 50)
-......< \TU/XITS(0)/bx/n/12.045 -
-.....\TU/XITS(0)/bx/n/12.045 b
-.....\TU/XITS(0)/bx/n/12.045 e
-.....\TU/XITS(0)/bx/n/12.045 r
+......< \TU/XITS(0)/b/n/12.045 -
+.....\TU/XITS(0)/b/n/12.045 b
+.....\TU/XITS(0)/b/n/12.045 e
+.....\TU/XITS(0)/b/n/12.045 r
 .....\kern-0.12045 (font)
-.....\TU/XITS(0)/bx/n/12.045 :
+.....\TU/XITS(0)/b/n/12.045 :
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 T
 .....\kern-0.1084 (font)
@@ -742,7 +742,7 @@ t}{\ETC.}
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 坐
 .........\penalty 500
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 标
 .........\penalty 10000
@@ -785,7 +785,7 @@ t}{\ETC.}
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 动
 .........\penalty 500
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 量
 .........\penalty 10000
@@ -831,11 +831,11 @@ t}{\ETC.}
 .........\penalty 0
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 波
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 函
 .........\penalty 500
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 数
 .........\penalty 10000
@@ -880,7 +880,7 @@ t}{\ETC.}
 .........\norule(10.5996+1.4454)x0.0
 .........\LTJY3/FandolSong(0)/m/n/12.045 左
 .........\penalty 500
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 矢
 .........\glue 6.0225 minus 6.0225
@@ -939,7 +939,7 @@ t}{\ETC.}
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 右
 .........\penalty 500
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 矢
 .........\glue 6.0225 minus 6.0225
@@ -1003,7 +1003,7 @@ t}{\ETC.}
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 内
 .........\penalty 500
-.........\glue 0.0 plus 0.59575
+.........\glue 0.0 plus 0.64215
 .........\hbox(10.5996+1.4454)x12.045, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/12.045 积
 .........\penalty 10000
@@ -1180,7 +1180,6 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(12.80984+0.0)x43.18129, direction TLT
 ......\whatsit4=[]
-......\glue 0.0
 ......\TU/texgyreheros(0)/m/n/18.06749 1
 ......\TU/texgyreheros(0)/m/n/18.06749 .
 ......\TU/texgyreheros(0)/m/n/18.06749 1
@@ -1223,7 +1222,6 @@ ct \ETC.}
 ......\localrightbox=null
 .....\hbox(12.80984+0.0)x43.18129, direction TLT
 ......\whatsit4=[]
-......\glue 0.0
 ......\TU/texgyreheros(0)/m/n/18.06749 1
 ......\TU/texgyreheros(0)/m/n/18.06749 .
 ......\TU/texgyreheros(0)/m/n/18.06749 2
@@ -1266,7 +1264,6 @@ ct \ETC.}
 ......\localrightbox=null
 .....\hbox(12.80984+0.27101)x43.18129, direction TLT
 ......\whatsit4=[]
-......\glue 0.0
 ......\TU/texgyreheros(0)/m/n/18.06749 1
 ......\TU/texgyreheros(0)/m/n/18.06749 .
 ......\TU/texgyreheros(0)/m/n/18.06749 3

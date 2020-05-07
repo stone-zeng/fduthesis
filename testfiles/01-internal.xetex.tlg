@@ -36,7 +36,7 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.76903+0.1927)x9.14215
+\hbox(7.76903+0.18066)x9.14215
 .\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ①
 .\kern -0.0002
 .\kern 0.0002
@@ -44,7 +44,7 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.76903+0.1927)x9.13011
+\hbox(7.76903+0.18066)x9.13011
 .\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓐ
 .\kern -0.0002
 .\kern 0.0002
@@ -52,7 +52,7 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.76903+0.1927)x9.14215
+\hbox(7.76903+0.18066)x9.14215
 .\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 Ⓐ
 .\kern -0.0002
 .\kern 0.0002
@@ -60,7 +60,7 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.76903+0.1927)x9.14215
+\hbox(7.76903+0.18066)x9.14215
 .\TU/LibertinusSerif-Regular.otf(0)/m/n/12.045 ⓒ
 .\kern -0.0002
 .\kern 0.0002
