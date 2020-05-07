@@ -5,7 +5,7 @@ on: [push]
 
 env:
   CTAN_URL: https://mirrors.rit.edu/CTAN
-  TL_PACKAGES: adobemapping amsfonts arphic-ttf babel-japanese baekmuk biber biblatex biblatex-gb7714-2015 ctablestack ctex currfile environ fandol footmisc gbt7714 ipaex japanese-otf kantlipsum l3build latexmk libertinus-fonts lm-math logreq lualatex-math luatex85 luatexja ntheorem platex platex-tools preview ptex ptex-base ptex-fontmaps ptex-fonts siunitx standalone symbol tex-gyre tex-gyre-math trimspaces uplatex uptex uptex-base uptex-fonts varwidth xits xstring fduthesis zhmetrics-uptex zhnumber
+  TL_PACKAGES: biber biblatex biblatex-gb7714-2015 caption ctex fancyhdr footmisc gbt7714 kantlipsum l3build latexmk libertinus-fonts lm-math lualatex-math luatex85 ntheorem preview psnfss siunitx standalone symbol tex-gyre tex-gyre-math unicode-math xits xstring
 
 jobs:
   build-ubuntu:
