@@ -1,0 +1,69 @@
+  
+name: build
+
+on: [push]
+
+env:
+  CTAN_URL: https://mirrors.rit.edu/CTAN
+  TL_PACKAGES: adobemapping amsfonts arphic-ttf babel-japanese baekmuk biber biblatex biblatex-gb7714-2015 ctablestack ctex currfile environ fandol footmisc gbt7714 ipaex japanese-otf kantlipsum l3build latexmk libertinus-fonts lm-math logreq lualatex-math luatex85 luatexja ntheorem platex platex-tools preview ptex ptex-base ptex-fontmaps ptex-fonts siunitx standalone symbol tex-gyre tex-gyre-math trimspaces uplatex uptex uptex-base uptex-fonts varwidth xits xstring fduthesis zhmetrics-uptex zhnumber
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install TeX Live
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+        wget ${{ env.CTAN_URL }}/systems/texlive/tlnet/install-tl-unx.tar.gz
+        tar -xzf install-tl-unx.tar.gz
+        cd install-tl-20* && ./install-tl --profile ../.github/workflows/texlive.profile
+        tlmgr install ${{ env.TL_PACKAGES }}
+        tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
+    - name: Test fduthesis
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+        l3build check -q -H
+        cp ./build/local/{*.cls,*.def} ./test
+        latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-xetex          test/test.tex
+        latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test/test.tex
+        latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test/test-en.tex
+        latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test/test-en.tex
+        latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test/test-biblatex.tex
+  build-macos:
+    runs-on: macos-latest
+    if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install TeX Live
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-darwin:$PATH
+        curl -O ${{ env.CTAN_URL }}/systems/texlive/tlnet/install-tl-unx.tar.gz
+        tar -xzf install-tl-unx.tar.gz
+        cd install-tl-20* && ./install-tl --profile ../.github/workflows/texlive.profile
+        tlmgr install ${{ env.TL_PACKAGES }}
+        tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
+    - name: Test fduthesis
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-darwin:$PATH
+        l3build check -q -H
+  # Line wrap problem is difficult to resolve on windows.
+  build-windows:
+    runs-on: windows-latest
+    if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install TeX Live
+      run: |
+        ${env:PATH} = "${{ github.workspace }}\tmp\texlive\bin\win32;" + ${env:PATH}
+        Invoke-WebRequest -Uri ${{ env.CTAN_URL }}/systems/texlive/tlnet/install-tl.zip -OutFile install-tl.zip
+        Expand-Archive install-tl.zip -DestinationPath .
+        Set-Location install-tl-*
+        .\install-tl-windows --no-gui --profile ..\.github\workflows\texlive-win.profile
+        tlmgr install ${{ env.TL_PACKAGES }}
+        tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
+    - name: Test fduthesis
+      run: |
+        ${env:PATH} = "${{ github.workspace }}\tmp\texlive\bin\win32;" + ${env:PATH}
+        l3build check -q -H
