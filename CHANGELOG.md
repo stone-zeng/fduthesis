@@ -11,6 +11,7 @@
   - 处理 `hyperref` 与 `unicode-math` 的兼容性问题 - [ustctug/ustcthesis#223](https://github.com/ustctug/ustcthesis/issues/223)
 - 优化
   - 同步 TeX Live 2019
+  - 持续集成改为使用 GitHub Actions
 
 ## [v0.7d (2019-04-03)](https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d)
 
