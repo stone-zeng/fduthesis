@@ -26,11 +26,11 @@ jobs:
         export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
         l3build check -q -H
         cd test && cp ../build/unpacked/{*.cls,*.def} .
-        latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-xetex          test.tex
-        latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-luatex         test.tex
-        latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-en-xetex       test-en.tex
-        latexmk -cd -quiet -halt-on-error -time -lualatex -jobname=test-en-luatex      test-en.tex
-        latexmk -cd -quiet -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test-biblatex.tex
+        latexmk -halt-on-error -time -xelatex  -jobname=test-xetex          test.tex
+        latexmk -halt-on-error -time -lualatex -jobname=test-luatex         test.tex
+        latexmk -halt-on-error -time -xelatex  -jobname=test-en-xetex       test-en.tex
+        latexmk -halt-on-error -time -lualatex -jobname=test-en-luatex      test-en.tex
+        latexmk -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test-biblatex.tex
   build-macos:
     runs-on: macos-latest
     if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
