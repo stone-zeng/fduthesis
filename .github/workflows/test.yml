@@ -5,7 +5,7 @@ on: [push]
 
 env:
   CTAN_URL: https://mirrors.rit.edu/CTAN
-  TL_PACKAGES: biber biblatex biblatex-gb7714-2015 caption ctex fancyhdr footmisc gbt7714 kantlipsum l3build latexmk libertinus-fonts lm-math lualatex-math luatex85 ntheorem preview psnfss siunitx standalone symbol tex-gyre tex-gyre-math unicode-math xits xstring
+  TL_PACKAGES: biber biblatex biblatex-gb7714-2015 caption ctex fancyhdr footmisc gbt7714 kantlipsum l3build latexmk libertinus-fonts lm-math lualatex-math luatex85 natbib ntheorem preview psnfss siunitx standalone symbol tex-gyre tex-gyre-math unicode-math xits xstring zhlipsum
 
 jobs:
   build-ubuntu:
@@ -27,9 +27,9 @@ jobs:
         l3build check -q -H
         cd test && cp ../build/unpacked/{*.cls,*.def} .
         latexmk -halt-on-error -time -xelatex  -jobname=test-xetex          test.tex
-        latexmk -halt-on-error -time -lualatex -jobname=test-luatex         test.tex
+        # latexmk -halt-on-error -time -lualatex -jobname=test-luatex         test.tex
         latexmk -halt-on-error -time -xelatex  -jobname=test-en-xetex       test-en.tex
-        latexmk -halt-on-error -time -lualatex -jobname=test-en-luatex      test-en.tex
+        # latexmk -halt-on-error -time -lualatex -jobname=test-en-luatex      test-en.tex
         latexmk -halt-on-error -time -xelatex  -jobname=test-biblatex-xetex test-biblatex.tex
   build-macos:
     runs-on: macos-latest
