@@ -81,6 +81,7 @@ cp $(kpsewhich l3backend-pdfmode.def)        $OVERLEAF_DIR
 cp $(kpsewhich l3backend-xdvipdfmx.def)      $OVERLEAF_DIR
 cp $(kpsewhich l3keys2e.sty)                 $OVERLEAF_DIR
 cp $(kpsewhich xparse.sty)                   $OVERLEAF_DIR
+cp $(kpsewhich xparse-generic.tex)           $OVERLEAF_DIR
 cp $(kpsewhich xtemplate.sty)                $OVERLEAF_DIR
 # fontspec & unicode-math
 cp $(kpsewhich fontspec.sty)                 $OVERLEAF_DIR
@@ -89,6 +90,7 @@ cp $(kpsewhich unicode-math.sty)             $OVERLEAF_DIR
 cp $(kpsewhich unicode-math-xetex.sty)       $OVERLEAF_DIR
 # ctex etc.
 cp $(kpsewhich ctexbook.cls)                 $OVERLEAF_DIR
+cp $(kpsewhich ctexbackend.cfg)              $OVERLEAF_DIR
 cp $(kpsewhich ctex-scheme-chinese-book.def) $OVERLEAF_DIR
 cp $(kpsewhich ctex-scheme-plain-book.def)   $OVERLEAF_DIR
 cp $(kpsewhich ctex-engine-xetex.def)        $OVERLEAF_DIR
