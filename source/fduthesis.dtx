@@ -252,7 +252,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<*driver>
 % \PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
-\usepackage{multirow,xpinyin}
+\usepackage{multirow,xeCJKfntef,xpinyin}
 \hypersetup{
   pdftitle  = {fduthesis: 复旦大学论文模板},
   pdfauthor = {曾祥东}}
@@ -261,8 +261,6 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \def\FSFW{“{\xeCJKsetup{PunctStyle=banjiao}．}”} % U+FF0E
 \def\COFW{“{\xeCJKsetup{PunctStyle=banjiao}：}”} % U+FF1A
 \def\SCFW{“{\xeCJKsetup{PunctStyle=banjiao}；}”} % U+FF1B
-% Libertinus Math 字体不包含 `\QED`，暂时使用 `\blacksquare` 代替 
-\AtBeginDocument{\def\QED{\blacksquare}}
 %^^A! \PassOptionsToPackage{scheme=plain, linespread=1.1}{ctex}
 %^^A! \documentclass{fdudoc}
 %^^A! \hypersetup{
@@ -274,11 +272,10 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \pagestyle{headings}
 %^^A! \def\FSID{{\xeCJKsetup{PunctStyle=banjiao}。}}
 %^^A! \def\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
-%^^A! \AtBeginDocument{\def\QED{\blacksquare}}
 %^^A!
 
 \title{\textcolor{MaterialIndigo800}{%
-  \textbf{fduthesis: 复旦大学论文\xpinyin[font=\sffamily]{模}{mu2}板}}}
+  \textbf{fduthesis: 复旦大学论文\xpinyin[font=\sffamily,format=\color{MaterialIndigo800}]{模}{mu2}板}}}
 \author{曾祥东}
 \date{2019/04/03\quad v0.7d%
   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
@@ -2389,14 +2386,14 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{clreq}
 % W3C.
 % \newblock \textit{中文排版需求（Requirements for Chinese Text Layout）} [EB/OL].
-% \newblock (2019-03-13) 
+% \newblock (2020-08-17)
 % \urlprefix\url{https://w3c.github.io/clreq/}
 %
 % \bibitem{复旦大学论文规范}
 % 复旦大学图书馆, 复旦大学研究生院.
 % \newblock \textit{复旦大学博士、硕士学位论文规范} [EB/OL].
 % \newblock 2017 年 3 月修订版.
-% \newblock (2017-03-27) 
+% \newblock (2017-03-27)
 % \urlprefix\url{http://www.gs.fudan.edu.cn/_upload/article/4c/a8/a82545ef443b9c057c14ba13782c/c883c6f3-6d7f-410c-8f30-d8bde6fcb990.doc}
 %
 % \subsection{宏包、模版}
@@ -2404,23 +2401,23 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{source2e}
 % \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
 % \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
-% \newblock (2018-12-01) 
+% \newblock (2020-02-02)
 % \urlprefix\url{https://ctan.org/pkg/latex}
 % \urlprefix\CTANurl[源代码：]{macros/latex/base/source2e.pdf}
 %
 % \bibitem{CTeX}
 % \textsc{CTEX.ORG}.
 % \newblock \textit{\CTeX{} 宏集手册} [EB/OL].
-% \newblock version 2.4.14,
-% \newblock (2018-05-02) 
+% \newblock version 2.5.4,
+% \newblock (2020-08-23)
 % \urlprefix\url{https://ctan.org/pkg/ctex}
 % \urlprefix\CTANurl[文档及源代码：]{language/chinese/ctex/ctex.pdf}
 %
 % \bibitem{xeCJK}
 % \textsc{CTEX.ORG}.
 % \newblock \textit{\pkg{xeCJK} 宏包} [EB/OL].
-% \newblock version 3.7.1,
-% \newblock (2018-04-30) 
+% \newblock version 3.8.5,
+% \newblock (2020-08-23)
 % \urlprefix\url{https://ctan.org/pkg/xecjk}
 % \urlprefix\CTANurl[文档及源代码：]{macros/xetex/latex/xecjk/xeCJK.pdf}
 %
@@ -2428,22 +2425,22 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \textsc{Daly P W}.
 % \newblock \textit{Natural Sciences Citations and References} [EB/OL].
 % \newblock version 8.31b,
-% \newblock (2010-09-13) 
+% \newblock (2010-09-13)
 % \urlprefix\url{https://ctan.org/pkg/natbib}
 % \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/natbib/natbib.pdf}
 %
 % \bibitem{source3}
 % \textsc{The \LaTeX3 Project}.
 % \newblock \textit{The \LaTeX3 Sources} [CP/OL].
-% \newblock (2019-03-05) 
+% \newblock (2020-08-07)
 % \urlprefix\url{https://ctan.org/pkg/l3kernel}
 % \urlprefix\CTANurl[源代码：]{macros/latex/contrib/l3kernel/source3.pdf}
 %
 % \bibitem{biblatex}
 % \textsc{Lehman P}, \textsc{Kime P}, \textsc{Boruvka A}, et al.
 % \newblock \textit{The \pkg{biblatex} Package} [EB/OL].
-% \newblock version 3.12,
-% \newblock (2018-10-18) 
+% \newblock version 3.15a,
+% \newblock (2020-08-23)
 % \urlprefix\url{https://ctan.org/pkg/biblatex}
 % \urlprefix\CTANurl[文档：]{macros/latex/contrib/biblatex/doc/biblatex.pdf}
 %
@@ -2451,48 +2448,48 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
 % \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
 % \newblock version 6.2,
-% \newblock (2018-02-28) 
+% \newblock (2018-02-28)
 % \urlprefix\url{https://ctan.org/pkg/lshort-english}
 % \urlprefix\CTANurl[文档：]{info/lshort/english/lshort.pdf}
 %
 % \bibitem{lshort-zh-cn}
 % \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
-% \newblock \textit{一份不太简短的 \LaTeXe{} 介绍: 或 106 分钟了解 \LaTeXe{}} [EB/OL].
+% \newblock \textit{一份（不太）简短的 \LaTeXe{} 介绍: 或 112 分钟了解 \LaTeXe{}} [EB/OL].
 % \newblock \CTeX{} 开发小组, 译.
-% \newblock 原版版本 version 6.2, 中文版本 version 6.0,
-% \newblock (2018-09-01) 
+% \newblock 原版版本 version 6.2, 中文版本 version 6.02,
+% \newblock (2020-08-03)
 % \urlprefix\url{https://ctan.org/pkg/lshort-zh-cn}
 % \urlprefix\CTANurl[文档：]{info/lshort/chinese/lshort-zh-cn.pdf}
 %
 % \bibitem{biblatex-gb7714-2015}
 % 胡振震.
 % \newblock \textit{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式} [EB/OL].
-% \newblock version 1.0q,
-% \newblock (2019-02-11) 
+% \newblock version 1.0v,
+% \newblock (2020-07-21)
 % \urlprefix\url{https://ctan.org/pkg/biblatex-gb7714-2015}
 % \urlprefix\CTANurl[文档：]{biblatex-contrib/biblatex-gb7714-2015/biblatex-gb7714-2015.pdf}
 %
 % \bibitem{gbt7714}
 % 李泽平（\textsc{Zeping L}）.
 % \newblock \textit{GB/T 7714-2015 \BibTeX{} Style} [EB/OL].
-% \newblock version 1.0.9,
-% \newblock (2018-08-05) 
+% \newblock version 2.0.2,
+% \newblock (2020-06-08)
 % \urlprefix\url{https://ctan.org/pkg/gbt7714}
 % \urlprefix\CTANurl[文档：]{biblio/bibtex/contrib/gbt7714/gbt7714.pdf}
 %
 % \bibitem{cquthesis}
 % 李振楠.
 % \newblock \textit{\textsc{CquThesis}：重庆大学毕业论文 \LaTeX{} 模板} [EB/OL].
-% \newblock version 1.30,
-% \newblock (2018-02-23) 
+% \newblock version 1.50,
+% \newblock (2020-06-23)
 % \urlprefix\url{https://ctan.org/pkg/cquthesis}
 % \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
 % \bibitem{thuthesis}
-% 薛瑞尼.
+% 清华大学 TUNA 协会.
 % \newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
-% \newblock version 5.4.5,
-% \newblock (2018-05-17) 
+% \newblock version 6.1.3,
+% \newblock (2020-07-09)
 % \urlprefix\url{https://ctan.org/pkg/thuthesis}
 % \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/thuthesis/thuthesis.pdf}
 %
@@ -2500,22 +2497,23 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \bibitem{sjtuthesis}
 % \textsc{SJTUG}.
-% \newblock \textit{上海交通大学 \XeLaTeX{} 学位论文及课程论文模板} [EB/OL].
-% \newblock version 0.10.2,
-% \newblock (2018-11-05)
+% \newblock \textit{上海交通大学学位论文模板} [EB/OL].
+% \newblock version 1.0.0rc7,
+% \newblock (2020-07-31)
 % \urlprefix\url{https://github.com/sjtug/SJTUThesis}
+% \urlprefix\url[源代码仓库：]{https://github.com/sjtug/SJTUTeX}
 %
 % \bibitem{ustcthesis}
 % \textsc{USTC \TeX{} User Group}.
 % \newblock \textit{中国科学技术大学学位论文 \LaTeX{} 模板} [EB/OL].
-% \newblock version 3.1.03,
-% \newblock (2019-01-01)
+% \newblock version 3.2.1,
+% \newblock (2020-04-03)
 % \urlprefix\url{https://github.com/ustctug/ustcthesis}
 %
 % \bibitem{ucasthesis}
 % \textsc{mohuangrui}.
 % \newblock \textit{\pkg{ucasthesis} 国科大学位论文 \LaTeX{} 模板} [EB/OL].
-% \newblock (2019-03-14)
+% \newblock (2020-07-28)
 % \urlprefix\url{https://github.com/mohuangrui/ucasthesis}
 %
 % \emph{以下模版现已停止更新。}
@@ -2523,13 +2521,13 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{pandoxie2014fduthesislatex}
 % \textsc{Pandoxie}.
 % \newblock \textit{Fudan University-Latex Template} [EB/OL].
-% \newblock (2014-06-07) 
+% \newblock (2014-06-07)
 % \urlprefix\url{https://github.com/Pandoxie/FDU-Thesis-Latex}
 %
 % \bibitem{richard2016fudanthesis}
 % \textsc{richard}.
 % \newblock \textit{复旦大学硕士学位论文模板} [EB/OL].
-% \newblock (2016-01-31) 
+% \newblock (2016-01-31)
 % \urlprefix\url{https://github.com/richarddzh/fudan-thesis}
 %
 % \bibitem{数院毕业论文格式}
@@ -2547,7 +2545,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \bibitem{wright2009dtxfile}
 % \textsc{Wright J}.
 % \newblock \textit{A model dtx file} [EB/OL].
-% \newblock (2009-10-06) 
+% \newblock (2009-10-06)
 % \urlprefix\url{https://www.texdev.net/2009/10/06/a-model-dtx-file/}
 %
 % \bibitem{孔雀计划}
@@ -2834,7 +2832,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     type .choice:,
     type .value_required:n = true,
-    type .choices:nn = 
+    type .choices:nn =
       { doctor, master, bachelor }
       { \int_set_eq:NN \g_@@_thesis_type_int \l_keys_choice_int },
     type .initial:n = bachelor,
@@ -5811,7 +5809,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \changes{v0.7e}{2019/04/23}{处理 \pkg{hyperref} 与 \pkg{unicode-math} 的兼容性问题。} 
+% \changes{v0.7e}{2019/04/23}{处理 \pkg{hyperref} 与 \pkg{unicode-math} 的兼容性问题。}
 %
 % 在导言区末尾引入 \pkg{hyperref} 宏包。
 %    \begin{macrocode}
