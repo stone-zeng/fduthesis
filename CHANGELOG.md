@@ -2,7 +2,9 @@
 
 本文档格式遵守 [Keep a Changelog](https://keepachangelog.com)。
 
-## [[未发布]](https://github.com/stone-zeng/fduthesis/compare/v0.7d...master)
+## [[未发布]](https://github.com/stone-zeng/fduthesis/compare/v0.7e...master)
+
+## [v0.7e (2020-08-30)](https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e)
 
 - 新增
   - 增加对插图、表格目录的处理 - [#72](https://github.com/stone-zeng/fduthesis/issues/72)

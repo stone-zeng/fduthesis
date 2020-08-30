@@ -96,8 +96,8 @@ cp $(kpsewhich xeCJK.sty)                    $OVERLEAF_DIR
 cp $(kpsewhich xeCJKfntef.sty)               $OVERLEAF_DIR
 cp $(kpsewhich zhnumber.sty)                 $OVERLEAF_DIR
 # gbt7714
-cp $(kpsewhich gbt7714-plain.bst)            $OVERLEAF_DIR
-cp $(kpsewhich gbt7714-unsrt.bst)            $OVERLEAF_DIR
+cp $(kpsewhich gbt7714-numerical.bst)        $OVERLEAF_DIR
+cp $(kpsewhich gbt7714-author-year.bst)      $OVERLEAF_DIR
 
 # Make TDS zip
 cd $TDS_DIR
