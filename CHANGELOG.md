@@ -9,8 +9,9 @@
 - 修复
   - 兼容 Libertinus 和 XITS 字体的文件名变动
   - 处理 `hyperref` 与 `unicode-math` 的兼容性问题 - [ustctug/ustcthesis#223](https://github.com/ustctug/ustcthesis/issues/223)
+  - 同步 `gbt7714` v2.0 - [#127](https://github.com/stone-zeng/fduthesis/issues/127)
 - 优化
-  - 同步 TeX Live 2019
+  - 同步 TeX Live 2019、2020
   - 持续集成改为使用 GitHub Actions
 
 ## [v0.7d (2019-04-03)](https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d)
