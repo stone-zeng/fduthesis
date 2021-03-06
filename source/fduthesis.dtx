@@ -5464,10 +5464,12 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\l_@@_bib_resource_tl}
+% \begin{variable}{\l_@@_bib_resource_clist}
+% \changes{v0.7f}{2021/03/07}{改用 \texttt{clist} 型变量，允许在 \pkg{biblatex} 下
+%   使用多个数据源。}
 % 保存参考文献数据库列表。
 %    \begin{macrocode}
-\tl_new:N \l_@@_bib_resource_tl
+\clist_new:N \l_@@_bib_resource_clist
 %    \end{macrocode}
 % \end{variable}
 %
@@ -5523,7 +5525,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{style/bib-resource}
 % 参考文献数据源。
 %    \begin{macrocode}
-    bib-resource .tl_set:N = \l_@@_bib_resource_tl
+    bib-resource .clist_set:N = \l_@@_bib_resource_clist
   }
 \@@_msg_new:nn { cite-style-not-available }
   { Option~ "cite-style"~ is~ not~ available~ in~ BibTeX. }
@@ -5584,7 +5586,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     \NewDocumentCommand \printbibliography { o }
       {
-        \exp_args:NV \bibliography \l_@@_bib_resource_tl
+        \exp_args:NV \bibliography \l_@@_bib_resource_clist
         \IfValueT {##1}
           { \@@_warning:nn { invalid-option-in-bibtex } {##1} }
       }
@@ -5624,7 +5626,7 @@ Copyright (C) 2017&ndash;2020 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 \cs_new_protected:Npn \@@_biblatex_post_setup:
   {
-    \exp_args:NV \addbibresource \l_@@_bib_resource_tl
+    \clist_map_function:NN \l_@@_bib_resource_clist \addbibresource
     \@@_biblatex_allow_url_break:
 %    \end{macrocode}
 % 修改参考文献标题。
