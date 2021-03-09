@@ -5619,9 +5619,10 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \@@_pass_options_to_biblatex:n { style = \l_@@_bib_style_tl } }
 %    \end{macrocode}
 % 引用样式。
+% \changes{v0.7f}{2021/03/09}{正确调用引用样式。}
 %    \begin{macrocode}
     \tl_if_empty:NF \l_@@_cite_style_tl
-      { \@@_pass_options_to_biblatex:n { citestyle = \l_@@_bib_style_tl } }
+      { \@@_pass_options_to_biblatex:n { citestyle = \l_@@_cite_style_tl } }
     \@@_pass_options_to_biblatex:n { backend = biber, hyperref = manual, natbib }
   }
 \cs_new_protected:Npn \@@_biblatex_post_setup:

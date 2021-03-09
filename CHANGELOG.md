@@ -5,7 +5,8 @@
 ## [[未发布]](https://github.com/stone-zeng/fduthesis/compare/v0.7e...master)
 
 - 修复
-  - 允许在 `biblatex` 下使用多个数据源
+  - 允许在 `biblatex` 下使用多个数据源 - [#186](https://github.com/stone-zeng/fduthesis/issues/186)
+  - 正确调用引用样式 - [#183](https://github.com/stone-zeng/fduthesis/issues/183)
 
 ## [v0.7e (2021-03-07)](https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e)
 
