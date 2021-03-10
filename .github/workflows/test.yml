@@ -9,9 +9,8 @@ env:
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
-    if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Install TeX Live
       run: |
         export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
@@ -20,7 +19,7 @@ jobs:
         cd install-tl-20* && ./install-tl --profile ../.github/workflows/texlive.profile
         tlmgr install ${{ env.TL_PACKAGES }}
         tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
-    - name: Test fduthesis
+    - name: Check fduthesis
       run: |
         export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
         l3build check -q -H
@@ -34,7 +33,7 @@ jobs:
     runs-on: macos-latest
     if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Install TeX Live
       run: |
         export PATH=/tmp/texlive/bin/x86_64-darwin:$PATH
@@ -43,7 +42,7 @@ jobs:
         cd install-tl-20* && ./install-tl --profile ../.github/workflows/texlive.profile
         tlmgr install ${{ env.TL_PACKAGES }}
         tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
-    - name: Test fduthesis
+    - name: Check fduthesis
       run: |
         export PATH=/tmp/texlive/bin/x86_64-darwin:$PATH
         l3build check -q -H
@@ -52,7 +51,7 @@ jobs:
     runs-on: windows-latest
     if: "!endsWith(github.event.head_commit.message, '[ci skip]')"
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Install TeX Live
       run: |
         ${env:PATH} = "${{ github.workspace }}\tmp\texlive\bin\win32;" + ${env:PATH}
@@ -62,7 +61,7 @@ jobs:
         .\install-tl-windows --no-gui --profile ..\.github\workflows\texlive-win.profile
         tlmgr install ${{ env.TL_PACKAGES }}
         tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
-    - name: Test fduthesis
+    - name: Check fduthesis
       run: |
         ${env:PATH} = "${{ github.workspace }}\tmp\texlive\bin\win32;" + ${env:PATH}
         l3build check -q -H
