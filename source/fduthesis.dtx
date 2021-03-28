@@ -5533,16 +5533,23 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7f}{2021/03/28}{正确使用导言区末尾钩子。}
+%
 % 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包均需要在
 % 导言区末尾载入（仍在 \pkg{hyperref} 之前），并做相关设置。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \bool_if:NTF \l_@@_bibtex_bool
+    \bool_if:NT \l_@@_bibtex_bool
       {
         \RequirePackage [ sort & compress ] { natbib }
         \@@_bibtex_setup:
       }
+  }
+\AddToHook
+  { env/document/begin }
+  {
+    \bool_if:NF \l_@@_bibtex_bool
       {
         \@@_biblatex_pre_setup:
         \RequirePackage { biblatex }
