@@ -1610,7 +1610,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     title  = (*\marg{title in Chinese}*)
 %^^A!     title* = (*\marg{title in English}*)
 %^^A!   \end{fdusyntax}
-%^^A!   Title of your thesis. The line width is about \SI{30}{em} by
+%^^A!   Title of your thesis. The line width is about \qty{30}{em} by
 %^^A!   default, but you may break it with |\\| manually.
 %^^A! \end{function}
 %^^A!
@@ -1919,7 +1919,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \end{fdusyntax}
 %   符号表。可选参数 \meta{列格式说明}与 \LaTeX{} 中标准表格的列格
 %   式说明语法一致，默认值为“|lp{7.5cm}|”，即第一列宽度自动调整，
-%   第二列限宽 \SI{7.5}{cm}，两列均为左对齐。
+%   第二列限宽 \qty{7.5}{cm}，两列均为左对齐。
 % \end{function}
 %^^A! \begin{function}{notation}
 %^^A!   \begin{fdusyntax}[emph={[2]notation}]
@@ -1934,7 +1934,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   The optional argument \meta{column format} is the same as
 %^^A!   in a standard \LaTeX{} table. The default value is
 %^^A!   ``|lp{7.5cm}|'', which means auto-width for the first column
-%^^A!   and fix-width (\SI{7.5}{cm}) for the second; both columns will
+%^^A!   and fix-width (\qty{7.5}{cm}) for the second; both columns will
 %^^A!   be left-aligned.
 %^^A! \end{function}
 %^^A!
@@ -3012,8 +3012,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsection{页面布局}
 %
 % 利用 \pkg{geometry} 宏包设置纸张大小、页面边距以及页眉高度。这里，
-% $\SI{2.54}{\centi\meter}=\SI{1}{in}$，
-% $\SI{3.18}{\centi\meter}=\SI{1.25}{in}$。
+% $\qty{2.54}{\centi\meter}=\qty{1}{in}$，
+% $\qty{3.18}{\centi\meter}=\qty{1.25}{in}$。
 %    \begin{macrocode}
 \geometry
   {
@@ -4159,7 +4159,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}[int]{\@makefntext}
 % \changes{v0.7}{2018/01/18}{简化实现，兼容 \pkg{fancyvrb} 宏包。
 %   不再使用悬挂缩进。}
-% 重定义内部脚注文字命令，使脚注编号不使用上标，宽度为 \SI{1.5}{em}。
+% 重定义内部脚注文字命令，使脚注编号不使用上标，宽度为 \qty{1.5}{em}。
 % 见 \url{http://tex.stackexchange.com/q/19844} 和
 % \url{https://www.zhihu.com/question/53030087}。
 %    \begin{macrocode}
@@ -6025,10 +6025,10 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{variable}{\c_@@_line_spread_fp}
 % 行距倍数。行距倍数 $k$ 由下式确定：
 % \begin{equation*}
-%   \num{1.2} \times k \times \SI{12}{bp} = \SI{20}{pt}.
+%   1.2 \times k \times \qty{12}{bp} = \qty{20}{pt}.
 % \end{equation*}
-% 式中，\num{1.2} 是基本行距与文字大小之比，\SI{12}{bp} 是小四号字
-% 的大小，\SI{20}{pt} 是行距固定值。
+% 式中，1.2 是基本行距与文字大小之比，\qty{12}{bp} 是小四号字的大小，
+% \qty{20}{pt} 是行距固定值。
 %    \begin{macrocode}
 \fp_const:Nn \c_@@_line_spread_fp
   { \dim_ratio:nn { 20 pt } { 12 bp } / 1.2 }
