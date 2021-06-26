@@ -2799,7 +2799,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_msg_new:nn,
-%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,
+%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,\@@_error:nnnn
 %   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx,
 %   \@@_info:nx}
 % 各种信息函数的缩略形式。
@@ -2809,6 +2809,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new:Npn \@@_error:nn    { \msg_error:nnn    { fduthesis } }
 \cs_new:Npn \@@_error:nx    { \msg_error:nnx    { fduthesis } }
 \cs_new:Npn \@@_error:nnn   { \msg_error:nnnn   { fduthesis } }
+\cs_new:Npn \@@_error:nnnn  { \msg_error:nnnnn  { fduthesis } }
 \cs_new:Npn \@@_warning:n   { \msg_warning:nn   { fduthesis } }
 \cs_new:Npn \@@_warning:nn  { \msg_warning:nnn  { fduthesis } }
 \cs_new:Npn \@@_warning:nxx { \msg_warning:nnxx { fduthesis } }
@@ -2980,27 +2981,34 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \begin{macro}{\@@_check_package:nnn}
-% 检查过时宏包。
+% \changes{v0.7f}{2021/06/26}{对过时的文档类也进行检查。}
+%
+% \begin{macro}{\@@_check_package:nnn,\@@_check_class:nnn}
+% 检查过时宏包和文档类。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_package:nnn #1#2#3
   {
     \@ifpackagelater {#1} {#2}
-      { } { \@@_error:nnn { package-too-old } {#1} {#3} }
+      { } { \@@_error:nnnn { package-too-old } { Package } {#1} {#3} }
+  }
+\cs_new_protected:Npn \@@_check_class:nnn #1#2#3
+  {
+    \@ifclasslater {#1} {#2}
+      { } { \@@_error:nnnn { package-too-old } { Class } {#1} {#3} }
   }
 \@@_msg_new:nn { package-too-old }
   {
-    Package~ "#1"~ is~ too~ old. \\
-    The~ fduthesis~ class~ only~ supports~ "#1"~ with~ a~ version \\
-    higher~ than~ v#2. \\\\
-    Please~ update~ an~ up-to-date~ version~ of~ it~ using~ your \\
-    TeX~ package~ manager~ or~ from~ CTAN.
+    #1~ "#2"~ is~ too~ old. \\
+    The~ fduthesis~ class~ only~ supports~ "#2" \\
+    with~ a~ version~ higher~ than~ v#3. \\\\
+    Please~ update~ an~ up-to-date~ version~ of~ it \\
+    using~ your~ TeX~ package~ manager~ or~ from~ CTAN.
   }
 %    \end{macrocode}
 % \end{macro}
 %
 %    \begin{macrocode}
-\@@_check_package:nnn { ctex         } { 2017/08/07 } { 2.4.10 }
+\@@_check_class:nnn   { ctexbook     } { 2017/08/07 } { 2.4.10 }
 \@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
 \@@_check_package:nnn { unicode-math } { 2017/11/18 } { 0.8i   }
 \sys_if_engine_xetex:T
