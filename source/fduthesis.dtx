@@ -136,7 +136,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %</internal>
 %
 %<*install>
-\input l3docstrip.tex
+\input docstrip.tex
 \keepsilent
 \askforoverwritefalse
 
@@ -233,8 +233,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \fi
 %</internal>
 %
-%<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}
-%<class|class-en|doc|logo>\RequirePackage{expl3}
+%<class|class-en|doc|logo>\NeedsTeXFormat{LaTeX2e}[2020/10/01]
 %<*!(driver|install|ex-logo|cover)>
 %<!readme>\GetIdInfo $Id: fduthesis.dtx 0.7e 2020-08-30 12:00:00Z Xiangdong Zeng <xdzeng96@gmail.com> $
 %<class>  {Thesis template for Fudan University}
@@ -323,6 +322,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7a}{2018/04/09}{更新文档，发布至 CTAN。}
 % \changes{v0.7b}{2018/04/29}{支持 \TeXLive{} 2018。}
 % \changes{v0.7b}{2018/05/06}{将校名、校徽图片添加至发行版。}
+% \changes{v0.8}{2021/09/15}{同步 \LaTeX{} 2020/10/01，不再显式调用
+%   \pkg{expl3} 和 \pkg{xparse} 宏包。}
 %
 % \CheckSum{0}
 %
@@ -2258,10 +2259,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item 在任何情况下，本模板都会\emph{显式}调用以下宏包
 %     （或文档类）：
 %     \begin{itemize}
-%       \item \pkg{expl3}、\pkg{xparse}、\pkg{xtemplate} 和
-%         \pkg{l3keys2e}，用于构建 \LaTeX3 编程环境
-%         \scite{source3}。它们分属 \pkg{l3kernel} 和
-%         \pkg{l3packages} 宏集。
+%       \item \pkg{xtemplate} 和 \pkg{l3keys2e}，用于扩展 \LaTeX3 编程环境。
+%         它们属于 \pkg{l3packages} 宏集。
 %       \item \cls{ctexbook}，提供中文排版的通用框架。属于 \CTeX{}
 %         宏集 \scite{CTeX}。
 %       \item \pkg{amsmath}，对 \LaTeX{} 的数学排版功能进行了
@@ -2294,9 +2293,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   \item In any case, \cls{fduthesis} will load the following
 %^^A!     packages \emph{explicitly}:
 %^^A!     \begin{itemize}
-%^^A!       \item \pkg{expl3}, \pkg{xparse}, \pkg{xtemplate} and
-%^^A!         \pkg{l3keys2e}, belong to \pkg{l3kernel} and
-%^^A!         \pkg{l3packages} bundles
+%^^A!       \item \pkg{xtemplate} and \pkg{l3keys2e}, belong to
+%^^A!         \pkg{l3packages} bundle
 %^^A!       \item \cls{ctexbook}, belongs to \CTeX{} bundle
 %^^A!       \item \pkg{amsmath}, belongs to \AmSLaTeX{} bundle
 %^^A!       \item \pkg{unicode-math}
@@ -2589,7 +2587,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 单独一行代码的归属。这些 guard 的颜色深浅不一，用以明确嵌套关系。
 %
 % 另有若干形如 \textcolor{MaterialPink}{\textsf{<@@=fdu>}} 的 guard，
-% 它们由 \pkg{l3docstrip} 定义，用来指示名字空间（模块）。
+% 它们用来指示名字空间（模块）。
 %
 % \subsection{准备}
 %
@@ -2600,10 +2598,10 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 检查 \LaTeX3 编程环境。
 %    \begin{macrocode}
-\RequirePackage { xparse, xtemplate, l3keys2e }
-\clist_map_inline:nn { expl3, xparse, xtemplate, l3keys2e }
+\RequirePackage { xtemplate, l3keys2e }
+\clist_map_inline:nn { xtemplate, l3keys2e }
   {
-    \@ifpackagelater {#1} { 2018/05/12 }
+    \@ifpackagelater {#1} { 2020/07/17 }
       { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
   }
 \msg_new:nnn { fduthesis } { l3-too-old }
@@ -2756,7 +2754,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.7f}{2021/09/15}{统一使用 \LaTeX{} 2020/10/01 新的钩子机制。}
+% \changes{v0.8}{2021/09/15}{统一使用 \LaTeX{} 2020/10/01 新的钩子机制。}
 % \begin{macro}{\@@_gadd_ltxhook:nn}
 % 封装 \LaTeX{} 的钩子管理机制。本模板中的字体加载命令位于
 % |begindocument/before| 钩子中，需确保在 \pkg{xeCJK} 之前执行。
@@ -2901,7 +2899,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
     unknown .code:n = { \@@_error:n { unknown-option } }
   }
 \@@_msg_new:nn { unknown-option }
-  { Class~ option~ "\l_keys_key_tl"~ is~ unknown. }
+  { Class~ option~ "\l_keys_key_str"~ is~ unknown. }
 %    \end{macrocode}
 %
 % 将文档类选项传给 |fdu/option|。
@@ -2981,7 +2979,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \changes{v0.7f}{2021/06/26}{对过时的文档类也进行检查。}
+% \changes{v0.8}{2021/06/26}{对过时的文档类也进行检查。}
 %
 % \begin{macro}{\@@_check_package:nnn,\@@_check_class:nnn}
 % 检查过时宏包和文档类。
@@ -3105,7 +3103,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \@@_setCJKmainfont:nn,
 %   \@@_setCJKsansfont:nn,
 %   \@@_setCJKmonofont:nn}
-% \changes{v0.7f}{2021/09/15}{展开字体族名称。}
+% \changes{v0.8}{2021/09/15}{展开字体族名称。}
 % 用于设置中文字体的辅助函数，来源于 \pkg{xeCJK} 和 \pkg{ctex} 宏包。
 %    \begin{macrocode}
 %<*class>
@@ -3194,7 +3192,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
-% \changes{v0.7f}{2021/09/15}{判断 Libertinus Sans Bold Oblique 字体是否存在。}
+% \changes{v0.8}{2021/09/15}{判断 Libertinus Sans Bold Oblique 字体是否存在。}
 % \begin{macro}{
 %   \g_@@_font_family_libertinus_serif_tl,
 %   \g_@@_font_family_libertinus_sans_tl,
@@ -3739,7 +3737,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.7f}{2021/09/15}{允许 \tn{emph} 对中文生效。}
+% \changes{v0.8}{2021/09/15}{允许 \tn{emph} 对中文生效。}
 % 声明 \tn{emph} 样式序列，使得中文强调以楷体显示。
 %    \begin{macrocode}
 \DeclareEmphSequence
@@ -4427,7 +4425,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\thefigure,\thetable}
 % \changes{v0.7}{2018/01/17}{改为可完全展开的命令。}
-% \changes{v0.7f}{2021/03/10}{直接调用 \tn{thechapter} 使得附录中的图表编号正确显示。}
+% \changes{v0.8}{2021/03/10}{直接调用 \tn{thechapter} 使得附录中的图表编号正确显示。}
 % 重定义图表编号。
 %    \begin{macrocode}
 \cs_set:Npn \thefigure
@@ -5491,7 +5489,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{variable}
 %
 % \begin{variable}{\l_@@_bib_resource_clist}
-% \changes{v0.7f}{2021/03/07}{改用 \texttt{clist} 型变量，允许在 \pkg{biblatex} 下
+% \changes{v0.8}{2021/03/07}{改用 \texttt{clist} 型变量，允许在 \pkg{biblatex} 下
 %   使用多个数据源。}
 % 保存参考文献数据库列表。
 %    \begin{macrocode}
@@ -5558,7 +5556,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.7f}{2021/03/28}{正确使用导言区末尾钩子。}
+% \changes{v0.8}{2021/03/28}{正确使用导言区末尾钩子。}
 %
 % 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包均需要在
 % 导言区末尾载入（仍在 \pkg{hyperref} 之前），并做相关设置。
@@ -5656,7 +5654,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \@@_pass_options_to_biblatex:n { style = \l_@@_bib_style_tl } }
 %    \end{macrocode}
 % 引用样式。
-% \changes{v0.7f}{2021/03/09}{正确调用引用样式。}
+% \changes{v0.8}{2021/03/09}{正确调用引用样式。}
 %    \begin{macrocode}
     \tl_if_empty:NF \l_@@_cite_style_tl
       { \@@_pass_options_to_biblatex:n { citestyle = \l_@@_cite_style_tl } }
