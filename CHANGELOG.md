@@ -9,6 +9,7 @@
   - 正确调用引用样式 - [#183](https://github.com/stone-zeng/fduthesis/issues/183)
   - 直接调用 `\thechapter` 使得附录中的图表编号正确显示 - [#166](https://github.com/stone-zeng/fduthesis/issues/166)
   - 判断 Libertinus Sans Bold Oblique 字体是否存在 - [#156](https://github.com/stone-zeng/fduthesis/issues/156)
+  - 统一使用 LaTeX 2020/10/01 新的钩子机制 - [#77](https://github.com/stone-zeng/fduthesis/issues/77)
   - 对过时的文档类也进行检查
 - 变更
   - 同步 `siunitx` v3.0 - [#202](https://github.com/stone-zeng/fduthesis/issues/202)

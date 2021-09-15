@@ -2756,6 +2756,17 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.7f}{2021/09/15}{统一使用 \LaTeX{} 2020/10/01 新的钩子机制。}
+% \begin{macro}{\@@_gadd_ltxhook:nn}
+% 封装 \LaTeX{} 的钩子管理机制。本模板中的字体加载命令位于
+% |begindocument/before| 钩子中，需确保在 \pkg{xeCJK} 之前执行。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_gadd_ltxhook:nn #1#2
+  { \hook_gput_code:nnn {#1} { . } {#2} }
+\hook_gset_rule:nnnn { begindocument/before } { . } { < } { xeCJK }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_patch_cmd:Nnn,\@@_appto_cmd:Nn}
 % 补丁工具，来自 \pkg{ctexpatch} 宏包。
 %    \begin{macrocode}
@@ -2941,17 +2952,6 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { amsmath, thmmarks } { ntheorem }
   }
   { \PassOptionsToPackage #1 }
-%    \end{macrocode}
-%
-% 本模板会在 \pkg{ctexhook} 提供的钩子 \cs{ctex_at_end_preamble:n}
-% 中调用 \pkg{biblatex}，而 \pkg{biblatex} 自身又会使用 \pkg{etoolbox}
-% 的钩子 \tn{AtEndPreamble}，因此需要在载入 \cls{ctexbook} 之前调用
-% \pkg{etoolbox}。钩子的顺序为：
-% \[ \text{\tn{CTEX@document@left@hook}}
-%    \prec \text{\tn{@endpreamblehook}}
-%    \prec \text{\texttt{\textbackslash begin\{document\}}}. \]
-%    \begin{macrocode}
-\RequirePackage { etoolbox }
 %    \end{macrocode}
 %
 % 载入 \cls{ctexbook} 文档类。
@@ -5231,7 +5231,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 在 \env{document} 开始位置添加封面以及指导小组成员名单。
 %    \begin{macrocode}
-\AtBeginDocument
+\ctex_after_end_preamble:n
   {
     \bool_if:NT \l_@@_auto_make_cover_bool
       {
@@ -5244,7 +5244,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 在 \env{document} 结束位置添加声明页。
 %    \begin{macrocode}
-\AtEndDocument
+\@@_gadd_ltxhook:nn { enddocument }
   { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
 %    \end{macrocode}
 %
@@ -5560,8 +5560,12 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \@@_bibtex_setup:
       }
   }
-\AddToHook
-  { env/document/begin }
+%    \end{macrocode}
+% \pkg{biblatex} 会写入 |begindocument/before| 钩子，因此需在其之前通过
+% \texttt{env/document/\-begin} 钩子载入 \pkg{biblatex} 宏包。注意这个钩子仅
+% 适用于 |\begin{document}| 的写法，对于 |\document| 命令本身无效。
+%    \begin{macrocode}
+\@@_gadd_ltxhook:nn { env/document/begin }
   {
     \bool_if:NF \l_@@_bibtex_bool
       {
