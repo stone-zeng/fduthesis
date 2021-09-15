@@ -11,6 +11,7 @@
   - 判断 Libertinus Sans Bold Oblique 字体是否存在 - [#156](https://github.com/stone-zeng/fduthesis/issues/156)
   - 允许 `\emph` 对中文生效 - [#93](https://github.com/stone-zeng/fduthesis/issues/93)
   - 统一使用 LaTeX 2020/10/01 新的钩子机制 - [#77](https://github.com/stone-zeng/fduthesis/issues/77)
+  - 在 `\@@_setCJKmainfont:nn` 等命令中展开字体族名称，防止导言区中 `\setCJKmainfont` 等命令失效
   - 对过时的文档类也进行检查
 - 变更
   - 同步 `siunitx` v3.0 - [#202](https://github.com/stone-zeng/fduthesis/issues/202)

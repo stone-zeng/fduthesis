@@ -3105,15 +3105,16 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \@@_setCJKmainfont:nn,
 %   \@@_setCJKsansfont:nn,
 %   \@@_setCJKmonofont:nn}
+% \changes{v0.7f}{2021/09/15}{展开字体族名称。}
 % 用于设置中文字体的辅助函数，来源于 \pkg{xeCJK} 和 \pkg{ctex} 宏包。
 %    \begin{macrocode}
 %<*class>
 \cs_new_protected:Npn \@@_setCJKmainfont:nn #1#2
-  { \@@_set_family:nnn { \CJKrmdefault } {#2} {#1} }
+  { \@@_set_family:xnn { \CJKrmdefault } {#2} {#1} }
 \cs_new_protected:Npn \@@_setCJKsansfont:nn #1#2
-  { \@@_set_family:nnn { \CJKsfdefault } {#2} {#1} }
+  { \@@_set_family:xnn { \CJKsfdefault } {#2} {#1} }
 \cs_new_protected:Npn \@@_setCJKmonofont:nn #1#2
-  { \@@_set_family:nnn { \CJKttdefault } {#2} {#1} }
+  { \@@_set_family:xnn { \CJKttdefault } {#2} {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3150,7 +3151,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_set_family:nnn,\@@_switch_family:n}
+% \begin{macro}{\@@_set_family:nnn,\@@_set_family:xnn,\@@_switch_family:n}
 % 封装 CJK 字体族的设定和切换命令。
 %    \begin{macrocode}
 \sys_if_engine_xetex:TF
@@ -3162,6 +3163,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \cs_new_eq:NN \@@_set_family:nnn  \ctex_ltj_set_family:nnn
     \cs_new_eq:NN \@@_switch_family:n \ctex_ltj_switch_family:n
   }
+\cs_generate_variant:Nn \@@_set_family:nnn { x }
 %</class>
 %    \end{macrocode}
 % \end{macro}
