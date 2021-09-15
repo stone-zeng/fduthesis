@@ -1,5 +1,5 @@
 # From latex3
-# https://github.com/latex3/latex3/blob/master/support/texlive.profile
+# https://github.com/latex3/latex3/blob/main/support/texlive.profile
 
 selected_scheme     scheme-infraonly
 TEXDIR              /tmp/texlive

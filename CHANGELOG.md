@@ -2,7 +2,7 @@
 
 本文档格式遵守 [Keep a Changelog](https://keepachangelog.com)。
 
-## [[未发布]](https://github.com/stone-zeng/fduthesis/compare/v0.7e...master)
+## [[未发布]](https://github.com/stone-zeng/fduthesis/compare/v0.7e...main)
 
 - 修复
   - 允许在 `biblatex` 下使用多个数据源 - [#186](https://github.com/stone-zeng/fduthesis/issues/186)
@@ -12,6 +12,7 @@
   - 对过时的文档类也进行检查
 - 变更
   - 同步 `siunitx` v3.0 - [#202](https://github.com/stone-zeng/fduthesis/issues/202)
+  - 将 GitHub 主分支由 `master` 重命名为 `main`
 
 ## [v0.7e (2020-08-30)](https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e)
 
