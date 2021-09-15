@@ -3192,6 +3192,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
+% \changes{v0.7f}{2021/09/15}{判断 Libertinus Sans Bold Oblique 字体是否存在。}
 % \begin{macro}{
 %   \g_@@_font_family_libertinus_serif_tl,
 %   \g_@@_font_family_libertinus_sans_tl,
@@ -3240,7 +3241,12 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { Bold            }
     \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { Italic          }
     \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { BoldItalic      }
-    \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl   { BoldOblique     }
+%    \end{macrocode}
+% 较新版本中 Libertinus Sans Bold Oblique 字体被移除，需进行额外判断。
+%    \begin{macrocode}
+    \fontspec_font_if_exist:nTF { LibertinusSans-BoldOblique.otf }
+      { \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl { BoldOblique } }
+      { \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl { Bold        } }
   }
   {
     \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { libertinusserif }
