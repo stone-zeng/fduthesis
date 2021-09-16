@@ -4,6 +4,8 @@
 
 ## [[未发布]](https://github.com/stone-zeng/fduthesis/compare/v0.7e...main)
 
+- 新增
+  - 新增 `info/jel` 选项 - [#192](https://github.com/stone-zeng/fduthesis/issues/192)
 - 修复
   - 允许在 `biblatex` 下使用多个数据源 - [#186](https://github.com/stone-zeng/fduthesis/issues/186)
   - 正确调用引用样式 - [#183](https://github.com/stone-zeng/fduthesis/issues/183)
