@@ -3,6 +3,16 @@ Don't change this file in any respect.
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -50,9 +60,20 @@ Completed box being shipped out [2]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [3]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -94,6 +115,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 10.11772
 ....\hbox(15.89938+2.1681)x416.54877, glue set 172.1394fil, direction TLT
 .....\whatsit4=[]
@@ -131,6 +153,7 @@ Completed box being shipped out [3]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue 0.0 plus -1.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.94962
 ....\hbox(15.89938+2.1681)x416.54877, glue set 126.97069fil, direction TLT
 .....\whatsit4=[]
@@ -178,6 +201,7 @@ Completed box being shipped out [3]
 ....\glue 11.38092
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.24953
 ....\hbox(10.5996+1.4454)x416.54877, glue set - 0.2782, direction TLT
 .....\whatsit4=[]
@@ -613,6 +637,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.97223
 ....\hbox(10.5996+2.71011)x416.54877, glue set 163.60378fil, direction TLT
 .....\whatsit4=[]
@@ -667,6 +692,7 @@ Completed box being shipped out [3]
 .....\hbox(0.0+2.71011)x72.26999, direction TLT
 ......\whatsit4=[]
 ......\rule(-2.31012+2.71011)x72.26999
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -679,6 +705,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.40761
 ....\hbox(15.89938+2.1681)x416.54877, glue set 172.1394fil, direction TLT
 .....\whatsit4=[]
@@ -716,6 +743,7 @@ Completed box being shipped out [3]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue 0.0 plus -1.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.94962
 ....\hbox(15.89938+2.1681)x416.54877, glue set 117.93694fil, direction TLT
 .....\whatsit4=[]
@@ -766,6 +794,7 @@ Completed box being shipped out [3]
 ....\glue 11.38092
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.24953
 ....\hbox(10.5996+1.4454)x416.54877, glue set - 0.33383, direction TLT
 .....\whatsit4=[]
@@ -1199,6 +1228,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.97223
 ....\hbox(10.5996+2.71011)x416.54877, glue set 19.06378fil, direction TLT
 .....\whatsit4=[]
@@ -1273,6 +1303,7 @@ Completed box being shipped out [3]
 .....\hbox(0.0+2.71011)x72.26999, direction TLT
 ......\whatsit4=[]
 ......\rule(-2.31012+2.71011)x72.26999
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -1295,3 +1326,4 @@ Completed box being shipped out [3]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0

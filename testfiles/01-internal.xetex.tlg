@@ -237,6 +237,7 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(3)/m/n' will be
 ...\TU/XITS(0)/m/n/12.045 ABCD
 ...\kern -0.0002
 ...\kern 0.0002
+...\kern 0.0
 ...\penalty 10000
 ...\glue(\parfillskip) 0.0 plus 1.0fil
 ...\glue(\rightskip) 0.0
@@ -259,6 +260,7 @@ l. ...  }
 ...\TU/FandolSong(0)/m/n/12.045 学
 ...\kern -0.00017
 ...\kern 0.00017
+...\kern 0.0
 ...\penalty 10000
 ...\glue(\parfillskip) 0.0 plus 1.0fil
 ...\glue(\rightskip) 0.0
@@ -300,6 +302,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--74
 ...\TU/FandolSong(0)/m/n/12.045 文
 ...\kern -0.00017
 ...\kern 0.00017
+...\kern 0.0
 ...\penalty 10000
 ...\glue(\parfillskip) 0.0 plus 1.0fil
 ...\glue(\rightskip) 0.0
@@ -317,6 +320,7 @@ l. ...  }
 ...\TU/XITS(0)/m/n/12.045 ABCD
 ...\kern -0.0002
 ...\kern 0.0002
+...\kern 0.0
 ...\penalty 10000
 ...\glue(\parfillskip) 0.0
 ...\glue(\rightskip) 0.0 plus 1.0fil
@@ -340,6 +344,7 @@ l. ...  }
 ...\TU/FandolSong(0)/m/n/12.045 学
 ...\kern -0.00017
 ...\kern 0.00017
+...\kern 0.0
 ...\penalty 10000
 ...\glue(\parfillskip) 0.0
 ...\glue(\rightskip) 0.0 plus 1.0fil
@@ -371,6 +376,7 @@ l. ...  }
 ...\TU/FandolSong(0)/m/n/12.045 文
 ...\kern -0.00017
 ...\kern 0.00017
+...\kern 0.0
 ...\penalty 10000
 ...\glue(\parfillskip) 0.0
 ...\glue(\rightskip) 0.0 plus 1.0fil

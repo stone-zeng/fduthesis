@@ -3,6 +3,16 @@ Don't change this file in any respect.
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -50,6 +60,7 @@ Completed box being shipped out [2]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Overfull \hbox (24.0pt too wide) detected at line 19
 []
 \hbox(0.0+0.0)x-24.0, direction TLT
@@ -63,6 +74,16 @@ warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 Completed box being shipped out [1]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -103,6 +124,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 0.7249
 ....\hbox(14.27504+9.75864)x416.54877, glue set 320.54877fil, direction TLT
 .....\whatsit4=[]
@@ -162,6 +184,7 @@ Completed box being shipped out [1]
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
 .......\glue(\parskip) 0.0
+.......\glue(\parskip) 0.0
 .......\glue(\baselineskip) 5.9662
 .......\hbox(7.94969+1.08405)x120.0, glue set 25.14566fil, direction TLT
 ........\whatsit4=[]
@@ -199,6 +222,7 @@ Completed box being shipped out [1]
 .....\mathoff
 .....\hbox(0.0+0.0)x-24.0, direction TLT
 ......\whatsit4=[]
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -211,6 +235,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
 ....\hbox(78.37224+0.0)x416.54877, glue set 104.13719fil, direction TLT
 .....\whatsit4=[]
@@ -250,6 +275,7 @@ Completed box being shipped out [1]
 .........\pdfrestore
 ........\kern208.27576
 ........\glue 0.0 plus 1.0fil minus 1.0fil
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -262,6 +288,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 17.234
 ....\hbox(19.43259+2.6499)x416.54877, glue set 114.55156fil, direction TLT
 .....\whatsit4=[]
@@ -301,6 +328,7 @@ Completed box being shipped out [1]
 ......\glue 0.0 plus 1.0fil
 ......\hbox(19.43259+2.6499)x22.08249, direction TLT
 .......\LTJY3/FandolSong(0)/m/n/22.08249 文
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -313,6 +341,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 20.68336
 ....\hbox(0.0+0.0)x416.54877, glue set 208.27438fil, direction TLT
 .....\whatsit4=[]
@@ -333,6 +362,7 @@ Completed box being shipped out [1]
 .......\pdfcolorstack 0 pop
 ......\glue 6.0
 .....\penalty 0
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -345,6 +375,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 16.44978
 ....\hbox(13.55014+4.51735)x416.54877, glue set 20.82872fil, direction TLT
 .....\whatsit4=[]
@@ -407,6 +438,7 @@ Completed box being shipped out [1]
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -419,6 +451,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.25194
 ....\hbox(8.46625+1.44075)x416.54877, glue set 20.82872fil, direction TLT
 .....\whatsit4=[]
@@ -484,6 +517,7 @@ Completed box being shipped out [1]
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -496,6 +530,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
 ....\hbox(69.35095+63.3291)x416.54877, direction TLT
 .....\whatsit4=[]
@@ -554,10 +589,12 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 系
 .........\glue 0.0 plus 1.0fil
+........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .......\glue 6.32362
+.......\glue(\parskip) 0.0
 .......\glue(\parskip) 0.0
 .......\glue(\baselineskip) 9.28078
 .......\hbox(12.3662+1.6863)x416.54877, glue set 108.15039fil, direction TLT
@@ -593,10 +630,12 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 学
 .........\glue 0.0 plus 1.0fil
+........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .......\glue 6.32362
+.......\glue(\parskip) 0.0
 .......\glue(\parskip) 0.0
 .......\glue(\baselineskip) 9.28078
 .......\hbox(12.3662+1.6863)x416.54877, glue set 108.15039fil, direction TLT
@@ -629,10 +668,12 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 某
 .........\glue 0.0 plus 1.0fil
+........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .......\glue 6.32362
+.......\glue(\parskip) 0.0
 .......\glue(\parskip) 0.0
 .......\glue(\baselineskip) 9.28078
 .......\hbox(12.3662+1.6863)x416.54877, glue set 108.15039fil, direction TLT
@@ -680,10 +721,12 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 授
 .........\glue 0.0 plus 1.0fil
+........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .......\glue 6.32362
+.......\glue(\parskip) 0.0
 .......\glue(\parskip) 0.0
 .......\glue(\baselineskip) 9.28078
 .......\hbox(12.3662+1.6863)x416.54877, glue set 108.15039fil, direction TLT
@@ -734,10 +777,12 @@ Completed box being shipped out [1]
 .........\norule(12.3662+1.6863)x0.0
 .........\LTJY3/FandolSong(0)/m/n/14.05249 日
 .........\glue 0.0 plus 1.0fil
+........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -761,11 +806,22 @@ Completed box being shipped out [1]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 <./fudan-name.pdf>
 warning  (pdf backend): ignoring duplicate destination with the name 'page.2'
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -806,6 +862,7 @@ Completed box being shipped out [2]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
 ....\hbox(19.43259+2.6499)x416.54877, glue set 130.98567fil, direction TLT
 .....\whatsit4=[]
@@ -845,6 +902,7 @@ Completed box being shipped out [2]
 ......\glue 0.0 plus 1.0fil
 ......\hbox(19.43259+2.6499)x22.08249, direction TLT
 .......\LTJY3/FandolHei(0)/m/n/22.08249 员
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -857,6 +915,7 @@ Completed box being shipped out [2]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.10054
 ....\hbox(13.2495+1.80675)x416.54877, glue set 153.6955fil, direction TLT
 .....\whatsit4=[]
@@ -894,6 +953,7 @@ Completed box being shipped out [2]
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.9437
 ....\hbox(13.2495+1.80675)x416.54877, glue set 153.6955fil, direction TLT
 .....\whatsit4=[]
@@ -924,6 +984,7 @@ Completed box being shipped out [2]
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.9437
 ....\hbox(13.2495+1.80675)x416.54877, glue set 153.6955fil, direction TLT
 .....\whatsit4=[]
@@ -973,3 +1034,4 @@ Completed box being shipped out [2]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0

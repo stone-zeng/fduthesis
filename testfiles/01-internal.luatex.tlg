@@ -199,13 +199,13 @@ l. ...  }
 ..\glue 0.0 plus 1.0fil
 ..\hbox(10.5996+1.4454)x12.045, direction TLT
 ...\LTJY3/FandolSong(0)/m/n/12.045 复
-..\glue 0.0 plus 0.64215
+..\glue 0.0 plus 0.59575
 ..\norule(10.5996+1.4454)x0.0
 ..\LTJY3/FandolSong(0)/m/n/12.045 旦
-..\glue 0.0 plus 0.64215
+..\glue 0.0 plus 0.59575
 ..\hbox(10.5996+1.4454)x12.045, direction TLT
 ...\LTJY3/FandolSong(0)/m/n/12.045 大
-..\glue 0.0 plus 0.64215
+..\glue 0.0 plus 0.59575
 ..\hbox(10.5996+1.4454)x12.045, direction TLT
 ...\LTJY3/FandolSong(0)/m/n/12.045 学
 ..\glue 0.0 plus 1.0fil
@@ -257,14 +257,14 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0, direction TLT
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 复
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\norule(10.5996+1.4454)x0.0
 ....\LTJY3/FandolSong(0)/m/n/12.045 旦
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 大
 ....\penalty 500
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 学
 ....\penalty 10000
@@ -282,7 +282,7 @@ l. ...  }
 ..\whatsit4=[]
 ..\vbox(30.59955+1.4454)x56.9055, direction TLT
 ...\whatsit4=[]
-...\hbox(10.5996+1.4454)x56.9055, glue set 4.52931, direction TLT
+...\hbox(10.5996+1.4454)x56.9055, glue set 4.8821, direction TLT
 ....\whatsit4=[]
 ....\localpar
 .....\localinterlinepenalty=0
@@ -292,13 +292,13 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0, direction TLT
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 复
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\norule(10.5996+1.4454)x0.0
 ....\LTJY3/FandolSong(0)/m/n/12.045 旦
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 大
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 学
 ....\glue(\rightskip) 0.0
@@ -309,7 +309,7 @@ l. ...  }
 ....\norule(10.5996+1.4454)x0.0
 ....\LTJY3/FandolSong(0)/m/n/12.045 论
 ....\penalty 500
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 文
 ....\penalty 10000
@@ -366,14 +366,14 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0, direction TLT
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 复
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\norule(10.5996+1.4454)x0.0
 ....\LTJY3/FandolSong(0)/m/n/12.045 旦
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 大
 ....\penalty 500
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 学
 ....\penalty 10000
@@ -402,13 +402,13 @@ l. ...  }
 ....\hbox(0.0+0.0)x0.0, direction TLT
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 复
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\norule(10.5996+1.4454)x0.0
 ....\LTJY3/FandolSong(0)/m/n/12.045 旦
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 大
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 学
 ....\glue(\rightskip) 0.0 plus 1.0fil
@@ -420,7 +420,7 @@ l. ...  }
 ....\norule(10.5996+1.4454)x0.0
 ....\LTJY3/FandolSong(0)/m/n/12.045 论
 ....\penalty 500
-....\glue 0.0 plus 0.64215
+....\glue 0.0 plus 0.59575
 ....\hbox(10.5996+1.4454)x12.045, direction TLT
 .....\LTJY3/FandolSong(0)/m/n/12.045 文
 ....\penalty 10000

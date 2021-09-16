@@ -75,6 +75,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 0.97737
 ....\hbox(14.02257+9.5052)x416.54877, glue set 320.54877fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -101,17 +102,15 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\TU/FandolSong(0)/m/n/9.03374 ：
 .......\rule(0.0+0.0)x-6.29651
-.......\kern 0.00038
-.......\kern -0.00038
-.......\kern -0.99649
-.......\kern 0.99649
 .......\glue 6.29651 minus 4.51686
 .......\TU/XITS(0)/m/n/9.03374 10246
 .......\kern -0.0002
 .......\kern 0.0002
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
+......\glue(\parskip) 0.0
 ......\glue(\parskip) 0.0
 ......\glue(\baselineskip) 6.62567
 ......\hbox(6.90178+1.50862)x120.0, glue set 25.14575fil
@@ -124,19 +123,17 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\TU/FandolSong(0)/m/n/9.03374 ：
 .......\rule(0.0+0.0)x-6.29651
-.......\kern 0.00038
-.......\kern -0.00038
-.......\kern -0.99649
-.......\kern 0.99649
 .......\glue 6.29651 minus 4.51686
 .......\TU/XITS(0)/m/n/9.03374 12300000000
 .......\kern -0.0002
 .......\kern 0.0002
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
 .....\mathoff
 .....\hbox(0.0+0.0)x-24.0
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -149,6 +146,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
 ....\hbox(78.37224+0.0)x416.54877, glue set 104.13719fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -174,6 +172,7 @@ Completed box being shipped out [1]
 .........\special{pdf:etrans}
 ........\kern 208.27576
 ........\glue 0.0 plus 1.0fil minus 1.0fil
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -186,6 +185,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 19.59682
 ....\hbox(17.06976+3.75401)x416.54877, glue set 114.55156fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -222,6 +222,7 @@ Completed box being shipped out [1]
 ......\TU/FandolSong(0)/m/n/22.08249 文
 ......\kern -0.00017
 ......\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -234,6 +235,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 19.57925
 ....\hbox(0.0+0.0)x416.54877, glue set 208.27438fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -246,6 +248,7 @@ Completed box being shipped out [1]
 .......\special{color pop}
 ......\glue 6.0
 .....\penalty 0
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -258,6 +261,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 17.07216
 ....\hbox(12.92776+3.89307)x416.54877, glue set 20.82872fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -292,10 +296,12 @@ Completed box being shipped out [1]
 .......\TU/FandolSong(0)/b/n/18.06749 题
 .......\kern -0.00017
 .......\kern 0.00017
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -308,6 +314,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.87547
 ....\hbox(8.467+1.43999)x416.54877, glue set 20.82872fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -344,10 +351,12 @@ Completed box being shipped out [1]
 .......\TU/XITS(0)/b/n/14.05249 Title
 .......\kern -0.0002
 .......\kern 0.0002
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -360,6 +369,7 @@ Completed box being shipped out [1]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
 ....\hbox(69.03542+63.01227)x416.54877
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -403,10 +413,12 @@ Completed box being shipped out [1]
 ........\kern -0.00017
 ........\kern 0.00017
 ........\glue 0.0 plus 1.0fil
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 ......\glue 6.32362
+......\glue(\parskip) 0.0
 ......\glue(\parskip) 0.0
 ......\glue(\baselineskip) 10.08179
 ......\hbox(10.86258+2.29054)x416.54877, glue set 108.15039fil
@@ -438,10 +450,12 @@ Completed box being shipped out [1]
 ........\kern -0.00017
 ........\kern 0.00017
 ........\glue 0.0 plus 1.0fil
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 ......\glue 6.32362
+......\glue(\parskip) 0.0
 ......\glue(\parskip) 0.0
 ......\glue(\baselineskip) 10.15204
 ......\hbox(10.89069+2.45917)x416.54877, glue set 108.15039fil
@@ -471,10 +485,12 @@ Completed box being shipped out [1]
 ........\kern -0.00017
 ........\kern 0.00017
 ........\glue 0.0 plus 1.0fil
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 ......\glue 6.32362
+......\glue(\parskip) 0.0
 ......\glue(\parskip) 0.0
 ......\glue(\baselineskip) 9.98341
 ......\hbox(10.89069+2.48727)x416.54877, glue set 108.15039fil
@@ -520,10 +536,12 @@ Completed box being shipped out [1]
 ........\kern -0.00017
 ........\kern 0.00017
 ........\glue 0.0 plus 1.0fil
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 ......\glue 6.32362
+......\glue(\parskip) 0.0
 ......\glue(\parskip) 0.0
 ......\glue(\baselineskip) 9.9553
 ......\hbox(10.89069+2.51538)x416.54877, glue set 108.15039fil
@@ -575,10 +593,12 @@ Completed box being shipped out [1]
 ........\kern -0.00017
 ........\kern 0.00017
 ........\glue 0.0 plus 1.0fil
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0
 .......\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -635,6 +655,7 @@ Completed box being shipped out [2]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
 ....\hbox(17.1581+3.95274)x416.54877, glue set 130.98567fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -671,6 +692,7 @@ Completed box being shipped out [2]
 ......\TU/FandolHei(0)/m/n/22.08249 员
 ......\kern -0.00017
 ......\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -683,6 +705,7 @@ Completed box being shipped out [2]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.54422
 ....\hbox(11.50298+2.4391)x416.54877, glue set 153.6955fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -711,10 +734,12 @@ Completed box being shipped out [2]
 .....\TU/FandolSong(0)/m/n/15.05624 授
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 11.05786
 ....\hbox(11.50298+2.4391)x416.54877, glue set 153.6955fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -735,10 +760,12 @@ Completed box being shipped out [2]
 .....\TU/FandolSong(0)/m/n/15.05624 授
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 10.95247
 ....\hbox(11.60837+2.66495)x416.54877, glue set 153.6955fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -759,6 +786,7 @@ Completed box being shipped out [2]
 .....\TU/FandolSong(0)/m/n/15.05624 授
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil

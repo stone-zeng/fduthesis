@@ -2,8 +2,6 @@ This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 Completed box being shipped out [1]
 \vbox(730.50705+0.0)x434.75833
-.\hbox(0.0+0.0)x0.0
-..\special{pdf:docinfo<</Title(\376\377\000T\000h\000i\000s\000\040\000i\000s\00\ETC.}
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil
 ..\kern 0.0
 ..\kern -34.87398
@@ -29,8 +27,6 @@ Completed box being shipped out [1]
 ...\glue 19.8738
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 541.95917fil
-....\special{pdf:docview<</OpenAction[@page1/Fit]/PageMode/UseOutlines>>}
-....\special{pdf:dest (Doc-Start) [@thispage /XYZ @xpos @ypos null]}
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\write1{\protect \FN@pp@footnotehinttrue }
@@ -47,11 +43,13 @@ Completed box being shipped out [1]
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(16.6221+0.33725)x416.54877, glue set 163.82834fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\TU/XITS(0)/b/n/24.09 Abstract
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -60,6 +58,7 @@ Completed box being shipped out [1]
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(8.22673+2.6258)x416.54877, glue set 321.4126fil
 .....\hbox(0.0+0.0)x18.0
 .....\TU/XITS(0)/m/n/12.045 English
@@ -69,17 +68,21 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/m/n/12.045 abstract
 .....\kern -0.00021
 .....\kern 0.00021
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 11.8282
 ....\hbox(0.0+0.0)x416.54877, glue set 398.54877fil
 .....\hbox(0.0+0.0)x18.0
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 6.22726
 ....\hbox(8.22673+2.6258)x416.54877
 .....\TU/XITS(0)/b/n/12.045 Keywords:
@@ -112,26 +115,30 @@ Completed box being shipped out [1]
 .......\TU/XITS(0)/m/n/12.045 3
 .......\kern -0.0002
 .......\kern 0.0002
+.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 3.50511
-....\hbox(8.32309+0.22884)x416.54877, glue set 284.37901fil
+....\hbox(8.32309+0.22884)x416.54877, glue set 301.66357fil
 .....\TU/XITS(0)/b/n/12.045 CLC
 .....\kern -0.00021
 .....\kern 0.00021
 .....\glue 3.01125 plus 1.5041 minus 1.00473
-.....\TU/XITS(0)/b/n/12.045 number:
+.....\TU/XITS(0)/b/n/12.045 code:
 .....\kern -0.0002
 .....\kern 0.0002
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 TS803.23
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -150,7 +157,6 @@ Completed box being shipped out [1]
 .....\kern 0.0002
 .....\glue 0.0 plus 1.0fil
 ....\special{color pop}
-.\kern 0.0
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil
@@ -215,272 +221,278 @@ Completed box being shipped out [3]
 ...\glue 19.8738
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 476.15729fil
-....\glue(\topskip) 0.0
-....\vbox(218.71284+5.6371)x416.54877
-.....\special{pdf:dest (chapter*.2) [@thispage /XYZ @xpos @ypos null]}
-.....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t\00\ETC.}
-.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
-.....\mark{{\protect \MakeUppercase  {List of Symbols}}{}}
-.....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
-.....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
-.....\glue(\topskip) 12.0
-.....\rule(0.0+0.0)x*
+....\special{pdf:dest (chapter*.2) [@thispage /XYZ @xpos @ypos null]}
+....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t\00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
+....\mark{{\protect \MakeUppercase  {List of Symbols}}{}}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
+....\glue(\topskip) 12.0
+....\rule(0.0+0.0)x*
+....\penalty 10000
+....\glue 38.0 plus -1.0
+....\glue 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
+....\hbox(16.67027+4.93843)x416.54877, glue set 128.71716fil
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\TU/XITS(0)/b/n/24.09 List
+.....\kern -0.00021
+.....\kern 0.00021
+.....\glue 6.0225 plus 3.01125 minus 2.00749
+.....\TU/XITS(0)/b/n/24.09 of
+.....\kern -0.00021
+.....\kern 0.00021
+.....\glue 6.0225 plus 3.01125 minus 2.00749
+.....\TU/XITS(0)/b/n/24.09 Symbols
+.....\kern -0.0002
+.....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
-.....\glue 38.0 plus -1.0
-.....\glue 0.0
-.....\glue(\parskip) 0.0 plus 1.0
-.....\hbox(16.67027+4.93843)x416.54877, glue set 128.71716fil
-......\glue(\leftskip) 0.0 plus 1.0fil
-......\TU/XITS(0)/b/n/24.09 List
-......\kern -0.00021
-......\kern 0.00021
-......\glue 6.0225 plus 3.01125 minus 2.00749
-......\TU/XITS(0)/b/n/24.09 of
-......\kern -0.00021
-......\kern 0.00021
-......\glue 6.0225 plus 3.01125 minus 2.00749
-......\TU/XITS(0)/b/n/24.09 Symbols
-......\kern -0.0002
-......\kern 0.0002
-......\penalty 10000
-......\glue(\parfillskip) 0.0
-......\glue(\rightskip) 0.0 plus 1.0fil
-.....\penalty 10000
-.....\glue 40.0 plus -1.0
-.....\mark{{List of Symbols}{List of Symbols}}
-.....\penalty 10000
-.....\penalty 0
-.....\glue 0.0
-.....\special{pdf:dest (table.0.1) [@thispage /XYZ @xpos @ypos null]}
-.....\penalty 10000
-.....\penalty 10000
-.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.1531+5.6371)x39.0049, glue set 20.38013fil
-.......\rule(13.1531+5.6371)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.1531+5.6371)x225.39566
-.......\glue 6.0
-.......\vbox(13.1531+5.6371)x213.39566
-........\hbox(13.1531+5.6371)x213.39566, glue set 159.89177fil
-.........\hbox(0.0+0.0)x0.0
-.........\rule(13.1531+*)x0.0
-.........\TU/XITS(0)/m/n/12.045 Coordinate
-.........\kern -0.00021
-.........\kern 0.00021
-.........\penalty 10000
-.........\rule(0.0+5.6371)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.1531+5.6371)x39.0049, glue set 21.11488fil
-.......\rule(13.1531+5.6371)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2516
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.1531+5.6371)x225.39566
-.......\glue 6.0
-.......\vbox(13.1531+5.6371)x213.39566
-........\hbox(13.1531+5.6371)x213.39566, glue set 157.18166fil
-.........\hbox(0.0+0.0)x0.0
-.........\rule(13.1531+*)x0.0
-.........\TU/XITS(0)/m/n/12.045 Momentum
-.........\kern -0.00021
-.........\kern 0.00021
-.........\penalty 10000
-.........\rule(0.0+5.6371)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.1531+5.6371)x39.0049, glue set 3.31236fil
-.......\rule(13.1531+5.6371)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3185
-.......\kern1.08405
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#41
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#42
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.1531+5.6371)x225.39566
-.......\glue 6.0
-.......\vbox(13.1531+5.6371)x213.39566
-........\hbox(13.1531+5.6371)x213.39566, glue set 143.54672fil
-.........\hbox(0.0+0.0)x0.0
-.........\rule(13.1531+*)x0.0
-.........\TU/XITS(0)/m/n/12.045 Wave
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 function
-.........\kern -0.00021
-.........\kern 0.00021
-.........\penalty 10000
-.........\rule(0.0+5.6371)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.1531+5.6371)x39.0049, glue set 11.70773fil
-.......\rule(13.1531+5.6371)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1817
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.1531+5.6371)x225.39566
-.......\glue 6.0
-.......\vbox(13.1531+5.6371)x213.39566
-........\hbox(13.1531+5.6371)x213.39566, glue set 110.72409fil
-.........\hbox(0.0+0.0)x0.0
-.........\rule(13.1531+*)x0.0
-.........\TU/XITS(0)/m/n/12.045 Dirac
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 notation
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 —
-.........\discretionary
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 bra
-.........\kern -0.00021
-.........\kern 0.00021
-.........\penalty 10000
-.........\rule(0.0+5.6371)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.1531+5.6371)x39.0049, glue set 11.70773fil
-.......\rule(13.1531+5.6371)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1818
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.1531+5.6371)x225.39566
-.......\glue 6.0
-.......\vbox(13.1531+5.6371)x213.39566
-........\hbox(13.1531+5.6371)x213.39566, glue set 111.62747fil
-.........\hbox(0.0+0.0)x0.0
-.........\rule(13.1531+*)x0.0
-.........\TU/XITS(0)/m/n/12.045 Dirac
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 notation
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 —
-.........\discretionary
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 ket
-.........\kern -0.00021
-.........\kern 0.00021
-.........\penalty 10000
-.........\rule(0.0+5.6371)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.1531+5.6371)x39.0049
-.......\rule(13.1531+5.6371)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1817
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3162
-.......\kern0.4818
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3163
-.......\kern0.78293
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1818
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.1531+5.6371)x225.39566
-.......\glue 6.0
-.......\vbox(13.1531+5.6371)x213.39566
-........\hbox(13.1531+5.6371)x213.39566, glue set 148.24426fil
-.........\hbox(0.0+0.0)x0.0
-.........\rule(13.1531+*)x0.0
-.........\TU/XITS(0)/m/n/12.045 Inner
-.........\kern -0.00021
-.........\kern 0.00021
-.........\glue 3.01125 plus 1.50562 minus 1.00374
-.........\TU/XITS(0)/m/n/12.045 product
-.........\kern -0.00021
-.........\kern 0.00021
-.........\penalty 10000
-.........\rule(0.0+5.6371)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 40.0 plus -1.0
+....\mark{{List of Symbols}{List of Symbols}}
+....\penalty 10000
+....\penalty 0
+....\glue 0.0
+....\special{pdf:dest (table.0.1) [@thispage /XYZ @xpos @ypos null]}
+....\penalty 10000
+....\penalty 10000
+....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.1531+5.6371)x39.0049, glue set 20.38013fil
+......\rule(13.1531+5.6371)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.1531+5.6371)x225.39566
+......\glue 6.0
+......\vbox(13.1531+5.6371)x213.39566
+.......\hbox(13.1531+5.6371)x213.39566, glue set 159.89177fil
+........\hbox(0.0+0.0)x0.0
+........\rule(13.1531+*)x0.0
+........\TU/XITS(0)/m/n/12.045 Coordinate
+........\kern -0.00021
+........\kern 0.00021
+........\penalty 10000
+........\rule(0.0+5.6371)x0.0
+........\kern 0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.1531+5.6371)x39.0049, glue set 21.11488fil
+......\rule(13.1531+5.6371)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2516
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.1531+5.6371)x225.39566
+......\glue 6.0
+......\vbox(13.1531+5.6371)x213.39566
+.......\hbox(13.1531+5.6371)x213.39566, glue set 157.18166fil
+........\hbox(0.0+0.0)x0.0
+........\rule(13.1531+*)x0.0
+........\TU/XITS(0)/m/n/12.045 Momentum
+........\kern -0.00021
+........\kern 0.00021
+........\penalty 10000
+........\rule(0.0+5.6371)x0.0
+........\kern 0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.1531+5.6371)x39.0049, glue set 3.31236fil
+......\rule(13.1531+5.6371)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3185
+......\kern1.08405
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#41
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#42
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.1531+5.6371)x225.39566
+......\glue 6.0
+......\vbox(13.1531+5.6371)x213.39566
+.......\hbox(13.1531+5.6371)x213.39566, glue set 143.54672fil
+........\hbox(0.0+0.0)x0.0
+........\rule(13.1531+*)x0.0
+........\TU/XITS(0)/m/n/12.045 Wave
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 function
+........\kern -0.00021
+........\kern 0.00021
+........\penalty 10000
+........\rule(0.0+5.6371)x0.0
+........\kern 0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.1531+5.6371)x39.0049, glue set 11.70773fil
+......\rule(13.1531+5.6371)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1817
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.1531+5.6371)x225.39566
+......\glue 6.0
+......\vbox(13.1531+5.6371)x213.39566
+.......\hbox(13.1531+5.6371)x213.39566, glue set 110.72409fil
+........\hbox(0.0+0.0)x0.0
+........\rule(13.1531+*)x0.0
+........\TU/XITS(0)/m/n/12.045 Dirac
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 notation
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 —
+........\discretionary
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 bra
+........\kern -0.00021
+........\kern 0.00021
+........\penalty 10000
+........\rule(0.0+5.6371)x0.0
+........\kern 0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.1531+5.6371)x39.0049, glue set 11.70773fil
+......\rule(13.1531+5.6371)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#2524
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1818
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.1531+5.6371)x225.39566
+......\glue 6.0
+......\vbox(13.1531+5.6371)x213.39566
+.......\hbox(13.1531+5.6371)x213.39566, glue set 111.62747fil
+........\hbox(0.0+0.0)x0.0
+........\rule(13.1531+*)x0.0
+........\TU/XITS(0)/m/n/12.045 Dirac
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 notation
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 —
+........\discretionary
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 ket
+........\kern -0.00021
+........\kern 0.00021
+........\penalty 10000
+........\rule(0.0+5.6371)x0.0
+........\kern 0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.1531+5.6371)x416.54877, glue set 76.07411fill
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.1531+5.6371)x39.0049
+......\rule(13.1531+5.6371)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1817
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3162
+......\kern0.4818
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#125
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#3163
+......\kern0.78293
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 glyph#1818
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.1531+5.6371)x225.39566
+......\glue 6.0
+......\vbox(13.1531+5.6371)x213.39566
+.......\hbox(13.1531+5.6371)x213.39566, glue set 148.24426fil
+........\hbox(0.0+0.0)x0.0
+........\rule(13.1531+*)x0.0
+........\TU/XITS(0)/m/n/12.045 Inner
+........\kern -0.00021
+........\kern 0.00021
+........\glue 3.01125 plus 1.50562 minus 1.00374
+........\TU/XITS(0)/m/n/12.045 product
+........\kern -0.00021
+........\kern 0.00021
+........\penalty 10000
+........\rule(0.0+5.6371)x0.0
+........\kern 0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
 ....\penalty 10000
 ....\penalty 0
 ....\glue 0.0
@@ -577,6 +589,7 @@ Completed box being shipped out [1]
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\TU/XITS(0)/b/n/22.08249 Chapter
@@ -586,12 +599,14 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/b/n/22.08249 1
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\penalty 10000
 ....\glue 10.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.7349
 ....\hbox(16.6462+4.93843)x416.54877, glue set 141.37646fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -603,6 +618,7 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/b/n/24.09 chapter
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -613,6 +629,7 @@ Completed box being shipped out [1]
 ....\glue -40.0 plus 1.0
 ....\glue 40.0 plus -1.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(12.48463+0.25293)x416.54877, glue set 140.6026fil
 .....\hbox(12.43044+0.23486)x40.65186
 ......\TU/XITS(0)/b/n/18.06749 1.1
@@ -626,6 +643,7 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -642,6 +660,7 @@ Completed box being shipped out [1]
 ....\glue -14.63463 plus -1.71011
 ....\glue 14.63463 plus 1.71011
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(12.5027+0.34326)x416.54877, glue set 131.48755fil
 .....\hbox(12.43044+0.23486)x40.65186
 ......\TU/XITS(0)/b/n/18.06749 1.2
@@ -655,6 +674,7 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -671,6 +691,7 @@ Completed box being shipped out [1]
 ....\glue -14.63463 plus -1.71011
 ....\glue 14.63463 plus 1.71011
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(12.48463+0.25293)x416.54877, glue set 136.59161fil
 .....\hbox(12.43044+0.25293)x40.65186
 ......\TU/XITS(0)/b/n/18.06749 1.3
@@ -684,6 +705,7 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -786,6 +808,7 @@ Completed box being shipped out [3]
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\TU/XITS(0)/b/n/22.08249 Chapter
@@ -795,12 +818,14 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/b/n/22.08249 2
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\penalty 10000
 ....\glue 10.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.71082
 ....\hbox(16.67027+4.93843)x416.54877, glue set 129.22305fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -812,6 +837,7 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/b/n/24.09 chapter
 .....\kern -0.0002
 .....\kern 0.0002
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil

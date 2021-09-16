@@ -3,6 +3,16 @@ Don't change this file in any respect.
 Completed box being shipped out [1]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -36,27 +46,23 @@ Completed box being shipped out [1]
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 515.81775fil, direction TLT
 ....\whatsit4=[]
-....\pdfdest name{Doc-Start} xyz
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\pdfdest name{chapter*.1} xyz
-....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\
-20\ETC.}
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\144\130\000\040\211\20\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\mark{{\protect \MakeUppercase  {摘\hskip 1em\relax 要}}{}}
-....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
-}{\ETC.}
-....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
-}{\ETC.}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(21.1992+2.8908)x416.54877, glue set 172.13939fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -79,43 +85,47 @@ Completed box being shipped out [1]
 ....\mark{{摘\hskip 1em\relax 要}{摘\hskip 1em\relax 要}}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
-....\hbox(10.5996+1.4454)x416.54877, glue set 344.36877fil, direction TLT
+....\glue(\parskip) 0.0
+....\hbox(10.5996+1.4454)x416.54877, glue set 344.27878fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.0, direction TLT
+.....\hbox(0.0+0.0)x24.09, direction TLT
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 中
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 文
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 摘
 .....\penalty 500
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/n/12.045 要
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 18.55455
-....\hbox(0.0+0.0)x416.54877, glue set 392.54877fil, direction TLT
+....\hbox(0.0+0.0)x416.54877, glue set 392.45877fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.0, direction TLT
+.....\hbox(0.0+0.0)x24.09, direction TLT
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.40036
 ....\hbox(10.5996+1.4454)x416.54877, glue set - 1.0, direction TLT
 .....\whatsit4=[]
@@ -126,15 +136,15 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 关
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 键
 .....\penalty 500
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 字
 .....\penalty 10000
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 ：
 .....\glue 6.0225 minus 6.0225
@@ -149,56 +159,58 @@ Completed box being shipped out [1]
 .......\hbox(0.0+0.0)x0.0, direction TLT
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 关
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 键
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 字
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\norule(10.5996+1.4454)x0.0
 .......\LTJY3/FandolSong(0)/m/n/12.045 一
 .......\penalty 10000
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x6.0225, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 ；
 .......\glue 6.0225 minus 6.0225
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 关
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 键
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 字
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\norule(10.5996+1.4454)x0.0
 .......\LTJY3/FandolSong(0)/m/n/12.045 二
 .......\penalty 10000
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x6.0225, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 ；
 .......\glue 6.0225 minus 6.0225
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 关
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 键
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\hbox(10.5996+1.4454)x12.045, direction TLT
 ........\LTJY3/FandolSong(0)/m/n/12.045 字
 .......\penalty 500
-.......\glue 0.0 plus 0.64215
+.......\glue 0.0 plus 0.59575
 .......\norule(10.5996+1.4454)x0.0
 .......\LTJY3/FandolSong(0)/m/n/12.045 三
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
 ......\whatsit4=[]
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 7.95496
 ....\hbox(10.5996+1.4454)x416.54877, glue set 297.20685fil, direction TLT
 .....\whatsit4=[]
@@ -209,21 +221,21 @@ Completed box being shipped out [1]
 ......\localrightbox=null
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 中
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 图
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 分
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 类
 .....\penalty 500
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 号
 .....\penalty 10000
-.....\glue 0.0 plus 0.64215
+.....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolHei(0)/m/n/12.045 ：
 .....\glue 6.0225 minus 6.0225
@@ -254,9 +266,20 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/m/n/12.045 i
 .....\glue 0.0 plus 1.0fil
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -303,9 +326,20 @@ Completed box being shipped out [2]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [3]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -340,21 +374,18 @@ Completed box being shipped out [3]
 ...\vbox(700.50723+0.0)x416.54877, glue set 524.35767fil, direction TLT
 ....\whatsit4=[]
 ....\pdfdest name{chapter*.2} xyz
-....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\
-00\ETC.}
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000A\000b\000s\000t\00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\mark{{\protect \MakeUppercase  {Abstract}}{}}
-....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
-}{\ETC.}
-....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
-}{\ETC.}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(17.5616+0.36134)x416.54877, glue set 164.15355fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -384,14 +415,15 @@ Completed box being shipped out [3]
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
-....\hbox(8.22673+2.62581)x416.54877, glue set 315.4126fil, direction TLT
+....\glue(\parskip) 0.0
+....\hbox(8.22673+2.62581)x416.54877, glue set 315.32257fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.0, direction TLT
+.....\hbox(0.0+0.0)x24.09, direction TLT
 .....\TU/XITS(0)/m/n/12.045 E
 .....\TU/XITS(0)/m/n/12.045 n
 .....\discretionary (penalty 50)
@@ -419,19 +451,22 @@ Completed box being shipped out [3]
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 17.37415
-....\hbox(0.0+0.0)x416.54877, glue set 392.54877fil, direction TLT
+....\hbox(0.0+0.0)x416.54877, glue set 392.45877fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
 ......\localleftbox=null
 ......\localrightbox=null
-.....\hbox(0.0+0.0)x24.0, direction TLT
+.....\hbox(0.0+0.0)x24.09, direction TLT
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 11.77322
 ....\hbox(8.22673+2.62581)x416.54877, direction TLT
 .....\whatsit4=[]
@@ -522,12 +557,14 @@ Completed box being shipped out [3]
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
 ......\whatsit4=[]
+.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.05106
-....\hbox(8.32309+0.22885)x416.54877, glue set 284.37897fil, direction TLT
+....\hbox(8.32309+0.22885)x416.54877, glue set 301.66351fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
@@ -539,15 +576,10 @@ Completed box being shipped out [3]
 .....\kern-0.09636 (font)
 .....\TU/XITS(0)/b/n/12.045 C
 .....\glue(\spaceskip) 3.01125 plus 1.50412 minus 1.00475
-.....\TU/XITS(0)/b/n/12.045 n
-.....\TU/XITS(0)/b/n/12.045 u
-.....\TU/XITS(0)/b/n/12.045 m
-.....\discretionary (penalty 50)
-......< \TU/XITS(0)/b/n/12.045 -
-.....\TU/XITS(0)/b/n/12.045 b
+.....\TU/XITS(0)/b/n/12.045 c
+.....\TU/XITS(0)/b/n/12.045 o
+.....\TU/XITS(0)/b/n/12.045 d
 .....\TU/XITS(0)/b/n/12.045 e
-.....\TU/XITS(0)/b/n/12.045 r
-.....\kern-0.12045 (font)
 .....\TU/XITS(0)/b/n/12.045 :
 .....\glue 12.045
 .....\TU/XITS(0)/m/n/12.045 T
@@ -579,9 +611,20 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/m/n/12.045 i
 .....\glue 0.0 plus 1.0fil
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [4]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -628,9 +671,20 @@ Completed box being shipped out [4]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [5]
 \vbox(730.50705+0.16862)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -664,357 +718,357 @@ Completed box being shipped out [5]
 ...\glue(\lineskip) 0.0
 ...\vbox(700.50723+0.0)x416.54877, glue set 466.4176fil, direction TLT
 ....\whatsit4=[]
-....\glue(\topskip) 0.0
-....\vbox(228.08958+6.00005)x416.54877, direction TLT
+....\pdfdest name{chapter*.3} xyz
+....\write4{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210\15\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
+....\mark{{\protect \MakeUppercase  {符号表}}{}}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
+....\glue(\topskip) 12.0
+....\rule(0.0+0.0)x*
+....\penalty 10000
+....\glue 38.0 plus -1.0
+....\glue 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
+....\hbox(21.1992+2.8908)x416.54877, glue set 172.13939fil, direction TLT
 .....\whatsit4=[]
-.....\pdfdest name{chapter*.3} xyz
-.....\write4{\protect \BOOKMARK [0][-]{chapter*.3}{\376\377\173\046\123\367\210
-\15\ETC.}
-.....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{to
-c}{\ETC.}
-.....\mark{{\protect \MakeUppercase  {符号表}}{}}
-.....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lo
-f}{\ETC.}
-.....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lo
-t}{\ETC.}
-.....\glue(\topskip) 12.0
-.....\rule(0.0+0.0)x*
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 符
+.....\glue 0.0 plus 2.07393
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 号
+.....\penalty 500
+.....\glue 0.0 plus 2.07393
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 表
 .....\penalty 10000
-.....\glue 38.0 plus -1.0
-.....\glue 0.0
-.....\glue(\parskip) 0.0 plus 1.0
-.....\hbox(21.1992+2.8908)x416.54877, glue set 172.13939fil, direction TLT
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 40.0 plus -1.0
+....\mark{{符号表}{符号表}}
+....\penalty 10000
+....\penalty 0
+....\glue 0.0
+....\pdfdest name{table.0.1} xyz
+....\penalty 10000
+....\penalty 10000
+....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.9999+6.00005)x39.0049, glue set 20.38013fil, direction TLT
 ......\whatsit4=[]
-......\glue(\leftskip) 0.0 plus 1.0fil
-......\localpar
-.......\localinterlinepenalty=0
-.......\localbrokenpenalty=0
-.......\localleftbox=null
-.......\localrightbox=null
-......\hbox(21.1992+2.8908)x24.09, direction TLT
-.......\LTJY3/FandolHei(0)/m/n/24.09 符
-......\glue 0.0 plus 2.07393
-......\hbox(21.1992+2.8908)x24.09, direction TLT
-.......\LTJY3/FandolHei(0)/m/n/24.09 号
-......\penalty 500
-......\glue 0.0 plus 2.07393
-......\hbox(21.1992+2.8908)x24.09, direction TLT
-.......\LTJY3/FandolHei(0)/m/n/24.09 表
-......\penalty 10000
-......\glue(\parfillskip) 0.0
-......\glue(\rightskip) 0.0 plus 1.0fil
-.....\penalty 10000
-.....\glue 40.0 plus -1.0
-.....\mark{{符号表}{符号表}}
-.....\penalty 10000
-.....\penalty 0
-.....\glue 0.0
-.....\pdfdest name{table.0.1} xyz
-.....\penalty 10000
-.....\penalty 10000
-.....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.9999+6.00005)x39.0049, glue set 20.38013fil, direction TLT
-.......\whatsit4=[]
-.......\rule(13.9999+6.00005)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.9999+6.00005)x225.39566, direction TLT
-.......\whatsit4=[]
-.......\glue 6.0
-.......\vbox(13.9999+6.00005)x213.39566, direction TLT
-........\hbox(13.9999+6.00005)x213.39566, glue set 189.30566fil, direction TLT
-.........\whatsit4=[]
-.........\localpar
-..........\localinterlinepenalty=0
-..........\localbrokenpenalty=0
-..........\localleftbox=null
-..........\localrightbox=null
-.........\hbox(0.0+0.0)x0.0, direction TLT
-.........\rule(13.9999+*)x0.0
-.........\penalty 0
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 坐
-.........\penalty 500
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 标
-.........\penalty 10000
-.........\rule(0.0+6.00005)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
+......\rule(13.9999+6.00005)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.9999+6.00005)x225.39566, direction TLT
+......\whatsit4=[]
+......\glue 6.0
+......\vbox(13.9999+6.00005)x213.39566, direction TLT
+.......\hbox(13.9999+6.00005)x213.39566, glue set 189.30566fil, direction TLT
 ........\whatsit4=[]
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.9999+6.00005)x39.0049, glue set 21.11488fil, direction TLT
+........\localpar
+.........\localinterlinepenalty=0
+.........\localbrokenpenalty=0
+.........\localleftbox=null
+.........\localrightbox=null
+........\hbox(0.0+0.0)x0.0, direction TLT
+........\rule(13.9999+*)x0.0
+........\penalty 0
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 坐
+........\penalty 500
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 标
+........\penalty 10000
+........\rule(0.0+6.00005)x0.0
+........\kern0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
 .......\whatsit4=[]
-.......\rule(13.9999+6.00005)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑝
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.9999+6.00005)x225.39566, direction TLT
-.......\whatsit4=[]
-.......\glue 6.0
-.......\vbox(13.9999+6.00005)x213.39566, direction TLT
-........\hbox(13.9999+6.00005)x213.39566, glue set 189.30566fil, direction TLT
-.........\whatsit4=[]
-.........\localpar
-..........\localinterlinepenalty=0
-..........\localbrokenpenalty=0
-..........\localleftbox=null
-..........\localrightbox=null
-.........\hbox(0.0+0.0)x0.0, direction TLT
-.........\rule(13.9999+*)x0.0
-.........\penalty 0
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 动
-.........\penalty 500
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 量
-.........\penalty 10000
-.........\rule(0.0+6.00005)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.9999+6.00005)x39.0049, glue set 21.11488fil, direction TLT
+......\whatsit4=[]
+......\rule(13.9999+6.00005)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑝
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.9999+6.00005)x225.39566, direction TLT
+......\whatsit4=[]
+......\glue 6.0
+......\vbox(13.9999+6.00005)x213.39566, direction TLT
+.......\hbox(13.9999+6.00005)x213.39566, glue set 189.30566fil, direction TLT
 ........\whatsit4=[]
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.9999+6.00005)x39.0049, glue set 3.31236fil, direction TLT
+........\localpar
+.........\localinterlinepenalty=0
+.........\localbrokenpenalty=0
+.........\localleftbox=null
+.........\localrightbox=null
+........\hbox(0.0+0.0)x0.0, direction TLT
+........\rule(13.9999+*)x0.0
+........\penalty 0
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 动
+........\penalty 500
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 量
+........\penalty 10000
+........\rule(0.0+6.00005)x0.0
+........\kern0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
 .......\whatsit4=[]
-.......\rule(13.9999+6.00005)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝜓
-.......\kern1.08405 (italic)
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 (
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 )
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.9999+6.00005)x225.39566, direction TLT
-.......\whatsit4=[]
-.......\glue 6.0
-.......\vbox(13.9999+6.00005)x213.39566, direction TLT
-........\hbox(13.9999+6.00005)x213.39566, glue set 177.26067fil, direction TLT
-.........\whatsit4=[]
-.........\localpar
-..........\localinterlinepenalty=0
-..........\localbrokenpenalty=0
-..........\localleftbox=null
-..........\localrightbox=null
-.........\hbox(0.0+0.0)x0.0, direction TLT
-.........\rule(13.9999+*)x0.0
-.........\penalty 0
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 波
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 函
-.........\penalty 500
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 数
-.........\penalty 10000
-.........\rule(0.0+6.00005)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.9999+6.00005)x39.0049, glue set 3.31236fil, direction TLT
+......\whatsit4=[]
+......\rule(13.9999+6.00005)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝜓
+......\kern1.08405 (italic)
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 (
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 )
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.9999+6.00005)x225.39566, direction TLT
+......\whatsit4=[]
+......\glue 6.0
+......\vbox(13.9999+6.00005)x213.39566, direction TLT
+.......\hbox(13.9999+6.00005)x213.39566, glue set 177.26067fil, direction TLT
 ........\whatsit4=[]
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.9999+6.00005)x39.0049, glue set 11.70773fil, direction TLT
+........\localpar
+.........\localinterlinepenalty=0
+.........\localbrokenpenalty=0
+.........\localleftbox=null
+.........\localrightbox=null
+........\hbox(0.0+0.0)x0.0, direction TLT
+........\rule(13.9999+*)x0.0
+........\penalty 0
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 波
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 函
+........\penalty 500
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 数
+........\penalty 10000
+........\rule(0.0+6.00005)x0.0
+........\kern0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
 .......\whatsit4=[]
-.......\rule(13.9999+6.00005)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.9999+6.00005)x225.39566, direction TLT
-.......\whatsit4=[]
-.......\glue 6.0
-.......\vbox(13.9999+6.00005)x213.39566, direction TLT
-........\hbox(13.9999+6.00005)x213.39566, glue set 149.85826fil, direction TLT
-.........\whatsit4=[]
-.........\localpar
-..........\localinterlinepenalty=0
-..........\localbrokenpenalty=0
-..........\localleftbox=null
-..........\localrightbox=null
-.........\hbox(0.0+0.0)x0.0, direction TLT
-.........\rule(13.9999+*)x0.0
-.........\penalty 0
-.........\norule(10.5996+1.4454)x0.0
-.........\LTJY3/FandolSong(0)/m/n/12.045 左
-.........\penalty 500
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 矢
-.........\glue 6.0225 minus 6.0225
-.........\hbox(10.5996+1.4454)x6.0225, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 （
-.........\penalty 10000
-.........\glue 0.0
-.........\TU/XITS(0)/m/n/12.045 b
-.........\TU/XITS(0)/m/n/12.045 r
-.........\kern-0.0241 (font)
-.........\TU/XITS(0)/m/n/12.045 a
-.........\penalty 10000
-.........\glue 0.0
-.........\hbox(10.5996+1.4454)x6.0225, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 ）
-.........\penalty 10000
-.........\glue 6.0225 minus 6.0225
-.........\rule(0.0+6.00005)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.9999+6.00005)x39.0049, glue set 11.70773fil, direction TLT
+......\whatsit4=[]
+......\rule(13.9999+6.00005)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.9999+6.00005)x225.39566, direction TLT
+......\whatsit4=[]
+......\glue 6.0
+......\vbox(13.9999+6.00005)x213.39566, direction TLT
+.......\hbox(13.9999+6.00005)x213.39566, glue set 149.85826fil, direction TLT
 ........\whatsit4=[]
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.9999+6.00005)x39.0049, glue set 11.70773fil, direction TLT
+........\localpar
+.........\localinterlinepenalty=0
+.........\localbrokenpenalty=0
+.........\localleftbox=null
+.........\localrightbox=null
+........\hbox(0.0+0.0)x0.0, direction TLT
+........\rule(13.9999+*)x0.0
+........\penalty 0
+........\norule(10.5996+1.4454)x0.0
+........\LTJY3/FandolSong(0)/m/n/12.045 左
+........\penalty 500
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 矢
+........\glue 6.0225 minus 6.0225
+........\hbox(10.5996+1.4454)x6.0225, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 （
+........\penalty 10000
+........\glue 0.0
+........\TU/XITS(0)/m/n/12.045 b
+........\TU/XITS(0)/m/n/12.045 r
+........\kern-0.0241 (font)
+........\TU/XITS(0)/m/n/12.045 a
+........\penalty 10000
+........\glue 0.0
+........\hbox(10.5996+1.4454)x6.0225, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 ）
+........\penalty 10000
+........\glue 6.0225 minus 6.0225
+........\rule(0.0+6.00005)x0.0
+........\kern0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
 .......\whatsit4=[]
-.......\rule(13.9999+6.00005)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.9999+6.00005)x225.39566, direction TLT
-.......\whatsit4=[]
-.......\glue 6.0
-.......\vbox(13.9999+6.00005)x213.39566, direction TLT
-........\hbox(13.9999+6.00005)x213.39566, glue set 150.76163fil, direction TLT
-.........\whatsit4=[]
-.........\localpar
-..........\localinterlinepenalty=0
-..........\localbrokenpenalty=0
-..........\localleftbox=null
-..........\localrightbox=null
-.........\hbox(0.0+0.0)x0.0, direction TLT
-.........\rule(13.9999+*)x0.0
-.........\penalty 0
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 右
-.........\penalty 500
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 矢
-.........\glue 6.0225 minus 6.0225
-.........\hbox(10.5996+1.4454)x6.0225, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 （
-.........\penalty 10000
-.........\glue 0.0
-.........\TU/XITS(0)/m/n/12.045 k
-.........\kern-0.15659 (font)
-.........\TU/XITS(0)/m/n/12.045 e
-.........\kern-0.1084 (font)
-.........\TU/XITS(0)/m/n/12.045 t
-.........\penalty 10000
-.........\glue 0.0
-.........\hbox(10.5996+1.4454)x6.0225, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 ）
-.........\penalty 10000
-.........\glue 6.0225 minus 6.0225
-.........\rule(0.0+6.00005)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.9999+6.00005)x39.0049, glue set 11.70773fil, direction TLT
+......\whatsit4=[]
+......\rule(13.9999+6.00005)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝑥
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.9999+6.00005)x225.39566, direction TLT
+......\whatsit4=[]
+......\glue 6.0
+......\vbox(13.9999+6.00005)x213.39566, direction TLT
+.......\hbox(13.9999+6.00005)x213.39566, glue set 150.76163fil, direction TLT
 ........\whatsit4=[]
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
-.....\glue(\lineskip) 0.0
-.....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
-......\glue(\tabskip) 0.0 plus 1.0fill
-......\hbox(13.9999+6.00005)x39.0049, direction TLT
+........\localpar
+.........\localinterlinepenalty=0
+.........\localbrokenpenalty=0
+.........\localleftbox=null
+.........\localrightbox=null
+........\hbox(0.0+0.0)x0.0, direction TLT
+........\rule(13.9999+*)x0.0
+........\penalty 0
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 右
+........\penalty 500
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 矢
+........\glue 6.0225 minus 6.0225
+........\hbox(10.5996+1.4454)x6.0225, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 （
+........\penalty 10000
+........\glue 0.0
+........\TU/XITS(0)/m/n/12.045 k
+........\kern-0.15659 (font)
+........\TU/XITS(0)/m/n/12.045 e
+........\kern-0.1084 (font)
+........\TU/XITS(0)/m/n/12.045 t
+........\penalty 10000
+........\glue 0.0
+........\hbox(10.5996+1.4454)x6.0225, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 ）
+........\penalty 10000
+........\glue 6.0225 minus 6.0225
+........\rule(0.0+6.00005)x0.0
+........\kern0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
 .......\whatsit4=[]
-.......\rule(13.9999+6.00005)x0.0
-.......\glue 6.0
-.......\glue 0.00002
-.......\mathon
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛼
-.......\kern0.4818 (italic)
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛽
-.......\kern0.78293 (italic)
-.......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
-.......\mathoff
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0
-......\hbox(13.9999+6.00005)x225.39566, direction TLT
-.......\whatsit4=[]
-.......\glue 6.0
-.......\vbox(13.9999+6.00005)x213.39566, direction TLT
-........\hbox(13.9999+6.00005)x213.39566, glue set 189.30566fil, direction TLT
-.........\whatsit4=[]
-.........\localpar
-..........\localinterlinepenalty=0
-..........\localbrokenpenalty=0
-..........\localleftbox=null
-..........\localrightbox=null
-.........\hbox(0.0+0.0)x0.0, direction TLT
-.........\rule(13.9999+*)x0.0
-.........\penalty 0
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 内
-.........\penalty 500
-.........\glue 0.0 plus 0.64215
-.........\hbox(10.5996+1.4454)x12.045, direction TLT
-..........\LTJY3/FandolSong(0)/m/n/12.045 积
-.........\penalty 10000
-.........\rule(0.0+6.00005)x0.0
-.........\penalty 10000
-.........\glue(\parfillskip) 0.0 plus 1.0fil
-.........\glue(\rightskip) 0.0
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
+....\glue(\lineskip) 0.0
+....\hbox(13.9999+6.00005)x416.54877, glue set 76.07411fill, direction TLT
+.....\glue(\tabskip) 0.0 plus 1.0fill
+.....\hbox(13.9999+6.00005)x39.0049, direction TLT
+......\whatsit4=[]
+......\rule(13.9999+6.00005)x0.0
+......\glue 6.0
+......\glue 0.00002
+......\mathon
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟨
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛼
+......\kern0.4818 (italic)
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 |
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 𝛽
+......\kern0.78293 (italic)
+......\TU/XITSMath-Regular.otf(1)/m/n/12.045 ⟩
+......\mathoff
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0
+.....\hbox(13.9999+6.00005)x225.39566, direction TLT
+......\whatsit4=[]
+......\glue 6.0
+......\vbox(13.9999+6.00005)x213.39566, direction TLT
+.......\hbox(13.9999+6.00005)x213.39566, glue set 189.30566fil, direction TLT
 ........\whatsit4=[]
-.......\glue 0.0 plus 1.0fil
-.......\glue 6.0
-......\glue(\tabskip) 0.0 plus 1.0fill
+........\localpar
+.........\localinterlinepenalty=0
+.........\localbrokenpenalty=0
+.........\localleftbox=null
+.........\localrightbox=null
+........\hbox(0.0+0.0)x0.0, direction TLT
+........\rule(13.9999+*)x0.0
+........\penalty 0
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 内
+........\penalty 500
+........\glue 0.0 plus 0.59575
+........\hbox(10.5996+1.4454)x12.045, direction TLT
+.........\LTJY3/FandolSong(0)/m/n/12.045 积
+........\penalty 10000
+........\rule(0.0+6.00005)x0.0
+........\kern0.0
+........\penalty 10000
+........\glue(\parfillskip) 0.0 plus 1.0fil
+........\glue(\rightskip) 0.0
+.......\whatsit4=[]
+......\glue 0.0 plus 1.0fil
+......\glue 6.0
+.....\glue(\tabskip) 0.0 plus 1.0fill
 ....\penalty 10000
 ....\penalty 0
 ....\glue 0.0
@@ -1032,9 +1086,20 @@ t}{\ETC.}
 .....\TU/XITS(0)/m/n/12.045 v
 .....\glue 0.0 plus 1.0fil
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [6]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -1081,11 +1146,22 @@ Completed box being shipped out [6]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 第1章
 warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 Completed box being shipped out [1]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -1121,21 +1197,18 @@ Completed box being shipped out [1]
 ....\write1{\protect \FN@pp@footnotehinttrue }
 ....\write-{}
 ....\pdfdest name{chapter.1} xyz
-....\write4{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\173\054\0001\172\340\
-00\ETC.}
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\173\054\0001\172\340\00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{}}
-....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
-}{\ETC.}
-....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
-}{\ETC.}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(21.1992+2.8908)x416.54877, glue set 123.28488fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -1171,6 +1244,7 @@ Completed box being shipped out [1]
 ....\glue -40.0 plus 1.0
 ....\glue 40.0 plus -1.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(15.89938+2.1681)x416.54877, glue set 159.5825fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
@@ -1197,14 +1271,11 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
-....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\prote
-ct \ETC.}
+....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\protect \ETC.}
 ....\penalty 10000
-....\write4{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\
-04\ETC.}
+....\write4{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\04\ETC.}
 ....\penalty 10000
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
 ....\penalty 10000
 ....\glue 14.63463 plus 1.71011
@@ -1213,6 +1284,7 @@ ct \ETC.}
 ....\glue -14.63463 plus -1.71011
 ....\glue 14.63463 plus 1.71011
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(15.89938+2.1681)x416.54877, glue set 159.5825fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
@@ -1239,14 +1311,11 @@ ct \ETC.}
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
-....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\prote
-ct \ETC.}
+....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\protect \ETC.}
 ....\penalty 10000
-....\write4{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\
-04\ETC.}
+....\write4{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\04\ETC.}
 ....\penalty 10000
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
 ....\penalty 10000
 ....\glue 14.63463 plus 1.71011
@@ -1255,6 +1324,7 @@ ct \ETC.}
 ....\glue -14.63463 plus -1.71011
 ....\glue 14.63463 plus 1.71011
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(15.89938+2.1681)x416.54877, glue set 159.5825fil, direction TLT
 .....\whatsit4=[]
 .....\localpar
@@ -1281,14 +1351,11 @@ ct \ETC.}
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
-....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\prote
-ct \ETC.}
+....\mark{{\protect \MakeUppercase  {第1章\hskip 1em\relax 第一章}}{\protect \ETC.}
 ....\penalty 10000
-....\write4{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\
-04\ETC.}
+....\write4{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\04\ETC.}
 ....\penalty 10000
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\penalty 10000
 ....\penalty 10000
 ....\glue 14.63463 plus 1.71011
@@ -1306,10 +1373,21 @@ ct \ETC.}
 .....\TU/XITS(0)/m/n/12.045 1
 .....\glue 0.0 plus 1.0fil
 ....\pdfcolorstack 0 pop
+.\kern0.0
 warning  (pdf backend): ignoring duplicate destination with the name 'page.2'
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -1355,10 +1433,21 @@ Completed box being shipped out [2]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0
 第2章
 Completed box being shipped out [3]
 \vbox(730.50705+0.16862)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -1393,21 +1482,18 @@ Completed box being shipped out [3]
 ...\vbox(700.50723+0.0)x416.54877, glue set 586.41724fil, direction TLT
 ....\whatsit4=[]
 ....\pdfdest name{chapter.2} xyz
-....\write4{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\173\054\0002\172\340\
-00\ETC.}
-....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc
-}{\ETC.}
+....\write4{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\173\054\0002\172\340\00\ETC.}
+....\write1{\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\ETC.}
 ....\mark{{\protect \MakeUppercase  {第2章\hskip 1em\relax 第二章}}{}}
-....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof
-}{\ETC.}
-....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot
-}{\ETC.}
+....\write1{\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\ETC.}
+....\write1{\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\ETC.}
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
 ....\penalty 10000
 ....\glue 38.0 plus -1.0
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\hbox(21.1992+2.8908)x416.54877, glue set 123.28488fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -1452,9 +1538,20 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/m/n/12.045 3
 .....\glue 0.0 plus 1.0fil
 ....\pdfcolorstack 0 pop
+.\kern0.0
 Completed box being shipped out [4]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
 ..\whatsit4=[]
 ..\kern0.0
@@ -1501,3 +1598,4 @@ Completed box being shipped out [4]
 ....\hbox(0.0+0.0)x416.54877, direction TLT
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
+.\kern0.0

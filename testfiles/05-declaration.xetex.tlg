@@ -73,6 +73,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 12.15935
 ....\hbox(13.85776+2.89078)x416.54877, glue set 172.1394fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -94,11 +95,13 @@ Completed box being shipped out [3]
 .....\TU/FandolSong(0)/b/n/18.06749 学
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue 0.0 plus -1.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.3047
 ....\hbox(13.82162+2.92693)x416.54877, glue set 126.97069fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -122,6 +125,7 @@ Completed box being shipped out [3]
 .....\TU/FandolSong(0)/b/n/18.06749 明
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -132,6 +136,7 @@ Completed box being shipped out [3]
 ....\glue 11.38092
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.63498
 ....\hbox(9.45532+2.32468)x416.54877, glue set - 0.27818
 .....\hbox(0.0+0.0)x24.09
@@ -427,6 +432,7 @@ Completed box being shipped out [3]
 .....\kern -0.00047
 .....\kern -0.18753
 .....\kern 0.18753
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -437,6 +443,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 14.36972
 ....\hbox(9.38306+2.71011)x416.54877, glue set 163.6038fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -480,6 +487,7 @@ Completed box being shipped out [3]
 .....\glue 8.39537 minus 6.0225
 .....\hbox(0.0+2.71011)x72.26999
 ......\rule(-2.31012+2.71011)x72.26999
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -492,6 +500,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.44923
 ....\hbox(13.85776+2.89078)x416.54877, glue set 172.1394fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -513,11 +522,13 @@ Completed box being shipped out [3]
 .....\TU/FandolSong(0)/b/n/18.06749 学
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\glue 0.0 plus -1.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 9.32277
 ....\hbox(13.80356+2.92693)x416.54877, glue set 117.93694fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -543,6 +554,7 @@ Completed box being shipped out [3]
 .....\TU/FandolSong(0)/b/n/18.06749 明
 .....\kern -0.00017
 .....\kern 0.00017
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -553,6 +565,7 @@ Completed box being shipped out [3]
 ....\glue 11.38092
 ....\glue 0.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.6952
 ....\hbox(9.3951+2.32468)x416.54877, glue set - 0.27818
 .....\hbox(0.0+0.0)x24.09
@@ -848,6 +861,7 @@ Completed box being shipped out [3]
 .....\kern -0.00047
 .....\kern -0.18753
 .....\kern 0.18753
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -858,6 +872,7 @@ Completed box being shipped out [3]
 ....\penalty -51
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 14.41791
 ....\hbox(9.38306+2.71011)x416.54877, glue set 19.06383fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
@@ -919,6 +934,7 @@ Completed box being shipped out [3]
 .....\glue 8.39537 minus 6.0225
 .....\hbox(0.0+2.71011)x72.26999
 ......\rule(-2.31012+2.71011)x72.26999
+.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
