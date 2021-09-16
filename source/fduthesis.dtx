@@ -2808,7 +2808,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \cs_new_protected:Npn \@@_define_fn_style:nn #1#2
   { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_punct:nn #1#2
-  { \tl_const:cn { c_@@_ #1 _tl } { \@@_symbol:n {#2} } }
+  { \tl_const:cn { c_@@_ #1 _tl } {#2} }
 % \cs_new_protected:Npn \@@_define_sep:nn #1#2
 %   { \tl_const:cn { c_@@_ #1 _sep_tl } {#2} }
 % \cs_new_protected:Npn \@@_define_format:nn #1#2
@@ -3742,12 +3742,16 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_set_fullwidth_stop_catcode:}
+% \changes{v0.8}{2021/09/16}{将类别码设置应用于预定义的文本中，并优化实现。}
 % 将\FSID 设置为活动符，并定义为句点\FSFW。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_fullwidth_stop_catcode:
   {
-    \char_set_active_eq:nN { "3002 } \c_@@_fwid_full_stop_tl
-    \char_set_catcode_active:n { "3002 }
+    \char_set_active_eq:NN ^^^^3002 \c_@@_fwid_full_stop_tl
+    \char_set_catcode_active:N ^^^^3002
+    \clist_map_inline:nn
+      { \c_@@_orig_decl_text_tl, \c_@@_auth_decl_text_tl }
+      { \tl_set_rescan:Nno ##1 { } {##1} }
   }
 %</class>
 %    \end{macrocode}
@@ -6034,8 +6038,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{通用配置}
 %
-% \begin{variable}{\c_@@_name_simp_tl,\c_@@_name_trad_tl,
-%   \c_@@_name_en_tl}
+% \begin{variable}{\c_@@_name_simp_tl,\c_@@_name_trad_tl,\c_@@_name_en_tl}
 % 学校名称。
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_name_simp_tl { 复旦大学          }
@@ -6048,14 +6051,14 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { ideo_comma       } { "3001 },
-    { ideo_full_stop   } { "3002 },
-    { fwid_comma       } { "FF0C },
-    { fwid_full_stop   } { "FF0E },
-    { fwid_colon       } { "FF1A },
-    { fwid_semicolon   } { "FF1B },
-    { fwid_left_paren  } { "FF08 },
-    { fwid_right_paren } { "FF09 }
+    { ideo_comma       } { ^^^^3001 },
+    { ideo_full_stop   } { ^^^^3002 },
+    { fwid_comma       } { ^^^^ff0c },
+    { fwid_full_stop   } { ^^^^ff0e },
+    { fwid_colon       } { ^^^^ff1a },
+    { fwid_semicolon   } { ^^^^ff1b },
+    { fwid_left_paren  } { ^^^^ff08 },
+    { fwid_right_paren } { ^^^^ff09 }
   }
   { \@@_define_punct:nn #1 }
 %    \end{macrocode}
@@ -6066,16 +6069,19 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \centering
 %   \begin{tabular}{cccc}
 %     \toprule
-%       \textbf{中文名称} & \textbf{英文名称} & \textbf{符号} & \textbf{Unicode} \\
+%       \textbf{中文名称} &
+%       \textbf{英文名称} &
+%       \textbf{符号} &
+%       \textbf{Unicode 码位} \\
 %     \midrule
-%       中文顿号     & Ideographic comma           & \symbol{"3001} & U+3001 \\
-%       中文句号     & Ideographic full stop       & \symbol{"3002} & U+3002 \\
-%       中文逗号     & Fullwidth comma             & \symbol{"FF0C} & U+FF0C \\
-%       全角西文句点 & Fullwidth full stop         & \symbol{"FF0E} & U+FF0E \\
-%       中文冒号     & Fullwidth colon             & \symbol{"FF1A} & U+FF1A \\
-%       中文分号     & Fullwidth semicolon         & \symbol{"FF1B} & U+FF1B \\
-%       中文左圆括号 & Fullwidth left parenthesis  & \symbol{"FF08} & U+FF08 \\
-%       中文右圆括号 & Fullwidth right parenthesis & \symbol{"FF09} & U+FF09 \\
+%       中文顿号     & Ideographic comma           & ^^^^3001 & U+3001 \\
+%       中文句号     & Ideographic full stop       & ^^^^3002 & U+3002 \\
+%       中文逗号     & Fullwidth comma             & ^^^^ff0c & U+FF0C \\
+%       全角西文句点 & Fullwidth full stop         & ^^^^ff0e & U+FF0E \\
+%       中文冒号     & Fullwidth colon             & ^^^^ff1a & U+FF1A \\
+%       中文分号     & Fullwidth semicolon         & ^^^^ff1b & U+FF1B \\
+%       中文左圆括号 & Fullwidth left parenthesis  & ^^^^ff08 & U+FF08 \\
+%       中文右圆括号 & Fullwidth right parenthesis & ^^^^ff09 & U+FF09 \\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}

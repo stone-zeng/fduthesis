@@ -1687,7 +1687,7 @@
   \section{\indexname}%
   \textit{意大利体的数字表示对应索引项出现的页码；
     带下划线的数字表示定义对应索引项的代码行号；
-    其他则表示使用对应索引项的代码行号．}}
+    其他则表示使用对应索引项的代码行号。}}
 \def\IndexLayout{%
   \newgeometry{%
     left   = 0.85 in,
@@ -1889,14 +1889,13 @@
 %
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
 %   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
-% 部分命令之后的特殊符号（$\symbol{"263A}$ 或 $\symbol{"263B}$），表明其不同用法。
-% 这里的“exp”和“rexp”分别源自 \LaTeX3 中的“expandable”
-% 和“restricted-expandable”。
+% 部分命令之后的特殊符号（$^^^^263a$ 或 $^^^^263b$），表明其不同用法。这里的
+% “exp”和“rexp”分别源自 \LaTeX3 中的“expandable”和“restricted-expandable”。
 %    \begin{macrocode}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
-\newcommand*\expstar{\hyperlink{expstar}{$\symbol{"263B}$}}
-\newcommand*\rexpstar{\hyperlink{rexpstar}{$\symbol{"263A}$}}
+\newcommand*\expstar{\hyperlink{expstar}{$^^^^263b$}}
+\newcommand*\rexpstar{\hyperlink{rexpstar}{$^^^^263a$}}
 \ExplSyntaxOn
 \cs_set_eq:NN \__codedoc_typeset_exp:  \expstar
 \cs_set_eq:NN \__codedoc_typeset_rexp: \rexpstar
