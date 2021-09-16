@@ -3759,11 +3759,13 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 声明 \tn{emph} 样式序列，使得中文强调以楷体显示。
 %    \begin{macrocode}
+%<*class>
 \DeclareEmphSequence
   {
     \itshape \fdu@kai,
     \upshape \CJKfamily { \CJKfamilydefault },
   }
+%</class>
 %    \end{macrocode}
 %
 % \changes{v0.6}{2017/10/28}{优化 \LuaTeX{} 下希腊字母、西里尔字母和带圈数字的
