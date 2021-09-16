@@ -2771,6 +2771,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \changes{v0.8}{2021/09/15}{统一使用 \LaTeX{} 2020/10/01 新的钩子机制。}
+%
 % \begin{macro}{\@@_gadd_ltxhook:nn}
 % 封装 \LaTeX{} 的钩子管理机制。本模板中的字体加载命令位于
 % |begindocument/before| 钩子中，需确保在 \pkg{xeCJK} 之前执行。
@@ -2995,7 +2996,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \changes{v0.8}{2021/06/26}{对过时的文档类也进行检查。}
+% \changes{v0.8}{2021/09/16}{只检查 \cls{ctexbook} 和 \pkg{xeCJK} 的版本。}
 %
 % \begin{macro}{\@@_check_package:nnn,\@@_check_class:nnn}
 % 检查过时宏包和文档类。
@@ -3022,13 +3023,9 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 %    \begin{macrocode}
-\@@_check_class:nnn   { ctexbook     } { 2017/08/07 } { 2.4.10 }
-\@@_check_package:nnn { fontspec     } { 2017/09/22 } { 2.6e   }
-\@@_check_package:nnn { unicode-math } { 2017/11/18 } { 0.8i   }
+\@@_check_class:nnn { ctexbook } { 2021/03/14 } { 2.5.6 }
 \sys_if_engine_xetex:T
-  { \@@_check_package:nnn { xeCJK          } { 2017/08/07 } { 3.5.0 } }
-\sys_if_engine_luatex:T
-  { \@@_check_package:nnn { xunicode-addon } { 2018/04/30 } { 3.7.1 } }
+  { \@@_check_package:nnn { xeCJK } { 2020/05/01 } { 3.8.3 } }
 %    \end{macrocode}
 %
 % \subsection{页面布局}
@@ -3209,6 +3206,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
 % \changes{v0.8}{2021/09/15}{判断 Libertinus Sans Bold Oblique 字体是否存在。}
+%
 % \begin{macro}{
 %   \g_@@_font_family_libertinus_serif_tl,
 %   \g_@@_font_family_libertinus_sans_tl,
@@ -3758,6 +3756,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \changes{v0.8}{2021/09/15}{允许 \tn{emph} 对中文生效。}
+%
 % 声明 \tn{emph} 样式序列，使得中文强调以楷体显示。
 %    \begin{macrocode}
 \DeclareEmphSequence

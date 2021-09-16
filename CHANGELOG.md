@@ -11,10 +11,10 @@
   - 正确调用引用样式 - [#183](https://github.com/stone-zeng/fduthesis/issues/183)
   - 直接调用 `\thechapter` 使得附录中的图表编号正确显示 - [#166](https://github.com/stone-zeng/fduthesis/issues/166)
   - 判断 Libertinus Sans Bold Oblique 字体是否存在 - [#156](https://github.com/stone-zeng/fduthesis/issues/156)
+  - 只检查 `ctexbook` 和 `xeCJK` 的版本，不再检查 `xunicode-addon` 等其他宏包 - [#150](https://github.com/stone-zeng/fduthesis/issues/150)
   - 允许 `\emph` 对中文生效 - [#93](https://github.com/stone-zeng/fduthesis/issues/93)
   - 将句号的类别码设置应用于预定义文本中，并优化实现，防止输出到辅助文件后引发错误 - [#74](https://github.com/stone-zeng/fduthesis/issues/74)
   - 在 `\@@_setCJKmainfont:nn` 等命令中展开字体族名称，防止导言区中 `\setCJKmainfont` 等命令失效
-  - 对过时的文档类也进行检查
 - 变更
   - 同步 LaTeX 2020/10/01
     - 统一使用新的钩子机制 - [#77](https://github.com/stone-zeng/fduthesis/issues/77)
