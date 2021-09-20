@@ -4893,11 +4893,20 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_info:}
+% \begin{macro}{\@@_cover_info:,\l_@@_cover_info_left_width_tl}
+% \changes{v0.8}{2021/09/21}{调整专业学位的封面信息栏。}
 % 信息栏。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_info:
   {
+    \tl_set:Nx \l_@@_cover_info_left_width_tl
+      {
+        \int_case:nn { \l_@@_info_degree_type_int }
+          {
+            { 1 } { 6 em }
+            { 2 } { 9 em }
+          }
+      }
     \begin{minipage} [ c ] { \textwidth }
       \centering \zihao { 4 }
 %    \end{macrocode}
@@ -4906,7 +4915,11 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
       \clist_set:Nx \l_@@_tmpa_clist
         {
           \c_@@_name_department_tl,
-          \c_@@_name_major_tl,
+          \int_case:nn { \l_@@_info_degree_type_int }
+            {
+              { 1 } { \c_@@_name_major_tl              }
+              { 2 } { \c_@@_name_major_professional_tl }
+            },
           \c_@@_name_author_tl,
           \c_@@_name_supervisor_tl,
           \c_@@_name_date_tl,
@@ -4932,13 +4945,16 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
         {
           \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
           \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
-          \@@_spread_box:nn { 6 em } { \l_@@_tmpa_tl }
+          \@@_spread_box:nn
+            { \l_@@_cover_info_left_width_tl }
+            { \l_@@_tmpa_tl }
           \c_@@_fwid_colon_tl
           \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
           \skip_vertical:n { 1 ex }
         }
     \end{minipage}
   }
+\tl_new:N \l_@@_cover_info_left_width_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -6167,26 +6183,27 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \clist_map_inline:nn
   {
-    { secret_level    } { 密 \qquad 级                  },
-    { secret_star     } { \textrm { \bigstar }          },
-    { school_id       } { 学校代码                      },
-    { student_id      } { 学 \qquad 号                  },
-    { department      } { 院系                          },
-    { major           } { 专业                          },
-    { author          } { 姓名                          },
-    { supervisor      } { 指导教师                      },
-    { date            } { 完成日期                      },
-    { instructors     } { 指导小组成员                  },
-    { author_sign     } { 作者签名                      },
-    { supervisor_sign } { 导师签名                      },
-    { sign_date       } { 日期                          },
-    { toc             } { 目 \quad 录                   },
-    { lof             } { 插图目录                      },
-    { lot             } { 表格目录                      },
-    { bib_en          } { Bibliography                  },
-    { pdf_creator     } { LaTeX~ with~ fduthesis~ class },
-    { orig_decl       } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
-    { auth_decl       } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
+    { secret_level       } { 密 \qquad 级                  },
+    { secret_star        } { \textrm { \bigstar }          },
+    { school_id          } { 学校代码                      },
+    { student_id         } { 学 \qquad 号                  },
+    { department         } { 院系                          },
+    { major              } { 专业                          },
+    { major_professional } { 专业学位类别（领域）          },
+    { author             } { 姓名                          },
+    { supervisor         } { 指导教师                      },
+    { date               } { 完成日期                      },
+    { instructors        } { 指导小组成员                  },
+    { author_sign        } { 作者签名                      },
+    { supervisor_sign    } { 导师签名                      },
+    { sign_date          } { 日期                          },
+    { toc                } { 目 \quad 录                   },
+    { lof                } { 插图目录                      },
+    { lot                } { 表格目录                      },
+    { bib_en             } { Bibliography                  },
+    { pdf_creator        } { LaTeX~ with~ fduthesis~ class },
+    { orig_decl          } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
+    { auth_decl          } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
   }
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn
