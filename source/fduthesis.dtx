@@ -2708,19 +2708,17 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{内部函数}
 %
-% \begin{macro}{\cs_generate_variant:cn,
-%   \file_input:V,
+% \begin{macro}{\file_input:V,
 %   \int_to_arabic:v,
 %   \keys_define:nx,
 %   \tl_map_inline:xn}
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
-\cs_generate_variant:Nn \cs_generate_variant:Nn { cn }
-\cs_generate_variant:Nn \file_input:n           { V  }
-\cs_generate_variant:Nn \int_to_arabic:n        { v  }
-\cs_generate_variant:Nn \keys_define:nn         { nx }
-\cs_generate_variant:Nn \tl_map_inline:nn       { xn }
+\cs_generate_variant:Nn \file_input:n     { V  }
+\cs_generate_variant:Nn \int_to_arabic:n  { v  }
+\cs_generate_variant:Nn \keys_define:nn   { nx }
+\cs_generate_variant:Nn \tl_map_inline:nn { xn }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
 % \end{macro}
@@ -5502,8 +5500,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{参考文献著录与引用}
 %
-% \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录
-%   与引用。}
+% \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录与引用。}
 % \changes{v0.7}{2018/01/25}{支持 \biber{} 与 \pkg{biblatex}。}
 %
 % \begin{variable}{\l_@@_bibtex_bool}
@@ -5525,8 +5522,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{variable}
 %
 % \begin{variable}{\l_@@_bib_resource_clist}
-% \changes{v0.8}{2021/03/07}{改用 \texttt{clist} 型变量，允许在 \pkg{biblatex} 下
-%   使用多个数据源。}
+% \changes{v0.8}{2021/03/07}{改用 \texttt{clist} 型变量，允许在 \pkg{biblatex}
+%   下使用多个数据源。}
 % 保存参考文献数据库列表。
 %    \begin{macrocode}
 \clist_new:N \l_@@_bib_resource_clist
@@ -5534,8 +5531,9 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{variable}
 %
 % \changes{v0.6}{2017/10/28}{新增 \opt{style/bib-style} 选项。}
-% \changes{v0.7}{2018/01/25}{新增 \opt{style/bib-backend}、\opt{style/cite-style}
-%   和 \opt{style/bib-resource} 选项。}
+% \changes{v0.7}{2018/01/25}{新增 \opt{style/bib-backend}、
+%   \opt{style/cite-style} 和 \opt{style/bib-resource} 选项。}
+% \changes{v0.8}{2021/09/20}{直接调用 \pkg{gbt7714} 宏包。}
 %
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
@@ -5568,18 +5566,17 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \tl_clear:N \l_@@_bib_style_tl
       },
     bib-style / unknown     .code:n =
-      { \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl },
+      {
+        \tl_set_eq:NN \l_@@_bib_style_tl \l_keys_value_tl
+        \tl_clear:N   \l_@@_bib_gb_style_tl
+      },
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{style/cite-style}
+% \changes{v0.8}{2021/09/17}{允许在 \BibTeX{} 下使用。}
 % 引用样式。
 %    \begin{macrocode}
-    cite-style .code:n =
-      {
-        \bool_if:NTF \l_@@_bibtex_bool
-          { \@@_warning:n { cite-style-not-available } }
-          { \tl_set:Nn \l_@@_cite_style_tl {#1} }
-      },
+    cite-style .tl_set:N = \l_@@_cite_style_tl,
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{style/bib-resource}
@@ -5587,21 +5584,27 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     bib-resource .clist_set:N = \l_@@_bib_resource_clist
   }
-\@@_msg_new:nn { cite-style-not-available }
-  { Option~ "cite-style"~ is~ not~ available~ in~ BibTeX. }
 %    \end{macrocode}
 % \end{macro}
 %
 % \changes{v0.8}{2021/03/28}{正确使用导言区末尾钩子。}
 %
-% 为了保证导言区中的设置能起作用，\pkg{natbib} 或 \pkg{biblatex} 宏包均需要在
-% 导言区末尾载入（仍在 \pkg{hyperref} 之前），并做相关设置。
+% 为了保证导言区中的设置能起作用，\pkg{gbt774}、\pkg{natbib} 或 \pkg{biblatex}
+% 宏包均需要在导言区末尾载入（仍在 \pkg{hyperref} 之前），并做相关设置。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
     \bool_if:NT \l_@@_bibtex_bool
       {
-        \RequirePackage [ sort & compress ] { natbib }
+        \tl_if_empty:NTF \l_@@_bib_style_tl
+          {
+            \RequirePackage [ sort & compress ] { gbt7714 }
+            \exp_args:No \bibliographystyle { gbt7714- \l_@@_bib_gb_style_tl }
+          }
+          {
+            \RequirePackage [ sort & compress ] { natbib }
+            \exp_args:NV \bibliographystyle \l_@@_bib_style_tl
+          }
         \@@_bibtex_setup:
       }
   }
@@ -5626,28 +5629,35 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7d}{2019/03/23}{使参考文献在目录中正常显示。}
 % \changes{v0.7e}{2020/08/30}{同步 \pkg{gbt7714} v2.0。}
 %
-% \begin{macro}{\@@_bibtex_setup:,\bibsection,\printbibliography}
+% \begin{macro}{\@@_bibtex_setup:,\parencite,\printbibliography}
+% \changes{v0.8}{2021/09/20}{新增不带上标的文内引用命令。}
 % \BibTeX{} 相关设置。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_bibtex_setup:
   {
-    \tl_if_empty:NTF \l_@@_bib_style_tl
+%    \end{macrocode}
+% 行内引用命令。这里定义比较繁琐，是为了与 \tn{cite} 等命令保持一致。
+%    \begin{macrocode}
+    \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
       {
-        \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
-          {
-            \bibliographystyle { gbt7714-numerical }
-            \@@_set_cite_style_numerical:
-          }
-          {
-            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
-              {
-                \bibliographystyle { gbt7714-author-year }
-                \@@_set_cite_style_author_year:
-                \cs_set_eq:NN \cite \citep
-              }
-          }
+        \exp_args:NNx \DeclareRobustCommand \parencite
+          { \exp_args:No \exp_not:o { \cs:w cite ~ \cs_end: } }
+        \exp_args:Nc \ctex_patch_cmd:Nnn { parencite ~ }
+          { \begingroup }
+          { \begingroup \bibstyle@numbers }
       }
-      { \exp_args:NV \bibliographystyle \l_@@_bib_style_tl }
+      { \cs_set_eq:NN \parencite \cite }
+%    \end{macrocode}
+% 引用样式。
+%    \begin{macrocode}
+    \tl_if_empty:NF \l_@@_cite_style_tl
+      { \exp_args:NV \citestyle \l_@@_cite_style_tl }
+%    \end{macrocode}
+% 使用 \tn{textendash} “\textendash”作为数字间的连接号。
+%    \begin{macrocode}
+    \ctex_patch_cmd:Nnn \NAT@citexnum
+      { - \NAT@penalty }
+      { \textendash \NAT@penalty }
 %    \end{macrocode}
 % 修改参考文献标题。
 %    \begin{macrocode}
@@ -5667,39 +5677,43 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{
-%   \@@_biblatex_pre_setup:,
-%   \@@_biblatex_post_setup:,
-%   \@@_pass_options_to_biblatex:n}
+% \begin{macro}{\@@_biblatex_pre_setup:,\@@_biblatex_post_setup:}
 % \pkg{biblatex} 相关设置。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_biblatex_pre_setup:
   {
+    \clist_new:N \l_@@_biblatex_options_clist
+    \clist_put_right:Nn \l_@@_biblatex_options_clist { hyperref = manual }
 %    \end{macrocode}
 % 参考文献样式。
 %    \begin{macrocode}
-    \tl_if_empty:NTF \l_@@_bib_style_tl
+    \clist_put_right:Nx \l_@@_biblatex_options_clist
       {
-        \tl_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
-          { \@@_pass_options_to_biblatex:n { style = gb7714-2015 } }
+        style =
+        \tl_if_empty:NTF \l_@@_bib_style_tl
           {
-            \tl_if_eq:VnT \l_@@_bib_gb_style_tl { author-year }
-              { \@@_pass_options_to_biblatex:n { style = gb7714-2015ay } }
+            \str_if_eq:VnTF \l_@@_bib_gb_style_tl { numerical }
+              { gb7714-2015 } { gb7714-2015ay }
           }
+          { \l_@@_bib_style_tl }
       }
-      { \@@_pass_options_to_biblatex:n { style = \l_@@_bib_style_tl } }
 %    \end{macrocode}
 % 引用样式。
 % \changes{v0.8}{2021/03/09}{正确调用引用样式。}
 %    \begin{macrocode}
     \tl_if_empty:NF \l_@@_cite_style_tl
-      { \@@_pass_options_to_biblatex:n { citestyle = \l_@@_cite_style_tl } }
-    \@@_pass_options_to_biblatex:n { backend = biber, hyperref = manual, natbib }
+      {
+        \clist_put_right:Nx \l_@@_biblatex_options_clist
+          { citestyle = \l_@@_cite_style_tl }
+      }
+    \exp_args:NV \PassOptionsToPackage \l_@@_biblatex_options_clist
+      { biblatex }
   }
 \cs_new_protected:Npn \@@_biblatex_post_setup:
   {
     \clist_map_function:NN \l_@@_bib_resource_clist \addbibresource
     \@@_biblatex_allow_url_break:
+    \@@_biblatex_use_en_dash:
 %    \end{macrocode}
 % 修改参考文献标题。
 %    \begin{macrocode}
@@ -5709,8 +5723,6 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { bibliography = { \c_@@_name_bib_en_tl } }
 %</class-en>
   }
-\cs_new_protected:Npn \@@_pass_options_to_biblatex:n #1
-  { \PassOptionsToPackage {#1} { biblatex } }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5726,38 +5738,28 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_set_cite_style_numerical:}
-% 顺序编码制下的引用样式。
+% \begin{macro}{\@@_biblatex_use_en_dash:}
+% 使用 \tn{textendash} “\textendash”作为数字间的连接号。
 %    \begin{macrocode}
-\cs_new:Npn \@@_set_cite_style_numerical:
+\cs_new:Npn \@@_biblatex_use_en_dash:
   {
-    \NAT@numberstrue \NAT@supertrue
-    \cs_set:Npn \NAT@open  { [  }
-    \cs_set:Npn \NAT@close { ]  }
-    \cs_set:Npn \NAT@sep   { ,~ }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_set_cite_style_author_year:}
-% 著者—出版年制下的引用样式。
-%    \begin{macrocode}
-\cs_new:Npn \@@_set_cite_style_author_year:
-  {
-    \NAT@numbersfalse
-%<*class>
-    \cs_set_eq:NN \NAT@open  \c_@@_fwid_left_paren_tl
-    \cs_set_eq:NN \NAT@close \c_@@_fwid_right_paren_tl
-    \cs_set_eq:NN \NAT@sep   \c_@@_fwid_semicolon_tl
-    \cs_set_eq:NN \NAT@aysep \c_@@_fwid_comma_tl
-    \cs_set_eq:NN \NAT@yrsep \c_@@_ideo_comma_tl
-%</class>
+    \DefineBibliographyExtras { english }
+      {
+        \cs_set_nopar:Npn \bibrangedash
+          { \textendash \penalty \hyphenpenalty }
+      }
+    \DefineBibliographyExtras { russian }
+      {
+        \cs_set_nopar:Npn \bibrangedash
+          { \textendash \penalty \hyphenpenalty }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
 %
 % \changes{v0.7}{2018/01/25}{同步 \pkg{gbt7714} v1.0，移除有关超链接
 %   的额外设置。}
+% \changes{v0.8}{2021/09/20}{不再将著录用符号修改为中文标点符号。}
 %
 % \subsection{\pkg{hyperref} 相关配置}
 %
@@ -5883,7 +5885,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \changes{v0.7e}{2019/04/23}{处理 \pkg{hyperref} 与 \pkg{unicode-math} 的兼容性问题。}
+% \changes{v0.7e}{2019/04/23}{处理 \pkg{hyperref} 与 \pkg{unicode-math}
+%   的兼容性问题。}
 %
 % 在导言区末尾引入 \pkg{hyperref} 宏包。
 %    \begin{macrocode}
@@ -5915,8 +5918,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
         pdfcreator  = \c_@@_name_pdf_creator_tl
       }
 %    \end{macrocode}
-% 将导言区中通过 \cs{fdu_hyperref_setup:n} 进行的设置传入
-% \tn{hypersetup}。
+% 将导言区中通过 \cs{fdu_hyperref_setup:n} 进行的设置传入 \tn{hypersetup}。
 %    \begin{macrocode}
     \exp_args:NV \hypersetup \g_@@_to_hyperref_clist
 %    \end{macrocode}
@@ -5924,14 +5926,13 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     \fdu_allow_url_break:
 %    \end{macrocode}
-% 手动开启 \pkg{biblatex} 的 \pkg{hyperref} 支持。
+% 由于 \pkg{hyperref} 在 \pkg{biblatex} 之后调用，所以需要手动开启相关功能。
 %    \begin{macrocode}
     \bool_if:NF \l_@@_bibtex_bool { \BiblatexManualHyperrefOn }
   }
 %    \end{macrocode}
 %
-% 在 PDF 字符串中设置 \tn{fdu@kai} 命令为空，以抑制 \pkg{hyperref}
-% 的警告信息。
+% 在 PDF 字符串中设置 \tn{fdu@kai} 命令为空，以抑制 \pkg{hyperref} 的警告信息。
 %    \begin{macrocode}
 \ctex_at_end_package:nn { hyperref }
   {

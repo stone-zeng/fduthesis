@@ -20,6 +20,11 @@
     - 统一使用新的钩子机制 - [#77](https://github.com/stone-zeng/fduthesis/issues/77)
     - 不再显式载入 `expl3` 和 `xparse` 宏包
   - 同步 `siunitx` v3.0 - [#202](https://github.com/stone-zeng/fduthesis/issues/202)
+  - 进一步同步 `gbt7714` v2.0 - [#127](https://github.com/stone-zeng/fduthesis/issues/127)
+    - 直接调用 `gbt7714` 宏包
+    - 允许在 BibTeX 下使用 `style/cite-style` 选项修改引用样式
+    - 新增不带上标的文内引用命令 `\parencite` - [#163](https://github.com/stone-zeng/fduthesis/issues/163)
+    - 不再将著录用符号修改为中文标点符号 - [#162](https://github.com/stone-zeng/fduthesis/issues/162)
   - 将 GitHub 主分支由 `master` 重命名为 `main`
 
 ## [v0.7e (2020-08-30)](https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e)
