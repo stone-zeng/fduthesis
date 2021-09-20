@@ -5168,6 +5168,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \changes{v0.7d}{2019/03/29}{封面中文标题改为加粗宋体（可能使用伪粗）。}
+% \changes{v0.8}{2021/09/21}{\opt{info/instructors} 为空时不再显示指导小组
+%   成员名单。}
 %
 % 定义封面的具体配置参数。
 %    \begin{macrocode}
@@ -5208,7 +5210,8 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %<class-en>    format              = \@@_line_spread:N \c_@@_line_spread_fp,
     title     / content =
-      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
+      \clist_if_empty:NF \l_@@_info_instructors_clist
+        { \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl } },
     name-list / content =
       \clist_use:Nn \l_@@_info_instructors_clist { \par },
     title     / format  = \zihao { 2 } \sffamily,
@@ -5628,9 +5631,9 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   生成参考文献列表。}
 % \changes{v0.7d}{2019/03/23}{使参考文献在目录中正常显示。}
 % \changes{v0.7e}{2020/08/30}{同步 \pkg{gbt7714} v2.0。}
+% \changes{v0.8}{2021/09/20}{新增不带上标的文内引用命令。}
 %
 % \begin{macro}{\@@_bibtex_setup:,\parencite,\printbibliography}
-% \changes{v0.8}{2021/09/20}{新增不带上标的文内引用命令。}
 % \BibTeX{} 相关设置。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_bibtex_setup:
