@@ -6,6 +6,7 @@
 
 - 新增
   - 新增 `info/jel` 选项 - [#192](https://github.com/stone-zeng/fduthesis/issues/192)
+  - 新增 `style/declaration-page` 选项用来插入扫描版的声明页 PDF 文档 - [#50](https://github.com/stone-zeng/fduthesis/issues/50)
 - 修复
   - 允许在 `biblatex` 下使用多个数据源 - [#186](https://github.com/stone-zeng/fduthesis/issues/186)
   - 正确调用引用样式 - [#183](https://github.com/stone-zeng/fduthesis/issues/183)
