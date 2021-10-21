@@ -1738,6 +1738,8 @@
 \setmonofont{Iosevka Slab}[%
   UprightFont    = * Light,
   BoldFont       = * Semibold,
+  ItalicFont     = * Light Oblique,
+  BoldItalicFont = * Semibold Oblique,
   Scale          = MatchLowercase]
 \setmathfont{LibertinusMath-Regular.otf}
 %    \end{macrocode}
@@ -1746,16 +1748,16 @@
 %    \begin{macrocode}
 \setCJKmainfont{Source Han Serif SC}[%
   ItalicFont     = FZKai-Z03,
-  RawFeature     = +fwid]
+  CharacterWidth = Full]
 \setCJKsansfont{Source Han Sans SC}[%
   ItalicFont     = *,
-  RawFeature     = +fwid]
+  CharacterWidth = Full]
 \setCJKmonofont{Source Han Sans SC}[%
   UprightFont    = * Normal,
   BoldFont       = * Bold,
   AutoFakeSlant  = 0.1763,  % = tan(10 deg)
   Scale          = 0.8903,
-  RawFeature     = +fwid]
+  CharacterWidth = Full]
 %    \end{macrocode}
 %
 % 版式排版格式。
@@ -1766,6 +1768,7 @@
   paragraph/runin     = false,
   paragraph/numbering = false,
   punct               = kaiming}
+\xeCJKsetwidth{·}{0.5em}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{3}
 \pagestyle{plain}
@@ -1792,7 +1795,12 @@
 %
 % 浮动体标题设置（\pkg{caption} 宏包）。
 %    \begin{macrocode}
-\captionsetup{labelsep = quad, labelfont+ = bf}
+\captionsetup{labelsep=quad, font+=bf}
+%    \end{macrocode}
+%
+% 居中且自动延伸的列格式（利用 \pkg{tabularx} 宏包的 |X| 格式扩展）。
+%    \begin{macrocode}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
 %    \end{macrocode}
 %
 % 设置标准列表环境样式。
@@ -1809,24 +1817,29 @@
 %    \begin{macrocode}
 \newlist{optdesc}{description}{3}
 \setlist[optdesc]{%
-  font=\mdseries\small\ttfamily, align=right,
-  listparindent=\parindent,
-  labelsep=\marginparsep, labelindent=-\marginparsep,
-  leftmargin=*}
+  font          = \mdseries\small\ttfamily,
+  align         = right,
+  listparindent = \parindent,
+  labelsep      = \marginparsep,
+  labelindent   = -\marginparsep,
+  leftmargin    = *}
 %    \end{macrocode}
 % \end{environment}
 %
-% \begin{environment}{tablenotes}
-% \begin{variable}{tpt@id}
+%^^A TODO: \begin{environment}{tablenotes}
+% \begin{macro}{tablenotes}
+% \begin{macro}[int]{tpt@id}
 % 重新定义 \pkg{threeparttable} 包的 \env{tablenotes} 环境，
-% 用于表格的注释。
+% 用于表格的注释。此处设定为悬挂缩进。
 %    \begin{macrocode}
 \renewlist{tablenotes}{description}{1}
 \setlist[tablenotes]{%
-  format=\normalfont\tnote@item, align=right,
-  listparindent=\parindent, labelindent=\tabcolsep,
-  leftmargin=*, rightmargin=\tabcolsep,
-  after=\@noparlisttrue}
+  format      = \normalfont\itshape\tnote@item,
+  labelwidth  = 0.5em,
+  itemindent  = 0pt,
+  rightmargin = \tabcolsep,
+  leftmargin  = \the\dimexpr\tabcolsep+1em\relax,
+  after       = \@noparlisttrue}
 \AtBeginEnvironment{tablenotes}{%
   \setlength\parindent{2\ccwd}%
   \normalfont\footnotesize}
@@ -1835,15 +1848,15 @@
   \edef\curr@tpt@id{tpt@\arabic{tpt@id}}}
 \newcounter{tpt@id}
 %    \end{macrocode}
-% \end{variable}
-% \end{environment}
+% \end{macro}
+% \end{macro}
 %
 % \begin{macro}[int]{\tnote@item,\TPTtagStyle}
 % 为 \tn{tnote} 增加超链接。
 %    \begin{macrocode}
 \def\tnote@item#1{%
   \Hy@raisedlink{\hyper@anchor{\curr@tpt@id-#1}}#1}
-\def\TPTtagStyle#1{\hyperlink{\curr@tpt@id-#1}{#1}}
+\def\TPTtagStyle#1{\textit{\hyperlink{\curr@tpt@id-#1}{#1}}}
 %    \end{macrocode}
 % \end{macro}
 %
