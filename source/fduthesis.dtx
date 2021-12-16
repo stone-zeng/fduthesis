@@ -67,7 +67,7 @@ The documentation can be found in
 [fduthesis-en.pdf](http://mirrors.ctan.org/macros/latex/contrib/fduthesis/fduthesis-en.pdf)
 (in English).
 
-GitHub re­pos­i­tory: <https://github.com/stone-zeng/fduthesis>.
+GitHub repository: <https://github.com/stone-zeng/fduthesis>.
 
 Installation
 ------------
@@ -135,7 +135,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \csname fi\endcsname
 %</internal>
 %
-%<*install>
+%<*batchfile>
 \input docstrip.tex
 \keepsilent
 \askforoverwritefalse
@@ -194,12 +194,10 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
                                 \from{\jobname-logo.dtx}{ex-logo}}
     \file{\jobname-cover.tex}  {\from{\jobname.dtx}{cover}
                                 \from{\jobname-logo.dtx}{cover}}
-%</install>
 %<*internal>
   \usedir{source/latex/fduthesis}
-    \file{\jobname.ins}        {\from{\jobname.dtx}{install}}
+    \file{\jobname.ins}        {\from{\jobname.dtx}{batchfile}}
 %</internal>
-%<*install>
   \usedir{doc/latex/fduthesis}
   \nopreamble\nopostamble
     \file{README.md}           {\from{\jobname.dtx}{readme}}
@@ -227,7 +225,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \Msg{*************************************************************}
 
 \endbatchfile
-%</install>
+%</batchfile>
 %
 %<*internal>
 \fi
@@ -3141,7 +3139,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% 草稿模式下显示页面边框及页眉、页脚线 。
+% 草稿模式下显示页面边框及页眉、页脚线。
 %    \begin{macrocode}
 \bool_if:NT \g_@@_draft_bool { \geometry { showframe } }
 %    \end{macrocode}
