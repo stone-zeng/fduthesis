@@ -222,7 +222,6 @@ Completed box being shipped out [1]
 .....\mathoff
 .....\hbox(0.0+0.0)x-24.0, direction TLT
 ......\whatsit4=[]
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -275,7 +274,6 @@ Completed box being shipped out [1]
 .........\pdfrestore
 ........\kern208.27576
 ........\glue 0.0 plus 1.0fil minus 1.0fil
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -328,7 +326,6 @@ Completed box being shipped out [1]
 ......\glue 0.0 plus 1.0fil
 ......\hbox(19.43259+2.6499)x22.08249, direction TLT
 .......\LTJY3/FandolSong(0)/m/n/22.08249 文
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -362,7 +359,6 @@ Completed box being shipped out [1]
 .......\pdfcolorstack 0 pop
 ......\glue 6.0
 .....\penalty 0
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -438,7 +434,6 @@ Completed box being shipped out [1]
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -517,7 +512,6 @@ Completed box being shipped out [1]
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -589,7 +583,6 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 系
 .........\glue 0.0 plus 1.0fil
-........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
@@ -630,7 +623,6 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 学
 .........\glue 0.0 plus 1.0fil
-........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
@@ -668,7 +660,6 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 某
 .........\glue 0.0 plus 1.0fil
-........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
@@ -721,7 +712,6 @@ Completed box being shipped out [1]
 .........\hbox(12.3662+1.6863)x14.05249, direction TLT
 ..........\LTJY3/FandolSong(0)/m/n/14.05249 授
 .........\glue 0.0 plus 1.0fil
-........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
@@ -777,12 +767,10 @@ Completed box being shipped out [1]
 .........\norule(12.3662+1.6863)x0.0
 .........\LTJY3/FandolSong(0)/m/n/14.05249 日
 .........\glue 0.0 plus 1.0fil
-........\kern0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0
 ........\glue(\rightskip) 0.0 plus 1.0fil
 .....\mathoff
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -902,7 +890,6 @@ Completed box being shipped out [2]
 ......\glue 0.0 plus 1.0fil
 ......\hbox(19.43259+2.6499)x22.08249, direction TLT
 .......\LTJY3/FandolHei(0)/m/n/22.08249 员
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil

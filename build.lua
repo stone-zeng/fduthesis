@@ -1,10 +1,9 @@
-#!/usr/bin/env texlua
-
 -- Build script for fduthesis.
 
 module = "fduthesis"
 
 checkengines = {"xetex", "luatex"}
+stdengine    = "xetex"
 checkopts    = "-interaction=batchmode"
 
 sourcefiles  = {"source/*.dtx"}

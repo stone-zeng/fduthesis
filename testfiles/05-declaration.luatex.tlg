@@ -692,7 +692,6 @@ Completed box being shipped out [3]
 .....\hbox(0.0+2.71011)x72.26999, direction TLT
 ......\whatsit4=[]
 ......\rule(-2.31012+2.71011)x72.26999
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0
@@ -1303,7 +1302,6 @@ Completed box being shipped out [3]
 .....\hbox(0.0+2.71011)x72.26999, direction TLT
 ......\whatsit4=[]
 ......\rule(-2.31012+2.71011)x72.26999
-.....\kern0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0

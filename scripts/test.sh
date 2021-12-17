@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-export TESTFILES=\
+TESTFILES=\
 "
 01-internal
 02-basic
@@ -10,9 +10,5 @@ export TESTFILES=\
 06-logo
 "
 
-texlua build.lua save --engine xetex  $TESTFILES
-texlua build.lua save --engine luatex $TESTFILES
-texlua build.lua save "06-logo"
-
-# texlua build.lua check --halt-on-error
-# texlua build.lua check --halt-on-error --quiet --force --engine pdftex "06-logo"
+l3build save -e xetex  $TESTFILES
+l3build save -e luatex $TESTFILES

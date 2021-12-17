@@ -53,7 +53,6 @@ Completed box being shipped out [1]
 .....\TU/FandolHei(0)/m/n/24.09 要
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -74,7 +73,6 @@ Completed box being shipped out [1]
 .....\TU/FandolSong(0)/m/n/12.045 要
 .....\kern -0.00018
 .....\kern 0.00018
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -83,7 +81,6 @@ Completed box being shipped out [1]
 ....\glue(\baselineskip) 17.88005
 ....\hbox(0.0+0.0)x416.54877, glue set 392.45877fil
 .....\hbox(0.0+0.0)x24.09
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -140,11 +137,9 @@ Completed box being shipped out [1]
 .......\TU/FandolSong(0)/m/n/12.045 三
 .......\kern -0.00017
 .......\kern 0.00017
-.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -172,7 +167,6 @@ Completed box being shipped out [1]
 .....\TU/XITS(0)/m/n/12.045 TS803.23
 .....\kern -0.0002
 .....\kern 0.0002
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -273,7 +267,6 @@ Completed box being shipped out [3]
 .....\TU/texgyreheros(0)/m/n/24.09 Abstract
 .....\kern -0.0002
 .....\kern 0.0002
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -292,7 +285,6 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/m/n/12.045 abstract
 .....\kern -0.00021
 .....\kern 0.00021
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -301,7 +293,6 @@ Completed box being shipped out [3]
 ....\glue(\baselineskip) 17.37416
 ....\hbox(0.0+0.0)x416.54877, glue set 392.45877fil
 .....\hbox(0.0+0.0)x24.09
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -339,11 +330,9 @@ Completed box being shipped out [3]
 .......\TU/XITS(0)/m/n/12.045 3
 .......\kern -0.0002
 .......\kern 0.0002
-.......\kern 0.0
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -362,7 +351,6 @@ Completed box being shipped out [3]
 .....\TU/XITS(0)/m/n/12.045 TS803.23
 .....\kern -0.0002
 .....\kern 0.0002
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -467,7 +455,6 @@ Completed box being shipped out [5]
 .....\TU/FandolHei(0)/m/n/24.09 表
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -505,7 +492,6 @@ Completed box being shipped out [5]
 ........\kern 0.00018
 ........\penalty 10000
 ........\rule(0.0+6.00005)x0.0
-........\kern 0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
@@ -538,7 +524,6 @@ Completed box being shipped out [5]
 ........\kern 0.00018
 ........\penalty 10000
 ........\rule(0.0+6.00005)x0.0
-........\kern 0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
@@ -577,7 +562,6 @@ Completed box being shipped out [5]
 ........\kern 0.00018
 ........\penalty 10000
 ........\rule(0.0+6.00005)x0.0
-........\kern 0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
@@ -624,7 +608,6 @@ Completed box being shipped out [5]
 ........\kern 0.99623
 ........\penalty 10000
 ........\rule(0.0+6.00005)x0.0
-........\kern 0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
@@ -671,7 +654,6 @@ Completed box being shipped out [5]
 ........\kern 0.99623
 ........\penalty 10000
 ........\rule(0.0+6.00005)x0.0
-........\kern 0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
@@ -710,7 +692,6 @@ Completed box being shipped out [5]
 ........\kern 0.00018
 ........\penalty 10000
 ........\rule(0.0+6.00005)x0.0
-........\kern 0.0
 ........\penalty 10000
 ........\glue(\parfillskip) 0.0 plus 1.0fil
 ........\glue(\rightskip) 0.0
@@ -721,7 +702,6 @@ Completed box being shipped out [5]
 ....\penalty 0
 ....\glue 0.0
 ....\write1{\protect \FN@pp@footnotehinttrue }
-....\penalty 10000
 ....\glue 0.0 plus 1.0fil
 ....\glue 0.0
 ...\glue(\baselineskip) 24.57976
@@ -831,7 +811,6 @@ Completed box being shipped out [1]
 .....\TU/FandolHei(0)/m/n/24.09 章
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -856,7 +835,6 @@ Completed box being shipped out [1]
 .....\TU/FandolHei(0)/m/n/18.06749 节
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -887,7 +865,6 @@ Completed box being shipped out [1]
 .....\TU/FandolHei(0)/m/n/18.06749 节
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -918,7 +895,6 @@ Completed box being shipped out [1]
 .....\TU/FandolHei(0)/m/n/18.06749 节
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
@@ -1039,7 +1015,6 @@ Completed box being shipped out [3]
 .....\TU/FandolHei(0)/m/n/24.09 章
 .....\kern -0.00017
 .....\kern 0.00017
-.....\kern 0.0
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0 plus 1.0fil
