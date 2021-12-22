@@ -5523,8 +5523,9 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \changes{v0.7d}{2019/03/28}{优化关键字列表的显示。}
+% \changes{v0.8}{2021/12/22}{没有指定 CLC/JEL 分类号时不再显示。}
 %
-% \begin{macro}{\@@_abstract_end:,\@@_abstract_en_end:}
+% \begin{macro}{\@@_abstract_end:}
 % 摘要正文完成后，输出关键字列表和 CLC/JEL 分类号。
 %    \begin{macrocode}
 %<*class>
@@ -5533,13 +5534,19 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \@@_keywords:nNn
       { \sffamily \c_@@_name_keywords_tl \c_@@_fwid_colon_tl }
       \l_@@_info_keywords_clist { \c_@@_fwid_semicolon_tl }
-    \@@_clc_jel:nn
-      { \sffamily \c_@@_name_clc_tl \c_@@_fwid_colon_tl }
-      { \l_@@_info_clc_tl }
+    \tl_if_empty:NF \l_@@_info_clc_tl
+      {
+        \@@_clc_jel:nn
+          { \sffamily \c_@@_name_clc_tl \c_@@_fwid_colon_tl }
+          { \l_@@_info_clc_tl }
+      }
   }
 %</class>
 %    \end{macrocode}
-% 英文模板中，如果指定了 JEL 分类号，则 CLC 分类号不再显示。
+% \end{macro}
+%
+% \begin{macro}{\@@_abstract_en_end:}
+% 英文摘要中，如果指定了 JEL 分类号，则 CLC 分类号不再显示。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_abstract_en_end:
   {
@@ -5548,9 +5555,12 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
       \l_@@_info_keywords_en_clist { ; ~ }
     \tl_if_empty:NTF \l_@@_info_jel_tl
       {
-        \@@_clc_jel:nn
-          { \bfseries \c_@@_name_clc_en_tl \@@_quad: }
-          { \l_@@_info_clc_tl }
+        \tl_if_empty:NF \l_@@_info_clc_tl
+          {
+            \@@_clc_jel:nn
+              { \bfseries \c_@@_name_clc_en_tl \@@_quad: }
+              { \l_@@_info_clc_tl }
+          }
       }
       {
         \@@_clc_jel:nn
