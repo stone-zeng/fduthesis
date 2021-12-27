@@ -1293,18 +1293,16 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlink-color}
+% \begin{function}[added=2017-08-13,updated=2021-12-27]{style/hyperlink-color}
 %   \begin{fdusyntax}[emph={[1]hyperlink-color}]
-%     hyperlink-color = (*<(default)|classic|elegant|fantasy|material|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%     hyperlink-color = (*<(default)|classic|material|graylevel|prl>*)
 %   \end{fdusyntax}
 %   设置超链接颜色。该选项在 \kvopt{hyperlink}{none} 时无效。
 %   各选项所代表的颜色见表~\ref{tab:hyperlink-color}。
 % \end{function}
-%^^A! \begin{function}[added=2017-08-13,updated=2017-12-08]{style/hyperlink-color}
+%^^A! \begin{function}[added=2017-08-13,updated=2021-12-27]{style/hyperlink-color}
 %^^A!   \begin{fdusyntax}[emph={[1]hyperlink-color}]
-%^^A!     hyperlink-color = (*<(default)|classic|elegant|fantasy|material|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~~business|science|summer|autumn|graylevel|prl>*)
+%^^A!     hyperlink-color = (*<(default)|classic|material|graylevel|prl>*)
 %^^A!   \end{fdusyntax}
 %^^A!   Set the color of hyperlinks. It is invalid if
 %^^A!   \kvopt{hyperlink}{none}. The related colors can be found
@@ -1320,7 +1318,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newcommand\linkcolorexam[3]{^^A
 %   {\small 图~\textcolor[HTML]{#1}{1-2}，
 %     (\textcolor[HTML]{#1}{3.4})~式} &
-%   {\small \textcolor[HTML]{#2}{\texttt{http://g.cn}}} &
+%   {\small \textcolor[HTML]{#2}{\texttt{https://g.cn}}} &
 %   {\small 文献~[\textcolor[HTML]{#3}{1}]，
 %     (\textcolor[HTML]{#3}{Knuth~1986})}}
 %^^A! \newcommand\linkcolorexam[3]{%
@@ -1345,39 +1343,19 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \midrule
 %     \opt{default}            & \linkcolorexam{990000}{0000B2}{007F00} \\
 %     \opt{classic}            & \linkcolorexam{FF0000}{0000FF}{00FF00} \\
-%     \opt{elegant}\tnote{a}   & \linkcolorexam{961212}{C31818}{9B764F} \\
-%     \opt{fantasy}\tnote{b}   & \linkcolorexam{FF4A19}{FF3F94}{934BA1} \\
-%     \opt{material}\tnote{c}  & \linkcolorexam{E91E63}{009688}{4CAF50} \\
-%     \opt{business}\tnote{d}  & \linkcolorexam{D14542}{295497}{1F6E43} \\
-%     \opt{science}\tnote{e}   & \linkcolorexam{CA0619}{389F9D}{FF8920} \\
-%     \opt{summer}\tnote{f}    & \linkcolorexam{00AFAF}{5F5FAF}{5F8700} \\
-%     \opt{autumn}\tnote{f}    & \linkcolorexam{D70000}{D75F00}{AF8700} \\
-%     \opt{graylevel}\tnote{c} & \linkcolorexam{616161}{616161}{616161} \\
-%     \opt{prl}\tnote{g}       & \linkcolorexam{2D3092}{2D3092}{2D3092} \\
+%     \opt{material}\tnote{a}  & \linkcolorexam{E91E63}{009688}{4CAF50} \\
+%     \opt{graylevel}\tnote{a} & \linkcolorexam{616161}{616161}{616161} \\
+%     \opt{prl}\tnote{b}       & \linkcolorexam{2D3092}{2D3092}{2D3092} \\
 %   \bottomrule
 % \end{tabular}
 % \begin{tablenotes}
 %^^A-
-%   \item[a] 来自 \href{https://tex.stackexchange.com/}^^A
-%     {\TeX{} - \LaTeX{} Stack Exchange 网站}。
-%   \item[b] Adobe CC 产品配色。
-%   \item[c] 取自 Material 色彩方案
+%   \item[a] 取自 Material 色彩方案
 %     （见 \url{https://material.io/guidelines/style/color.html}）。
-%   \item[d] Microsoft Office 2016 产品配色。
-%   \item[e] 来自 \href{https://www.wolfram.com/}{Wolfram Research 网站}。
-%   \item[f] 均取自 Solarized 色彩方案
-%     （见 \url{http://ethanschoonover.com/solarized}）。
-%   \item[g] \textit{Physical Review Letter} 杂志配色。
-%^^A!   \item[a] From \href{https://tex.stackexchange.com/}%
-%^^A!     {\TeX{} - \LaTeX{} Stack Exchange}.
-%^^A!   \item[b] Adobe CC.
-%^^A!   \item[c] Material Design color palette
+%   \item[b] \textit{Physical Review Letter} 杂志配色。
+%^^A!   \item[a] Material Design color palette
 %^^A!     (See \url{https://material.io/guidelines/style/color.html}).
-%^^A!   \item[d] Microsoft Office 2016.
-%^^A!   \item[e] From \href{https://www.wolfram.com/}{Wolfram Research website}.
-%^^A!   \item[f] Solarized color palette
-%^^A!     (See \url{http://ethanschoonover.com/solarized}).
-%^^A!   \item[g] \textit{Physical Review Letter} magazine.
+%^^A!   \item[b] \textit{Physical Review Letter} magazine.
 %^^A+
 % \end{tablenotes}
 % \end{threeparttable}
@@ -5976,21 +5954,16 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{style/hyperlink-color}
+% \changes{v0.8}{2021/12/27}{移除不常用的超链接颜色。}
 % 超链接颜色。
 %    \begin{macrocode}
     hyperlink-color .choice:,
     hyperlink-color .value_required:n = true,
     \clist_map_function:nN
       {
-        { autumn,    D70000, D75F00, AF8700 },
-        { business,  D14542, 295497, 1F6E43 },
         { classic,   FF0000, 0000FF, 00FF00 },
         { default,   990000, 0000B2, 007F00 },
-        { elegant,   961212, C31818, 9B764F },
-        { fantasy,   FF4A19, FF3F94, 934BA1 },
         { material,  E91E63, 009688, 4CAF50 },
-        { science,   CA0619, 389F9D, FF8920 },
-        { summer,    00AFAF, 5F5FAF, 5F8700 },
         { graylevel, 616161, 616161, 616161 },
         { prl,       2D3092, 2D3092, 2D3092 }
       }
