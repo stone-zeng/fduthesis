@@ -8,6 +8,7 @@
   - 新增 `info/jel` 选项 - [#192](https://github.com/stone-zeng/fduthesis/issues/192)
   - 新增 `style/declaration-page` 选项用来插入扫描版的声明页 PDF 文档 - [#50](https://github.com/stone-zeng/fduthesis/issues/50)
 - 修复
+  - 修复超链接边框不显示的问题；不需要为 `hidelinks` 选项传递参数 - [#227](https://github.com/stone-zeng/fduthesis/issues/227)
   - 允许在 `biblatex` 下使用多个数据源 - [#186](https://github.com/stone-zeng/fduthesis/issues/186)
   - 正确调用引用样式 - [#183](https://github.com/stone-zeng/fduthesis/issues/183)
   - 直接调用 `\thechapter` 使得附录中的图表编号正确显示 - [#166](https://github.com/stone-zeng/fduthesis/issues/166)

@@ -5961,15 +5961,17 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \begin{macro}{style/hyperlink}
+% \changes{v0.8}{2021/12/27}{修复边框不显示的问题；不需要为 \opt{hidelinks} 选项传递参数。}
 % 超链接样式。
 %    \begin{macrocode}
     hyperlink .choice:,
     hyperlink .value_required:n = true,
-    hyperlink / border .code:n = { },
+    hyperlink / border .code:n =
+      { \fdu_hyperref_setup:n { colorlinks = false } },
     hyperlink / color  .code:n =
-      { \fdu_hyperref_setup:n { colorlinks = true } },
+      { \fdu_hyperref_setup:n { colorlinks = true  } },
     hyperlink / none   .code:n =
-      { \fdu_hyperref_setup:n { hidelinks  = true } },
+      { \fdu_hyperref_setup:n { hidelinks } },
 %    \end{macrocode}
 % \end{macro}
 %
