@@ -2,7 +2,7 @@
 % !TeX program  = XeLaTeX
 % !TeX encoding = UTF-8
 %
-% Copyright (C) 2017--2021 by Xiangdong Zeng <xdzeng96@gmail.com>
+% Copyright (C) 2017--2022 by Xiangdong Zeng <xdzeng96@gmail.com>
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -124,7 +124,7 @@ version.
 
 -----
 
-Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
+Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %</readme>
 %
 %<*internal>
@@ -142,7 +142,7 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 
 \preamble
 
-    Copyright (C) 2017--2021 by Xiangdong Zeng <xdzeng96@gmail.com>
+    Copyright (C) 2017--2022 by Xiangdong Zeng <xdzeng96@gmail.com>
 
     This work may be distributed and/or modified under the
     conditions of the LaTeX Project Public License, either
@@ -5797,11 +5797,23 @@ Copyright (C) 2017&ndash;2021 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v0.8}{2022/01/08}{兼容 \tn{addbibresource} 命令。}
+%
+% 由于 \pkg{biblatex} 在导言区后才载入，需要单独定义添加参考文献数据源的命令以实现兼容。该命令需要在载入宏包前取消定义。
+%    \begin{macrocode}
+\bool_if:NF \l_@@_bibtex_bool
+  {
+    \NewDocumentCommand \addbibresource { m }
+      { \clist_gput_right:Nn \l_@@_bib_resource_clist {#1} }
+  }
+%    \end{macrocode}
+%
 % \begin{macro}{\@@_biblatex_pre_setup:,\@@_biblatex_post_setup:}
 % \pkg{biblatex} 相关设置。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_biblatex_pre_setup:
   {
+    \cs_undefine:N \addbibresource
     \clist_new:N \l_@@_biblatex_options_clist
     \clist_put_right:Nn \l_@@_biblatex_options_clist { hyperref = manual }
 %    \end{macrocode}
