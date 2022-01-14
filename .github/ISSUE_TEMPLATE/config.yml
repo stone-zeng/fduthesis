@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 问题求助
+    url: https://github.com/stone-zeng/fduthesis/discussions/new
+    about: 模板使用中遇到的问题
