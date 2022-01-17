@@ -3834,13 +3834,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \fancyhf { }
 %    \end{macrocode}
 %
-% \begin{variable}{\l_@@_header_center_mark_tl}
-% 保存中间页眉的文字。正文中设置为空，目录、摘要、符号表等设置为相应标题。
-%    \begin{macrocode}
-\tl_new:N \l_@@_header_center_mark_tl
-%    \end{macrocode}
-% \end{variable}
-%
 % 构建页眉，要在单面或双面下分别设置。
 %
 % \cs{fancyhead} 的选项中，\opt{E} 和 \opt{O} 分别表示偶数（even）
@@ -3858,11 +3851,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \fancyhead [ L ] { \small \nouppercase { \fdu@kai \leftmark  } }
     \fancyhead [ R ] { \small \nouppercase { \fdu@kai \rightmark } }
-    \fancyhead [ C ]
-      {
-        \small \nouppercase
-          { \fdu@kai \l_@@_header_center_mark_tl }
-      }
   }
 %</class>
 %<*class-en>
@@ -3873,11 +3861,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \fancyhead [ L ] { \small \nouppercase { \itshape \leftmark  } }
     \fancyhead [ R ] { \small \nouppercase { \itshape \rightmark } }
-    \fancyhead [ C ]
-      {
-        \small \nouppercase
-          { \itshape \l_@@_header_center_mark_tl }
-      }
   }
 %</class-en>
 %    \end{macrocode}
@@ -3905,7 +3888,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \int_if_odd:nF \c@page
           { \hbox:n { } \thispagestyle { empty } \newpage }
       }
-    \tl_gset:Nn \l_@@_header_center_mark_tl { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3991,16 +3973,14 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_chapter_header:n}
-% 单页模式下，目录、摘要、符号表等的页眉中间为相应标题，左右为空。
+% \changes{v0.8}{2022/01/17}{简化单页模式下页眉的实现方式。}
+% 单页模式下，目录、摘要、符号表等的页眉中间为相应标题，左右为空。这里通过居中的 \tn{rightmark} 实现。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_chapter_header:n #1
   {
     \bool_if:NTF \g_@@_twoside_bool
       { \markboth {#1} {#1} }
-      {
-        \markboth { } { }
-        \tl_gset:Nn \l_@@_header_center_mark_tl {#1}
-      }
+      { \markboth { } { \hfill #1 \hfill } }
   }
 %    \end{macrocode}
 % \end{macro}
