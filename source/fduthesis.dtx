@@ -5012,170 +5012,146 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsubsection{封面模板}
 %
 % \changes{v0.7}{2018/02/27}{使用 \pkg{xtemplate} 重构封面布局。}
+% \changes{v0.8}{2022/01/24}{简化 \pkg{xtemplate} 的使用方法。}
 %
-% 声明封面对象。不需要带参数。
+% 本模板使用 \pkg{xtemplate} 提供的面向对象方法绘制封面。
+%
+% 以下分别从页面元素（element）和页面整体（page）的层次进行了抽象。当我们把页面部件考虑为一个对象时，它天然地只具备有限数量的属性：内容、格式、边距、对齐方式等。而具体的页面是这些对象的实例的集合，附加边距、行距等属性。通过 \pkg{xtemplate} 提供的功能，我们可以根据这些属性创建模板（template），进而能大量构建具有\emph{相似行为}的实例（instance）。
+%
+% 声明对象类型，表示此类对象均不需要带参数。
 %    \begin{macrocode}
-%<@@=fdu_cover>
-\DeclareObjectType { fdu / cover } { \c_zero_int }
+\DeclareObjectType { fdu } { \c_zero_int }
 %    \end{macrocode}
 %
-% \begin{macro}{\DeclareCoverTemplate,\fdu_cover_declare_template:nn}
-% 声明封面模板。
-% \begin{arguments}
-%   \item 模板名称
-%   \item 封面部件列表，以逗号分隔
-% \end{arguments}
+% \begin{variable}{\l_@@_elem_content_tl，\l_@@_elem_format_tl,
+% \l_@@_elem_begin_align_tl,\l_@@_elem_end_align_tl,\l_@@_elem_bottom_skip}
+% 用于存储元素属性的临时变量。
 %    \begin{macrocode}
-\NewDocumentCommand \DeclareCoverTemplate { m m }
-  { \fdu_cover_declare_template:nn {#1} {#2} }
-\cs_new_protected:Npn \fdu_cover_declare_template:nn #1#2
-  {
-    \tl_set:Nn \l_@@_template_tl {#1}
-%    \end{macrocode}
-% 构建模板接口。
-%    \begin{macrocode}
-    \@@_declare_template_interface:nx {#1}
-      {
-        format      : tokenlist,
-        top-skip    : skip,
-        bottom-skip : skip,
-        \clist_map_function:nN {#2} \@@_key_type:n
-      }
-%    \end{macrocode}
-% 声明所用变量。
-%    \begin{macrocode}
-    \tl_new:c   { l_@@ / #1 / format_tl   }
-    \skip_new:c { l_@@ / #1 / top_skip    }
-    \skip_new:c { l_@@ / #1 / bottom_skip }
-    \clist_map_inline:nn {#2}
-      {
-        \tl_new:c   { l_@@ / #1 / ##1 / content_tl  }
-        \tl_new:c   { l_@@ / #1 / ##1 / format_tl   }
-        \skip_new:c { l_@@ / #1 / ##1 / bottom_skip }
-      }
-%    \end{macrocode}
-% 声明模板代码。^^A 以下名字空间为 `fdu_cover' 而非 `fdu'
-%    \begin{macrocode}
-    \@@_declare_template_code:nxn {#1}
-      {
-        format      = \exp_not:c { l_@@ / #1 / format_tl   },
-        top-skip    = \use:c     { l_@@ / #1 / top_skip    },
-        bottom-skip = \use:c     { l_@@ / #1 / bottom_skip },
-        \clist_map_function:nN {#2} \@@_key_binding:n
-      }
-      {
-        \AssignTemplateKeys
-        \tl_use:c       { l_@@ / #1 / format_tl }
-        \__fdu_vspace:c { l_@@ / #1 / top_skip  }
-        \clist_map_inline:nn {#2}
-          {
-            \use:c { @@ / #1 / ####1 / align:n }
-              {
-                \tl_use:c { l_@@ / #1 / ####1 / format_tl  }
-                \tl_use:c { l_@@ / #1 / ####1 / content_tl }
-                \par
-              }
-            \__fdu_vspace:c { l_@@ / #1 / ####1 / bottom_skip }
-          }
-        \__fdu_vspace:c { l_@@ / #1 / bottom_skip }
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{variable}{\l_@@_template_tl}
-% 保存模板名称。
-%    \begin{macrocode}
-\tl_new:N \l_@@_template_tl
+\tl_new:N   \l_@@_elem_content_tl
+\tl_new:N   \l_@@_elem_format_tl
+\tl_new:N   \l_@@_elem_begin_align_tl
+\tl_new:N   \l_@@_elem_end_align_tl
+\skip_new:N \l_@@_elem_bottom_skip
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}{\@@_declare_template_interface:nn,
-%   \@@_declare_template_code:nnn,
-%   \@@_declare_template_interface:nx,
-%   \@@_declare_template_code:nxn}
-% 为了展开的方便，这里需要封装 \pkg{xtemplate} 的一些函数。
+% 声明页面元素模板接口。
+% 元素是一个页面的基本组成单位，包括文段、图片等等。一个抽象的元素应当具备以下属性：
+% \begin{description}
+%   \item[\opt{content}] 内容，即剥离样式的元素本身
+%   \item[\opt{format}] 格式，例如字号、字体
+%   \item[\opt{bottom-skip}] 下间距，即与下一个元素的距离
+%   \item[\opt{align}] 对齐方式，包括左对齐、右对齐、居中、正常段落
+% \end{description}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_declare_template_interface:nn #1#2
-  { \DeclareTemplateInterface { fdu / cover } {#1} { \c_zero_int } {#2} }
-\cs_new_protected:Npn \@@_declare_template_code:nnn #1#2#3
-  { \DeclareTemplateCode { fdu / cover } {#1} { \c_zero_int } {#2} {#3} }
-\cs_generate_variant:Nn \@@_declare_template_interface:nn { nx  }
-\cs_generate_variant:Nn \@@_declare_template_code:nnn     { nxn }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_key_type:n}
-%    \begin{macrocode}
-\cs_new:Npn \@@_key_type:n #1
+\DeclareTemplateInterface { fdu } { element } { \c_zero_int }
   {
-    #1 / content     : tokenlist,
-    #1 / format      : tokenlist,
-    #1 / bottom-skip : skip,
-    #1 / align       : choice { left, right, center, normal } = normal,
+    content     : tokenlist = \c_empty_tl,
+    format      : tokenlist = \c_empty_tl,
+    bottom-skip : skip      = \c_zero_skip,
+    align       : choice { left, right, center, normal } = center
   }
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{\@@_key_binding:n}
+% 声明页面元素模板代码。
 %    \begin{macrocode}
-\cs_new:Npn \@@_key_binding:n #1
+\DeclareTemplateCode { fdu } { element } { \c_zero_int }
   {
-    #1 / content     =
-      \exp_not:c
-        { l_@@ / \l_@@_template_tl / #1 / content_tl  },
-    #1 / format      =
-      \exp_not:c
-        { l_@@ / \l_@@_template_tl / #1 / format_tl   },
-    #1 / bottom-skip =
-      \exp_not:c
-        { l_@@ / \l_@@_template_tl / #1 / bottom_skip },
-    #1 / align       =
+    content     = \l_@@_elem_content_tl,
+    format      = \l_@@_elem_format_tl,
+    bottom-skip = \l_@@_elem_bottom_skip,
+    align =
       {
-        left   =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            {
-              \exp_not:n
-                {
-                  \group_begin:
-                    \flushleft ##1 \endflushleft
-                  \group_end:
-                }
-            },
-        right  =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            {
-              \exp_not:n
-                {
-                  \group_begin:
-                    \flushright ##1 \endflushright
-                  \group_end:
-                }
-            },
+        left =
+          { \tl_set_eq:NN \l_@@_elem_begin_align_tl \flushleft
+            \tl_set_eq:NN \l_@@_elem_end_align_tl   \endflushleft  },
+        right =
+          { \tl_set_eq:NN \l_@@_elem_begin_align_tl \flushright
+            \tl_set_eq:NN \l_@@_elem_end_align_tl   \endflushright },
         center =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            {
-              \exp_not:n
-                {
-                  \group_begin:
-                    \center ##1 \endcenter
-                  \group_end:
-                }
-            },
+          { \tl_set_eq:NN \l_@@_elem_begin_align_tl \center
+            \tl_set_eq:NN \l_@@_elem_end_align_tl   \endcenter     },
         normal =
-          \exp_not:N \cs_set_protected:cpn
-            { @@ / \l_@@_template_tl / #1 / align:n }
-            \exp_not:n {##1}
-            { \exp_not:n { \group_begin: ##1 \group_end: } }
-      },
+          { \tl_clear:N   \l_@@_elem_begin_align_tl
+            \tl_clear:N   \l_@@_elem_end_align_tl                  }
+      }
   }
-%<@@=fdu>
+  {
+    \AssignTemplateKeys
+    \group_begin:
+      \l_@@_elem_begin_align_tl
+      \l_@@_elem_format_tl
+      \l_@@_elem_content_tl \par
+      \l_@@_elem_end_align_tl
+    \group_end:
+    \__fdu_vspace:N \l_@@_elem_bottom_skip
+  }
+%    \end{macrocode}
+%
+% \begin{variable}{\l_@@_page_content_tl,\l_@@_page_format_tl,
+%   \l_@@_page_prefix_tl,\l_@@_page_top_skip,\l_@@_page_bottom_skip}
+% 用于存储页面属性的临时变量。
+%    \begin{macrocode}
+\clist_new:N \l_@@_page_content_tl
+\tl_new:N    \l_@@_page_prefix_tl
+\tl_new:N    \l_@@_page_format_tl
+\skip_new:N  \l_@@_page_top_skip
+\skip_new:N  \l_@@_page_bottom_skip
+%    \end{macrocode}
+% \end{variable}
+%
+% 声明页面模板接口。
+% 页面是元素的集合。一个抽象的页面应当具备以下属性：
+% \begin{description}
+%   \item[\opt{content}] 内容，这里使用的是包含元素名称的列表
+%   \item[\opt{prefix}] 元素名称前缀
+%   \item[\opt{format}] 格式，例如行距
+%   \item[\opt{top-skip}] 上间距，即与页面顶部的距离
+%   \item[\opt{bottom-skip}] 下间距，即与页面底部的距离
+%    \begin{macrocode}
+\DeclareTemplateInterface { fdu } { page } { \c_zero_int }
+  {
+    content     : commalist = \c_empty_clist,
+    prefix      : tokenlist = \c_empty_tl,
+    format      : tokenlist = \c_empty_tl,
+    top-skip    : skip      = \c_zero_skip,
+    bottom-skip : skip      = \c_zero_skip
+  }
+%    \end{macrocode}
+%
+% 声明页面模板代码。
+%    \begin{macrocode}
+\DeclareTemplateCode { fdu } { page } { \c_zero_int }
+  {
+    content     = \l_@@_page_content_clist,
+    prefix      = \l_@@_page_prefix_tl,
+    format      = \l_@@_page_format_tl,
+    top-skip    = \l_@@_page_top_skip,
+    bottom-skip = \l_@@_page_bottom_skip
+  }
+  {
+    \AssignTemplateKeys
+    \__fdu_vspace:N \l_@@_page_top_skip
+    \group_begin:
+      \l_@@_page_format_tl
+      \clist_map_inline:Nn \l_@@_page_content_clist
+        { \UseInstance { fdu } { \l_@@_page_prefix_tl ##1 } }
+    \group_end:
+    \__fdu_vspace:N \l_@@_page_bottom_skip
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\@@_declare_elem_instance:nn,\@@_declare_page_instance:nn}
+% 封装 \pkg{xtemplate} 提供的函数，简化创建实例的过程。
+% \begin{arguments}
+%   \item 实例名称
+%   \item 参数列表
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_declare_elem_instance:nn #1#2
+  { \DeclareInstance { fdu } {#1} { element } {#2} }
+\cs_new_protected:Npn \@@_declare_page_instance:nn #1#2
+  { \DeclareInstance { fdu } {#1} { page    } {#2} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5187,7 +5163,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \NewDocumentCommand \makecoveri { }
   {
     \thispagestyle { empty }
-    \UseInstance { fdu / cover } { cover-i-default }
+    \UseInstance { fdu } { cover-i-default }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5201,7 +5177,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \thispagestyle { empty }
     \clist_if_empty:NF \l_@@_info_instructors_clist
-      { \UseInstance { fdu / cover } { cover-ii-default } }
+      { \UseInstance { fdu } { cover-ii-default } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5215,108 +5191,256 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \tl_if_empty:NTF \l_@@_declaration_page_tl
       {
         \thispagestyle { empty }
-        \UseInstance { fdu / cover } { cover-iii-default }
+        \UseInstance { fdu } { cover-iii-orig-default }
+        \UseInstance { fdu } { cover-iii-auth-default }
       }
       { \includepdf { \l_@@_declaration_page_tl } }
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% 声明各封面模板组成部分。
-%    \begin{macrocode}
-\DeclareCoverTemplate { cover-i   }
-  { id, logo, type, degree, title, title-en, info }
-\DeclareCoverTemplate { cover-ii  } { title, name-list }
-\DeclareCoverTemplate { cover-iii }
-  {
-    originality-decl-name,
-    originality-decl-text,
-    originality-decl-sig,
-    authorization-decl-name,
-    authorization-decl-text,
-    authorization-decl-sig
-  }
-%    \end{macrocode}
-%
 % \changes{v0.7d}{2019/03/29}{封面中文标题改为加粗宋体（可能使用伪粗）。}
 %
-% 定义封面的具体配置参数。
+% 定义封面页面元素的具体配置参数。
+%
+% \begin{macro}{cover/i/id}
+% 封一学校代码和学号。
 %    \begin{macrocode}
-\DeclareInstance { fdu / cover } { cover-i-default } { cover-i }
+\@@_declare_elem_instance:nn { cover / i / id }
   {
-%<class-en>    format                 = \@@_line_spread:N \c_@@_line_spread_fp,
-    bottom-skip            = 0 pt plus 1.5 fill,
-    id       / content     = \@@_cover_id:,
-    logo     / content     = \@@_cover_logo:,
-    type     / content     = \@@_cover_type:,
-    degree   / content     = \@@_cover_degree:,
-    title    / content     =
-      \@@_fixed_width_center_box:nn
-        { 0.9 \textwidth } { \l_@@_info_title_tl },
-    title-en / content     =
-      \@@_fixed_width_center_box:nn
-        { 0.9 \textwidth } { \l_@@_info_title_en_tl },
-    info     / content     = \@@_cover_info:,
-    id       / format      = \zihao { -5 },
-    type     / format      = \zihao {  2 },
-    degree   / format      = \zihao {  4 },
-    title    / format      = \zihao { -2 } \bfseries,
-    title-en / format      = \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
-    id       / bottom-skip = 0 pt plus 1.6 fill,
-    logo     / bottom-skip = 0 pt plus 0.3 fill,
-    type     / bottom-skip = -18 pt,
-    degree   / bottom-skip = 0 pt plus 0.8 fill,
-    title-en / bottom-skip = 0 pt plus 2.5 fill,
-    id       / align       = right,
-    logo     / align       = center,
-    type     / align       = center,
-    degree   / align       = center,
-    title    / align       = center,
-    title-en / align       = center,
-    info     / align       = center,
-  }
-\DeclareInstance { fdu / cover } { cover-ii-default } { cover-ii }
-  {
-%<class-en>    format              = \@@_line_spread:N \c_@@_line_spread_fp,
-    title     / content =
-      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
-    name-list / content =
-      \clist_use:Nn \l_@@_info_instructors_clist { \par },
-    title     / format  = \zihao { 2 } \sffamily,
-    name-list / format  = \large,
-    title     / align   = center,
-    name-list / align   = center,
-  }
-\DeclareInstance { fdu / cover } { cover-iii-default } { cover-iii }
-  {
-    format                                =
-%<class>      \@@_line_spread:n { 1.8 },
-%<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
-    top-skip                              = 0 pt plus 0.2 fill,
-    bottom-skip                           = 0 pt plus 2.5 fill,
-    originality-decl-name   / content     = \c_@@_name_orig_decl_tl,
-    originality-decl-text   / content     = \c_@@_orig_decl_text_tl,
-    originality-decl-sig    / content     =
-      \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
-    authorization-decl-name / content     = \c_@@_name_auth_decl_tl,
-    authorization-decl-text / content     = \c_@@_auth_decl_text_tl,
-    authorization-decl-sig  / content     =
-      \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
-    originality-decl-name   / format      =
-      \@@_line_spread:n { 1.2 } \zihao { -2 } \bfseries,
-    authorization-decl-name / format      =
-      \@@_line_spread:n { 1.2 } \zihao { -2 } \bfseries,
-    originality-decl-name   / bottom-skip = 0.4 cm,
-    originality-decl-text   / bottom-skip = 0.4 cm,
-    originality-decl-sig    / bottom-skip = 0 pt plus 2.5 fill,
-    authorization-decl-name / bottom-skip = 0.4 cm,
-    authorization-decl-text / bottom-skip = 0.4 cm,
-    originality-decl-name   / align       = center,
-    originality-decl-sig    / align       = right,
-    authorization-decl-name / align       = center,
-    authorization-decl-sig  / align       = right,
+    content     = \@@_cover_id:,
+    format      = \zihao { -5 },
+    bottom-skip = 0 pt plus 1.6 fill,
+    align       = right,
   }
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/i/logo}
+% 封一校名图片。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / i / logo }
+  {
+    content     = \@@_cover_logo:,
+    bottom-skip = 0 pt plus 0.3 fill
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/i/type}
+% 封一论文类型。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / i / type }
+  {
+    content     = \@@_cover_type:,
+    format      = \zihao {  2 },
+    bottom-skip = -18 pt
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/i/degree}
+% 封一学位类型。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / i / degree }
+  {
+    content     = \@@_cover_degree:,
+    format      = \zihao {  4 },
+    bottom-skip = 0 pt plus 0.8 fill
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/i/title}
+% 封一中文标题。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / i / title }
+  {
+    content     =
+      \@@_fixed_width_center_box:nn
+        { 0.9 \textwidth } { \l_@@_info_title_tl },
+    format      = \zihao { -2 } \bfseries
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/i/title-en}
+% 封一英文标题。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / i / title-en }
+  {
+    content     =
+      \@@_fixed_width_center_box:nn
+        { 0.9 \textwidth } { \l_@@_info_title_en_tl },
+    format      = \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
+    bottom-skip = 0 pt plus 2.5 fill
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/i/info}
+% 封一信息栏。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / i / info }
+  { content = \@@_cover_info: }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/ii/title}
+% 封二标题。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / ii / title }
+  {
+    content =
+      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
+    format  = \zihao { 2 } \sffamily
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/ii/name-list}
+% 封二委员会名单。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / ii / name-list }
+  {
+    content =
+      \clist_use:Nn \l_@@_info_instructors_clist { \par },
+    format  = \large
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/iii/orig-decl/name}
+% 封三独创性声明标题。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / iii / orig-decl / name }
+  {
+    content     = \c_@@_name_orig_decl_tl,
+    format      =
+      \@@_line_spread:n { 1.2 } \zihao { -2 } \bfseries,
+    bottom-skip = 0.4 cm
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/iii/orig-decl/text}
+% 封三独创性声明文本。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / iii / orig-decl / text }
+  {
+    content     = \c_@@_orig_decl_text_tl,
+    bottom-skip = 0.4 cm,
+    align       = normal
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/iii/orig-decl/sig}
+% 封三独创性声明签名。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / iii / orig-decl / sig }
+  {
+    content     =
+      \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
+    align       = right
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/iii/auth-decl/name}
+% 封三使用授权声明标题。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / iii / auth-decl / name }
+  {
+    content     = \c_@@_name_auth_decl_tl,
+    format      =
+      \@@_line_spread:n { 1.2 } \zihao { -2 } \bfseries,
+    bottom-skip = 0.4 cm
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover/iii/auth-decl/text}
+% 封三使用授权声明文本。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / iii / auth-decl / text }
+  {
+    content     = \c_@@_auth_decl_text_tl,
+    bottom-skip = 0.4 cm,
+    align       = normal
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover / iii / auth-decl / sig}
+% 封三使用授权声明签名。
+%    \begin{macrocode}
+\@@_declare_elem_instance:nn { cover / iii / auth-decl / sig }
+  {
+    content     =
+      \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
+    align       = right
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% 定义封面页面的具体配置参数。
+%
+% \begin{macro}{cover-i-default}
+% 封一。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { cover-i-default }
+  {
+    content     = { id, logo, type, degree, title, title-en, info },
+    prefix      = cover / i /,
+%<class-en>    format      = \@@_line_spread:N \c_@@_line_spread_fp,
+    bottom-skip = 0 pt plus 1.5 fill
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover-ii-default}
+% 封二。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { cover-ii-default }
+  {
+    content = { title, name-list },
+    prefix  = cover / ii /,
+%<class-en>    format  = \@@_line_spread:N \c_@@_line_spread_fp
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover-iii-orig-default}
+% 封三独创性声明。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { cover-iii-orig-default }
+  {
+    content     = { name, text, sig },
+    prefix      = cover / iii / orig-decl /,
+    format      =
+%<class>      \@@_line_spread:n { 1.8 },
+%<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
+    top-skip    = 0 pt plus 0.2 fill,
+    bottom-skip = 0 pt plus 2.5 fill
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cover-iii-auth-default}
+% 封三使用授权声明。
+%    \begin{macrocode}
+\@@_declare_page_instance:nn { cover-iii-auth-default }
+  {
+    content     = { name, text, sig },
+    prefix      = cover / iii / auth-decl /,
+    format      =
+%<class>      \@@_line_spread:n { 1.8 },
+%<class-en>      \@@_line_spread:n { 1.8 } \dim_set:Nn \parindent { 2 \ccwd },
+    bottom-skip = 0 pt plus 2.5 fill
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{variable}{\l_@@_auto_make_cover_bool,\l_@@_declaration_page_tl}
 %    \begin{macrocode}
