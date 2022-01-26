@@ -5023,17 +5023,10 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \DeclareObjectType { fdu } { \c_zero_int }
 %    \end{macrocode}
 %
-% \begin{variable}{\l_@@_elem_content_tl，\l_@@_elem_format_tl,
-% \l_@@_elem_begin_align_tl,\l_@@_elem_end_align_tl,\l_@@_elem_bottom_skip}
-% 用于存储元素属性的临时变量。
+% 定义元素模板。
 %    \begin{macrocode}
-\tl_new:N   \l_@@_elem_content_tl
-\tl_new:N   \l_@@_elem_format_tl
-\tl_new:N   \l_@@_elem_begin_align_tl
-\tl_new:N   \l_@@_elem_end_align_tl
-\skip_new:N \l_@@_elem_bottom_skip
+%<@@=fduelem>
 %    \end{macrocode}
-% \end{variable}
 %
 % 声明页面元素模板接口。
 % 元素是一个页面的基本组成单位，包括文段、图片等等。一个抽象的元素应当具备以下属性：
@@ -5053,52 +5046,45 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% 声明页面元素模板代码。
+% 声明页面元素模板代码。^^A 涉及的变量将被自动创建。
 %    \begin{macrocode}
 \DeclareTemplateCode { fdu } { element } { \c_zero_int }
   {
-    content     = \l_@@_elem_content_tl,
-    format      = \l_@@_elem_format_tl,
-    bottom-skip = \l_@@_elem_bottom_skip,
+    content     = \l_@@_content_tl,
+    format      = \l_@@_format_tl,
+    bottom-skip = \l_@@_bottom_skip,
     align =
       {
         left =
-          { \tl_set_eq:NN \l_@@_elem_begin_align_tl \flushleft
-            \tl_set_eq:NN \l_@@_elem_end_align_tl   \endflushleft  },
+          { \tl_set_eq:NN \l_@@_begin_align_tl \flushleft
+            \tl_set_eq:NN \l_@@_end_align_tl   \endflushleft  },
         right =
-          { \tl_set_eq:NN \l_@@_elem_begin_align_tl \flushright
-            \tl_set_eq:NN \l_@@_elem_end_align_tl   \endflushright },
+          { \tl_set_eq:NN \l_@@_begin_align_tl \flushright
+            \tl_set_eq:NN \l_@@_end_align_tl   \endflushright },
         center =
-          { \tl_set_eq:NN \l_@@_elem_begin_align_tl \center
-            \tl_set_eq:NN \l_@@_elem_end_align_tl   \endcenter     },
+          { \tl_set_eq:NN \l_@@_begin_align_tl \center
+            \tl_set_eq:NN \l_@@_end_align_tl   \endcenter     },
         normal =
-          { \tl_clear:N   \l_@@_elem_begin_align_tl
-            \tl_clear:N   \l_@@_elem_end_align_tl                  }
+          { \tl_clear:N   \l_@@_begin_align_tl
+            \tl_clear:N   \l_@@_end_align_tl                  }
       }
   }
   {
     \AssignTemplateKeys
     \group_begin:
-      \l_@@_elem_begin_align_tl
-      \l_@@_elem_format_tl
-      \l_@@_elem_content_tl \par
-      \l_@@_elem_end_align_tl
+      \l_@@_begin_align_tl
+      \l_@@_format_tl
+      \l_@@_content_tl \par
+      \l_@@_end_align_tl
     \group_end:
-    \__fdu_vspace:N \l_@@_elem_bottom_skip
+    \__fdu_vspace:N \l_@@_bottom_skip
   }
 %    \end{macrocode}
 %
-% \begin{variable}{\l_@@_page_content_tl,\l_@@_page_format_tl,
-%   \l_@@_page_prefix_tl,\l_@@_page_top_skip,\l_@@_page_bottom_skip}
-% 用于存储页面属性的临时变量。
+% 定义页面模板。
 %    \begin{macrocode}
-\clist_new:N \l_@@_page_content_tl
-\tl_new:N    \l_@@_page_prefix_tl
-\tl_new:N    \l_@@_page_format_tl
-\skip_new:N  \l_@@_page_top_skip
-\skip_new:N  \l_@@_page_bottom_skip
+%<@@=fdupage>
 %    \end{macrocode}
-% \end{variable}
 %
 % 声明页面模板接口。
 % 页面是元素的集合。一个抽象的页面应当具备以下属性：
@@ -5108,6 +5094,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item[\opt{format}] 格式，例如行距
 %   \item[\opt{top-skip}] 上间距，即与页面顶部的距离
 %   \item[\opt{bottom-skip}] 下间距，即与页面底部的距离
+% \end{description}
 %    \begin{macrocode}
 \DeclareTemplateInterface { fdu } { page } { \c_zero_int }
   {
@@ -5123,34 +5110,35 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \DeclareTemplateCode { fdu } { page } { \c_zero_int }
   {
-    content     = \l_@@_page_content_clist,
-    prefix      = \l_@@_page_prefix_tl,
-    format      = \l_@@_page_format_tl,
-    top-skip    = \l_@@_page_top_skip,
-    bottom-skip = \l_@@_page_bottom_skip
+    content     = \l_@@_content_clist,
+    prefix      = \l_@@_prefix_tl,
+    format      = \l_@@_format_tl,
+    top-skip    = \l_@@_top_skip,
+    bottom-skip = \l_@@_bottom_skip
   }
   {
     \AssignTemplateKeys
-    \__fdu_vspace:N \l_@@_page_top_skip
+    \__fdu_vspace:N \l_@@_top_skip
     \group_begin:
-      \l_@@_page_format_tl
-      \clist_map_inline:Nn \l_@@_page_content_clist
-        { \UseInstance { fdu } { \l_@@_page_prefix_tl ##1 } }
+      \l_@@_format_tl
+      \clist_map_inline:Nn \l_@@_content_clist
+        { \UseInstance { fdu } { \l_@@_prefix_tl ##1 } }
     \group_end:
-    \__fdu_vspace:N \l_@@_page_bottom_skip
+    \__fdu_vspace:N \l_@@_bottom_skip
   }
+%<@@=fdu>
 %    \end{macrocode}
 %
-% \begin{macro}{\@@_declare_elem_instance:nn,\@@_declare_page_instance:nn}
+% \begin{macro}{\@@_declare_element:nn,\@@_declare_page:nn}
 % 封装 \pkg{xtemplate} 提供的函数，简化创建实例的过程。
 % \begin{arguments}
 %   \item 实例名称
 %   \item 参数列表
 % \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_declare_elem_instance:nn #1#2
+\cs_new_protected:Npn \@@_declare_element:nn #1#2
   { \DeclareInstance { fdu } {#1} { element } {#2} }
-\cs_new_protected:Npn \@@_declare_page_instance:nn #1#2
+\cs_new_protected:Npn \@@_declare_page:nn    #1#2
   { \DeclareInstance { fdu } {#1} { page    } {#2} }
 %    \end{macrocode}
 % \end{macro}
@@ -5206,7 +5194,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/id}
 % 封一学校代码和学号。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / id }
+\@@_declare_element:nn { cover / i / id }
   {
     content     = \@@_cover_id:,
     format      = \zihao { -5 },
@@ -5219,7 +5207,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/logo}
 % 封一校名图片。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / logo }
+\@@_declare_element:nn { cover / i / logo }
   {
     content     = \@@_cover_logo:,
     bottom-skip = 0 pt plus 0.3 fill
@@ -5230,7 +5218,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/type}
 % 封一论文类型。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / type }
+\@@_declare_element:nn { cover / i / type }
   {
     content     = \@@_cover_type:,
     format      = \zihao {  2 },
@@ -5242,7 +5230,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/degree}
 % 封一学位类型。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / degree }
+\@@_declare_element:nn { cover / i / degree }
   {
     content     = \@@_cover_degree:,
     format      = \zihao {  4 },
@@ -5254,7 +5242,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/title}
 % 封一中文标题。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / title }
+\@@_declare_element:nn { cover / i / title }
   {
     content     =
       \@@_fixed_width_center_box:nn
@@ -5267,7 +5255,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/title-en}
 % 封一英文标题。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / title-en }
+\@@_declare_element:nn { cover / i / title-en }
   {
     content     =
       \@@_fixed_width_center_box:nn
@@ -5281,7 +5269,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/i/info}
 % 封一信息栏。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / i / info }
+\@@_declare_element:nn { cover / i / info }
   { content = \@@_cover_info: }
 %    \end{macrocode}
 % \end{macro}
@@ -5289,7 +5277,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/ii/title}
 % 封二标题。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / ii / title }
+\@@_declare_element:nn { cover / ii / title }
   {
     content =
       \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
@@ -5301,7 +5289,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/ii/name-list}
 % 封二委员会名单。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / ii / name-list }
+\@@_declare_element:nn { cover / ii / name-list }
   {
     content =
       \clist_use:Nn \l_@@_info_instructors_clist { \par },
@@ -5313,7 +5301,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/iii/orig-decl/name}
 % 封三独创性声明标题。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / iii / orig-decl / name }
+\@@_declare_element:nn { cover / iii / orig-decl / name }
   {
     content     = \c_@@_name_orig_decl_tl,
     format      =
@@ -5326,7 +5314,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/iii/orig-decl/text}
 % 封三独创性声明文本。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / iii / orig-decl / text }
+\@@_declare_element:nn { cover / iii / orig-decl / text }
   {
     content     = \c_@@_orig_decl_text_tl,
     bottom-skip = 0.4 cm,
@@ -5338,7 +5326,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/iii/orig-decl/sig}
 % 封三独创性声明签名。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / iii / orig-decl / sig }
+\@@_declare_element:nn { cover / iii / orig-decl / sig }
   {
     content     =
       \@@_cover_signature:N \c_@@_orig_decl_sign_clist,
@@ -5350,7 +5338,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/iii/auth-decl/name}
 % 封三使用授权声明标题。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / iii / auth-decl / name }
+\@@_declare_element:nn { cover / iii / auth-decl / name }
   {
     content     = \c_@@_name_auth_decl_tl,
     format      =
@@ -5363,7 +5351,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover/iii/auth-decl/text}
 % 封三使用授权声明文本。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / iii / auth-decl / text }
+\@@_declare_element:nn { cover / iii / auth-decl / text }
   {
     content     = \c_@@_auth_decl_text_tl,
     bottom-skip = 0.4 cm,
@@ -5375,7 +5363,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover / iii / auth-decl / sig}
 % 封三使用授权声明签名。
 %    \begin{macrocode}
-\@@_declare_elem_instance:nn { cover / iii / auth-decl / sig }
+\@@_declare_element:nn { cover / iii / auth-decl / sig }
   {
     content     =
       \@@_cover_signature:N \c_@@_auth_decl_sign_clist,
@@ -5389,7 +5377,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover-i-default}
 % 封一。
 %    \begin{macrocode}
-\@@_declare_page_instance:nn { cover-i-default }
+\@@_declare_page:nn { cover-i-default }
   {
     content     = { id, logo, type, degree, title, title-en, info },
     prefix      = cover / i /,
@@ -5402,7 +5390,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover-ii-default}
 % 封二。
 %    \begin{macrocode}
-\@@_declare_page_instance:nn { cover-ii-default }
+\@@_declare_page:nn { cover-ii-default }
   {
     content = { title, name-list },
     prefix  = cover / ii /,
@@ -5414,7 +5402,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover-iii-orig-default}
 % 封三独创性声明。
 %    \begin{macrocode}
-\@@_declare_page_instance:nn { cover-iii-orig-default }
+\@@_declare_page:nn { cover-iii-orig-default }
   {
     content     = { name, text, sig },
     prefix      = cover / iii / orig-decl /,
@@ -5430,7 +5418,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{cover-iii-auth-default}
 % 封三使用授权声明。
 %    \begin{macrocode}
-\@@_declare_page_instance:nn { cover-iii-auth-default }
+\@@_declare_page:nn { cover-iii-auth-default }
   {
     content     = { name, text, sig },
     prefix      = cover / iii / auth-decl /,
