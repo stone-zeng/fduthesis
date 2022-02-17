@@ -320,8 +320,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7a}{2018/04/09}{更新文档，发布至 CTAN。}
 % \changes{v0.7b}{2018/04/29}{支持 \TeXLive{} 2018。}
 % \changes{v0.7b}{2018/05/06}{将校名、校徽图片添加至发行版。}
-% \changes{v0.8}{2021/09/15}{同步 \LaTeX{} 2020/10/01，不再显式调用
-%   \pkg{expl3} 和 \pkg{xparse} 宏包。}
 %
 %^^A 禁止使用 " 符号作为抄录文本缩略符
 % \DeleteShortVerb\"
@@ -2670,14 +2668,13 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<*class|class-en>
 %    \end{macrocode}
 %
+% \changes{v0.8}{2021/09/15}{同步 \LaTeX{} 2020/10/01，不再显式调用
+%   \pkg{expl3} 和 \pkg{xparse} 宏包。}
+% \changes{v0.8}{2022/02/17}{在使用前声明提示信息。}
+%
 % 检查 \LaTeX3 编程环境。
 %    \begin{macrocode}
 \RequirePackage { xtemplate, l3keys2e }
-\clist_map_inline:nn { xtemplate, l3keys2e }
-  {
-    \@ifpackagelater {#1} { 2020/07/17 }
-      { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
-  }
 \msg_new:nnn { fduthesis } { l3-too-old }
   {
     Package~ "#1"~ is~ too~ old. \\\\
@@ -2685,10 +2682,21 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
     "l3kernel"~ and~ "l3packages"~ using~ your~ TeX~ package \\
     manager~ or~ from~ CTAN.
   }
+\clist_map_inline:nn { xtemplate, l3keys2e }
+  {
+    \@ifpackagelater {#1} { 2020/07/17 }
+      { } { \msg_error:nnn { fduthesis } { l3-too-old } {#1} }
+  }
 %    \end{macrocode}
 %
 % 目前 \cls{fduthesis} 仅支持 \XeTeX{} 和 \LuaTeX{}。
 %    \begin{macrocode}
+\msg_new:nnn { fduthesis } { unsupported-engine }
+  {
+    The~ fduthesis~ class~ requires~ either~ XeTeX~ or~ LuaTeX. \\\\
+    "#1"~ is~ not~ supported~ at~ present.~ You~ must~ change \\
+    your~ typesetting~ engine~ to~ "xelatex"~ or~ "lualatex".
+  }
 \sys_if_engine_xetex:F
   {
     \sys_if_engine_luatex:F
@@ -2696,12 +2704,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \msg_fatal:nnx { fduthesis } { unsupported-engine }
           { \c_sys_engine_str }
       }
-  }
-\msg_new:nnn { fduthesis } { unsupported-engine }
-  {
-    The~ fduthesis~ class~ requires~ either~ XeTeX~ or~ LuaTeX. \\\\
-    "#1"~ is~ not~ supported~ at~ present.~ You~ must~ change \\
-    your~ typesetting~ engine~ to~ "xelatex"~ or~ "lualatex".
   }
 %    \end{macrocode}
 %
@@ -2983,13 +2985,13 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 载入参数配置文件。
 %    \begin{macrocode}
 \file_input:n { fduthesis.def }
+\@@_msg_new:nn { load-config-file }
+  { You~ are~ loading~ config~ file~ "#1". }
 \tl_if_empty:NF \g_@@_config_tl
   {
-    \file_input:V \g_@@_config_tl
     \@@_info:nx { load-config-file } { \g_@@_config_tl }
+    \file_input:V \g_@@_config_tl
   }
-\@@_msg_new:nn { load-config-file }
-  { You~ are~ loading~ config~ file~ '#1'. }
 %    \end{macrocode}
 %
 % \subsection{载入宏包、文档类}
@@ -3653,7 +3655,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \@@_warning:n { source-han }
   }
 \@@_msg_new:nn { source-han }
-  { Font~ set~ `sourcehan'~ does~ not~ contain~ kaiti~ and~ fangsong. }
+  { Font~ set~ "sourcehan"~ does~ not~ contain~ kaiti~ and~ fangsong. }
 %    \end{macrocode}
 % \end{macro}
 %
