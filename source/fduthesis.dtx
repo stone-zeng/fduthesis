@@ -249,7 +249,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %<*driver>
 % \PassOptionsToPackage{showframe}{geometry}
 \documentclass{fdudoc}
-\usepackage{multirow,xeCJKfntef,xpinyin}
+\usepackage{xeCJKfntef}
 \hypersetup{
   pdftitle  = {fduthesis: 复旦大学论文模板},
   pdfauthor = {曾祥东}}
@@ -271,8 +271,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \def\FSFW{{\xeCJKsetup{PunctStyle=banjiao}．}}
 %^^A!
 
-\title{\textcolor{MaterialIndigo800}{%
-  \textbf{fduthesis: 复旦大学论文\xpinyin[font=\sffamily,format=\color{MaterialIndigo800}]{模}{mu2}板}}}
+\title{\textcolor{MaterialIndigo800}{\textbf{fduthesis: 复旦大学论文模板}}}
 \author{曾祥东}
 \date{2020/08/30\quad v0.7e%
   \thanks{\url{https://github.com/stone-zeng/fduthesis}.}}
@@ -368,28 +367,21 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \section{Introduction}
 %^^A!
 %
-% 目前，在网上可以找到的复旦大学 \LaTeX{} 论文模板主要有以下这些：
+% 本模板编写之初，可以找到的复旦大学 \LaTeX{} 论文模板有以下这些：
 % \begin{itemize}
-%   \item 数学科学学院 2001 级的何力同学和李湛同学在 2005 年根据
-%     学校要求所设计的 \cls{毕业论文格式 tex04 版}，以及 2008 年
-%     张越同学修改之后的 \cls{毕业论文格式 tex08 版}，这是专为
-%     数院本科生撰写毕业论文而设计的
-%     \cite{数院毕业论文格式,数院毕业论文格式更新}；
-%   \item Pandoxie 编写的 \cls{FDU-Thesis-Latex}
-%     \cite{pandoxie2014fduthesislatex}，基本满足了博士（硕士）
-%     毕业论文格式要求，使用人数较多；
-%   \item richarddzh 编写的硕士论文模板 \cls{fudan-thesis}
-%     \cite{richard2016fudanthesis}。
+%   \item 数学科学学院的本科毕业论文模版 \cite{数院本科毕业论文写作模板}，主要贡献者为 2001 级的
+%     何力同学、李湛同学和 2004 级的张越同学；
+%   \item Pandoxie 编写的 \cls{FDU-Thesis-Latex} \cite{pandoxie2014fduthesislatex}，基本满足了博士
+%     （硕士）毕业论文格式要求，在当时使用人数较多；
+%   \item richarddzh 编写的硕士论文模板 \cls{fudan-thesis} \cite{richard2016fudanthesis}。
 % \end{itemize}
-% 以上这些模板大都没有经过系统的设计，也鲜有后续维护。相比之下，
-% 清华大学 \cite{thuthesis}、重庆大学 \cite{cquthesis}、
-% 中国科学技术大学 \cite{ustcthesis}、中国科学院大学 \cite{ucasthesis}
-% 以及友校上海交通大学 \cite{sjtuthesis}等，都有成熟、
-% 稳定的解决方案，值得参考。
+% 以上模板大都没有经过系统的设计，也缺乏后续维护。相比之下，清华大学 \cite{thuthesis}、
+% 北京大学 \cite{pkuthss}、重庆大学 \cite{cquthesis}、中国科学技术大学 \cite{ustcthesis}、
+% 中国科学院大学 \cite{ucasthesis} 以及友校上海交通大学 \cite{sjtuthesis} 等，都有较为成熟、稳定
+% 的解决方案，也积累了广泛的用户基础，值得参考与借鉴。
 %
-% 本模板将借鉴前辈经验，重新设计，并使用 \LaTeX3
-% \cite{source3} 编写，以适应 \TeX{} 技术发展潮流；
-% 同时还将构建一套简洁的接口，方便用户使用。
+% 考虑到开发与持续维护的需要，本模板使用 \LaTeX3 \cite{source3} 语法编写。同时将构建一套简洁的
+% 接口，以方便用户使用。
 %^^A! \cls{fduthesis} is a thesis template for Fudan University.
 %^^A! This template is mostly written in \LaTeX3 syntax, and
 %^^A! provides a simple interface for users.
@@ -399,11 +391,9 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsection*{Getting started with \LaTeX{}}
 %^^A!
 %
-% 本文档并非是一份 \LaTeX{} 零基础教程。如果您是完完全全的新手，
-% 建议先阅读相关入门文档，如刘海洋编著的《\LaTeX{} 入门》
-% \cite{刘海洋2013latex入门} 第一章，或大名鼎鼎的“\pkg{lshort}”
-% \cite{lshort} 及其中文翻译版 \cite{lshort-zh-cn}。当然，
-% 网络上的入门教程多如牛毛，您可以自行选取。
+% 本文档不是一份 \LaTeX{} 零基础教程。如果缺乏使用 \LaTeX{} 的经验，建议先阅读有关入门文档，如
+% 刘海洋编著的《\LaTeX{} 入门》\cite{刘海洋2013latex入门} 第一章，或“\pkg{lshort}” \cite{lshort}
+% 及其中文翻译版 \cite{lshort-zh-cn}。当然，网络上的 \LaTeX{} 教程数量甚多，也可自行选取。
 %^^A! This documentation is \emph{not} a \LaTeX{} tutorial at
 %^^A! starter's level. If you are totally a newbie, please read some
 %^^A! introductions like the famous \pkg{lshort}. Of course, there
@@ -415,12 +405,11 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsection*{About this documentation}
 %^^A!
 %
-% 本文采用不同字体表示不同内容。无衬线字体表示宏包名称，如
-% \pkg{xeCJK} 宏包、\cls{fduthesis} 文档类等；等宽字体表示代码或
-% 文件名，如 \cs{fdusetup} 命令、\env{abstract} 环境、\TeX{} 文档
-% \file{thesis.tex} 等；带有尖括号的楷体（或西文斜体）表示命令参数，
-% 如 \meta{模板选项}、\meta{English title} 等。在使用时，参数两侧
-% 的尖括号不必输入。示例代码进行了语法高亮处理，以方便阅读。
+% 本文档采用不同字体表示不同内容。无衬线字体表示宏包名称，如 \pkg{xeCJK} 宏包、\cls{fduthesis}
+% 文档类等；等宽字体表示代码或文件名，如 \cs{fdusetup} 命令、\env{abstract} 环境、\TeX{} 文档
+% \file{thesis.tex} 等；带有尖括号的楷体（或西文斜体）表示命令参数，如 \meta{模板选项}、
+% \meta{English title} 等。在使用时，参数两侧的尖括号不必输入。示例代码进行了语法高亮处理，
+% 以方便阅读。
 %^^A! In this documentation, different typefaces are used to
 %^^A! represent different contents. Packages and classes are shown
 %^^A! in sans-serif font, e.g.\ \pkg{xeCJK} package and
@@ -433,9 +422,8 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! proper syntax highlighting so it will be much easier to read.
 %^^A!
 %
-% 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线
-% 的则为命令行代码，请注意区分。模板提供的选项、命令、环境等，
-% 均用横线框起，同时给出使用语法和相关说明。
+% 在用户手册中，带有蓝色侧边线的为 \LaTeX{} 代码，而带有粉色侧边线的则为命令行代码，请注意区分。
+% 模板提供的选项、命令、环境等，均列在左边栏并用横线框起，同时给出使用语法和相关说明。
 %^^A! \LaTeX{} code lines will have a blue line on their left, while
 %^^A! for command lines there will be a pink line. The options,
 %^^A! commands and environments in \cls{fduthesis} will be surrounded
@@ -445,12 +433,9 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 本模板中的选项、命令或环境可以分为以下三类：
 % \begin{itemize}
-%   \item 名字后面带有 \rexptarget\rexpstar{} 的，表示只能
-%     在\emph{中文模板}中使用；
-%   \item 名字后面带有 \exptarget\expstar{} 的，表示只能
-%     在\emph{英文模板}中使用；
-%   \item 名字后面不带有特殊符号的，表示既可以在中文模板中使用，
-%     也可以在英文模板中使用。
+%   \item 名字后面带有 \rexptarget\rexpstar{} 的，表示只能在\emph{中文模板}中使用；
+%   \item 名字后面带有 \exptarget\expstar{} 的，表示只能在\emph{英文模板}中使用；
+%   \item 名字后面不带有特殊符号的，表示既可以在中文模板中使用，也可以在英文模板中使用。
 % \end{itemize}
 %^^A! The options, commands and environments in \cls{fduthesis} can be
 %^^A! divided into the following three types:
@@ -464,16 +449,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{itemize}
 %^^A!
 %
-% 代码实现主要面向对 \LaTeX{} 宏包开发感兴趣的用户。如果您有任何改进
-% 意见或者功能需求，欢迎前往 GitHub 仓库
-% \href{https://github.com/stone-zeng/fduthesis/issues}{提交 issue}。
-%^^A! If you want to read the implementation part, please turn to the Chinese
-%^^A! version. Any issues or feature requests can be submitted in the
-%^^A! \href{https://github.com/stone-zeng/fduthesis/issues}{GitHub repository}.
-%^^A!
-%
-% 文档的最后还提供了版本历史和代码索引，以供查阅。
-%
 % \section{安装}
 %^^A! \section{Installation}
 %^^A!
@@ -486,12 +461,17 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsubsection{Standard installation}
 %^^A!
 %
-% 如果没有特殊理由，始终建议您使用宏包管理器安装 \cls{fduthesis}。
-% 例如在 \TeXLive{} 中，执行（可能需要管理员权限）
+% 如果没有特殊理由，始终建议使用宏包管理器安装 \cls{fduthesis}。例如在 \TeXLive{} 中，执行（可能
+% 需要管理员权限）
 % \begin{shellexample}[morekeywords={tlmgr,install}]
 %   tlmgr install fduthesis
 % \end{shellexample}
-% 即可完成安装。
+% 即可完成安装。如果已经装有完整版的 \TeXLive{}，则 \cls{fduthesis} 应当已经包含在其中，此时即可
+% 直接使用，也可以执行
+% \begin{shellexample}[morekeywords={tlmgr,update},emph={--all}]
+%   tlmgr update --all
+% \end{shellexample}
+% 检查并更新全部宏包。
 %^^A! If there are no special reasons, it is always recommended to
 %^^A! install \cls{fduthesis} with a package manager. For example,
 %^^A! the following command will install the package in \TeXLive{}
@@ -501,8 +481,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{shellexample}
 %^^A!
 %
-% 在 \TeXLive{} 和 \MiKTeX{} 中，您还可以通过图形界面进行安装，
-% 此处不再赘述。
+% 在 \TeXLive{} 和 \MiKTeX{} 中，还可以通过图形界面进行安装和更新，此处不再赘述。
 %^^A! In \TeXLive{} and \MiKTeX{}, you can also install \cls{fduthesis}
 %^^A! through a graphical interface. It's rather simple and will not be
 %^^A! described here.
@@ -512,14 +491,12 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \subsubsection{Install manually}
 %^^A!
 %
-% 如果您需要从 CTAN 上自行下载并手动安装，较好的方法是使用 TDS
-% 安装包：
+% 如果需要从 CTAN 上自行下载并手动安装，可使用 TDS 安装包：
 % \begin{itemize}
 %   \item 从 CTAN 上下载 \cls{fduthesis} 的
-%     \href{http://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip}{TDS 安装包}；
-%   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{}
-%     发行版的本地 TDS 根目录；
-%   \item 执行 \bashcmd{mktexlsr} 刷新文件名数据库以完成安装。
+%     \href{https://mirror.ctan.org/install/macros/latex/contrib/fduthesis.tds.zip}{TDS 安装包}；
+%   \item 按目录结构将 \file{fduthesis.tds.zip} 中的文件复制到 \TeX{} 发行版的本地 TDS 根目录；
+%   \item 执行 \bashcmd{mktexlsr} 命令刷新文件名数据库以完成安装。
 % \end{itemize}
 %^^A! If you want to download the template from CTAN and install it
 %^^A! manually, the recommended way is to use the TDS ZIP file:
@@ -531,77 +508,33 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   \item Run \bashcmd{mktexlsr} to update the ls-R database.
 %^^A! \end{itemize}
 %^^A
-% 您也可以从源代码直接生成模板（不推荐）：
+%
+% \subsubsection{开发版本}
+%
+% CTAN 上仅提供了 \cls{fduthesis} 的稳定版，其更新可能较为滞后，一些 bug 常常不能得到及时修复。
+% 如果需要使用开发版（托管在 GitHub 上），可以使用模板提供的安装脚本：
 % \begin{itemize}
-%   \item 打开 \href{https://github.com/stone-zeng/fduthesis}{项目主页}，
-%     点击“Code”按钮，并选择“Download ZIP”，下载 \file{fduthesis-main.zip}；
-%     如果您的电脑中安装有 git 程序，也可通过以下命令直接克隆代码仓库：
+%   \item 打开 \href{https://github.com/stone-zeng/fduthesis}{项目主页}，点击“Code”按钮，并选择
+%     “Download ZIP”，下载 \file{fduthesis-main.zip}；如果已经装有 Git 程序，也可通过以下命令直接
+%     克隆代码仓库：
 %     \begin{shellexample}[gobble=7,alsoletter={.},morekeywords={git,clone}]
 %       git clone https://github.com/stone-zeng/fduthesis.git
 %     \end{shellexample}
-%   \item 解压并进入到 \file{source} 文件夹，执行以下命令以生成
-%     模板的各组件：
-%     \begin{shellexample}[gobble=7,morekeywords={xetex}]
-%       xetex fduthesis.dtx
-%     \end{shellexample}
-%   \item 将生成的文档类（\file{.cls}）、宏包（\file{.sty}）以及
-%     参数配置文件（\file{.def}）复制到 \TeX{} 发行版本地 TDS 树
-%     的 \path{texmf-local/tex/latex/fduthesis/} 目录下，并执行
-%     \bashcmd{mktexlsr} 刷新文件名数据库，方可完成安装。
-%   \item 使用 \cls{fduthesis} 撰写论文时，您还需要从代码仓库下的
-%     \file{testfiles/support} 目录中复制 \file{fudan-name.pdf}
-%     文件至工作目录，以确保封面中的校名图片可以正确显示。
+%   \item 执行 \file{install-win.bat}（Windows 系统）或 \file{install-linux.sh}（Linux 系统或
+%     macOS），所有需要的文件便会在 \file{thesis} 文件夹中生成。
 % \end{itemize}
-%^^A! Although not recommended, you may generate the whole template
-%^^A! from source code as well:
-%^^A! \begin{itemize}
-%^^A!   \item Open the project's \href{https://github.com/stone-zeng/fduthesis}%
-%^^A!     {homepage}, click ``Code'' button and choose
-%^^A!     ``Download ZIP'' to download \file{fduthesis-main.zip}.
-%^^A!     If you have git program on your computer, you can also
-%^^A!     clone the repository directly:
-%^^A!     \begin{shellexample}[gobble=5,alsoletter={.},morekeywords={git,clone}]
-%^^A!       git clone https://github.com/stone-zeng/fduthesis.git
-%^^A!     \end{shellexample}
-%^^A!   \item Extract files, and get into the \file{source} directory.
-%^^A!     Run the following command to generate all the components:
-%^^A!     \begin{shellexample}[gobble=5,morekeywords={xetex}]
-%^^A!       xetex fduthesis.dtx
-%^^A!     \end{shellexample}
-%^^A!   \item Copy the generated document classes (\file{.cls}),
-%^^A!     packages (\file{.sty}) and configuration files (\file{.def})
-%^^A!     into \path{texmf-local/tex/latex/fduthesis/} under the local
-%^^A!     TDS tree of \TeX{} distribution. Then run \bashcmd{mktexlsr}
-%^^A!     to update the ls-R database.
-%^^A!   \item When writing your thesis with \cls{fduthesis}, you need
-%^^A!     to copy the file \file{fudan-name.pdf} (can be found in the
-%^^A!     \file{testfiles/support} directory of the Git repository) to
-%^^A!     your working directory, to make sure that the logo in the
-%^^A!     cover can be displayed correctly.
-%^^A! \end{itemize}
-%^^A!
 %
-% \subsubsection{扁平化安装}
-%^^A! \subsubsection{\cls{fduthesis} on the fly}
-%^^A!
+% \subsubsection{Overleaf}
 %
-% 如果您不希望安装本模板，但需要立刻使用，也可以使用模板提供的安装脚本。
-% 从 GitHub 上获取代码仓库后，执行 \file{install-win.bat}（Windows 系统）
-% 或 \file{install-linux.sh}（Linux 系统），所有需要的文件便会在
-% \file{thesis} 文件夹中生成。
-%^^A! If you don't want to install \cls{fduthesis} but need to use it
-%^^A! at once, you can try the installation scripts. Download the
-%^^A! repository from GitHub, run \file{install-win.bat} (on Windows)
-%^^A! or \file{install-linux.sh} (on Linux), then all the necessary
-%^^A! files will be found in the \file{thesis} folder.
-%^^A!
+% \cls{fduthesis} 也提供了 \href{https://www.overleaf.com/latex/templates/fduthesis-latex-thesis-template-for-fudan-university/svtdhhstkmkt}{Overleaf 的版本}，
+% 打开链接并登录后即可直接编辑。
 %
 % \subsection{模板组成}
 %^^A! \subsection{Composition of the template}
 %^^A!
 %
-% 本模板主要包含核心文档类、配置文件、附属宏包以及用户文档等几个部分，
-% 其具体组成见表~\ref{tab:fduthesis-components}。
+% 本模板主要包含核心文档类、配置文件、附属宏包以及用户文档等几个部分，其具体组成见
+% 表~\ref{tab:fduthesis-components}。
 %^^A! There are several parts in \cls{fduthesis}, including kernel template
 %^^A! classes, configuration files, affiliated packages and user's guides.
 %^^A! More details are listed in table~\ref{tab:fduthesis-components}.
@@ -618,8 +551,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \midrule
 %       \file{fduthesis.cls}          & 中文模板文档类 \\
 %       \file{fduthesis-en.cls}       & 英文模板文档类 \\
-%       \file{fduthesis.def}          & 参数配置文件，用于设定
-%         \cls{fduthesis} 的初始参数，不建议您自行改动 \\
+%       \file{fduthesis.def}          & 参数配置文件，用于设定初始参数，不建议自行改动 \\
 %       \file{fdudoc.cls}             & 用户手册文档类 \\
 %       \file{fdulogo.sty}            & 复旦大学视觉识别系统 \\
 %       \file{fudan-emblem.pdf}       & 校徽 \\
@@ -2021,15 +1953,15 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     单篇文献 &
 %       引文\cite{texbook} &
 %       \verbcite{texbook} &
-%       同右 \\
+%       同左 \\
 %     多篇文献 &
 %       引文\cite{texbook,companion} &
 %       \verbcite{texbook,companion} &
-%       同右 \\
+%       同左 \\
 %     标注页码 &
 %       引文\cite[126--137]{texbook} &
 %       \verbcite[cite][126--137]{texbook} &
-%       同右 \\
+%       同左 \\
 %     标注作者 &
 %       \citet{texbook}指出 &
 %       \verbcite[citet]{texbook} &
@@ -2041,7 +1973,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     非上标 &
 %       引文{\citestyle{numbers}\cite{texbook}} &
 %       \verbcite[parencite]{texbook} &
-%       同右 \\
+%       同左 \\
 %     \bottomrule
 %   \end{tabularx}
 % \end{table}
@@ -2075,11 +2007,11 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     标注作者 &
 %       \citeauthor{texbook}(\citeyear{texbook}\!) &
 %       \verbcite[citet]{texbook} &
-%       同右 \\
+%       同左 \\
 %     标注作者、页码 &
 %       \citeauthor{texbook}(\citeyear{texbook}\!)\textsuperscript{42} &
 %       \verbcite[citet][42]{texbook} &
-%       同右 \\
+%       同左 \\
 %     \bottomrule
 %   \end{tabularx}
 % \end{table}
@@ -2407,7 +2339,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \let\OldUrl=\url
 % \renewcommand\url[2][]{{\small\textit{#1}~\OldUrl{#2}}}
 % \newcommand\CTANurl[2][]{{^^A
-%   \small\textit{#1}~\href{http://mirror.ctan.org/#2}{\texttt{CTAN://#2}}}}
+%   \small\textit{#1}~\href{https://mirror.ctan.org/#2}{\texttt{CTAN://#2}}}}
 %
 % \subsection{图书}
 %
@@ -2555,6 +2487,14 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \urlprefix\url{https://ctan.org/pkg/cquthesis}
 % \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/cquthesis/cquthesis.pdf}
 %
+% \bibitem[()]{pkuthss}
+% Casper Ti. Vector.
+% \newblock \textit{北京大学学位论文模版：pkuthss} [EB/OL].
+% \newblock version 1.9.1,
+% \newblock (2021-10-16)
+% \urlprefix\url{https://ctan.org/pkg/pkuthss}
+% \urlprefix\CTANurl[文档及源代码：]{macros/latex/contrib/pkuthss/pkuthss.pdf}
+%
 % \bibitem[()]{thuthesis}
 % 清华大学 TUNA 协会.
 % \newblock \textit{\textsc{ThuThesis}：清华大学学位论文模板} [EB/OL].
@@ -2600,15 +2540,11 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \newblock (2016-01-31)
 % \urlprefix\url{https://github.com/richarddzh/fudan-thesis}
 %
-% \bibitem[()]{数院毕业论文格式}
+% \bibitem{数院本科毕业论文写作模板}
 % 复旦大学数学科学学院.
-% \newblock \textit{毕业论文格式 tex 版和 word 版} [EB/OL].
-% \urlprefix\url{http://math.fudan.edu.cn/show.aspx?info_lb=664&flag=101&info_id=1816}
-%
-% \bibitem[()]{数院毕业论文格式更新}
-% 复旦大学数学科学学院.
-% \newblock \textit{毕业论文格式: Word、\TeX{} 模板更新} [EB/OL].
-% \urlprefix\url{http://math.fudan.edu.cn/Show.aspx?info_lb=664&info_id=1855&flag=101}
+% \newblock \textit{2019 春季本科毕业论文写作模板} [EB/OL].
+% \newblock (2019-03-12)
+% \urlprefix\url{https://math.fudan.edu.cn/f3/e1/c30360a324577/page.htm}
 %
 % \subsection{其他}
 %
@@ -5454,8 +5390,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{environment}{abstract}
 % \begin{environment}{abstract*}
 % \changes{v0.7}{2018/03/05}{整理代码。}
-% 摘要环境。在中文模板定义了中英文双语摘要，但在英文模板中则没有
-% 定义中文摘要。
+% 摘要环境。在中文模板定义了中英文双语摘要，但在英文模板中则没有定义中文摘要。
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract  } { }
 %<class>  { \@@_abstract_begin:    } { \@@_abstract_end:      }
@@ -5777,9 +5712,11 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.8}{2022/01/08}{兼容 \tn{addbibresource} 命令。}
+% \changes{v0.8}{2022/01/08}{补充定义 \tn{addbibresource} 命令以兼容 \pkg{biblatex} 的用法。}
 %
-% 由于 \pkg{biblatex} 在导言区后才载入，需要单独定义添加参考文献数据源的命令以实现兼容。该命令需要在载入宏包前取消定义。
+% \begin{macro}{\addbibresource}
+% 由于 \pkg{biblatex} 在导言区后才载入，需要单独定义添加参考文献数据源的命令以实现兼容。
+% 该命令需要在载入宏包前取消定义。
 %    \begin{macrocode}
 \bool_if:NF \l_@@_bibtex_bool
   {
@@ -5787,6 +5724,7 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
       { \clist_gput_right:Nn \l_@@_bib_resource_clist {#1} }
   }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\@@_biblatex_pre_setup:,\@@_biblatex_post_setup:}
 % \pkg{biblatex} 相关设置。

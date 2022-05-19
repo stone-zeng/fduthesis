@@ -33,8 +33,8 @@
 %
 % \subsection{模板文档样式 \cls{fdudoc}}
 %
-% \changes{v0.4}{2017/07/29}{在 \cls{ctxdoc} 的基础上完成
-%   \cls{fdudoc} 文档类，用于模板手册的编写。}
+% \changes{v0.4}{2017/07/29}{在 \cls{ctxdoc} 的基础上完成 \cls{fdudoc} 文档类，
+%   用于模板手册的编写。}
 %
 % 编写 \LaTeX{} 宏包文档，传统上会采用 \pkg{doc} 宏包或
 % \cls{ltxdoc} 文档类。而对于使用 \LaTeX3 开发的宏包，\cls{l3doc}
@@ -58,18 +58,16 @@
 % 进行了整理，添加了相关注释，并做了一些改动：
 %
 % \begin{itemize}
-%   \item 允许模块标记 |<*|\meta{module}|>| 和
-%     |</|\meta{module}|>| 出现在行号左侧；
+%   \item 允许模块标记 |<*|\meta{module}|>| 和 |</|\meta{module}|>|
+%     出现在行号左侧；
 %   \item 不再以直立、倾斜字体区分不同嵌套层次的模块；
 %   \item 调整索引中版本号的排序方式；
 %   \item 新增一系列实用命令；
 %   \item 修改文档字体、配色等。
 % \end{itemize}
 %
-% 本文档样式的核心代码主要来自 \cls{ctxdoc} 文档类 v2.4.10。
-% 在此，本人要向原开发者
-% \href{https://github.com/CTeX-org/}{CTEX.ORG}
-% 团队表示由衷的感谢。
+% 本文档样式的核心代码主要来自 \cls{ctxdoc} 文档类 v2.4.10。在此，本人要向原
+% 开发者 \href{https://github.com/CTeX-org/}{CTEX.ORG} 团队表示感谢。
 %
 % 以下为 \cls{fdudoc} 的具体实现。
 %
@@ -85,21 +83,15 @@
 \@namedef{ver@thumbpdf.sty}{9999/99/99}
 %    \end{macrocode}
 %
-% 关闭 \pkg{xparse} 中的命令声明信息。
-%    \begin{macrocode}
-\PassOptionsToPackage{log-declarations = false}{xparse}
-%    \end{macrocode}
+% \changes{v0.8}{2021/10/21}{[\pkg{fdudoc}] 使用 \pkg{gbt7714} 宏包
+%   处理参考文献。}
 %
 % 载入宏包和文档类。
 %    \begin{macrocode}
 \LoadClass[a4paper, full]{l3doc}
-\RequirePackage[UTF8, heading, sub3section, fontset = none]{ctex}
-%    \end{macrocode}
-% 与 \pkg{hypdoc}（由 \cls{l3doc} 调用）冲突，导致脚注超链接
-% 无法正常跳转。暂时禁用。
-%    \begin{macrocode}
-% \RequirePackage[stable, bottom]{footmisc}
-\RequirePackage{%
+\RequirePackage[heading, sub3section, fontset=none]{ctex}
+\RequirePackage[sort&compress]{gbt7714}
+\RequirePackage{
   caption,
   geometry,
   graphicx,
@@ -121,11 +113,10 @@
 % \paragraph{继承的代码}
 %
 % \begin{macro}[int]{\macro@code}
-% 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由命令
-% \tn{macro@code} 负责实现，而 \tn{xmacro@code} 只用来结束
-% \env{macrocode} 环境。但在 \cls{l3doc} 以及 \cls{ctxdoc} 中，
-% \tn{xmacro\-@\-code} 则基本接管了 \tn{macro@code} 的功能。
-% 后者此时只起辅助作用。
+% 在 \pkg{doc} 宏包中，\env{macrocode} 环境的核心功能由命令 \tn{macro@code}
+% 负责实现，而 \tn{xmacro@code} 只用来结束 \env{macrocode} 环境。但在
+% \cls{l3doc} 以及 \cls{ctxdoc} 中， \tn{xmacro\-@\-code} 则基本接管了
+% \tn{macro@code} 的功能。后者此时只起辅助作用。
 %    \begin{macrocode}
 \def\macro@code{%
 %    \end{macrocode}
@@ -139,11 +130,10 @@
   \partopsep \z@skip
 %    \if@inlabel\leavevmode\fi
 %    \end{macrocode}
-% 构建 \env{trivlist} 环境，设置段间距为 0。
-% 之后修改字体，并调节左右间距。\tn{MacroIndent} 会根据代码行数
-% 更新，具体细节见后文。
-% \tn{macro@font} 用来在不同模块见切换字体。本文档类不使用
-% \tn{AltMacroFont}，因此这里改用 \tn{MacroFont} 代替。
+% 构建 \env{trivlist} 环境，设置段间距为 0。之后修改字体，并调节左右间距。
+% \tn{MacroIndent} 会根据代码行数更新，具体细节见后文。\tn{macro@font} 用来在
+% 不同模块见切换字体。本文档类不使用 \tn{AltMacroFont}，因此这里改用
+% \tn{MacroFont} 代替。
 %    \begin{macrocode}
   \trivlist \parskip \z@ \item[]%
 %    \macro@font
@@ -151,16 +141,16 @@
   \leftskip\@totalleftmargin \advance\leftskip\MacroIndent
   \rightskip\z@ \parindent\z@ \parfillskip\@flushglue
 %    \end{macrocode}
-% 按照 \LaTeXe{} 中 \tn{verbatim} 环境中定义 \tn{par}，使得空行
-% 可以原样输出，否则空行会被吃掉。
+% 按照 \LaTeXe{} 中 \tn{verbatim} 环境中定义 \tn{par}，使得空行可以原样输出，
+% 否则空行会被吃掉。
 %    \begin{macrocode}
   \blank@linefalse \def\par{\ifblank@line
                             \leavevmode\fi
                             \blank@linetrue\@@par
                             \penalty\interlinepenalty}
 %    \end{macrocode}
-% \tn{obeylines} 将把回车符 |^^M| 变成 \tn{par}。
-% 接下来将所有特殊符号的类别码设为 12，即“其他”类。
+% \tn{obeylines} 将把回车符 |^^M| 变成 \tn{par}。接下来将所有特殊符号的类别码
+% 设为 12，即“其他”类。
 %    \begin{macrocode}
   \obeylines
   \let\do\do@noligs \verbatim@nolig@list
@@ -214,8 +204,8 @@
 % \paragraph{代码行处理}
 %
 % \begin{macro}[int]{\xmacro@code,\sxmacro@code}
-% 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，
-% 将对代码逐行处理。后者会将空格显示为“\verb*| |”。
+% 重新实现 \env{macrocode} 与 \env{macrocode*} 环境的核心功能，将对代码逐行
+% 处理。后者会将空格显示为“\verb*| |”。
 %    \begin{macrocode}
 \cs_set_protected_nopar:Npn \xmacro@code
   { \@@_marco_code:w }
@@ -269,8 +259,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% 设置 \tn{endlinechar} 为 $-1$，表示行末不插入任何字符
-% （实际上相当于在行尾插入注释符 |%|）。
+% 设置 \tn{endlinechar} 为 $-1$，表示行末不插入任何字符（实际上相当于在行尾
+% 插入注释符 |%|）。
 %    \begin{macrocode}
 \group_begin:
   \int_set:Nn \tex_endlinechar:D { -1 }
@@ -296,8 +286,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\@@_make_finish_tag:n,\@@_make_finish_tag:x}
-% \env{macrocode} 结尾标记。展开后变成
-% “\verb*|%    \end{#1}^^M|”。
+% \env{macrocode} 结尾标记。展开后变成“\verb*|%    \end{#1}^^M|”。
 %    \begin{macrocode}
   \cs_new_protected:Npx \@@_make_finish_tag:n #1
     {
@@ -316,8 +305,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_macro_code_start:w}
-% 开始代码环境。此命令主要是为了防止 |\begin{macrocode}|
-% 后出现多余的空行。
+% 开始代码环境。此命令主要是为了防止 |\begin{macrocode}| 后出现多余的空行。
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_macro_code_start:w #1
     {
@@ -329,10 +317,9 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_macro_code_read_line:w}
-% 逐行读取代码，并连同行尾回车符一并存入
-% \cs{l_@@_macro_code_line_tl}。如果该行与结束标记
-% “\verb*|%    \end{macrocode}^^M|”相同，则结束此
-% \env{macrocode}；否则继续处理该行代码。
+% 逐行读取代码，并连同行尾回车符一并存入 \cs{l_@@_macro_code_line_tl}。如果该行
+% 与结束标记“\verb*|%    \end{macrocode}^^M|”相同，则结束此 \env{macrocode}；
+% 否则继续处理该行代码。
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_macro_code_read_line:w #1 ^^M
     {
@@ -453,8 +440,8 @@
 % 处理代码行。该命令的作用如下：
 % \begin{itemize}
 %   \item 正常情况下，等同于 \cs{@@_process_normal_line:}；
-%   \item 在 \cs{DontCheckModules} 之后，等价于
-%     \cs{@@_output_line:}，即不检查模块标记，直接输出；
+%   \item 在 \cs{DontCheckModules} 之后，等价于 \cs{@@_output_line:}，
+%     即不检查模块标记，直接输出；
 %   \item 在抄录环境中，等价于 \cs{@@_process_verbatim_line:}，
 %     此时将不再特殊处理以 |%| 开头的代码行。
 % \end{itemize}
@@ -467,8 +454,7 @@
 % \paragraph{模块标记处理}
 %
 % \begin{macro}{\CheckModules,\DontCheckModules}
-% 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，
-% 此处重新声明。
+% 选择是否检查模块标记。这两个命令在 \pkg{doc} 宏包中已有定义，此处重新声明。
 %    \begin{macrocode}
 \DeclareDocumentCommand \CheckModules { }
   {
@@ -505,8 +491,7 @@
 %   \item |@|：名字空间（|%<@@=|\meta{namespace}|>|）；
 %   \item |<|：抄录环境开始（|%<<|\meta{end-tag}）。
 % \end{itemize}
-% 若不是这几种情况，则为单独一行的独立模块
-% （|%<|\meta{module}|>|）。
+% 若不是这几种情况，则为单独一行的独立模块（|%<|\meta{module}|>|）。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_module:n #1
   {
@@ -543,8 +528,7 @@
   \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
     {
 %    \end{macrocode}
-% 临时变量 \cs{l_@@_tmp_tl} 保存 |<*|\meta{module}|>|
-% 之后的部分，即真实代码。
+% 临时变量 \cs{l_@@_tmp_tl} 保存 |<*|\meta{module}|>| 之后的部分，即真实代码。
 %    \begin{macrocode}
       \tl_set:Nn \l_@@_tmpa_tl {#2}
 %    \end{macrocode}
@@ -623,8 +607,8 @@
         { \color { at@guard } }
         { \@@_module_angle:n { @ @ = #1 } }
 %    \end{macrocode}
-% 设置名字空间为 |#1|。\cls{l3doc} 中将名字空间称为
-% “模块”（module），注意不要混淆。
+% 设置名字空间为 |#1|。\cls{l3doc} 中将名字空间称为“模块”（module），
+% 注意不要混淆。
 %    \begin{macrocode}
       \tl_gset:Nn \g__codedoc_module_name_tl {#1}
       \@@_output_line:n {#2}
@@ -633,8 +617,8 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_module_verb:w}
-% 抄录开始。|#1|: |<|\meta{end-tag}，只有一个 |<|。
-% \meta{end-tag} 的最后会带有一个回车符 |^^M|。
+% 抄录开始。|#1|: |<|\meta{end-tag}，只有一个 |<|。\meta{end-tag} 的最后会
+% 带有一个回车符 |^^M|。
 %    \begin{macrocode}
   \cs_new_protected:Npn \@@_module_verb:w #1 \q_stop
     {
@@ -730,8 +714,7 @@
 % \begin{macro}{\@@_replace_at_at:N,
 %   \@@_replace_at_at_aux:Nn,\@@_replace_at_at_aux:No}
 % 把 |@@| 替换为相应的名字空间。其名称存放在全局变量
-% \cs{g__codedoc_module_name_tl} 中。
-% 它为空时（|%<@@=>|），不做替换。
+% \cs{g__codedoc_module_name_tl} 中。它为空时（|%<@@=>|），不做替换。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_replace_at_at:N #1
   {
@@ -758,8 +741,7 @@
 %
 % \begin{macro}{\@@_module_push:n,
 %   \@@_module_push_aux:nn,\@@_module_push_aux:on}
-% 将模块名压入栈中。此处的栈主要用来处理模块名（包括抄录标记）
-% 之间的超链接。
+% 将模块名压入栈中。此处的栈主要用来处理模块名（包括抄录标记）之间的超链接。
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_module_push:n
   { \@@_module_push_aux:on { \int_use:N \c@HD@hypercount } }
@@ -902,8 +884,8 @@
 % \end{macro}
 % \end{macro}
 %
-% 设置色系的增量大小。可选参数 |3| 意味着基色（blue）与
-% 末色（purple）之间将等分为三份。该数字比嵌套最大深度小 1。
+% 设置色系的增量大小。可选参数 |3| 意味着基色（blue）与末色（purple）之间将被
+% 等分为三份。该数字比嵌套最大深度小 1。
 %    \begin{macrocode}
 \resetcolorseries [ 3 ] { guard@series }
 %    \end{macrocode}
@@ -982,8 +964,8 @@
 %   \@@_disable_ecglue:,
 %   \@@_plain_punct_style:}
 % \begin{macro}[int]{\meta@font@select}
-% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个
-% 空格的宽度。需要按编译情况分别定义。
+% 调整文字间距，以便于让 CJK 字符占的宽度等于西文等宽字体中两个空格的宽度。
+% 需要按编译情况分别定义。
 %    \begin{macrocode}
 \sys_if_engine_xetex:TF
   {
@@ -1027,10 +1009,10 @@
 %
 % \begin{environment}{syntax}
 % \begin{environment}{fdusyntax}
-% 在 \env{syntax} 和 \env{fdusyntax} 环境前设置若干活动字符。
-% \texttt{\textbar} 用于分隔多个选项，无需倾斜；|<xxx>| 表示选项，
-% |(xxx)| 表示默认选项。原来的括号用宏保存，并且使用直立字体。
-% \env{syntax} 环境另需要额外调整行距、标点样式及字符间距。
+% 在 \env{syntax} 和 \env{fdusyntax} 环境前设置若干活动字符。\texttt{\textbar}
+% 用于分隔多个选项，无需倾斜；|<xxx>| 表示选项，|(xxx)| 表示默认选项。原来的
+% 括号用宏保存，并且使用直立字体。\env{syntax} 环境另需要额外调整行距、标点
+% 样式及字符间距。
 %    \begin{macrocode}
 \AtBeginEnvironment { syntax }
   {
@@ -1079,8 +1061,7 @@
 % \end{macro}
 %
 % \begin{variable}{\g_@@_version_date_prop}
-% 存放版本号与对应的修改日期。
-% key = 版本号，value = \{ 开始日期，结束日期 \}。
+% 存放版本号与对应的修改日期。其中键为版本号，值为 |{开始日期，结束日期}|。
 % 开始日期与结束日期可以相同。
 %    \begin{macrocode}
 \prop_new:N \g_@@_version_date_prop
@@ -1101,8 +1082,7 @@
       {#1} \l_@@_tmpa_tl
       {
 %    \end{macrocode}
-% \cs{l_@@_tmp_tl} 相当于两个参数（开始日期、结束日期），
-% 因此需要提前展开。
+% \cs{l_@@_tmp_tl} 相当于两个参数（开始日期、结束日期），因此需要提前展开。
 %    \begin{macrocode}
         \exp_after:wN
           \@@_save_version_date_aux:nnnn \l_@@_tmpa_tl
@@ -1171,8 +1151,8 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\CTEX@versionitem}
-% 版本条目标签。如果版本号不在 \cs{g_@@_version_date_prop} 的
-% key 里面，则利用未定义的 \cs{BOOM} 报错。
+% 版本条目标签。如果版本号不在 \cs{g_@@_version_date_prop} 里面，
+% 则利用未定义的 \cs{BOOM} 报错。
 %    \begin{macrocode}
 \cs_new_protected:Npn \CTEX@versionitem #1 \efill
   {
@@ -1214,9 +1194,8 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\HDorg@theglossary}
-% 该命令由 \pkg{hypdoc} 宏包定义，用于存放标准文档类 \cls{book}
-% 中定义的 \tn{theindex} 命令。
-% 此处的补丁将在版本号一行最后加上修改日期。
+% 该命令由 \pkg{hypdoc} 宏包定义，用于存放标准文档类 \cls{book} 中定义的
+% \tn{theindex} 命令。此处的补丁将在版本号一行最后加上修改日期。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \HDorg@theglossary
   { \let \item \@idxitem }
@@ -1362,13 +1341,21 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\HDorg@SpecialEnvIndex}
-% \pkg{hypdoc} 宏包重新定义了 \tn{SpecialEnvIndex} 命令，因此需要
-% 修改内部定义。
+% \pkg{hypdoc} 宏包重新定义了 \tn{SpecialEnvIndex} 命令，因此需要修改内部定义。
 %    \begin{macrocode}
 \ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
   { (environment) } { ~ 环境 }
 \ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
   { environments: } { 环境： }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\NAT@citexnum}
+% 将参考文献引用中的 hyphen 改为 en-dash。
+%    \begin{macrocode}
+\ctex_patch_cmd:Nnn \NAT@citexnum
+  { - \NAT@penalty }
+  { \textendash \NAT@penalty }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1379,7 +1366,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\list}
-% \cls{l3doc} 会设置列表环境中 \tn{listparindent} |=| \tn{z@}，
+% \cls{l3doc} 会在列表环境中设置 \kvopt{\tn{listparindent}}{\tn{z@}}，
 % 这里将其恢复。
 %    \begin{macrocode}
 \cs_set_eq:NN \list \@@_oldlist:nn
@@ -1396,11 +1383,10 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_function_assemble:}
-% 在 \cls{l3doc} 中，\env{function} 环境里的 \env{syntax} 和
-% \env{descr} 盒子中间存在一段 \tn{med\-skip\-amount} 的距离。
-% 但是如果 \env{syntax} 盒子为空（未使用 \env{syntax} 环境），
-% 就会显得不好看。此时通过把 \tn{medskipamount} 设置为零来修正。
-% 若盒子非空，则把 \tn{parskip} 还回去。
+% 在 \cls{l3doc} 中，\env{function} 环境里的 \env{syntax} 和 \env{descr} 盒子
+% 中间存在一段 \tn{med\-skip\-amount} 的距离。但是如果 \env{syntax} 盒子为空
+% （未使用 \env{syntax} 环境），就会显得不好看。此时通过把 \tn{medskipamount}
+% 设置为零来修正。若盒子非空，则把 \tn{parskip} 还回去。
 %    \begin{macrocode}
 \__fdudoc_preto_cmd:Nn \@@_function_assemble:
   {
@@ -1443,7 +1429,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_macro_end_style:n}
-% 禁止显示 \env{macro} 环境最后的 “(\emph{End definition for ...})”。
+% 不显示 \env{macro} 环境最后的 “(\emph{End definition for ...})”。
 %    \begin{macrocode}
 \cs_set_eq:NN \@@_macro_end_style:n \use_none:n
 %    \end{macrocode}
@@ -1482,9 +1468,8 @@
         \hbox_set:Nn \l_tmpa_box
           { \@@_print_macroname:nN {#1} #2 }
 %    \end{macrocode}
-% \tn{marginparwidth} 和 \tn{marginparsep} 分别是边注的宽度及其到
-% 版心的距离，\tn{la\-bel\-sep} 则是编号盒子右端与条目首行文本之间
-% 的距离。
+% \tn{marginparwidth} 和 \tn{marginparsep} 分别是边注的宽度及其到版心的距离，
+% \tn{la\-bel\-sep} 则是编号盒子右端与条目首行文本之间的距离。
 %    \begin{macrocode}
         \dim_set:Nn \l_tmpa_dim
           { \marginparwidth - \labelsep - \marginparsep }
@@ -1562,8 +1547,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_special_index_aux:nnnnnnn}
-% 该函数在 \cls{l3doc} 中本来只有 6 个参数。这里增加了一个，用来辅助
-% 排序。
+% 该函数在 \cls{l3doc} 中本来只有 6 个参数。这里增加了一个，用来辅助排序。
 % \begin{arguments}
 %   \item 键（即宏名称字符串，用来排序）
 %   \item 宏名称
@@ -1689,7 +1673,7 @@
     带下划线的数字表示定义对应索引项的代码行号；
     其他则表示使用对应索引项的代码行号。}}
 \def\IndexLayout{%
-  \newgeometry{%
+  \newgeometry{
     left   = 0.85 in,
     right  = 0.85 in,
     top    = 1.25 in,
@@ -1702,8 +1686,7 @@
 % \end{macro}
 %
 % \begin{macro}{\usage}
-% 控制“描述对应索引项的页码”样式。在 \pkg{doc} 宏包中的定义为
-% \tn{textit}。
+% 控制“描述对应索引项的页码”样式。在 \pkg{doc} 宏包中的定义为\tn{textit}。
 %    \begin{macrocode}
 % \def\usage#1{\textsf{#1}}
 %    \end{macrocode}
@@ -1717,25 +1700,30 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% 参考文献使用国标的顺序编码制。
+%    \begin{macrocode}
+\bibliographystyle{gbt7714-numerical}
+%    \end{macrocode}
+%
 % \changes{v0.7c}{2019/02/08}{修改宏包手册主要字体。}
 %
 % 西文字体。为兼容 macOS，系统字体需使用字体名，而 \TeXLive{}
 % 中的字体需使用文件名。
 %    \begin{macrocode}
-\setmainfont{LibertinusSerif}[%
+\setmainfont{LibertinusSerif}[
   Extension      = .otf,
   UprightFont    = *-Regular,
   BoldFont       = *-Bold,
   ItalicFont     = *-Italic,
   BoldItalicFont = *-BoldItalic,
   Scale          = 1.1]
-\setsansfont{IBMPlexSansCondensed}[%
+\setsansfont{IBMPlexSansCondensed}[
   Extension      = .otf,
   UprightFont    = *-Regular,
   BoldFont       = *-Bold,
   ItalicFont     = *-Italic,
   BoldItalicFont = *-BoldItalic]
-\setmonofont{Iosevka Slab}[%
+\setmonofont{Iosevka Slab}[
   UprightFont    = * Light,
   BoldFont       = * Semibold,
   ItalicFont     = * Light Oblique,
@@ -1746,13 +1734,13 @@
 %
 % 中文字体。
 %    \begin{macrocode}
-\setCJKmainfont{Source Han Serif SC}[%
+\setCJKmainfont{Source Han Serif SC}[
   ItalicFont     = FZKai-Z03,
   CharacterWidth = Full]
-\setCJKsansfont{Source Han Sans SC}[%
+\setCJKsansfont{Source Han Sans SC}[
   ItalicFont     = *,
   CharacterWidth = Full]
-\setCJKmonofont{Source Han Sans SC}[%
+\setCJKmonofont{Source Han Sans SC}[
   UprightFont    = * Normal,
   BoldFont       = * Bold,
   AutoFakeSlant  = 0.1763,  % = tan(10 deg)
@@ -1762,7 +1750,7 @@
 %
 % 版式排版格式。
 %    \begin{macrocode}
-\ctexset{%
+\ctexset{
   section/name        = {第,节},
   section/format+     = \raggedright,
   paragraph/runin     = false,
@@ -1776,7 +1764,7 @@
 %
 % 单位设置（\pkg{siunitx} 宏包）。
 %    \begin{macrocode}
-\sisetup{%
+\sisetup{
   inter-unit-product = \ensuremath{{}\cdot{}},
   range-phrase       = {--},
   uncertainty-mode   = separate}
@@ -1784,7 +1772,7 @@
 %
 % 超链接设置（\pkg{hyperref} 宏包）。
 %    \begin{macrocode}
-\hypersetup{%
+\hypersetup{
   bookmarksdepth    = 4,
   bookmarksnumbered = true,
   colorlinks        = true,
@@ -1803,7 +1791,7 @@
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 %    \end{macrocode}
 %
-% 设置标准列表环境样式。
+% 设置标准列表环境样式（\pkg{enumitem} 宏包）。
 %    \begin{macrocode}
 \setlist{noitemsep, topsep=\smallskipamount}
 \setlist[1]{labelindent=\parindent}
@@ -1812,11 +1800,10 @@
 %    \end{macrocode}
 %
 % \begin{environment}{optdesc}
-% 用于描述各选项。设置条目间距为 \tn{marginparsep}，与
-% \cls{l3doc} 一致。
+% 用于描述各选项。设置条目间距为 \tn{marginparsep}，与 \cls{l3doc} 一致。
 %    \begin{macrocode}
 \newlist{optdesc}{description}{3}
-\setlist[optdesc]{%
+\setlist[optdesc]{
   font          = \mdseries\small\ttfamily,
   align         = right,
   listparindent = \parindent,
@@ -1829,11 +1816,11 @@
 %^^A TODO: \begin{environment}{tablenotes}
 % \begin{macro}{tablenotes}
 % \begin{macro}[int]{tpt@id}
-% 重新定义 \pkg{threeparttable} 包的 \env{tablenotes} 环境，
-% 用于表格的注释。此处设定为悬挂缩进。
+% 重新定义 \pkg{threeparttable} 包的 \env{tablenotes} 环境，用于表格注释。
+% 此处设定为悬挂缩进。
 %    \begin{macrocode}
 \renewlist{tablenotes}{description}{1}
-\setlist[tablenotes]{%
+\setlist[tablenotes]{
   format      = \normalfont\itshape\tnote@item,
   labelwidth  = 0.5em,
   itemindent  = 0pt,
@@ -1955,7 +1942,7 @@
 % \begin{macro}{\syntaxopt,\defaultval}
 % \begin{macro}[int]{\syntaxopt@aux,\defaultval@aux}
 % \env{syntax} 中的选项及命令选项。
-% |aux| 结尾的两个命令用于定义利用 |<>| 和 |()| 的简写形式。
+% |@aux| 结尾的两个命令用于定义利用 |<>| 和 |()| 的简写形式。
 %    \begin{macrocode}
 \def\syntaxopt#1{\textit{#1}}
 \def\defaultval#1{\textbf{\textup{#1}}}
@@ -1977,13 +1964,11 @@
 % \end{macro}
 %
 % \begin{environment}{arguments}
-% 放在 \env{macro} 环境中，用于描述对应命令的参数。
-% \cls{l3doc} 中的定义 \opt{labelsep} 设置不太合理，会使标签被覆盖，
-% 这里重新定义。
+% 放在 \env{macro} 环境中，用于描述对应命令的参数。\cls{l3doc} 中的定义
+% \opt{labelsep} 设置不太合理，会使标签被覆盖，这里重新定义。
 %    \begin{macrocode}
 \DeclareDocumentEnvironment{arguments}{}
-  {\enumerate[%
-    label={\texttt{\#\arabic*:~}}, labelsep=0pt, nolistsep]}%
+  {\enumerate[label={\texttt{\#\arabic*:~}}, labelsep=0pt, nolistsep]}
   {\endenumerate}
 %    \end{macrocode}
 % \end{environment}
@@ -2005,7 +1990,6 @@
 \def\AmSLaTeX{\hologo{AmSLaTeX}}
 \def\TeXLive{\TeX\ Live}
 \def\MiKTeX{\hologo{MiKTeX}}
-\def\BibTeX{\hologo{BibTeX}}
 \def\BibTeX{\hologo{BibTeX}}
 \def\biber{\hologo{biber}}
 %    \end{macrocode}
@@ -2053,7 +2037,7 @@
 % \pkg{listings} 宏包中连字符 |-| 原本以数学模式输出，此处改为普通文本。
 % 见 \url{https://tex.stackexchange.com/a/33188}。
 %    \begin{macrocode}
-\lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
+\lst@CCPutMacro\lst@ProcessOther{"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
 %    \end{macrocode}
 %
@@ -2063,68 +2047,64 @@
 % 定义几种代码样式。
 % \begin{macro}[int]{style@base}
 %    \begin{macrocode}
-\lstdefinestyle{style@base}
-  {
-    basewidth       = 0.5 em,
-    gobble          = 3,
-    lineskip        = 2 pt,
-    frame           = l,
-    framerule       = 1 pt,
-    framesep        = 0 pt,
-    escapeinside    = {(*}{*)},
-    basicstyle      = \small\ttfamily\color{MaterialGrey900},
-    keywordstyle    = \bfseries\color{MaterialIndigo},
-    commentstyle    = \itshape\color{MaterialGrey600},
-    stringstyle     = \color{MaterialRed},
-    backgroundcolor = \color{MaterialGrey50}
-  }
+\lstdefinestyle{style@base}{
+  basewidth       = 0.5 em,
+  gobble          = 3,
+  lineskip        = 2 pt,
+  frame           = l,
+  framerule       = 1 pt,
+  framesep        = 0 pt,
+  escapeinside    = {(*}{*)},
+  basicstyle      = \small\ttfamily\color{MaterialGrey900},
+  keywordstyle    = \bfseries\color{MaterialIndigo},
+  commentstyle    = \itshape\color{MaterialGrey600},
+  stringstyle     = \color{MaterialRed},
+  backgroundcolor = \color{MaterialGrey50}
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[int]{style@shell}
 %    \begin{macrocode}
-\lstdefinestyle{style@shell}
-  {
-    style      = style@base,
-    rulecolor  = \color{MaterialPink},
-    language   = bash,
-    alsoletter = {-},
-    emphstyle  = \color{MaterialGreen800}
-  }
+\lstdefinestyle{style@shell}{
+  style      = style@base,
+  rulecolor  = \color{MaterialPink},
+  language   = bash,
+  alsoletter = {-},
+  emphstyle  = \color{MaterialGreen800}
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[int]{style@latex}
 %    \begin{macrocode}
-\lstdefinestyle{style@latex}
-  {
-    style      = style@base,
-    rulecolor  = \color{MaterialIndigo},
-    language   = [LaTeX]TeX,
-    alsoletter = {*, -},
-    texcsstyle = *\color{MaterialDeepOrange},
-    emphstyle  = [1]\color{MaterialGreen800},
-    emphstyle  = [2]\color{MaterialTeal}
-  }
+\lstdefinestyle{style@latex}{
+  style      = style@base,
+  rulecolor  = \color{MaterialIndigo},
+  language   = [LaTeX]TeX,
+  alsoletter = {*, -},
+  texcsstyle = *\color{MaterialDeepOrange},
+  emphstyle  = [1]\color{MaterialGreen800},
+  emphstyle  = [2]\color{MaterialTeal}
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[int]{style@syntax}
 %    \begin{macrocode}
-\lstdefinestyle{style@syntax}
-  {
-    basewidth     = 0.5 em,
-    gobble        = 6,
-    escapeinside  = {(*}{*)},
-    language      = [LaTeX]TeX,
-    alsoletter    = {*, -},
-    basicstyle    = \footnotesize\ttfamily\color{MaterialGrey900},
-    keywordstyle  = \bfseries\color{MaterialIndigo},
-    commentstyle  = \itshape\color{MaterialGrey600},
-    texcsstyle    = *\color{MaterialDeepOrange},
-    emphstyle     = [1]\color{MaterialGreen800},
-    emphstyle     = [2]\color{MaterialTeal}
-  }
+\lstdefinestyle{style@syntax}{
+  basewidth     = 0.5 em,
+  gobble        = 6,
+  escapeinside  = {(*}{*)},
+  language      = [LaTeX]TeX,
+  alsoletter    = {*, -},
+  basicstyle    = \footnotesize\ttfamily\color{MaterialGrey900},
+  keywordstyle  = \bfseries\color{MaterialIndigo},
+  commentstyle  = \itshape\color{MaterialGrey600},
+  texcsstyle    = *\color{MaterialDeepOrange},
+  emphstyle     = [1]\color{MaterialGreen800},
+  emphstyle     = [2]\color{MaterialTeal}
+}
 %    \end{macrocode}
 % \end{macro}
 %

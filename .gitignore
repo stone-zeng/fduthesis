@@ -38,21 +38,12 @@
 *.pdf
 *.xdv
 
-# GitHub Pages
-docs/_site/
-docs/.sass-cache/
-docs/images/font-samples/
-docs/.jekyll-metadata
-docs/Gemfile.lock
-
 # Folders
-.vs/
 .vscode/
 build/
 logo/
 release/
 support/
-TDS/
 temp/
 thesis/
 tools/
@@ -60,12 +51,9 @@ tools/
 # Other
 .DS_Store
 *.bat
-*.json
-*.txt
-docs/tex/images/
+*.zip
 source/*.md
 source/*.sh
 source/*.tex
 test/*.sh
 test/latexmkrc
-test/dtxtest/
