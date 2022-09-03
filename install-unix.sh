@@ -3,9 +3,9 @@
 mkdir -p "thesis"
 cd "thesis"
 
-cp -f "../docs/fduthesis-template.tex"            .
-cp -f "../docs/fduthesis-template.bib"            .
-cp -f "../docs/fduthesis-template-image.png"      .
+cp -f "../docs/main.tex"                          .
+cp -f "../docs/main.bib"                          .
+cp -f "../docs/example-image.png"                 .
 cp -f "../source/fduthesis.dtx"                   .
 cp -f "../source/fduthesis-doc.dtx"               .
 cp -f "../source/fduthesis-logo.dtx"              .

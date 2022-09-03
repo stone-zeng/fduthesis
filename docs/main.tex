@@ -30,7 +30,7 @@
 %   5. 不需要的注释可以尽情删除
 %*********************************************************************
 
-\documentclass{fduthesis}
+\documentclass[type=doctor]{fduthesis}
 % 模板选项：
 %   type = doctor|master|bachelor  论文类型，默认为本科论文
 %   oneside|twoside                论文的单双面模式，默认为 twoside
@@ -126,7 +126,7 @@
     % 默认为空，即与参考文献样式保持一致
     % 仅适用于 biblatex；如要填写，需保证相应的 .cbx 格式文件能被调用
     %
-    bib-resource = {fduthesis-template.bib},
+    bib-resource = {main.bib},
     % 参考文献数据源
     % 可以是单个文件，也可以是用英文逗号 “,” 隔开的一组文件
     % 如果使用 biblatex，则必须明确给出 .bib 后缀名
@@ -349,7 +349,7 @@ $\ket{\downarrow}$。
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.5\textwidth]{fduthesis-template-image.png}
+  \includegraphics[width=0.5\textwidth]{example-image.png}
   \caption[施特恩—格拉赫实验]{%
     设定施特恩—格拉赫实验仪器的磁场方向为 $z$-轴，入射的银原子束可以被分裂成两道银原子束，每一道
     银原子束代表一种量子态，上旋 $\ket{\uparrow}$ 或下旋 $\ket{\downarrow}$%
