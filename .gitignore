@@ -41,16 +41,11 @@
 # Folders
 .vscode/
 build/
-logo/
 release/
-support/
-temp/
 thesis/
-tools/
 
 # Other
 .DS_Store
-*.bat
 *.zip
 source/*.md
 source/*.sh
