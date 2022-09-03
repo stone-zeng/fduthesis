@@ -343,7 +343,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 。
-.....\glue 6.0225
+.....\glue 6.0225 minus 6.0225
 .....\norule(10.5996+1.4454)x0.0
 .....\LTJY3/FandolSong(0)/m/it/12.045 论
 .....\glue 0.0 plus 0.59575
@@ -465,7 +465,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 。
-.....\glue 6.0225
+.....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 对
 .....\glue 0.0 plus 0.59575
@@ -582,7 +582,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 。
-.....\glue 6.0225
+.....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 本
 .....\glue 0.0 plus 0.59575
@@ -794,7 +794,7 @@ Completed box being shipped out [3]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 13.24953
-....\hbox(10.5996+1.4454)x416.54877, glue set - 0.33383, direction TLT
+....\hbox(10.5996+1.4454)x416.54877, glue set - 0.2782, direction TLT
 .....\whatsit4=[]
 .....\localpar
 ......\localinterlinepenalty=0
@@ -862,7 +862,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 、
-.....\glue 6.0225 minus 3.01125
+.....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 硕
 .....\glue 0.0 plus 0.59575
@@ -926,7 +926,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 、
-.....\glue 6.0225 minus 3.01125
+.....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 使
 .....\glue 0.0 plus 0.59575
@@ -1013,7 +1013,7 @@ Completed box being shipped out [3]
 ......\LTJY3/FandolSong(0)/m/it/12.045 允
 .....\glue(\rightskip) 0.0
 ....\glue(\baselineskip) 13.97223
-....\hbox(10.5996+1.4454)x416.54877, glue set - 0.33383, direction TLT
+....\hbox(10.5996+1.4454)x416.54877, glue set - 0.2782, direction TLT
 .....\whatsit4=[]
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 许
@@ -1119,7 +1119,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 、
-.....\glue 6.0225 minus 3.01125
+.....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 缩
 .....\glue(\rightskip) 0.0
@@ -1166,7 +1166,7 @@ Completed box being shipped out [3]
 .....\glue 0.0 plus 0.59575
 .....\hbox(10.5996+1.4454)x6.0225, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 。
-.....\glue 6.0225
+.....\glue 6.0225 minus 6.0225
 .....\hbox(10.5996+1.4454)x12.045, direction TLT
 ......\LTJY3/FandolSong(0)/m/it/12.045 涉
 .....\glue 0.0 plus 0.59575

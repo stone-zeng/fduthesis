@@ -32,7 +32,9 @@ Completed box being shipped out [1]
 ....\special{pdf:dest (chapter*.1) [@thispage /XYZ @xpos @ypos null]}
 ....\write4{\protect \BOOKMARK [0][-]{chapter*.1}{\376\377\000A\000b\000s\000t\00\ETC.}
 ....\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \bfseries  \ETC.}
-....\mark{{\protect \MakeUppercase  {Abstract}}{}}
+....\marks1{\MakeUppercase  {Abstract}}
+....\marks2{\prg_do_nothing: }
+....\mark{{\MakeUppercase  {Abstract}}{}}
 ....\write1{\@writefile{lof}{\protect \addvspace {10.0pt}}}
 ....\write1{\@writefile{lot}{\protect \addvspace {10.0pt}}}
 ....\glue(\topskip) 12.0
@@ -52,6 +54,9 @@ Completed box being shipped out [1]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\penalty 10000
 ....\glue 40.0 plus -1.0
+....\marks1{Abstract}
+....\marks2{Abstract}
+....\marks3{Abstract}
 ....\mark{{Abstract}{Abstract}}
 ....\penalty 10000
 ....\glue(\parskip) 0.0 plus 1.0
@@ -59,12 +64,8 @@ Completed box being shipped out [1]
 ....\hbox(8.22673+2.6258)x416.54877, glue set 321.4126fil
 .....\hbox(0.0+0.0)x18.0
 .....\TU/XITS(0)/m/n/12.045 English
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 3.01125 plus 1.50562 minus 1.00374
 .....\TU/XITS(0)/m/n/12.045 abstract
-.....\kern -0.00021
-.....\kern 0.00021
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
@@ -88,24 +89,14 @@ Completed box being shipped out [1]
 ......\hbox(8.22673+2.6258)x349.20518, glue set 182.53856fil
 .......\hbox(0.0+0.0)x0.0
 .......\TU/XITS(0)/m/n/12.045 Keyword
-.......\kern -0.00021
-.......\kern 0.00021
 .......\glue 3.01125 plus 1.50562 minus 1.00374
 .......\TU/XITS(0)/m/n/12.045 1;
-.......\kern -0.00021
-.......\kern 0.00021
 .......\glue 3.01125 plus 2.25842 minus 0.66916
 .......\TU/XITS(0)/m/n/12.045 keyword
-.......\kern -0.00021
-.......\kern 0.00021
 .......\glue 3.01125 plus 1.50562 minus 1.00374
 .......\TU/XITS(0)/m/n/12.045 2;
-.......\kern -0.00021
-.......\kern 0.00021
 .......\glue 3.01125 plus 2.25842 minus 0.66916
 .......\TU/XITS(0)/m/n/12.045 keyword
-.......\kern -0.00021
-.......\kern 0.00021
 .......\glue 3.01125 plus 1.50562 minus 1.00374
 .......\TU/XITS(0)/m/n/12.045 3
 .......\kern -0.0002
@@ -121,8 +112,6 @@ Completed box being shipped out [1]
 ....\glue(\baselineskip) 3.50511
 ....\hbox(8.32309+0.22884)x416.54877, glue set 301.66357fil
 .....\TU/XITS(0)/b/n/12.045 CLC
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 3.01125 plus 1.5041 minus 1.00473
 .....\TU/XITS(0)/b/n/12.045 code:
 .....\kern -0.0002
@@ -214,7 +203,9 @@ Completed box being shipped out [3]
 ....\special{pdf:dest (chapter*.2) [@thispage /XYZ @xpos @ypos null]}
 ....\write4{\protect \BOOKMARK [0][-]{chapter*.2}{\376\377\000L\000i\000s\000t\00\ETC.}
 ....\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \bfseries  \ETC.}
-....\mark{{\protect \MakeUppercase  {List of Symbols}}{}}
+....\marks1{\MakeUppercase  {List of Symbols}}
+....\marks2{\prg_do_nothing: }
+....\mark{{\MakeUppercase  {List of Symbols}}{}}
 ....\write1{\@writefile{lof}{\protect \addvspace {10.0pt}}}
 ....\write1{\@writefile{lot}{\protect \addvspace {10.0pt}}}
 ....\glue(\topskip) 12.0
@@ -227,12 +218,8 @@ Completed box being shipped out [3]
 ....\hbox(16.67027+4.93843)x416.54877, glue set 128.71716fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\TU/XITS(0)/b/n/24.09 List
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 6.0225 plus 3.01125 minus 2.00749
 .....\TU/XITS(0)/b/n/24.09 of
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 6.0225 plus 3.01125 minus 2.00749
 .....\TU/XITS(0)/b/n/24.09 Symbols
 .....\kern -0.0002
@@ -242,6 +229,9 @@ Completed box being shipped out [3]
 .....\glue(\rightskip) 0.0 plus 1.0fil
 ....\penalty 10000
 ....\glue 40.0 plus -1.0
+....\marks1{List of Symbols}
+....\marks2{List of Symbols}
+....\marks3{List of Symbols}
 ....\mark{{List of Symbols}{List of Symbols}}
 ....\penalty 10000
 ....\penalty 0
@@ -268,8 +258,6 @@ Completed box being shipped out [3]
 ........\hbox(0.0+0.0)x0.0
 ........\rule(13.1531+*)x0.0
 ........\TU/XITS(0)/m/n/12.045 Coordinate
-........\kern -0.00021
-........\kern 0.00021
 ........\penalty 10000
 ........\rule(0.0+5.6371)x0.0
 ........\penalty 10000
@@ -298,8 +286,6 @@ Completed box being shipped out [3]
 ........\hbox(0.0+0.0)x0.0
 ........\rule(13.1531+*)x0.0
 ........\TU/XITS(0)/m/n/12.045 Momentum
-........\kern -0.00021
-........\kern 0.00021
 ........\penalty 10000
 ........\rule(0.0+5.6371)x0.0
 ........\penalty 10000
@@ -332,12 +318,8 @@ Completed box being shipped out [3]
 ........\hbox(0.0+0.0)x0.0
 ........\rule(13.1531+*)x0.0
 ........\TU/XITS(0)/m/n/12.045 Wave
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 function
-........\kern -0.00021
-........\kern 0.00021
 ........\penalty 10000
 ........\rule(0.0+5.6371)x0.0
 ........\penalty 10000
@@ -368,21 +350,13 @@ Completed box being shipped out [3]
 ........\hbox(0.0+0.0)x0.0
 ........\rule(13.1531+*)x0.0
 ........\TU/XITS(0)/m/n/12.045 Dirac
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 notation
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 —
 ........\discretionary
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 bra
-........\kern -0.00021
-........\kern 0.00021
 ........\penalty 10000
 ........\rule(0.0+5.6371)x0.0
 ........\penalty 10000
@@ -413,21 +387,13 @@ Completed box being shipped out [3]
 ........\hbox(0.0+0.0)x0.0
 ........\rule(13.1531+*)x0.0
 ........\TU/XITS(0)/m/n/12.045 Dirac
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 notation
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 —
 ........\discretionary
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 ket
-........\kern -0.00021
-........\kern 0.00021
 ........\penalty 10000
 ........\rule(0.0+5.6371)x0.0
 ........\penalty 10000
@@ -462,12 +428,8 @@ Completed box being shipped out [3]
 ........\hbox(0.0+0.0)x0.0
 ........\rule(13.1531+*)x0.0
 ........\TU/XITS(0)/m/n/12.045 Inner
-........\kern -0.00021
-........\kern 0.00021
 ........\glue 3.01125 plus 1.50562 minus 1.00374
 ........\TU/XITS(0)/m/n/12.045 product
-........\kern -0.00021
-........\kern 0.00021
 ........\penalty 10000
 ........\rule(0.0+5.6371)x0.0
 ........\penalty 10000
@@ -561,7 +523,9 @@ Completed box being shipped out [1]
 ....\special{pdf:dest (chapter.1) [@thispage /XYZ @xpos @ypos null]}
 ....\write4{\protect \BOOKMARK [0][-]{chapter.1}{\376\377\000C\000h\000a\000p\000\ETC.}
 ....\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \bfseries  \ETC.}
-....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
+....\marks1{\MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}
+....\marks2{\prg_do_nothing: }
+....\mark{{\MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{}}
 ....\write1{\@writefile{lof}{\protect \addvspace {10.0pt}}}
 ....\write1{\@writefile{lot}{\protect \addvspace {10.0pt}}}
 ....\glue(\topskip) 12.0
@@ -574,8 +538,6 @@ Completed box being shipped out [1]
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\TU/XITS(0)/b/n/22.08249 Chapter
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 5.52063 plus 2.76031 minus 1.84021
 .....\TU/XITS(0)/b/n/22.08249 1
 .....\kern -0.0002
@@ -592,8 +554,6 @@ Completed box being shipped out [1]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\hbox(0.0+0.0)x0.0
 .....\TU/XITS(0)/b/n/24.09 First
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 6.0225 plus 3.01125 minus 2.00749
 .....\TU/XITS(0)/b/n/24.09 chapter
 .....\kern -0.0002
@@ -616,8 +576,6 @@ Completed box being shipped out [1]
 ......\kern 0.0002
 ......\glue 18.06749
 .....\TU/XITS(0)/b/n/18.06749 First
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 4.51688 plus 2.25844 minus 1.50562
 .....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
@@ -625,7 +583,9 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
-....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
+....\marks2{\MakeUppercase  {1.1\hskip 1em\relax First section}}
+....\marks3{\MakeUppercase  {1.1\hskip 1em\relax First section}}
+....\mark{{\MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\MakeUppercase  \ETC.}
 ....\penalty 10000
 ....\write4{\protect \BOOKMARK [1][-]{section.1.1}{\376\377\0001\000.\0001\000\04\ETC.}
 ....\penalty 10000
@@ -646,8 +606,6 @@ Completed box being shipped out [1]
 ......\kern 0.0002
 ......\glue 18.06749
 .....\TU/XITS(0)/b/n/18.06749 Second
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 4.51688 plus 2.25844 minus 1.50562
 .....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
@@ -655,7 +613,9 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
-....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
+....\marks2{\MakeUppercase  {1.2\hskip 1em\relax Second section}}
+....\marks3{\MakeUppercase  {1.2\hskip 1em\relax Second section}}
+....\mark{{\MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\MakeUppercase  \ETC.}
 ....\penalty 10000
 ....\write4{\protect \BOOKMARK [1][-]{section.1.2}{\376\377\0001\000.\0002\000\04\ETC.}
 ....\penalty 10000
@@ -676,8 +636,6 @@ Completed box being shipped out [1]
 ......\kern 0.0002
 ......\glue 18.06749
 .....\TU/XITS(0)/b/n/18.06749 Third
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 4.51688 plus 2.25844 minus 1.50562
 .....\TU/XITS(0)/b/n/18.06749 section
 .....\kern -0.0002
@@ -685,7 +643,9 @@ Completed box being shipped out [1]
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0 plus 1.0fil
-....\mark{{\protect \MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\ETC.}
+....\marks2{\MakeUppercase  {1.3\hskip 1em\relax Third section}}
+....\marks3{\MakeUppercase  {1.3\hskip 1em\relax Third section}}
+....\mark{{\MakeUppercase  {Chapter 1\hskip 1em\relax First chapter}}{\MakeUppercase  \ETC.}
 ....\penalty 10000
 ....\write4{\protect \BOOKMARK [1][-]{section.1.3}{\376\377\0001\000.\0003\000\04\ETC.}
 ....\penalty 10000
@@ -774,7 +734,9 @@ Completed box being shipped out [3]
 ....\special{pdf:dest (chapter.2) [@thispage /XYZ @xpos @ypos null]}
 ....\write4{\protect \BOOKMARK [0][-]{chapter.2}{\376\377\000C\000h\000a\000p\000\ETC.}
 ....\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \bfseries  \ETC.}
-....\mark{{\protect \MakeUppercase  {Chapter 2\hskip 1em\relax Second chapter}}\ETC.}
+....\marks1{\MakeUppercase  {Chapter 2\hskip 1em\relax Second chapter}}
+....\marks2{\prg_do_nothing: }
+....\mark{{\MakeUppercase  {Chapter 2\hskip 1em\relax Second chapter}}{}}
 ....\write1{\@writefile{lof}{\protect \addvspace {10.0pt}}}
 ....\write1{\@writefile{lot}{\protect \addvspace {10.0pt}}}
 ....\glue(\topskip) 12.0
@@ -787,8 +749,6 @@ Completed box being shipped out [3]
 ....\hbox(15.259+4.5269)x416.54877, glue set 160.86328fil
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\TU/XITS(0)/b/n/22.08249 Chapter
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 5.52063 plus 2.76031 minus 1.84021
 .....\TU/XITS(0)/b/n/22.08249 2
 .....\kern -0.0002
@@ -805,8 +765,6 @@ Completed box being shipped out [3]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\hbox(0.0+0.0)x0.0
 .....\TU/XITS(0)/b/n/24.09 Second
-.....\kern -0.00021
-.....\kern 0.00021
 .....\glue 6.0225 plus 3.01125 minus 2.00749
 .....\TU/XITS(0)/b/n/24.09 chapter
 .....\kern -0.0002
