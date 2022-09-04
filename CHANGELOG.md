@@ -4,6 +4,8 @@
 
 ## [[未发布]]
 
+## [v0.8 (2022-09-04)]
+
 - 新增
   - 新增 `info/jel` 选项 - [#192]
   - 新增 `style/declaration-page` 选项用来插入扫描版的声明页 PDF 文档 - [#50]
@@ -36,6 +38,7 @@
   - `info/clc`、`info/jel` 为空时不再显示对应的分类号 - [#100]、[#226]
   - 不再使用 `\CheckSum` 和 `\CharacterTable` 检查 dtx 文件完整性
   - 将 GitHub 主分支由 `master` 重命名为 `main`
+  - 在发行版中移除空白模板 `fduthesis-template.tex`，GitHub/Overleaf 中则重命名为 `main.tex`
 - 优化
   - 简化单页模式下页眉的实现方式 - [#233]
     - 感谢 [@atxy-blip]！
@@ -192,7 +195,8 @@
 
 [Keep a Changelog]: https://keepachangelog.com
 
-[未发布]: https://github.com/stone-zeng/fduthesis/compare/v0.7e...main
+[未发布]: https://github.com/stone-zeng/fduthesis/compare/v0.8...main
+[v0.8 (2022-09-04)]: https://github.com/stone-zeng/fduthesis/compare/v0.7e...v0.8
 [v0.7e (2020-08-30)]: https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e
 [v0.7d (2019-04-03)]: https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d
 [v0.7c (2019-03-17)]: https://github.com/stone-zeng/fduthesis/compare/v0.7b...v0.7c
@@ -209,7 +213,6 @@
 [#5]: https://github.com/stone-zeng/fduthesis/issues/5
 [#12]: https://github.com/stone-zeng/fduthesis/issues/12
 [#17]: https://github.com/stone-zeng/fduthesis/issues/17
-[#18]: https://github.com/stone-zeng/fduthesis/issues/18
 [#18]: https://github.com/stone-zeng/fduthesis/issues/18
 [#19]: https://github.com/stone-zeng/fduthesis/issues/19
 [#20]: https://github.com/stone-zeng/fduthesis/issues/20
@@ -236,7 +239,6 @@
 [#93]: https://github.com/stone-zeng/fduthesis/issues/93
 [#100]: https://github.com/stone-zeng/fduthesis/issues/100
 [#114]: https://github.com/stone-zeng/fduthesis/issues/114
-[#127]: https://github.com/stone-zeng/fduthesis/issues/127
 [#127]: https://github.com/stone-zeng/fduthesis/issues/127
 [#150]: https://github.com/stone-zeng/fduthesis/issues/150
 [#156]: https://github.com/stone-zeng/fduthesis/issues/156
