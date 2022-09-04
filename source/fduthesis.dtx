@@ -21,7 +21,6 @@
 % This work consists of the files fduthesis.dtx,
 %                                 fduthesis-doc.dtx,
 %                                 fduthesis-logo.dtx,
-%                                 fduthesis-template.tex,
 %           and the derived files fduthesis.ins,
 %                                 fduthesis.cls,
 %                                 fduthesis-en.cls,
@@ -161,7 +160,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
     This work consists of the files fduthesis.dtx,
                                     fduthesis-doc.dtx,
                                     fduthesis-logo.dtx,
-                                    fduthesis-template.tex,
               and the derived files fduthesis.ins,
                                     fduthesis.cls,
                                     fduthesis-en.cls,
@@ -510,6 +508,8 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A
 %
 % \subsubsection{开发版本}
+%^^A! \subsubsection{Development version}
+%^^A!
 %
 % CTAN 上仅提供了 \cls{fduthesis} 的稳定版，其更新可能较为滞后，一些 bug 常常不能得到及时修复。
 % 如果需要使用开发版（托管在 GitHub 上），可以使用模板提供的安装脚本：
@@ -523,11 +523,30 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \item 执行 \file{install-win.bat}（Windows 系统）或 \file{install-linux.sh}（Linux 或 macOS
 %     系统），所有需要的文件便会在 \file{thesis} 文件夹中生成。
 % \end{itemize}
+%^^A! On CTAN, only the stable version of \cls{fduthesis} is provided, where new features and
+%^^A! bug fixes may not be included in time. To use the latest development version on GitHub,
+%^^A! you can use the install script:
+%^^A! \begin{itemize}
+%^^A!   \item Open the project's \href{https://github.com/stone-zeng/fduthesis}{homepage}, click
+%^^A!     ``Code'' button and choose ``Download ZIP'' to download \file{fduthesis-main.zip}.
+%^^A!     If you have git program on your computer, you can also clone the repository directly:
+%^^A!     \begin{shellexample}[gobble=5,alsoletter={.},morekeywords={git,clone}]
+%^^A!       git clone https://github.com/stone-zeng/fduthesis.git
+%^^A!     \end{shellexample}
+%^^A!   \item Run \file{install-win.bat} (on Windows) or \file{install-linux.sh} (on Linux),
+%^^A!     then all the necessary files will be found in the \file{thesis} folder.
+%^^A! \end{itemize}
+%^^A!
 %
 % \subsubsection{Overleaf}
+%^^A! \subsubsection{Overleaf}
+%^^A!
 %
 % \cls{fduthesis} 也提供了 \href{https://www.overleaf.com/latex/templates/fduthesis-latex-thesis-template-for-fudan-university/svtdhhstkmkt}{Overleaf 的版本}，
 % 打开链接并登录后即可直接编辑。
+%^^A! \cls{fduthesis} also provides the \href{https://www.overleaf.com/latex/templates/fduthesis-latex-thesis-template-for-fudan-university/svtdhhstkmkt}{Overleaf version}.
+%^^A! You can follow the link and login to edit directly on the web.
+%^^A!
 %
 % \subsection{模板组成}
 %^^A! \subsection{Composition of the template}
@@ -567,8 +586,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %         \file{fduthesis-en.pdf}     & 英文用户手册 \\
 %         \file{fduthesis-code.pdf}   & 模板实现代码 \\
 %       \fi
-%       \file{fduthesis-template.tex} & 空白模板，可据此为基础完成论文
-%         撰写 \\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
@@ -594,8 +611,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \file{fduthesis-en.pdf}       & User's guide in English (this
 %^^A!         document). \\
 %^^A!       \file{fduthesis-code.pdf}     & Code implementation. \\
-%^^A!       \file{fduthesis-template.tex} & An empty thesis template, and you can
-%^^A!         write your thesis based on it. \\
 %^^A!     \bottomrule
 %^^A!   \end{tabular}
 %^^A! \end{table}
@@ -1147,12 +1162,12 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{function}{style/footnote-style}
 %^^A 这里奇怪的东西是用来控制对齐的。fdusyntax 会吃掉开头的几个
-%^^A 空格，因此这里用 X 来占位。
+%^^A 空格，因此这里用 . 来占位。
 %   \begin{fdusyntax}[emph={[1]footnote-style}]
 %     footnote-style = (*<plain|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
-%       XXXXXX\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%       ......\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%       ......\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%       ......\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
 %   \end{fdusyntax}
 %   设置脚注编号样式。西文字体设置会影响其默认取值（见
 %   表~\ref{tab:footnote-font}）。因此，要使得该选项生效，需将其
@@ -1162,9 +1177,9 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \begin{function}{style/footnote-style}
 %^^A!   \begin{fdusyntax}[emph={[1]footnote-style}]
 %^^A!     footnote-style = (*<plain|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
-%^^A!       XXXX\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
+%^^A!       ....\mbox{}~~~~~~~~~~~~~~~~~libertinus|libertinus*|libertinus-sans|\\
+%^^A!       ....\mbox{}~~~~~~~~~~~~~~~~~pifont|pifont*|pifont-sans|pifont-sans*|\\
+%^^A!       ....\mbox{}~~~~~~~~~~~~~~~~~xits|xits-sans|xits-sans*>*)
 %^^A!   \end{fdusyntax}
 %^^A!   Set the style of footnote numbers. Note that western fonts
 %^^A!   will affect its default value (see table~\ref{tab:footnote-font}),
@@ -1425,14 +1440,16 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-%^^A+
 % \begin{function}[added=2021-09-21]{style/declaration-page}
 %   \begin{fdusyntax}[emph={[1]declaration-page}]
 %     declaration-page = (*\marg{文件}*)
 %   \end{fdusyntax}
-%^^A-
 %   插入扫描版的声明页 PDF 文档。如果为空（默认），则使用模板预定义的声明页。
 % \end{function}
+%^^A! \begin{function}[added=2021-09-21]{style/declaration-page}
+%^^A!   \begin{fdusyntax}[emph={[1]declaration-page}]
+%^^A!     declaration-page = (*\marg{file}*)
+%^^A!   \end{fdusyntax}
 %^^A!   Insert the scanned declaration page PDF file. If empty (default),
 %^^A!   then the pre-defined declaration page will be inserted.
 %^^A! \end{function}
@@ -1919,7 +1936,6 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \paragraph{参考文献引用}
 %^^A! \paragraph{Citations}
-%^^A! TODO: translation
 %
 % \begin{function}{\cite}
 %   \begin{fdusyntax}[deletetexcs={\cite},morekeywords={\cite}]
@@ -1931,13 +1947,28 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   用来标记引用。顺序编码制和著者—出版年制下的各种引用方式见
 %   表~\ref{tab:citation-numerical} 和表~\ref{tab:citation-author-year}。
 % \end{function}
+%^^A! \begin{function}{\cite}
+%^^A!   \begin{fdusyntax}[deletetexcs={\cite},morekeywords={\cite}]
+%^^A!     \cite(*\marg{bib key}*)
+%^^A!     \cite(*\oarg{page number}\marg{bib key}*)
+%^^A!   \end{fdusyntax}
+%^^A!   Insert citations. The optional argument \meta{page number} can be
+%^^A!   used to indicate the page number of the citation. The citation style
+%^^A!   varies among different bibliography styles. More commands are also
+%^^A!   provided to mark the citations, which can be found in
+%^^A!   table~\ref{tab:citation-numerical} (numerical style) and
+%^^A!   \ref{tab:citation-author-year} (author-year style).
+%^^A! \end{function}
+%^^A!
 %
+%^^A+
 % \NewDocumentCommand\verbcite{O{cite}om}{^^A
 %   \IfNoValueTF{#2}{^^A
 %     \texttt{\textbackslash#1\{#3\}}^^A
 %   }{^^A
 %     \texttt{\textbackslash#1[#2]\{#3\}}^^A
 %   }}
+%^^A-
 %
 % \begin{table}[ht]
 %   \caption{顺序编码制下的引用样式} \label{tab:citation-numerical}
@@ -1977,6 +2008,46 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \bottomrule
 %   \end{tabularx}
 % \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{Citations in numerical style} \label{tab:citation-numerical}
+%^^A!   \centering
+%^^A!   \small
+%^^A!   \def\C#1{\textcolor{MaterialGreen}{#1}}
+%^^A!   \begin{tabularx}{\textwidth}{cCll}
+%^^A!     \toprule
+%^^A!       \textbf{Styles} &
+%^^A!       \textbf{Results} &
+%^^A!       \textbf{\kvopt{bib-backend}{bibtex}} &
+%^^A!       \textbf{\kvopt{bib-backend}{biblatex}} \\
+%^^A!     \midrule
+%^^A!     Single &
+%^^A!       Text\textsuperscript{[\C1]} &
+%^^A!       \verbcite{texbook} &
+%^^A!       Same as left \\
+%^^A!     Multiple &
+%^^A!       Text\textsuperscript{[\C1--\C2]} &
+%^^A!       \verbcite{texbook,companion} &
+%^^A!       Same as left \\
+%^^A!     With page &
+%^^A!       Text\textsuperscript{[\C1]126--137} &
+%^^A!       \verbcite[cite][126--137]{texbook} &
+%^^A!       Same as left \\
+%^^A!     With author &
+%^^A!       Knuth\textsuperscript{[\C1]} states &
+%^^A!       \verbcite[citet]{texbook} &
+%^^A!       \verbcite[authornumcite]{texbook} \\
+%^^A!     With page and author &
+%^^A!       Knuth\textsuperscript{[\C1]42} states &
+%^^A!       \verbcite[citet][42]{texbook} &
+%^^A!       \verbcite[authornumcite][42]{texbook} \\
+%^^A!     No superscript &
+%^^A!       Text [\C1] &
+%^^A!       \verbcite[parencite]{texbook} &
+%^^A!       Same as left \\
+%^^A!     \bottomrule
+%^^A!   \end{tabularx}
+%^^A! \end{table}
+%^^A!
 %
 % \begin{table}[ht]
 %   \caption{著者—出版年制下的引用样式} \label{tab:citation-author-year}
@@ -2015,6 +2086,42 @@ Copyright (C) 2017&ndash;2022 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     \bottomrule
 %   \end{tabularx}
 % \end{table}
+%^^A! \begin{table}[ht]
+%^^A!   \caption{Citations in author-year style} \label{tab:citation-author-year}
+%^^A!   \centering
+%^^A!   \small
+%^^A!   \def\C#1{\textcolor{MaterialGreen}{#1}}
+%^^A!   \begin{tabularx}{\textwidth}{cCll}
+%^^A!     \toprule
+%^^A!       \textbf{Styles} &
+%^^A!       \textbf{Results} &
+%^^A!       \textbf{\kvopt{bib-backend}{bibtex}} &
+%^^A!       \textbf{\kvopt{bib-backend}{biblatex}} \\
+%^^A!     \midrule
+%^^A!     Single &
+%^^A!       (\C{Knuth}, \C{1986}) &
+%^^A!       \verbcite[citep]{texbook} &
+%^^A!       \verbcite{texbook} \\
+%^^A!     Multiple &
+%^^A!       (\C{Knuth}, \C{1986}; \C{Mittelbach et al.}, \C{2004}) &
+%^^A!       \verbcite[citep]{texbook,companion} &
+%^^A!       \verbcite{texbook,companion} \\
+%^^A!     With page &
+%^^A!       (\C{Knuth}, \C{1986})\textsuperscript{126--137} &
+%^^A!       \verbcite[citep][126--137]{texbook} &
+%^^A!       \verbcite[cite][126--137]{texbook} \\
+%^^A!     With author &
+%^^A!       \C{Knuth} (\C{1986}) &
+%^^A!       \verbcite[citet]{texbook} &
+%^^A!       Same as left \\
+%^^A!     With page and author &
+%^^A!       \C{Knuth} (\C{1986})\textsuperscript{42} &
+%^^A!       \verbcite[citet][42]{texbook} &
+%^^A!       Same as left \\
+%^^A!     \bottomrule
+%^^A!   \end{tabularx}
+%^^A! \end{table}
+%^^A!
 %
 % \paragraph{定理类环境}
 %^^A! \paragraph{Theorem-like environments}
