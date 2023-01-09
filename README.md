@@ -23,8 +23,6 @@
 - 附属宏包
   - `fdulogo.sty`
   - `fdudoc.cls`
-- 使用示例
-  - `fduthesis-template.tex`
 
 ### 使用示例
 
@@ -83,7 +81,7 @@
 
 ### 贡献
 
-如果您有任何改进意见或者功能需求，欢迎提交 [issue](https://github.com/stone-zeng/fduthesis/issues) 或 [pull request](https://github.com/stone-zeng/fduthesis/pulls)。
+如果您有任何改进意见或者功能需求，欢迎提交 [issues](https://github.com/stone-zeng/fduthesis/issues)、[pull requests](https://github.com/stone-zeng/fduthesis/pulls) 或 [discussions](https://github.com/stone-zeng/fduthesis/discussions)。
 
 ### 许可证
 
@@ -103,7 +101,7 @@ Before you using `fduthesis`, please read the document [fduthesis-en.pdf](http:/
 
 ### Components
 
-- Main template classes:
+- Main document classes:
   - `fduthesis.cls`
   - `fduthesis-en.cls`
 - Configuration file:
@@ -111,8 +109,6 @@ Before you using `fduthesis`, please read the document [fduthesis-en.pdf](http:/
 - Affiliated packages:
   - `fdulogo.sty`
   - `fdudoc.cls`
-- Demo:
-  - `fduthesis-template.tex`
 
 ### Sample
 
@@ -155,7 +151,7 @@ Before you using `fduthesis`, please read the document [fduthesis-en.pdf](http:/
 
 ### Contributing
 
-[Issues](https://github.com/stone-zeng/fduthesis/issues) and [pull requests](https://github.com/stone-zeng/fduthesis/pulls) are always welcome.
+[Issues](https://github.com/stone-zeng/fduthesis/issues), [pull requests](https://github.com/stone-zeng/fduthesis/pulls) and [discussions](https://github.com/stone-zeng/fduthesis/discussions) are always welcome.
 
 ### License
 
@@ -163,4 +159,4 @@ This work may be distributed and/or modified under the conditions of the [LaTeX 
 
 -----
 
-Copyright (C) 2017&ndash;2022 by Xiangdong Zeng.
+Copyright (C) 2017&ndash;2023 by Xiangdong Zeng.

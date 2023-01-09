@@ -11,10 +11,10 @@
   - 新增 `style/declaration-page` 选项用来插入扫描版的声明页 PDF 文档 - [#50]
 - 修复
   - 在使用前声明提示信息 - [#239]
-  - 修复超链接边框不显示的问题；不需要为 `hidelinks` 选项传递参数 - [#227]
-  - 允许在 `biblatex` 下使用多个数据源 - [#186]
   - 兼容 `addbibresource` 命令 - [#229]
     - 感谢 [@atxy-blip]！
+  - 修复超链接边框不显示的问题；不需要为 `hidelinks` 选项传递参数 - [#227]
+  - 允许在 `biblatex` 下使用多个数据源 - [#186]
   - 正确调用引用样式 - [#183]
   - 直接调用 `\thechapter` 使得附录中的图表编号正确显示 - [#166]
   - 判断 Libertinus Sans Bold Oblique 字体是否存在 - [#156]
@@ -252,6 +252,7 @@
 [#226]: https://github.com/stone-zeng/fduthesis/issues/226
 [#227]: https://github.com/stone-zeng/fduthesis/issues/227
 [#229]: https://github.com/stone-zeng/fduthesis/issues/229
+[#239]: https://github.com/stone-zeng/fduthesis/issues/239
 
 [#64]: https://github.com/stone-zeng/fduthesis/pull/64
 [#233]: https://github.com/stone-zeng/fduthesis/pull/233
