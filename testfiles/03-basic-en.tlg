@@ -173,6 +173,14 @@ Completed box being shipped out [2]
 ....\special{color push gray 0}
 ....\hbox(0.0+0.0)x416.54877
 ....\special{color pop}
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(2)/m/n' will be
+(Font)              scaled to size 9.03471pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(2)/m/n' will be
+(Font)              scaled to size 7.22777pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(3)/m/n' will be
+(Font)              scaled to size 9.03278pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular.otf(3)/m/n' will be
+(Font)              scaled to size 7.22623pt on input line ....
 Completed box being shipped out [3]
 \vbox(730.50705+0.0)x434.75833
 .\vbox(0.0+0.0)x0.0, glue set 35.87772fil
