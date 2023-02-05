@@ -1,4 +1,4 @@
-% Copyright (C) 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+% Copyright (C) 2018, 2023 by Xiangdong Zeng <xdzeng96@gmail.com>
 
 \input{fduthesis-regression-test}
 
@@ -39,7 +39,17 @@
 
 \chapter{Second chapter}
 
+\appendix
+
+\chapter{Appendix}
+
+\section{First section}
+
 \backmatter
+
+\begin{acknowledgements}
+  Acknowledgements
+\end{acknowledgements}
 
 \END
 

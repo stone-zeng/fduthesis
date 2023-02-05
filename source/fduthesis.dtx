@@ -1937,7 +1937,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \paragraph{参考文献引用}
 %^^A! \paragraph{Citations}
 %
-% \begin{function}{\cite}
+% \begin{function}[updated=2021-09-20]{\cite}
 %   \begin{fdusyntax}[deletetexcs={\cite},morekeywords={\cite}]
 %     \cite(*\marg{文献标签}*)
 %     \cite(*\oarg{页码}\marg{文献标签}*)
@@ -1947,7 +1947,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   用来标记引用。顺序编码制和著者—出版年制下的各种引用方式见
 %   表~\ref{tab:citation-numerical} 和表~\ref{tab:citation-author-year}。
 % \end{function}
-%^^A! \begin{function}{\cite}
+%^^A! \begin{function}[updated=2021-09-20]{\cite}
 %^^A!   \begin{fdusyntax}[deletetexcs={\cite},morekeywords={\cite}]
 %^^A!     \cite(*\marg{bib key}*)
 %^^A!     \cite(*\oarg{page number}\marg{bib key}*)
@@ -2357,6 +2357,24 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!   \kvopt{bib-backend}{bibtex}, then \tn{printbibliography} is
 %^^A!   provided by \pkg{biblatex} and the available options can be
 %^^A!   found in its documentation.
+%^^A! \end{function}
+%^^A!
+%
+% \begin{function}[added=2023-02-06]{acknowledgements}
+%   \begin{fdusyntax}[emph={[2]acknowledgements}]
+%     \begin{acknowledgements}
+%       (*\meta{致谢内容}*)
+%     \end{acknowledgements}
+%   \end{fdusyntax}
+%   致谢。
+% \end{function}
+%^^A! \begin{function}[added=2023-02-06]{acknowledgements}
+%^^A!   \begin{fdusyntax}[emph={[2]acknowledgements}]
+%^^A!     \begin{acknowledgements}
+%^^A!       (*\meta{acknowledgements}*)
+%^^A!     \end{acknowledgements}
+%^^A!   \end{fdusyntax}
+%^^A!   Acknowledgements.
 %^^A! \end{function}
 %^^A!
 %
@@ -5618,6 +5636,29 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{致谢}
+%
+% \changes{v0.8a}{2023/02/06}{新增致谢环境。}
+%
+% \begin{environment}{acknowledgements}
+% 致谢环境。
+%    \begin{macrocode}
+\NewDocumentEnvironment { acknowledgements } { }
+  { \@@_acknowledgements_begin: } { }
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{macro}{\@@_acknowledgements_begin:}
+% 致谢页标题。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_acknowledgements_begin:
+  {
+%<class>    \@@_chapter:V \c_@@_name_acknowledgements_tl
+%<class-en>    \@@_chapter:V \c_@@_name_acknowledgements_en_tl
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{参考文献著录与引用}
 %
 % \changes{v0.6}{2017/10/27}{支持 \BibTeX{}，以实现参考文献的著录与引用。}
@@ -6321,11 +6362,12 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn
   {
-    { abstract } { 摘 \quad 要 } { Abstract          },
-    { keywords } { 关键字      } { Keywords:         },
-    { clc      } { 中图分类号  } { CLC~ code:        },
-    { jel      } { JEL 分类号  } { JEL~ code:        },
-    { notation } { 符号表      } { List~ of~ Symbols }
+    { abstract         } { 摘 \quad 要 } { Abstract          },
+    { keywords         } { 关键字      } { Keywords:         },
+    { clc              } { 中图分类号  } { CLC~ code:        },
+    { jel              } { JEL 分类号  } { JEL~ code:        },
+    { notation         } { 符号表      } { List~ of~ Symbols },
+    { acknowledgements } { 致 \quad 谢 } { Acknowledgements  }
   }
   { \@@_define_name:nnn #1 }
 %    \end{macrocode}

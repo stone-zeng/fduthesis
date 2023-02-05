@@ -4,6 +4,8 @@
 
 ## [[未发布]]
 
+- 新增
+  - 新增 `acknowledgements` 环境 - [#253]
 - 优化
   - 封面信息栏改用表格实现 - [#60]、[#86]
   - 在目录和书签中删除章标题中的 `\quad`
@@ -262,6 +264,8 @@
 
 [#64]: https://github.com/stone-zeng/fduthesis/pull/64
 [#233]: https://github.com/stone-zeng/fduthesis/pull/233
+
+[#253]: https://github.com/stone-zeng/fduthesis/discussions/253
 
 [ctex-kit#303]: https://github.com/CTeX-org/ctex-kit/issues/303
 [ustctug/ustcthesis#223]: https://github.com/ustctug/ustcthesis/issues/223

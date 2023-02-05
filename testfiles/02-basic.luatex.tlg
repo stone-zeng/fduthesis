@@ -1603,3 +1603,209 @@ Completed box being shipped out [4]
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
 .\kern0.0
+附录 A
+Completed box being shipped out [5]
+\vbox(730.50705+0.16862)x434.75833, direction TLT
+.\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
+...\pdfdest name{page.5} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.16862)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.16862)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x416.54877, glue set 553.71509fil, direction TLT
+....\whatsit4=[]
+....\write1{\pp@pagectr{footnote}{3}{\theabspage }{\thepage }}
+....\pdfdest name{appendix.A} xyz
+....\write4{\protect \BOOKMARK [0][-]{appendix.A}{\376\377\226\104\137\125\000\04\ETC.}
+....\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \normalfont  \ETC.}
+....\marks1{\MakeUppercase    []{附录 A\hskip 1em\relax 附录}}
+....\marks2{\prg_do_nothing: }
+....\mark{{\MakeUppercase    []{附录 A\hskip 1em\relax 附录}}{}}
+....\write1{\@writefile{lof}{\protect \addvspace {10.0pt}}}
+....\write1{\@writefile{lot}{\protect \addvspace {10.0pt}}}
+....\glue(\topskip) 12.0
+....\rule(0.0+0.0)x*
+....\penalty 10000
+....\glue 38.0 plus -1.0
+....\glue 0.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
+....\hbox(21.1992+2.8908)x416.54877, glue set 136.66687fil, direction TLT
+.....\whatsit4=[]
+.....\glue(\leftskip) 0.0 plus 1.0fil
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 附
+.....\glue 0.0 plus 2.07393
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 录
+.....\glue(\spaceskip) 6.69702 plus 3.34851 minus 2.23235
+.....\TU/texgyreheros(0)/m/n/24.09 A
+.....\glue 24.09
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 附
+.....\penalty 500
+.....\glue 0.0 plus 2.07393
+.....\hbox(21.1992+2.8908)x24.09, direction TLT
+......\LTJY3/FandolHei(0)/m/n/24.09 录
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\penalty 10000
+....\glue 40.0 plus -1.0
+....\pdfdest name{section.A.1} xyz
+....\penalty 10000
+....\glue -40.0 plus 1.0
+....\glue 40.0 plus -1.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
+....\hbox(15.89938+2.1681)x416.54877, glue set 158.53459fil, direction TLT
+.....\whatsit4=[]
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(13.1712+0.0)x45.27711, direction TLT
+......\whatsit4=[]
+......\TU/texgyreheros(0)/m/n/18.06749 A
+......\kern0.09033 (font)
+......\TU/texgyreheros(0)/m/n/18.06749 .
+......\TU/texgyreheros(0)/m/n/18.06749 1
+......\glue 18.06749
+.....\penalty 0
+.....\hbox(15.89938+2.1681)x18.06749, direction TLT
+......\LTJY3/FandolHei(0)/m/n/18.06749 第
+.....\glue 0.0 plus 0.9078
+.....\norule(15.89938+2.1681)x0.0
+.....\LTJY3/FandolHei(0)/m/n/18.06749 一
+.....\penalty 500
+.....\glue 0.0 plus 0.9078
+.....\hbox(15.89938+2.1681)x18.06749, direction TLT
+......\LTJY3/FandolHei(0)/m/n/18.06749 节
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0 plus 1.0fil
+....\marks2{\MakeUppercase    []{A.1\hskip 1em\relax 第一节}}
+....\marks3{\MakeUppercase    []{A.1\hskip 1em\relax 第一节}}
+....\mark{{\MakeUppercase    []{附录 A\hskip 1em\relax 附录}}{\MakeUppercase    \ETC.}
+....\penalty 10000
+....\write4{\protect \BOOKMARK [1][-]{section.A.1}{\376\377\000A\000.\0001\000\04\ETC.}
+....\penalty 10000
+....\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline \ETC.}
+....\penalty 10000
+....\penalty 10000
+....\glue 14.63463 plus 1.71011
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 21.71304
+...\hbox(8.28696+0.16862)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(8.28696+0.16862)x416.54877, glue set 205.26312fil, direction TLT
+.....\whatsit4=[]
+.....\glue 0.0 plus 1.0fil
+.....\TU/XITS(0)/m/n/12.045 5
+.....\glue 0.0 plus 1.0fil
+....\pdfcolorstack 0 pop
+.\kern0.0
+Completed box being shipped out [6]
+\vbox(730.50705+0.0)x434.75833, direction TLT
+.\whatsit4=[]
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\whatsit4=[]
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\whatsit4=[]
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\vbox(0.0+0.0)x0.0, glue set 35.87772fil, direction TLT
+..\whatsit4=[]
+..\kern0.0
+..\kern-34.87398
+..\kern-1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 17.20583fil, direction TLT
+...\whatsit4=[]
+...\kern0.0
+...\kern18.20956
+...\kern-1.00374
+...\pdfdest name{page.6} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(730.50705+0.0)x434.75833, direction TLT
+..\whatsit4=[]
+..\glue -34.87398
+..\vbox(765.38103+0.0)x416.54877, shifted 18.20956, direction TLT
+...\whatsit4=[]
+...\vbox(15.0+0.0)x416.54877, glue set 15.0fil, direction TLT
+....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+.....\pdfcolorstack 0 push {0 g 0 G}
+.....\hbox(0.0+0.0)x416.54877, direction TLT
+......\whatsit4=[]
+.....\pdfcolorstack 0 pop
+...\glue 19.8738
+...\glue(\lineskip) 0.0
+...\vbox(700.50723+0.0)x0.0, glue set 688.5072fil, direction TLT
+....\whatsit4=[]
+....\write-{}
+....\glue(\topskip) 12.0
+....\hbox(0.0+0.0)x0.0, direction TLT
+.....\whatsit4=[]
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+...\glue(\baselineskip) 30.0
+...\hbox(0.0+0.0)x416.54877, direction TLT
+....\whatsit4=[]
+....\pdfcolorstack 0 push {0 g 0 G}
+....\hbox(0.0+0.0)x416.54877, direction TLT
+.....\whatsit4=[]
+....\pdfcolorstack 0 pop
+.\kern0.0
