@@ -4969,6 +4969,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{variable}{\c_@@_cover_info_align_tl}
+% 信息栏对齐格式：左右两栏均居中，中间以冒号分隔。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_cover_info_align_tl { c @ { \c_@@_fwid_colon_tl } c }
+%    \end{macrocode}
+% \end{variable}
+%
 % \begin{macro}{\@@_cover_info:}
 % \changes{v0.8}{2021/09/21}{调整专业学位的封面信息栏。}
 % \changes{v0.8a}{2023/02/05}{封面信息栏改用表格实现。}
@@ -5000,9 +5007,9 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
             }
         }
 %    \end{macrocode}
-% 表格左右两栏均居中对齐，中间以冒号分隔。
+% 通过 \env{tabular} 环境输出。
 %    \begin{macrocode}
-      \begin{tabular}{ c @ { \c_@@_fwid_colon_tl } c }
+      \begin{tabular} { \c_@@_cover_info_align_tl }
         \clist_use:Nn \l_@@_tmpa_clist { \\ [ 1 ex ] }
       \end{tabular}
     \group_end:

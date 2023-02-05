@@ -5,7 +5,7 @@
 ## [[未发布]]
 
 - 优化
-  - 封面信息栏改用表格实现
+  - 封面信息栏改用表格实现 - [#60]、[#86]
   - 在目录和书签中删除章标题中的 `\quad`
 
 ## [v0.8 (2022-09-04)]
@@ -233,6 +233,7 @@
 [#50]: https://github.com/stone-zeng/fduthesis/issues/50
 [#52]: https://github.com/stone-zeng/fduthesis/issues/52
 [#56]: https://github.com/stone-zeng/fduthesis/issues/56
+[#60]: https://github.com/stone-zeng/fduthesis/issues/60
 [#65]: https://github.com/stone-zeng/fduthesis/issues/65
 [#68]: https://github.com/stone-zeng/fduthesis/issues/68
 [#69]: https://github.com/stone-zeng/fduthesis/issues/69
@@ -240,6 +241,7 @@
 [#72]: https://github.com/stone-zeng/fduthesis/issues/72
 [#74]: https://github.com/stone-zeng/fduthesis/issues/74
 [#77]: https://github.com/stone-zeng/fduthesis/issues/77
+[#86]: https://github.com/stone-zeng/fduthesis/issues/86
 [#93]: https://github.com/stone-zeng/fduthesis/issues/93
 [#100]: https://github.com/stone-zeng/fduthesis/issues/100
 [#114]: https://github.com/stone-zeng/fduthesis/issues/114
