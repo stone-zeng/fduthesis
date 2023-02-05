@@ -275,51 +275,6 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(19.0334+13.01155)x56.9055, direction TLT
-.\whatsit4=[]
-.\mathon
-.\vbox(19.0334+13.01155)x56.9055, direction TLT
-..\whatsit4=[]
-..\vbox(30.59955+1.4454)x56.9055, direction TLT
-...\whatsit4=[]
-...\hbox(10.5996+1.4454)x56.9055, glue set 4.8821, direction TLT
-....\whatsit4=[]
-....\localpar
-.....\localinterlinepenalty=0
-.....\localbrokenpenalty=0
-.....\localleftbox=null
-.....\localrightbox=null
-....\hbox(0.0+0.0)x0.0, direction TLT
-....\hbox(10.5996+1.4454)x12.045, direction TLT
-.....\LTJY3/FandolSong(0)/m/n/12.045 复
-....\glue 0.0 plus 0.59575
-....\norule(10.5996+1.4454)x0.0
-....\LTJY3/FandolSong(0)/m/n/12.045 旦
-....\glue 0.0 plus 0.59575
-....\hbox(10.5996+1.4454)x12.045, direction TLT
-.....\LTJY3/FandolSong(0)/m/n/12.045 大
-....\glue 0.0 plus 0.59575
-....\hbox(10.5996+1.4454)x12.045, direction TLT
-.....\LTJY3/FandolSong(0)/m/n/12.045 学
-....\glue(\rightskip) 0.0
-...\penalty 300
-...\glue(\baselineskip) 7.95496
-...\hbox(10.5996+1.4454)x56.9055, glue set 32.8155fil, direction TLT
-....\whatsit4=[]
-....\norule(10.5996+1.4454)x0.0
-....\LTJY3/FandolSong(0)/m/n/12.045 论
-....\penalty 500
-....\glue 0.0 plus 0.59575
-....\hbox(10.5996+1.4454)x12.045, direction TLT
-.....\LTJY3/FandolSong(0)/m/n/12.045 文
-....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
-....\glue(\rightskip) 0.0
-.\mathoff
-! OK.
-<argument> \l_tmpa_box 
-l. ...  }
-> \box...=
 \hbox(7.16646+1.14459)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
@@ -384,6 +339,97 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
+\hbox(10.5996+1.4454)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(10.5996+1.4454)x142.26378, glue set 31.36127fil, direction TLT
+..\whatsit4=[]
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 复
+..\glue 0.0 plus 1.0fil
+..\norule(10.5996+1.4454)x0.0
+..\LTJY3/FandolSong(0)/m/n/12.045 旦
+..\glue 0.0 plus 1.0fil
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 大
+..\glue 0.0 plus 1.0fil
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 学
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(10.5996+1.4454)x142.26378, direction TLT
+.\whatsit4=[]
+.\hbox(10.5996+1.4454)x142.26378, glue set 38.67665fil, direction TLT
+..\whatsit4=[]
+..\TU/XITS(0)/m/n/12.045 A
+..\glue 0.0 plus 1.0fil
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 复
+..\glue 0.0 plus 0.59575
+..\norule(10.5996+1.4454)x0.0
+..\LTJY3/FandolSong(0)/m/n/12.045 旦
+..\glue 0.0 plus 0.59575
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 大
+..\glue 0.0 plus 0.59575
+..\hbox(10.5996+1.4454)x12.045, direction TLT
+...\LTJY3/FandolSong(0)/m/n/12.045 学
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 B
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 4: Boxes in thesis cover (underfull)
+============================================================
+> \box...=
+\hbox(19.0334+13.01155)x56.9055, direction TLT
+.\whatsit4=[]
+.\mathon
+.\vbox(19.0334+13.01155)x56.9055, direction TLT
+..\whatsit4=[]
+..\vbox(30.59955+1.4454)x56.9055, direction TLT
+...\whatsit4=[]
+...\hbox(10.5996+1.4454)x56.9055, glue set 4.8821, direction TLT
+....\whatsit4=[]
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x0.0, direction TLT
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 复
+....\glue 0.0 plus 0.59575
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 旦
+....\glue 0.0 plus 0.59575
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 大
+....\glue 0.0 plus 0.59575
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 学
+....\glue(\rightskip) 0.0
+...\penalty 300
+...\glue(\baselineskip) 7.95496
+...\hbox(10.5996+1.4454)x56.9055, glue set 32.8155fil, direction TLT
+....\whatsit4=[]
+....\norule(10.5996+1.4454)x0.0
+....\LTJY3/FandolSong(0)/m/n/12.045 论
+....\penalty 500
+....\glue 0.0 plus 0.59575
+....\hbox(10.5996+1.4454)x12.045, direction TLT
+.....\LTJY3/FandolSong(0)/m/n/12.045 文
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
 \hbox(19.0334+13.01155)x56.9055, direction TLT
 .\whatsit4=[]
 .\mathon
@@ -432,14 +478,8 @@ l. ...  }
 l. ...  }
 ============================================================
 ============================================================
-TEST 4: Text width
+TEST 5: Text width
 ============================================================
 > \l_tmpa_dim=33.461pt.
 > \l_tmpa_dim=48.18pt.
-============================================================
-============================================================
-TEST 5: Maximum text width
-============================================================
-> \l_tmpa_dim=48.18pt.
-> \l_tmpa_dim=60.22498pt.
 ============================================================

@@ -61,16 +61,24 @@
 
 \TEST { Boxes~ in~ thesis~ cover }
   {
-     \fdutest_box:nnn { spread             } { 5cm } { ABCD         }
-     \fdutest_box:nnn { spread             } { 5cm } { 复旦大学     }
-     \fdutest_box:nnn { center             } { 5cm } { ABCD         }
-     \fdutest_box:nnn { center             } { 5cm } { 复旦大学     }
-     \fdutest_box:nnn { fixed_width        } { 5cm } { ABCD         }
-     \fdutest_box:nnn { fixed_width        } { 5cm } { 复旦大学     }
-     \fdutest_box:nnn { fixed_width        } { 2cm } { 复旦大学论文 }
-     \fdutest_box:nnn { fixed_width_center } { 5cm } { ABCD         }
-     \fdutest_box:nnn { fixed_width_center } { 5cm } { 复旦大学     }
-     \fdutest_box:nnn { fixed_width_center } { 2cm } { 复旦大学论文 }
+    \fdutest_box:nnn { spread             } { 5cm } { ABCD         }
+    \fdutest_box:nnn { spread             } { 5cm } { 复旦大学     }
+    \fdutest_box:nnn { center             } { 5cm } { ABCD         }
+    \fdutest_box:nnn { center             } { 5cm } { 复旦大学     }
+    \fdutest_box:nnn { fixed_width        } { 5cm } { ABCD         }
+    \fdutest_box:nnn { fixed_width        } { 5cm } { 复旦大学     }
+    \fdutest_box:nnn { fixed_width_center } { 5cm } { ABCD         }
+    \fdutest_box:nnn { fixed_width_center } { 5cm } { 复旦大学     }
+
+    \tl_set:Nn \l_tmpa_tl { 复旦大学 }
+    \exp_args:Nnno \fdutest_box:nnn { spread } { 5cm } { \l_tmpa_tl }
+    \exp_args:Nnno \fdutest_box:nnn { spread } { 5cm } { A { \l_tmpa_tl } B }
+  }
+
+\TEST { Boxes~ in~ thesis~ cover~ (underfull) }
+  {
+    \fdutest_box:nnn { fixed_width        } { 2cm } { 复旦大学论文 }
+    \fdutest_box:nnn { fixed_width_center } { 2cm } { 复旦大学论文 }
   }
 
 \TEST { Text~ width }
@@ -79,19 +87,6 @@
     \dim_log:N \l_tmpa_dim
     \__fdu_get_text_width:Nn \l_tmpa_dim { 复旦大学 }
     \dim_log:N \l_tmpa_dim
-  }
-
-\TEST { Maximum~ text~ width }
-  {
-    \clist_set:Nn \l_tmpa_clist { ABC, 复旦大学, ABCD }
-    \__fdu_get_max_text_width:NN \l_tmpa_dim \l_tmpa_clist
-    \dim_log:N \l_tmpa_dim
-    \group_begin:
-      \large
-      \clist_set:Nn \l_tmpa_clist { ABC, 复旦大学, ABCD }
-      \__fdu_get_max_text_width:NN \l_tmpa_dim \l_tmpa_clist
-      \dim_log:N \l_tmpa_dim
-    \group_end:
   }
 
 \ExplSyntaxOff

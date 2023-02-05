@@ -2812,17 +2812,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{内部函数}
 %
-% \begin{macro}{\file_input:V,
-%   \int_to_arabic:v,
-%   \keys_define:nx,
-%   \tl_map_inline:xn}
+% \begin{macro}{\file_input:V,\int_to_arabic:v,\keys_define:nx}
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
-\cs_generate_variant:Nn \file_input:n     { V  }
-\cs_generate_variant:Nn \int_to_arabic:n  { v  }
-\cs_generate_variant:Nn \keys_define:nn   { nx }
-\cs_generate_variant:Nn \tl_map_inline:nn { xn }
+\cs_generate_variant:Nn \file_input:n    { V  }
+\cs_generate_variant:Nn \int_to_arabic:n { v  }
+\cs_generate_variant:Nn \keys_define:nn  { nx }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
 % \end{macro}
@@ -4784,7 +4780,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{定义内部函数}
 %
-% \begin{macro}{\@@_spread_box:nn}
+% \begin{macro}{\@@_spread_box:nn,\@@_spread_box:no}
 % 分散对齐的水平盒子。
 % \begin{arguments}
 %   \item 宽度
@@ -4792,14 +4788,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{arguments}
 % 利用 \cs{tl_map_inline:nn} 在字符间插入 \tn{hfil}；紧随其后的 \tn{unskip}
 % 将会去掉最后一个 \tn{hfil}。见 \url{https://tex.stackexchange.com/q/169689}。
-% |#2| 需要完全展开以避免 underfull 警告。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_spread_box:nn #1#2
   {
     \mode_leave_vertical:
-    \hbox_to_wd:nn {#1}
-      { \tl_map_inline:xn {#2} { ##1 \hfil } \unskip }
+    \hbox_to_wd:nn {#1} { \tl_map_inline:nn {#2} { ##1 \hfil } \unskip }
   }
+\cs_generate_variant:Nn \@@_spread_box:nn { no }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4811,7 +4806,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \mode_leave_vertical:
     \hbox_to_wd:nn {#1} { \hfil #2 \hfil }
   }
-\cs_generate_variant:Nn \@@_center_box:nn  { Vn }
+\cs_generate_variant:Nn \@@_center_box:nn { Vn }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4844,36 +4839,6 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \dim_set:Nn #1 { \box_wd:N \l_@@_tmpa_box }
   }
 \cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_get_max_text_width:NN}
-% \changes{v0.6}{2017/11/24}{移除不必要的字号设置。}
-% 获取多个文本中的最大宽度，并存入 |dim| 型变量。
-% \begin{arguments}
-%   \item |dim| 型变量
-%   \item 文本 |clist|
-% \end{arguments}
-% 当 \cs{l_@@_tmpa_clist} 非空时，弹出最后一个元素
-% 赋给 \cs{l_@@_tmpa_tl}，获取其长度后与 |#1| 进行比较，
-% 二者中较大的那一个将成为 |#1| 的新值。
-% 不断循环，直至 \cs{l_@@_tmpa_clist} 为空。
-%    \begin{macrocode}
-\cs_new:Npn \@@_get_max_text_width:NN #1#2
-  {
-%    \end{macrocode}
-% 这里用 |group| 确保局部变量不会被污染。
-%    \begin{macrocode}
-    \group_begin:
-      \clist_set_eq:NN \l_@@_tmpa_clist #2
-      \bool_until_do:nn { \clist_if_empty_p:N \l_@@_tmpa_clist }
-        {
-          \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
-          \@@_get_text_width:NV \l_@@_tmpa_dim \l_@@_tmpa_tl
-          \dim_gset:Nn #1 { \dim_max:nn {#1} { \l_@@_tmpa_dim } }
-        }
-    \group_end:
-  }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4968,7 +4933,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \clist_item:Nn \c_@@_thesis_type_clist
           { \g_@@_thesis_type_int }
       }
-    \@@_spread_box:nn { 0.45 \textwidth } { \l_@@_tmpa_tl }
+    \@@_spread_box:no { 0.45 \textwidth } { \l_@@_tmpa_tl }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4990,68 +4955,58 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_info:,\l_@@_cover_info_left_width_tl}
+% \begin{macro}{\@@_cover_info_left:n}
+% 信息栏左侧字段。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_info_left:n #1
+  {
+    \int_case:nn { \l_@@_info_degree_type_int }
+      {
+        { 1 } { \_@@_spread_box:no { 6 em } {#1} }
+        { 2 } { \_@@_spread_box:no { 9 em } {#1} }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_info:}
 % \changes{v0.8}{2021/09/21}{调整专业学位的封面信息栏。}
+% \changes{v0.8a}{2023/02/05}{封面信息栏改用表格实现。}
 % 信息栏。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_info:
   {
-    \tl_set:Nx \l_@@_cover_info_left_width_tl
-      {
-        \int_case:nn { \l_@@_info_degree_type_int }
-          {
-            { 1 } { 6 em }
-            { 2 } { 9 em }
-          }
-      }
-    \begin{minipage} [ c ] { \textwidth }
-      \centering \zihao { 4 }
+    \group_begin:
+      \zihao { 4 }
 %    \end{macrocode}
-% 读取左侧名称字段。
+% 专业学位与学术学位对应的左侧字段有所不同，这里统一存入 \cs{c_@@_name_major_tl}。
 %    \begin{macrocode}
-      \clist_set:Nx \l_@@_tmpa_clist
+      \int_compare:nNnT { \l_@@_info_degree_type_int } = { 2 }
         {
-          \c_@@_name_department_tl,
-          \int_case:nn { \l_@@_info_degree_type_int }
+          \tl_set_eq:NN
+            \c_@@_name_major_tl \c_@@_name_major_professional_tl
+        }
+%    \end{macrocode}
+% 将信息栏的每一行存入 |clist| 变量中。
+%    \begin{macrocode}
+      \clist_clear:N \l_@@_tmpa_clist
+      \clist_map_inline:nn { department, major, author, supervisor, date }
+        {
+          \clist_gput_right:Nn \l_@@_tmpa_clist
             {
-              { 1 } { \c_@@_name_major_tl              }
-              { 2 } { \c_@@_name_major_professional_tl }
-            },
-          \c_@@_name_author_tl,
-          \c_@@_name_supervisor_tl,
-          \c_@@_name_date_tl,
+              \exp_args:Nc \@@_cover_info_left:n { c_@@_name_ ##1 _tl }
+              &
+              \tl_use:c { l_@@_info_ ##1 _tl }
+            }
         }
 %    \end{macrocode}
-% 设置信息栏右侧宽度。读取各字段，并将最宽者的宽度赋给
-% \cs{l_@@_tmpb_dim}。
+% 表格左右两栏均居中对齐，中间以冒号分隔。
 %    \begin{macrocode}
-      \clist_set:Nx \l_@@_tmpb_clist
-        {
-          { \l_@@_info_department_tl },
-          { \l_@@_info_major_tl      },
-          { \l_@@_info_author_tl     },
-          { \l_@@_info_supervisor_tl },
-          { \l_@@_info_date_tl       }
-        }
-      \@@_get_max_text_width:NN \l_@@_tmpb_dim \l_@@_tmpb_clist
-%    \end{macrocode}
-% 用循环输出各字段。
-%    \begin{macrocode}
-      \bool_until_do:nn
-        { \clist_if_empty_p:N \l_@@_tmpa_clist }
-        {
-          \clist_pop:NN \l_@@_tmpa_clist \l_@@_tmpa_tl
-          \clist_pop:NN \l_@@_tmpb_clist \l_@@_tmpb_tl
-          \@@_spread_box:nn
-            { \l_@@_cover_info_left_width_tl }
-            { \l_@@_tmpa_tl }
-          \c_@@_fwid_colon_tl
-          \@@_center_box:Vn \l_@@_tmpb_dim { \l_@@_tmpb_tl }
-          \skip_vertical:n { 1 ex }
-        }
-    \end{minipage}
+      \begin{tabular}{ c @ { \c_@@_fwid_colon_tl } c }
+        \clist_use:Nn \l_@@_tmpa_clist { \\ [ 1 ex ] }
+      \end{tabular}
+    \group_end:
   }
-\tl_new:N \l_@@_cover_info_left_width_tl
 %    \end{macrocode}
 % \end{macro}
 %
@@ -5340,7 +5295,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
 %<class-en>    format              = \@@_line_spread:N \c_@@_line_spread_fp,
     title     / content =
-      \@@_spread_box:nn { 7 em } { \c_@@_name_instructors_tl },
+      \@@_spread_box:no { 7 em } { \c_@@_name_instructors_tl },
     name-list / content =
       \clist_use:Nn \l_@@_info_instructors_clist { \par },
     title     / format  = \zihao { 2 } \sffamily,
@@ -6381,9 +6336,18 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { theorem    } { 定理 } { Theorem    }
   }
   { \@@_define_name:nnn #1 }
+%    \end{macrocode}
+%
+% \begin{variable}{\c_@@_name_major_professional_tl}
+% \changes{v0.8a}{2023/02/05}{处理右括号带来的间距。}
+% 处理右括号带来的间距。
+%    \begin{macrocode}
+\tl_put_right:Nn \c_@@_name_major_professional_tl
+  { { \skip_horizontal:n { -0.5 em } } }
 %</definition>
 %<@@=>
 %    \end{macrocode}
+% \end{variable}
 %
 % \clearpage
 %

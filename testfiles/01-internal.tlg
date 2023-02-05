@@ -266,47 +266,6 @@ l. ...  }
 ! OK.
 <argument> \l_tmpa_box 
 l. ...  }
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-[]\TU/FandolSong(0)/m/n/12.045 复 旦 大 学
-\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
-.\hbox(0.0+0.0)x0.0
-.\TU/FandolSong(0)/m/n/12.045 复
-.\glue 0.0 plus 0.59575
-.\TU/FandolSong(0)/m/n/12.045 旦
-.\glue 0.0 plus 0.59575
-.\TU/FandolSong(0)/m/n/12.045 大
-.\glue 0.0 plus 0.59575
-.\TU/FandolSong(0)/m/n/12.045 学
-.\glue(\rightskip) 0.0
-> \box...=
-\hbox(18.59439+12.57126)x56.9055
-.\mathon
-.\vbox(18.59439+12.57126)x56.9055
-..\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
-...\hbox(0.0+0.0)x0.0
-...\TU/FandolSong(0)/m/n/12.045 复
-...\glue 0.0 plus 0.59575
-...\TU/FandolSong(0)/m/n/12.045 旦
-...\glue 0.0 plus 0.59575
-...\TU/FandolSong(0)/m/n/12.045 大
-...\glue 0.0 plus 0.59575
-...\TU/FandolSong(0)/m/n/12.045 学
-...\glue(\rightskip) 0.0
-..\penalty 300
-..\glue(\baselineskip) 8.8222
-..\hbox(9.21443+1.83083)x56.9055, glue set 32.8155fil
-...\TU/FandolSong(0)/m/n/12.045 论
-...\glue 0.0 plus 0.59575
-...\TU/FandolSong(0)/m/n/12.045 文
-...\kern -0.00017
-...\kern 0.00017
-...\penalty 10000
-...\glue(\parfillskip) 0.0 plus 1.0fil
-...\glue(\rightskip) 0.0
-.\mathoff
-! OK.
-<argument> \l_tmpa_box 
-l. ...  }
 > \box...=
 \hbox(7.16708+1.14395)x142.26378
 .\mathon
@@ -348,6 +307,95 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
+\hbox(9.33487+1.96332)x142.26378
+.\hbox(9.33487+1.96332)x142.26378, glue set 31.36127fil
+..\TU/FandolSong(0)/m/n/12.045 复
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 旦
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 大
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 学
+..\kern -0.00017
+..\kern 0.00017
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
+\hbox(9.33487+1.96332)x142.26378
+.\hbox(9.33487+1.96332)x142.26378, glue set 38.67665fil
+..\TU/XITS(0)/m/n/12.045 A
+..\kern -0.0002
+..\kern 0.0002
+..\glue 0.0 plus 1.0fil
+..\TU/FandolSong(0)/m/n/12.045 复
+..\glue 0.0 plus 0.59575
+..\TU/FandolSong(0)/m/n/12.045 旦
+..\glue 0.0 plus 0.59575
+..\TU/FandolSong(0)/m/n/12.045 大
+..\glue 0.0 plus 0.59575
+..\TU/FandolSong(0)/m/n/12.045 学
+..\kern -0.00017
+..\kern 0.00017
+..\glue 0.0 plus 1.0fil
+..\TU/XITS(0)/m/n/12.045 B
+..\kern -0.0002
+..\kern 0.0002
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+============================================================
+============================================================
+TEST 4: Boxes in thesis cover (underfull)
+============================================================
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
+[]\TU/FandolSong(0)/m/n/12.045 复 旦 大 学
+\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
+.\hbox(0.0+0.0)x0.0
+.\TU/FandolSong(0)/m/n/12.045 复
+.\glue 0.0 plus 0.59575
+.\TU/FandolSong(0)/m/n/12.045 旦
+.\glue 0.0 plus 0.59575
+.\TU/FandolSong(0)/m/n/12.045 大
+.\glue 0.0 plus 0.59575
+.\TU/FandolSong(0)/m/n/12.045 学
+.\glue(\rightskip) 0.0
+> \box...=
+\hbox(18.59439+12.57126)x56.9055
+.\mathon
+.\vbox(18.59439+12.57126)x56.9055
+..\hbox(9.33487+1.96332)x56.9055, glue set 4.8821
+...\hbox(0.0+0.0)x0.0
+...\TU/FandolSong(0)/m/n/12.045 复
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 旦
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 大
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 学
+...\glue(\rightskip) 0.0
+..\penalty 300
+..\glue(\baselineskip) 8.8222
+..\hbox(9.21443+1.83083)x56.9055, glue set 32.8155fil
+...\TU/FandolSong(0)/m/n/12.045 论
+...\glue 0.0 plus 0.59575
+...\TU/FandolSong(0)/m/n/12.045 文
+...\kern -0.00017
+...\kern 0.00017
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+.\mathoff
+! OK.
+<argument> \l_tmpa_box 
+l. ...  }
+> \box...=
 \hbox(18.59439+12.57126)x56.9055
 .\mathon
 .\vbox(18.59439+12.57126)x56.9055
@@ -380,14 +428,8 @@ l. ...  }
 l. ...  }
 ============================================================
 ============================================================
-TEST 4: Text width
+TEST 5: Text width
 ============================================================
 > \l_tmpa_dim=33.461pt.
 > \l_tmpa_dim=48.18pt.
-============================================================
-============================================================
-TEST 5: Maximum text width
-============================================================
-> \l_tmpa_dim=48.18pt.
-> \l_tmpa_dim=60.22498pt.
 ============================================================
