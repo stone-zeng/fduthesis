@@ -193,11 +193,11 @@
 
 ## v0.2 (2017-02-19)
 
-- 使用 Git 进行版本控制，并发布至 GitHub。
+- 使用 Git 进行版本控制，并发布至 GitHub
 
 ## v0.1 (2017-02-15)
 
-- 开始编写模板。
+- 开始编写模板
 
 [Keep a Changelog]: https://keepachangelog.com
 

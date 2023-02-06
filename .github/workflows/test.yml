@@ -6,11 +6,14 @@ env:
   CTAN_URL: https://mirrors.rit.edu/CTAN
   TL_PACKAGES: biber biblatex biblatex-gb7714-2015 bibtex bigfoot caption chinese-jfm ctex fancyhdr footmisc gbt7714 kantlipsum l3build latexmk libertinus-fonts lm-math lualatex-math luatex85 natbib ntheorem preview psnfss siunitx standalone symbol tex-gyre tex-gyre-math unicode-math xits xstring zhlipsum
   TESTS: |
-    latexmk -halt-on-error -time -pdfxe  -jobname=test-xetex          test.tex
-    latexmk -halt-on-error -time -pdflua -jobname=test-luatex         test.tex
-    latexmk -halt-on-error -time -pdfxe  -jobname=test-en-xetex       test-en.tex
-    latexmk -halt-on-error -time -pdflua -jobname=test-en-luatex      test-en.tex
-    latexmk -halt-on-error -time -pdfxe  -jobname=test-biblatex-xetex test-biblatex.tex
+    latexmk -halt-on-error -quiet -time -pdfxe  -jobname=test-xetex          test.tex
+    latexmk -halt-on-error -quiet -time -pdflua -jobname=test-luatex         test.tex
+    latexmk -halt-on-error -quiet -time -pdfxe  -jobname=test-en-xetex       test-en.tex
+    latexmk -halt-on-error -quiet -time -pdflua -jobname=test-en-luatex      test-en.tex
+    latexmk -halt-on-error -quiet -time -pdfxe  -jobname=test-biblatex-xetex test-biblatex.tex
+  EXAMPLES: |
+    latexmk -halt-on-error -time -pdfxe  -jobname=main-xetex  main.tex
+    latexmk -halt-on-error -time -pdflua -jobname=main-luatex main.tex
 
 jobs:
   build-ubuntu:
@@ -36,6 +39,12 @@ jobs:
         ${{ env.SET_PATH }}
         cd test && cp ../build/unpacked/{*.cls,*.def} .
         ${{ env.TESTS }}
+    - name: Build examples
+      run: |
+        ${{ env.SET_PATH }}
+        ./install-unix.sh
+        cd thesis
+        ${{ env.EXAMPLES }}
   build-macos:
     runs-on: macos-latest
     env:
@@ -59,6 +68,12 @@ jobs:
         ${{ env.SET_PATH }}
         cd test && cp ../build/unpacked/{*.cls,*.def} .
         ${{ env.TESTS }}
+    - name: Build examples
+      run: |
+        ${{ env.SET_PATH }}
+        ./install-unix.sh
+        cd thesis
+        ${{ env.EXAMPLES }}
   build-windows:
     runs-on: windows-latest
     env:
@@ -85,3 +100,9 @@ jobs:
         Copy-Item "..\build\unpacked\*.cls" .
         Copy-Item "..\build\unpacked\*.def" .
         ${{ env.TESTS }}
+    - name: Build examples
+      run: |
+        ${{ env.SET_PATH }}
+        .\install-win.bat
+        Set-Location thesis
+        ${{ env.EXAMPLES }}
