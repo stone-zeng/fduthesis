@@ -4,13 +4,13 @@ on: [push]
 
 env:
   CTAN_URL: https://mirrors.rit.edu/CTAN
-  TL_PACKAGES: biber biblatex biblatex-gb7714-2015 bibtex bigfoot caption chinese-jfm ctex fancyhdr footmisc gbt7714 kantlipsum l3build latexmk libertinus-fonts lm-math lualatex-math luatex85 natbib ntheorem preview psnfss siunitx standalone symbol tex-gyre tex-gyre-math unicode-math xits xstring zhlipsum
+  TL_PACKAGES: biber biblatex biblatex-gb7714-2015 bibtex bigfoot caption chinese-jfm ctex fancyhdr footmisc gbt7714 kantlipsum l3build latexmk libertinus-fonts lm-math lualatex-math luatex85 natbib ntheorem physics preview psnfss siunitx standalone symbol tex-gyre tex-gyre-math unicode-math xits xstring zhlipsum
   TESTS: |
-    latexmk -halt-on-error -quiet -time -pdfxe  -jobname=test-xetex          test.tex
-    latexmk -halt-on-error -quiet -time -pdflua -jobname=test-luatex         test.tex
-    latexmk -halt-on-error -quiet -time -pdfxe  -jobname=test-en-xetex       test-en.tex
-    latexmk -halt-on-error -quiet -time -pdflua -jobname=test-en-luatex      test-en.tex
-    latexmk -halt-on-error -quiet -time -pdfxe  -jobname=test-biblatex-xetex test-biblatex.tex
+    latexmk -halt-on-error -time -pdfxe  -jobname=test-xetex          test.tex
+    latexmk -halt-on-error -time -pdflua -jobname=test-luatex         test.tex
+    latexmk -halt-on-error -time -pdfxe  -jobname=test-en-xetex       test-en.tex
+    latexmk -halt-on-error -time -pdflua -jobname=test-en-luatex      test-en.tex
+    latexmk -halt-on-error -time -pdfxe  -jobname=test-biblatex-xetex test-biblatex.tex
   EXAMPLES: |
     latexmk -halt-on-error -time -pdfxe  -jobname=main-xetex  main.tex
     latexmk -halt-on-error -time -pdflua -jobname=main-luatex main.tex
