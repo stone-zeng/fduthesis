@@ -8,6 +8,7 @@
   - 新增 `acknowledgements` 环境 - [#253]
 - 优化
   - 封面信息栏改用表格实现 - [#60]、[#86]
+  - 通过引入 `ctex-c5size.clo` 来修改字号 - [#78]
   - 在目录和书签中删除章标题中的 `\quad`
 
 ## [v0.8 (2022-09-04)]
@@ -243,6 +244,7 @@
 [#72]: https://github.com/stone-zeng/fduthesis/issues/72
 [#74]: https://github.com/stone-zeng/fduthesis/issues/74
 [#77]: https://github.com/stone-zeng/fduthesis/issues/77
+[#78]: https://github.com/stone-zeng/fduthesis/issues/78
 [#86]: https://github.com/stone-zeng/fduthesis/issues/86
 [#93]: https://github.com/stone-zeng/fduthesis/issues/93
 [#100]: https://github.com/stone-zeng/fduthesis/issues/100

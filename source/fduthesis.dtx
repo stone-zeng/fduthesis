@@ -3768,41 +3768,18 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{字号}
 %
+% \begin{macro}{style/font-size}
+% \changes{v0.8a}{2023/02/08}{通过引入 \file{ctex-c5size.clo} 来修改字号。}
+% |font-size| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
+% 需要手动引入 |.clo| 文件。
 %    \begin{macrocode}
 \keys_define:nn { fdu / style }
   {
-%    \end{macrocode}
-%
-% \begin{macro}{style/font-size}
-% |font-size| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
-% 只能手动重定义字号命令。
-%    \begin{macrocode}
     font-size .choice:,
     font-size .value_required:n = true,
     font-size / -4 .code:n = { },
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\tiny,\scriptsize,\footnotesize,\small,
-%   \normalsize,\large,\Large,\LARGE,\huge,\Huge}
-% 默认使用小四号字，所以只有五号字需要重新设置。
-%    \begin{macrocode}
-    font-size /  5 .code:n =
-      {
-        \RenewDocumentCommand \tiny         { } { \zihao {  7 } }
-        \RenewDocumentCommand \scriptsize   { } { \zihao { -6 } }
-        \RenewDocumentCommand \footnotesize { } { \zihao {  6 } }
-        \RenewDocumentCommand \small        { } { \zihao { -5 } }
-        \RenewDocumentCommand \normalsize   { } { \zihao {  5 } }
-        \RenewDocumentCommand \large        { } { \zihao { -4 } }
-        \RenewDocumentCommand \Large        { } { \zihao { -3 } }
-        \RenewDocumentCommand \LARGE        { } { \zihao { -2 } }
-        \RenewDocumentCommand \huge         { } { \zihao {  2 } }
-        \RenewDocumentCommand \Huge         { } { \zihao {  1 } }
-%<class-en>      }
+    font-size /  5 .code:n = { \ctex_file_input:n { ctex-c5size.clo } },
 %<class-en>  }
-%<*class>
-      },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3812,6 +3789,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.6}{2017/10/14}{支持类别码和 TECKit 映射两种机制。}
 % 设置句号形状（圆圈或是圆点）。
 %    \begin{macrocode}
+%<*class>
     fullwidth-stop .choice:,
     fullwidth-stop .value_required:n = true,
 %    \end{macrocode}
