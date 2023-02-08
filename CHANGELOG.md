@@ -6,10 +6,12 @@
 
 - 新增
   - 新增 `acknowledgements` 环境 - [#253]
+- 修复
+  - 在目录和书签中删除章标题中的 `\quad`
+  - 改用 `\DeclareDocumentCommand` 定义 `\newtheorem` 和 `\hypersetup` 以防冲突
 - 优化
   - 封面信息栏改用表格实现 - [#60]、[#86]
   - 通过引入 `ctex-c5size.clo` 来修改字号 - [#78]
-  - 在目录和书签中删除章标题中的 `\quad`
 
 ## [v0.8 (2022-09-04)]
 

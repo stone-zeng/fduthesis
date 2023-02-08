@@ -49,6 +49,7 @@ thesis/
 *.zip
 source/*.md
 source/*.sh
-source/*.tex
+source/fduthesis-code.*
+source/fduthesis-en.*
 test/*.sh
 test/latexmkrc

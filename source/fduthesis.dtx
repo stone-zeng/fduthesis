@@ -2175,7 +2175,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! the position of QED symbol correct.
 %^^A!
 %
-% \begin{function}[updated=2017-12-12]{\newtheorem}
+% \begin{function}[updated=2023-02-08]{\newtheorem}
 %   \begin{fdusyntax}[deletetexcs={\newtheorem},
 %       morekeywords={\newtheorem,\newtheorem*}]
 %     \newtheorem(*\oarg{选项}\marg{环境名}\marg{标题}*)
@@ -4363,9 +4363,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \cs{new\-the\-orem}。}
 %
 % \begin{macro}{\newtheorem}
+% \changes{v0.8a}{2023/02/08}{改用 \cs{DeclareDocumentCommand} 定义。}
 % 定义新的定理环境。
 %    \begin{macrocode}
-\RenewDocumentCommand \newtheorem { s o m m }
+\DeclareDocumentCommand \newtheorem { s o m m }
   {
 %    \end{macrocode}
 % 默认情况下，由 \cs{newtheorem*} 创建的定理其证毕符号为 \cs{QED}，
@@ -5923,15 +5924,18 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7}{2018/01/23}{将 \pkg{hyperref} 相关配置移至模板末尾，
 %   以减少冲突。}
 %
-% \begin{macro}{\hypersetup,\fdu_hyperref_setup:n}
+% \begin{macro}{\hypersetup}
+% \changes{v0.8a}{2023/02/08}{改用 \cs{DeclareDocumentCommand} 定义。}
+% \begin{macro}{\fdu_hyperref_setup:n}
 % \pkg{hyperref} 宏包是在导言区之后才引入的。若要在导言区中使用
 % \tn{hypersetup} 命令，必须另行定义。
 %    \begin{macrocode}
-\NewDocumentCommand \hypersetup { m }
+\DeclareDocumentCommand \hypersetup { m }
   { \fdu_hyperref_setup:n {#1} }
 \cs_new_protected:Npn \fdu_hyperref_setup:n #1
   { \clist_gput_right:Nn \g_@@_to_hyperref_clist {#1} }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\@@_set_hyperlink_color_key:n}
