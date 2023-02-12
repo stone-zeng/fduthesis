@@ -137,14 +137,7 @@ l. ...  }
 l. ...  }
 ============================================================
 ============================================================
-TEST 2: Theorem define
-============================================================
-> Empty at present..
-<recently read> }
-l. ...  }
-============================================================
-============================================================
-TEST 3: Boxes in thesis cover
+TEST 2: Boxes in thesis cover
 ============================================================
 > \box...=
 \hbox(8.14243+0.16861)x142.26378
@@ -352,9 +345,9 @@ l. ...  }
 l. ...  }
 ============================================================
 ============================================================
-TEST 4: Boxes in thesis cover (underfull)
+TEST 3: Boxes in thesis cover (underfull)
 ============================================================
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
 []\TU/FandolSong(0)/m/n/12.045 复 旦 大 学
 \hbox(9.33487+1.96332)x56.9055, glue set 4.8821
 .\hbox(0.0+0.0)x0.0
@@ -428,8 +421,42 @@ l. ...  }
 l. ...  }
 ============================================================
 ============================================================
-TEST 5: Text width
+TEST 4: Text width
 ============================================================
 > \l_tmpa_dim=33.461pt.
 > \l_tmpa_dim=48.18pt.
+============================================================
+============================================================
+TEST 5: Sanitizing title
+============================================================
+> \l__fdu_info_title_tl=论文标题.
+> \l__fdu_info_title_sanitized_tl=论文标题.
+> \l__fdu_info_title_tl=论文 标题.
+> \l__fdu_info_title_sanitized_tl=论文标题.
+> \l__fdu_info_title_tl=论文\\标题.
+> \l__fdu_info_title_sanitized_tl=论文标题.
+> \l__fdu_info_title_tl=论文 \\ 标题.
+> \l__fdu_info_title_sanitized_tl=论文标题.
+> \l__fdu_info_title_tl=论文标题ABC.
+> \l__fdu_info_title_sanitized_tl=论文标题ABC.
+> \l__fdu_info_title_tl=论文标题 ABC.
+> \l__fdu_info_title_sanitized_tl=论文标题 ABC.
+> \l__fdu_info_title_tl=论文标题\\ABC.
+> \l__fdu_info_title_sanitized_tl=论文标题 ABC.
+> \l__fdu_info_title_tl=论文标题 \\ABC.
+> \l__fdu_info_title_sanitized_tl=论文标题 ABC.
+> \l__fdu_info_title_tl=论文标题\\ ABC.
+> \l__fdu_info_title_sanitized_tl=论文标题 ABC.
+> \l__fdu_info_title_tl=论文标题 \\ ABC.
+> \l__fdu_info_title_sanitized_tl=论文标题 ABC.
+> \l__fdu_info_title_tl=ABC DEF.
+> \l__fdu_info_title_sanitized_tl=ABC DEF.
+> \l__fdu_info_title_tl=ABC\\DEF.
+> \l__fdu_info_title_sanitized_tl=ABC DEF.
+> \l__fdu_info_title_tl=ABC \\DEF.
+> \l__fdu_info_title_sanitized_tl=ABC DEF.
+> \l__fdu_info_title_tl=ABC\\ DEF.
+> \l__fdu_info_title_sanitized_tl=ABC DEF.
+> \l__fdu_info_title_tl=ABC \\ DEF.
+> \l__fdu_info_title_sanitized_tl=ABC DEF.
 ============================================================

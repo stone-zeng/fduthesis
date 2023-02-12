@@ -2830,13 +2830,14 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{内部函数}
 %
-% \begin{macro}{\file_input:V,\int_to_arabic:v,\keys_define:nx}
+% \begin{macro}{\file_input:V,\int_to_arabic:v,\keys_define:nx,\regex_replace_all:nnc}
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
-\cs_generate_variant:Nn \file_input:n    { V  }
-\cs_generate_variant:Nn \int_to_arabic:n { v  }
-\cs_generate_variant:Nn \keys_define:nn  { nx }
+\cs_generate_variant:Nn \file_input:n          { V   }
+\cs_generate_variant:Nn \int_to_arabic:n       { v   }
+\cs_generate_variant:Nn \keys_define:nn        { nx  }
+\cs_generate_variant:Nn \regex_replace_all:nnN { nnc }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
 % \end{macro}
@@ -4595,6 +4596,35 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v0.8a}{2023/02/12}{删除论文标题中的 \tn{\textbackslash} 和汉字间的空格。}
+% 
+% \begin{variable}{\l_@@_info_title_sanitized_tl,
+%   \l_@@_info_title_en_sanitized_tl}
+% 处理后的论文标题。
+%    \begin{macrocode}
+\tl_new:N \l_@@_info_title_sanitized_tl
+\tl_new:N \l_@@_info_title_en_sanitized_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_set_title:nn}
+% 设置论文标题，并删除其中的 |\\| 和汉字间的空格。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_set_title:nn #1#2
+  {
+    \tl_set:cn { l_@@_info_ #1 _tl           } {#2}
+    \tl_set:cn { l_@@_info_ #1 _sanitized_tl } {#2}
+    \tl_replace_all:cnn { l_@@_info_ #1 _sanitized_tl } { \\ } { ~ }
+    \regex_replace_all:nnc
+      { \s+ } { \ }
+      { l_@@_info_ #1 _sanitized_tl }
+    \regex_replace_all:nnc
+      { ([\x{4e00}-\x{9fff}]) \s+ ([\x{4e00}-\x{9fff}]) } { \1 \2 }
+      { l_@@_info_ #1 _sanitized_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % 定义 |fdu/info| 键值类。
 %    \begin{macrocode}
 \keys_define:nn { fdu / info }
@@ -4615,8 +4645,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{info/title,info/title*}
 % 论文题目。以下带星号的项目均表示相应的英文字段。
 %    \begin{macrocode}
-    title       .tl_set:N    = \l_@@_info_title_tl,
-    title*      .tl_set:N    = \l_@@_info_title_en_tl,
+    title       .code:n      = { \@@_set_title:nn { title    } {#1} },
+    title*      .code:n      = { \@@_set_title:nn { title_en } {#1} },
 %    \end{macrocode}
 % \end{macro}
 %
@@ -6060,12 +6090,12 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 填写 PDF 元信息。
 %    \begin{macrocode}
 %<*class>
-        pdftitle    = \l_@@_info_title_tl,
+        pdftitle    = \l_@@_info_title_sanitized_tl,
         pdfauthor   = \l_@@_info_author_tl,
         pdfkeywords = \l_@@_info_keywords_clist,
 %</class>
 %<*class-en>
-        pdftitle    = \l_@@_info_title_en_tl,
+        pdftitle    = \l_@@_info_title_en_sanitized_tl,
         pdfauthor   = \l_@@_info_author_en_tl,
         pdfkeywords = \l_@@_info_keywords_en_clist,
 %</class-en>

@@ -48,11 +48,6 @@
     \fdutest_footnote_number:nn { pifont-sans* } { 16 } % Overflow
   }
 
-\TEST { Theorem~ define }
-  {
-    \tl_show:n { Empty~ at~ present. }
-  }
-
 \OMIT
 \cs_new:Npn \fdutest_box:nnn #1#2#3
   {
@@ -89,6 +84,33 @@
     \dim_log:N \l_tmpa_dim
     \__fdu_get_text_width:Nn \l_tmpa_dim { 复旦大学 }
     \dim_log:N \l_tmpa_dim
+  }
+
+\TEST { Sanitizing~ title }
+  {
+    \clist_map_inline:nn
+      {
+        论文标题,
+        论文~标题,
+        论文\\标题,
+        论文~\\~标题,
+        论文标题ABC,
+        论文标题~ABC,
+        论文标题\\ABC,
+        论文标题~\\ABC,
+        论文标题\\~ABC,
+        论文标题~\\~ABC,
+        ABC~DEF,
+        ABC\\DEF,
+        ABC~\\DEF,
+        ABC\\~DEF,
+        ABC~\\~DEF,
+      }
+      {
+        \fdusetup { info / title = {#1} }
+        \tl_log:N \l__fdu_info_title_tl
+        \tl_log:N \l__fdu_info_title_sanitized_tl
+      }
   }
 
 \ExplSyntaxOff
