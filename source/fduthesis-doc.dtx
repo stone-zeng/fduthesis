@@ -1954,38 +1954,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\cs,\tn}
-% \begin{macro}[int]{\codedoc@cs,\codedoc@tn}
-% 控制序列。
-%^^A Colors are used for debug.
-%    \begin{macrocode}
-% \let\codedoc@cs=\cs
-% \let\codedoc@tn=\tn
-% \renewcommand*\cs[2][]{%
-%   \textcolor{MaterialIndigo}{\codedoc@cs[#1]{#2}}}
-% \renewcommand*\tn[2][]{%
-%   \textcolor{MaterialPink}{\codedoc@tn[#1]{#2}}}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\file,\env,\pkg,\cls}
-% 文件、环境、宏包、文档类。
-%    \begin{macrocode}
-% \renewcommand*\file[1]{%
-%   \textcolor{MaterialGrey900}{\texttt{#1}}}
-\renewcommand*\env[1]{\textbf{\texttt{#1}}}
-% \renewcommand*\pkg[1]{\textsf{#1}}
-% \renewcommand*\cls[1]{\textit{\textsf{#1}}}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\bashcmd}
-% Bash 中的命令。
-%    \begin{macrocode}
-\newcommand*\bashcmd[1]{\texttt{#1}}
-%    \end{macrocode}
-% \end{macro}
+% \changes{v0.8a}{2023/02/17}{[\pkg{fdudoc}] 移除多余的文档层定义。}
 %
 % \paragraph{示例代码环境}
 %
