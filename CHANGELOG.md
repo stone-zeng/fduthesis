@@ -10,6 +10,8 @@
   - 删除论文标题中的 `\\` 和汉字间的空格 - [#264]、[#265]
   - 在目录和书签中删除章标题中的 `\quad`
   - 改用 `\DeclareDocumentCommand` 定义 `\newtheorem` 和 `\hypersetup` 以防冲突
+- 变更
+  - (fdudoc) 使用 `makeindex` 处理索引和修订记录，同时不再对索引进行汉化 - [#289]
 - 优化
   - 封面信息栏改用表格实现 - [#60]、[#86]
   - 通过引入 `ctex-c5size.clo` 来修改字号 - [#78]
@@ -99,7 +101,7 @@
 - 修复
   - 将校名、校徽图片添加至发行版 - [#32]
   - 支持 TeX Live 2018
-  - [fdudoc] 调用 `xunicode` 宏包，使得代码中的星号可以正常显示 - [#33]
+  - (fdudoc) 调用 `xunicode` 宏包，使得代码中的星号可以正常显示 - [#33]
 
 ## [v0.7a (2018-04-09)]
 
@@ -152,11 +154,11 @@
 
 - 新增
   - 新增 `font=none`、`cjkfont=none` 选项
-  - [fdulogo] 将视觉识别系统移入 `fdulogo` 宏包，并添加重修版校徽
+  - (fdulogo) 将视觉识别系统移入 `fdulogo` 宏包，并添加重修版校徽
 - 变更
   - 移除 `nofonts` 选项
   - 同步 `fontspec` v2.6e
-  - [fdudoc] 移除 `listings` 关键字定义文件
+  - (fdudoc) 移除 `listings` 关键字定义文件
 - 优化
   - 重新实现字体调用，核心内容是分离字体的声明与设定，并按照宋、黑、仿、楷划分中文字体 - [#17]
   - 使用 `expl3` 以及内部函数改写封面，减少对 LaTeX2e 的依赖
@@ -168,13 +170,13 @@
   - 新增 hyperref 相关配置，包括超链接样式（`hyperlink` 与 `hyperlinkcolor` 选项）及 PDF 元信息等
   - 提供彩色支持
   - 添加错误信息提示
-  - [fdudoc] 在 `ctxdoc` 的基础上完成 `fdudoc` 文档类，用于模板手册编写
+  - (fdudoc) 在 `ctxdoc` 的基础上完成 `fdudoc` 文档类，用于模板手册编写
 - 变更
   - `\__fdu_blank_underline:n`：改用 `\rule` 绘制下划线，不再依赖 `ulem` 宏包
-  - [fdudoc] `\changes@`：调整索引排序方式
+  - (fdudoc) `\changes@`：调整索引排序方式
 - 修复
   - `\fdu_family_if_exist:n`：修复 LuaTeX 下的展开错误
-  - [fdudoc] 修复 `ctxdoc` 文档类 v2.4.10 之前版本中行距偏小的问题，⻅ [ctex-kit#303]
+  - (fdudoc) 修复 `ctxdoc` 文档类 v2.4.10 之前版本中行距偏小的问题，⻅ [ctex-kit#303]
 - 优化
   - 拆分 `.dtx` 文件
 
@@ -267,6 +269,7 @@
 [#229]: https://github.com/stone-zeng/fduthesis/issues/229
 [#239]: https://github.com/stone-zeng/fduthesis/issues/239
 [#265]: https://github.com/stone-zeng/fduthesis/issues/265
+[#289]: https://github.com/stone-zeng/fduthesis/issues/289
 
 [#64]: https://github.com/stone-zeng/fduthesis/pull/64
 [#233]: https://github.com/stone-zeng/fduthesis/pull/233

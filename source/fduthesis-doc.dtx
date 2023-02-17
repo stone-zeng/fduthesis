@@ -83,8 +83,7 @@
 \@namedef{ver@thumbpdf.sty}{9999/99/99}
 %    \end{macrocode}
 %
-% \changes{v0.8}{2021/10/21}{[\pkg{fdudoc}] 使用 \pkg{gbt7714} 宏包
-%   处理参考文献。}
+% \changes{v0.8}{2021/10/21}{[\pkg{fdudoc}] 使用 \pkg{gbt7714} 宏包处理参考文献。}
 %
 % 载入宏包和文档类。
 %    \begin{macrocode}
@@ -1330,25 +1329,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\SpecialMainEnvIndex}
-% 索引汉化。
-%    \begin{macrocode}
-\ctex_patch_cmd:Nnn \SpecialMainEnvIndex
-  { (environment) } { ~ 环境 }
-\ctex_patch_cmd:Nnn \SpecialMainEnvIndex
-  { environments: } { 环境： }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}[int]{\HDorg@SpecialEnvIndex}
-% \pkg{hypdoc} 宏包重新定义了 \tn{SpecialEnvIndex} 命令，因此需要修改内部定义。
-%    \begin{macrocode}
-\ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
-  { (environment) } { ~ 环境 }
-\ctex_patch_cmd:Nnn \HDorg@SpecialEnvIndex
-  { environments: } { 环境： }
-%    \end{macrocode}
-% \end{macro}
+% \changes{v0.8a}{2023/02/17}{[\pkg{fdudoc}] 使用 \pkg{makeindex} 处理索引和修订记录。}
+% \changes{v0.8a}{2023/02/17}{[\pkg{fdudoc}] 不再对索引进行汉化。}
 %
 % \begin{macro}[int]{\NAT@citexnum}
 % 将参考文献引用中的 hyphen 改为 en-dash。
@@ -1515,33 +1497,6 @@
         \@@_macroname_prefix:o \l_@@_tmpa_tl
         \@@_macroname_suffix:N #2
       }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_special_index_module:nnnnN}
-% 索引汉化。
-%    \begin{macrocode}
-\cs_set_protected:Npn \@@_special_index_module:nnnnN #1#2#3#4#5
-  {
-    \use:x
-      {
-        \exp_not:n { \@@_special_index_aux:nnnnnnn {#1} {#2} }
-          \tl_if_empty:nTF {#3}
-            { { } { } { } { } }
-            {
-              \str_if_eq:eeTF {#3} { TeX }
-                {
-                  { TeX~ and~ LaTeX2e }
-                  { \string \TeX{}~ 和~ \string \LaTeXe{} }
-                }
-                { {#3} { \string \pkg {#3} } }
-              \bool_if:NTF #5
-                { { commands~ internal } { ~ 内部命令： } }
-                { { commands           } { ~ 命令：     } }
-            }
-      }
-    {#4}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2041,8 +1996,7 @@
 \@empty\z@\@empty
 %    \end{macrocode}
 %
-% \changes{v0.5}{2017/09/05}{[\pkg{fdudoc}] 移除 \pkg{listings}
-%   关键字定义文件。}
+% \changes{v0.5}{2017/09/05}{[\pkg{fdudoc}] 移除 \pkg{listings} 关键字定义文件。}
 %
 % 定义几种代码样式。
 % \begin{macro}[int]{style@base}
