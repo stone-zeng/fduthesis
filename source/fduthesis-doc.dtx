@@ -1387,6 +1387,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_typeset_functions:}
+% 减少展开标记（用来表明中英文模板中的不同用法）前的空格。
+%    \begin{macrocode}
+\__fdudoc_patch_cmd:Nnn \@@_typeset_expandability:
+  { & } { & \skip_horizontal:n { -0.5em } }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_typeset_functions:,\@@_macro_init:,
 %   \@@_macro_dump:}
 % 左侧边注的函数列表采用单倍行距。
@@ -1850,15 +1858,19 @@
 %
 % \subsubsection{文档层命令}
 %
+% \changes{v0.9}{2023/02/18}{[\pkg{fdudoc}] 调整中英文标记。}
+%
 % \begin{macro}{\exptarget,\rexptarget,\expstar,\rexpstar,
 %   \__codedoc_typeset_exp:,\__codedoc_typeset_rexp:}
-% 部分命令之后的特殊符号（$^^^^263a$ 或 $^^^^263b$），表明其不同用法。这里的
-% “exp”和“rexp”分别源自 \LaTeX3 中的“expandable”和“restricted-expandable”。
+% 部分命令之后的标记，表明中英文模板中的不同用法。这里的“exp”和“rexp”
+% 分别源自 \LaTeX3 中的“expandable”和“restricted-expandable”。
 %    \begin{macrocode}
 \newcommand*\exptarget{\Hy@raisedlink{\hypertarget{expstar}{}}}
 \newcommand*\rexptarget{\Hy@raisedlink{\hypertarget{rexpstar}{}}}
-\newcommand*\expstar{\hyperlink{expstar}{$^^^^263b$}}
-\newcommand*\rexpstar{\hyperlink{rexpstar}{$^^^^263a$}}
+\newcommand*\expstar{%
+  \hyperlink{expstar}{\textsuperscript{\rmfamily\scshape en}}}
+\newcommand*\rexpstar{%
+  \hyperlink{rexpstar}{\textsuperscript{\rmfamily\scshape zh}}}
 \ExplSyntaxOn
 \cs_set_eq:NN \__codedoc_typeset_exp:  \expstar
 \cs_set_eq:NN \__codedoc_typeset_rexp: \rexpstar
