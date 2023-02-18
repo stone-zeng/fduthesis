@@ -10,6 +10,7 @@
   - 删除论文标题中的 `\\` 和汉字间的空格 - [#264]、[#265]
   - 在目录和书签中删除章标题中的 `\quad`
   - 改用 `\DeclareDocumentCommand` 定义 `\newtheorem` 和 `\hypersetup` 以防冲突
+  - 为封面添加 PDF 页码
 - 变更
   - (fdudoc) 使用 `makeindex` 处理索引和修订记录，同时不再对索引进行汉化 - [#289]
 - 优化

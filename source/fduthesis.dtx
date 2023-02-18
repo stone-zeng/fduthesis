@@ -5231,12 +5231,15 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{绘制封面}
 %
+% \changes{v0.8a}{2023/02/18}{为封面添加 PDF 页码。}
+%
 % \begin{macro}{\makecoveri}
 % 论文封面（封一）。
 %    \begin{macrocode}
 \NewDocumentCommand \makecoveri { }
   {
     \thispagestyle { empty }
+    \tl_set:Nn \thepage { A }
     \UseInstance { fdu / cover } { cover-i-default }
   }
 %    \end{macrocode}
@@ -5250,7 +5253,9 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \NewDocumentCommand \makecoverii { }
   {
     \thispagestyle { empty }
-    \clist_if_empty:NF \l_@@_info_instructors_clist
+    \tl_set:Nn \thepage { B }
+    \clist_if_empty:NTF \l_@@_info_instructors_clist
+      { \hbox:n { } }
       { \UseInstance { fdu / cover } { cover-ii-default } }
   }
 %    \end{macrocode}
@@ -5262,11 +5267,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \NewDocumentCommand \makecoveriii { }
   {
     \cleardoublepage
+    \thispagestyle { empty }
+    \tl_set:Nn \thepage { C }
     \tl_if_empty:NTF \l_@@_declaration_page_tl
-      {
-        \thispagestyle { empty }
-        \UseInstance { fdu / cover } { cover-iii-default }
-      }
+      { \UseInstance { fdu / cover } { cover-iii-default } }
       { \includepdf { \l_@@_declaration_page_tl } }
   }
 %    \end{macrocode}

@@ -49,7 +49,7 @@ Completed box being shipped out [1]
 ...\kern 0.0
 ...\kern 18.20956
 ...\kern -1.00374
-...\special{pdf:dest (page.1) [@thispage /XYZ @xpos @ypos null]}
+...\special{pdf:dest (page.A) [@thispage /XYZ @xpos @ypos null]}
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
@@ -622,7 +622,7 @@ Completed box being shipped out [2]
 ...\kern 0.0
 ...\kern 18.20956
 ...\kern -1.00374
-...\special{pdf:dest (page.2) [@thispage /XYZ @xpos @ypos null]}
+...\special{pdf:dest (page.B) [@thispage /XYZ @xpos @ypos null]}
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil

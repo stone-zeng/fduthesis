@@ -47,7 +47,7 @@ Completed box being shipped out [3]
 ...\kern 0.0
 ...\kern 18.20956
 ...\kern -1.00374
-...\special{pdf:dest (page.3) [@thispage /XYZ @xpos @ypos null]}
+...\special{pdf:dest (page.C) [@thispage /XYZ @xpos @ypos null]}
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil

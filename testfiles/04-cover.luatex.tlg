@@ -69,7 +69,6 @@ File: fudan-name.pdf Graphic file (type pdf)
 <use fudan-name.pdf>
 Package luatex.def Info: fudan-name.pdf  used on input line ....
 (luatex.def)             Requested size: 208.27438pt x 78.37224pt.
-warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 Completed box being shipped out [1]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
@@ -93,6 +92,7 @@ Completed box being shipped out [1]
 ...\kern0.0
 ...\kern18.20956
 ...\kern-1.00374
+...\pdfdest name{page.A} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
@@ -785,7 +785,6 @@ Completed box being shipped out [1]
 ....\pdfcolorstack 0 pop
 .\kern0.0
 <./fudan-name.pdf>
-warning  (pdf backend): ignoring duplicate destination with the name 'page.2'
 Completed box being shipped out [2]
 \vbox(730.50705+0.0)x434.75833, direction TLT
 .\whatsit4=[]
@@ -809,6 +808,7 @@ Completed box being shipped out [2]
 ...\kern0.0
 ...\kern18.20956
 ...\kern-1.00374
+...\pdfdest name{page.B} xyz
 ...\penalty 10000
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 ..\glue 0.0 plus 1.0fil minus 1.0fil
