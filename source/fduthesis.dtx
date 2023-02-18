@@ -4871,18 +4871,17 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_info_left:n,\@@_cover_info_left:c}
+% \begin{macro}{\@@_cover_info_left:n}
 % 信息栏左侧字段。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_info_left:n #1
   {
     \int_case:nn { \l_@@_info_degree_type_int }
       {
-        { 1 } { \_@@_spread_box:no { 6 em } {#1} }
-        { 2 } { \_@@_spread_box:no { 9 em } {#1} }
+        { 1 } { \_@@_spread_box:nn { 6 em } {#1} }
+        { 2 } { \_@@_spread_box:nn { 9 em } {#1} }
       }
   }
-\cs_generate_variant:Nn \@@_cover_info_left:n { c }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4919,7 +4918,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         {
           \clist_gput_right:Nn \l_@@_tmpa_clist
             {
-              \@@_cover_info_left:c { c_@@_name_ ##1 _tl }
+              \exp_args:Nx \@@_cover_info_left:n
+                { \tl_use:c { c_@@_name_ ##1 _tl } }
               &
               \tl_use:c { l_@@_info_ ##1 _tl }
             }
