@@ -3323,7 +3323,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
 % \changes{v0.8}{2021/09/15}{判断 Libertinus Sans Bold Oblique 字体是否存在。}
-% \changes{v0.8a}{2023/02/18}{不再检查 Libertinus 和 XITS 字体的文件名。}
+% \changes{v0.9}{2023/02/18}{不再检查 Libertinus 和 XITS 字体的文件名。}
 %
 % \begin{macro}{\@@_load_font_garamond:}
 % EB Garamond 系列。
@@ -3673,7 +3673,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsubsection{字号}
 %
 % \begin{macro}{style/font-size}
-% \changes{v0.8a}{2023/02/08}{通过引入 \file{ctex-c5size.clo} 来修改字号。}
+% \changes{v0.9}{2023/02/08}{通过引入 \file{ctex-c5size.clo} 来修改字号。}
 % |font-size| 不是文档类选项，不能传给 \cls{ctexbook} 文档类，因此
 % 需要手动引入 |.clo| 文件。
 %    \begin{macrocode}
@@ -3881,7 +3881,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \changes{v0.7d}{2019/03/24}{优化目录、摘要、参考文献等的标题实现。}
-% \changes{v0.8a}{2023/02/05}{在目录和书签中删除章标题中的 \tn{quad}。}
+% \changes{v0.9}{2023/02/05}{在目录和书签中删除章标题中的 \tn{quad}。}
 %
 % \begin{macro}{\@@_sanitize_chapter_title:n}
 % 删除章标题中的 \tn{quad}。
@@ -4267,7 +4267,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \cs{new\-the\-orem}。}
 %
 % \begin{macro}{\newtheorem}
-% \changes{v0.8a}{2023/02/08}{改用 \cs{DeclareDocumentCommand} 定义。}
+% \changes{v0.9}{2023/02/08}{改用 \cs{DeclareDocumentCommand} 定义。}
 % 定义新的定理环境。
 %    \begin{macrocode}
 \DeclareDocumentCommand \newtheorem { s o m m }
@@ -4499,7 +4499,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \changes{v0.8a}{2023/02/12}{删除论文标题中的 \tn{\textbackslash} 和汉字间的空格。}
+% \changes{v0.9}{2023/02/12}{删除论文标题中的 \tn{\textbackslash} 和汉字间的空格。}
 % 
 % \begin{variable}{\l_@@_info_title_sanitized_tl,
 %   \l_@@_info_title_en_sanitized_tl}
@@ -4908,7 +4908,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\@@_cover_info:}
 % \changes{v0.8}{2021/09/21}{调整专业学位的封面信息栏。}
-% \changes{v0.8a}{2023/02/05}{封面信息栏改用表格实现。}
+% \changes{v0.9}{2023/02/05}{封面信息栏改用表格实现。}
 % 信息栏。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_info:
@@ -5134,7 +5134,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{绘制封面}
 %
-% \changes{v0.8a}{2023/02/18}{为封面添加 PDF 页码。}
+% \changes{v0.9}{2023/02/18}{为封面添加 PDF 页码。}
 %
 % \begin{macro}{\makecoveri}
 % 论文封面（封一）。
@@ -5554,7 +5554,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsection{致谢}
 %
-% \changes{v0.8a}{2023/02/06}{新增致谢环境。}
+% \changes{v0.9}{2023/02/06}{新增致谢环境。}
 %
 % \begin{environment}{acknowledgements}
 % 致谢环境。
@@ -5861,7 +5861,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   以减少冲突。}
 %
 % \begin{macro}{\hypersetup}
-% \changes{v0.8a}{2023/02/08}{改用 \cs{DeclareDocumentCommand} 定义。}
+% \changes{v0.9}{2023/02/08}{改用 \cs{DeclareDocumentCommand} 定义。}
 % \begin{macro}{\fdu_hyperref_setup:n}
 % \pkg{hyperref} 宏包是在导言区之后才引入的。若要在导言区中使用
 % \tn{hypersetup} 命令，必须另行定义。
@@ -6306,7 +6306,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 %
 % \begin{variable}{\c_@@_name_major_professional_tl}
-% \changes{v0.8a}{2023/02/05}{处理右括号带来的间距。}
+% \changes{v0.9}{2023/02/05}{处理右括号带来的间距。}
 % 处理右括号带来的间距。
 %    \begin{macrocode}
 \tl_put_right:Nn \c_@@_name_major_professional_tl

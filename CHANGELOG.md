@@ -7,7 +7,7 @@
 - 新增
   - 新增 `acknowledgements` 环境 - [#253]
 - 修复
-  - 删除论文标题中的 `\\` 和汉字间的空格 - [#264]、[#265]
+  - 删除论文标题中的 `\\` 和汉字间的空格 - [#75]、[#264]、[#265]
   - 在目录和书签中删除章标题中的 `\quad`
   - 改用 `\DeclareDocumentCommand` 定义 `\newtheorem` 和 `\hypersetup` 以防冲突
   - 为封面添加 PDF 页码
@@ -251,6 +251,7 @@
 [#70]: https://github.com/stone-zeng/fduthesis/issues/70
 [#72]: https://github.com/stone-zeng/fduthesis/issues/72
 [#74]: https://github.com/stone-zeng/fduthesis/issues/74
+[#75]: https://github.com/stone-zeng/fduthesis/issues/75
 [#77]: https://github.com/stone-zeng/fduthesis/issues/77
 [#78]: https://github.com/stone-zeng/fduthesis/issues/78
 [#86]: https://github.com/stone-zeng/fduthesis/issues/86
