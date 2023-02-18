@@ -12,6 +12,7 @@
   - 改用 `\DeclareDocumentCommand` 定义 `\newtheorem` 和 `\hypersetup` 以防冲突
   - 为封面添加 PDF 页码
 - 变更
+  - 不再检查 Libertinus 和 XITS 字体的文件名
   - (fdudoc) 使用 `makeindex` 处理索引和修订记录，同时不再对索引进行汉化 - [#289]
 - 优化
   - 封面信息栏改用表格实现 - [#60]、[#86]

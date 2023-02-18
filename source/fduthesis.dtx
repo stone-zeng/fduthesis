@@ -3323,101 +3323,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \changes{v0.7e}{2019/04/10}{兼容 Libertinus 和 XITS 字体的文件名变动。}
 % \changes{v0.8}{2021/09/15}{判断 Libertinus Sans Bold Oblique 字体是否存在。}
-%
-% \begin{macro}{
-%   \g_@@_font_family_libertinus_serif_tl,
-%   \g_@@_font_family_libertinus_sans_tl,
-%   \g_@@_font_style_libertinus_rm_tl,
-%   \g_@@_font_style_libertinus_bf_tl,
-%   \g_@@_font_style_libertinus_it_tl,
-%   \g_@@_font_style_libertinus_bfit_tl,
-%   \g_@@_font_style_libertinus_bfsl_tl,
-%   \g_@@_font_family_xits_tl,
-%   \g_@@_font_style_xits_rm_tl,
-%   \g_@@_font_style_xits_bf_tl,
-%   \g_@@_font_style_xits_it_tl,
-%   \g_@@_font_style_xits_bfit_tl,
-%   \g_@@_font_name_libertinus_serif_tl,
-%   \g_@@_font_name_libertinus_sans_tl,
-%   \g_@@_font_name_libertinus_math_tl,
-%   \g_@@_font_name_xits_tl,
-%   \g_@@_font_name_xits_math_rm_tl,
-%   \g_@@_font_name_xits_math_bf_tl}
-% Libertinus 和 XITS 字体的文件名做过变动，需要特殊处理。
-%    \begin{macrocode}
-\tl_new:N \g_@@_font_family_libertinus_serif_tl
-\tl_new:N \g_@@_font_family_libertinus_sans_tl
-\tl_new:N \g_@@_font_style_libertinus_rm_tl
-\tl_new:N \g_@@_font_style_libertinus_bf_tl
-\tl_new:N \g_@@_font_style_libertinus_it_tl
-\tl_new:N \g_@@_font_style_libertinus_bfit_tl
-\tl_new:N \g_@@_font_style_libertinus_bfsl_tl
-\tl_new:N \g_@@_font_family_xits_tl
-\tl_new:N \g_@@_font_style_xits_rm_tl
-\tl_new:N \g_@@_font_style_xits_bf_tl
-\tl_new:N \g_@@_font_style_xits_it_tl
-\tl_new:N \g_@@_font_style_xits_bfit_tl
-\tl_new:N \g_@@_font_name_libertinus_serif_tl
-\tl_new:N \g_@@_font_name_libertinus_sans_tl
-\tl_new:N \g_@@_font_name_libertinus_math_tl
-\tl_new:N \g_@@_font_name_xits_tl
-\tl_new:N \g_@@_font_name_xits_math_rm_tl
-\tl_new:N \g_@@_font_name_xits_math_bf_tl
-\fontspec_font_if_exist:nTF { LibertinusSerif-Regular.otf }
-  {
-    \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { LibertinusSerif }
-    \tl_set:Nn \g_@@_font_family_libertinus_sans_tl  { LibertinusSans  }
-    \tl_set:Nn \g_@@_font_family_libertinus_math_tl  { LibertinusMath  }
-    \tl_set:Nn \g_@@_font_style_libertinus_rm_tl     { Regular         }
-    \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { Bold            }
-    \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { Italic          }
-    \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { BoldItalic      }
-%    \end{macrocode}
-% 较新版本中 Libertinus Sans Bold Oblique 字体被移除，需进行额外判断。
-%    \begin{macrocode}
-    \fontspec_font_if_exist:nTF { LibertinusSans-BoldOblique.otf }
-      { \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl { BoldOblique } }
-      { \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl { Bold        } }
-  }
-  {
-    \tl_set:Nn \g_@@_font_family_libertinus_serif_tl { libertinusserif }
-    \tl_set:Nn \g_@@_font_family_libertinus_sans_tl  { libertinussans  }
-    \tl_set:Nn \g_@@_font_family_libertinus_math_tl  { libertinusmath  }
-    \tl_set:Nn \g_@@_font_style_libertinus_rm_tl     { regular         }
-    \tl_set:Nn \g_@@_font_style_libertinus_bf_tl     { bold            }
-    \tl_set:Nn \g_@@_font_style_libertinus_it_tl     { italic          }
-    \tl_set:Nn \g_@@_font_style_libertinus_bfit_tl   { bolditalic      }
-    \tl_set:Nn \g_@@_font_style_libertinus_bfsl_tl   { bolditalic      }
-  }
-\fontspec_font_if_exist:nTF { XITS-Regular.otf }
-  {
-    \tl_set:Nn \g_@@_font_family_xits_tl        { XITS             }
-    \tl_set:Nn \g_@@_font_style_xits_rm_tl      { Regular          }
-    \tl_set:Nn \g_@@_font_style_xits_bf_tl      { Bold             }
-    \tl_set:Nn \g_@@_font_style_xits_it_tl      { Italic           }
-    \tl_set:Nn \g_@@_font_style_xits_bfit_tl    { BoldItalic       }
-    \tl_set:Nn \g_@@_font_name_xits_math_rm_tl  { XITSMath-Regular }
-    \tl_set:Nn \g_@@_font_name_xits_math_bf_tl  { XITSMath-Bold    }
-  }
-  {
-    \tl_set:Nn \g_@@_font_family_xits_tl        { xits          }
-    \tl_set:Nn \g_@@_font_style_xits_rm_tl      { regular       }
-    \tl_set:Nn \g_@@_font_style_xits_bf_tl      { bold          }
-    \tl_set:Nn \g_@@_font_style_xits_it_tl      { italic        }
-    \tl_set:Nn \g_@@_font_style_xits_bfit_tl    { bolditalic    }
-    \tl_set:Nn \g_@@_font_name_xits_math_rm_tl  { xits-math     }
-    \tl_set:Nn \g_@@_font_name_xits_math_bf_tl  { xits-mathbold }
-  }
-\tl_set:Nx \g_@@_font_name_libertinus_serif_tl
-  { \g_@@_font_family_libertinus_serif_tl - \g_@@_font_style_libertinus_rm_tl }
-\tl_set:Nx \g_@@_font_name_libertinus_sans_tl
-  { \g_@@_font_family_libertinus_sans_tl  - \g_@@_font_style_libertinus_rm_tl }
-\tl_set:Nx \g_@@_font_name_libertinus_math_tl
-  { \g_@@_font_family_libertinus_math_tl  - \g_@@_font_style_libertinus_rm_tl }
-\tl_set:Nx \g_@@_font_name_xits_tl
-  { \g_@@_font_family_xits_tl - \g_@@_font_style_xits_rm_tl }
-%    \end{macrocode}
-% \end{macro}
+% \changes{v0.8a}{2023/02/18}{不再检查 Libertinus 和 XITS 字体的文件名。}
 %
 % \begin{macro}{\@@_load_font_garamond:}
 % EB Garamond 系列。
@@ -3432,13 +3338,12 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         ItalicFont     = *-Italic,
         BoldItalicFont = *-BoldItalic
       }
-    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
+    \@@_setsansfont:nn { LibertinusSans }
       {
         Extension      = .otf,
-        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
-        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
-        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
-        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
       }
     \@@_setmonofont:nn { lmmonolt10 }
       {
@@ -3458,21 +3363,20 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_font_libertinus:
   {
-    \@@_setmainfont:nn { \g_@@_font_family_libertinus_serif_tl }
+    \@@_setmainfont:nn { LibertinusSerif }
       {
         Extension      = .otf,
-        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
-        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
-        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
-        BoldItalicFont = *-\g_@@_font_style_libertinus_bfit_tl
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        BoldItalicFont = *-BoldItalic,
       }
-    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
+    \@@_setsansfont:nn { LibertinusSans }
       {
         Extension      = .otf,
-        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
-        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
-        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
-        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
       }
     \@@_setmonofont:nn { lmmonolt10 }
       {
@@ -3482,7 +3386,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         ItalicFont     = *-oblique,
         BoldItalicFont = *-boldoblique
       }
-    \@@_setmathfont:nn { \g_@@_font_name_libertinus_math_tl .otf } { }
+    \@@_setmathfont:nn { LibertinusMath-Regular.otf } { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3509,14 +3413,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         ItalicFont     = *-italic,
         BoldItalicFont = *-bolditalic
       }
-    \@@_setsansfont:nn { \g_@@_font_family_libertinus_sans_tl }
+    \@@_setsansfont:nn { LibertinusSans }
       {
         Extension      = .otf,
-        UprightFont    = *-\g_@@_font_style_libertinus_rm_tl,
-        BoldFont       = *-\g_@@_font_style_libertinus_bf_tl,
-        ItalicFont     = *-\g_@@_font_style_libertinus_it_tl,
-        BoldItalicFont = *-\g_@@_font_style_libertinus_bfsl_tl,
-        Scale          = MatchUppercase
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        Scale          = MatchUppercase,
       }
     \@@_setmonofont:nn { lmmonolt10 }
       {
@@ -3536,13 +3439,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_load_font_times:
   {
-    \@@_setmainfont:nn { \g_@@_font_family_xits_tl }
+    \@@_setmainfont:nn { XITS }
       {
-        Extension          = .otf,
-        UprightFont        = *-\g_@@_font_style_xits_rm_tl,
-        BoldFont           = *-\g_@@_font_style_xits_bf_tl,
-        ItalicFont         = *-\g_@@_font_style_xits_it_tl,
-        BoldItalicFont     = *-\g_@@_font_style_xits_bfit_tl
+        Extension      = .otf,
+        UprightFont    = *-Regular,
+        BoldFont       = *-Bold,
+        ItalicFont     = *-Italic,
+        BoldItalicFont = *-BoldItalic,
       }
     \@@_setsansfont:nn { texgyreheros }
       {
@@ -3561,8 +3464,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         BoldItalicFont = *-bolditalic,
         Ligatures      = CommonOff
       }
-    \@@_setmathfont:nn { \g_@@_font_name_xits_math_rm_tl .otf }
-      { BoldFont = \g_@@_font_name_xits_math_bf_tl .otf }
+    \@@_setmathfont:nn { XITSMath-Regular.otf }
+      { BoldFont = XITSMath-Bold.otf }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3575,8 +3478,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \@@_setmainfont:nn { Times~ New~ Roman    } { }
     \@@_setsansfont:nn { Arial                } { }
     \@@_setmonofont:nn { Courier~ New         } { }
-    \@@_setmathfont:nn { \g_@@_font_name_xits_math_rm_tl .otf }
-      { BoldFont = \g_@@_font_name_xits_math_bf_tl .otf }
+    \@@_setmathfont:nn { XITSMath-Regular.otf }
+      { BoldFont = XITSMath-Bold.otf }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4234,17 +4137,17 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
         \c_@@_fn_style_libertinus_tl
           {
-            \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
+            \fontspec { LibertinusSerif-Regular.otf }
             \@@_fn_symbol_libertinus:n {#1}
           }
         \c_@@_fn_style_libertinus_neg_tl
           {
-            \fontspec { \g_@@_font_name_libertinus_serif_tl .otf }
+            \fontspec { LibertinusSerif-Regular.otf }
             \@@_fn_symbol_libertinus_neg:n {#1}
           }
         \c_@@_fn_style_libertinus_sans_tl
           {
-            \fontspec { \g_@@_font_name_libertinus_sans_tl .otf }
+            \fontspec { LibertinusSans-Regular.otf }
             \@@_fn_symbol_libertinus_sans:n {#1}
           }
 %    \end{macrocode}
@@ -4263,17 +4166,17 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
         \c_@@_fn_style_xits_tl
           {
-            \fontspec { \g_@@_font_name_xits_tl .otf }
+            \fontspec { XITS-Regular.otf }
             \@@_fn_symbol_xits:n {#1}
           }
         \c_@@_fn_style_xits_sans_tl
           {
-            \fontspec { \g_@@_font_name_xits_tl .otf }
+            \fontspec { XITS-Regular.otf }
             \@@_fn_symbol_xits_sans:n {#1}
           }
         \c_@@_fn_style_xits_sans_neg_tl
           {
-            \fontspec { \g_@@_font_name_xits_tl .otf }
+            \fontspec { XITS-Regular.otf }
             \@@_fn_symbol_xits_sans_neg:n {#1}
           }
       }
