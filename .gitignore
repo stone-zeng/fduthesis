@@ -47,6 +47,7 @@ thesis/
 # Other
 .DS_Store
 *.zip
+*.otf
 source/*.md
 source/*.sh
 source/fduthesis-code.*
