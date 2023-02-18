@@ -527,7 +527,7 @@
   \cs_new_protected:Npn \@@_module_star:w #1 > #2 \q_stop
     {
 %    \end{macrocode}
-% 临时变量 \cs{l_@@_tmp_tl} 保存 |<*|\meta{module}|>| 之后的部分，即真实代码。
+% 临时变量 \cs{l_@@_tmpa_tl} 保存 |<*|\meta{module}|>| 之后的部分，即真实代码。
 %    \begin{macrocode}
       \tl_set:Nn \l_@@_tmpa_tl {#2}
 %    \end{macrocode}
@@ -1048,7 +1048,7 @@
 % \end{macro}
 %
 % \begin{macro}[int]{\changes@}
-% \changes{v0.4}{2017/07/30}{调整索引排序方式。}
+% \changes{v0.4}{2017/07/30}{[\pkg{fdudoc}] 调整索引排序方式。}
 % 重定义 \tn{changes@}，在版本号一行显示修改日期。
 %    \begin{macrocode}
 \cs_set_protected:Npn \changes@ #1#2
@@ -1081,7 +1081,7 @@
       {#1} \l_@@_tmpa_tl
       {
 %    \end{macrocode}
-% \cs{l_@@_tmp_tl} 相当于两个参数（开始日期、结束日期），因此需要提前展开。
+% \cs{l_@@_tmpa_tl} 相当于两个参数（开始日期、结束日期），因此需要提前展开。
 %    \begin{macrocode}
         \exp_after:wN
           \@@_save_version_date_aux:nnnn \l_@@_tmpa_tl
@@ -1962,7 +1962,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.8a}{2023/02/17}{[\pkg{fdudoc}] 移除多余的文档层定义。}
+% \changes{v0.9}{2023/02/17}{[\pkg{fdudoc}] 移除多余的文档层定义。}
 %
 % \paragraph{示例代码环境}
 %

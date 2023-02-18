@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2017, 2018, 2020 by Xiangdong Zeng <xdzeng96@gmail.com>
+% Copyright (C) 2017, 2018, 2020, 2023 by Xiangdong Zeng <xdzeng96@gmail.com>
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -52,8 +52,6 @@
 % 复旦大学校名（復旦大學），由毛泽东题写。原始图片来源：
 % \url{http://www.fudan.edu.cn/2016/channels/view/74/}。
 %    \begin{macrocode}
-%\NewDocumentCommand \fduname { O { } }
-%  { \@@_tikz:nx { \fdulogo@name } { \c_@@_default_arg_tl, #1 } }
 % + new
 % - original
 \NewDocumentCommand \fduname { t+ t- O { } }
@@ -105,7 +103,10 @@
 % \url{http://www.fudan.edu.cn/2016/channels/view/74/}。
 %    \begin{macrocode}
 \NewDocumentCommand \fdumotto { O { } }
-  { \@@_tikz:nx { \fdulogo@motto } { \c_@@_default_arg_tl, #1 } }
+  {
+    \@@_tikz:nx
+      { \fdulogo@motto } { \c_@@_default_arg_tl, #1 }
+  }
 %    \end{macrocode}
 % \end{macro}
 %

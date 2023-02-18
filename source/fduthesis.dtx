@@ -1744,7 +1744,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   曰\CJKunderdot{鳳頭、豬肚、豹尾}六字是也。」大概起要美麗，中要浩蕩，
 %   結要響亮。尤貴在首尾貫穿，意思清新。苟能若是，斯可以言樂府矣。
 % \end{quotation}
-% \hfill ——陶宗儀《南村輟耕錄·作今樂府法》
+% \hfill ^^^^2e3a陶宗儀《南村輟耕錄·作今樂府法》 ^^A ^^^^2e3a = 破折号
 %
 % \subsubsection{凤头}
 %^^A! \subsubsection{Front matter}
@@ -2772,17 +2772,15 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsubsection{内部变量声明}
 %
 % \begin{variable}{\l_@@_tmpa_box,
-%   \l_@@_tmpa_clist,\l_@@_tmpb_clist,
-%   \l_@@_tmpa_dim,\l_@@_tmpb_dim,
+%   \l_@@_tmpa_clist,
+%   \l_@@_tmpa_dim,
 %   \l_@@_tmpa_skip,
 %   \l_@@_tmpa_tl,\l_@@_tmpb_tl}
 % 临时变量。
 %    \begin{macrocode}
 \box_new:N   \l_@@_tmpa_box
 \clist_new:N \l_@@_tmpa_clist
-\clist_new:N \l_@@_tmpb_clist
 \dim_new:N   \l_@@_tmpa_dim
-\dim_new:N   \l_@@_tmpb_dim
 \skip_new:N  \l_@@_tmpa_skip
 \tl_new:N    \l_@@_tmpa_tl
 \tl_new:N    \l_@@_tmpb_tl
@@ -2891,7 +2889,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\@@_gadd_ltxhook:nn}
 % 封装 \LaTeX{} 的钩子管理机制。本模板中的字体加载命令位于
-% |begindocument/before| 钩子中，需确保在 \pkg{xeCJK} 之前执行。
+% \texttt{begindocument/\allowbreak before} 钩子中，需确保在 \pkg{xeCJK} 之前执行。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_gadd_ltxhook:nn #1#2
   { \hook_gput_code:nnn {#1} { . } {#2} }
@@ -2917,8 +2915,6 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{macro}{\@@_define_fn_style:nn,
 %   \@@_define_punct:nn,
-%   \@@_define_sep:nn,
-%   \@@_define_format:nn,
 %   \@@_define_name:nn,
 %   \@@_define_name:nnn}
 % 用来定义脚注样式、标点、默认名称的辅助函数。
@@ -2927,10 +2923,6 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   { \tl_const:cn { c_@@_fn_style_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_punct:nn #1#2
   { \tl_const:cn { c_@@_ #1 _tl } {#2} }
-% \cs_new_protected:Npn \@@_define_sep:nn #1#2
-%   { \tl_const:cn { c_@@_ #1 _sep_tl } {#2} }
-% \cs_new_protected:Npn \@@_define_format:nn #1#2
-%   { \tl_const:cn { c_@@_ #1 _format_tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nn #1#2
   { \tl_const:cn { c_@@_name_ #1 _tl } {#2} }
 \cs_new_protected:Npn \@@_define_name:nnn #1#2#3
@@ -2942,7 +2934,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_msg_new:nn,
-%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,\@@_error:nnnn
+%   \@@_error:n,\@@_error:nn,\@@_error:nx,\@@_error:nnn,\@@_error:nnnn,
 %   \@@_warning:n,\@@_warning:nn,\@@_warning:nxx,
 %   \@@_info:nx}
 % 各种信息函数的缩略形式。
@@ -3303,8 +3295,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %   \setmathfont,
 %   \setCJKmainfont,
 %   \setCJKsansfont,
-%   \setCJKmonofont,
-%   \@@_set_font:n}
+%   \setCJKmonofont}
 % 重新定义以上宏包提供的字体选择命令。我们把它放在导言区末尾，使得用户配置不被
 % 模板配置覆盖。
 %    \begin{macrocode}
@@ -3316,8 +3307,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
           { \use:c { @@_set #1 font:nn } {##2} { ##1, ##3 } }
       }
   }
-\clist_map_inline:nn { main, sans, mono, math    } { \@@_set_font_helper:n {#1} }
-%<class>\clist_map_inline:nn { CJKmain, CJKsans, CJKmono } { \@@_set_font_helper:n {#1} }
+\clist_map_inline:nn { main, sans, mono, math }
+  { \@@_set_font_helper:n {#1} }
+%<class>\clist_map_inline:nn { CJKmain, CJKsans, CJKmono }
+%<class>  { \@@_set_font_helper:n {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4039,13 +4032,6 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_fn_symbol_libertinus_sans:n}
-% \opt{libertinus} 阳文无衬线版。符号排列与普通版相同。
-%    \begin{macrocode}
-\cs_new_eq:NN \@@_fn_symbol_libertinus_sans:n \@@_fn_symbol_libertinus:n
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\@@_fn_symbol_pifont:n}
 % \opt{pifont} 普通版。以下四种都只包含 \numrange{1}{10}。
 %    \begin{macrocode}
@@ -4148,7 +4134,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \c_@@_fn_style_libertinus_sans_tl
           {
             \fontspec { LibertinusSans-Regular.otf }
-            \@@_fn_symbol_libertinus_sans:n {#1}
+            \@@_fn_symbol_libertinus:n {#1}
           }
 %    \end{macrocode}
 % \opt{pifont} 类型无需进行额外的操作。
@@ -4885,7 +4871,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_info_left:n}
+% \begin{macro}{\@@_cover_info_left:n,\@@_cover_info_left:c}
 % 信息栏左侧字段。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_info_left:n #1
@@ -4896,13 +4882,15 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         { 2 } { \_@@_spread_box:no { 9 em } {#1} }
       }
   }
+\cs_generate_variant:Nn \@@_cover_info_left:n { c }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{variable}{\c_@@_cover_info_align_tl}
 % 信息栏对齐格式：左右两栏均居中，中间以冒号分隔。
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_cover_info_align_tl { c @ { \c_@@_fwid_colon_tl } c }
+\tl_const:Nn \c_@@_cover_info_align_tl
+  { c @ { \c_@@_fwid_colon_tl } c }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -4931,7 +4919,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         {
           \clist_gput_right:Nn \l_@@_tmpa_clist
             {
-              \exp_args:Nc \@@_cover_info_left:n { c_@@_name_ ##1 _tl }
+              \@@_cover_info_left:c { c_@@_name_ ##1 _tl }
               &
               \tl_use:c { l_@@_info_ ##1 _tl }
             }
@@ -5218,7 +5206,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     type     / format      = \zihao {  2 },
     degree   / format      = \zihao {  4 },
     title    / format      = \zihao { -2 } \bfseries,
-    title-en / format      = \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
+    title-en / format      =
+      \@@_line_spread:n { 1.2 } \zihao { 4 } \bfseries,
     id       / bottom-skip = 0 pt plus 1.6 fill,
     logo     / bottom-skip = 0 pt plus 0.3 fill,
     type     / bottom-skip = -18 pt,
@@ -5362,7 +5351,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{\tableofcontents,\listoffigures,\listoftables}
 % 修改 \cs{tableofcontents}、\cs{listoffigures} 和 \cs{listoftables} 的定义，
 % 使得页眉正确显示，并出现在目录及 PDF 书签中。来自于 \LaTeXe{} 标准文档类
-% \file{book.cls}
+% \file{book.cls}^^A
 % \footnote{原代码中只有 \cs{tableofcontents} 的 \cs{@mkboth} 出现在
 % \cs{chapter*} 内部，这是出于兼容性的考虑而非 typo。}。
 %    \begin{macrocode}
@@ -5484,7 +5473,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_keywords:nNn,\@@_keywords_prevdepth:,\@@_clc_jel:nn}
-% 关键字列表前要空一行，使用悬挂缩进；分类号不缩进。|\parbox| 之后的间距
+% 关键字列表前要空一行，使用悬挂缩进；分类号不缩进。\tn{parbox} 之后的间距
 % 需要调整，见 \url{https://tex.stackexchange.com/a/34982}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_keywords:nNn #1#2#3
@@ -5495,7 +5484,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \parbox [t] { \dim_eval:n { \textwidth - \l_@@_tmpa_dim } }
       {
         \clist_use:Nn #2 {#3} \par
-        \cs_gset:Npx \@@_keywords_prevdepth: { \dim_use:N \tex_prevdepth:D }
+        \cs_gset:Npx \@@_keywords_prevdepth:
+          { \dim_use:N \tex_prevdepth:D }
       }
   }
 \cs_new_protected:Npn \@@_clc_jel:nn #1#2
@@ -5676,19 +5666,21 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \tl_if_empty:NTF \l_@@_bib_style_tl
           {
             \RequirePackage [ sort & compress ] { gbt7714 }
-            \exp_args:No \bibliographystyle { gbt7714- \l_@@_bib_gb_style_tl }
+            \exp_args:No \bibliographystyle
+              { gbt7714- \l_@@_bib_gb_style_tl }
           }
           {
             \RequirePackage [ sort & compress ] { natbib }
-            \exp_args:NV \bibliographystyle \l_@@_bib_style_tl
+            \exp_args:No \bibliographystyle
+              { \l_@@_bib_style_tl }
           }
         \@@_bibtex_setup:
       }
   }
 %    \end{macrocode}
 % \pkg{biblatex} 会写入 |begindocument/before| 钩子，因此需在其之前通过
-% \texttt{env/document/\-begin} 钩子载入 \pkg{biblatex} 宏包。注意这个钩子仅
-% 适用于 |\begin{document}| 的写法，对于 |\document| 命令本身无效。
+% \texttt{env/doc\-u\-ment/begin} 钩子载入 \pkg{biblatex} 宏包。注意这个
+% 钩子仅适用于 |\begin{document}| 的写法，对于 |\document| 命令本身无效。
 %    \begin{macrocode}
 \@@_gadd_ltxhook:nn { env/document/begin }
   {
@@ -6274,8 +6266,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     { lot                } { 表格目录                      },
     { bib_en             } { Bibliography                  },
     { pdf_creator        } { LaTeX~ with~ fduthesis~ class },
-    { orig_decl          } { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
-    { auth_decl          } { \c_@@_name_simp_tl \\ 学位论文使用授权声明 }
+    { orig_decl          }
+      { \c_@@_name_simp_tl \\ 学位论文独创性声明   },
+    { auth_decl          }
+      { \c_@@_name_simp_tl \\ 学位论文使用授权声明 },
   }
   { \@@_define_name:nn #1 }
 \clist_map_inline:nn
