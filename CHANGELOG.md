@@ -4,6 +4,8 @@
 
 ## [[未发布]]
 
+## [v0.9 (2023-02-26)]
+
 - 新增
   - 新增 `acknowledgements` 环境 - [#253]
 - 修复
@@ -212,18 +214,19 @@
 
 [Keep a Changelog]: https://keepachangelog.com
 
-[未发布]: https://github.com/stone-zeng/fduthesis/compare/v0.8...main
-[v0.8 (2022-09-04)]: https://github.com/stone-zeng/fduthesis/compare/v0.7e...v0.8
-[v0.7e (2020-08-30)]: https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e
-[v0.7d (2019-04-03)]: https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d
-[v0.7c (2019-03-17)]: https://github.com/stone-zeng/fduthesis/compare/v0.7b...v0.7c
-[v0.7b (2018-05-06)]: https://github.com/stone-zeng/fduthesis/compare/v0.7a...v0.7b
-[v0.7a (2018-04-09)]: https://github.com/stone-zeng/fduthesis/compare/v0.7...v0.7a
-[v0.7 (2018-03-16)]: https://github.com/stone-zeng/fduthesis/compare/v0.6...v0.7
-[v0.6 (2017-12-01)]: https://github.com/stone-zeng/fduthesis/compare/v0.5...v0.6
-[v0.5 (2017-09-30)]: https://github.com/stone-zeng/fduthesis/compare/v0.4...v0.5
-[v0.4 (2017-08-14)]: https://github.com/stone-zeng/fduthesis/compare/v0.3...v0.4
 [v0.3 (2017-07-28)]: https://github.com/stone-zeng/fduthesis/compare/37dace3...v0.3
+[v0.4 (2017-08-14)]: https://github.com/stone-zeng/fduthesis/compare/v0.3...v0.4
+[v0.5 (2017-09-30)]: https://github.com/stone-zeng/fduthesis/compare/v0.4...v0.5
+[v0.6 (2017-12-01)]: https://github.com/stone-zeng/fduthesis/compare/v0.5...v0.6
+[v0.7 (2018-03-16)]: https://github.com/stone-zeng/fduthesis/compare/v0.6...v0.7
+[v0.7a (2018-04-09)]: https://github.com/stone-zeng/fduthesis/compare/v0.7...v0.7a
+[v0.7b (2018-05-06)]: https://github.com/stone-zeng/fduthesis/compare/v0.7a...v0.7b
+[v0.7c (2019-03-17)]: https://github.com/stone-zeng/fduthesis/compare/v0.7b...v0.7c
+[v0.7d (2019-04-03)]: https://github.com/stone-zeng/fduthesis/compare/v0.7c...v0.7d
+[v0.7e (2020-08-30)]: https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e
+[v0.8 (2022-09-04)]: https://github.com/stone-zeng/fduthesis/compare/v0.7e...v0.8
+[v0.9 (2023-02-26)]: https://github.com/stone-zeng/fduthesis/compare/v0.8...v0.9
+[未发布]: https://github.com/stone-zeng/fduthesis/compare/v0.9...main
 
 [#2]: https://github.com/stone-zeng/fduthesis/issues/2
 [#3]: https://github.com/stone-zeng/fduthesis/issues/3

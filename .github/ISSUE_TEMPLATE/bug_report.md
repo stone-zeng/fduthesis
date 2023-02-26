@@ -32,7 +32,7 @@ about: 报告模板中的 bug
   - [ ] Ubuntu
 - TeX 发行版
   - [ ] TeX Live 2022
-  - [ ] MiKTeX 22.8
+  - [ ] MiKTeX 22.10
 - 编译方式
   - [ ] XeLaTeX
   - [ ] LuaLaTeX
@@ -41,4 +41,4 @@ about: 报告模板中的 bug
   - [ ] 通过 GitHub Releases 下载（最新发布版本）
   - [ ] 通过 `git clone` 下载（开发版本）
   - [ ] 在 Overleaf 上使用
-- `fduthesis` 版本：v0.8
+- `fduthesis` 版本：v0.9
