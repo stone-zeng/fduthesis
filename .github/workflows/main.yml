@@ -1,6 +1,6 @@
 name: build
 
-on: [push]
+on: push
 
 env:
   CTAN_URL: https://mirrors.rit.edu/CTAN
@@ -18,59 +18,39 @@ env:
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
-    env:
-      SET_PATH: export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
     steps:
     - uses: actions/checkout@v3
-    - name: Install TeX Live
-      run: |
-        ${{ env.SET_PATH }}
-        wget ${{ env.CTAN_URL }}/systems/texlive/tlnet/install-tl-unx.tar.gz
-        tar -xzf install-tl-unx.tar.gz
-        cd install-tl-20* && ./install-tl --profile ../.github/workflows/texlive.profile
-        tlmgr install ${{ env.TL_PACKAGES }}
-        tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
+    - uses: zauguin/install-texlive@v3
+      with:
+        packages: ${{ env.TL_PACKAGES }}
     - name: Check fduthesis
       run: |
-        ${{ env.SET_PATH }}
         l3build check -q -H
     - name: Test fduthesis
       run: |
-        ${{ env.SET_PATH }}
         cd test && cp ../build/unpacked/{*.cls,*.def} .
         ${{ env.TESTS }}
     - name: Build examples
       run: |
-        ${{ env.SET_PATH }}
         ./install-unix.sh
         cd thesis
         ${{ env.EXAMPLES }}
   build-macos:
     runs-on: macos-latest
-    env:
-      SET_PATH: export PATH=/tmp/texlive/bin/universal-darwin:$PATH
     steps:
     - uses: actions/checkout@v3
-    - name: Install TeX Live
-      run: |
-        ${{ env.SET_PATH }}
-        curl -O ${{ env.CTAN_URL }}/systems/texlive/tlnet/install-tl-unx.tar.gz
-        tar -xzf install-tl-unx.tar.gz
-        cd install-tl-20* && ./install-tl --profile ../.github/workflows/texlive.profile
-        tlmgr install ${{ env.TL_PACKAGES }}
-        tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
+    - uses: zauguin/install-texlive@v3
+      with:
+        packages: ${{ env.TL_PACKAGES }}
     - name: Check fduthesis
       run: |
-        ${{ env.SET_PATH }}
         l3build check -q -H
     - name: Test fduthesis
       run: |
-        ${{ env.SET_PATH }}
         cd test && cp ../build/unpacked/{*.cls,*.def} .
         ${{ env.TESTS }}
     - name: Build examples
       run: |
-        ${{ env.SET_PATH }}
         ./install-unix.sh
         cd thesis
         ${{ env.EXAMPLES }}
