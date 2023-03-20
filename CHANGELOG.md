@@ -7,7 +7,7 @@
 ## [v0.9 (2023-02-26)]
 
 - 新增
-  - 新增 `acknowledgements` 环境 - [#253]
+  - 新增 `acknowledgements` 环境 - [#41]、[#116]、[#253]
 - 修复
   - 删除论文标题中的 `\\` 和汉字间的空格 - [#75]、[#264]、[#265]
   - 在目录和书签中删除章标题中的 `\quad`
@@ -244,6 +244,7 @@
 [#32]: https://github.com/stone-zeng/fduthesis/issues/32
 [#33]: https://github.com/stone-zeng/fduthesis/issues/33
 [#36]: https://github.com/stone-zeng/fduthesis/issues/36
+[#41]: https://github.com/stone-zeng/fduthesis/issues/41
 [#45]: https://github.com/stone-zeng/fduthesis/issues/45
 [#49]: https://github.com/stone-zeng/fduthesis/issues/49
 [#50]: https://github.com/stone-zeng/fduthesis/issues/50
@@ -263,6 +264,7 @@
 [#93]: https://github.com/stone-zeng/fduthesis/issues/93
 [#100]: https://github.com/stone-zeng/fduthesis/issues/100
 [#114]: https://github.com/stone-zeng/fduthesis/issues/114
+[#116]: https://github.com/stone-zeng/fduthesis/issues/116
 [#127]: https://github.com/stone-zeng/fduthesis/issues/127
 [#150]: https://github.com/stone-zeng/fduthesis/issues/150
 [#156]: https://github.com/stone-zeng/fduthesis/issues/156
