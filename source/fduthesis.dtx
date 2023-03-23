@@ -1687,10 +1687,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \begin{function}{info/keywords,info/keywords*}
 %   \begin{fdusyntax}[emph={[1]keywords,keywords*}]
-%     keywords  = (*\marg{中文关键字}*)
-%     keywords* = (*\marg{英文关键字}*)
+%     keywords  = (*\marg{中文关键词}*)
+%     keywords* = (*\marg{英文关键词}*)
 %   \end{fdusyntax}
-%   关键字列表。各关键字之间需使用英文逗号隔开。为防止歧义，
+%   关键词列表。各关键词之间需使用英文逗号隔开。为防止歧义，
 %   可以用分组括号“|{...}|”把各字段括起来。
 % \end{function}
 %^^A! \begin{function}{info/keywords,info/keywords*}
@@ -1823,7 +1823,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% 摘要的最后，会显示关键字列表以及中图分类号（CLC）或 JEL 分类号。这两项
+% 摘要的最后，会显示关键词列表以及中图分类号（CLC）或 JEL 分类号。这两项
 % 可通过 \cs{fdusetup} 录入，具体请参阅 \ref{subsubsec:信息录入}~节。
 %^^A! At the end of abstract (both Chinese and English, if available),
 %^^A! keywords list and CLC or JEL code will be shown. They can be
@@ -4600,7 +4600,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{info/keywords,info/keywords*}
-% 论文关键字。
+% 论文关键词。
 %    \begin{macrocode}
     keywords    .clist_set:N = \l_@@_info_keywords_clist,
     keywords*   .clist_set:N = \l_@@_info_keywords_en_clist,
@@ -5423,11 +5423,11 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v0.7d}{2019/03/28}{优化关键字列表的显示。}
+% \changes{v0.7d}{2019/03/28}{优化关键词列表的显示。}
 % \changes{v0.8}{2021/12/22}{没有指定 CLC/JEL 分类号时不再显示。}
 %
 % \begin{macro}{\@@_abstract_end:}
-% 摘要正文完成后，输出关键字列表和 CLC/JEL 分类号。
+% 摘要正文完成后，输出关键词列表和 CLC/JEL 分类号。
 %    \begin{macrocode}
 %<*class>
 \cs_new_protected:Npn \@@_abstract_end:
@@ -5473,7 +5473,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{macro}
 %
 % \begin{macro}{\@@_keywords:nNn,\@@_keywords_prevdepth:,\@@_clc_jel:nn}
-% 关键字列表前要空一行，使用悬挂缩进；分类号不缩进。\tn{parbox} 之后的间距
+% 关键词列表前要空一行，使用悬挂缩进；分类号不缩进。\tn{parbox} 之后的间距
 % 需要调整，见 \url{https://tex.stackexchange.com/a/34982}。
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_keywords:nNn #1#2#3
@@ -6243,6 +6243,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v0.9a}{2023/03/23}{“关键字”更改为“关键词”。}
+%
 % 默认名称。注意空格是忽略掉的。
 %    \begin{macrocode}
 \clist_map_inline:nn
@@ -6275,7 +6277,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 \clist_map_inline:nn
   {
     { abstract         } { 摘 \quad 要 } { Abstract          },
-    { keywords         } { 关键字      } { Keywords:         },
+    { keywords         } { 关键词      } { Keywords:         },
     { clc              } { 中图分类号  } { CLC~ code:        },
     { jel              } { JEL 分类号  } { JEL~ code:        },
     { notation         } { 符号表      } { List~ of~ Symbols },

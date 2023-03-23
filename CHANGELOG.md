@@ -4,6 +4,9 @@
 
 ## [[未发布]]
 
+- 变更
+  - `关键字` 更改为 `关键词` - [#296]
+
 ## [v0.9 (2023-02-26)]
 
 - 新增
@@ -85,7 +88,7 @@
     - 感谢 [@ShichaoSun]！
 - 优化
   - 优化目录、摘要、参考文献等的标题实现
-  - 优化关键字列表的显示 - [#70]
+  - 优化关键词列表的显示 - [#70]
 
 ## [v0.7c (2019-03-17)]
 
@@ -165,7 +168,7 @@
 - 变更
   - 移除 `nofonts` 选项
   - 同步 `fontspec` v2.6e
-  - (fdudoc) 移除 `listings` 关键字定义文件
+  - (fdudoc) 移除 `listings` 关键词定义文件
 - 优化
   - 重新实现字体调用，核心内容是分离字体的声明与设定，并按照宋、黑、仿、楷划分中文字体 - [#17]
   - 使用 `expl3` 以及内部函数改写封面，减少对 LaTeX2e 的依赖
@@ -281,6 +284,7 @@
 [#239]: https://github.com/stone-zeng/fduthesis/issues/239
 [#265]: https://github.com/stone-zeng/fduthesis/issues/265
 [#289]: https://github.com/stone-zeng/fduthesis/issues/289
+[#296]: https://github.com/stone-zeng/fduthesis/issues/296
 
 [#64]: https://github.com/stone-zeng/fduthesis/pull/64
 [#233]: https://github.com/stone-zeng/fduthesis/pull/233
