@@ -4926,8 +4926,9 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         }
 %    \end{macrocode}
 % 通过 \env{tabular} 环境输出。
+% \changes{v0.9a}{2023/05/07}{展开列格式参数以修复与 \pkg{array} 宏包的兼容性问题。}
 %    \begin{macrocode}
-      \begin{tabular} { \c_@@_cover_info_align_tl }
+      \exp_args:Nnx \begin{tabular} { \c_@@_cover_info_align_tl }
         \clist_use:Nn \l_@@_tmpa_clist { \\ [ 1 ex ] }
       \end{tabular}
     \group_end:

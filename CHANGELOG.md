@@ -4,6 +4,8 @@
 
 ## [[未发布]]
 
+- 修复
+  - 展开封面信息栏中的列格式参数，修复与 `array` 宏包的兼容性问题 - [#302]
 - 变更
   - `关键字` 更改为 `关键词` - [#296]
 
@@ -285,6 +287,7 @@
 [#265]: https://github.com/stone-zeng/fduthesis/issues/265
 [#289]: https://github.com/stone-zeng/fduthesis/issues/289
 [#296]: https://github.com/stone-zeng/fduthesis/issues/296
+[#302]: https://github.com/stone-zeng/fduthesis/issues/302
 
 [#64]: https://github.com/stone-zeng/fduthesis/pull/64
 [#233]: https://github.com/stone-zeng/fduthesis/pull/233
