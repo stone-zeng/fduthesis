@@ -9,7 +9,6 @@ checkopts    = "-interaction=batchmode"
 sourcefiles  = {"source/*.dtx"}
 installfiles = {"*.cls", "*.sty", "*.def"}
 
--- typesetdeps = {"source/latexmkrc."}
 typesetexe   = "xelatex"
 typesetfiles = {"fduthesis.dtx"}
 
