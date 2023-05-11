@@ -2038,7 +2038,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       Knuth\textsuperscript{[\C1]} states &
 %^^A!       \verbcite[citet]{texbook} &
 %^^A!       \verbcite[authornumcite]{texbook} \\
-%^^A!     With page and author &
+%^^A!     With page \& author &
 %^^A!       Knuth\textsuperscript{[\C1]42} states &
 %^^A!       \verbcite[citet][42]{texbook} &
 %^^A!       \verbcite[authornumcite][42]{texbook} \\
@@ -2105,7 +2105,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \verbcite[citep]{texbook} &
 %^^A!       \verbcite{texbook} \\
 %^^A!     Multiple &
-%^^A!       (\C{Knuth}, \C{1986}; \C{Mittelbach et al.}, \C{2004}) &
+%^^A!       (\C{Knuth}, \C{1986}; \C{Mittelbach et~al.}, \C{2004}) &
 %^^A!       \verbcite[citep]{texbook,companion} &
 %^^A!       \verbcite{texbook,companion} \\
 %^^A!     With page &
@@ -2116,7 +2116,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!       \C{Knuth} (\C{1986}) &
 %^^A!       \verbcite[citet]{texbook} &
 %^^A!       Same as left \\
-%^^A!     With page and author &
+%^^A!     With page \& author &
 %^^A!       \C{Knuth} (\C{1986})\textsuperscript{42} &
 %^^A!       \verbcite[citet][42]{texbook} &
 %^^A!       Same as left \\
@@ -2529,7 +2529,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \subsection{宏包、模版}
 %
 % \bibitem[()]{source2e}
-% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et al.
+% \textsc{Braams J}, \textsc{Carlisle D}, \textsc{Jeffrey A}, et~al.
 % \newblock \textit{The \LaTeXe{} Sources} [CP/OL].
 % \newblock (2022-06-01)
 % \urlprefix\url{https://ctan.org/pkg/latex}
@@ -2575,7 +2575,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \urlprefix\CTANurl[文档：]{macros/latex/contrib/biblatex/doc/biblatex.pdf}
 %
 % \bibitem[()]{lshort}
-% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et~al.
 % \newblock \textit{The Not So Short Introduction to \LaTeXe{}: Or \LaTeXe{} in 139 minutes} [EB/OL].
 % \newblock version 6.4,
 % \newblock (2021-03-09)
@@ -2583,7 +2583,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \urlprefix\CTANurl[文档：]{info/lshort/english/lshort.pdf}
 %
 % \bibitem[()]{lshort-zh-cn}
-% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et al.
+% \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I}, et~al.
 % \newblock \textit{一份（不太）简短的 \LaTeXe{} 介绍: 或 111 分钟了解 \LaTeXe{}} [EB/OL].
 % \newblock \CTeX{} 开发小组, 译.
 % \newblock 原版版本 version 6.4, 中文版本 version 6.03,
@@ -2789,11 +2789,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_thesis_type_int}
-% 论文类型。取值 1、2、3 分别对应博士、硕士、本科（学士），这与学号
-% 第三位是一致的。
+% \begin{variable}{\g_@@_thesis_type_tl}
+% 论文类型。
 %    \begin{macrocode}
-\int_new:N \g_@@_thesis_type_int
+\tl_new:N \g_@@_thesis_type_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -2815,7 +2814,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \end{variable}
 %
 % \begin{variable}{\g_@@_draft_bool}
-% 是否开启草稿模式。
+% 是否开启草稿模式（默认关闭）。
 %    \begin{macrocode}
 \bool_new:N \g_@@_draft_bool
 %    \end{macrocode}
@@ -2968,11 +2967,10 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 设置论文类型。设为模板选项主要是为了以后的兼容性。论文类型可能会
 % 影响很多设置，只是暂时还不考虑。默认为本科毕业论文。
 %    \begin{macrocode}
-    type .choice:,
-    type .value_required:n = true,
     type .choices:nn =
       { doctor, master, bachelor }
-      { \int_set_eq:NN \g_@@_thesis_type_int \l_keys_choice_int },
+      { \tl_set_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
+    type .value_required:n = true,
     type .initial:n = bachelor,
 %    \end{macrocode}
 % \end{macro}
@@ -3181,7 +3179,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     font .choices:nn =
       { garamond, libertinus, lm, palatino, times, times*, none }
-      { \tl_set_eq:NN \g_@@_fontset_tl \l_keys_choice_tl }
+      { \tl_set_eq:NN \g_@@_fontset_tl \l_keys_choice_tl },
+    font .value_required:n = true,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3195,7 +3194,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     cjk-font .choices:nn =
       { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
-      { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl }
+      { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl },
+    cjk-font .value_required:n = true,
   }
 %    \end{macrocode}
 %</class>
@@ -4412,16 +4412,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 分别设置浮动体 \env{figure} 和 \env{table} 的标题样式。
 %    \begin{macrocode}
-\captionsetup [ figure ]
-  {
-    font     = small,
-    labelsep = quad
-  }
-\captionsetup [ table  ]
-  {
-    font     = { small, sf },
-    labelsep = quad
-  }
+\captionsetup [ figure ] { font = small,         labelsep = quad }
+\captionsetup [ table  ] { font = { small, sf }, labelsep = quad }
 %    \end{macrocode}
 %
 % \begin{macro}{\thefigure,\thetable}
@@ -4480,17 +4472,16 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\l_@@_info_degree_type_int}
-% 学位类型。1 为学术学位，2 为专业学位。
+% \begin{variable}{\l_@@_info_degree_type_tl}
+% 学位类型。
 %    \begin{macrocode}
-\int_new:N \l_@@_info_degree_type_int
+\tl_new:N \l_@@_info_degree_type_tl
 %    \end{macrocode}
 % \end{variable}
 %
 % \changes{v0.9}{2023/02/12}{删除论文标题中的 \tn{\textbackslash} 和汉字间的空格。}
 % 
-% \begin{variable}{\l_@@_info_title_sanitized_tl,
-%   \l_@@_info_title_en_sanitized_tl}
+% \begin{variable}{\l_@@_info_title_sanitized_tl,\l_@@_info_title_en_sanitized_tl}
 % 处理后的论文标题。
 %    \begin{macrocode}
 \tl_new:N \l_@@_info_title_sanitized_tl
@@ -4529,7 +4520,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     degree      .choices:nn  =
       { academic, professional }
-      { \int_set_eq:NN \l_@@_info_degree_type_int \l_keys_choice_int },
+      { \tl_set_eq:NN \l_@@_info_degree_type_tl \l_keys_choice_tl },
+    degree      .value_required:n = true,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -4846,11 +4838,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_type:
   {
-    \tl_set:Nx \l_@@_tmpa_tl
-      {
-        \clist_item:Nn \c_@@_thesis_type_clist
-          { \g_@@_thesis_type_int }
-      }
+    \prop_get:NVN \c_@@_thesis_type_prop
+      \g_@@_thesis_type_tl \l_@@_tmpa_tl
     \@@_spread_box:no { 0.45 \textwidth } { \l_@@_tmpa_tl }
   }
 %    \end{macrocode}
@@ -4862,11 +4851,12 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_degree:
   {
-    \int_compare:nT { \g_@@_thesis_type_int != 3 }
+    \tl_if_eq:NnF \g_@@_thesis_type_tl { bachelor }
       {
+        \prop_get:NVN \c_@@_degree_type_prop
+          \l_@@_info_degree_type_tl \l_@@_tmpa_tl
         \c_@@_fwid_left_paren_tl
-        \clist_item:Nn \c_@@_degree_type_clist
-          { \l_@@_info_degree_type_int }
+        \l_@@_tmpa_tl
         \c_@@_fwid_right_paren_tl
       }
   }
@@ -4878,11 +4868,9 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_info_left:n #1
   {
-    \int_case:nn { \l_@@_info_degree_type_int }
-      {
-        { 1 } { \_@@_spread_box:nn { 6 em } {#1} }
-        { 2 } { \_@@_spread_box:nn { 9 em } {#1} }
-      }
+    \tl_if_eq:NnTF \l_@@_info_degree_type_tl { professional }
+      { \@@_spread_box:nn { 9 em } {#1} }
+      { \@@_spread_box:nn { 6 em } {#1} }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4907,7 +4895,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % 专业学位与学术学位对应的左侧字段有所不同，这里统一存入 \cs{c_@@_name_major_tl}。
 %    \begin{macrocode}
-      \int_compare:nNnT { \l_@@_info_degree_type_int } = { 2 }
+      \tl_if_eq:NnT \l_@@_info_degree_type_tl { professional }
         {
           \tl_set_eq:NN
             \c_@@_name_major_tl \c_@@_name_major_professional_tl
@@ -5613,6 +5601,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 参考文献后端。
 %    \begin{macrocode}
     bib-backend .choice:,
+    bib-backend .value_required:n = true,
     bib-backend / bibtex   .code:n =
       { \tl_set:Nn \l_@@_bib_backend_tl { bibtex } },
 %    \end{macrocode}
@@ -6223,14 +6212,20 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{杂项}
 %
-% \begin{variable}{\c_@@_thesis_type_clist,
-%   \c_@@_degree_type_clist}
+% \begin{variable}{\c_@@_thesis_type_prop,\c_@@_degree_type_prop}
 % 论文类型与学位类型。
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_thesis_type_clist
-  { 博士学位论文, 硕士学位论文, 本科毕业论文 }
-\clist_const:Nn \c_@@_degree_type_clist
-  { 学术学位, 专业学位 }
+\prop_const_from_keyval:Nn \c_@@_thesis_type_prop
+  {
+    doctor   = 博士学位论文,
+    master   = 硕士学位论文,
+    bachelor = 本科毕业论文,
+  }
+\prop_const_from_keyval:Nn \c_@@_degree_type_prop
+  {
+    academic     = 学术学位,
+    professional = 专业学位,
+  }
 %    \end{macrocode}
 % \end{variable}
 %
