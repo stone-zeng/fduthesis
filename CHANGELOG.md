@@ -7,6 +7,7 @@
 - 修复
   - 展开封面信息栏中的列格式参数，修复与 `array` 宏包的兼容性问题 - [#302]
 - 变更
+  - 允许同时不使用 BibTeX 与 `biblatex` - [#37]
   - `关键字` 更改为 `关键词` - [#296]
 
 ## [v0.9 (2023-02-26)]
@@ -249,6 +250,7 @@
 [#32]: https://github.com/stone-zeng/fduthesis/issues/32
 [#33]: https://github.com/stone-zeng/fduthesis/issues/33
 [#36]: https://github.com/stone-zeng/fduthesis/issues/36
+[#37]: https://github.com/stone-zeng/fduthesis/issues/37
 [#41]: https://github.com/stone-zeng/fduthesis/issues/41
 [#45]: https://github.com/stone-zeng/fduthesis/issues/45
 [#49]: https://github.com/stone-zeng/fduthesis/issues/49
