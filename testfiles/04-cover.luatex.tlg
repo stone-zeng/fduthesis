@@ -60,10 +60,6 @@ Completed box being shipped out [2]
 .....\whatsit4=[]
 ....\pdfcolorstack 0 pop
 .\kern0.0
-Overfull \hbox (24.0pt too wide) detected at line 21
-[]
-\hbox(0.0+0.0)x-24.0, direction TLT
-.\whatsit4=[]
 <fudan-name.pdf, id=25, 789.81374pt x 297.20033pt>
 File: fudan-name.pdf Graphic file (type pdf)
 <use fudan-name.pdf>
@@ -113,7 +109,7 @@ Completed box being shipped out [1]
 .....\pdfcolorstack 0 pop
 ...\glue 19.8738
 ...\glue(\lineskip) 0.0
-...\vbox(700.50723+0.0)x416.54877, glue set 25.63274fill, direction TLT
+...\vbox(700.50723+0.0)x416.54877, glue set 24.7012fill, direction TLT
 ....\whatsit4=[]
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
@@ -124,8 +120,8 @@ Completed box being shipped out [1]
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
-....\glue(\baselineskip) 0.7249
-....\hbox(14.27504+9.75864)x416.54877, glue set 320.54877fil, direction TLT
+....\glue(\lineskip) 1.0
+....\hbox(17.25812+12.74173)x416.54877, glue set 320.21127fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -144,83 +140,81 @@ Completed box being shipped out [1]
 .......\pdfcolorstack 0 pop
 ......\glue 6.0
 .....\penalty 0
-.....\mathon
-.....\vbox(14.27504+9.75864)x120.0, direction TLT
+.....\hbox(17.25812+12.74173)x96.3375, direction TLT
 ......\whatsit4=[]
-......\vbox(22.94963+1.08405)x120.0, direction TLT
+......\mathon
+......\vbox(17.25812+12.74173)x96.3375, direction TLT
 .......\whatsit4=[]
-.......\hbox(7.94969+1.08405)x120.0, glue set 52.24692fil, direction TLT
+.......\vbox(25.49983+4.50002)x96.3375, direction TLT
 ........\whatsit4=[]
-........\localpar
-.........\localinterlinepenalty=0
-.........\localbrokenpenalty=0
-.........\localleftbox=null
-.........\localrightbox=null
-........\hbox(0.0+0.0)x0.0, direction TLT
-........\hbox(7.94969+1.08405)x9.03374, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 学
-........\glue 0.0 plus 0.22797
-........\hbox(7.94969+1.08405)x9.03374, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 校
-........\glue 0.0 plus 0.22797
-........\hbox(7.94969+1.08405)x9.03374, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 代
-........\penalty 500
-........\glue 0.0 plus 0.22797
-........\hbox(7.94969+1.08405)x9.03374, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 码
-........\penalty 10000
-........\glue 0.0 plus 0.22797
-........\hbox(7.94969+1.08405)x4.51688, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 ：
-........\glue 4.51688 minus 4.51688
-........\TU/XITS(0)/m/n/9.03374 1
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 2
-........\TU/XITS(0)/m/n/9.03374 4
-........\TU/XITS(0)/m/n/9.03374 6
-........\penalty 10000
-........\glue(\parfillskip) 0.0 plus 1.0fil
-........\glue(\rightskip) 0.0
-.......\glue(\parskip) 0.0
-.......\glue(\parskip) 0.0
-.......\glue(\baselineskip) 5.9662
-.......\hbox(7.94969+1.08405)x120.0, glue set 25.14566fil, direction TLT
-........\whatsit4=[]
-........\localpar
-.........\localinterlinepenalty=0
-.........\localbrokenpenalty=0
-.........\localleftbox=null
-.........\localrightbox=null
-........\hbox(0.0+0.0)x0.0, direction TLT
-........\hbox(7.94969+1.08405)x9.03374, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 学
-........\glue 18.06747
-........\penalty 500
-........\hbox(7.94969+1.08405)x9.03374, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 号
-........\penalty 10000
-........\glue 0.0 plus 0.22797
-........\hbox(7.94969+1.08405)x4.51688, direction TLT
-.........\LTJY3/FandolSong(0)/m/n/9.03374 ：
-........\glue 4.51688 minus 4.51688
-........\TU/XITS(0)/m/n/9.03374 1
-........\TU/XITS(0)/m/n/9.03374 2
-........\TU/XITS(0)/m/n/9.03374 3
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\TU/XITS(0)/m/n/9.03374 0
-........\penalty 10000
-........\glue(\parfillskip) 0.0 plus 1.0fil
-........\glue(\rightskip) 0.0
-.....\mathoff
-.....\hbox(0.0+0.0)x-24.0, direction TLT
-......\whatsit4=[]
+........\hbox(10.49991+4.50002)x96.3375, direction TLT
+.........\glue(\tabskip) 0.0
+.........\hbox(10.49991+4.50002)x46.65184, direction TLT
+..........\whatsit4=[]
+..........\rule(10.49991+4.50002)x0.0
+..........\glue 6.0
+..........\glue 0.00002
+..........\hbox(7.94969+1.08405)x9.03374, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 学
+..........\glue 0.0 plus 0.22797
+..........\hbox(7.94969+1.08405)x9.03374, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 校
+..........\glue 0.0 plus 0.22797
+..........\hbox(7.94969+1.08405)x9.03374, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 代
+..........\glue 0.0 plus 0.22797
+..........\hbox(7.94969+1.08405)x9.03374, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 码
+..........\glue 0.0 plus 1.0fil
+..........\penalty 10000
+..........\hbox(7.94969+1.08405)x4.51688, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 ：
+.........\glue(\tabskip) 0.0
+.........\hbox(10.49991+4.50002)x49.68565, glue set 27.10126fil, direction TLT
+..........\whatsit4=[]
+..........\glue 0.00002
+..........\TU/XITS(0)/m/n/9.03374 1
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 2
+..........\TU/XITS(0)/m/n/9.03374 4
+..........\TU/XITS(0)/m/n/9.03374 6
+..........\glue 0.0 plus 1.0fil
+.........\glue(\tabskip) 0.0
+........\glue(\lineskip) 0.0
+........\hbox(10.49991+4.50002)x96.3375, direction TLT
+.........\glue(\tabskip) 0.0
+.........\hbox(10.49991+4.50002)x46.65184, direction TLT
+..........\whatsit4=[]
+..........\rule(10.49991+4.50002)x0.0
+..........\glue 6.0
+..........\glue 0.00002
+..........\hbox(7.94969+1.08405)x9.03374, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 学
+..........\glue 18.06747
+..........\hbox(7.94969+1.08405)x9.03374, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 号
+..........\glue 0.0 plus 1.0fil
+..........\penalty 10000
+..........\hbox(7.94969+1.08405)x4.51688, direction TLT
+...........\LTJY3/FandolSong(0)/m/n/9.03374 ：
+.........\glue(\tabskip) 0.0
+.........\hbox(10.49991+4.50002)x49.68565, direction TLT
+..........\whatsit4=[]
+..........\glue 0.00002
+..........\TU/XITS(0)/m/n/9.03374 1
+..........\TU/XITS(0)/m/n/9.03374 2
+..........\TU/XITS(0)/m/n/9.03374 3
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\TU/XITS(0)/m/n/9.03374 0
+..........\glue 0.0 plus 1.0fil
+.........\glue(\tabskip) 0.0
+......\mathoff
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0
 .....\glue(\rightskip) 0.0

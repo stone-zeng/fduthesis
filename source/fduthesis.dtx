@@ -2829,13 +2829,19 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % \subsubsection{内部函数}
 %
-% \begin{macro}{\file_input:V,\int_to_arabic:v,\keys_define:nx,\regex_replace_all:nnc}
+% \begin{macro}{
+%   \file_input:V,
+%   \int_to_arabic:v,
+%   \keys_define:nx,
+%   \prop_item:No,
+%   \regex_replace_all:nnc}
 % \begin{macro}[TF]{\tl_if_eq:Vn}
 % \LaTeX3{} 函数变体。
 %    \begin{macrocode}
 \cs_generate_variant:Nn \file_input:n          { V   }
 \cs_generate_variant:Nn \int_to_arabic:n       { v   }
 \cs_generate_variant:Nn \keys_define:nn        { nx  }
+\cs_generate_variant:Nn \prop_item:Nn          { No  }
 \cs_generate_variant:Nn \regex_replace_all:nnN { nnc }
 \prg_generate_conditional_variant:Nnn \tl_if_eq:nn { Vn } { T, TF }
 %    \end{macrocode}
@@ -4638,13 +4644,6 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.3}{2017/07/04}{新增 \opt{info/secret-level} 与
 %   \opt{info/secret-year} 选项。}
 %
-% \begin{variable}{\l_@@_secret_bool}
-% 是否显示密级。
-%    \begin{macrocode}
-\bool_new:N \l_@@_secret_bool
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{variable}{\l_@@_info_secret_level_tl}
 % 保存当前的密级。
 %    \begin{macrocode}
@@ -4664,18 +4663,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
     secret-level .choices:nn  =
       { none, i, ii, iii }
-      {
-        \int_compare:nTF { \l_keys_choice_int >= 2 }
-          {
-            \bool_set_true:N \l_@@_secret_bool
-            \tl_set:Nn \l_@@_info_secret_level_tl
-              {
-                \clist_item:Nn \c_@@_secret_clist
-                  { \l_keys_choice_int - 1 }
-              }
-          }
-          { \bool_set_false:N \l_@@_secret_bool }
-      },
+      { \tl_set_eq:NN \l_@@_info_secret_level_tl \l_keys_choice_tl },
     secret-level .value_required:n = true,
 %    \end{macrocode}
 % \end{macro}
@@ -4777,36 +4765,46 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.5}{2017/09/19}{使用 \pkg{expl3} 以及内部函数改写
 %   封面，减少对 \LaTeXe{} 的依赖。}
 %
-% \begin{macro}{\@@_cover_id:,\@@_cover_id_aux:n}
-% 右上角的学校代码和学号。
+% \begin{macro}{\@@_cover_id:,\@@_cover_id_tabular:n,\@@_cover_id_aux:n}
+% 右上角的密级、学校代码和学号。
+% \changes{v0.9a}{2023/05/21}{封面密级、学校代码和学号改用表格实现。}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_cover_id:
   {
-    \@@_fixed_width_box:nn { 120 pt }
-      {
-        \bool_if:NT \l_@@_secret_bool
-          {
-            \group_begin:
-              \sffamily
-              \@@_cover_id_aux:n { secret_level }
-              \c_@@_name_secret_star_tl
-              \l_@@_info_secret_year_tl
-            \group_end:
-            \par
-          }
-        \@@_cover_id_aux:n { school_id  } \par
-        \@@_cover_id_aux:n { student_id }
-      }
-%    \end{macrocode}
-% 插入一个宽度为负的水平盒子以减少右侧边距。
-%    \begin{macrocode}
-    \hbox_to_wd:nn { -24 pt } { }
+    \tl_if_eq:NnTF \l_@@_info_secret_level_tl { none }
+      { \@@_cover_id_tabular:n { } }
+      { \@@_cover_id_tabular:n { \@@_cover_secret: \\ } }
+  }
+\cs_new_protected:Npn \@@_cover_id_tabular:n #1
+  {
+    \begin{tabular} { l @ { \c_@@_fwid_colon_tl } l @ { } }
+      #1
+      \@@_cover_id_aux:n { school_id  } \\
+      \@@_cover_id_aux:n { student_id }
+    \end{tabular}
   }
 \cs_new:Npn \@@_cover_id_aux:n #1
   {
-    \tl_use:c { c_@@_name_ #1 _tl }
-    \c_@@_fwid_colon_tl
+    \tl_use:c { c_@@_name_ #1 _tl } &
     \tl_use:c { l_@@_info_ #1 _tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_cover_secret:}
+% 密级，使用无衬线字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_cover_secret:
+  {
+    \multicolumn { 2 } { l }
+      {
+        \sffamily
+        \c_@@_name_secret_level_tl
+        \c_@@_fwid_colon_tl
+        \prop_item:No \c_@@_secret_prop { \l_@@_info_secret_level_tl }
+        \c_@@_name_secret_star_tl
+        \l_@@_info_secret_year_tl
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4853,10 +4851,8 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     \tl_if_eq:NnF \g_@@_thesis_type_tl { bachelor }
       {
-        \prop_get:NVN \c_@@_degree_type_prop
-          \l_@@_info_degree_type_tl \l_@@_tmpa_tl
         \c_@@_fwid_left_paren_tl
-        \l_@@_tmpa_tl
+        \prop_item:No \c_@@_degree_type_prop { \l_@@_info_degree_type_tl }
         \c_@@_fwid_right_paren_tl
       }
   }
@@ -6229,10 +6225,15 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_secret_clist}
+% \begin{variable}{\c_@@_secret_prop}
 % 三种密级。
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_secret_clist { 秘密, 机密, 绝密 }
+\prop_const_from_keyval:Nn \c_@@_secret_prop
+  {
+    i   = 秘密,
+    ii  = 机密,
+    iii = 绝密,
+  }
 %    \end{macrocode}
 % \end{variable}
 %
