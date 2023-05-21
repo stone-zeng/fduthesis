@@ -4777,7 +4777,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 \cs_new_protected:Npn \@@_cover_id_tabular:n #1
   {
-    \begin{tabular} { l @ { \c_@@_fwid_colon_tl } l @ { } }
+    \exp_args:Nnx \begin{tabular} { \c_@@_cover_id_align_tl }
       #1
       \@@_cover_id_aux:n { school_id  } \\
       \@@_cover_id_aux:n { student_id }
@@ -4790,6 +4790,14 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{variable}{\c_@@_cover_id_align_tl}
+% 密级、学号栏对齐格式：左右两栏均左对齐，中间以冒号分隔，并且不加间距。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_cover_id_align_tl
+  { l @ { \c_@@_fwid_colon_tl } l @ { } }
+%    \end{macrocode}
+% \end{variable}
 %
 % \begin{macro}{\@@_cover_secret:}
 % 密级，使用无衬线字体。
@@ -4859,26 +4867,6 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_cover_info_left:n}
-% 信息栏左侧字段。
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_cover_info_left:n #1
-  {
-    \tl_if_eq:NnTF \l_@@_info_degree_type_tl { professional }
-      { \@@_spread_box:nn { 9 em } {#1} }
-      { \@@_spread_box:nn { 6 em } {#1} }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{variable}{\c_@@_cover_info_align_tl}
-% 信息栏对齐格式：左右两栏均居中，中间以冒号分隔。
-%    \begin{macrocode}
-\tl_const:Nn \c_@@_cover_info_align_tl
-  { c @ { \c_@@_fwid_colon_tl } c }
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{macro}{\@@_cover_info:}
 % \changes{v0.8}{2021/09/21}{调整专业学位的封面信息栏。}
 % \changes{v0.9}{2023/02/05}{封面信息栏改用表格实现。}
@@ -4918,6 +4906,26 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \clist_use:Nn \l_@@_tmpa_clist { \\ [ 1 ex ] }
       \end{tabular}
     \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_cover_info_align_tl}
+% 信息栏对齐格式：左右两栏均居中，中间以冒号分隔。
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_cover_info_align_tl
+  { c @ { \c_@@_fwid_colon_tl } c }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_cover_info_left:n}
+% 信息栏左侧字段。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_cover_info_left:n #1
+  {
+    \tl_if_eq:NnTF \l_@@_info_degree_type_tl { professional }
+      { \@@_spread_box:nn { 9 em } {#1} }
+      { \@@_spread_box:nn { 6 em } {#1} }
   }
 %    \end{macrocode}
 % \end{macro}
