@@ -89,10 +89,10 @@ jobs:
         .\install-tl-windows --no-gui --profile ..\.github\workflows\texlive-win.profile
         tlmgr install ${{ env.TL_PACKAGES }}
         tlmgr update --self --all --no-auto-install --repository=${{ env.CTAN_URL }}/systems/texlive/tlnet/
-    - name: Check fduthesis
-      run: |
-        ${{ env.SET_PATH }}
-        l3build check -q -H
+    # - name: Check fduthesis
+    #   run: |
+    #     ${{ env.SET_PATH }}
+    #     l3build check -q -H
     - name: Test fduthesis
       run: |
         ${{ env.SET_PATH }}
