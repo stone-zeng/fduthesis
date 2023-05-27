@@ -4,6 +4,8 @@
 
 ## [[未发布]]
 
+## [v0.9a (2023-05-27)]
+
 - 修复
   - 展开封面信息栏中的列格式参数，修复与 `array` 宏包的兼容性问题 - [#302]
 - 变更
@@ -234,7 +236,8 @@
 [v0.7e (2020-08-30)]: https://github.com/stone-zeng/fduthesis/compare/v0.7d...v0.7e
 [v0.8 (2022-09-04)]: https://github.com/stone-zeng/fduthesis/compare/v0.7e...v0.8
 [v0.9 (2023-02-26)]: https://github.com/stone-zeng/fduthesis/compare/v0.8...v0.9
-[未发布]: https://github.com/stone-zeng/fduthesis/compare/v0.9...main
+[v0.9a (2023-05-27)]: https://github.com/stone-zeng/fduthesis/compare/v0.9...v0.9a
+[未发布]: https://github.com/stone-zeng/fduthesis/compare/v0.9a...main
 
 [#2]: https://github.com/stone-zeng/fduthesis/issues/2
 [#3]: https://github.com/stone-zeng/fduthesis/issues/3
