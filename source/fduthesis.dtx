@@ -3008,11 +3008,11 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     draft .choice:,
     draft / true  .code:n =
       {
-        \bool_set_true:N     \g_@@_draft_bool
+        \bool_gset_true:N    \g_@@_draft_bool
         \clist_gput_right:Nn \g_@@_to_ctexbook_clist { draft }
       },
     draft / false .code:n =
-      { \bool_set_false:N    \g_@@_draft_bool },
+      { \bool_gset_false:N   \g_@@_draft_bool },
     draft .default:n = true,
     draft .initial:n = false,
 %    \end{macrocode}
