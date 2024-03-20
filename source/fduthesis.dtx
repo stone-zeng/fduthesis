@@ -4894,7 +4894,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
       \clist_clear:N \l_@@_tmpa_clist
       \clist_map_inline:nn { department, major, author, supervisor, date }
         {
-          \clist_gput_right:Nn \l_@@_tmpa_clist
+          \clist_put_right:Nn \l_@@_tmpa_clist
             {
               \exp_args:Nx \@@_cover_info_left:n
                 { \tl_use:c { c_@@_name_ ##1 _tl } }
