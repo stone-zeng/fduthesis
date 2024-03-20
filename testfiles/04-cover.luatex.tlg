@@ -109,7 +109,7 @@ Completed box being shipped out [1]
 .....\pdfcolorstack 0 pop
 ...\glue 19.8738
 ...\glue(\lineskip) 0.0
-...\vbox(700.50723+0.0)x416.54877, glue set 24.7012fill, direction TLT
+...\vbox(700.50723+0.0)x416.54877, glue set 24.70126fill, direction TLT
 ....\whatsit4=[]
 ....\glue(\topskip) 12.0
 ....\rule(0.0+0.0)x*
@@ -121,7 +121,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
-....\hbox(17.25812+12.74173)x416.54877, glue set 320.21127fil, direction TLT
+....\hbox(17.25836+12.74149)x416.54877, glue set 320.21127fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -140,10 +140,10 @@ Completed box being shipped out [1]
 .......\pdfcolorstack 0 pop
 ......\glue 6.0
 .....\penalty 0
-.....\hbox(17.25812+12.74173)x96.3375, direction TLT
+.....\hbox(17.25836+12.74149)x96.3375, direction TLT
 ......\whatsit4=[]
 ......\mathon
-......\vbox(17.25812+12.74173)x96.3375, direction TLT
+......\vbox(17.25836+12.74149)x96.3375, direction TLT
 .......\whatsit4=[]
 .......\vbox(25.49983+4.50002)x96.3375, direction TLT
 ........\whatsit4=[]
@@ -365,8 +365,8 @@ Completed box being shipped out [1]
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
-....\glue(\baselineskip) 16.44978
-....\hbox(13.55014+4.51735)x416.54877, glue set 20.82872fil, direction TLT
+....\glue(\baselineskip) 16.4493
+....\hbox(13.55063+4.51686)x416.54877, glue set 20.82872fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -386,7 +386,7 @@ Completed box being shipped out [1]
 ......\glue 6.0
 .....\penalty 0
 .....\mathon
-.....\vbox(13.55014+4.51735)x374.89134, direction TLT
+.....\vbox(13.55063+4.51686)x374.89134, direction TLT
 ......\whatsit4=[]
 ......\vbox(15.89938+2.1681)x374.89134, direction TLT
 .......\whatsit4=[]
@@ -440,8 +440,8 @@ Completed box being shipped out [1]
 ....\glue 13.0 plus 7.0 minus 8.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
-....\glue(\baselineskip) 7.25194
-....\hbox(8.46625+1.44075)x416.54877, glue set 20.82872fil, direction TLT
+....\glue(\baselineskip) 7.25204
+....\hbox(8.46663+1.44037)x416.54877, glue set 20.82872fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -461,7 +461,7 @@ Completed box being shipped out [1]
 ......\glue 6.0
 .....\penalty 0
 .....\mathon
-.....\vbox(8.46625+1.44075)x374.89134, direction TLT
+.....\vbox(8.46663+1.44037)x374.89134, direction TLT
 ......\whatsit4=[]
 ......\vbox(9.71027+0.19673)x374.89134, direction TLT
 .......\whatsit4=[]
@@ -519,7 +519,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\lineskip) 1.0
-....\hbox(74.49312+67.46764)x416.54877, glue set 105.6635fil, direction TLT
+....\hbox(74.4935+67.46725)x416.54877, glue set 105.6635fil, direction TLT
 .....\whatsit4=[]
 .....\glue(\leftskip) 0.0 plus 1.0fil
 .....\localpar
@@ -538,10 +538,10 @@ Completed box being shipped out [1]
 .......\pdfcolorstack 0 pop
 ......\glue 6.0
 .....\penalty 0
-.....\hbox(74.49312+67.46764)x205.22177, direction TLT
+.....\hbox(74.4935+67.46725)x205.22177, direction TLT
 ......\whatsit4=[]
 ......\mathon
-......\vbox(74.49312+67.46764)x205.22177, direction TLT
+......\vbox(74.4935+67.46725)x205.22177, direction TLT
 .......\whatsit4=[]
 .......\vbox(134.96071+7.00005)x205.22177, direction TLT
 ........\whatsit4=[]

@@ -206,10 +206,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.16646+1.14459)x142.26378, direction TLT
+\hbox(7.16678+1.14427)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(7.16646+1.14459)x142.26378, direction TLT
+.\vbox(7.16678+1.14427)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(8.14243+0.16862)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -233,10 +233,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(9.03343+3.01157)x142.26378, direction TLT
+\hbox(9.03375+3.01125)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(9.03343+3.01157)x142.26378, direction TLT
+.\vbox(9.03375+3.01125)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(10.5996+1.4454)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -268,10 +268,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(7.16646+1.14459)x142.26378, direction TLT
+\hbox(7.16678+1.14427)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(7.16646+1.14459)x142.26378, direction TLT
+.\vbox(7.16678+1.14427)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(8.14243+0.16862)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -296,10 +296,10 @@ l. ...  }
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(9.03343+3.01157)x142.26378, direction TLT
+\hbox(9.03375+3.01125)x142.26378, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(9.03343+3.01157)x142.26378, direction TLT
+.\vbox(9.03375+3.01125)x142.26378, direction TLT
 ..\whatsit4=[]
 ..\vbox(10.5996+1.4454)x142.26378, direction TLT
 ...\whatsit4=[]
@@ -378,10 +378,10 @@ l. ...  }
 TEST 3: Boxes in thesis cover (underfull)
 ============================================================
 > \box...=
-\hbox(19.0334+13.01155)x56.9055, direction TLT
+\hbox(19.03372+13.01123)x56.9055, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(19.0334+13.01155)x56.9055, direction TLT
+.\vbox(19.03372+13.01123)x56.9055, direction TLT
 ..\whatsit4=[]
 ..\vbox(30.59955+1.4454)x56.9055, direction TLT
 ...\whatsit4=[]
@@ -423,10 +423,10 @@ TEST 3: Boxes in thesis cover (underfull)
 <argument> \l_tmpa_box 
 l. ...  }
 > \box...=
-\hbox(19.0334+13.01155)x56.9055, direction TLT
+\hbox(19.03372+13.01123)x56.9055, direction TLT
 .\whatsit4=[]
 .\mathon
-.\vbox(19.0334+13.01155)x56.9055, direction TLT
+.\vbox(19.03372+13.01123)x56.9055, direction TLT
 ..\whatsit4=[]
 ..\vbox(30.59955+1.4454)x56.9055, direction TLT
 ...\whatsit4=[]
