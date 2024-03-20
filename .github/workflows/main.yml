@@ -21,7 +21,7 @@ jobs:
     env:
       SET_PATH: export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install TeX Live
       run: |
         ${{ env.SET_PATH }}
@@ -50,7 +50,7 @@ jobs:
     env:
       SET_PATH: export PATH=/tmp/texlive/bin/universal-darwin:$PATH
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install TeX Live
       run: |
         ${{ env.SET_PATH }}
@@ -79,7 +79,7 @@ jobs:
     env:
       SET_PATH: ${env:PATH} = "${{ github.workspace }}\tmp\texlive\bin\windows;" + ${env:PATH}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install TeX Live
       run: |
         ${{ env.SET_PATH }}
