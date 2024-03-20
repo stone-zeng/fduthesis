@@ -3201,7 +3201,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     cjk-font .choices:nn =
       { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
-      { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl },
+      { \tl_gset_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl },
     cjk-font .value_required:n = true,
   }
 %    \end{macrocode}
