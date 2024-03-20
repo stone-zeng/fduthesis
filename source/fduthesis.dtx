@@ -2809,7 +2809,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 是否开启双页模式（默认打开）。
 %    \begin{macrocode}
 \bool_new:N \g_@@_twoside_bool
-\bool_set_true:N \g_@@_twoside_bool
+\bool_gset_true:N \g_@@_twoside_bool
 %    \end{macrocode}
 % \end{variable}
 %
@@ -2990,12 +2990,12 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     oneside .code:n =
       {
         \clist_gput_right:Nn \g_@@_to_ctexbook_clist { oneside }
-        \bool_set_false:N    \g_@@_twoside_bool
+        \bool_gset_false:N   \g_@@_twoside_bool
       },
     twoside .code:n =
       {
         \clist_gput_right:Nn \g_@@_to_ctexbook_clist { twoside }
-        \bool_set_true:N     \g_@@_twoside_bool
+        \bool_gset_true:N    \g_@@_twoside_bool
       },
 %    \end{macrocode}
 % \end{macro}
