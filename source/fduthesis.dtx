@@ -3999,10 +3999,11 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
       }
 %    \end{macrocode}
 % \changes{v0.6}{2017/11/12}{不再依赖 XITS-Math 字体。}
+% \changes{v0.9b}{2024/03/20}{局部修改 \cs{l_@@_fn_style_tl}。}
 % 若使用 \opt{pifont} 类型，则需引入 \pkg{pifont} 宏包。
 %    \begin{macrocode}
       {
-        \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
+        \tl_set_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
         \int_compare:nT { 5 <= \l_keys_choice_int <= 8 }
           { \RequirePackage { pifont } }
       },
