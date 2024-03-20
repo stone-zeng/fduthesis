@@ -2809,7 +2809,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 是否开启双页模式（默认打开）。
 %    \begin{macrocode}
 \bool_new:N \g_@@_twoside_bool
-\bool_set_true:N \g_@@_twoside_bool
+\bool_gset_true:N \g_@@_twoside_bool
 %    \end{macrocode}
 % \end{variable}
 %
@@ -2970,12 +2970,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7}{2018/02/01}{新增 \opt{type} 选项。}
 %
 % \begin{macro}{type}
+% \changes{v0.9b}{2024/03/20}{全局设置 \cs{g_@@_thesis_type_tl}。}
 % 设置论文类型。设为模板选项主要是为了以后的兼容性。论文类型可能会
 % 影响很多设置，只是暂时还不考虑。默认为本科毕业论文。
 %    \begin{macrocode}
     type .choices:nn =
       { doctor, master, bachelor }
-      { \tl_set_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
+      { \tl_gset_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
     type .value_required:n = true,
     type .initial:n = bachelor,
 %    \end{macrocode}
@@ -2989,12 +2990,12 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     oneside .code:n =
       {
         \clist_gput_right:Nn \g_@@_to_ctexbook_clist { oneside }
-        \bool_set_false:N    \g_@@_twoside_bool
+        \bool_gset_false:N   \g_@@_twoside_bool
       },
     twoside .code:n =
       {
         \clist_gput_right:Nn \g_@@_to_ctexbook_clist { twoside }
-        \bool_set_true:N     \g_@@_twoside_bool
+        \bool_gset_true:N    \g_@@_twoside_bool
       },
 %    \end{macrocode}
 % \end{macro}
@@ -3007,11 +3008,11 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
     draft .choice:,
     draft / true  .code:n =
       {
-        \bool_set_true:N     \g_@@_draft_bool
+        \bool_gset_true:N    \g_@@_draft_bool
         \clist_gput_right:Nn \g_@@_to_ctexbook_clist { draft }
       },
     draft / false .code:n =
-      { \bool_set_false:N    \g_@@_draft_bool },
+      { \bool_gset_false:N   \g_@@_draft_bool },
     draft .default:n = true,
     draft .initial:n = false,
 %    \end{macrocode}
@@ -3022,7 +3023,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{config}
 % 配置文件名。
 %    \begin{macrocode}
-    config .tl_set:N = \g_@@_config_tl,
+    config .tl_gset:N = \g_@@_config_tl,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3185,7 +3186,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     font .choices:nn =
       { garamond, libertinus, lm, palatino, times, times*, none }
-      { \tl_set_eq:NN \g_@@_fontset_tl \l_keys_choice_tl },
+      { \tl_gset_eq:NN \g_@@_fontset_tl \l_keys_choice_tl },
     font .value_required:n = true,
   }
 %    \end{macrocode}
@@ -3200,7 +3201,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     cjk-font .choices:nn =
       { adobe, fandol, founder, mac, sinotype, sourcehan, windows, none }
-      { \tl_set_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl },
+      { \tl_gset_eq:NN \g_@@_cjk_fontset_tl \l_keys_choice_tl },
     cjk-font .value_required:n = true,
   }
 %    \end{macrocode}
@@ -3999,10 +4000,11 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
       }
 %    \end{macrocode}
 % \changes{v0.6}{2017/11/12}{不再依赖 XITS-Math 字体。}
+% \changes{v0.9b}{2024/03/20}{局部修改 \cs{l_@@_fn_style_tl}。}
 % 若使用 \opt{pifont} 类型，则需引入 \pkg{pifont} 宏包。
 %    \begin{macrocode}
       {
-        \tl_gset_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
+        \tl_set_eq:NN \l_@@_fn_style_tl \l_keys_choice_tl
         \int_compare:nT { 5 <= \l_keys_choice_int <= 8 }
           { \RequirePackage { pifont } }
       },
@@ -4892,7 +4894,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
       \clist_clear:N \l_@@_tmpa_clist
       \clist_map_inline:nn { department, major, author, supervisor, date }
         {
-          \clist_gput_right:Nn \l_@@_tmpa_clist
+          \clist_put_right:Nn \l_@@_tmpa_clist
             {
               \exp_args:Nx \@@_cover_info_left:n
                 { \tl_use:c { c_@@_name_ ##1 _tl } }

@@ -2,7 +2,9 @@
 
 \input{regression-test}
 
-\RequirePackage{expl3}
+\ExplSyntaxOn
+\debug_on:n { check-declarations }
+\ExplSyntaxOff
 
 \def\MAKECOVERFALSE{%
   \fdusetup{style/auto-make-cover = false}}
