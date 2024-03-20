@@ -3186,7 +3186,7 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
   {
     font .choices:nn =
       { garamond, libertinus, lm, palatino, times, times*, none }
-      { \tl_set_eq:NN \g_@@_fontset_tl \l_keys_choice_tl },
+      { \tl_gset_eq:NN \g_@@_fontset_tl \l_keys_choice_tl },
     font .value_required:n = true,
   }
 %    \end{macrocode}
