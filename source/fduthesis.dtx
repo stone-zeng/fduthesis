@@ -2970,12 +2970,13 @@ Copyright (C) 2017&ndash;2023 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.7}{2018/02/01}{新增 \opt{type} 选项。}
 %
 % \begin{macro}{type}
+% \changes{v0.9b}{2024/03/20}{全局设置 \cs{g_@@_thesis_type_tl}。}
 % 设置论文类型。设为模板选项主要是为了以后的兼容性。论文类型可能会
 % 影响很多设置，只是暂时还不考虑。默认为本科毕业论文。
 %    \begin{macrocode}
     type .choices:nn =
       { doctor, master, bachelor }
-      { \tl_set_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
+      { \tl_gset_eq:NN \g_@@_thesis_type_tl \l_keys_choice_tl },
     type .value_required:n = true,
     type .initial:n = bachelor,
 %    \end{macrocode}
