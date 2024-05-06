@@ -4,6 +4,10 @@
 
 ## [[未发布]]
 
+- 修复
+  - 正确为全局 / 局部变量赋值 - [#329]、[#331]
+    - 感谢 [@muzimuzhi]！
+
 ## [v0.9a (2023-05-27)]
 
 - 修复
@@ -295,9 +299,11 @@
 [#289]: https://github.com/stone-zeng/fduthesis/issues/289
 [#296]: https://github.com/stone-zeng/fduthesis/issues/296
 [#302]: https://github.com/stone-zeng/fduthesis/issues/302
+[#329]: https://github.com/stone-zeng/fduthesis/issues/329
 
 [#64]: https://github.com/stone-zeng/fduthesis/pull/64
 [#233]: https://github.com/stone-zeng/fduthesis/pull/233
+[#331]: https://github.com/stone-zeng/fduthesis/pull/331
 
 [#253]: https://github.com/stone-zeng/fduthesis/discussions/253
 [#264]: https://github.com/stone-zeng/fduthesis/discussions/264
@@ -307,5 +313,6 @@
 
 [@atxy-blip]: https://github.com/atxy-blip
 [@jinyu121]: https://github.com/jinyu121
+[@muzimuzhi]: https://github.com/muzimuzhi
 [@ShichaoSun]: https://github.com/ShichaoSun
 [@zepinglee]: https://github.com/zepinglee
