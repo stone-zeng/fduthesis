@@ -5395,20 +5395,20 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
           { \makecoveriii }
           {
             \begin{titlepage}
-            \cleardoublepage
-            \thispagestyle{empty}
-            \tl_set:Nn \thepage { C }
-            \includepdf [ pages=1 ] { \l_@@_cover_iii_tl }
+              \cleardoublepage
+              \thispagestyle{empty}
+              \tl_set:Nn \thepage { C }
+              \includepdf [ pages=1 ] { \l_@@_cover_iii_tl }
             \end{titlepage}
           }
       } 
       { 
         \begin{titlepage}
-        \cleardoublepage
-        \thispagestyle{empty}
-        \tl_set:Nn \thepage { C }
-        \tl_if_empty:NF \l_@@_cover_iii_tl
-          { \includepdf [ pages=1 ] { \l_@@_cover_iii_tl } }
+          \cleardoublepage
+          \thispagestyle{empty}
+          \tl_set:Nn \thepage { C }
+          \tl_if_empty:NF \l_@@_cover_iii_tl
+            { \includepdf [ pages=1 ] { \l_@@_cover_iii_tl } }
         \end{titlepage}
       }
   }
