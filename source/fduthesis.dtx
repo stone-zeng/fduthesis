@@ -1449,7 +1449,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     cover-iii = (*\marg{文件}*)
 %   \end{fdusyntax}
 %   如果您需要和此模版不一样的封面样式，可以通过这三个选项插入自定义的封一、封二和封三 PDF 文件，
-%   仅当 auto-make-cover = false 时有效。
+%   当 auto-make-cover = true 时会替换自动生成的封面
 % \end{function}
 %^^A! \begin{function}[added=2024-05-27]{style/cover-i,style/cover-ii,style/cover-iii}
 %^^A!   \begin{fdusyntax}[emph={[1]cover-i,cover-ii,cover-iii}]
@@ -1457,9 +1457,9 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     cover-ii = (*\marg{file}*)
 %^^A!     cover-iii = (*\marg{file}*)
 %^^A!   \end{fdusyntax}
-%^^A!   If you need a different cover style from this template, you can insert
-%^^A!   custom cover PDF files through these three options, which are only
-%^^A!   valid when auto-make-cover = false.
+%^^A!   If you need a different cover style from this template,
+%^^A!   you can insert custom cover PDF files, which will replace
+%^^A!   the auto-generated cover when auto-make-cover = true.
 %^^A! \end{function}
 %
 % \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
@@ -5307,7 +5307,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \begin{macro}{style/cover-i,style/cover-ii,style/cover-iii}
 % 如果您需要和此模版不一样的封面样式
 % 论文封面（封一） PDF 文档，置于文档开头
-% 仅当 auto-make-cover = false 时有效
+% 当 auto-make-cover = true 时会替换自动生成的封面
 %    \begin{macrocode}
     cover-i .code:n       =
       {
@@ -5318,7 +5318,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 同 cover-i
 % 论文撰写人承诺书（封二） PDF 文档，置于文档开头
-% 仅当 auto-make-cover = false 时有效
+% 当 auto-make-cover = true 时会替换自动生成的封面
 %    \begin{macrocode}
     cover-ii .code:n     =
       {
@@ -5329,7 +5329,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %
 % 同 cover-i
 % 教师审查意见或声明页（封三） PDF 文档，置于文档尾部
-% 仅当 auto-make-cover = false 时有效
+% 当 auto-make-cover = true 时会替换自动生成的封面
 %    \begin{macrocode}
     cover-iii.code:n     =
     {
@@ -5347,7 +5347,19 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \bool_if:NTF \l_@@_auto_make_cover_bool
       {
         \begin{titlepage}
-          \makecoveri \newpage \makecoverii
+          \tl_if_empty:NTF \l_@@_cover_i_tl { \makecoveri }
+            {
+              \thispagestyle{empty}
+              \tl_set:Nn \thepage { A }
+              \includepdf [ pages=1 ] { \l_@@_cover_i_tl }
+            }
+          \newpage
+          \tl_if_empty:NTF \l_@@_cover_ii_tl { \makecoverii }
+            {
+              \thispagestyle{empty}
+              \tl_set:Nn \thepage { B }
+              \includepdf [ pages=1 ] { \l_@@_cover_ii_tl }
+            }
         \end{titlepage}
       }
       {
@@ -5376,7 +5388,17 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %    \begin{macrocode}
 \@@_gadd_ltxhook:nn { enddocument }
   { \bool_if:NTF \l_@@_auto_make_cover_bool 
-      { \makecoveriii } 
+      {
+        \tl_if_empty:NTF \l_@@_cover_iii_tl { \makecoveriii }
+          {
+            \begin{titlepage}
+            \cleardoublepage
+            \thispagestyle{empty}
+            \tl_set:Nn \thepage { C }
+            \includepdf [ pages=1 ] { \l_@@_cover_iii_tl }
+            \end{titlepage}
+          }
+      } 
       { 
         \begin{titlepage}
         \cleardoublepage
