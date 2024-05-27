@@ -1442,20 +1442,25 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A! \end{function}
 %^^A!
 %
-% \begin{function}[added=2021-09-21]{style/declaration-page}
-%   \begin{fdusyntax}[emph={[1]declaration-page}]
-%     declaration-page = (*\marg{文件}*)
+% \begin{function}[added=2024-05-27]{style/cover-i,style/cover-ii,style/cover-iii}
+%   \begin{fdusyntax}[emph={[1]cover-i,cover-ii,cover-iii}]
+%     cover-i = (*\marg{文件}*)
+%     cover-ii = (*\marg{文件}*)
+%     cover-iii = (*\marg{文件}*)
 %   \end{fdusyntax}
-%   插入扫描版的声明页 PDF 文档。如果为空（默认），则使用模板预定义的声明页。
+%   如果您需要和此模版不一样的封面样式，可以通过这三个选项插入自定义的封一、封二和封三 PDF 文件，
+%   仅当 auto-make-cover = false 时有效。
 % \end{function}
-%^^A! \begin{function}[added=2021-09-21]{style/declaration-page}
-%^^A!   \begin{fdusyntax}[emph={[1]declaration-page}]
-%^^A!     declaration-page = (*\marg{file}*)
+%^^A! \begin{function}[added=2024-05-27]{style/cover-i,style/cover-ii,style/cover-iii}
+%^^A!   \begin{fdusyntax}[emph={[1]cover-i,cover-ii,cover-iii}]
+%^^A!     cover-i = (*\marg{file}*)
+%^^A!     cover-ii = (*\marg{file}*)
+%^^A!     cover-iii = (*\marg{file}*)
 %^^A!   \end{fdusyntax}
-%^^A!   Insert the scanned declaration page PDF file. If empty (default),
-%^^A!   then the pre-defined declaration page will be inserted.
+%^^A!   If you need a different cover style from this template, you can insert
+%^^A!   custom cover PDF files through these three options, which are only
+%^^A!   valid when auto-make-cover = false.
 %^^A! \end{function}
-%^^A!
 %
 % \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
 %   用于手动生成论文封面、指导小组成员名单和声明页。这几个命令不能
@@ -5263,10 +5268,13 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \begin{variable}{\l_@@_auto_make_cover_bool,\l_@@_declaration_page_tl}
+% \begin{variable}{\l_@@_auto_make_cover_bool,\l_@@_declaration_page_tl, \l_@@_cover_i_tl, \l_@@_cover_ii_tl, \l_@@_cover_iii_tl}
 %    \begin{macrocode}
-\bool_new:N \l_@@_auto_make_cover_bool
-\tl_new:N   \l_@@_declaration_page_tl
+\bool_new:N   \l_@@_auto_make_cover_bool
+\tl_new:N     \l_@@_declaration_page_tl
+\tl_new:N     \l_@@_cover_i_tl
+\tl_new:N     \l_@@_cover_ii_tl
+\tl_new:N     \l_@@_cover_iii_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -5290,27 +5298,95 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
         \tl_set_eq:NN \l_@@_declaration_page_tl \l_keys_value_tl
         \RequirePackage { pdfpages }
       },
-  }
 %    \end{macrocode}
 % \end{macro}
 %
-% 在 \env{document} 开始位置添加封面以及指导小组成员名单。
+% \changes{v0.10}{2024/05/27}{新增 \opt{style/cover-i,style/cover-ii,style/cover-iii} 选项。}
+% \changes{v0.10}{2024/05/27}{移除 \opt{style/declaration-page} 选项。}
+%
+% \begin{macro}{style/cover-i,style/cover-ii,style/cover-iii}
+% 如果您需要和此模版不一样的封面样式
+% 论文封面（封一） PDF 文档，置于文档开头
+% 仅当 auto-make-cover = false 时有效
+%    \begin{macrocode}
+    cover-i .code:n       =
+      {
+        \tl_set_eq:NN \l_@@_cover_i_tl \l_keys_value_tl 
+        \RequirePackage { pdfpages }
+      },
+%    \end{macrocode}
+%
+% 同 cover-i
+% 论文撰写人承诺书（封二） PDF 文档，置于文档开头
+% 仅当 auto-make-cover = false 时有效
+%    \begin{macrocode}
+    cover-ii .code:n     =
+      {
+        \tl_set_eq:NN \l_@@_cover_ii_tl \l_keys_value_tl
+        \RequirePackage { pdfpages }
+      },
+%    \end{macrocode}
+%
+% 同 cover-i
+% 教师审查意见或声明页（封三） PDF 文档，置于文档尾部
+% 仅当 auto-make-cover = false 时有效
+%    \begin{macrocode}
+    cover-iii.code:n     =
+    {
+      \tl_set_eq:NN \l_@@_cover_iii_tl \l_keys_value_tl
+      \RequirePackage { pdfpages }
+    },
+%    \end{macrocode}
+% \end{macro}
+  }
+%
+% 在 \env{document} 开始位置添加封一、封二，或者自动生成封面。
 %    \begin{macrocode}
 \ctex_after_end_preamble:n
   {
-    \bool_if:NT \l_@@_auto_make_cover_bool
+    \bool_if:NTF \l_@@_auto_make_cover_bool
       {
         \begin{titlepage}
           \makecoveri \newpage \makecoverii
         \end{titlepage}
       }
+      {
+        \thispagestyle{empty}
+        \tl_if_empty:NTF \l_@@_cover_i_tl
+          {
+            \tl_if_empty:NF \l_@@_cover_ii_tl
+              {
+                \tl_set:Nn \thepage { B }
+                \includepdf [ pages=1 ] { \l_@@_cover_ii_tl }
+              }
+          }
+          {
+            \tl_set:Nn \thepage { A }
+            \includepdf [ pages=1 ] { \l_@@_cover_i_tl }
+            \tl_set:Nn \thepage { B }
+            \tl_if_empty:NTF \l_@@_cover_ii_tl
+              { \empty }
+              { \includepdf [ pages=1 ] { \l_@@_cover_ii_tl } }
+          }
+      }
   }
 %    \end{macrocode}
 %
-% 在 \env{document} 结束位置添加声明页。
+% 在 \env{document} 结束位置添加封三，或者自动生成封面。
 %    \begin{macrocode}
 \@@_gadd_ltxhook:nn { enddocument }
-  { \bool_if:NT \l_@@_auto_make_cover_bool { \makecoveriii } }
+  { \bool_if:NTF \l_@@_auto_make_cover_bool 
+      { \makecoveriii } 
+      { 
+        \begin{titlepage}
+        \cleardoublepage
+        \thispagestyle{empty}
+        \tl_set:Nn \thepage { C }
+        \tl_if_empty:NF \l_@@_cover_iii_tl
+          { \includepdf [ pages=1 ] { \l_@@_cover_iii_tl } }
+        \end{titlepage}
+      }
+  }
 %    \end{macrocode}
 %
 % \subsection{目录}
