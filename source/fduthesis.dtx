@@ -1448,8 +1448,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %     cover-ii  = (*\marg{文件}*)
 %     cover-iii = (*\marg{文件}*)
 %   \end{fdusyntax}
-%   如果您需要和此模版不一样的封面样式，可以通过这三个选项插入自定义的封一、封二和封三 PDF 文件，
-%   当 auto-make-cover = true 时会替换自动生成的封面
+%   如果您需要和此模版不一样的封面样式，可以通过这三个选项插入自定义的封一、封二和封三 PDF 文件。
 % \end{function}
 %^^A! \begin{function}[added=2024-05-27]{style/cover-i,style/cover-ii,style/cover-iii}
 %^^A!   \begin{fdusyntax}[emph={[1]cover-i,cover-ii,cover-iii}]
@@ -1458,8 +1457,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 %^^A!     cover-iii = (*\marg{file}*)
 %^^A!   \end{fdusyntax}
 %^^A!   If you need a different cover style from this template,
-%^^A!   you can insert custom cover PDF files, which will replace
-%^^A!   the auto-generated cover when auto-make-cover = true.
+%^^A!   you can insert custom cover using PDF files.
 %^^A! \end{function}
 %
 % \begin{function}{\makecoveri,\makecoverii,\makecoveriii}
@@ -5268,7 +5266,13 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
   }
 %    \end{macrocode}
 %
-% \begin{variable}{\l_@@_auto_make_cover_bool,\l_@@_declaration_page_tl, \l_@@_cover_i_tl, \l_@@_cover_ii_tl, \l_@@_cover_iii_tl}
+% \begin{variable}{
+%   \l_@@_auto_make_cover_bool,
+%   \l_@@_declaration_page_tl,
+%   \l_@@_cover_i_tl,
+%   \l_@@_cover_ii_tl,
+%   \l_@@_cover_iii_tl
+% }
 %    \begin{macrocode}
 \bool_new:N   \l_@@_auto_make_cover_bool
 \tl_new:N     \l_@@_declaration_page_tl
@@ -5305,9 +5309,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % \changes{v0.10}{2024/05/27}{移除 \opt{style/declaration-page} 选项。}
 %
 % \begin{macro}{style/cover-i,style/cover-ii,style/cover-iii}
-% 如果您需要和此模版不一样的封面样式
-% 论文封面（封一） PDF 文档，置于文档开头
-% 当 auto-make-cover = true 时会替换自动生成的封面
+% 如果您需要和此模版不一样的封面样式，此命令用于指定论文封面（封一） PDF 文档，置于文档开头。
 %    \begin{macrocode}
     cover-i .code:n       =
       {
@@ -5316,9 +5318,7 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
       },
 %    \end{macrocode}
 %
-% 同 cover-i
-% 论文撰写人承诺书（封二） PDF 文档，置于文档开头
-% 当 auto-make-cover = true 时会替换自动生成的封面
+% 同 cover-i，用于指定论文撰写人承诺书（封二） PDF 文档，置于文档开头。
 %    \begin{macrocode}
     cover-ii .code:n     =
       {
@@ -5327,15 +5327,13 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
       },
 %    \end{macrocode}
 %
-% 同 cover-i
-% 教师审查意见或声明页（封三） PDF 文档，置于文档尾部
-% 当 auto-make-cover = true 时会替换自动生成的封面
+% 同 cover-i，用于指定教师审查意见或声明页（封三） PDF 文档，置于文档尾部。
 %    \begin{macrocode}
     cover-iii.code:n     =
-    {
-      \tl_set_eq:NN \l_@@_cover_iii_tl \l_keys_value_tl
-      \RequirePackage { pdfpages }
-    },
+      {
+        \tl_set_eq:NN \l_@@_cover_iii_tl \l_keys_value_tl
+        \RequirePackage { pdfpages }
+      },
 %    \end{macrocode}
 % \end{macro}
   }
@@ -5347,14 +5345,16 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
     \bool_if:NTF \l_@@_auto_make_cover_bool
       {
         \begin{titlepage}
-          \tl_if_empty:NTF \l_@@_cover_i_tl { \makecoveri }
+          \tl_if_empty:NTF \l_@@_cover_i_tl
+            { \makecoveri }
             {
               \thispagestyle{empty}
               \tl_set:Nn \thepage { A }
               \includepdf [ pages=1 ] { \l_@@_cover_i_tl }
             }
           \newpage
-          \tl_if_empty:NTF \l_@@_cover_ii_tl { \makecoverii }
+          \tl_if_empty:NTF \l_@@_cover_ii_tl
+            { \makecoverii }
             {
               \thispagestyle{empty}
               \tl_set:Nn \thepage { B }
@@ -5387,9 +5387,11 @@ Copyright (C) 2017&ndash;2024 by Xiangdong Zeng <xdzeng96@gmail.com>.
 % 在 \env{document} 结束位置添加封三，或者自动生成封面。
 %    \begin{macrocode}
 \@@_gadd_ltxhook:nn { enddocument }
-  { \bool_if:NTF \l_@@_auto_make_cover_bool 
+  {
+    \bool_if:NTF \l_@@_auto_make_cover_bool 
       {
-        \tl_if_empty:NTF \l_@@_cover_iii_tl { \makecoveriii }
+        \tl_if_empty:NTF \l_@@_cover_iii_tl
+          { \makecoveriii }
           {
             \begin{titlepage}
             \cleardoublepage
