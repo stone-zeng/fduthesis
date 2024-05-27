@@ -141,13 +141,23 @@
     % 设置校名图片的大小
     % 通常不需要调整
     %
-    % declaration-page = {declaration.pdf},
-    % 插入扫描版的声明页 PDF 文档
-    % 默认使用预定义的声明页，但不带签名
-    %
     % auto-make-cover = true
     % 是否自动生成论文封面（封一）、指导小组成员名单（封二）和声明页（封三）
-    % 除非特殊需要（e.g. 不要封面），否则不建议设为 false
+    %
+    % cover-i = {cover-i.pdf}, 
+    % 如果您需要和此模版不一样的封面样式
+    % 论文封面（封一） PDF 文档，置于文档开头
+    % 仅当 auto-make-cover = false 时有效
+    %
+    % cover-ii = {cover-ii.pdf}, 
+    % 同 cover-i
+    % 论文撰写人承诺书（封二） PDF 文档，置于文档开头
+    % 仅当 auto-make-cover = false 时有效
+    %
+    % cover-iii = {cover-iii.pdf}, 
+    % 同 cover-i
+    % 教师审查意见或声明页（封三） PDF 文档，置于文档尾部
+    % 仅当 auto-make-cover = false 时有效
   },
   %
   % info 类用于录入论文信息
