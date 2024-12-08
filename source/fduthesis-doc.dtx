@@ -1485,7 +1485,7 @@
 \cs_set_protected:Npn \@@_print_macroname:nN #1#2
   {
     \strut
-    \@@_get_hyper_target:xN
+    \@@_get_hyper_target:eN
       {
         \exp_not:n {#1}
         \bool_if:NT #2 { \tl_to_str:n {TF} }
@@ -1499,11 +1499,12 @@
 %    \end{macrocode}
 % 命令中的空格改用“\textvisiblespace”显示。
 %    \begin{macrocode}
-        \tl_replace_all:Non \l_@@_tmpa_tl
-          { \c_catcode_other_space_tl }
-          { \fontspec_visible_space: }
-        \@@_macroname_prefix:o \l_@@_tmpa_tl
-        \@@_macroname_suffix:N #2
+        \tl_replace_all:NVn \l_@@_tmpa_tl
+          \c_catcode_other_space_tl
+          { \textvisiblespace }
+        \__codedoc_print_macroname_aux:on
+          \l__codedoc_tmpa_tl
+          { \bool_if:NT #2 { \__codedoc_typeset_TF: } }
       }
   }
 %    \end{macrocode}
